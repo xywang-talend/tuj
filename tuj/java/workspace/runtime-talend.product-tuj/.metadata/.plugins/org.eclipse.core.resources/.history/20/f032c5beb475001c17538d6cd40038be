@@ -1,0 +1,200 @@
+package org.talend.designer.codegen.translators.system;
+
+import org.talend.core.model.process.INode;
+import org.talend.core.model.process.ElementParameterParser;
+import org.talend.designer.codegen.config.CodeGeneratorArgument;
+import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.IMetadataColumn;
+import org.talend.core.model.process.IConnection;
+import java.util.List;
+
+public class TSystemBeginJava
+{
+  protected static String nl;
+  public static synchronized TSystemBeginJava create(String lineSeparator)
+  {
+    nl = lineSeparator;
+    TSystemBeginJava result = new TSystemBeginJava();
+    nl = null;
+    return result;
+  }
+
+  public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
+  protected final String TEXT_1 = "";
+  protected final String TEXT_2 = NL + "final java.util.Vector<String> output_";
+  protected final String TEXT_3 = " = new java.util.Vector<String>();";
+  protected final String TEXT_4 = NL + "Runtime runtime_";
+  protected final String TEXT_5 = " = Runtime.getRuntime();" + NL + "final Process ps_";
+  protected final String TEXT_6 = " = runtime_";
+  protected final String TEXT_7 = ".exec(";
+  protected final String TEXT_8 = ");" + NL + "Thread normal_";
+  protected final String TEXT_9 = " = new Thread() {" + NL + "\tpublic void run() {" + NL + "\t\ttry {" + NL + "\t\t\tjava.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(ps_";
+  protected final String TEXT_10 = ".getInputStream()));" + NL + "\t\t\tString line = \"\";" + NL + "\t\t\ttry {" + NL + "\t\t\t\twhile((line = reader.readLine()) != null) {";
+  protected final String TEXT_11 = NL + "\t\t\t\t\tSystem.out.println(line);";
+  protected final String TEXT_12 = NL + "\t\t\t\t\tif (globalMap.get(\"";
+  protected final String TEXT_13 = "_OUTPUT\") != null) {" + NL + "\t\t\t\t\t\tglobalMap.put(\"";
+  protected final String TEXT_14 = "_OUTPUT\", (String)globalMap.get(\"";
+  protected final String TEXT_15 = "_OUTPUT\")+\"\\n\"+line);" + NL + "\t\t\t\t\t} else {" + NL + "\t\t\t\t\t\tglobalMap.put(\"";
+  protected final String TEXT_16 = "_OUTPUT\", line);" + NL + "\t\t\t\t\t}";
+  protected final String TEXT_17 = NL + "\t\t\t\t\toutput_";
+  protected final String TEXT_18 = ".add(line);";
+  protected final String TEXT_19 = NL + "\t\t\t\t}" + NL + "\t\t\t} finally {" + NL + "\t\t\t\treader.close();" + NL + "\t\t\t}" + NL + "\t\t} catch(java.io.IOException ioe) {" + NL + "\t\t\tioe.printStackTrace();" + NL + "\t\t}" + NL + "\t}" + NL + "};" + NL + "normal_";
+  protected final String TEXT_20 = ".start();" + NL + "" + NL + "Thread error_";
+  protected final String TEXT_21 = " = new Thread() {" + NL + "\tpublic void run() {" + NL + "\t\ttry {" + NL + "\t\t\tjava.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(ps_";
+  protected final String TEXT_22 = ".getErrorStream()));" + NL + "\t\t\tString line = \"\";" + NL + "\t\t\ttry {" + NL + "\t\t\t\twhile((line = reader.readLine()) != null) {";
+  protected final String TEXT_23 = NL + "\t\t\t\t\tSystem.err.println(line);";
+  protected final String TEXT_24 = NL + "\t\t\t\t\tif (globalMap.get(\"";
+  protected final String TEXT_25 = "_OUTPUT\") != null) {" + NL + "\t\t\t\t\t\tglobalMap.put(\"";
+  protected final String TEXT_26 = "_OUTPUT\", (String)globalMap.get(\"";
+  protected final String TEXT_27 = "_OUTPUT\")+\"\\n\"+line);" + NL + "\t\t\t\t\t} else {" + NL + "\t\t\t\t\t\tglobalMap.put(\"";
+  protected final String TEXT_28 = "_OUTPUT\", line);" + NL + "\t\t\t\t\t}";
+  protected final String TEXT_29 = NL + "\t\t\t\t\toutput_";
+  protected final String TEXT_30 = ".add(line);";
+  protected final String TEXT_31 = NL + "\t\t\t\t}" + NL + "\t\t\t} finally {" + NL + "\t\t\t\treader.close();" + NL + "\t\t\t}" + NL + "\t\t} catch(java.io.IOException ioe) {" + NL + "\t\t\tioe.printStackTrace();" + NL + "\t\t}" + NL + "\t}" + NL + "};" + NL + "error_";
+  protected final String TEXT_32 = ".start();" + NL + "" + NL + "ps_";
+  protected final String TEXT_33 = ".waitFor();" + NL + "normal_";
+  protected final String TEXT_34 = ".join(10000);" + NL + "error_";
+  protected final String TEXT_35 = ".join(10000);" + NL;
+  protected final String TEXT_36 = NL + "for(String tmp:output_";
+  protected final String TEXT_37 = "){";
+  protected final String TEXT_38 = NL + "\t";
+  protected final String TEXT_39 = ".";
+  protected final String TEXT_40 = " = tmp;\t\t\t\t";
+  protected final String TEXT_41 = NL;
+
+  public String generate(Object argument)
+  {
+    final StringBuffer stringBuffer = new StringBuffer();
+    stringBuffer.append(TEXT_1);
+    
+	CodeGeneratorArgument codeGenArgument = (CodeGeneratorArgument) argument;
+	INode node = (INode)codeGenArgument.getArgument();
+	String cid = node.getUniqueName();
+	
+	String command = ElementParameterParser.getValue(node, "__COMMAND__");
+		
+	String outputAction  = ElementParameterParser.getValue(node, "__OUTPUT__");
+	
+	// To launch an internal command to cmd.exe (XP), you have to call :
+	// cmd.exe /c dir (for example)
+
+	if (outputAction.equals("NORMAL_OUTPUT")) {
+
+    stringBuffer.append(TEXT_2);
+    stringBuffer.append(cid);
+    stringBuffer.append(TEXT_3);
+    
+	}
+
+    stringBuffer.append(TEXT_4);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_5);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_6);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_7);
+    stringBuffer.append(command );
+    stringBuffer.append(TEXT_8);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_9);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_10);
+    
+	if (outputAction.equals("OUTPUT_TO_CONSOLE")) {
+
+    stringBuffer.append(TEXT_11);
+    
+	} else if (outputAction.equals("RETRIEVE_OUTPUT")) {
+
+    stringBuffer.append(TEXT_12);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_13);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_14);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_15);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_16);
+    
+	} else if (outputAction.equals("NORMAL_OUTPUT")) {
+
+    stringBuffer.append(TEXT_17);
+    stringBuffer.append(cid);
+    stringBuffer.append(TEXT_18);
+    
+	}
+
+    stringBuffer.append(TEXT_19);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_20);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_21);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_22);
+    
+	if (outputAction.equals("OUTPUT_TO_CONSOLE")) {
+
+    stringBuffer.append(TEXT_23);
+    
+	} else if (outputAction.equals("RETRIEVE_OUTPUT")) {
+
+    stringBuffer.append(TEXT_24);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_25);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_26);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_27);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_28);
+    
+	} else if (outputAction.equals("NORMAL_OUTPUT")) {
+
+    stringBuffer.append(TEXT_29);
+    stringBuffer.append(cid);
+    stringBuffer.append(TEXT_30);
+    
+	}
+
+    stringBuffer.append(TEXT_31);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_32);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_33);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_34);
+    stringBuffer.append(cid );
+    stringBuffer.append(TEXT_35);
+    
+if(outputAction.equals("NORMAL_OUTPUT")){
+	List<IMetadataTable> metadatas = node.getMetadataList();
+    if ((metadatas!=null)&&(metadatas.size()>0)) {
+    	IMetadataTable metadata = metadatas.get(0);
+    	if (metadata!=null) {
+    		List<IMetadataColumn> columns=metadata.getListColumns();
+    		List<? extends IConnection> conns = node.getOutgoingSortedConnections();
+    		if (conns!=null && conns.size()>0) {
+				IConnection conn = conns.get(0);  
+
+    stringBuffer.append(TEXT_36);
+    stringBuffer.append(cid);
+    stringBuffer.append(TEXT_37);
+    
+				for(IMetadataColumn column:columns) {
+
+    stringBuffer.append(TEXT_38);
+    stringBuffer.append(conn.getName());
+    stringBuffer.append(TEXT_39);
+    stringBuffer.append(column.getLabel());
+    stringBuffer.append(TEXT_40);
+    
+				}
+			}
+		}
+	}
+}
+
+    stringBuffer.append(TEXT_41);
+    return stringBuffer.toString();
+  }
+}

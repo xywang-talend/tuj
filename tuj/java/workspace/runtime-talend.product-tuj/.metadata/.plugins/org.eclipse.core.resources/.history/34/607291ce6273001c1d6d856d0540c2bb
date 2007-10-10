@@ -1,0 +1,134 @@
+package org.talend.designer.codegen.translators.system;
+
+import org.talend.core.model.process.INode;
+import org.talend.core.model.process.ElementParameterParser;
+import org.talend.designer.codegen.config.CodeGeneratorArgument;
+import org.talend.designer.runprocess.ProcessorUtilities;
+import org.talend.designer.runprocess.ProcessorException;
+import java.util.Map;
+import java.util.List;
+
+public class TRunJobMainJava
+{
+  protected static String nl;
+  public static synchronized TRunJobMainJava create(String lineSeparator)
+  {
+    nl = lineSeparator;
+    TRunJobMainJava result = new TRunJobMainJava();
+    nl = null;
+    return result;
+  }
+
+  public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
+  protected final String TEXT_1 = "    class TRunJobException extends Exception {" + NL + "" + NL + "        public TRunJobException() {" + NL + "            super();" + NL + "        }" + NL + "    }";
+  protected final String TEXT_2 = "        ";
+  protected final String TEXT_3 = NL + "        ";
+  protected final String TEXT_4 = ".runJob(new String[]{";
+  protected final String TEXT_5 = NL + "          \"";
+  protected final String TEXT_6 = "\",";
+  protected final String TEXT_7 = NL + "          \"";
+  protected final String TEXT_8 = "\"";
+  protected final String TEXT_9 = "   ";
+  protected final String TEXT_10 = NL + "          ";
+  protected final String TEXT_11 = " " + NL + "          });";
+  protected final String TEXT_12 = NL;
+  protected final String TEXT_13 = "  " + NL + "    errorCode = ";
+  protected final String TEXT_14 = ".errorCode;" + NL + "    if (";
+  protected final String TEXT_15 = ".errorCode != null || ";
+  protected final String TEXT_16 = ".status.equals(\"failure\")) {" + NL + "        throw new TRunJobException();" + NL + "    } ";
+  protected final String TEXT_17 = NL + "    ";
+
+  public String generate(Object argument)
+  {
+    final StringBuffer stringBuffer = new StringBuffer();
+    stringBuffer.append(TEXT_1);
+    
+	CodeGeneratorArgument codeGenArgument = (CodeGeneratorArgument) argument;
+	INode node = (INode)codeGenArgument.getArgument();
+	String cid = node.getUniqueName();
+    
+    List<Map<String, String>> contextParams = (List<Map<String,String>>)ElementParameterParser.getObjectValue(node, "__CONTEXTPARAMS__");
+    String process = ElementParameterParser.getValue(node,"__PROCESS_TYPE_PROCESS__");
+    String context = ElementParameterParser.getValue(node,"__PROCESS_TYPE_CONTEXT__");
+    String[] codeOptions = new String[] {"--father_pid=\"+pid+\"", "--root_pid=\"+rootPid+\""};
+    String[] commandLineWindows = new String[] {"<command>"};
+    String[] commandLineUnix = new String[] {"<command>"};
+    String[] commandLine = new String[] {"<command>"};
+    try {
+        // for windows
+       	//commandLineWindows = ProcessorUtilities.getCommandLine("win32", true, process, context,org.talend.designer.runprocess.IProcessor.NO_STATISTICS,org.talend.designer.runprocess.IProcessor.NO_TRACES, codeOptions);
+        // for linux
+        //commandLineUnix = ProcessorUtilities.getCommandLine("linux", true, process, context,org.talend.designer.runprocess.IProcessor.NO_STATISTICS,org.talend.designer.runprocess.IProcessor.NO_TRACES, codeOptions);
+        // for current OS
+       	//commandLine = ProcessorUtilities.getCommandLine(true, process, context,org.talend.designer.runprocess.IProcessor.NO_STATISTICS,org.talend.designer.runprocess.IProcessor.NO_TRACES, codeOptions);
+    	commandLine = ProcessorUtilities.getMainCommand(process, context,org.talend.designer.runprocess.IProcessor.NO_STATISTICS,org.talend.designer.runprocess.IProcessor.NO_TRACES, codeOptions);
+    } catch (ProcessorException e) {
+    }
+    
+    
+StringBuffer contextStr = new StringBuffer();
+for (int i=0; i<contextParams.size(); i++) {
+    Map<String, String> contextParam = contextParams.get(i);
+    String name = contextParam.get("PARAM_NAME_COLUMN");
+    String value = contextParam.get("PARAM_VALUE_COLUMN");    
+    contextStr.append(",\"--context_param ");
+    contextStr.append(name);
+
+    contextStr.append("=\"+");
+    contextStr.append(value);
+  }
+
+   String childJob = null;
+
+   for (int i=0; i<commandLine.length; i++) {
+      if(i==0){
+          childJob = commandLine[i];
+      
+    stringBuffer.append(TEXT_2);
+    stringBuffer.append(TEXT_3);
+    stringBuffer.append(commandLine[i]);
+    stringBuffer.append(TEXT_4);
+    
+      }else{
+          if (i <= (commandLine.length -2)) {
+          
+    stringBuffer.append(TEXT_5);
+    stringBuffer.append(commandLine[i] );
+    stringBuffer.append(TEXT_6);
+    
+          }else{
+          
+    stringBuffer.append(TEXT_7);
+    stringBuffer.append(commandLine[i] );
+    stringBuffer.append(TEXT_8);
+    
+          }
+      }
+   }
+   if(commandLine.length>0){
+   
+    stringBuffer.append(TEXT_9);
+    stringBuffer.append(TEXT_10);
+    stringBuffer.append(contextStr.toString() );
+    stringBuffer.append(TEXT_11);
+    
+    }
+    
+    stringBuffer.append(TEXT_12);
+    
+    if (childJob!=null) {
+
+    stringBuffer.append(TEXT_13);
+    stringBuffer.append(childJob );
+    stringBuffer.append(TEXT_14);
+    stringBuffer.append(childJob );
+    stringBuffer.append(TEXT_15);
+    stringBuffer.append(childJob );
+    stringBuffer.append(TEXT_16);
+    
+    }
+
+    stringBuffer.append(TEXT_17);
+    return stringBuffer.toString();
+  }
+}
