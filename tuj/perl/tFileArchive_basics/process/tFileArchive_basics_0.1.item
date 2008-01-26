@@ -110,7 +110,7 @@
     <elementParameter field="CHECK" name="CATCH_USER_WARNING" value="true"/>
     <elementParameter field="CHECK" name="CATCH_REALTIME_STATS" value="false"/>
   </parameters>
-  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="-32">
+  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="-96">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1"/>
     <elementParameter field="TEXT" name="VERSION" value="0.102 (ALPHA)"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
@@ -144,7 +144,7 @@
       <column defaultValue="" key="false" length="255" name="value" nullable="true" precision="0" sourceType="" type="String"/>
     </metadata>
   </node>
-  <node componentName="tContextLoad" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="352" posY="-32">
+  <node componentName="tContextLoad" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="352" posY="-96">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tContextLoad_1"/>
     <elementParameter field="TEXT" name="VERSION" value="0.101 (ALPHA)"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
@@ -271,6 +271,7 @@
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter field="TEXT" name="DESCRIPTION" value="'tFileArchive, default settings : no include dirs, no filter'"/>
     <elementParameter field="MEMO_PERL" name="EXPRESSION" value="not $_globals{tFileCompare_1}{DIFFERENCE}"/>
+    <elementParameter field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -335,6 +336,7 @@
       <elementValue elementRef="FILEMASK" value="'*.txt'"/>
       <elementValue elementRef="CASE_SENSITIVE" value="false"/>
     </elementParameter>
+    <elementParameter field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -356,6 +358,7 @@
       <elementValue elementRef="FILEMASK" value="'*.txt'"/>
       <elementValue elementRef="CASE_SENSITIVE" value="false"/>
     </elementParameter>
+    <elementParameter field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -370,6 +373,7 @@
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter field="TEXT" name="DESCRIPTION" value="'tFileArchive, include subdirs'"/>
     <elementParameter field="MEMO_PERL" name="EXPRESSION" value="not $_globals{tFileCompare_2}{DIFFERENCE}"/>
+    <elementParameter field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -391,6 +395,7 @@
       <elementValue elementRef="FILEMASK" value="'*.txt'"/>
       <elementValue elementRef="CASE_SENSITIVE" value="false"/>
     </elementParameter>
+    <elementParameter field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -405,6 +410,7 @@
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter field="TEXT" name="DESCRIPTION" value="'tFileArchive, include subdirs, filter'"/>
     <elementParameter field="MEMO_PERL" name="EXPRESSION" value="not $_globals{tFileCompare_3}{DIFFERENCE}"/>
+    <elementParameter field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -933,6 +939,21 @@
       <column comment="" defaultValue="" key="false" name="file" nullable="true" pattern="" sourceType="" type=""/>
     </metadata>
   </node>
+  <node componentName="tSystem" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="192" posY="-32">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tSystem_1"/>
+    <elementParameter field="TEXT" name="VERSION" value="0.101 (ALPHA)"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter field="CHECK" name="DUMMY" value="false"/>
+    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
+    <elementParameter field="MEMO_PERL" name="COMMAND" value="'find '.$_context{data_dir}.'/'.$_globals{job_name}.'/archive -name .svn | xargs rm -rf'"/>
+    <elementParameter field="CLOSED_LIST" name="OUTPUT" value="OUTPUT_TO_CONSOLE"/>
+    <elementParameter field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
+    <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
+    <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <metadata connector="FLOW" name="tSystem_1"/>
+  </node>
   <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tContextLoad_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="USEROWLABEL" value="true"/>
@@ -942,7 +963,7 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_1" offsetLabelX="-50" offsetLabelY="2" source="tFileInputDelimited_1" target="tFileArchive_1">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_1" offsetLabelX="-50" offsetLabelY="2" source="tFileInputDelimited_1" target="tSystem_1">
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
   <connection connectorName="FLOW" label="row6" lineStyle="0" metaname="tAssertCatcher_1" offsetLabelX="0" offsetLabelY="0" source="tAssertCatcher_1" target="tReplicate_1">
@@ -1129,6 +1150,9 @@
     <elementParameter field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
     <elementParameter field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
     <elementParameter field="TABLE" name="THRESHLODS"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
+  </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSystem_1" offsetLabelX="-50" offsetLabelY="0" source="tSystem_1" target="tFileArchive_1">
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
 </talendfile:ProcessType>
