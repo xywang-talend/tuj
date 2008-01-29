@@ -364,9 +364,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <metadata connector="FLOW" name="tFileOutputDelimited_2">
-      <column comment="" defaultValue="" key="false" name="c1" nullable="true" pattern="" sourceType="" type=""/>
-      <column comment="" defaultValue="" key="false" name="c2" nullable="true" pattern="" sourceType="" type=""/>
-      <column comment="" defaultValue="" key="false" name="c3" nullable="true" pattern="" sourceType="" type=""/>
+      <column comment="" defaultValue="" key="true" name="id" nullable="true" pattern="" sourceType="" type=""/>
     </metadata>
   </node>
   <node componentName="tFileCompare" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="192" posY="160">
@@ -429,8 +427,12 @@
     <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
-    <metadata connector="FLOW" name="tJoin_1"/>
-    <metadata connector="REJECT" name="REJECT"/>
+    <metadata connector="FLOW" name="tJoin_1">
+      <column comment="" defaultValue="" key="true" name="id" nullable="true" pattern="" sourceType="" type=""/>
+    </metadata>
+    <metadata connector="REJECT" name="REJECT">
+      <column comment="" defaultValue="" key="true" name="id" nullable="true" pattern="" sourceType="" type=""/>
+    </metadata>
   </node>
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="352" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_3"/>
