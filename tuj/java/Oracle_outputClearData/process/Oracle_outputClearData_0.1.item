@@ -27,9 +27,10 @@
     <elementParameter field="TEXT" name="SCREEN_OFFSET_X" value="0"/>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" value="80"/>
     <elementParameter field="CHECK" name="MULTI_THREAD_EXECATION" value="false"/>
-    <elementParameter field="CHECK" name="ON_FILES_FLAG_IMPLICIT_CONTEXT" value="false"/>
+    <elementParameter field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false"/>
+    <elementParameter field="CHECK" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false"/>
     <elementParameter field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;F:/runtime-talend.product/in.csv&quot;"/>
-    <elementParameter field="CHECK" name="ON_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false"/>
+    <elementParameter field="CHECK" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false"/>
     <elementParameter field="CLOSED_LIST" name="PROPERTY_TYPE_IMPLICIT_CONTEXT" value="BUILT_IN"/>
     <elementParameter field="CLOSED_LIST" name="REPOSITORY_PROPERTY_TYPE_IMPLICIT_CONTEXT" value=""/>
     <elementParameter field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value="tDBInput"/>
@@ -84,7 +85,7 @@
     <elementParameter field="CLOSED_LIST" name="PROPERTY_TYPE" value="BUILT_IN"/>
     <elementParameter field="CLOSED_LIST" name="REPOSITORY_PROPERTY_TYPE" value=""/>
     <elementParameter field="PROPERTY_TYPE" name="PROPERTY" value=""/>
-    <elementParameter field="FILE" name="FILENAME" value="(String)((String)context.getProperty(&quot;param_file_path&quot;))"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.param_file_path"/>
     <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
     <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;,&quot;"/>
     <elementParameter field="CHECK" name="CSV_OPTION" value="true"/>
@@ -114,8 +115,8 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <metadata connector="FLOW" name="tFileInputDelimited_1">
-      <column defaultValue="" key="false" length="255" name="key" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column defaultValue="" key="false" length="255" name="value" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column key="false" length="255" name="key" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column key="false" length="255" name="value" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
     <metadata connector="REJECT" name="REJECT">
       <column defaultValue="" key="false" length="255" name="key" nullable="true" precision="0" sourceType="" type="id_String"/>
@@ -154,6 +155,7 @@
     <elementParameter field="CHECK" name="DUMMY" value="false"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter field="MEMO_JAVA" name="CODE" value="String tableName = &quot;Oracle_outputClearData_&quot; + pid;&#xA;globalMap.put(&quot;tableName&quot;, tableName);"/>
+    <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
@@ -529,12 +531,12 @@
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value=""/>
     <elementParameter field="TEXT" name="TYPE" value="MySQL"/>
-    <elementParameter field="TEXT" name="HOST" value="(String)((String)context.getProperty(&quot;result_host&quot;))"/>
-    <elementParameter field="TEXT" name="PORT" value="(String)((String)context.getProperty(&quot;result_port&quot;))"/>
-    <elementParameter field="TEXT" name="DBNAME" value="(String)((String)context.getProperty(&quot;result_database&quot;))"/>
-    <elementParameter field="TEXT" name="USER" value="(String)((String)context.getProperty(&quot;result_username&quot;))"/>
-    <elementParameter field="TEXT" name="PASS" value="(String)((String)context.getProperty(&quot;result_password&quot;))"/>
-    <elementParameter field="DBTABLE" name="TABLE" value="(String)((String)context.getProperty(&quot;result_table&quot;))"/>
+    <elementParameter field="TEXT" name="HOST" value="context.result_host"/>
+    <elementParameter field="TEXT" name="PORT" value="context.result_port"/>
+    <elementParameter field="TEXT" name="DBNAME" value="context.result_database"/>
+    <elementParameter field="TEXT" name="USER" value="context.result_username"/>
+    <elementParameter field="TEXT" name="PASS" value="context.result_password"/>
+    <elementParameter field="DBTABLE" name="TABLE" value="context.result_table"/>
     <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="NONE"/>
     <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="INSERT"/>
     <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:REPOSITORY_SCHEMA_TYPE" value=""/>
@@ -624,13 +626,13 @@
     <elementParameter field="CLOSED_LIST" name="REPOSITORY_PROPERTY_TYPE" value="_r1f28N3hEdyODa5ITgMiwg"/>
     <elementParameter field="PROPERTY_TYPE" name="PROPERTY" value=""/>
     <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" value="ORACLE_SID"/>
-    <elementParameter field="TEXT" name="HOST" value="(String)((String)context.getProperty(&quot;oracle_host&quot;))"/>
+    <elementParameter field="TEXT" name="HOST" value="context.oracle_host"/>
     <elementParameter field="TEXT" name="TYPE" value=""/>
-    <elementParameter field="TEXT" name="PORT" value="((String)context.getProperty(&quot;oracle_port&quot;))"/>
-    <elementParameter field="TEXT" name="DBNAME" value="((String)context.getProperty(&quot;oracle_database&quot;))"/>
-    <elementParameter field="TEXT" name="SCHEMA_DB" value="((String)context.getProperty(&quot;oracle_schema&quot;))"/>
-    <elementParameter field="TEXT" name="USER" value="((String)context.getProperty(&quot;oracle_username&quot;))"/>
-    <elementParameter field="TEXT" name="PASS" value="((String)context.getProperty(&quot;oracle_password&quot;))"/>
+    <elementParameter field="TEXT" name="PORT" value="context.oracle_port"/>
+    <elementParameter field="TEXT" name="DBNAME" value="context.oracle_database"/>
+    <elementParameter field="TEXT" name="SCHEMA_DB" value="context.oracle_schema"/>
+    <elementParameter field="TEXT" name="USER" value="context.oracle_username"/>
+    <elementParameter field="TEXT" name="PASS" value="context.oracle_password"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
