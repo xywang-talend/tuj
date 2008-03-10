@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
   <context confirmationNeeded="false" name="Default">
-    <contextParameter comment="" name="param_file_path" prompt="new1?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="param_file_path" prompt="new1?" promptNeeded="false" type="id_String" value="/tmp/params.csv"/>
     <contextParameter comment="" name="data_dir" prompt="new1?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="data_output_dir" prompt="new1?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="result_host" prompt="new1?" promptNeeded="false" type="id_String" value="null"/>
@@ -300,7 +300,7 @@
     <elementParameter field="CHECK" name="DUMMY" value="false"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter field="CLOSED_LIST" name="COMPARISON_MODE" value="TEXT_CMP"/>
-    <elementParameter field="FILE" name="FILE" value="context.data_dir + &quot;/Feature2647_tPivotOutputDelimited/out.csv&quot;"/>
+    <elementParameter field="FILE" name="FILE" value="context.data_dir + &quot;/&quot; + jobName + &quot;/out.csv&quot;"/>
     <elementParameter field="FILE" name="FILE_REF" value="context.data_output_dir + &quot;/&quot;+pid+&quot;/out.csv&quot;"/>
     <elementParameter field="TEXT" name="DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files differ&quot;"/>
     <elementParameter field="TEXT" name="NO_DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files are identical&quot;&#xD;&#xA;&#x9;&#x9;&#x9;"/>
@@ -358,8 +358,8 @@
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
     <elementParameter field="CHECK" name="DUMMY" value="false"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
-    <elementParameter field="TEXT" name="DESCRIPTION" value="&quot;Pivot Output&quot;"/>
-    <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="row3.differ==0"/>
+    <elementParameter field="TEXT" name="DESCRIPTION" value="&quot;Directory has been created&quot;"/>
+    <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="row4.differ==0"/>
     <elementParameter field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
