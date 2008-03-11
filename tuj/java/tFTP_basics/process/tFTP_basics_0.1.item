@@ -588,7 +588,7 @@
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter field="CLOSED_LIST" name="COMPARISON_MODE" value="BINARY_CMP"/>
     <elementParameter field="FILE" name="FILE" value="context.data_output_dir + &quot;/in1.csp&quot;"/>
-    <elementParameter field="FILE" name="FILE_REF" value="&quot;/tmp/ftp/remote/in1.csp&quot;"/>
+    <elementParameter field="FILE" name="FILE_REF" value="context.data_dir + &quot;/&quot; + jobName + &quot;/in1.csp&quot;"/>
     <elementParameter field="TEXT" name="DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files differ&quot;"/>
     <elementParameter field="TEXT" name="NO_DIFFER_MESSAGE" value="&#xA;&#x9;&#x9;&#x9;&#x9;&quot;[job &quot; + jobName + &quot;] Files are identical&quot;&#xA;&#x9;&#x9;&#x9;"/>
     <elementParameter field="CHECK" name="PRINT" value="true"/>
@@ -614,7 +614,7 @@
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter field="CLOSED_LIST" name="COMPARISON_MODE" value="BINARY_CMP"/>
     <elementParameter field="FILE" name="FILE" value="&quot;/tmp/ftp/remote/in1.www&quot;"/>
-    <elementParameter field="FILE" name="FILE_REF" value="&quot;/tmp/ftp/remote/in1.csp&quot;"/>
+    <elementParameter field="FILE" name="FILE_REF" value="context.data_dir + &quot;/&quot; + jobName + &quot;/in1.csp&quot;"/>
     <elementParameter field="TEXT" name="DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files differ&quot;"/>
     <elementParameter field="TEXT" name="NO_DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files are identical&quot;&#xD;&#xA;&#x9;&#x9;&#x9;"/>
     <elementParameter field="CHECK" name="PRINT" value="true"/>
@@ -688,22 +688,13 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPPut_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tFTPPut_1" target="tFileCompare_1">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPPut_1" offsetLabelX="0" offsetLabelY="0" source="tFTPPut_1" target="tFileCompare_1">
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPPut_1" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tFTPPut_1" target="tFTPGet_1">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPGet_1" offsetLabelX="0" offsetLabelY="0" source="tFTPGet_1" target="tFileCompare_2">
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPGet_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tFTPGet_1" target="tFileCompare_2">
-    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
-  </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPGet_1" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tFTPGet_1" target="tFTPRename_1">
-    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
-  </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPRename_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tFTPRename_1" target="tFTPDelete_1">
-    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
-  </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPRename_1" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tFTPRename_1" target="tFileCompare_3">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPRename_1" offsetLabelX="0" offsetLabelY="0" source="tFTPRename_1" target="tFileCompare_3">
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPDelete_1" offsetLabelX="0" offsetLabelY="0" source="tFTPDelete_1" target="tFileList_1">
@@ -718,6 +709,9 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileCompare_1" offsetLabelX="0" offsetLabelY="0" source="tFileCompare_1" target="tFTPGet_1">
+    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
+  </connection>
   <connection connectorName="FLOW" label="row6" lineStyle="0" metaname="tFileCompare_2" offsetLabelX="0" offsetLabelY="0" source="tFileCompare_2" target="tAssert_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="USEROWLABEL" value="true"/>
@@ -727,6 +721,9 @@
     <elementParameter field="TABLE" name="THRESHLODS"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileCompare_2" offsetLabelX="0" offsetLabelY="0" source="tFileCompare_2" target="tFTPRename_1">
+    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
+  </connection>
   <connection connectorName="FLOW" label="row7" lineStyle="0" metaname="tFileCompare_3" offsetLabelX="0" offsetLabelY="0" source="tFileCompare_3" target="tAssert_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="USEROWLABEL" value="true"/>
@@ -734,6 +731,9 @@
     <elementParameter field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
     <elementParameter field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
     <elementParameter field="TABLE" name="THRESHLODS"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
+  </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileCompare_3" offsetLabelX="0" offsetLabelY="0" source="tFileCompare_3" target="tFTPDelete_1">
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileList_1" offsetLabelX="0" offsetLabelY="0" source="tFileList_1" target="tAssert_4">
