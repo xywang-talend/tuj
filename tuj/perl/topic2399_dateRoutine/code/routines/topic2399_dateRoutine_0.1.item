@@ -1,0 +1,41 @@
+use Exporter;
+use Date::Calc qw/Delta_Days Add_Delta_Days/;
+
+use vars qw(@EXPORT @ISA);
+
+@ISA = qw(Exporter);
+@EXPORT = qw(
+    getDateList
+);
+
+sub getDateList {
+    my ($begin, $end) = @_;
+    
+    my ($bday, $bmonth, $byear) = split '/', $begin;
+    my ($eday, $emonth, $eyear) = split '/', $end;
+    
+    $byear += 2000;
+    $eyear += 2000;
+    
+    my $delta = Delta_Days(
+        $byear, $bmonth, $bday,
+        $eyear, $emonth, $eday
+    );
+    
+    my @dates = ();
+    
+    for my $i (0 .. $delta) {
+        my ($year, $month, $day) = Add_Delta_Days($byear, $bmonth, $bday, $i);
+        
+        $year -= 2000;
+        
+        push(
+            @dates,
+            sprintf('%02u/%02u/%02u', $day, $month, $year)
+        );
+    }
+    
+    return join(',', @dates);
+}
+
+1;
