@@ -66,7 +66,7 @@
     <elementParameter field="PROPERTY_TYPE" name="PROPERTY" value=""/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value=""/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="BUILT_IN"/>
-    <elementParameter field="FILE" name="FILENAME" value="context.param_file_path"/>
+    <elementParameter field="FILE" name="FILENAME" value="(String)((String)context.getProperty(&quot;param_file_path&quot;))"/>
     <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
     <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;,&quot;"/>
     <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
@@ -303,11 +303,11 @@
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
     <elementParameter field="CHECK" name="DUMMY" value="false"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
-    <elementParameter field="FILE" name="XSDFILE" value="&quot;E:/ws3.3/java/tXSDValidator_XSDErrorMessage/in.xsd&quot;"/>
-    <elementParameter field="FILE" name="XMLFILE" value="&quot;E:/ws3.3/java/tXSDValidator_XSDErrorMessage/in.xml&quot;"/>
+    <elementParameter field="FILE" name="XSDFILE" value="(String)((String)context.getProperty(&quot;data_dir&quot;))+&quot;/tXSDValidator_XSDErrorMessage/in.xsd&quot;"/>
+    <elementParameter field="FILE" name="XMLFILE" value="(String)((String)context.getProperty(&quot;data_dir&quot;))+&quot;/tXSDValidator_XSDErrorMessage/in.xml&quot;"/>
     <elementParameter field="TEXT" name="VALID_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] File is Valid&quot;"/>
     <elementParameter field="TEXT" name="INVALID_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] File is Invalid&quot;"/>
-    <elementParameter field="CHECK" name="PRINT" value="true"/>
+    <elementParameter field="CHECK" name="PRINT" value="false"/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -352,7 +352,7 @@
     <elementParameter field="CHECK" name="DUMMY" value="false"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter field="TEXT" name="DESCRIPTION" value="&quot;XSD error message work&quot;"/>
-    <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="globalMap.get(&quot;tXSDValidator_1_ERROR_MESSAGE&quot;).equals(&quot;Sax Error is : cvc-complex-type.2.4.a: Invalid content was found starting with element 'city'. One of '{\&quot;\&quot;:street}' is expected.&quot;)"/>
+    <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="globalMap.get(&quot;tXSDValidator_1_XSD_ERROR_MESSAGE&quot;).equals(&quot;Sax Error is : cvc-complex-type.2.4.a: Invalid content was found starting with element 'city'. One of '{\&quot;\&quot;:street}' is expected.&quot;)"/>
     <elementParameter field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
