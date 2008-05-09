@@ -80,7 +80,7 @@
     <elementParameter contextMode="false" field="CHECK" name="DUMMY" value="false"/>
     <elementParameter contextMode="false" field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="HELP" value="org.talend.help.tFileInputDelimited"/>
-    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
     <elementParameter contextMode="false" field="PROPERTY_TYPE" name="PROPERTY" value=""/>
@@ -138,7 +138,7 @@
     <elementParameter contextMode="false" field="CHECK" name="DUMMY" value="false"/>
     <elementParameter contextMode="false" field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="HELP" value="org.talend.help.tContextLoad"/>
-    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
     <elementParameter contextMode="false" field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false"/>
@@ -421,7 +421,7 @@
     <elementParameter contextMode="false" field="CHECK" name="DUMMY" value="false"/>
     <elementParameter contextMode="false" field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="HELP" value="org.talend.help.tFileInputDelimited"/>
-    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
     <elementParameter contextMode="false" field="PROPERTY_TYPE" name="PROPERTY" value=""/>
@@ -452,6 +452,8 @@
     <elementParameter contextMode="false" field="TABLE" name="TRIMSELECT">
       <elementValue elementRef="SCHEMA_COLUMN" value="message"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="messageid"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter contextMode="false" field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
     <elementParameter contextMode="false" field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
@@ -462,9 +464,11 @@
     <elementParameter contextMode="false" field="MEMO" name="COMMENT" value=""/>
     <metadata connector="FLOW" name="tFileInputDelimited_2">
       <column comment="" key="false" name="message" nullable="true" pattern="" sourceType="" type="id_String"/>
+      <column comment="" key="false" name="messageid" nullable="true" pattern="" sourceType="" type="id_String"/>
     </metadata>
     <metadata connector="REJECT" name="REJECT">
       <column comment="" key="false" name="message" nullable="true" pattern="" sourceType="" type="id_String"/>
+      <column comment="" key="false" name="messageid" nullable="true" pattern="" sourceType="" type="id_String"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
@@ -495,13 +499,13 @@
     <elementParameter contextMode="false" field="TEXT" name="QM" value="(String)((String)context.getProperty(&quot;websphere_mq_queue_manager&quot;))"/>
     <elementParameter contextMode="false" field="TEXT" name="QUEUE" value="(String)((String)context.getProperty(&quot;websphere_mq_message_queue&quot;))"/>
     <elementParameter contextMode="false" field="CHECK" name="IS_USE_MESSAGE_ID" value="true"/>
-    <elementParameter contextMode="false" field="TEXT" name="MSG_ID" value="&quot;XX&quot;"/>
     <elementParameter contextMode="false" field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter contextMode="false" field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
     <elementParameter contextMode="false" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter contextMode="false" field="MEMO" name="COMMENT" value=""/>
     <metadata connector="FLOW" name="tMomOutput_1">
       <column defaultValue="" key="false" length="255" name="message" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column defaultValue="" key="false" length="255" name="messageid" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
   </node>
   <node componentName="tFileCompare" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="64" posY="416">
@@ -587,7 +591,7 @@
     <elementParameter contextMode="false" field="CHECK" name="DUMMY" value="false"/>
     <elementParameter contextMode="false" field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="HELP" value="org.talend.help.tMomInput"/>
-    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="true"/>
     <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
     <elementParameter contextMode="false" field="CHECK" name="KEEPLISTENING" value="false"/>
@@ -612,6 +616,7 @@
     <metadata connector="FLOW" name="tMomInput_1">
       <column defaultValue="" key="false" length="255" name="from" nullable="true" precision="0" sourceType="" type="id_String"/>
       <column defaultValue="" key="false" length="255" name="message" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column defaultValue="" key="false" length="255" name="messageid" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
   </node>
   <node componentName="tFilterColumns" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="192" posY="288">
@@ -625,7 +630,7 @@
     <elementParameter contextMode="false" field="CHECK" name="DUMMY" value="false"/>
     <elementParameter contextMode="false" field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="HELP" value="org.talend.help.tFilterColumns"/>
-    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
     <elementParameter contextMode="false" field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false"/>
@@ -637,6 +642,7 @@
     <elementParameter contextMode="false" field="MEMO" name="COMMENT" value=""/>
     <metadata connector="FLOW" name="tFilterColumns_1">
       <column key="false" length="255" name="message" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" key="false" name="messageid" nullable="true" pattern="" sourceType="" type="id_String"/>
     </metadata>
   </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="352" posY="288">
@@ -650,7 +656,7 @@
     <elementParameter contextMode="false" field="CHECK" name="DUMMY" value="false"/>
     <elementParameter contextMode="false" field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="HELP" value="org.talend.help.tFileOutputDelimited"/>
-    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
     <elementParameter contextMode="false" field="PROPERTY_TYPE" name="PROPERTY" value=""/>
@@ -683,6 +689,7 @@
     <elementParameter contextMode="false" field="MEMO" name="COMMENT" value=""/>
     <metadata connector="FLOW" name="tFileOutputDelimited_1">
       <column key="false" length="255" name="message" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" key="false" name="messageid" nullable="true" pattern="" sourceType="" type="id_String"/>
     </metadata>
   </node>
   <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tContextLoad_1">
