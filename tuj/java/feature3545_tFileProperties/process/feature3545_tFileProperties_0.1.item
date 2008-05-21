@@ -326,7 +326,7 @@
     <elementParameter contextMode="false" field="CHECK" name="DUMMY" value="false"/>
     <elementParameter contextMode="false" field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="HELP" value="org.talend.help.tLogRow"/>
-    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="true"/>
     <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
     <elementParameter contextMode="false" field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false"/>
@@ -400,13 +400,13 @@
     <elementParameter contextMode="false" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter contextMode="false" field="MEMO" name="COMMENT" value=""/>
     <metadata connector="FLOW" name="tFileProperties_1">
-      <column defaultValue="" key="false" length="255" name="abs_path" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column defaultValue="" key="false" length="255" name="dirname" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column defaultValue="" key="false" length="255" name="basename" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column defaultValue="" key="false" length="10" name="mode_string" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column key="false" length="255" name="abs_path" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column key="false" length="255" name="dirname" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column key="false" length="255" name="basename" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column key="false" length="10" name="mode_string" nullable="true" precision="0" sourceType="" type="id_String"/>
       <column defaultValue="" key="false" length="20" name="size" nullable="true" precision="0" sourceType="" type="id_Long"/>
       <column defaultValue="" key="false" length="20" name="mtime" nullable="true" precision="0" sourceType="" type="id_Long"/>
-      <column defaultValue="" key="false" length="20" name="mtime_string" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column key="false" length="20" name="mtime_string" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
   </node>
   <node componentName="tAssert" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="288" posY="192">
@@ -425,7 +425,7 @@
     <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
     <elementParameter contextMode="false" field="TEXT" name="DESCRIPTION" value="&quot;test file properties&quot;"/>
-    <elementParameter contextMode="false" field="MEMO_JAVA" name="EXPRESSION" value="row3.size == 2008 &amp;&amp; row3.mode_string.equals(&quot;rw&quot;)"/>
+    <elementParameter contextMode="false" field="MEMO_JAVA" name="EXPRESSION" value="row3.mode_string.equals(&quot;rw&quot;) &amp;&amp; row3.basename.equals(&quot;test_file.txt&quot;)"/>
     <elementParameter contextMode="false" field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:SCHEMA_TYPE" value="BUILT_IN"/>
     <elementParameter contextMode="false" field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
     <elementParameter contextMode="false" field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
