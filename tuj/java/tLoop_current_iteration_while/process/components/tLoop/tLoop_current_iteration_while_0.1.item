@@ -17,11 +17,11 @@
     <contextParameter comment="" name="mysql_password" prompt="new1?" promptNeeded="false" type="id_String" value="null"/>
   </context>
   <parameters>
-    <elementParameter contextMode="false" field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="D:\runtime-talend trunk.product1"/>
+    <elementParameter contextMode="false" field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="D:\runtime-Jasper.product"/>
     <elementParameter contextMode="false" field="CHECK" name="displaySubjobs" value="true"/>
-    <elementParameter contextMode="false" field="TEXT" name="AUTHOR" value="yilin.li@soyatec.com"/>
+    <elementParameter contextMode="false" field="TEXT" name="AUTHOR" value="yli@yli.com"/>
     <elementParameter contextMode="false" field="TEXT" name="STATUS" value=""/>
-    <elementParameter contextMode="false" field="TEXT" name="NAME" value="tLoopWhile"/>
+    <elementParameter contextMode="false" field="TEXT" name="NAME" value="tLoop_current_iteration_while"/>
     <elementParameter contextMode="false" field="TEXT" name="VERSION" value="0.1"/>
     <elementParameter contextMode="false" field="TEXT" name="PURPOSE" value=""/>
     <elementParameter contextMode="false" field="TEXT" name="DESCRIPTION" value=""/>
@@ -127,6 +127,7 @@
     <elementParameter contextMode="false" field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
     <elementParameter contextMode="false" field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
     <elementParameter contextMode="false" field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter contextMode="false" field="CHECK" name="SPLITRECORD" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter contextMode="false" field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
     <elementParameter contextMode="false" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -179,7 +180,7 @@
     <elementParameter contextMode="false" field="TEXT" name="COMPONENT_NAME" value="tLoop"/>
     <elementParameter contextMode="false" field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tLoop"/>
     <elementParameter contextMode="false" field="TEXT" name="VERSION" value="0.102 (ALPHA)"/>
-    <elementParameter contextMode="false" field="TEXT" name="FAMILY" value="Misc"/>
+    <elementParameter contextMode="false" field="TEXT" name="FAMILY" value="Orchestration"/>
     <elementParameter contextMode="false" field="CHECK" name="START" value="false"/>
     <elementParameter contextMode="false" field="CHECK" name="STARTABLE" value="true"/>
     <elementParameter contextMode="false" field="CHECK" name="ACTIVATE" value="true"/>
@@ -189,12 +190,14 @@
     <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
-    <elementParameter contextMode="false" field="CLOSED_LIST" name="LOOPTYPE" value="WHILELOOP"/>
+    <elementParameter contextMode="false" field="RADIO" name="FORLOOP" value="false"/>
+    <elementParameter contextMode="false" field="RADIO" name="WHILELOOP" value="true"/>
     <elementParameter contextMode="false" field="TEXT" name="FROM" value="0"/>
     <elementParameter contextMode="false" field="TEXT" name="TO" value="3"/>
     <elementParameter contextMode="false" field="TEXT" name="STEP" value="1"/>
+    <elementParameter contextMode="false" field="CHECK" name="INCREASE" value="true"/>
     <elementParameter contextMode="false" field="TEXT" name="DECLARATION" value="&quot;int i=0&quot;"/>
-    <elementParameter contextMode="false" field="TEXT" name="CONDITION" value="&quot;i&lt;3&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="CONDITION" value="&quot;i&lt;=3&quot;"/>
     <elementParameter contextMode="false" field="TEXT" name="ITERATION" value="&quot;i++&quot;"/>
     <elementParameter contextMode="false" field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter contextMode="false" field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
@@ -268,6 +271,7 @@
     <elementParameter contextMode="false" field="TEXT" name="SPLIT_EVERY" value="1000"/>
     <elementParameter contextMode="false" field="CHECK" name="FLUSHONROW" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="FLUSHONROW_NUM" value="1"/>
+    <elementParameter contextMode="false" field="CHECK" name="ROW_MODE" value="false"/>
     <elementParameter contextMode="false" field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
     <elementParameter contextMode="false" field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
     <elementParameter contextMode="false" field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
@@ -317,7 +321,7 @@
     <elementParameter contextMode="false" field="CHECK" name="DUMMY" value="false"/>
     <elementParameter contextMode="false" field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="HELP" value="org.talend.help.tFileRowCount"/>
-    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
     <elementParameter contextMode="false" field="FILE" name="FILENAME" value="context.getProperty(&quot;data_output_dir&quot;) + &quot;/&quot; + pid + &quot;_out1.csv&quot;"/>
@@ -342,11 +346,11 @@
     <elementParameter contextMode="false" field="CHECK" name="DUMMY" value="false"/>
     <elementParameter contextMode="false" field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="HELP" value="org.talend.help.tAssert"/>
-    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="true"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
     <elementParameter contextMode="false" field="TEXT" name="DESCRIPTION" value="&quot;Loop&quot;"/>
-    <elementParameter contextMode="false" field="MEMO_JAVA" name="EXPRESSION" value="((Integer)globalMap.get(&quot;tFileRowCount_1_COUNT&quot;)).intValue()==3"/>
+    <elementParameter contextMode="false" field="MEMO_JAVA" name="EXPRESSION" value="((Integer)globalMap.get(&quot;tFileRowCount_1_COUNT&quot;)).intValue()==4"/>
     <elementParameter contextMode="false" field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:SCHEMA_TYPE" value="BUILT_IN"/>
     <elementParameter contextMode="false" field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
     <elementParameter contextMode="false" field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
@@ -367,7 +371,7 @@
     <elementParameter contextMode="false" field="CHECK" name="DUMMY" value="false"/>
     <elementParameter contextMode="false" field="CHECK" name="TSTATCATCHER_STATS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="HELP" value="org.talend.help.tAssertCatcher"/>
-    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
+    <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="true"/>
     <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
     <elementParameter contextMode="false" field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false"/>
@@ -396,7 +400,7 @@
     <elementParameter contextMode="false" field="TEXT" name="COMPONENT_NAME" value="tReplicate"/>
     <elementParameter contextMode="false" field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tReplicate"/>
     <elementParameter contextMode="false" field="TEXT" name="VERSION" value="0.101 (ALPHA)"/>
-    <elementParameter contextMode="false" field="TEXT" name="FAMILY" value="Processing"/>
+    <elementParameter contextMode="false" field="TEXT" name="FAMILY" value="Orchestration"/>
     <elementParameter contextMode="false" field="CHECK" name="STARTABLE" value="false"/>
     <elementParameter contextMode="false" field="CHECK" name="ACTIVATE" value="true"/>
     <elementParameter contextMode="false" field="CHECK" name="DUMMY" value="false"/>
@@ -626,6 +630,8 @@
     <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
   </connection>
   <connection connectorName="ITERATE" label="Iterate" lineStyle="7" metaname="tLoop_1" offsetLabelX="0" offsetLabelY="0" source="tLoop_1" target="tFixedFlowInput_1">
+    <elementParameter contextMode="false" field="CHECK" name="ENABLE_PARALLEL" value="false"/>
+    <elementParameter contextMode="false" field="TEXT" name="NUMBER_PARALLEL" value="2"/>
     <elementParameter contextMode="false" field="CHECK" name="ACTIVATE" value="true"/>
     <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
   </connection>
