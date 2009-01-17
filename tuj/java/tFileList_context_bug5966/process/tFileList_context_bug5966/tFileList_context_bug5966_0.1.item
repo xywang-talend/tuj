@@ -7,7 +7,7 @@
     <contextParameter comment="" name="result_password" prompt="result_password?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="result_host" prompt="result_host?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="result_database" prompt="result_database?" promptNeeded="false" type="id_String" value="null"/>
-    <contextParameter comment="" name="param_file_path" prompt="param_file_path?" promptNeeded="false" type="id_String" value="d:\tuj\tuj_context\full_context.csv"/>
+    <contextParameter comment="" name="param_file_path" prompt="param_file_path?" promptNeeded="false" type="id_String" value="E:\tuj\tuj_context\full_context.csv"/>
     <contextParameter comment="" name="mysql_username" prompt="mysql_username?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="mysql_schema" prompt="mysql_schema?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="mysql_port" prompt="mysql_port?" promptNeeded="false" type="id_String" value="null"/>
@@ -18,9 +18,9 @@
     <contextParameter comment="" name="fileMask" prompt="fileMask?" promptNeeded="false" type="id_String" value="a.*"/>
   </context>
   <parameters>
-    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="D:\TOS\TOS-All-r20205-V3.0.2\workspace" contextMode="false"/>
+    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="E:\Talend branch3.0 client\runtime-Jasper.product" contextMode="false"/>
     <elementParameter field="CHECK" name="displaySubjobs" value="true" contextMode="false"/>
-    <elementParameter field="TEXT" name="AUTHOR" value="musicatcher@hotmail.com" contextMode="false"/>
+    <elementParameter field="TEXT" name="AUTHOR" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="STATUS" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="NAME" value="tFileList_context_bug5966" contextMode="false"/>
     <elementParameter field="TEXT" name="VERSION" value="0.1" contextMode="false"/>
@@ -30,6 +30,7 @@
     <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" value="0" contextMode="false"/>
     <elementParameter field="TEXT" name="SCHEMA_OPTIONS" value="none" contextMode="false"/>
     <elementParameter field="CHECK" name="MULTI_THREAD_EXECATION" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="PARALLELIZE_UNIT_SIZE" value="25000" contextMode="false"/>
     <elementParameter field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false" contextMode="false"/>
     <elementParameter field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false" contextMode="false"/>
     <elementParameter field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false" contextMode="false"/>
@@ -56,15 +57,15 @@
     <elementParameter field="CHECK" name="DISABLE_ERROR" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="DISABLE_WARNINGS" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="DISABLE_INFO" value="true" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="ON_STATCATCHER_FLAG" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="ON_LOGCATCHER_FLAG" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="ON_METERCATCHER_FLAG" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="ON_CONSOLE_FLAG" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="ON_FILES_FLAG" value="true" contextMode="false"/>
-    <elementParameter field="DIRECTORY" name="FILE_PATH" value="context.data_dir + '/' + jobName + &quot;/files&quot;" contextMode="false"/>
+    <elementParameter field="DIRECTORY" name="FILE_PATH" value="context.data_output_dir" contextMode="false"/>
     <elementParameter field="TEXT" name="FILENAME_STATS" value="&quot;stats_file.txt&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="FILENAME_LOGS" value="&quot;logs_file.txt&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="FILENAME_LOGS" value="pid + &quot;out.csv&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="FILENAME_METTER" value="&quot;meter_file.txt&quot;" contextMode="false"/>
     <elementParameter field="CHECK" name="ON_DATABASE_FLAG" value="false" contextMode="false"/>
     <elementParameter field="PROPERTY_TYPE" name="PROPERTY_TYPE" value="" contextMode="false"/>
@@ -105,6 +106,8 @@
     <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_COLOR" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_TITLE_COLOR" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="PARALLELIZE" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="PARALLELIZE_NUMBER" value="2" contextMode="false"/>
     <elementParameter field="PROPERTY_TYPE" name="PROPERTY" value="" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="BUILT_IN" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value="" contextMode="false"/>
@@ -169,6 +172,8 @@
     <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_COLOR" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_TITLE_COLOR" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="PARALLELIZE" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="PARALLELIZE_NUMBER" value="2" contextMode="false"/>
     <elementParameter field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
@@ -203,11 +208,13 @@
     <elementParameter field="CHECK" name="DUMMY" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
     <elementParameter field="TEXT" name="HELP" value="org.talend.help.tAssertCatcher" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
     <elementParameter field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
     <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_COLOR" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_TITLE_COLOR" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="PARALLELIZE" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="PARALLELIZE_NUMBER" value="2" contextMode="false"/>
     <elementParameter field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
@@ -229,7 +236,7 @@
       <column key="false" length="255" name="description" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
   </node>
-  <node componentName="tMysqlOutput" componentVersion="0.102" offsetLabelX="-6" offsetLabelY="0" posX="864" posY="160">
+  <node componentName="tMysqlOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="928" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlOutput_1" contextMode="false"/>
     <elementParameter field="TEXT" name="COMPONENT_NAME" value="tMysqlOutput" contextMode="false"/>
     <elementParameter field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tMysqlOutput" contextMode="false"/>
@@ -240,22 +247,24 @@
     <elementParameter field="CHECK" name="DUMMY" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
     <elementParameter field="TEXT" name="HELP" value="org.talend.help.tMysqlOutput" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
     <elementParameter field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
     <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_COLOR" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_TITLE_COLOR" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="PARALLELIZE" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="PARALLELIZE_NUMBER" value="2" contextMode="false"/>
     <elementParameter field="PROPERTY_TYPE" name="PROPERTY" value="" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="BUILT_IN" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value="" contextMode="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false" contextMode="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="TYPE" value="MySQL" contextMode="false"/>
-    <elementParameter field="TEXT" name="HOST" value="context.mysql_host" contextMode="false"/>
-    <elementParameter field="TEXT" name="PORT" value="context.mysql_port" contextMode="false"/>
+    <elementParameter field="TEXT" name="HOST" value="context.result_host" contextMode="false"/>
+    <elementParameter field="TEXT" name="PORT" value="context.result_port" contextMode="false"/>
     <elementParameter field="TEXT" name="DBNAME" value="context.result_database" contextMode="false"/>
-    <elementParameter field="TEXT" name="USER" value="context.mysql_username" contextMode="false"/>
-    <elementParameter field="TEXT" name="PASS" value="context.mysql_password" contextMode="false"/>
+    <elementParameter field="TEXT" name="USER" value="context.result_username" contextMode="false"/>
+    <elementParameter field="TEXT" name="PASS" value="context.result_password" contextMode="false"/>
     <elementParameter field="DBTABLE" name="TABLE" value="context.result_table" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="NONE" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="INSERT" contextMode="false"/>
@@ -264,7 +273,7 @@
     <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
-    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true" contextMode="false"/>
     <elementParameter field="MAPPING_TYPE" name="MAPPING" value="mysql_id" contextMode="false"/>
     <elementParameter field="TEXT" name="PROPERTIES" value="&quot;noDatetimeStringSync=true&quot;" contextMode="false"/>
     <elementParameter field="CHECK" name="EXTENDINSERT" value="false" contextMode="false"/>
@@ -328,26 +337,26 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
     <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
     <metadata connector="FLOW" name="tMysqlOutput_1">
-      <column key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date"/>
-      <column key="false" length="20" name="pid" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column key="false" length="50" name="project" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column key="false" length="5" name="language" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column key="false" length="50" name="origin" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column key="false" length="10" name="status" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column key="false" length="255" name="substatus" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column key="false" length="255" name="description" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date"/>
+      <column comment="" defaultValue="" key="false" length="20" name="pid" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="50" name="project" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="5" name="language" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="50" name="origin" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="10" name="status" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="substatus" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="description" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
     <metadata connector="REJECT" name="REJECT">
-      <column key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date"/>
-      <column key="false" length="20" name="pid" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column key="false" length="50" name="project" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column key="false" length="5" name="language" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column key="false" length="50" name="origin" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column key="false" length="10" name="status" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column key="false" length="255" name="substatus" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column key="false" length="255" name="description" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date"/>
+      <column comment="" defaultValue="" key="false" length="20" name="pid" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="50" name="project" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="5" name="language" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="50" name="origin" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="10" name="status" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="substatus" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="255" name="description" nullable="true" precision="0" sourceType="" type="id_String"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
@@ -369,6 +378,8 @@
     <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_COLOR" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_TITLE_COLOR" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="PARALLELIZE" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="PARALLELIZE_NUMBER" value="2" contextMode="false"/>
     <elementParameter field="DIRECTORY" name="DIRECTORY" value="context.data_dir + '/' + jobName + &quot;/files&quot;" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="LIST_MODE" value="FILES" contextMode="false"/>
     <elementParameter field="CHECK" name="INCLUDSUBDIR" value="false" contextMode="false"/>
@@ -402,6 +413,8 @@
     <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_COLOR" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_TITLE_COLOR" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="PARALLELIZE" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="PARALLELIZE_NUMBER" value="2" contextMode="false"/>
     <elementParameter field="TEXT" name="DESCRIPTION" value="&quot;determine loading of context variable&quot;" contextMode="false"/>
     <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="context.fileMask != null" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
@@ -429,6 +442,8 @@
     <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_COLOR" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_TITLE_COLOR" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="PARALLELIZE" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="PARALLELIZE_NUMBER" value="2" contextMode="false"/>
     <elementParameter field="TEXT" name="MESSAGE" value="&quot;test log output to file&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="CODE" value="42" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="PRIORITY" value="3" contextMode="false"/>
@@ -467,7 +482,9 @@
     <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_COLOR" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_TITLE_COLOR" value="" contextMode="false"/>
-    <elementParameter field="FILE" name="FILE_NAME" value="context.data_dir + '/' + jobName + &quot;/files/logs_file.txt&quot;" contextMode="false"/>
+    <elementParameter field="CHECK" name="PARALLELIZE" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="PARALLELIZE_NUMBER" value="2" contextMode="false"/>
+    <elementParameter field="FILE" name="FILE_NAME" value="context.data_output_dir + &quot;/&quot; + pid + &quot;out.csv&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__" contextMode="false"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__" contextMode="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
@@ -490,6 +507,8 @@
     <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_COLOR" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_TITLE_COLOR" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="PARALLELIZE" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="PARALLELIZE_NUMBER" value="2" contextMode="false"/>
     <elementParameter field="TEXT" name="DESCRIPTION" value="&quot;determine set the logDir with context variable&quot;" contextMode="false"/>
     <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="((Boolean)globalMap.get(&quot;tFileExist_1_EXISTS&quot;))" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
@@ -512,12 +531,14 @@
     <elementParameter field="CHECK" name="DUMMY" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
     <elementParameter field="TEXT" name="HELP" value="org.talend.help.tFileDelete" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
     <elementParameter field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
     <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_COLOR" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_TITLE_COLOR" value="" contextMode="false"/>
-    <elementParameter field="FILE" name="FILENAME" value="context.data_dir + '/' + jobName + &quot;/files/logs_file.txt&quot;" contextMode="false"/>
+    <elementParameter field="CHECK" name="PARALLELIZE" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="PARALLELIZE_NUMBER" value="2" contextMode="false"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.data_output_dir + &quot;/&quot; + pid + &quot;out.csv&quot;" contextMode="false"/>
     <elementParameter field="DIRECTORY" name="DIRECTORY" value="&quot;D:/TOS/TOS-All-r20205-V3.0.2/workspace&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="PATH" value="&quot;D:\TOS\TOS-All-r20205-V3.0.2\workspace&quot;" contextMode="false"/>
     <elementParameter field="CHECK" name="FAILON" value="true" contextMode="false"/>
@@ -548,6 +569,8 @@
     <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_COLOR" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_TITLE_COLOR" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="PARALLELIZE" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="PARALLELIZE_NUMBER" value="2" contextMode="false"/>
     <elementParameter field="TEXT" name="DESCRIPTION" value="&quot;use context variable in fileMask&quot;" contextMode="false"/>
     <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="//((String)globalMap.get(&quot;tFileList_1_CURRENT_FILE&quot;)) != null&#xA;&#xA;((Integer)globalMap.get(&quot;tFileList_1_NB_FILE&quot;)) == 2" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="NOT_SYNCHRONIZED_SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
