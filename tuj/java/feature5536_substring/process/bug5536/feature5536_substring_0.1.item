@@ -20,9 +20,9 @@
     <contextParameter comment="" name="LIMIT" prompt="LIMIT?" promptNeeded="false" type="id_Integer" value="2"/>
   </context>
   <parameters>
-    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="E:\Talend trunk client\runtime-JasperToVerify20090325.product" contextMode="false"/>
+    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="E:\Talend trunk client\runtime-Jasper.product" contextMode="false"/>
     <elementParameter field="CHECK" name="displaySubjobs" value="true" contextMode="false"/>
-    <elementParameter field="TEXT" name="AUTHOR" value="wyang@talend.com" contextMode="false"/>
+    <elementParameter field="TEXT" name="AUTHOR" value="bchen@talend.com" contextMode="false"/>
     <elementParameter field="TEXT" name="STATUS" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="NAME" value="feature5536_substring" contextMode="false"/>
     <elementParameter field="TEXT" name="VERSION" value="0.1" contextMode="false"/>
@@ -34,7 +34,6 @@
     <elementParameter field="CHECK" name="IMPLICITCONTEXT_USE_PROJECT_SETTINGS" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="STATANDLOG_USE_PROJECT_SETTINGS" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="MULTI_THREAD_EXECATION" value="false" contextMode="false"/>
-    <elementParameter field="TEXT" name="PARALLELIZE_UNIT_SIZE" value="25000" contextMode="false"/>
     <elementParameter field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false" contextMode="false"/>
     <elementParameter field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false" contextMode="false"/>
     <elementParameter field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false" contextMode="false"/>
@@ -301,6 +300,8 @@
     <elementParameter field="TABLE" name="TRIMSELECT" contextMode="false">
       <elementValue elementRef="SCHEMA_COLUMN" value="name"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="value"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false" contextMode="false"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;" contextMode="false"/>
@@ -312,10 +313,12 @@
     <elementParameter field="CHECK" name="INFORMATION" value="false" contextMode="false"/>
     <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
     <metadata connector="FLOW" name="tFileInputDelimited_2">
-      <column comment="" key="false" name="name" nullable="true" pattern="" sourceType="" type="id_String"/>
+      <column comment="" key="false" length="5" name="name" nullable="true" pattern="" sourceType="" type="id_String"/>
+      <column comment="" key="false" length="5" name="value" nullable="true" pattern="" sourceType="" type="id_String"/>
     </metadata>
     <metadata connector="REJECT" name="REJECT">
-      <column comment="" key="false" name="name" nullable="true" pattern="" sourceType="" type="id_String"/>
+      <column comment="" key="false" length="5" name="name" nullable="true" pattern="" sourceType="" type="id_String"/>
+      <column comment="" key="false" length="5" name="value" nullable="true" pattern="" sourceType="" type="id_String"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
@@ -329,20 +332,29 @@
       <elementValue elementRef="SELECTED_TYPE" value="String"/>
       <elementValue elementRef="DATEPATTERN" value=""/>
       <elementValue elementRef="NULLABLE" value="false"/>
+      <elementValue elementRef="MAX_LENGTH" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="value"/>
+      <elementValue elementRef="SELECTED_TYPE" value="String"/>
+      <elementValue elementRef="DATEPATTERN" value=""/>
+      <elementValue elementRef="NULLABLE" value="false"/>
       <elementValue elementRef="MAX_LENGTH" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="SUB_STRING" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="FAST_DATE_CHECK" value="false" contextMode="false"/>
+    <elementParameter field="LABEL" name="NOTE" value="(Not compatible with multi-threaded jobs)" contextMode="false"/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__" contextMode="false"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__" contextMode="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
     <elementParameter field="CHECK" name="INFORMATION" value="false" contextMode="false"/>
     <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
     <metadata connector="FLOW" name="tSchemaComplianceCheck_1">
-      <column comment="" key="false" name="name" nullable="true" pattern="" sourceType="" type="id_String"/>
+      <column comment="" key="false" length="5" name="name" nullable="true" pattern="" sourceType="" type="id_String"/>
+      <column comment="" key="false" length="5" name="value" nullable="true" pattern="" sourceType="" type="id_String"/>
     </metadata>
     <metadata connector="OTHER" name="OTHER"/>
     <metadata connector="REJECT" name="REJECT">
-      <column comment="" key="false" name="name" nullable="true" pattern="" sourceType="" type="id_String"/>
+      <column comment="" key="false" length="5" name="name" nullable="true" pattern="" sourceType="" type="id_String"/>
+      <column comment="" key="false" length="5" name="value" nullable="true" pattern="" sourceType="" type="id_String"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
@@ -375,7 +387,8 @@
     <elementParameter field="CHECK" name="INFORMATION" value="false" contextMode="false"/>
     <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
     <metadata connector="FLOW" name="tFileOutputDelimited_1">
-      <column comment="" key="false" name="name" nullable="true" pattern="" sourceType="" type="id_String"/>
+      <column comment="" key="false" length="5" name="name" nullable="true" pattern="" sourceType="" type="id_String"/>
+      <column comment="" key="false" length="5" name="value" nullable="true" pattern="" sourceType="" type="id_String"/>
     </metadata>
   </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="640" posY="288">
@@ -406,7 +419,8 @@
     <elementParameter field="CHECK" name="INFORMATION" value="false" contextMode="false"/>
     <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
     <metadata connector="FLOW" name="tFileOutputDelimited_2">
-      <column comment="" key="false" name="name" nullable="true" pattern="" sourceType="" type="id_String"/>
+      <column comment="" key="false" length="5" name="name" nullable="true" pattern="" sourceType="" type="id_String"/>
+      <column comment="" key="false" length="5" name="value" nullable="true" pattern="" sourceType="" type="id_String"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
@@ -415,7 +429,7 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileCompare_1" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="COMPARISON_MODE" value="TEXT_CMP" contextMode="false"/>
     <elementParameter field="FILE" name="FILE" value="context.data_dir + &quot;/&quot;+ jobName + &quot;/ref.csv&quot;" contextMode="false"/>
-    <elementParameter field="FILE" name="FILE_REF" value="context.data_output_dir + &quot;/&quot; + pid + &quot;out_reject.csv&quot;" contextMode="false"/>
+    <elementParameter field="FILE" name="FILE_REF" value="context.data_output_dir + &quot;/&quot; + pid + &quot;out_OK.csv&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files differ&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="NO_DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files are identical&quot;" contextMode="false"/>
     <elementParameter field="CHECK" name="PRINT" value="false" contextMode="false"/>
