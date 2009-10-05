@@ -3,7 +3,6 @@
   <context confirmationNeeded="false" name="nfrancisco">
     <contextParameter comment="" name="data_dir" prompt="new1?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
     <contextParameter comment="" name="data_output_dir" prompt="new1?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
-    <contextParameter comment="" name="download_filepath" prompt="download_filepath?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="/home/nuno/Bureau/not_to_remove"/>
     <contextParameter comment="" name="mysql_database" prompt="mysql_database?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
     <contextParameter comment="" name="mysql_host" prompt="new1?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="localhost"/>
     <contextParameter comment="" name="mysql_password" prompt="new1?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="toor"/>
@@ -11,6 +10,7 @@
     <contextParameter comment="" name="mysql_schema" prompt="new1?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="tuj"/>
     <contextParameter comment="" name="mysql_username" prompt="new1?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="root"/>
     <contextParameter comment="" name="oracle_database" prompt="oracle_database?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
+    <contextParameter comment="" name="oracle_host" prompt="oracle_host?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
     <contextParameter comment="" name="oracle_password" prompt="oracle_password?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
     <contextParameter comment="" name="oracle_port" prompt="oracle_port?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
     <contextParameter comment="" name="oracle_schema" prompt="oracle_schema?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
@@ -38,7 +38,6 @@
   <context confirmationNeeded="false" name="production">
     <contextParameter comment="" name="data_dir" prompt="new1?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
     <contextParameter comment="" name="data_output_dir" prompt="new1?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
-    <contextParameter comment="" name="download_filepath" prompt="download_filepath?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
     <contextParameter comment="" name="mysql_database" prompt="mysql_database?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
     <contextParameter comment="" name="mysql_host" prompt="new1?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
     <contextParameter comment="" name="mysql_password" prompt="new1?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
@@ -46,6 +45,7 @@
     <contextParameter comment="" name="mysql_schema" prompt="new1?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
     <contextParameter comment="" name="mysql_username" prompt="new1?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
     <contextParameter comment="" name="oracle_database" prompt="oracle_database?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
+    <contextParameter comment="" name="oracle_host" prompt="oracle_host?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
     <contextParameter comment="" name="oracle_password" prompt="oracle_password?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
     <contextParameter comment="" name="oracle_port" prompt="oracle_port?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
     <contextParameter comment="" name="oracle_schema" prompt="oracle_schema?" promptNeeded="false" repositoryContextId="_s4DqsHAFEdyf26KpsxcZpA" type="id_String" value="null"/>
@@ -142,7 +142,7 @@
   </parameters>
   <node componentName="tFileProperties" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="256">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileProperties_1" contextMode="false"/>
-    <elementParameter field="FILE" name="FILENAME" value="context.download_filepath" contextMode="false"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.data_output_dir+&quot;not_to_remove&quot;" contextMode="false"/>
     <elementParameter field="CHECK" name="MD5" value="true" contextMode="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
     <elementParameter field="CHECK" name="INFORMATION" value="false" contextMode="false"/>
@@ -304,12 +304,12 @@
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
   </node>
-  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="32">
+  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="0">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1" contextMode="false"/>
     <elementParameter field="CHECK" name="START" value="true" contextMode="false"/>
     <elementParameter field="FILE" name="FILENAME" value="context.param_file_path" contextMode="false"/>
     <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;,&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;" contextMode="false"/>
     <elementParameter field="CHECK" name="CSV_OPTION" value="true" contextMode="false"/>
     <elementParameter field="TEXT" name="ESCAPE_CHAR" value="&quot;&quot;&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="TEXT_ENCLOSURE" value="&quot;&quot;&quot;" contextMode="false"/>
@@ -370,12 +370,12 @@
     </metadata>
   </node>
   <node componentName="tSambaGet" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="128" posY="128">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tSambaGet_1" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tSambaGet_2" contextMode="false"/>
     <elementParameter field="TEXT" name="HOST" value="context.samba_host" contextMode="false"/>
     <elementParameter field="TEXT" name="DOMAIN" value="context.samba_domain" contextMode="false"/>
     <elementParameter field="TEXT" name="USERNAME" value="context.samba_username" contextMode="false"/>
     <elementParameter field="TEXT" name="PASSWORD" value="context.samba_password" contextMode="false"/>
-    <elementParameter field="FILE" name="LOCALFILE" value="context.download_filepath" contextMode="false"/>
+    <elementParameter field="FILE" name="LOCALFILE" value="context.data_output_dir+&quot;not_to_remove&quot;" contextMode="false"/>
     <elementParameter field="CHECK" name="CREATE_DIRECTORY" value="true" contextMode="false"/>
     <elementParameter field="TEXT" name="SHAREDIR" value="context.samba_shared_dir" contextMode="false"/>
     <elementParameter field="TEXT" name="REMOTEFILE" value="context.samba_remote_file" contextMode="false"/>
@@ -387,7 +387,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
     <elementParameter field="CHECK" name="INFORMATION" value="false" contextMode="false"/>
     <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
-    <metadata connector="FLOW" name="tSambaGet_1"/>
+    <metadata connector="FLOW" name="tSambaGet_2"/>
   </node>
   <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tFileProperties_1" offsetLabelX="0" offsetLabelY="0" source="tFileProperties_1" target="tAssert_1">
     <elementParameter field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true" contextMode="false"/>
@@ -521,10 +521,10 @@
     <elementParameter field="TABLE" name="THRESHLODS" contextMode="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tSambaGet_1">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tSambaGet_2">
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSambaGet_1" offsetLabelX="0" offsetLabelY="0" source="tSambaGet_1" target="tFileProperties_1">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSambaGet_2" offsetLabelX="0" offsetLabelY="0" source="tSambaGet_2" target="tFileProperties_1">
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
   </connection>
   <subjob>
@@ -543,7 +543,7 @@
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250" contextMode="false"/>
   </subjob>
   <subjob>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tSambaGet_1" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tSambaGet_2" contextMode="false"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240" contextMode="false"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250" contextMode="false"/>
   </subjob>
