@@ -4,6 +4,7 @@ package routines;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
 
 /*
@@ -63,8 +64,14 @@ public class utils {
 	}
 
 	public static void showContextProperties(java.util.Properties context) {
-		List<String> stringPropertyNames = new ArrayList<String>(context
-				.stringPropertyNames());
+		List<String> stringPropertyNames = new ArrayList<String>();		
+		Enumeration<?> propertyNames = context.propertyNames();
+		
+		while(propertyNames.hasMoreElements()){
+			String nextElement = (String)propertyNames.nextElement();
+			stringPropertyNames.add(nextElement);
+		}
+		
 		Collections.sort(stringPropertyNames);
 		for (String key : stringPropertyNames) {
 			System.out.println("Context property: " + key + " = "
