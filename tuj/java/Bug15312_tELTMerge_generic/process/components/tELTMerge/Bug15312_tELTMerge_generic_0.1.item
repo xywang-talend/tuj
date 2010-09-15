@@ -14,7 +14,7 @@
     <contextParameter comment="" name="mysql_username" prompt="mysql_username?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="mysql_password" prompt="mysql_password?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="mysql_database" prompt="mysql_database?" promptNeeded="false" type="id_String" value="null"/>
-    <contextParameter comment="" name="param_file_path" prompt="param_file_path?" promptNeeded="false" type="id_File" value="null"/>
+    <contextParameter comment="" name="param_file_path" prompt="param_file_path?" promptNeeded="false" type="id_File" value="D:/tuj/tuj_context/full_context.csv"/>
   </context>
   <parameters>
     <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="D:/runtime.tos.product"/>
@@ -116,7 +116,7 @@
   </node>
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="288" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1"/>
-    <elementParameter field="FILE" name="FILENAME" value="((String)context.getProperty(&quot;data_dir&quot;)) + &quot;Bug15312_src_tbl.txt&quot;"/>
+    <elementParameter field="FILE" name="FILENAME" value="((String)context.getProperty(&quot;data_dir&quot;)) + &quot;/&quot; + jobName + &quot;/Bug15312_src_tbl.txt&quot;"/>
     <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
     <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
     <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
@@ -241,7 +241,7 @@
   </node>
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="416" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_2"/>
-    <elementParameter field="FILE" name="FILENAME" value="((String)context.getProperty(&quot;data_dir&quot;)) + &quot;Bug15312_trg_tbl.txt&quot;"/>
+    <elementParameter field="FILE" name="FILENAME" value="((String)context.getProperty(&quot;data_dir&quot;)) + &quot;/&quot; + jobName + &quot;/Bug15312_trg_tbl.txt&quot;"/>
     <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
     <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
     <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
@@ -749,7 +749,7 @@
   <node componentName="tFileCompare" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="192" posY="384">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileCompare_1"/>
     <elementParameter field="CLOSED_LIST" name="COMPARISON_MODE" value="TEXT_CMP"/>
-    <elementParameter field="FILE" name="FILE" value="((String)context.getProperty(&quot;data_dir&quot;)) + &quot;Bug15312_ref.txt&quot;"/>
+    <elementParameter field="FILE" name="FILE" value="((String)context.getProperty(&quot;data_dir&quot;)) + &quot;/&quot; + jobName + &quot;/Bug15312_ref.txt&quot;"/>
     <elementParameter field="FILE" name="FILE_REF" value="((String)context.getProperty(&quot;data_output_dir&quot;)) + &quot;Bug15312_final.txt&quot;"/>
     <elementParameter field="TEXT" name="DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files differ&quot;"/>
     <elementParameter field="TEXT" name="NO_DIFFER_MESSAGE" value="&#xA;&#x9;&#x9;&#x9;&#x9;&quot;[job &quot; + jobName + &quot;] Files are identical&quot;&#xA;&#x9;&#x9;&#x9;"/>
@@ -821,8 +821,8 @@
     <elementParameter field="CHECK" name="INFORMATION" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <metadata connector="FLOW" name="tFileInputDelimited_3">
-      <column defaultValue="" key="false" length="255" name="key" nullable="true" precision="0" sourceType="" type="id_String"/>
-      <column defaultValue="" key="false" length="255" name="value" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column key="false" length="255" name="key" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column key="false" length="255" name="value" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
     <metadata connector="REJECT" name="REJECT">
       <column defaultValue="" key="false" length="255" name="key" nullable="true" precision="0" sourceType="" type="id_String"/>
