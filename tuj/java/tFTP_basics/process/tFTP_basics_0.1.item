@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
   <context confirmationNeeded="false" name="Default">
-    <contextParameter comment="" name="param_file_path" prompt="new1?" promptNeeded="false" type="id_String" value="/tmp/params.csv"/>
+    <contextParameter comment="" name="param_file_path" prompt="new1?" promptNeeded="false" type="id_String" value="E:/tuj/tuj_context/full_context.csv"/>
     <contextParameter comment="" name="data_dir" prompt="new2?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="data_output_dir" prompt="new1?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="result_host" prompt="new1?" promptNeeded="false" type="id_String" value="null"/>
@@ -15,6 +15,11 @@
     <contextParameter comment="" name="mysql_database" prompt="new1?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="mysql_username" prompt="new1?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="mysql_password" prompt="new1?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="ftp_host" prompt="ftp_host?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="ftp_port" prompt="ftp_port?" promptNeeded="false" type="id_Integer" value=""/>
+    <contextParameter comment="" name="ftp_username" prompt="ftp_username?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="ftp_password" prompt="ftp_password?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="ftp_remotedir" prompt="ftp_remotedir?" promptNeeded="false" type="id_String" value="null"/>
   </context>
   <parameters>
     <elementParameter contextMode="false" field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="E:\trunk.5.12.product"/>
@@ -444,12 +449,12 @@
     <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
-    <elementParameter contextMode="false" field="TEXT" name="HOST" value="&quot;localhost&quot;"/>
-    <elementParameter contextMode="false" field="TEXT" name="PORT" value="21"/>
-    <elementParameter contextMode="false" field="TEXT" name="USERNAME" value="&quot;tuj&quot;"/>
-    <elementParameter contextMode="false" field="TEXT" name="PASSWORD" value="&quot;tuj&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="HOST" value="context.ftp_host"/>
+    <elementParameter contextMode="false" field="TEXT" name="PORT" value="context.ftp_port"/>
+    <elementParameter contextMode="false" field="TEXT" name="USERNAME" value="context.ftp_username"/>
+    <elementParameter contextMode="false" field="TEXT" name="PASSWORD" value="context.ftp_password"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="LOCALDIR" value="context.data_dir + &quot;/&quot; + jobName"/>
-    <elementParameter contextMode="false" field="TEXT" name="REMOTEDIR" value="&quot;/tmp/ftp/remote&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="REMOTEDIR" value="context.ftp_remotedir"/>
     <elementParameter contextMode="false" field="CLOSED_LIST" name="MODE" value="binary"/>
     <elementParameter contextMode="false" field="CLOSED_LIST" name="OVERWRITE" value="always"/>
     <elementParameter contextMode="false" field="CLOSED_LIST" name="SFTPOVERWRITE" value="overwrite"/>
@@ -482,12 +487,12 @@
     <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
-    <elementParameter contextMode="false" field="TEXT" name="HOST" value="&quot;localhost&quot;"/>
-    <elementParameter contextMode="false" field="TEXT" name="PORT" value="21"/>
-    <elementParameter contextMode="false" field="TEXT" name="USERNAME" value="&quot;tuj&quot;"/>
-    <elementParameter contextMode="false" field="TEXT" name="PASSWORD" value="&quot;tuj&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="HOST" value="context.ftp_host"/>
+    <elementParameter contextMode="false" field="TEXT" name="PORT" value="context.ftp_port"/>
+    <elementParameter contextMode="false" field="TEXT" name="USERNAME" value="context.ftp_username"/>
+    <elementParameter contextMode="false" field="TEXT" name="PASSWORD" value="context.ftp_password"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="LOCALDIR" value="context.data_output_dir"/>
-    <elementParameter contextMode="false" field="TEXT" name="REMOTEDIR" value="&quot;/tmp/ftp/remote&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="REMOTEDIR" value="context.ftp_remotedir"/>
     <elementParameter contextMode="false" field="CLOSED_LIST" name="MODE" value="ascii"/>
     <elementParameter contextMode="false" field="CLOSED_LIST" name="OVERWRITE" value="always"/>
     <elementParameter contextMode="false" field="CLOSED_LIST" name="SFTPOVERWRITE" value="overwrite"/>
@@ -520,11 +525,11 @@
     <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
-    <elementParameter contextMode="false" field="TEXT" name="HOST" value="&quot;localhost&quot;"/>
-    <elementParameter contextMode="false" field="TEXT" name="PORT" value="21"/>
-    <elementParameter contextMode="false" field="TEXT" name="USERNAME" value="&quot;tuj&quot;"/>
-    <elementParameter contextMode="false" field="TEXT" name="PASSWORD" value="&quot;tuj&quot;"/>
-    <elementParameter contextMode="false" field="TEXT" name="REMOTEDIR" value="&quot;/tmp/ftp/remote&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="HOST" value="context.ftp_host"/>
+    <elementParameter contextMode="false" field="TEXT" name="PORT" value="context.ftp_port"/>
+    <elementParameter contextMode="false" field="TEXT" name="USERNAME" value="context.ftp_username"/>
+    <elementParameter contextMode="false" field="TEXT" name="PASSWORD" value="context.ftp_password"/>
+    <elementParameter contextMode="false" field="TEXT" name="REMOTEDIR" value="context.ftp_remotedir"/>
     <elementParameter contextMode="false" field="CLOSED_LIST" name="OVERWRITE" value="always"/>
     <elementParameter contextMode="false" field="CHECK" name="SFTP" value="false"/>
     <elementParameter contextMode="false" field="TABLE" name="FILES">
@@ -589,11 +594,11 @@
     <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
-    <elementParameter contextMode="false" field="TEXT" name="HOST" value="&quot;localhost&quot;"/>
-    <elementParameter contextMode="false" field="TEXT" name="PORT" value="21"/>
-    <elementParameter contextMode="false" field="TEXT" name="USERNAME" value="&quot;tuj&quot;"/>
-    <elementParameter contextMode="false" field="TEXT" name="PASSWORD" value="&quot;tuj&quot;"/>
-    <elementParameter contextMode="false" field="TEXT" name="REMOTEDIR" value="&quot;/tmp/ftp/remote&quot;"/>
+    <elementParameter contextMode="false" field="TEXT" name="HOST" value="context.ftp_host"/>
+    <elementParameter contextMode="false" field="TEXT" name="PORT" value="context.ftp_port"/>
+    <elementParameter contextMode="false" field="TEXT" name="USERNAME" value="context.ftp_username"/>
+    <elementParameter contextMode="false" field="TEXT" name="PASSWORD" value="context.ftp_password"/>
+    <elementParameter contextMode="false" field="TEXT" name="REMOTEDIR" value="context.ftp_remotedir"/>
     <elementParameter contextMode="false" field="CHECK" name="SFTP" value="false"/>
     <elementParameter contextMode="false" field="TABLE" name="FILES">
       <elementValue elementRef="FILEMASK" value="&quot;*.www&quot;"/>
@@ -660,8 +665,8 @@
     <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
     <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN"/>
     <elementParameter contextMode="false" field="CLOSED_LIST" name="COMPARISON_MODE" value="BINARY_CMP"/>
-    <elementParameter contextMode="false" field="FILE" name="FILE" value="context.data_dir + &quot;/&quot; + jobName + &quot;/in1.csp&quot;"/>
-    <elementParameter contextMode="false" field="FILE" name="FILE_REF" value="&quot;/tmp/ftp/remote/in1.csp&quot;"/>
+    <elementParameter contextMode="false" field="FILE" name="FILE" value="context.ftp_remotedir+&quot;/in1.csp&quot;"/>
+    <elementParameter contextMode="false" field="FILE" name="FILE_REF" value="context.data_dir + &quot;/&quot; + jobName + &quot;/in1.csp&quot;"/>
     <elementParameter contextMode="false" field="TEXT" name="DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files differ&quot;"/>
     <elementParameter contextMode="false" field="TEXT" name="NO_DIFFER_MESSAGE" value="&#xA;&#x9;&#x9;&#x9;&#x9;&quot;[job &quot; + jobName + &quot;] Files are identical&quot;&#xA;&#x9;&#x9;&#x9;"/>
     <elementParameter contextMode="false" field="CHECK" name="PRINT" value="true"/>
@@ -731,7 +736,7 @@
     <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value=""/>
     <elementParameter contextMode="false" field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN"/>
     <elementParameter contextMode="false" field="CLOSED_LIST" name="COMPARISON_MODE" value="BINARY_CMP"/>
-    <elementParameter contextMode="false" field="FILE" name="FILE" value="&quot;/tmp/ftp/remote/in1.www&quot;"/>
+    <elementParameter contextMode="false" field="FILE" name="FILE" value="context.ftp_remotedir+&quot;/in1.www&quot;"/>
     <elementParameter contextMode="false" field="FILE" name="FILE_REF" value="context.data_dir + &quot;/&quot; + jobName + &quot;/in1.csp&quot;"/>
     <elementParameter contextMode="false" field="TEXT" name="DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files differ&quot;"/>
     <elementParameter contextMode="false" field="TEXT" name="NO_DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files are identical&quot;&#xD;&#xA;&#x9;&#x9;&#x9;"/>
@@ -798,7 +803,7 @@
     <elementParameter contextMode="false" field="CHECK" name="UPDATE_COMPONENTS" value="false"/>
     <elementParameter contextMode="false" field="TEXT" name="CURRENT_OS" value="Windows XP"/>
     <elementParameter contextMode="false" field="DIRECTORY" name="IREPORT_PATH" value=""/>
-    <elementParameter contextMode="false" field="DIRECTORY" name="DIRECTORY" value="&quot;/tmp/ftp/remote&quot;"/>
+    <elementParameter contextMode="false" field="DIRECTORY" name="DIRECTORY" value="context.ftp_remotedir"/>
     <elementParameter contextMode="false" field="TEXT" name="FILEMASK" value="&quot;*.www&quot;"/>
     <elementParameter contextMode="false" field="CLOSED_LIST" name="LIST_MODE" value="FILES"/>
     <elementParameter contextMode="false" field="CHECK" name="INCLUDSUBDIR" value="false"/>

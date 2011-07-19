@@ -10,6 +10,11 @@
     <contextParameter xmi:id="_5ZwSO5JOEeCIM6BSq0Dhsg" comment="" name="result_port" prompt="result_port?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter xmi:id="_5ZwSPJJOEeCIM6BSq0Dhsg" comment="" name="result_table" prompt="result_table?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter xmi:id="_5ZwSPZJOEeCIM6BSq0Dhsg" comment="" name="result_username" prompt="result_username?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="ftp_host" prompt="ftp_host?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="ftp_port" prompt="ftp_port?" promptNeeded="false" type="id_Integer" value=""/>
+    <contextParameter comment="" name="ftp_username" prompt="ftp_username?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="ftp_password" prompt="ftp_password?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="ftp_remotedir" prompt="ftp_remotedir?" promptNeeded="false" type="id_String" value="null"/>
   </context>
   <parameters xmi:id="_5ZwSPpJOEeCIM6BSq0Dhsg">
     <elementParameter xmi:id="_5ZwSP5JOEeCIM6BSq0Dhsg" field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="D:/talend_released/TOS-All-r53616-V4.1.2/workspace"/>
@@ -174,14 +179,14 @@
     <elementParameter xmi:id="_5ZwS15JOEeCIM6BSq0Dhsg" field="TEXT" name="UNIQUE_NAME" value="tFTPRename_1"/>
     <elementParameter xmi:id="_5ZwS2JJOEeCIM6BSq0Dhsg" field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter xmi:id="_5ZwS2ZJOEeCIM6BSq0Dhsg" field="COMPONENT_LIST" name="CONNECTION" value=""/>
-    <elementParameter xmi:id="_5ZwS2pJOEeCIM6BSq0Dhsg" field="TEXT" name="HOST" value="&quot;localhost&quot;"/>
-    <elementParameter xmi:id="_5ZwS25JOEeCIM6BSq0Dhsg" field="TEXT" name="PORT" value="21"/>
-    <elementParameter xmi:id="_5ZwS3JJOEeCIM6BSq0Dhsg" field="TEXT" name="USERNAME" value="&quot;tuj&quot;"/>
-    <elementParameter xmi:id="_5ZwS3ZJOEeCIM6BSq0Dhsg" field="TEXT" name="PASSWORD" value="&quot;tuj&quot;"/>
+    <elementParameter xmi:id="_5ZwS2pJOEeCIM6BSq0Dhsg" field="TEXT" name="HOST" value="context.ftp_host"/>
+    <elementParameter xmi:id="_5ZwS25JOEeCIM6BSq0Dhsg" field="TEXT" name="PORT" value="context.ftp_port"/>
+    <elementParameter xmi:id="_5ZwS3JJOEeCIM6BSq0Dhsg" field="TEXT" name="USERNAME" value="context.ftp_username"/>
+    <elementParameter xmi:id="_5ZwS3ZJOEeCIM6BSq0Dhsg" field="TEXT" name="PASSWORD" value="context.ftp_password"/>
     <elementParameter xmi:id="_5ZwS3pJOEeCIM6BSq0Dhsg" field="CHECK" name="SFTP" value="false"/>
     <elementParameter xmi:id="_5ZwS35JOEeCIM6BSq0Dhsg" field="FILE" name="PRIVATEKEY" value="&quot;/.ssh/id_dsa&quot;"/>
     <elementParameter xmi:id="_5ZwS4JJOEeCIM6BSq0Dhsg" field="TEXT" name="PASSPHRASE" value="&quot;secret&quot;"/>
-    <elementParameter xmi:id="_5ZwS4ZJOEeCIM6BSq0Dhsg" field="TEXT" name="REMOTEDIR" value="&quot;/tmp/ftp/remote&quot;"/>
+    <elementParameter xmi:id="_5ZwS4ZJOEeCIM6BSq0Dhsg" field="TEXT" name="REMOTEDIR" value="context.ftp_remotedir"/>
     <elementParameter xmi:id="_5ZwS4pJOEeCIM6BSq0Dhsg" field="CLOSED_LIST" name="OVERWRITE" value="always"/>
     <elementParameter xmi:id="_5ZwS45JOEeCIM6BSq0Dhsg" field="CLOSED_LIST" name="AUTH_METHOD" value="PASSWORD"/>
     <elementParameter xmi:id="_5ZwS5JJOEeCIM6BSq0Dhsg" field="TABLE" name="FILES">
@@ -214,7 +219,7 @@
   <node xmi:id="_5ZwS_JJOEeCIM6BSq0Dhsg" componentName="tFileCompare" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="192" posY="320">
     <elementParameter xmi:id="_5ZwS_ZJOEeCIM6BSq0Dhsg" field="TEXT" name="UNIQUE_NAME" value="tFileCompare_1"/>
     <elementParameter xmi:id="_5ZwS_pJOEeCIM6BSq0Dhsg" field="CLOSED_LIST" name="COMPARISON_MODE" value="TEXT_CMP"/>
-    <elementParameter xmi:id="_5ZwS_5JOEeCIM6BSq0Dhsg" field="FILE" name="FILE" value="&quot;/tmp/ftp/remote/SOL_11111.acc&quot;"/>
+    <elementParameter xmi:id="_5ZwS_5JOEeCIM6BSq0Dhsg" field="FILE" name="FILE" value="context.ftp_remotedir+&quot;/SOL_11111.acc&quot;"/>
     <elementParameter xmi:id="_5ZwTAJJOEeCIM6BSq0Dhsg" field="FILE" name="FILE_REF" value="context.data_dir + &quot;/&quot; + jobName + &quot;/SOL_11111.acc.tmp&quot;"/>
     <elementParameter xmi:id="_5ZwTAZJOEeCIM6BSq0Dhsg" field="TEXT" name="DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files differ&quot;"/>
     <elementParameter xmi:id="_5ZwTApJOEeCIM6BSq0Dhsg" field="TEXT" name="NO_DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files are identical&quot;&#xD;&#xA;&#x9;&#x9;&#x9;"/>
@@ -446,15 +451,15 @@
     <elementParameter xmi:id="_5ZwT1ZJOEeCIM6BSq0Dhsg" field="TEXT" name="UNIQUE_NAME" value="tFTPPut_1"/>
     <elementParameter xmi:id="_5ZwT1pJOEeCIM6BSq0Dhsg" field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter xmi:id="_5ZwT15JOEeCIM6BSq0Dhsg" field="COMPONENT_LIST" name="CONNECTION" value=""/>
-    <elementParameter xmi:id="_5ZwT2JJOEeCIM6BSq0Dhsg" field="TEXT" name="HOST" value="&quot;localhost&quot;"/>
-    <elementParameter xmi:id="_5ZwT2ZJOEeCIM6BSq0Dhsg" field="TEXT" name="PORT" value="21"/>
-    <elementParameter xmi:id="_5ZwT2pJOEeCIM6BSq0Dhsg" field="TEXT" name="USERNAME" value="&quot;tuj&quot;"/>
-    <elementParameter xmi:id="_5ZwT25JOEeCIM6BSq0Dhsg" field="TEXT" name="PASSWORD" value="&quot;tuj&quot;"/>
+    <elementParameter xmi:id="_5ZwT2JJOEeCIM6BSq0Dhsg" field="TEXT" name="HOST" value="context.ftp_host"/>
+    <elementParameter xmi:id="_5ZwT2ZJOEeCIM6BSq0Dhsg" field="TEXT" name="PORT" value="context.ftp_port"/>
+    <elementParameter xmi:id="_5ZwT2pJOEeCIM6BSq0Dhsg" field="TEXT" name="USERNAME" value="context.ftp_username"/>
+    <elementParameter xmi:id="_5ZwT25JOEeCIM6BSq0Dhsg" field="TEXT" name="PASSWORD" value="context.ftp_password"/>
     <elementParameter xmi:id="_5ZwT3JJOEeCIM6BSq0Dhsg" field="CHECK" name="SFTP" value="false"/>
     <elementParameter xmi:id="_5ZwT3ZJOEeCIM6BSq0Dhsg" field="FILE" name="PRIVATEKEY" value="&quot;/.ssh/id_dsa&quot;"/>
     <elementParameter xmi:id="_5ZwT3pJOEeCIM6BSq0Dhsg" field="TEXT" name="PASSPHRASE" value="&quot;secret&quot;"/>
     <elementParameter xmi:id="_5ZwT35JOEeCIM6BSq0Dhsg" field="DIRECTORY" name="LOCALDIR" value="context.data_dir + &quot;/&quot; + jobName"/>
-    <elementParameter xmi:id="_5ZwT4JJOEeCIM6BSq0Dhsg" field="TEXT" name="REMOTEDIR" value="&quot;/tmp/ftp/remote&quot;"/>
+    <elementParameter xmi:id="_5ZwT4JJOEeCIM6BSq0Dhsg" field="TEXT" name="REMOTEDIR" value="context.ftp_remotedir"/>
     <elementParameter xmi:id="_5ZwT4ZJOEeCIM6BSq0Dhsg" field="CLOSED_LIST" name="MODE" value="ascii"/>
     <elementParameter xmi:id="_5ZwT4pJOEeCIM6BSq0Dhsg" field="CLOSED_LIST" name="OVERWRITE" value="always"/>
     <elementParameter xmi:id="_5ZwT45JOEeCIM6BSq0Dhsg" field="CHECK" name="APPEND" value="false"/>
@@ -484,13 +489,13 @@
     <elementParameter xmi:id="_5ZwT-ZJOEeCIM6BSq0Dhsg" field="TEXT" name="UNIQUE_NAME" value="tFTPDelete_1"/>
     <elementParameter xmi:id="_5ZwT-pJOEeCIM6BSq0Dhsg" field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter xmi:id="_5ZwT-5JOEeCIM6BSq0Dhsg" field="COMPONENT_LIST" name="CONNECTION" value=""/>
-    <elementParameter xmi:id="_5ZwT_JJOEeCIM6BSq0Dhsg" field="TEXT" name="HOST" value="&quot;localhost&quot;"/>
-    <elementParameter xmi:id="_5ZwT_ZJOEeCIM6BSq0Dhsg" field="TEXT" name="PORT" value="21"/>
-    <elementParameter xmi:id="_5ZwT_pJOEeCIM6BSq0Dhsg" field="TEXT" name="USERNAME" value="&quot;tuj&quot;"/>
-    <elementParameter xmi:id="_5ZwT_5JOEeCIM6BSq0Dhsg" field="TEXT" name="PASSWORD" value="&quot;tuj&quot;"/>
+    <elementParameter xmi:id="_5ZwT_JJOEeCIM6BSq0Dhsg" field="TEXT" name="HOST" value="context.ftp_host"/>
+    <elementParameter xmi:id="_5ZwT_ZJOEeCIM6BSq0Dhsg" field="TEXT" name="PORT" value="context.ftp_port"/>
+    <elementParameter xmi:id="_5ZwT_pJOEeCIM6BSq0Dhsg" field="TEXT" name="USERNAME" value="context.ftp_username"/>
+    <elementParameter xmi:id="_5ZwT_5JOEeCIM6BSq0Dhsg" field="TEXT" name="PASSWORD" value="context.ftp_password"/>
     <elementParameter xmi:id="_5ZwUAJJOEeCIM6BSq0Dhsg" field="FILE" name="PRIVATEKEY" value="&quot;/.ssh/id_dsa&quot;"/>
     <elementParameter xmi:id="_5ZwUAZJOEeCIM6BSq0Dhsg" field="TEXT" name="PASSPHRASE" value="&quot;secret&quot;"/>
-    <elementParameter xmi:id="_5ZwUApJOEeCIM6BSq0Dhsg" field="TEXT" name="REMOTEDIR" value="&quot;/tmp/ftp/remote&quot;"/>
+    <elementParameter xmi:id="_5ZwUApJOEeCIM6BSq0Dhsg" field="TEXT" name="REMOTEDIR" value="context.ftp_remotedir"/>
     <elementParameter xmi:id="_5ZwUA5JOEeCIM6BSq0Dhsg" field="CHECK" name="SFTP" value="false"/>
     <elementParameter xmi:id="_5ZwUBJJOEeCIM6BSq0Dhsg" field="CLOSED_LIST" name="AUTH_METHOD" value="PASSWORD"/>
     <elementParameter xmi:id="_5ZwUBZJOEeCIM6BSq0Dhsg" field="TABLE" name="FILES">

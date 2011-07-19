@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
   <context confirmationNeeded="false" name="Default">
-    <contextParameter comment="" name="param_file_path" prompt="new1?" promptNeeded="false" type="id_String" value="D:/tuj/tuj_context/full_context.csv"/>
+    <contextParameter comment="" name="param_file_path" prompt="new1?" promptNeeded="false" type="id_String" value="E:/tuj/tuj_context/full_context.csv"/>
     <contextParameter comment="" name="data_dir" prompt="new2?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="data_output_dir" prompt="new1?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="result_host" prompt="new1?" promptNeeded="false" type="id_String" value="null"/>
@@ -15,6 +15,11 @@
     <contextParameter comment="" name="mysql_database" prompt="new1?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="mysql_username" prompt="new1?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="mysql_password" prompt="new1?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="ftp_host" prompt="ftp_host?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="ftp_port" prompt="ftp_port?" promptNeeded="false" type="id_Integer" value=""/>
+    <contextParameter comment="" name="ftp_username" prompt="ftp_username?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="ftp_password" prompt="ftp_password?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="ftp_remotedir" prompt="ftp_remotedir?" promptNeeded="false" type="id_String" value="null"/>
   </context>
   <parameters>
     <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="D:\runtime-org.talend.rcp.branding.tos.product" contextMode="false"/>
@@ -337,14 +342,14 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFTPPut_1" contextMode="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false" contextMode="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" contextMode="false"/>
-    <elementParameter field="TEXT" name="HOST" value="&quot;localhost&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="PORT" value="21" contextMode="false"/>
-    <elementParameter field="TEXT" name="USERNAME" value="&quot;tuj&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="PASSWORD" value="&quot;tuj&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="HOST" value="context.ftp_host" contextMode="false"/>
+    <elementParameter field="TEXT" name="PORT" value="context.ftp_port" contextMode="false"/>
+    <elementParameter field="TEXT" name="USERNAME" value="context.ftp_username" contextMode="false"/>
+    <elementParameter field="TEXT" name="PASSWORD" value="context.ftp_password" contextMode="false"/>
     <elementParameter field="FILE" name="PRIVATEKEY" value="&quot;/.ssh/id_dsa&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="PASSPHRASE" value="&quot;secret&quot;" contextMode="false"/>
     <elementParameter field="DIRECTORY" name="LOCALDIR" value="context.data_dir + '/' + jobName + &quot;/files&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="REMOTEDIR" value="&quot;.&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="REMOTEDIR" value="context.ftp_remotedir" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="MODE" value="binary" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="OVERWRITE" value="always" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="SFTPOVERWRITE" value="overwrite" contextMode="false"/>
@@ -375,13 +380,13 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFTPDelete_1" contextMode="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false" contextMode="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" contextMode="false"/>
-    <elementParameter field="TEXT" name="HOST" value="&quot;localhost&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="PORT" value="21" contextMode="false"/>
-    <elementParameter field="TEXT" name="USERNAME" value="&quot;tuj&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="PASSWORD" value="&quot;tuj&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="HOST" value="context.ftp_host" contextMode="false"/>
+    <elementParameter field="TEXT" name="PORT" value="context.ftp_port" contextMode="false"/>
+    <elementParameter field="TEXT" name="USERNAME" value="context.ftp_username" contextMode="false"/>
+    <elementParameter field="TEXT" name="PASSWORD" value="context.ftp_password" contextMode="false"/>
     <elementParameter field="FILE" name="PRIVATEKEY" value="&quot;/.ssh/id_dsa&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="PASSPHRASE" value="&quot;secret&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="REMOTEDIR" value="&quot;.&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="REMOTEDIR" value="context.ftp_remotedir" contextMode="false"/>
     <elementParameter field="CHECK" name="SFTP" value="false" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="AUTH_METHOD" value="PASSWORD" contextMode="false"/>
     <elementParameter field="TABLE" name="FILES" contextMode="false">
@@ -407,13 +412,13 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFTPFileList_1" contextMode="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false" contextMode="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" contextMode="false"/>
-    <elementParameter field="TEXT" name="HOST" value="&quot;localhost&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="PORT" value="21" contextMode="false"/>
-    <elementParameter field="TEXT" name="USERNAME" value="&quot;tuj&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="PASSWORD" value="&quot;tuj&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="HOST" value="context.ftp_host" contextMode="false"/>
+    <elementParameter field="TEXT" name="PORT" value="context.ftp_port" contextMode="false"/>
+    <elementParameter field="TEXT" name="USERNAME" value="context.ftp_username" contextMode="false"/>
+    <elementParameter field="TEXT" name="PASSWORD" value="context.ftp_password" contextMode="false"/>
     <elementParameter field="FILE" name="PRIVATEKEY" value="&quot;/.ssh/id_dsa&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="PASSPHRASE" value="&quot;secret&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="REMOTEDIR" value="&quot;.&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="REMOTEDIR" value="context.ftp_remotedir" contextMode="false"/>
     <elementParameter field="CHECK" name="DIR_FULL" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="SFTP" value="false" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="AUTH_METHOD" value="PASSWORD" contextMode="false"/>
