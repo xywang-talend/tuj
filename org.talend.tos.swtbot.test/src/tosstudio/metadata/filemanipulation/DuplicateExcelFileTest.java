@@ -15,18 +15,14 @@ package tosstudio.metadata.filemanipulation;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendExcelFileItem;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -34,11 +30,7 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class DuplicateExcelFileTest extends TalendSwtBotForTos {
 
-    private SWTBotTree tree;
-
-    private SWTBotView view;
-
-    private SWTBotTreeItem treeNode;
+    private TalendExcelFileItem fileItem;
 
     private static final String FILENAME = "test_excel"; //$NON-NLS-1$
 
@@ -46,22 +38,18 @@ public class DuplicateExcelFileTest extends TalendSwtBotForTos {
 
     @Before
     public void createExcelFile() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView();
-        view.setFocus();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_EXCEL);
-        Utilities.createFileExcel(FILENAME, treeNode);
+        fileItem = new TalendExcelFileItem(FILENAME);
+        fileItem.create();
     }
 
     @Test
     public void duplicateExcelFile() {
-        Utilities.duplicate(treeNode, FILENAME, "0.1", NEW_FILENAME);
+        fileItem.duplicate(NEW_FILENAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(treeNode, FILENAME, "0.1", null);
-        Utilities.delete(treeNode, NEW_FILENAME, "0.1", null);
+        Utilities.cleanUpRepository(fileItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

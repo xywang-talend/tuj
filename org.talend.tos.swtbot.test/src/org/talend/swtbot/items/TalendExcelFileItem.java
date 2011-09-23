@@ -12,6 +12,10 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import junit.framework.Assert;
+
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.talend.swtbot.Utilities;
 
 /**
@@ -25,5 +29,23 @@ public class TalendExcelFileItem extends TalendFileItem {
 
     public TalendExcelFileItem(String itemName) {
         super(itemName, Utilities.TalendItemType.FILE_EXCEL, System.getProperty("fileExcel.filepath"));
+    }
+
+    @Override
+    public void create() {
+        SWTBotShell shell = beginCreationWizard("Create file Excel", "New Excel File");
+        try {
+            gefBot.textWithLabel("File").setText(
+                    Utilities.getFileFromCurrentPluginSampleFolder(System.getProperty("fileExcel.filepath")).getAbsolutePath());
+            gefBot.treeWithLabel("Set sheets parameters").getTreeItem("All sheets/DSelect sheet").check();
+            gefBot.button("Next >").click();
+        } catch (WidgetNotFoundException wnfe) {
+            shell.close();
+            Assert.fail(wnfe.getCause().getMessage());
+        } catch (Exception e) {
+            shell.close();
+            Assert.fail(e.getMessage());
+        }
+        finishCreationWizard(shell);
     }
 }

@@ -37,7 +37,6 @@ import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.talend.swtbot.helpers.JobHelper;
@@ -117,7 +116,7 @@ public class Utilities {
 
     private static SWTBotView view = getRepositoryView();
 
-    private static SWTBotTree tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+    private static SWTBotTree tree = getRepositoryTree();
 
     private static SWTBotShell shell;
 
@@ -237,147 +236,6 @@ public class Utilities {
 
     public static SWTBotTreeItem createJobScript(String jobScriptName, SWTBotTreeItem treeNode) {
         return create("JobScript", jobScriptName, treeNode);
-    }
-
-    private static SWTBotTreeItem createFile(TalendItemType itemType, String contextMenu, final String shellTitle,
-            String fileName, SWTBotTreeItem treeNode) {
-        treeNode.contextMenu(contextMenu).click();
-        gefBot.waitUntil(Conditions.shellIsActive(shellTitle));
-        shell = gefBot.shell(shellTitle).activate();
-        gefBot.textWithLabel("Name").setText(fileName);
-        boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
-        if (nextButtonIsEnabled) {
-            gefBot.button("Next >").click();
-        } else {
-            shell.close();
-            Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
-        }
-
-        try {
-            switch (itemType) {
-            case FILE_DELIMITED:
-                gefBot.textWithLabel("File").setText(
-                        getFileFromCurrentPluginSampleFolder(System.getProperty("fileDelimited.filepath")).getAbsolutePath());
-                gefBot.button("Next >").click();
-                break;
-            case FILE_EXCEL:
-                gefBot.textWithLabel("File").setText(
-                        getFileFromCurrentPluginSampleFolder(System.getProperty("fileExcel.filepath")).getAbsolutePath());
-                gefBot.treeWithLabel("Set sheets parameters").getTreeItem("All sheets/DSelect sheet").check();
-                gefBot.button("Next >").click();
-                break;
-            case FILE_LDIF:
-                gefBot.textWithLabel("File").setText(
-                        getFileFromCurrentPluginSampleFolder(System.getProperty("fileLdif.filepath")).getAbsolutePath());
-                gefBot.button("Next >").click();
-                for (int i = 0; i < 5; i++) {
-                    gefBot.tableInGroup("List Attributes of Ldif file").getTableItem(i).check();
-                }
-                break;
-            case FILE_POSITIONAL:
-                gefBot.textWithLabel("File").setText(
-                        getFileFromCurrentPluginSampleFolder(System.getProperty("filePositional.filepath")).getAbsolutePath());
-                gefBot.textWithLabel("Field Separator").setText("5,7,7,*");
-                gefBot.textWithLabel("Marker position").setText("5,12,19");
-                gefBot.button("Next >").click();
-                break;
-            case FILE_REGEX:
-                gefBot.textWithLabel("File").setText(
-                        getFileFromCurrentPluginSampleFolder(System.getProperty("fileRegex.filepath")).getAbsolutePath());
-                gefBot.button("Next >").click();
-                break;
-            case FILE_XML:
-                gefBot.button("Next >").click();
-                gefBot.textWithLabel("XML").setText(
-                        getFileFromCurrentPluginSampleFolder(System.getProperty("fileXml.filepath")).getAbsolutePath());
-                gefBot.button("Next >").click();
-
-                DndUtil dndUtil = new DndUtil(shell.display);
-                String[] loops = System.getProperty("filexml.loop").split("/");
-                SWTBotTreeItem loop = gefBot.treeInGroup("Source Schema").expandNode(loops[0]);
-                for (int i = 1; i < loops.length; i++) {
-                    loop = loop.expandNode(loops[i]);
-                }
-                SWTBotTable targetItem = gefBot.tableInGroup("Target Schema", 0);
-                dndUtil.dragAndDrop(loop, targetItem);
-                for (int i = 0; i < 3; i++) {
-                    SWTBotTreeItem schema = loop.getNode("@" + System.getProperty("filexml.schema" + i));
-                    targetItem = gefBot.tableInGroup("Target Schema", 1);
-                    dndUtil.dragAndDrop(schema, targetItem);
-                }
-                break;
-            default:
-                break;
-            }
-        } catch (WidgetNotFoundException wnfe) {
-            shell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            shell.close();
-            Assert.fail(e.getMessage());
-        }
-
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-
-                return gefBot.button("Next >").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                shell.close();
-                return "next button was never enabled";
-            }
-        }, 60000);
-        gefBot.button("Next >").click();
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-
-                return gefBot.button("Finish").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                shell.close();
-                return "finish button was never enabled";
-            }
-        });
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newItem = null;
-        try {
-            newItem = treeNode.expand().select(fileName + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("item is not created", newItem);
-        }
-
-        return treeNode.getNode(fileName + " 0.1");
-    }
-
-    public static SWTBotTreeItem createFileDelimited(String fileName, SWTBotTreeItem treeNode) {
-        return createFile(TalendItemType.FILE_DELIMITED, "Create file delimited", "New Delimited File", fileName, treeNode);
-    }
-
-    public static SWTBotTreeItem createFileExcel(String fileName, SWTBotTreeItem treeNode) {
-        return createFile(TalendItemType.FILE_EXCEL, "Create file Excel", "New Excel File", fileName, treeNode);
-    }
-
-    public static SWTBotTreeItem createFileLdif(String fileName, SWTBotTreeItem treeNode) {
-        return createFile(TalendItemType.FILE_LDIF, "Create file ldif", "New Ldif File", fileName, treeNode);
-    }
-
-    public static SWTBotTreeItem createFilePositional(String fileName, SWTBotTreeItem treeNode) {
-        return createFile(TalendItemType.FILE_POSITIONAL, "Create file positional", "New Positional File", fileName, treeNode);
-    }
-
-    public static SWTBotTreeItem createFileRegex(String fileName, SWTBotTreeItem treeNode) {
-        return createFile(TalendItemType.FILE_REGEX, "Create file regex", "New RegEx File", fileName, treeNode);
-    }
-
-    public static SWTBotTreeItem createFileXml(String fileName, SWTBotTreeItem treeNode) {
-        return createFile(TalendItemType.FILE_XML, "Create file xml", "New Xml File", fileName, treeNode);
     }
 
     public static SWTBotTreeItem createLdap(String ldapName, SWTBotTreeItem treeNode) {
@@ -1229,6 +1087,10 @@ public class Utilities {
      */
     public static SWTBotView getRepositoryView() {
         return getView("Repository");
+    }
+
+    public static SWTBotTree getRepositoryTree() {
+        return new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
     }
 
     /**

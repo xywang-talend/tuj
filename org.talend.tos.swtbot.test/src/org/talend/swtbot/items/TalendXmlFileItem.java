@@ -12,6 +12,13 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import junit.framework.Assert;
+
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.talend.swtbot.DndUtil;
 import org.talend.swtbot.Utilities;
 
 /**
@@ -25,5 +32,37 @@ public class TalendXmlFileItem extends TalendFileItem {
 
     public TalendXmlFileItem(String itemName) {
         super(itemName, Utilities.TalendItemType.FILE_XML, System.getProperty("fileXml.filepath"));
+    }
+
+    @Override
+    public void create() {
+        SWTBotShell shell = beginCreationWizard("Create file xml", "New Xml File");
+        try {
+            gefBot.button("Next >").click();
+            gefBot.textWithLabel("XML").setText(
+                    Utilities.getFileFromCurrentPluginSampleFolder(System.getProperty("fileXml.filepath")).getAbsolutePath());
+            gefBot.button("Next >").click();
+
+            DndUtil dndUtil = new DndUtil(shell.display);
+            String[] loops = System.getProperty("filexml.loop").split("/");
+            SWTBotTreeItem loop = gefBot.treeInGroup("Source Schema").expandNode(loops[0]);
+            for (int i = 1; i < loops.length; i++) {
+                loop = loop.expandNode(loops[i]);
+            }
+            SWTBotTable targetItem = gefBot.tableInGroup("Target Schema", 0);
+            dndUtil.dragAndDrop(loop, targetItem);
+            for (int i = 0; i < 3; i++) {
+                SWTBotTreeItem schema = loop.getNode("@" + System.getProperty("filexml.schema" + i));
+                targetItem = gefBot.tableInGroup("Target Schema", 1);
+                dndUtil.dragAndDrop(schema, targetItem);
+            }
+        } catch (WidgetNotFoundException wnfe) {
+            shell.close();
+            Assert.fail(wnfe.getCause().getMessage());
+        } catch (Exception e) {
+            shell.close();
+            Assert.fail(e.getMessage());
+        }
+        finishCreationWizard(shell);
     }
 }

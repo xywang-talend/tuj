@@ -12,6 +12,10 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import junit.framework.Assert;
+
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.talend.swtbot.Utilities;
 
 /**
@@ -25,5 +29,22 @@ public class TalendRegexFileItem extends TalendFileItem {
 
     public TalendRegexFileItem(String itemName) {
         super(itemName, Utilities.TalendItemType.FILE_REGEX, System.getProperty("fileRegex.filepath"));
+    }
+
+    @Override
+    public void create() {
+        SWTBotShell shell = beginCreationWizard("Create file regex", "New RegEx File");
+        try {
+            gefBot.textWithLabel("File").setText(
+                    Utilities.getFileFromCurrentPluginSampleFolder(System.getProperty("fileRegex.filepath")).getAbsolutePath());
+            gefBot.button("Next >").click();
+        } catch (WidgetNotFoundException wnfe) {
+            shell.close();
+            Assert.fail(wnfe.getCause().getMessage());
+        } catch (Exception e) {
+            shell.close();
+            Assert.fail(e.getMessage());
+        }
+        finishCreationWizard(shell);
     }
 }

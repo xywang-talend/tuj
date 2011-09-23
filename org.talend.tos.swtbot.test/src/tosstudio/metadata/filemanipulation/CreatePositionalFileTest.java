@@ -15,18 +15,14 @@ package tosstudio.metadata.filemanipulation;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendPositionalFileItem;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -34,30 +30,23 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class CreatePositionalFileTest extends TalendSwtBotForTos {
 
-    private SWTBotTree tree;
-
-    private SWTBotView view;
-
-    private SWTBotTreeItem treeNode;
+    private TalendPositionalFileItem fileItem;
 
     private static final String FILENAME = "test_positional"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView();
-        view.setFocus();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_POSITIONAL);
+        fileItem = new TalendPositionalFileItem(FILENAME);
     }
 
     @Test
     public void createPositionalFile() throws IOException, URISyntaxException {
-        Utilities.createFilePositional(FILENAME, treeNode);
+        fileItem.create();
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(treeNode, FILENAME, "0.1", null);
+        Utilities.cleanUpRepository(fileItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

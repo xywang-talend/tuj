@@ -37,6 +37,8 @@ public class TalendItem {
 
     protected SWTBotTreeItem parentNode;
 
+    protected SWTGefBot gefBot = new SWTGefBot();
+
     public TalendItem() {
     }
 
@@ -128,7 +130,6 @@ public class TalendItem {
 
     public void delete() {
         parentNode.getNode(itemFullName).contextMenu("Delete").click();
-        SWTGefBot gefBot = new SWTGefBot();
         SWTBotTreeItem newItem = null;
         String path = "";
         try {
@@ -136,7 +137,7 @@ public class TalendItem {
                 path = folderPath;
             if (!(getClass().newInstance() instanceof TalendSchemaItem))
                 path = " (" + path + ")";
-            newItem = gefBot.tree().expandNode("Recycle bin").select(itemFullName + path);
+            newItem = Utilities.getRepositoryTree().expandNode("Recycle bin").select(itemFullName + path);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

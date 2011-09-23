@@ -12,7 +12,10 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import junit.framework.Assert;
+
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.talend.swtbot.Utilities;
 
 /**
@@ -30,7 +33,19 @@ public class TalendDelimitedFileItem extends TalendFileItem {
 
     @Override
     public void create() {
-        SWTBotTreeItem item = Utilities.createFileDelimited(itemName, parentNode);
-        setItem(item);
+        SWTBotShell shell = beginCreationWizard("Create file delimited", "New Delimited File");
+        try {
+            gefBot.textWithLabel("File").setText(
+                    Utilities.getFileFromCurrentPluginSampleFolder(System.getProperty("fileDelimited.filepath"))
+                            .getAbsolutePath());
+            gefBot.button("Next >").click();
+        } catch (WidgetNotFoundException wnfe) {
+            shell.close();
+            Assert.fail(wnfe.getCause().getMessage());
+        } catch (Exception e) {
+            shell.close();
+            Assert.fail(e.getMessage());
+        }
+        finishCreationWizard(shell);
     }
 }

@@ -12,6 +12,10 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import junit.framework.Assert;
+
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.talend.swtbot.Utilities;
 
 /**
@@ -25,5 +29,25 @@ public class TalendLdifFileItem extends TalendFileItem {
 
     public TalendLdifFileItem(String itemName) {
         super(itemName, Utilities.TalendItemType.FILE_LDIF, System.getProperty("fileLdif.filepath"));
+    }
+
+    @Override
+    public void create() {
+        SWTBotShell shell = beginCreationWizard("Create file ldif", "New Ldif File");
+        try {
+            gefBot.textWithLabel("File").setText(
+                    Utilities.getFileFromCurrentPluginSampleFolder(System.getProperty("fileLdif.filepath")).getAbsolutePath());
+            gefBot.button("Next >").click();
+            for (int i = 0; i < 5; i++) {
+                gefBot.tableInGroup("List Attributes of Ldif file").getTableItem(i).check();
+            }
+        } catch (WidgetNotFoundException wnfe) {
+            shell.close();
+            Assert.fail(wnfe.getCause().getMessage());
+        } catch (Exception e) {
+            shell.close();
+            Assert.fail(e.getMessage());
+        }
+        finishCreationWizard(shell);
     }
 }

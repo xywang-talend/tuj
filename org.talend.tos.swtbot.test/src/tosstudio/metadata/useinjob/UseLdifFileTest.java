@@ -15,13 +15,7 @@ package tosstudio.metadata.useinjob;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.MetadataHelper;
+import org.talend.swtbot.items.TalendJobItem;
 import org.talend.swtbot.items.TalendLdifFileItem;
 
 /**
@@ -37,19 +32,9 @@ import org.talend.swtbot.items.TalendLdifFileItem;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class UseLdifFileTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
+    private TalendJobItem jobItem;
 
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem jobNode;
-
-    private SWTBotTreeItem jobItem;
-
-    private SWTBotTreeItem metadataNode;
-
-    private SWTBotTreeItem fileItem;
-
-    private SWTBotGefEditor jobEditor;
+    private TalendLdifFileItem fileItem;
 
     private static final String JOBNAME = "jobTest"; // $NON-NLS-1$
 
@@ -57,32 +42,25 @@ public class UseLdifFileTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView();
-        view.setFocus();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        jobNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
-        jobItem = Utilities.createJob(JOBNAME, jobNode);
-        jobEditor = gefBot.gefEditor("Job " + jobItem.getText());
-        metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FILE_LDIF);
-        fileItem = Utilities.createFileLdif(FILENAME, metadataNode);
+        jobItem = new TalendJobItem(JOBNAME);
+        jobItem.create();
+        fileItem = new TalendLdifFileItem(FILENAME);
+        fileItem.create();
     }
 
     @Test
     public void useMetadataInJob() throws IOException, URISyntaxException {
-        TalendLdifFileItem lfItem = new TalendLdifFileItem();
-        lfItem.setItem(fileItem);
-        lfItem.setFilePath(System.getProperty("fileLdif.filepath"));
-        MetadataHelper.output2Console(jobEditor, lfItem);
+        MetadataHelper.output2Console(jobItem.getJobEditor(), fileItem);
 
         String result = gefBot.styledText().getText();
-        MetadataHelper.assertResult(result, lfItem);
+        MetadataHelper.assertResult(result, fileItem);
     }
 
     @After
     public void removePreviousCreateItems() {
-        jobEditor.saveAndClose();
-        Utilities.cleanUpRepository(jobNode);
-        Utilities.cleanUpRepository(metadataNode);
+        jobItem.getJobEditor().saveAndClose();
+        Utilities.cleanUpRepository(jobItem.getParentNode());
+        Utilities.cleanUpRepository(fileItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }
