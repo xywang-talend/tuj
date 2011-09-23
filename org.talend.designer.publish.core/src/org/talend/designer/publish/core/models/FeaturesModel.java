@@ -14,6 +14,10 @@ public class FeaturesModel extends UploadableModel {
 
 	private static String nameSuffix = "-feature";
 
+	public FeaturesModel(String groupId, String namePrefix, String version) {
+		this(groupId, namePrefix, version, null, null, null);
+	}			
+	
 	public FeaturesModel(String groupId, String namePrefix, String version,
 			String repositoryURL, String userName, String password) {
 		super(groupId, namePrefix + nameSuffix, version, repositoryURL,
