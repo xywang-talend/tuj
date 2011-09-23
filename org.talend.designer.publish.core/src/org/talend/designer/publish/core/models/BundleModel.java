@@ -18,6 +18,11 @@ public class BundleModel extends UploadableModel {
 		this.jarFile = jarFile;
 	}
 
+	public BundleModel(File jarFile, String groupId, String artifactId,
+			String version) {
+		this(jarFile, groupId, artifactId, version, null, null, null);
+	}
+
 	@Override
 	public void upload() throws Exception {
 		uploadBundle();
