@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="false">
-<!-- 
+
+    <!-- license path -->
+	<parameter name="license.MDM" value="org/talend/tac/folder/license/MDM_TDQ_EE_MPX.license" />
+	<parameter name="license.ESB" value="org/talend/tac/folder/license/TalendESB42EE.license"/>
+	<parameter name="license.TDQ" value="org/talend/tac/folder/license/TDQ_EE_MPX.license"/>
+	<parameter name="license.TIS" value="org/talend/tac/folder/license/TIS_EE_MPX.license"/>
+	<!-- suite name -->
+	<parameter name="license.MDM.suiteName" value="Talend Master Data Management" />
+	<parameter name="license.ESB.suiteName" value="Talend ESB"/>
+	<parameter name="license.TDQ.suiteName" value="Talend Data Quality"/>
+	<parameter name="license.TIS.suiteName" value="Talend Integration Suite"/>
+	<!-- app name -->
+	<parameter name="license.MDM.appName" value="Enterprise MPX Edition" />
+	<parameter name="license.ESB.appName" value="Enterprise Edition"/>
+	<parameter name="license.TDQ.appName" value="Enterprise MPX Edition"/>
+	<parameter name="license.TIS.appName" value="Enterprise MPX Edition"/>
+
 	<parameter name="user.admin.login" value="admin@tac.com" />
 	<parameter name="user.admin.passwd" value="adminPasswd" />
- -->
-	<test name="TestLogin">
+
+	<!--<test name="login01_TestLogin">
 		<classes>
 			<parameter name="userName" value="wrongadmin@company.com" />
 			<class name="com.talend.tac.cases.TestLogin">
@@ -14,7 +30,7 @@
 			</class>
 		</classes>
 	</test>
-	<test name="TestLogin">
+	<test name="login02_TestLogin">
 		<classes>
 			<parameter name="userPassword" value="worngPasswd_admin" />
 			<class name="com.talend.tac.cases.TestLogin">
@@ -24,7 +40,7 @@
 			</class>
 		</classes>
 	</test>
-	<test name="TestLogin">
+	<test name="login03_TestLogin">
 		<classes>
 			<class name="com.talend.tac.cases.TestLogin">
 				<methods>
@@ -35,7 +51,7 @@
 	</test>
 	
 	
-	<test name="TestLogin">
+	<test name="login04_TestLogin">
 		<classes>
 			<class name="com.talend.tac.cases.TestLogin">
 				<methods>
@@ -45,13 +61,13 @@
 		</classes>
 	</test>
 	
-	<test name="TestWelcomePage">
+	<test name="login05_TestWelcomePage">
 		<classes>
 			<class name="com.talend.tac.cases.welcomePage.TestWelcomePage" />
 		</classes>
 	</test>
 	
-		<test name="TestUploadLicense" preserve-order="true">
+		<test name="login06_TestUploadLicense" preserve-order="true">
 		<classes>
 			<class name="com.talend.tac.cases.license.TestUploadLicense" >
 				<methods>
@@ -62,22 +78,22 @@
 			</class>
 		</classes>
 	</test>
-	<test name="TestAddTokenForLicense"> 
+	<test name="login07_TestAddTokenForLicense"> 
 		<classes>
 			<class name="com.talend.tac.cases.license.TestAddTokenForLicense" />
 			<class name="com.talend.tac.cases.license.TestAddInvalidTokenForLicense" />
 		</classes>
 	 </test>	
 
-	<!-- test forgetPasswd using user created maunully
-	<test name="TestForgetPassword">
+	 --><!-- test forgetPasswd using user created maunully-->
+	<test name="login08_TestForgetPassword">
 		<classes>
 			<class name="com.talend.tac.cases.TestForgetPassword" />
 		</classes>
 	</test>
-	 -->
 	 
-	<test name="TestUserSettings">
+	 
+	<!--<test name="login09_TestUserSettings">
 		<classes>
 			<parameter name="userSetting.currentUser.newPasswd" value="pass" />
 			<parameter name="userSetting.CurrentUser.newSvnLogin" value="talend"/>
@@ -86,7 +102,27 @@
 		</classes>
 	</test>
 
-
-
-</suite>
+     
+	<test name="login010_TestLoginPage">
+		<classes>		    
+			<class name="com.talend.tac.cases.welcomePage.TestLoginPage">
+			   <methods>
+			      <include name="testLoginPageOfESB"/>
+			      <include name="testLoginPageOfTDQ"/>
+			      <include name="testLoginPageOfTIS"/>
+			   </methods>
+			</class>
+		</classes>
+	</test>
+	
+    <test name="login011_TestLoginPage">
+		<classes>		    
+			<class name="com.talend.tac.cases.welcomePage.TestLoginPage">
+			   <methods>
+			      <include name="testLoginPageOfMDM"/>
+			   </methods>
+			</class>
+		</classes>
+	</test>
+--></suite>
 
