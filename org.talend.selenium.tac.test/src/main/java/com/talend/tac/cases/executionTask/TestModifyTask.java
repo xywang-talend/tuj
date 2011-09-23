@@ -33,7 +33,13 @@ public class TestModifyTask extends Login {
             this.typeString("idJobConductorTaskLabelInput", modifyLabel);//task name /Label            
             this.selectDropDownList("idTaskProjectListBox", projectName);
         	this.selectDropDownList("idTaskBranchListBox", branchName);
-        	this.selectDropDownList("idItemListCombo", "job");
+
+        	if(selenium.isElementPresent("idItemListCombo")) {
+        		
+        		this.selectDropDownList("idItemListCombo", "job");
+        		
+        	}
+        		
         	this.selectDropDownList("idTaskJobListBox", jobName);
         	this.selectDropDownList("idTaskVersionListBox", version);
         	this.selectDropDownList("idTaskContextListBox", context);
