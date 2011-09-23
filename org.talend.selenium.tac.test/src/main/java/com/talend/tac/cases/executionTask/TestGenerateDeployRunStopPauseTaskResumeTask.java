@@ -160,7 +160,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 	@Parameters({"remotehostAddress", "modifyTask", "localhostAddress"})
 	public void testGenerateTaskUsingRemoteCommandLine(String remotehostAddress, String taskLabel,String localhostAddress) {
 		
-			
+		changeCommandLineConfig(remotehostAddress);	
 		
 		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton");//click generate button
 		selenium.setSpeed(MID_SPEED);
