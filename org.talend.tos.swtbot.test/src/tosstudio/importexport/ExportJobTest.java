@@ -17,7 +17,6 @@ import java.net.URISyntaxException;
 
 import junit.framework.Assert;
 
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.junit.After;
@@ -60,7 +59,6 @@ public class ExportJobTest extends TalendSwtBotForTos {
                 Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getParent() + FILE_SEPARATOR
                         + "output_job.zip");
         gefBot.button("Finish").click();
-        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 60000);
 
         isExportAsZipFile = Utilities.getFileFromCurrentPluginSampleFolder("output_job.zip").exists();
         Assert.assertEquals(true, isExportAsZipFile);

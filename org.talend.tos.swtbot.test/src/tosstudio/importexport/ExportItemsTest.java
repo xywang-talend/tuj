@@ -61,7 +61,7 @@ public class ExportItemsTest extends TalendSwtBotForTos {
         gefBot.tree().setFocus();
         gefBot.button("Select All").click();
         gefBot.button("Finish").click();
-        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")));
+        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 10000);
     }
 
     @Test
