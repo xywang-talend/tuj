@@ -39,8 +39,7 @@ public class TalendXmlFileItem extends TalendFileItem {
         SWTBotShell shell = beginCreationWizard("Create file xml", "New Xml File");
         try {
             gefBot.button("Next >").click();
-            gefBot.textWithLabel("XML").setText(
-                    Utilities.getFileFromCurrentPluginSampleFolder(System.getProperty("fileXml.filepath")).getAbsolutePath());
+            gefBot.textWithLabel("XML").setText(Utilities.getFileFromCurrentPluginSampleFolder(filePath).getAbsolutePath());
             gefBot.button("Next >").click();
 
             DndUtil dndUtil = new DndUtil(shell.display);

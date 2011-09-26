@@ -35,9 +35,7 @@ public class TalendPositionalFileItem extends TalendFileItem {
     public void create() {
         SWTBotShell shell = beginCreationWizard("Create file positional", "New Positional File");
         try {
-            gefBot.textWithLabel("File").setText(
-                    Utilities.getFileFromCurrentPluginSampleFolder(System.getProperty("filePositional.filepath"))
-                            .getAbsolutePath());
+            gefBot.textWithLabel("File").setText(Utilities.getFileFromCurrentPluginSampleFolder(filePath).getAbsolutePath());
             gefBot.textWithLabel("Field Separator").setText("5,7,7,*");
             gefBot.textWithLabel("Marker position").setText("5,12,19");
             gefBot.button("Next >").click();

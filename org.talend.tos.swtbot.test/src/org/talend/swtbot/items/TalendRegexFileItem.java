@@ -35,8 +35,7 @@ public class TalendRegexFileItem extends TalendFileItem {
     public void create() {
         SWTBotShell shell = beginCreationWizard("Create file regex", "New RegEx File");
         try {
-            gefBot.textWithLabel("File").setText(
-                    Utilities.getFileFromCurrentPluginSampleFolder(System.getProperty("fileRegex.filepath")).getAbsolutePath());
+            gefBot.textWithLabel("File").setText(Utilities.getFileFromCurrentPluginSampleFolder(filePath).getAbsolutePath());
             gefBot.button("Next >").click();
         } catch (WidgetNotFoundException wnfe) {
             shell.close();

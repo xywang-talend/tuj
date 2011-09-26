@@ -32,6 +32,8 @@ public class TalendFileItem extends TalendMetadataItem {
 
     protected String filePath;
 
+    private boolean isSetHeadingRowAsColumnName = false;
+
     public TalendFileItem(TalendItemType itemType, String filePath) {
         super(itemType);
         setFilePath(filePath);
@@ -88,6 +90,9 @@ public class TalendFileItem extends TalendMetadataItem {
                 return "next button was never enabled";
             }
         }, 60000);
+        if (isSetHeadingRowAsColumnName) {
+            gefBot.checkBox("Set heading row as column names").click();
+        }
         gefBot.button("Next >").click();
         gefBot.waitUntil(new DefaultCondition() {
 
@@ -113,5 +118,9 @@ public class TalendFileItem extends TalendMetadataItem {
         }
 
         setItem(parentNode.getNode(itemName + " 0.1"));
+    }
+
+    public void setHeadingRowAsColumnName() {
+        isSetHeadingRowAsColumnName = true;
     }
 }

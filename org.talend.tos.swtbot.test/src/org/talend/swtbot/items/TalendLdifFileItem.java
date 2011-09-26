@@ -35,8 +35,7 @@ public class TalendLdifFileItem extends TalendFileItem {
     public void create() {
         SWTBotShell shell = beginCreationWizard("Create file ldif", "New Ldif File");
         try {
-            gefBot.textWithLabel("File").setText(
-                    Utilities.getFileFromCurrentPluginSampleFolder(System.getProperty("fileLdif.filepath")).getAbsolutePath());
+            gefBot.textWithLabel("File").setText(Utilities.getFileFromCurrentPluginSampleFolder(filePath).getAbsolutePath());
             gefBot.button("Next >").click();
             for (int i = 0; i < 5; i++) {
                 gefBot.tableInGroup("List Attributes of Ldif file").getTableItem(i).check();

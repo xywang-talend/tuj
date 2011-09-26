@@ -35,9 +35,7 @@ public class TalendDelimitedFileItem extends TalendFileItem {
     public void create() {
         SWTBotShell shell = beginCreationWizard("Create file delimited", "New Delimited File");
         try {
-            gefBot.textWithLabel("File").setText(
-                    Utilities.getFileFromCurrentPluginSampleFolder(System.getProperty("fileDelimited.filepath"))
-                            .getAbsolutePath());
+            gefBot.textWithLabel("File").setText(Utilities.getFileFromCurrentPluginSampleFolder(filePath).getAbsolutePath());
             gefBot.button("Next >").click();
         } catch (WidgetNotFoundException wnfe) {
             shell.close();

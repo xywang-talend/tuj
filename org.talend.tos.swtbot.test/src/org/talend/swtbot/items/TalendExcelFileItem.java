@@ -35,8 +35,7 @@ public class TalendExcelFileItem extends TalendFileItem {
     public void create() {
         SWTBotShell shell = beginCreationWizard("Create file Excel", "New Excel File");
         try {
-            gefBot.textWithLabel("File").setText(
-                    Utilities.getFileFromCurrentPluginSampleFolder(System.getProperty("fileExcel.filepath")).getAbsolutePath());
+            gefBot.textWithLabel("File").setText(Utilities.getFileFromCurrentPluginSampleFolder(filePath).getAbsolutePath());
             gefBot.treeWithLabel("Set sheets parameters").getTreeItem("All sheets/DSelect sheet").check();
             gefBot.button("Next >").click();
         } catch (WidgetNotFoundException wnfe) {
