@@ -1,5 +1,6 @@
 package com.talend.tac.cases.projects;
 
+import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -24,6 +25,27 @@ public class TestAddprojects extends Projects {
 			throws Exception {
 		this.openMenuProject();
 		this.addProjectSVN_DEFAULT(proname, "project label with space", language, Projects.PROJECT_ADD_TYPE_COMMON, type);
+	}
+	
+	//add a project and check it whether normal appear in project authorization page
+	@Test
+	@Parameters({ "SVNurl", "ProjectType", "SVNuserName", "SVNuserPassword",
+		"AddProjectAndCheckItAppearInProjectAuthorization",  "Prolanguage" })
+	public void testAddNewProjectAndCheckItAppearInProjectAuthorization(String url, String type, String user,
+			String password, String proname,String language) {
+		
+		this.openMenuProject();
+		this.addProjectSVN_DEFAULT(proname, "add project and check it whether normal in project authorization page",
+				language, Projects.PROJECT_ADD_TYPE_COMMON, type);	
+		
+		this.clickWaitForElementPresent("!!!menu.projectsauthorizations.element!!!");
+		this.waitForElementPresent("//div[text()='Projects authorizations'" +
+				" and @class='header-title']", WAIT_TIME);	
+		this.waitForElementPresent("//span[text()='"+proname+"']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent(""));
+		
+		this.openMenuProject();
+		deleteProjectOK(proname);
 	}
 	
 }
