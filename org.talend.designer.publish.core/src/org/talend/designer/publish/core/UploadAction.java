@@ -77,7 +77,7 @@ public class UploadAction {
 
 		uploadAction.deployRoute("TestEERoute_0.1.jar", "org.talend.liugang",
 				"TestEERoute2", "2.0.22-SNAPSHOT", null,
-				"http://192.168.0.10:18080/archiva/repository/snapshots/",
-				"gliu", "123liu");
+				"http://192.168.0.10:8080/archiva/repository/snapshots/",
+				"talend", "talend123");
 	}
 }
