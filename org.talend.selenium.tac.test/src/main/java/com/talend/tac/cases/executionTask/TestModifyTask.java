@@ -40,7 +40,7 @@ public class TestModifyTask extends Login {
         		
         	}
         		
-        	this.selectDropDownList("idTaskJobListBox", jobName);
+        	this.selectDropDownList("idTaskApplicationListBox", jobName);
         	this.selectDropDownList("idTaskVersionListBox", version);
         	this.selectDropDownList("idTaskContextListBox", context);
  
