@@ -42,7 +42,7 @@ public class TestAddprojects extends Projects {
 		this.waitForElementPresent("//div[text()='Projects authorizations'" +
 				" and @class='header-title']", WAIT_TIME);	
 		this.waitForElementPresent("//span[text()='"+proname+"']", WAIT_TIME);
-		Assert.assertTrue(selenium.isElementPresent(""));
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+proname+"']"));
 		
 		this.openMenuProject();
 		deleteProjectOK(proname);
