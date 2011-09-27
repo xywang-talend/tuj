@@ -191,7 +191,7 @@ public class TaskUtils extends Login {
     		this.selectDropDownList("idItemListCombo", "job");
     	}
     	
-    	this.selectDropDownList("idTaskJobListBox", jobName);
+    	this.selectDropDownList("idTaskApplicationListBox", jobName);
     	this.selectDropDownList("idTaskVersionListBox", version);
     	this.selectDropDownList("idTaskContextListBox", context);
     	this.selectDropDownList("idJobConductorExecutionServerListBox", serverName);
