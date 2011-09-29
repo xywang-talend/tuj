@@ -62,7 +62,7 @@ public class TalendFileItem extends TalendMetadataItem {
         return Utilities.getFileFromCurrentPluginSampleFolder(filePath + ".result");
     }
 
-    protected SWTBotShell beginCreationWizard(String contextMenu, final String shellTitle) {
+    public SWTBotShell beginCreationWizard(String contextMenu, final String shellTitle) {
         parentNode.contextMenu(contextMenu).click();
         gefBot.waitUntil(Conditions.shellIsActive(shellTitle));
         final SWTBotShell shell = gefBot.shell(shellTitle).activate();
@@ -77,7 +77,7 @@ public class TalendFileItem extends TalendMetadataItem {
         return shell;
     }
 
-    protected void finishCreationWizard(final SWTBotShell shell) {
+    public void finishCreationWizard(final SWTBotShell shell) {
         gefBot.waitUntil(new DefaultCondition() {
 
             public boolean test() throws Exception {
