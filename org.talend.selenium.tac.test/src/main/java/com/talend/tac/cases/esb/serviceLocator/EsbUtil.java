@@ -59,13 +59,21 @@ public class EsbUtil extends Login {
 		
 		System.out.println("install -s file://"+	(filePath));
 		System.out.println("**--**start");
-		karaf.karafAction("install -s file://"+getAbsolutePath(filePath)+"", 10000);
+		karaf.karafAction("install -s file://"+getAbsolutePath(filePath)+"", 5000);
 		System.out.println("**--**end");
 		karaf.karafAction("job:start "+jobName+"", 5000);
 		System.out.println("**--**end");
 		
 	}
 	
+	public void installService(String filePath) {
+		
+		System.out.println("install -s file://"+	(filePath));
+		System.out.println("**--**start");
+		karaf.karafAction("install -s file://"+getAbsolutePath(filePath)+"", 5000);
+		System.out.println("**--**end");
+		
+	}
 	
 	public void stopService(String jobName) {
 		
