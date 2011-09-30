@@ -4,22 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
-
-public class TestDeleteUser extends Login {
+public class TestDeleteUser extends Users {
     
-	@Parameters({"userName"})
-	public void deleteUser(String userName,String deleteUserName){
-		this.clickWaitForElementPresent("idMenuUserElement");
-		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isTextPresent(userName));
-		selenium.setSpeed(MIN_SPEED);
-		selenium.mouseDown("//div[text()='"+deleteUserName+"']");//Select an existing user
-		selenium.chooseOkOnNextConfirmation();
-		selenium.click("idSubModuleDeleteButton");
-	    Assert.assertTrue(selenium.getConfirmation().matches("^"+other.getString("delete.User.confirmation")+" [\\s\\S]$"));
-	  
-	}
 	
 	@Test
 	@Parameters({"userName","LoginNameChooseAdministratorRole"})

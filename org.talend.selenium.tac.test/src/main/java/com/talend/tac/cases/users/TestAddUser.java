@@ -1,6 +1,6 @@
 package com.talend.tac.cases.users;
 
-import java.awt.Event;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,44 +8,8 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
-
-
-public class TestAddUser extends Login {
+public class TestAddUser extends Users {
     
-	//creat a method of 'add user'
-	public void addUser(String user,String firstname,String lastname,String password,
-			String SvnLogin,String SvnPassWord,String typeName) throws Exception {
-		
-
-		this.clickWaitForElementPresent("idMenuUserElement");
-		Assert.assertTrue(selenium.isTextPresent("admin@company.com"));
-		selenium.setSpeed(MID_SPEED);
-		selenium.click("idSubModuleAddButton");//add a user
-		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isElementPresent("//img[@class='gwt-Image x-component ']"));
-		selenium.setSpeed(MIN_SPEED);
-		this.typeString("idUserLoginInput", user);//user name
-		this.typeString("idUserFirstNameInput", firstname);
-		this.typeString("idUserLastNameInput", lastname);
-		this.typeString("idUserPasswordInput", password);
-		this.typeString("idSvnLogin", SvnLogin);
-		this.typeString("idSvnPwd", SvnPassWord);
-	    if(selenium.isVisible("//label[text()='Type:']/parent::div//div[@class='x-form-trigger x-form-trigger-arrow']")) {
-	    	
-	    	selenium.click("//label[text()='Type:']/parent::div//div[@class='x-form-trigger x-form-trigger-arrow']");
-			this.waitForElementPresent("//div[contains(@class, 'x-combo-list')]/" +
-					"descendant::div[contains(@class, 'x-combo-list-item')][text()='"+typeName+"']", WAIT_TIME);
-			if(selenium.isElementPresent("//div[contains(@class, 'x-combo-list')]/" +
-					"descendant::div[contains(@class, 'x-combo-list-item')][text()='"+typeName+"']")) {
-				selenium.mouseDownAt("//div[contains(@class, 'x-combo-list')]/" +
-					"descendant::div[contains(@class, 'x-combo-list-item')][text()='"+typeName+"']", ""+Event.ENTER); 
-			    Assert.assertEquals(selenium.getValue("idTypeInput"), typeName);
-			}
-		    
-	    }
-		
-	}
 	
 	//clear all users---modify firstname and lastname to "admin,admin" ---user'role change to 'administrator'
     @Test	
