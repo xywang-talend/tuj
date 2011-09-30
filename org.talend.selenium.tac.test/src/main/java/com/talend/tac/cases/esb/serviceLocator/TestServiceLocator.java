@@ -9,9 +9,10 @@ public class TestServiceLocator extends EsbUtil {
 	
 	@Test
 	@Parameters({"license.esb.file.path","jobFirstProvider", "jobSecondProvider", 
-		"jobThirdProvider", "jobFourthProvider"})
+		"jobThirdProvider", "jobFourthProvider", "jobFirstConsumer"})
 	public void deleteAllService(String license,String jobFirstProvider,
-			String jobSecondProvider, String jobThirdProvider, String jobFourthProvider) {
+			String jobSecondProvider, String jobThirdProvider, String jobFourthProvider
+			, String jobFirstConsumer) {
 			
 		uploadLicense(license);
 		
@@ -19,11 +20,14 @@ public class TestServiceLocator extends EsbUtil {
 		uninstallService(jobSecondProvider);
 		uninstallService(jobThirdProvider);
 		uninstallService(jobFourthProvider);
+		uninstallService(jobFourthProvider); 
+		uninstallService(jobFirstConsumer);
 		
 		stopService(jobFirstProvider);
 		stopService(jobSecondProvider);
 		stopService(jobThirdProvider);
 		stopService(jobFourthProvider);
+		stopService(jobFirstConsumer);
 		
 		//go to 'ServiceLocator' page
 		this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");
@@ -78,10 +82,10 @@ public class TestServiceLocator extends EsbUtil {
 	@Test
 	@Parameters({"provider.file.path.jobFirstProvider", "provider.file.path.jobSecondProvider",
 		"provider.file.path.jobThirdProvider", "jobFirstProvider", "jobSecondProvider",
-		"jobThirdProvider"})
+		"jobThirdProvider", "consumer.file.path.jobFirstConsumer"})
 	public void testDisplayAllService(String jobFirstProviderFilePath, String jobSecondProviderFilePath,
 			String jobThirdProviderFilePath, String jobFirstProvider, String jobSecondProvider,
-			String jobThirdProvider) {	
+			String jobThirdProvider, String jobFirstConsumerFilePath) {	
 		
 		
 		//install all job and start
@@ -97,6 +101,8 @@ public class TestServiceLocator extends EsbUtil {
 		assertStartService(jobSecondProvider);
 		assertStartService(jobThirdProvider);
 		
+		installService(jobFirstConsumerFilePath);
+	    
 	}
 	
 	//test check 'live services only', check display whether only dispaly live services
@@ -431,4 +437,5 @@ public class TestServiceLocator extends EsbUtil {
 	   
 	}
 
+    
 }
