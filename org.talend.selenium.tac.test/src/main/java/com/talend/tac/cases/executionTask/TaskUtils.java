@@ -191,7 +191,17 @@ public class TaskUtils extends Login {
     		this.selectDropDownList("idItemListCombo", "job");
     	}
     	
-    	this.selectDropDownList("idTaskApplicationListBox", jobName);
+
+ 	    if(selenium.isElementPresent("idTaskApplicationListBox")) {
+    		
+ 	    	this.selectDropDownList("idTaskApplicationListBox", jobName);
+    	
+    	} else {
+
+    		this.selectDropDownList("idTaskJobListBox", jobName);
+        	
+    	}
+    	
     	this.selectDropDownList("idTaskVersionListBox", version);
     	this.selectDropDownList("idTaskContextListBox", context);
     	this.selectDropDownList("idJobConductorExecutionServerListBox", serverName);
@@ -201,7 +211,7 @@ public class TaskUtils extends Login {
     	if(!selenium.isElementPresent("//span[text()='"+label+"']")) {	
 			selenium.click("idFormSaveButton");
 	        selenium.setSpeed(MID_SPEED);
-			Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
+				Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
 			selenium.setSpeed(MIN_SPEED);
 			
 		}		
