@@ -1,4 +1,4 @@
-	package com.talend.tac.cases.executionTask;
+package com.talend.tac.cases.executionTask;
 
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -71,11 +71,46 @@ public class TestAddTask  extends TaskUtils {
 			String version,String context,String jobServer,String statistic) {
 		
 		
-	
-		this.addTask(label, labelDescription, commonpro, branch, jobName, version, context, jobServer, statistic);
+		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
+        selenium.setSpeed(MID_SPEED);
+	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+	    selenium.setSpeed(MIN_SPEED);
+	    selenium.click("idSubModuleAddButton");
+		this.typeString("idJobConductorTaskLabelInput", label);//plan name /Label
+		this.typeString("idJobConductorTaskDescInput", labelDescription);//plan name /Label
+    	
+    	if(!selenium.isChecked("idJobConductorTaskActiveListBox")) {
+    		
+    		selenium.click("idJobConductorTaskActiveListBox");//check active
+        	Assert.assertTrue(selenium.isChecked("idJobConductorTaskActiveListBox"));	
+    		
+    	}    
+    	this.selectDropDownList("idTaskProjectListBox", commonpro);
+    	this.selectDropDownList("idTaskBranchListBox", branch);
+    	
+    	if(selenium.isElementPresent("idItemListCombo")) {
+    		this.selectDropDownList("idItemListCombo", "job");
+    	}
+    	
+ 	    if(selenium.isElementPresent("idTaskApplicationListBox")) {
+    		
+ 	    	this.selectDropDownList("idTaskApplicationListBox", jobName);
+    	
+    	} else {
+
+    		this.selectDropDownList("idTaskJobListBox", jobName);
+        	
+    	}
+    	
+    	this.selectDropDownList("idTaskVersionListBox", version);
+    	this.selectDropDownList("idTaskContextListBox", context);
+    	this.selectDropDownList("idJobConductorExecutionServerListBox", jobServer);
+    	this.selectDropDownList("idJobConductorTaskStatisticsListBox", statistic);
+    	this.selectDropDownList("idJobConductorOnUnavailableJobServerListBox", "Wait");     
+		
 		selenium.setSpeed(MID_SPEED);
-		selenium.click("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']");//uncheck "Active"
-		Assert.assertFalse(selenium.isChecked("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']"));
+		selenium.click("idJobConductorTaskActiveListBox");//uncheck "Active"		
+		Assert.assertFalse(selenium.isElementPresent("//input[@id='idJobConductorTaskActiveListBox' and @checked]"));
 		selenium.setSpeed(MIN_SPEED);
 		if(!selenium.isElementPresent("//span[text()='"+label+"']")) {
 			
@@ -83,11 +118,12 @@ public class TestAddTask  extends TaskUtils {
 			selenium.setSpeed(MID_SPEED);
 			Assert.assertTrue(selenium.isElementPresent("//span[text()='"+label+"']"));
 			selenium.setSpeed(MIN_SPEED);
-		
+			
 		}
 	}
 	
 
+	//add a task for t
 	//add a task for test run tRunJob
 	@Test
 	@Parameters({"labelTRunJobByTaskRun","labelTRunJobByTaskRunDescription","AddcommonProjectname","branchNameTrunk","jobNameTRunJob","version0.1",
@@ -240,7 +276,19 @@ public class TestAddTask  extends TaskUtils {
 			e.printStackTrace();
 		}
     	String branchActual = selenium.getValue("idTaskBranchListBox");
-    	String jobNameActual = selenium.getValue("idTaskJobListBox");
+    	
+    	String jobNameActual;
+    	
+    	if(selenium.isElementPresent("idTaskApplicationListBox")) {
+    		
+    		jobNameActual = selenium.getValue("idTaskApplicationListBox");
+    	
+    	} else {
+
+        	jobNameActual = selenium.getValue("idTaskJobListBox");
+        	
+    	}
+    	
     	
     	Assert.assertEquals(branchActual, trunk);
     	Assert.assertEquals(jobNameActual, jobName);
