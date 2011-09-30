@@ -4,10 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
 @Test
-//(groups={"ModifyUser"},dependsOnGroups={"DisplayUser"})
-public class TestModifyUser extends Login {
+public class TestModifyUser extends Users {
 
    
 	//login user --->>uncheck "active"
@@ -51,7 +49,7 @@ public class TestModifyUser extends Login {
 	}
 	
 	//modify user(admin@company.com)'role to all roles
-	@Test
+	@Test(dependsOnMethods={"testModifyLastAdministrationUserRole"})
 	@Parameters({"userName", "userPassword"})
 	public void testUserChooseAllRoles(String userName,String userPassword) throws Exception {
 		String roles = rb.getString("menu.role.administrator")+"/"+rb.getString("menu.role.viewer")+"/"
@@ -136,4 +134,85 @@ public class TestModifyUser extends Login {
 		
 	}
 	
+	//change a user role, login again, check its role whether normal display in the Lower-Left Corner
+	@Test
+	@Parameters({"LoginNameChangeRoleAndCheckRoleDisplay","FirstName","LastName","PassWord",
+		"SvnLogin","SvnPassWord","userName", "userPassword"})
+    public void testChangeUserRoleAndCheckRoleDisplay(String loginName,String FirstName,String LastName,
+			String loginUserPassWord,String SvnLogin,String SvnPassWord,String adminUser, String adminPassword) {
+		
+		this.waitForElementPresent("//b[text()='admin, admin']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//i[text()='Administrator/Viewer/Operation manager/Designer']"));
+		Assert.assertTrue(selenium.isElementPresent("//b[text()='admin, admin']"));
+		//add user(LoginNameChangeRoleAndCheckRoleDisplay@gmail.com)
+		this.addUser(loginName, FirstName, LastName, loginUserPassWord, SvnLogin, SvnPassWord, "Data Quality");
+		selenium.click("idRoleButton");
+		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
+		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+ rb.getString("menu.role.viewer")+"')]");
+		selenium.click("idValidateButton");
+		Assert.assertEquals(selenium.getValue("idActiveInput"), rb.getString("menu.role.viewer"));
+		
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("idFormSaveButton");
+		selenium.setSpeed(MIN_SPEED);
+		
+		this.waitForElementPresent("//div[text()='"+loginName+"']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+loginName+"']"));		
+		//logout tac
+		selenium.click("idLeftMenuTreeLogoutButton");
+		this.waitForElementPresent("//div[text()='Talend Master Data Management']", WAIT_TIME);
+		//with LoginNameChangeRoleAndCheckRoleDisplay@gmail.com login TAC
+		this.loginTac(loginName, loginUserPassWord);
+		//check role whether normal display in the Lower-Left Corner
+		this.waitForElementPresent("//i[text()='"+rb.getString("menu.role.viewer")+"']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//i[text()='"+rb.getString("menu.role.viewer")+"']"));
+		Assert.assertTrue(selenium.isElementPresent("//b[text()='"+LastName+", "+FirstName+"']"));
+		//logout tac		
+		selenium.click("idLeftMenuTreeLogoutButton");
+		this.waitForElementPresent("//div[text()='Talend Master Data Management']", WAIT_TIME);
+		//with admin user login tac
+		this.loginTac(adminUser, adminPassword);
+		//change user(LoginNameChangeRoleAndCheckRoleDisplay@gmail.com)'role to "Operation manager"
+		this.clickWaitForElementPresent("idMenuUserElement");
+		this.waitForElementPresent("//div[text()='"+loginName+"']", WAIT_TIME);
+		selenium.mouseDown("//div[text()='"+loginName+"']");
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		selenium.click("idRoleButton");
+		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
+		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+ rb.getString("menu.role.operationManager")+"')]");
+
+		selenium.click("idValidateButton");
+		Assert.assertEquals(selenium.getValue("idActiveInput"), rb.getString("menu.role.operationManager"));
+		
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("idFormSaveButton");
+		
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+loginName+"']//ancestor::div[contains(@class,'x-grid-group')]" +
+				"//div[contains(text(),'Role: Operation manager')]"));
+		selenium.setSpeed(MIN_SPEED);
+        //logout
+		selenium.click("idLeftMenuTreeLogoutButton");
+		this.waitForElementPresent("//div[text()='Talend Master Data Management']", WAIT_TIME);
+		//with LoginNameChangeRoleAndCheckRoleDisplay@gmail.com login TAC 
+		this.loginTac(loginName, loginUserPassWord);
+		//check role whether normal display in the Lower-Left Corner again
+		this.waitForElementPresent("//i[text()='"+rb.getString("menu.role.operationManager")+"']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//i[text()='"+rb.getString("menu.role.operationManager")+"']"));
+		Assert.assertTrue(selenium.isElementPresent("//b[text()='"+LastName+", "+FirstName+"']"));
+		
+		//logout tac		
+		selenium.click("idLeftMenuTreeLogoutButton");
+		this.waitForElementPresent("//div[text()='Talend Master Data Management']", WAIT_TIME);
+		//with admin user login tac
+		this.loginTac(adminUser, adminPassword);
+		//delete the user ( LoginNameChangeRoleAndCheckRoleDisplay@gmail.com)
+		deleteUser(adminUser, loginName);
+		
+	}
+		
 }
