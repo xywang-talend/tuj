@@ -65,9 +65,18 @@ public class TestModifyTask extends Login {
         selenium.setSpeed(MID_SPEED);
 		selenium.click("idJobConductorTaskGenerateButton");//generate task
 		selenium.setSpeed(MIN_SPEED);
-		Thread.sleep(3000);       
+		Thread.sleep(3000); 
 
-    	this.selectDropDownList("idTaskJobListBox", jobName);
+ 	    if(selenium.isElementPresent("idTaskApplicationListBox")) {
+    		
+ 	    	this.selectDropDownList("idTaskApplicationListBox", jobName);
+    	
+    	} else {
+
+    		this.selectDropDownList("idTaskJobListBox", jobName);
+        	
+    	}
+ 	    
     	this.selectDropDownList("idTaskVersionListBox", version);
     	this.selectDropDownList("idTaskContextListBox", context);
 		selenium.setSpeed(MIN_SPEED);
