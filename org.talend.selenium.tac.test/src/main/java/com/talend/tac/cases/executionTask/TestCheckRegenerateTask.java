@@ -35,9 +35,18 @@ public class TestCheckRegenerateTask extends Login {
 	    		"'Ready to deploy']", Base.MAX_WAIT_TIME);
 	    Assert.assertTrue(selenium.isElementPresent("//span[text()='testAddsimpleTask']//ancestor::tr" +
 	    		"//span[text()='Ready to deploy']"));
-	    
-	    this.selectDropDownList("idTaskJobListBox", jobName);
-    	this.selectDropDownList("idTaskVersionListBox", version);
+
+ 	    if(selenium.isElementPresent("idTaskApplicationListBox")) {
+    		
+ 	    	this.selectDropDownList("idTaskApplicationListBox", jobName);
+    	
+    	} else {
+
+    		this.selectDropDownList("idTaskJobListBox", jobName);
+        	
+    	}
+ 	    
+ 	    this.selectDropDownList("idTaskVersionListBox", version);
     	this.selectDropDownList("idTaskContextListBox", context);
     	if(!selenium.isChecked("idJobConductorRegenerateJobOnChangeCheckBox")) {
     		
