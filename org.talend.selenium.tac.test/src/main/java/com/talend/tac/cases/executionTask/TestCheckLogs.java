@@ -325,7 +325,7 @@ public class TestCheckLogs extends TaskUtils {
         System.out.println(">>>>"+fileName);
         
         File file = new File(
-				absoluteDownloadPath + fileName+"__task_52_Task__TaskWithJobOfGenerateBigLogs.log");
+				absoluteDownloadPath + fileName+"__task_1_Task__TaskWithJobOfGenerateBigLogs.log");
 		for (int seconds = 0;; seconds++) {
 			if (seconds >= WAIT_TIME) {
 				assertTrue(file.exists());
@@ -340,7 +340,7 @@ public class TestCheckLogs extends TaskUtils {
 				e.printStackTrace();
 			}
 		}
-        String contentOfTextFile = this.readfile(absoluteDownloadPath + fileName+"__task_52_Task" +
+        String contentOfTextFile = this.readfile(absoluteDownloadPath + fileName+"__task_1_Task" +
         		"__TaskWithJobOfGenerateBigLogs.log");
 			
 //		System.out.println(">>>>"+contentOfTextFile);
