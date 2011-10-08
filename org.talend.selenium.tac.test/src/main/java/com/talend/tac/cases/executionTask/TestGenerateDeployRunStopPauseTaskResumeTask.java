@@ -201,7 +201,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 			String jobName,String version,String context,String serverName,String statisticName) {
 				
 		generateDeployRunTask(label, "//button[@id='idJobConductorTaskRunButton' and text()='Run']");//click Run button
-		this.waitForElementPresent("//span[text()='JobServer is inactive']", WAIT_TIME);
+		this.waitForElementPresent("//span[text()='JobServer is inactive']", WAIT_TIME*4);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='JobServer is inactive']"));
 		this.waitForElementPresent("//label[text()='JobServer is inactive']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//label[text()='JobServer is inactive']"));
