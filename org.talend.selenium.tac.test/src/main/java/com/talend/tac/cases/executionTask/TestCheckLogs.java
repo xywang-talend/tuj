@@ -301,6 +301,7 @@ public class TestCheckLogs extends TaskUtils {
 		selenium.click("//span[text()='Logs']");
 		selenium.setSpeed(MIN_SPEED);
 		
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']", WAIT_TIME);
         selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']");
         
         this.clickWaitForElementPresent("//button[text()='download it']");
@@ -312,8 +313,10 @@ public class TestCheckLogs extends TaskUtils {
 			e1.printStackTrace();
 		}
         
+		selenium.setSpeed(MID_SPEED);
 		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 		selenium.keyUpNative(""+KeyEvent.VK_ENTER);
+		selenium.setSpeed(MIN_SPEED);
 		
         String absoluteDownloadPath=this.getAbsolutePath(downloadPath);
         
@@ -322,7 +325,7 @@ public class TestCheckLogs extends TaskUtils {
         System.out.println(">>>>"+fileName);
         
         File file = new File(
-				absoluteDownloadPath + fileName+"__task_1_Task__TaskWithJobOfGenerateBigLogs.log");
+				absoluteDownloadPath + fileName+"__task_52_Task__TaskWithJobOfGenerateBigLogs.log");
 		for (int seconds = 0;; seconds++) {
 			if (seconds >= WAIT_TIME) {
 				assertTrue(file.exists());
@@ -337,7 +340,7 @@ public class TestCheckLogs extends TaskUtils {
 				e.printStackTrace();
 			}
 		}
-        String contentOfTextFile = this.readfile(absoluteDownloadPath + fileName+"__task_1_Task" +
+        String contentOfTextFile = this.readfile(absoluteDownloadPath + fileName+"__task_52_Task" +
         		"__TaskWithJobOfGenerateBigLogs.log");
 			
 //		System.out.println(">>>>"+contentOfTextFile);
