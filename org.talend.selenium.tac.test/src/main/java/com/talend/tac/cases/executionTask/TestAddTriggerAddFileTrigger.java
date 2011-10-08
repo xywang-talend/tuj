@@ -116,7 +116,12 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 
 		this.waitForElementPresent("//span[text()='"+label+"']//ancestor::tr" +
 				"//span[text()='Ready to run']", Base.MAX_WAIT_TIME);
-		
+		try {
+			Thread.sleep(30000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		int logsConut = this.getXpathCount("//div[contains(@class,'x-grid3-" +
 				"cell-inner x-grid3-col-startDate')]");
 		
