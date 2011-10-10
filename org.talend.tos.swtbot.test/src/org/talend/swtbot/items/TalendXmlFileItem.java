@@ -51,7 +51,7 @@ public class TalendXmlFileItem extends TalendFileItem {
             SWTBotTable targetItem = gefBot.tableInGroup("Target Schema", 0);
             dndUtil.dragAndDrop(loop, targetItem);
             for (int i = 0; i < 3; i++) {
-                SWTBotTreeItem schema = loop.getNode("@" + System.getProperty("filexml.schema" + i));
+                SWTBotTreeItem schema = loop.getNode(System.getProperty("filexml.schema" + i));
                 targetItem = gefBot.tableInGroup("Target Schema", 1);
                 dndUtil.dragAndDrop(schema, targetItem);
             }

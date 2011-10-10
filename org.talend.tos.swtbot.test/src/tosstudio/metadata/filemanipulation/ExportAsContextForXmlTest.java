@@ -71,7 +71,7 @@ public class ExportAsContextForXmlTest extends TalendSwtBotForTos {
             SWTBotTable targetItem = gefBot.tableInGroup("Target Schema", 0);
             dndUtil.dragAndDrop(loop, targetItem);
             for (int i = 0; i < 3; i++) {
-                SWTBotTreeItem schema = loop.getNode("@" + System.getProperty("filexml.schema" + i));
+                SWTBotTreeItem schema = loop.getNode(System.getProperty("filexml.schema" + i));
                 targetItem = gefBot.tableInGroup("Target Schema", 1);
                 dndUtil.dragAndDrop(schema, targetItem);
             }
@@ -84,7 +84,6 @@ public class ExportAsContextForXmlTest extends TalendSwtBotForTos {
             boolean isPreviewSuccessful = false;
             int rowCount = 0;
             rowCount = gefBot.table(2).rowCount();
-            System.out.println("+++++++++++++++" + rowCount);
             if (rowCount != 0)
                 isPreviewSuccessful = true;
             Assert.assertTrue("preview fail", isPreviewSuccessful);
@@ -93,7 +92,6 @@ public class ExportAsContextForXmlTest extends TalendSwtBotForTos {
             gefBot.button("Refresh Preview").click();
             gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 60000);
             rowCount = gefBot.table(2).rowCount();
-            System.out.println("+++++++++++++++" + rowCount);
             if (rowCount != 0)
                 isPreviewSuccessful = true;
             Assert.assertTrue("preview fail", isPreviewSuccessful);
