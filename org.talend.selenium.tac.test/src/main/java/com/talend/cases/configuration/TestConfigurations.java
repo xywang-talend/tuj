@@ -125,7 +125,7 @@ public class TestConfigurations extends configuration {
   @Parameters ({"LDAP.conf.useLDAPAutentication","LDAP.conf.ldapServerIp","LDAP.conf.ldapServerPort","LDAP.conf.ldapRoot","LDAP.conf.ldapPrincipalDNPrefix",
 	  "LDAP.conf.ldapAdminPassword","LDAP.conf.ldap.fields.mail","LDAP.conf.ldap.fields.firstname","LDAP.conf.ldap.fields.lastname"})
   public void testSetLDAP(String useLDAPAutentication,String ldapServerIp,String ldapServerPort,String ldapRoot,String ldapPrincipalDNPrefix,String ldapAdminPassword,String ldapFieldsMail,String ldapFieldsFirstName,String ldapFieldsLastName ) {
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'LDAP (9 Parameters')]");
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'LDAP (10 Parameters')]");
 	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.useLDAPAutentication.editButton"), locatorOfAllInputTags, useLDAPAutentication);
 	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.ldapServerIp.editButton"), locatorOfAllInputTags, ldapServerIp);
 	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.ldapServerPort.editButton"), locatorOfAllInputTags, ldapServerPort);
@@ -146,7 +146,7 @@ public class TestConfigurations extends configuration {
 	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.firstname.editButton"), locatorOfAllInputTags, ldapFieldsFirstName);
 	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.lastname.editButton"), locatorOfAllInputTags, ldapFieldsLastName);
 	
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'LDAP (9 Parameters')]");
+	  this.MouseDownWaitForElementPresent("//div[contains(text(),'LDAP (10 Parameters')]");
   }
   @Test
   @Parameters ({"log4j.conf.logsPath","log4j.conf.logsName"})
