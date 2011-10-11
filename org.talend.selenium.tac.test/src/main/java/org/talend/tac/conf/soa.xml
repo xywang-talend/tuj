@@ -6,20 +6,33 @@
 
   	<test name="TestSoaMangerAdd_testService">
 		<parameter name="soaManager.service.name" value="testService" />
+		<parameter name="soaManager.operation.name.job.tjava" value="testOperationUsedTjava" />
 		<parameter name="soaManager.operation.name" value="testOperationUsedTrunJob" />
 		<classes>
 			<class name="com.talend.tac.cases.SoaManager.TestSoaManager" />
 			<methods>
-				<include name="testAddSoaManagerService" />	
-				<include name="testAddOperationToService" />
-				<include name="testAddOperationToServiceWithLatestVersionJob" />
+				<include name="testAddSoaManagerService" />					
 				<include name="testDuplicateSoaManagerService" />
-				<include name="testDuplicateSoaManagerOperation" />
-
+				<include name="testAddOperationToService" />
 			</methods>
 		</classes>
 	</test>
-
+	
+    <test name="TestSoaMangerAdd_testService_LatestOperation" preserve-order="true">
+        <parameter name="soaManager.service.name" value="testServiceForLatestopration" />
+		<parameter name="soaManager.operation.name" value="oprationWithLatestVersionJob" />
+	    <parameter name="soaManager.operation.UsedJob_name" value="tjava" />
+		<classes>
+			<class name="com.talend.tac.cases.SoaManager.TestSoaManager" />
+			<methods>
+				
+				<include name="testAddOperationToServiceWithLatestVersionJob" />
+				<include name="testDuplicateSoaManagerOperation" />
+			
+			</methods>
+		</classes>
+	</test>
+	
 	<test name="TestSoaMangerAdd_Copy_of_testService">
 		<parameter name="soaManager.service.name" value="Copy_of_testService" />
 		<parameter name="soaManager.operation.name" value="testOperationUsedTrunJob" />
@@ -63,14 +76,24 @@
 			<class name="com.talend.tac.cases.SoaManager.TestSoaManager" />
 			<methods>
 				<include name="testGenerateService" />
-				<include name="testGenerateServiceWithLatestVersionJob"/>
 				<include name="testDeployService" />
 				<include name="testStartService" />
 				<include name="testStopService" />
 				
 			</methods>
 		</classes>
+	</test> 
+	
+	<test name="TestSoaManger_Genenate" preserve-order="true">
+	    <parameter name="soaManager.service.name" value="testServiceForLatestopration" />
+		<classes>
+			<class name="com.talend.tac.cases.SoaManager.TestSoaManager" />
+			<methods>
+				<include name="testGenerateServiceWithLatestVersionJob"/>				
+			</methods>
+		</classes>
 	</test>
+	
 	<test name="TestSoaMangerExecute_Redeploy" preserve-order="true">
 		<classes>
 			<class name="com.talend.tac.cases.SoaManager.TestSoaManager" />
@@ -84,6 +107,18 @@
    
 		<classes>
 			<class name="com.talend.tac.cases.SoaManager.TestDeleteProjectUsedBysoamanager" />
+		</classes>
+	</test>
+	
+	  <test name="generateSoaWithRemote" preserve-order="true">
+        <parameter name="soaManager.service.name" value="remoteSoa" />
+		<parameter name="soaManager.operation.name" value="oprationOnremoteSoa" />
+	    <parameter name="soaManager.operation.UsedJob_name" value="tjava" />
+		<classes>
+			<class name="com.talend.tac.cases.SoaManager.TestSoaManager" />
+			<methods>
+				<include name="testGenerateSoaWithRemoteCommandline" />				
+			</methods>
 		</classes>
 	</test>
 </suite>
