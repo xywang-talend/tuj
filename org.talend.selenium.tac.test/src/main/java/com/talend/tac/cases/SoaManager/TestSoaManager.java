@@ -1,28 +1,20 @@
 package com.talend.tac.cases.SoaManager;
 
-import org.testng.Assert;
+
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-import com.talend.tac.cases.Login;
+public class TestSoaManager extends SoaUtils {
 
-public class TestSoaManager extends Login {
 	@Test(description="Add a service")
-	@Parameters({"soaManager.service.name"})
-	public void testAddSoaManagerService(String serviceName) {
-		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
-		selenium.click("idSubModuleAddButton");
-		selenium.type("idSoaServiceNameInput", serviceName);
+	@Parameters({"soaManager.service.name", "soaManager.operation.name.job.tjava", "AddcommonProjectname"
+		,"soaManager.operation.UsedJob_name"})
+	public void testAddSoaManagerService(String serviceName,String operationName, String projectName
+			,String jobName) {
 		
-		selenium.fireEvent("idSoaServiceNameInput", "blur");
-		selenium.type("idSoaServiceContactInput", "contact TestService");
-		selenium.fireEvent("idSoaServiceContactInput", "blur");
-		selenium.type("idSoaServiceContactInput", "This is TestService");
-		selenium.fireEvent("idSoaServiceContactInput", "blur");
-		// selenium.type("idSoaServicePortInput", "8881");
-		selenium.click("idFormSaveButton");
-		waitForElementPresent("//*[text()='"+serviceName+"']", WAIT_TIME);
+		this.addSoa(serviceName);
+		this.addOpration(serviceName, operationName, projectName, jobName, "0.1");
 	}
 
 	
@@ -30,65 +22,16 @@ public class TestSoaManager extends Login {
 	@Parameters ({"AddcommonProjectname","soaManager.service.name","soaManager.operation.name","soaManager.operation.UsedJob_name"})
 	public void testAddOperationToService(String projectName,String serviceName,String operationName,String UsedJobName) {
 
-		selenium.click("!!!menu.soamanager.element!!!");//*[text()='"+serviceName+"']
-		waitForElementPresent("//*[text()='"+serviceName+"']", WAIT_TIME);
-		selenium.mouseDown("//*[text()='"+serviceName+"']");
-		this.clickWaitForElementPresent("idSoaOperationAdd");
-		this.typeAndBlur("idSoaOperationNameInput", operationName);
-		this.typeAndBlur("idSoaOperationDescInput", "This is testOperation");
-		// select project
-		this.selectDropDownList("idTaskProjectListBox", projectName);
-		// select trunk,branches 
-		this.selectDropDownList("idTaskBranchListBox", "trunk");
-		this.selectDropDownList("idItemListCombo", "job");
-		this.selectDropDownList("idTaskJobListBox", UsedJobName);
-		// select version
-		this.selectDropDownList("idTaskVersionListBox", "0.1");
-		// select context
-		this.selectDropDownList("idTaskContextListBox", "Default");
-		selenium.click("idSoaOperationSave");	
-		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-operationName' and text()='"+operationName+"']", WAIT_TIME);
-		this.sleep(3000);
-		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-operationName' and text()='"+operationName+"']");
-	    Assert.assertTrue(selenium.getValue("idTaskProjectListBox").toString().equals(projectName), "test add operation with latest job failed!");
-	    Assert.assertTrue(selenium.getValue("idTaskBranchListBox").toString().equals("trunk"), "test add operation with latest job failed!");
-	    Assert.assertTrue(selenium.getValue("idItemListCombo").toString().equals("job"), "test add operation with latest job failed!");
-	    Assert.assertTrue(selenium.getValue("idTaskJobListBox").toString().equals(UsedJobName), "test add operation with latest job failed!");
-	    Assert.assertTrue(selenium.getValue("idTaskVersionListBox").toString().equals("0.1"), "test add operation with latest job failed!");
-	    Assert.assertTrue(selenium.getValue("idTaskContextListBox").toString().equals("Default"), "test add operation with latest job failed!");
+		this.addOpration(serviceName, operationName, projectName, UsedJobName, "0.1");
 	
 	}
 	
 	@Test(description = "Add a operation with the defined project",dependsOnMethods = { "testAddSoaManagerService" },alwaysRun=true)
 	@Parameters ({"AddcommonProjectname","soaManager.service.name","soaManager.operation.name","soaManager.operation.UsedJob_name"})
 	public void testAddOperationToServiceWithLatestVersionJob(String projectName,String serviceName,String operationName,String UsedJobName) {
-		operationName = operationName+"Latest";
-		selenium.click("!!!menu.soamanager.element!!!");//*[text()='"+serviceName+"']
-		waitForElementPresent("//*[text()='"+serviceName+"']", WAIT_TIME);
-		selenium.mouseDown("//*[text()='"+serviceName+"']");
-		this.clickWaitForElementPresent("idSoaOperationAdd");
-		this.typeAndBlur("idSoaOperationNameInput", operationName);
-		this.typeAndBlur("idSoaOperationDescInput", "This is testOperation");
-		// select project
-		this.selectDropDownList("idTaskProjectListBox", projectName);
-		// select trunk,branches 
-		this.selectDropDownList("idTaskBranchListBox", "trunk");
-		this.selectDropDownList("idItemListCombo", "job");
-		this.selectDropDownList("idTaskJobListBox", UsedJobName);
-		// select version
-		this.selectDropDownList("idTaskVersionListBox", "Latest");
-		// select context
-		this.selectDropDownList("idTaskContextListBox", "Default");
-		selenium.click("idSoaOperationSave");	
-		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-operationName' and text()='"+operationName+"']", WAIT_TIME);
-		this.sleep(3000);
-		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-operationName' and text()='"+operationName+"']");
-	    Assert.assertTrue(selenium.getValue("idTaskProjectListBox").toString().equals(projectName), "test add operation with latest job failed!");
-	    Assert.assertTrue(selenium.getValue("idTaskBranchListBox").toString().equals("trunk"), "test add operation with latest job failed!");
-	    Assert.assertTrue(selenium.getValue("idItemListCombo").toString().equals("job"), "test add operation with latest job failed!");
-	    Assert.assertTrue(selenium.getValue("idTaskJobListBox").toString().equals(UsedJobName), "test add operation with latest job failed!");
-	    Assert.assertTrue(selenium.getValue("idTaskVersionListBox").toString().equals("Latest"), "test add operation with latest job failed!");
-	    Assert.assertTrue(selenium.getValue("idTaskContextListBox").toString().equals("Default"), "test add operation with latest job failed!");
+		
+		this.addSoa(serviceName);
+		this.addOpration(serviceName, operationName, projectName, UsedJobName, "Latest");
 	
 	}
 	
@@ -126,14 +69,13 @@ public class TestSoaManager extends Login {
 		waitForElementPresent("//*[text()='"+serviceName+"']", WAIT_TIME);
 		selenium.mouseDown("//*[text()='"+serviceName+"']");//select the service
 		selenium.click("idSoaServiceGenerateButton");
-		this.waitForElementPresent("//img[@title='GENERATED']",MAX_WAIT_TIME);
+				this.waitForElementPresent("//img[@title='GENERATED']",MAX_WAIT_TIME);
 		
 	}
 	@Test (enabled = true,description = "generate,deploy,start a operation",dependsOnMethods = { "testAddOperationToServiceWithLatestVersionJob"},alwaysRun=true)
 	@Parameters ({"soaManager.service.name","soaManager.operation.name"})
 	public void testGenerateServiceWithLatestVersionJob(String serviceName,String operationName) {
-		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
-		serviceName = serviceName +"Latest";
+		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");	
 		waitForElementPresent("//*[text()='"+serviceName+"']", WAIT_TIME);
 		selenium.mouseDown("//*[text()='"+serviceName+"']");//select the service
 		selenium.click("idSoaServiceGenerateButton");
@@ -225,4 +167,23 @@ public class TestSoaManager extends Login {
 		//can do some other modifications
 		
 	}
+    //generate a soa on remote commandline
+	@Test
+	@Parameters({"remotehostAddress", "localhostAddress", "soaManager.service.name","soaManager.operation.name", "AddcommonProjectname"
+		,"soaManager.operation.UsedJob_name"})
+	public void testGenerateSoaWithRemoteCommandline(String remoteHost, String localHost, String serviceName, String operationName, String proiect
+			, String jobName) {
+		
+		this.changeCommandLineConfig(remoteHost, other.getString("commandLine.conf.primary.host.statusIcon"));
+		this.addSoa(serviceName);
+		this.addOpration(serviceName, operationName, proiect, jobName, "0.1");
+		
+		selenium.mouseDown("//*[text()='"+serviceName+"']");//select the service
+		selenium.click("idSoaServiceGenerateButton");
+		this.waitForElementPresent("//*[text()='"+serviceName+"']//ancestor::table[@class='x-grid3-row-table']//img[@title='GENERATED']",MAX_WAIT_TIME);
+		
+		this.changeCommandLineConfig(localHost, other.getString("commandLine.conf.primary.host.statusIcon"));
+		
+	}
+	
 }
