@@ -37,7 +37,7 @@ public class TestDeleteProjectUsedBysoamanager extends Login {
 	}
 
 	@Test//(groups = { "Second" }, dependsOnGroups = { "Add" })
-	@Parameters({ "ProjectUsedbysoamanagername" })
+	@Parameters({ "AddcommonProjectname" })
 	public void testDeleteProjectUsedbysoamanager(String deleteProname) throws Exception {
 		//
 		selenium.setSpeed(MAX_SPEED);
