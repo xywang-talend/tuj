@@ -77,21 +77,55 @@ public class JobHelper implements Helper {
     }
 
     /**
-     * DOC fzhong Comment method "useTLogRow". Link input component to tLogRow.
+     * Link input component to tLogRow.
      * 
      * @param jobEditor
-     * @param component the input component
-     * @param rowName The name of row in the context menu of component. "Main" as default.
+     * @param component The input component
+     * @param rowName The name of row in the context menu of component.
+     * @param point Where to put component 'tLogRow'
+     * @param tLogRowName Actual name of component 'tLogRow' in job.
      */
-    public static void connect2TLogRow(SWTBotGefEditor jobEditor, SWTBotGefEditPart component, String rowName, Point point) {
+    public static void connect2TLogRow(SWTBotGefEditor jobEditor, SWTBotGefEditPart component, String rowName, Point point,
+            String tLogRowName) {
         Utilities.dndPaletteToolOntoJob(jobEditor, "tLogRow", point);
-        SWTBotGefEditPart tLogRow = UTIL.getTalendComponentPart(jobEditor, "tLogRow_1");
-        Assert.assertNotNull("can not get component 'tLogRow'", tLogRow);
+        SWTBotGefEditPart tLogRow = UTIL.getTalendComponentPart(jobEditor, tLogRowName);
+        Assert.assertNotNull("can not get component '" + tLogRowName + "'", tLogRow);
         connect(jobEditor, component, tLogRow, rowName);
     }
 
+    /**
+     * Link input component to tLogRow. "tLogRow_1" as default component name.
+     * 
+     * @param jobEditor
+     * @param component The input component
+     * @param rowName The name of row in the context menu of component.
+     * @param point Where to put component 'tLogRow'
+     */
+    public static void connect2TLogRow(SWTBotGefEditor jobEditor, SWTBotGefEditPart component, String rowName, Point point) {
+        connect2TLogRow(jobEditor, component, rowName, point, "tLogRow_1");
+    }
+
+    /**
+     * Link input component to tLogRow. "tLogRow_1" as default component name. "Main" as default row name.
+     * 
+     * @param jobEditor
+     * @param component The input component
+     * @param point Where to put component 'tLogRow'
+     */
     public static void connect2TLogRow(SWTBotGefEditor jobEditor, SWTBotGefEditPart component, Point point) {
         connect2TLogRow(jobEditor, component, "Main", point);
+    }
+
+    /**
+     * Link input component to tLogRow. "Main" as default row name.
+     * 
+     * @param jobEditor
+     * @param component The input component
+     * @param point Where to put component 'tLogRow'
+     * @param tLogRowName Actual name of component 'tLogRow' in job.
+     */
+    public static void connect2TLogRow(SWTBotGefEditor jobEditor, SWTBotGefEditPart component, Point point, String tLogRowName) {
+        connect2TLogRow(jobEditor, component, "Main", point, tLogRowName);
     }
 
     public static void connect(SWTBotGefEditor jobEditor, SWTBotGefEditPart sourceComponent, SWTBotGefEditPart targetComponent,
@@ -128,7 +162,7 @@ public class JobHelper implements Helper {
         int x = 50;
         int y = 50;
         int folderLevel = 1;
-        if (toolLabel.contains("tFileOutput"))
+        if (toolLabel.contains("tFile"))
             folderLevel = 2;
 
         DndUtil dndUtil = new DndUtil(jobEditor.getWidget().getDisplay());
