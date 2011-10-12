@@ -162,7 +162,7 @@ public class JobHelper implements Helper {
         int x = 50;
         int y = 50;
         int folderLevel = 1;
-        if (toolLabel.contains("tFile"))
+        if (toolLabel.contains("tFile") || toolLabel.contains("tAdvanced"))
             folderLevel = 2;
 
         DndUtil dndUtil = new DndUtil(jobEditor.getWidget().getDisplay());
