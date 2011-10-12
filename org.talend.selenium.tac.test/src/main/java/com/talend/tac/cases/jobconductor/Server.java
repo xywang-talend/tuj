@@ -96,6 +96,71 @@ public class Server extends Login {
 
 	}
 
+	public void addRuntimeServer(String serverLabel, String des, String host,
+			String portCommond, String portTransfer, String portMonitor,
+			String timeOut, String username, String password, String mgmtRegPort, 
+			String mgmtServerPort, String adminConsolePort,
+			String changePort) {
+		this.openServerMenu();
+		waitForElementPresent("idSubModuleAddButton", 30000);
+		selenium.click("idSubModuleAddButton");
+		this.sleep(3000);
+		// serverLabel
+		selenium.setSpeed(MIN_SPEED);
+		this.typeString(other.getString("inputname.id.server.add.label"),
+				serverLabel);
+		// description
+		this.typeString(other.getString("inputname.id.server.add.description"),
+				des);
+		// host
+		this.typeString(other.getString("inputname.id.server.add.host"), host);
+		// port1
+		this.typeString(other.getString("inputname.id.server.add.commandPort"),
+				portCommond);
+		// port2
+		this.typeString(
+				other.getString("inputname.id.server.add.fileTransfertPort"),
+				portTransfer);
+		// port3
+		this.typeString(
+				other.getString("inputname.id.server.add.monitoringPort"),
+				portMonitor);
+		// time
+		this.typeString(
+				other.getString("inputname.id.server.add.timeoutUnknownState"),
+				timeOut);
+		// user name
+		this.typeString(other.getString("inputname.id.server.add.username"),
+				username);
+		// pass word
+		this.typeString(other.getString("inputname.id.server.add.password"),
+				password);
+		//check runtime
+		selenium.click("idAdvanceInput");
+		Assert.assertTrue(selenium.isElementPresent("//input[@id='idAdvanceInput' and @checked]"));
+		this.waitForElementPresent("//input[@name='mgmtServerPort']", WAIT_TIME);
+		Assert.assertTrue(selenium.isVisible("//input[@name='mgmtServerPort']"));
+		Assert.assertTrue(selenium.isVisible("//input[@name='mgmtRegPort']"));
+		Assert.assertTrue(selenium.isVisible("//input[@name='adminConsolePort']"));
+		
+		if("YES".equals(changePort)) {
+			
+			// mgmtServerPort
+			this.typeString("//input[@name='mgmtServerPort']", mgmtServerPort);
+			// mgmtRegPort
+			this.typeString("//input[@name='mgmtRegPort']",mgmtRegPort);
+			// adminConsolePort
+			this.typeString("//input[@name='adminConsolePort']", adminConsolePort);
+			
+		}
+		
+		// save
+		selenium.click("idFormSaveButton");
+		this.waitForElementPresent("//div[text()='" + serverLabel + "']",
+				WAIT_TIME);
+        
+	}
+	
 	public void deleteServer(String serverLabel) {
 		this.waitForElementPresent("//div[text()='" + serverLabel + "']",
 				WAIT_TIME);
