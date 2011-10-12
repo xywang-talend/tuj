@@ -34,10 +34,11 @@ public class Audit extends Login {
 		this.waitForElementPresent("//span[@class='x-fieldset-header-text' and text()='Database parameters']", WAIT_TIME);
 		this.waitForElementPresent("//span[@class='x-fieldset-header-text' and text()='Database parameters']//ancestor::fieldset[@class=' x-fieldset x-component']", WAIT_TIME);
 		this.waitForElementPresent("//span[@class='x-fieldset-header-text' and text()='Check']//ancestor::fieldset[@class=' x-fieldset x-component']", WAIT_TIME);
-		this.typeString("idDbConfigUrlInput", this.getFormatedDbURL(url));
-		this.typeString("idDbConfigUserNmeInput", userName);
-		this.typeString("idDbConfigPasswordInput", userPassWd);
-		this.typeString("idDbConfigDriverInput", driver);
+		selenium.setSpeed(MID_SPEED);
+		selenium.type("idDbConfigUrlInput", url);
+		selenium.type("idDbConfigUserNmeInput", userName);
+		selenium.type("idDbConfigPasswordInput", userPassWd);
+		selenium.type("idDbConfigDriverInput", driver);
 	}
 	
 	public void waitForCheckConnectionStatus(String locator, int OK_Num) {
