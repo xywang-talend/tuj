@@ -1,38 +1,49 @@
 <suite name="Suite" parallel="false">
-	<test name="TestAudit">
+
+    <parameter name="mysqlURL" value="jdbc:mysql://192.168.0.216:3306/audit"/>
+    <parameter name="mysqlUserName" value="root"/>
+    <parameter name="mysqlPassWord" value="root"/>
+    <parameter name="mysqlDriver" value="org.gjt.mm.mysql.Driver"/>
+    
+    <parameter name="H2UserName" value="tisadmin"/>
+    <parameter name="H2PassWord" value="tisadmin"/>
+    <parameter name="H2Driver" value="org.h2.Driver"/>
+	<test name="Audit01_TestAudit">
 		<classes>
 			<class name="com.talend.tac.cases.audit.TestAudit">
 			</class>
 		</classes>
 	</test>
-	<test name="TestChangeCommondlineToRemote">
+	<test name="Audit02_TestChangeCommondlineToRemote">
 		<classes>
 			<class name="com.talend.tac.cases.audit.TestChangeCommondlineToRemote">
 			</class>
 		</classes>
 	</test>
-	<test name="TestAuditWithRemoteCommondline">
+	<test name="Audit03_TestAuditWithRemoteCommondline">
 		<classes>
 			<class name="com.talend.tac.cases.audit.TestAuditWithRemoteCommondline">
 			</class>
 		</classes>
 	</test>
-	<test name="TestChangeCommondlineToLocalHost">
+	<test name="Audit04_TestChangeCommondlineToLocalHost">
 		<classes>
 			<class name="com.talend.tac.cases.audit.TestChangeCommondlineToLocalHost">
 			</class>
 		</classes>
 	</test> 
-	
-		<!-- <test name="TestConfigAuditDB">
-		<parameter name="audit.db.url" value="F:/cuisdfsstttTomcat 7.0/database_audit" />
-		<parameter name="audit.db.user" value="tisadmin" />
-		<parameter name="audit.db.pass" value="tisadmin" />
-		<parameter name="audit.db.driver" value="org.h2.Driver" />
+	<test name="Audit05_TestAuditProjectContainSpace">
 		<classes>
-			<class name="com.talend.tac.cases.audit.TestDBConfigAudit">
+			<class name="com.talend.tac.cases.audit.TestAuditProjectContainSpace">
 			</class>
 		</classes>
-	</test> -->
+	</test>
+	
+	<test name="Audit06_TestAuditProjectWithH2DB">
+		<classes>
+			<class name="com.talend.tac.cases.audit.TestAuditProjectWithH2DB">
+			</class>
+		</classes>
+	</test>
 	
 </suite>
