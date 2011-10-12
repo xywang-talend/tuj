@@ -68,10 +68,17 @@
 	    </test>
 	    
 	    <test name="server08_TestAddServerWithTalendRuntime">
-	    <parameter name="ServerLablename" value="testRuntimeServer" />/>
+	    <parameter name="ServerLablename" value="testRuntimeServer" />
+	    <parameter name="RuntimeServerChangeDefaultPortLablename" value="testRuntimeServerChangeDefaultPort" />
 		<parameter name="ServerDescription" value="add a runtime server" />
 		<classes>
-			<class name="com.talend.tac.cases.jobconductor.TestAddServerWithTalendRuntime" />
+			<class name="com.talend.tac.cases.jobconductor.TestAddServerWithTalendRuntime">
+			    <methods>
+			        <include name="testAddServerWithTalendRuntime"/>
+			        <include name="testAddTalendRuntimeServerWithWrongFormatPort"/>			        
+			        <include name="testAddTalendRuntimeServerAndChangeDefaultPort"/>
+			    </methods>
+			</class>
 		</classes>
 	    </test>
 	    
