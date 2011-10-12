@@ -1,13 +1,21 @@
 <suite name="Suite" parallel="false">
-
+    <!-- mysql configuration info -->
     <parameter name="mysqlURL" value="jdbc:mysql://192.168.0.216:3306/audit"/>
     <parameter name="mysqlUserName" value="root"/>
     <parameter name="mysqlPassWord" value="root"/>
     <parameter name="mysqlDriver" value="org.gjt.mm.mysql.Driver"/>
     
+    <!-- H2 configuration info -->
     <parameter name="H2UserName" value="tisadmin"/>
     <parameter name="H2PassWord" value="tisadmin"/>
     <parameter name="H2Driver" value="org.h2.Driver"/>
+    <parameter name="mysqlDriver" value="org.gjt.mm.mysql.Driver"/>
+    
+    <!-- wrong configuration info -->
+    <parameter name="wrong.url" value="jdbc:mysql://{ip_address}:3306/{db_name}"/>
+    <parameter name="wrongUserName" value="wrongUserName"/>
+   	<parameter name="wrongPassWord" value="wrongPW"/>
+   	
 	<test name="Audit01_TestAudit">
 		<classes>
 			<class name="com.talend.tac.cases.audit.TestAudit">
@@ -37,13 +45,22 @@
 			<class name="com.talend.tac.cases.audit.TestAuditProjectContainSpace">
 			</class>
 		</classes>
-	</test>
-	
+	</test>	
 	<test name="Audit06_TestAuditProjectWithH2DB">
 		<classes>
 			<class name="com.talend.tac.cases.audit.TestAuditProjectWithH2DB">
 			</class>
 		</classes>
+	</test>	
+	<test name="Audit07_TestChangeAuditDatabaseWithWrongParameters">
+		<classes>
+			<class name="com.talend.tac.cases.audit.TestChangeAuditDatabaseWithWrongParameters">
+			   <methods>
+			       <include name="testChangeAuditDatabaseWithWrongUrl"/>
+			       <include name="testChangeAuditDatabaseWithWrongUserNamePW"/>
+			       <include name="testChangeAuditDatabaseWithWrongDriver"/>
+			   </methods>
+			</class>
+		</classes>
 	</test>
-	
 </suite>
