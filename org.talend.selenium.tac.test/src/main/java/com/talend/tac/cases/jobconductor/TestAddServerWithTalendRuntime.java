@@ -22,6 +22,8 @@ public class TestAddServerWithTalendRuntime extends Server {
 				"No");
 		this.checkServerStatus(lable, server_status_up);
 		
+		Assert.assertFalse(selenium.isElementPresent("//div[text()='"+lable+"']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
+		" x-grid3-col-talendRuntime') and text()='Job Server']"));
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='testRuntimeServer']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
 				" x-grid3-col-talendRuntime') and text()='Talend Runtime']"));
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='testRuntimeServer']//ancestor::table[contains(@class,'x-grid3-row-table')]//button[text()='Admin server']"));
@@ -49,8 +51,7 @@ public class TestAddServerWithTalendRuntime extends Server {
 		"//parent::div//img[@class='gwt-Image x-component ']"));
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='Fix errors in form before save']"));
 		
-	}
-	
+	}	
 
 	@Test
 	@Parameters({ "RuntimeServerChangeDefaultPortLablename","ServerDescription",
@@ -66,10 +67,37 @@ public class TestAddServerWithTalendRuntime extends Server {
 				time, username, password, "6565", "6566", "6567",
 				"YES");
         this.checkServerStatus(lable, server_status_up);
-		
+        
+        Assert.assertFalse(selenium.isElementPresent("//div[text()='"+lable+"']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
+		" x-grid3-col-talendRuntime') and text()='Job Server']"));
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='testRuntimeServer']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
 				" x-grid3-col-talendRuntime') and text()='Talend Runtime']"));
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='testRuntimeServer']//ancestor::table[contains(@class,'x-grid3-row-table')]//button[text()='Admin server']"));
+		
+	}
+	
+    /*/add runtime server,  set Mgmt-Server port/Mgmt-Reg port/Mgmt-Server port: are null
+	 check prompt info*/
+	@Test
+	@Parameters({ "RuntimeServerChangeDefaultPortLablename","ServerDescription",
+			"ServerHost", "ServerCommondport", "ServerFiletransfortport",
+			"ServerMonitorport", "ServerTimeout", "ServerUsername",
+			"ServerPassword" })
+	public void testAddTalendRuntimeServerAndSetRuntimePortsAreNull(String lable,
+			String description, String host, String commondport,
+			String transfortport, String monitorport, String time,
+			String username, String password) {
+		
+		this.addRuntimeServer(lable, description, host, commondport, transfortport, monitorport,
+				time, username, password, "", "", "",
+				"YES");
+		Assert.assertTrue(selenium.isElementPresent("//label[text()='Mgmt-Server port:']" +
+		"//parent::div//img[@class='gwt-Image x-component ']"));
+		Assert.assertTrue(selenium.isElementPresent("//label[text()='Mgmt-Reg port:']" +
+		"//parent::div//img[@class='gwt-Image x-component ']"));
+		Assert.assertTrue(selenium.isElementPresent("//label[text()='Mgmt-Server port:']" +
+		"//parent::div//img[@class='gwt-Image x-component ']"));
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='Fix errors in form before save']"));
 		
 	}
 	
