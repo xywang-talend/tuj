@@ -1,5 +1,7 @@
 package com.talend.tac.cases.jobconductor;
 
+import junit.framework.Assert;
+
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -15,6 +17,13 @@ public class TestAddServerForUse extends Server {
 		this.checkServerStatus(lableavailable, server_status_up);
 		this.addServer(labelunactive,"",availablehost,false);
 		this.checkServerStatus(labelunactive, server_status_inactive);
+		
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+lableavailable+"']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
+				" x-grid3-col-talendRuntime') and text()='Job Server']"));
+		Assert.assertFalse(selenium.isElementPresent("//div[text()='testRuntimeServer']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
+		" x-grid3-col-talendRuntime') and text()='Talend Runtime']"));
+        Assert.assertFalse(selenium.isElementPresent("//div[text()='testRuntimeServer']//ancestor::table[contains(@class,'x-grid3-row-table')]//button[text()='Admin server']"));
+        
 	}
 
 	@Test
@@ -25,6 +34,14 @@ public class TestAddServerForUse extends Server {
 		this.openServerMenu();
 		this.addServer(labelunactive,"",availablehost,Server.server_active_false);
 		this.checkServerStatus(labelunactive, server_status_inactive);
+		
+
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+lableavailable+"']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
+				" x-grid3-col-talendRuntime') and text()='Job Server']"));
+		Assert.assertFalse(selenium.isElementPresent("//div[text()='testRuntimeServer']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
+		" x-grid3-col-talendRuntime') and text()='Talend Runtime']"));
+        Assert.assertFalse(selenium.isElementPresent("//div[text()='testRuntimeServer']//ancestor::table[contains(@class,'x-grid3-row-table')]//button[text()='Admin server']"));
+        
 	}
 
 }
