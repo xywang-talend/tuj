@@ -18,8 +18,11 @@
 	<parameter name="ServerUsername" value="" />
 	<parameter name="ServerPassword" value="" />
 
+	<!-- license  -->
+	<parameter name="license.MDM" value="org/talend/tac/folder/license/MDM_TDQ_EE_MPX.license" />
+	<parameter name="license.ESB" value="org/talend/tac/folder/license/TalendESB42EE.license"/>
 	
-	<test name="server01_Addserver">
+	<!--<test name="server01_Addserver">
 		<classes>
 			<class name="com.talend.tac.cases.jobconductor.TestAddServer" />
 			<class name="com.talend.tac.cases.jobconductor.TestAddServerWithStringPortsInput" />
@@ -31,44 +34,45 @@
 		</classes>
 	</test>
 	
-		<test name="server02_DeactiveReactiveServer">
-		<classes>
-			<class name="com.talend.tac.cases.jobconductor.TestDeactiveAndReactiveServer" />
-		</classes>
-	    </test>
-	    
-	    <test name="server03_DuplicateServer">
-		<classes>
-			<class name="com.talend.tac.cases.jobconductor.TestDuplicateServer" />
-		</classes>
-	    </test>
-	    
-	    <test name="server04_ChangeServerPort">
-		<classes>
-			<class name="com.talend.tac.cases.jobconductor.TestChangeServerPort" />
-		</classes>
-	    </test>
-	    
-	    <test name="server05_deleteServer">
-		<classes>
-			<class name="com.talend.tac.cases.jobconductor.TestDeleteServer" />
-		</classes>
-	    </test>
-	    
-        <test name="server06_CleanServersNotUsed">
+	<test name="server02_DeactiveReactiveServer">
+	<classes>
+		<class name="com.talend.tac.cases.jobconductor.TestDeactiveAndReactiveServer" />
+	</classes>
+    </test>
+    
+    <test name="server03_DuplicateServer">
+	<classes>
+		<class name="com.talend.tac.cases.jobconductor.TestDuplicateServer" />
+	</classes>
+    </test>
+    
+    <test name="server04_ChangeServerPort">
+	<classes>
+		<class name="com.talend.tac.cases.jobconductor.TestChangeServerPort" />
+	</classes>
+    </test>
+    
+    <test name="server05_deleteServer">
+	<classes>
+		<class name="com.talend.tac.cases.jobconductor.TestDeleteServer" />
+	</classes>
+    </test>
+    
+    <test name="server06_CleanServersNotUsed">
 		<classes>
 			<class name="com.talend.tac.cases.jobconductor.TestCleanServers" />
 		</classes>
-	    </test>
-	    
-	    <test name="server07_PrepareServersForUse">
+    </test>
+    
+    <test name="server07_PrepareServersForUse">
 		<classes>
 			<class name="com.talend.tac.cases.jobconductor.TestAddServerForUse" />
 		</classes>
-	    </test>
-	    
-	    <test name="server08_TestAddServerWithTalendRuntime">
+    </test>
+    
+    --><test name="server08_TestAddServerWithTalendRuntime">
 	    <parameter name="ServerLablename" value="testRuntimeServer" />
+	    <parameter name="ServerLablenameOfUncheckActive" value="testRuntimeServerOfUncheckActive" />
 	    <parameter name="RuntimeServerChangeDefaultPortLablename" value="testRuntimeServerChangeDefaultPort" />
 		<parameter name="ServerDescription" value="add a runtime server" />
 		<classes>
@@ -77,9 +81,24 @@
 			        <include name="testAddServerWithTalendRuntime"/>
 			        <include name="testAddTalendRuntimeServerWithWrongFormatPort"/>			        
 			        <include name="testAddTalendRuntimeServerAndChangeDefaultPort"/>
+			        <include name="testAddTalendRuntimeServerAndSetRuntimePortsAreNull"/>
+			        <include name="testAddRuntimeServerOfUncheckActive"/>
 			    </methods>
 			</class>
 		</classes>
-	    </test>
-	    
-</suite>
+    </test>
+    
+    <!--<test name="server09_TestAddServerWithTalendRuntime" preserve-order="true">
+		<classes>
+		    <parameter name="ServerLablename" value="testRuntimeServer" />
+		    <parameter name="RuntimeServerChangeDefaultPortLablename" value="testRuntimeServerChangeDefaultPort" />
+			<class name="com.talend.tac.cases.jobconductor.TestServerFilters">
+			    <methods>
+			        <include name="testServerFiltersInJobconductor"/>
+			        <include name="testServerFiltersInEsbconductor"/>
+			        <include name="resetLicenseToMDM"/>
+			    </methods>
+			</class>
+		</classes>
+    </test>
+--></suite>
