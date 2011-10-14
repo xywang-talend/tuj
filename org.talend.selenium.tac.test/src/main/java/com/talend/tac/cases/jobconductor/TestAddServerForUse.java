@@ -20,9 +20,9 @@ public class TestAddServerForUse extends Server {
 		
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+lableavailable+"']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
 				" x-grid3-col-talendRuntime') and text()='Job Server']"));
-		Assert.assertFalse(selenium.isElementPresent("//div[text()='testRuntimeServer']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
+		Assert.assertFalse(selenium.isElementPresent("//div[text()='"+lableavailable+"']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
 		" x-grid3-col-talendRuntime') and text()='Talend Runtime']"));
-        Assert.assertFalse(selenium.isElementPresent("//div[text()='testRuntimeServer']//ancestor::table[contains(@class,'x-grid3-row-table')]//button[text()='Admin server']"));
+        Assert.assertFalse(selenium.isElementPresent("//div[text()='"+lableavailable+"']//ancestor::table[contains(@class,'x-grid3-row-table')]//button[text()='Admin server']"));
         
 	}
 
@@ -38,9 +38,9 @@ public class TestAddServerForUse extends Server {
 
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+lableavailable+"']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
 				" x-grid3-col-talendRuntime') and text()='Job Server']"));
-		Assert.assertFalse(selenium.isElementPresent("//div[text()='testRuntimeServer']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
+		Assert.assertFalse(selenium.isElementPresent("//div[text()='"+lableavailable+"']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
 		" x-grid3-col-talendRuntime') and text()='Talend Runtime']"));
-        Assert.assertFalse(selenium.isElementPresent("//div[text()='testRuntimeServer']//ancestor::table[contains(@class,'x-grid3-row-table')]//button[text()='Admin server']"));
+        Assert.assertFalse(selenium.isElementPresent("//div[text()='"+lableavailable+"']//ancestor::table[contains(@class,'x-grid3-row-table')]//button[text()='Admin server']"));
         
 	}
 
