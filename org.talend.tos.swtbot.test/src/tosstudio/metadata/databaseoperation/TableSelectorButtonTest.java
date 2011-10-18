@@ -19,6 +19,7 @@ import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,9 +63,11 @@ public class TableSelectorButtonTest extends TalendSwtBotForTos {
 
         gefBot.viewByTitle("Component").setFocus();
         gefBot.buttonWithTooltip("Show the table list for the current conection").click();
-        gefBot.sleep(500);
-        if (!gefBot.activeShell().getText().equals("Select Table Name"))
+        try {
+            gefBot.waitUntil(Conditions.shellIsActive("Select Table Name"));
+        } catch (TimeoutException e1) {
             gefBot.buttonWithTooltip("Show the table list for the current conection").click();
+        }
         gefBot.waitUntil(Conditions.shellIsActive("Select Table Name"));
         SWTBotShell shell = gefBot.shell("Select Table Name").activate();
         try {
