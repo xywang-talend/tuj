@@ -125,7 +125,7 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 		this.waitForElementPresent(
 				"//div[contains(text(),'Extended configuration (1 Parameter')]", WAIT_TIME);
 		this.waitForElementPresent(
-				"//div[contains(text(),'LDAP (9 Parameters')]", WAIT_TIME);
+				"//div[contains(text(),'LDAP (11 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
 				"//div[contains(text(),'Log4j (2 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
