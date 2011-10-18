@@ -12,18 +12,14 @@
 // ============================================================================
 package tosstudio.metadata.databaseoperation;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendDBItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -31,31 +27,24 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class CopyPasteMssqlTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
+    private TalendDBItem dbItem;
 
     private static final String DBNAME = "test_mssql"; //$NON-NLS-1$
 
     @Before
     public void createMssql() {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.DB_CONNECTIONS);
-        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.MSSQL, DBNAME);
+        dbItem = new TalendDBItem(DBNAME, Utilities.DbConnectionType.MSSQL);
+        dbItem.create();
     }
 
     @Test
     public void copyPasteMssql() {
-        Utilities.copyAndPaste(treeNode, DBNAME, "0.1");
+        dbItem.copyAndPaste();
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(treeNode, DBNAME, "0.1", null);
-        Utilities.delete(treeNode, "Copy_of_" + DBNAME, "0.1", null);
+        Utilities.cleanUpRepository(dbItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

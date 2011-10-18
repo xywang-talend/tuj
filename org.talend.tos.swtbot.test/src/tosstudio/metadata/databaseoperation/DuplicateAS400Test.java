@@ -12,18 +12,14 @@
 // ============================================================================
 package tosstudio.metadata.databaseoperation;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendDBItem;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -31,11 +27,7 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class DuplicateAS400Test extends TalendSwtBotForTos {
 
-    private SWTBotTree tree;
-
-    private SWTBotView view;
-
-    private SWTBotTreeItem treeNode;
+    private TalendDBItem dbItem;
 
     private static final String DBNAME = "test_as400"; //$NON-NLS-1$
 
@@ -43,21 +35,18 @@ public class DuplicateAS400Test extends TalendSwtBotForTos {
 
     @Before
     public void createAS400() {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.DB_CONNECTIONS);
-        Utilities.createDbConnection(treeNode, Utilities.DbConnectionType.AS400, DBNAME);
+        dbItem = new TalendDBItem(DBNAME, Utilities.DbConnectionType.AS400);
+        dbItem.create();
     }
 
     @Test
     public void duplicateAS400() {
-        Utilities.duplicate(treeNode, DBNAME, "0.1", NEW_DBNAME);
+        dbItem.duplicate(NEW_DBNAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(treeNode, DBNAME, "0.1", null);
-        Utilities.delete(treeNode, NEW_DBNAME, "0.1", null);
+        Utilities.cleanUpRepository(dbItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }
