@@ -15,7 +15,7 @@ public class TestGridExecutionsAgainGenerating extends Grid {
 		this.addTask(label, description, projectName, branchName, jobName, version, context, serverName, statisticName);
 	    selenium.mouseDown("//span[text()='" + label + "']");
 	    this.sleep(3000);
-	    selenium.click("//div[text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskGenerateButton']");
+	    selenium.click("//div[text()='Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskGenerateButton']");
 	    this.waitForTextPresent("Generating...", WAIT_TIME);
 	    this.waitForElementPresent("//span[text()='Ready to deploy']", MAX_WAIT_TIME);
 	    this.sleep(3000);
