@@ -81,6 +81,6 @@ public class EsbEeBrandingService extends AbstractTalendBrandingService {
     }
 
     public String getOptionName() {
-        return "";
+        return "Big Data edition";
     }
 }
