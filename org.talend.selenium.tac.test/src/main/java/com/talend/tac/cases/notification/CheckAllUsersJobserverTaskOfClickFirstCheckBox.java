@@ -6,6 +6,29 @@ import com.talend.tac.cases.Login;
 
 public class CheckAllUsersJobserverTaskOfClickFirstCheckBox extends Login {
 	
+	//open page
+	public void openPage(String menuId, String pageTitle) {
+		
+		this.clickWaitForElementPresent(menuId);
+		selenium.setSpeed(MID_SPEED);
+	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+pageTitle+"']"));
+	    selenium.setSpeed(MIN_SPEED);
+		
+	}
+
+	//get xpath count of same xpath
+	public int getXpathCount(String xpath) {
+	    
+		this.waitForElementPresent(xpath, WAIT_TIME);
+		
+		Number xpathConut = selenium.getXpathCount(xpath);
+		int i = xpathConut.intValue();
+		
+		System.out.println("*-*-*-*-*-*"+i);
+		return i;
+		
+	}
+	
 	public void checkAllUsersJobserverTaskOfClickFirstCheckBox(int categoryInput,
 			String categoryInputValue, int eventInput, String eventInputValue, String notificationInformation
 			, String xpathId) {
