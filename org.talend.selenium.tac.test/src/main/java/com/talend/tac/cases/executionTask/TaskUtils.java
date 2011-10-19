@@ -449,7 +449,8 @@ public class TaskUtils extends Login {
 			selenium.click("idTriggerRefresh");
     	}
 		
-		if(selenium.isElementPresent("//span[text()='"+triggerLabel+"']")) {
+		if(!selenium.isElementPresent("//input[@name='label']//ancestor::" +
+				"div[@class='x-form-item ']//img[@class='gwt-Image x-component ']")) {
 			
 			this.waitForElementPresent("//span[text()='"+triggerLabel+"']", WAIT_TIME);
 			Assert.assertTrue(selenium.isElementPresent("//span[text()='"+triggerLabel+"']"));
