@@ -44,7 +44,7 @@ public class CopyPasteMysqlTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        dbItem.copyAndPaste();
+        Utilities.cleanUpRepository(dbItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

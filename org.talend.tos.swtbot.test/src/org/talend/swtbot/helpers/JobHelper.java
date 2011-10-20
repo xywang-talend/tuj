@@ -17,6 +17,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefFigureCanvas;
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.junit.Assert;
@@ -55,8 +56,10 @@ public class JobHelper implements Helper {
         GEFBOT.viewByTitle("Run (Job " + jobName + ")").setFocus();
         GEFBOT.button(" Run").click();
 
-        // gefBot.waitUntil(Conditions.shellIsActive("Launching " + jobName + " " + jobVersion));
-        // gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Launching " + jobName + " " + jobVersion)));
+        try {
+            GEFBOT.shell("Find Errors in Jobs").close();
+        } catch (WidgetNotFoundException e) {
+        }
 
         GEFBOT.waitUntil(new DefaultCondition() {
 
