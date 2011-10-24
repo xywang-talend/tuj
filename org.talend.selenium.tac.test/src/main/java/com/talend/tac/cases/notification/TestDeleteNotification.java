@@ -88,8 +88,8 @@ public class TestDeleteNotification extends AddNotification {
 	delete 'BranchTask', return notification page and check corresponding
 	 notification is deleted**/
 	@Test
-	@Parameters({"eventTaskFailed","labelAddJVMParametersForTask"})
-	public void testDeleteTaskByDeleteTask(String eventTaskFailed, String testAddsimpleTask) {
+	@Parameters({"eventTaskFailed","modifyTask"})
+	public void testDeleteTaskByDeleteTask(String eventTaskFailed, String testModifyTask) {
 		
 		this.clickWaitForElementPresent("!!!menu.notification.element!!!");//into notification
 		
@@ -103,7 +103,7 @@ public class TestDeleteNotification extends AddNotification {
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
 		selenium.setSpeed(MIN_SPEED);
 	    selenium.click("idSubModuleRefreshButton"); //click "Refresh"
-		selenium.mouseDown("//span[text()='"+testAddsimpleTask+"']");//select a exist task
+		selenium.mouseDown("//span[text()='"+testModifyTask+"']");//select a exist task
 		selenium.chooseOkOnNextConfirmation();
 		selenium.chooseOkOnNextConfirmation();
 		selenium.setSpeed(MID_SPEED);
@@ -112,7 +112,7 @@ public class TestDeleteNotification extends AddNotification {
 		Assert.assertTrue(selenium.getConfirmation().matches(other.getString("delete.plan.warning")));
 		Assert.assertEquals(selenium.getConfirmation(), "Do you want to remove all of the related logs and archives");
 		selenium.setSpeed(MID_SPEED);
-		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+testAddsimpleTask+"']"));//the task cannot appear
+		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+testModifyTask+"']"));//the task cannot appear
 		selenium.setSpeed(MIN_SPEED);
 		
         this.clickWaitForElementPresent("!!!menu.notification.element!!!");//into notification
