@@ -21,7 +21,9 @@ public class TestAddUsersNotification extends AddNotification {
         		    selenium.setSpeed(MIN_SPEED);
         		 
     		    } else {
-    		    	
+    		    	selenium.setSpeed(MID_SPEED);
+    		    	Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-category']"));
+    		    	selenium.setSpeed(MIN_SPEED);
     		    	System.out.println("element not exist");
     		    	break;
     		    }
