@@ -2,6 +2,8 @@ package com.talend.tac.base;
 
 import java.awt.Event;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -11,6 +13,9 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.pdfbox.pdfparser.PDFParser;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.util.PDFTextStripper;
 import org.testng.Assert;
 import org.testng.IClass;
 import org.testng.ITestContext;
@@ -530,5 +535,46 @@ public class Base {
 			zookeeperPath = this.setDefaultValue(System.getProperty("zookeeper.path"), zookeeperPath);
 		}
 		return zookeeperPath;
+	}
+	
+	/**
+	 * check pdf contains the info or not
+	 * @param pdfPath
+	 * @param text
+	 * @return
+	 */
+	public boolean isExistedInfoInPdf(String pdfPath, String text){
+		boolean isExist = false;
+		String result = null;  
+		PDDocument document = null; 
+		FileInputStream is = null;
+		PDFTextStripper stripper;
+		try {
+			is = new FileInputStream(pdfPath);  
+			PDFParser parser = new PDFParser(is);  
+			parser.parse();  
+			document = parser.getPDDocument();
+			stripper = new PDFTextStripper();
+			result = stripper.getText(document);
+			isExist = result.contains(text);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {  
+			if (is != null) {  
+				try {  
+					is.close();  
+				} catch (IOException e) {  
+					e.printStackTrace();  
+				}  
+			}  
+			if (document != null) {  
+				try {  
+					document.close();  
+				} catch (IOException e) {  
+					e.printStackTrace();  
+				}  
+			}  
+		} 
+		return isExist;
 	}
 }
