@@ -160,7 +160,7 @@ public class TestModifyUser extends Users {
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+loginName+"']"));		
 		//logout tac
 		selenium.click("idLeftMenuTreeLogoutButton");
-		this.waitForElementPresent("//div[text()='Talend Master Data Management']", WAIT_TIME);
+		this.waitForElementPresent("idLoginButton", WAIT_TIME);
 		//with LoginNameChangeRoleAndCheckRoleDisplay@gmail.com login TAC
 		this.loginTac(loginName, loginUserPassWord);
 		//check role whether normal display in the Lower-Left Corner
@@ -169,7 +169,7 @@ public class TestModifyUser extends Users {
 		Assert.assertTrue(selenium.isElementPresent("//b[text()='"+LastName+", "+FirstName+"']"));
 		//logout tac		
 		selenium.click("idLeftMenuTreeLogoutButton");
-		this.waitForElementPresent("//div[text()='Talend Master Data Management']", WAIT_TIME);
+		this.waitForElementPresent("idLoginButton", WAIT_TIME);
 		//with admin user login tac
 		this.loginTac(adminUser, adminPassword);
 		//change user(LoginNameChangeRoleAndCheckRoleDisplay@gmail.com)'role to "Operation manager"
@@ -197,7 +197,7 @@ public class TestModifyUser extends Users {
 		selenium.setSpeed(MIN_SPEED);
         //logout
 		selenium.click("idLeftMenuTreeLogoutButton");
-		this.waitForElementPresent("//div[text()='Talend Master Data Management']", WAIT_TIME);
+		this.waitForElementPresent("idLoginButton", WAIT_TIME);
 		//with LoginNameChangeRoleAndCheckRoleDisplay@gmail.com login TAC 
 		this.loginTac(loginName, loginUserPassWord);
 		//check role whether normal display in the Lower-Left Corner again
@@ -207,7 +207,7 @@ public class TestModifyUser extends Users {
 		
 		//logout tac		
 		selenium.click("idLeftMenuTreeLogoutButton");
-		this.waitForElementPresent("//div[text()='Talend Master Data Management']", WAIT_TIME);
+		this.waitForElementPresent("idLoginButton", WAIT_TIME);
 		//with admin user login tac
 		this.loginTac(adminUser, adminPassword);
 		//delete the user ( LoginNameChangeRoleAndCheckRoleDisplay@gmail.com)
