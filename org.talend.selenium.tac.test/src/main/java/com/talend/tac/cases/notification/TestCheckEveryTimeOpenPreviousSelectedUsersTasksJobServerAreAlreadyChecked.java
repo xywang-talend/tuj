@@ -9,7 +9,7 @@ CheckEveryTimeOpenPreviousSelectedUsersTasksJobServerAreAlreadyChecked{
 	//test check every time open previous selected tasks are already checked
 	@Test
 	@Parameters({"categoryTask","eventTaskFailed","descriptionTaskFailed",
-		"labelAddJVMParametersForTask", "TaskBaseBranch"})
+		"modifyTask", "TaskBaseBranch"})
 	public void testCheckEveryTimeOpenPreviousSelectedTasksAreAlreadyChecked(String categoryTask, String eventTaskFailed,
 			String descriptionTaskFailed, String tasklabel, String tasklabelOfBranch) {
 		
