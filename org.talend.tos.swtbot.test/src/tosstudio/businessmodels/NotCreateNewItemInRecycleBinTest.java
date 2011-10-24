@@ -12,11 +12,7 @@
 // ============================================================================
 package tosstudio.businessmodels;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Assert;
@@ -25,6 +21,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendBusinessModelItem;
+import org.talend.swtbot.items.TalendFolderItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -32,11 +30,7 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class NotCreateNewItemInRecycleBinTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
+    private TalendBusinessModelItem businessModelItem;
 
     private static final String FOLDERNAME = "folderTest";
 
@@ -44,13 +38,12 @@ public class NotCreateNewItemInRecycleBinTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.BUSINESS_MODEL);
-        Utilities.createFolder(FOLDERNAME, treeNode);
-        Utilities.createBusinessModel(BUSINESS_MODEL_NAME, treeNode.getNode(FOLDERNAME));
-        gefBot.editorByTitle("Model " + BUSINESS_MODEL_NAME).close();
-        Utilities.delete(treeNode, FOLDERNAME, null, null);
+        businessModelItem = new TalendBusinessModelItem(BUSINESS_MODEL_NAME);
+        TalendFolderItem folder = Utilities.createFolder(FOLDERNAME, businessModelItem.getItemType());
+        businessModelItem.setFolderPath(folder.getFolderPath());
+        businessModelItem.create();
+        businessModelItem.getModelEditor().saveAndClose();
+        businessModelItem.delete();
     }
 
     @Test

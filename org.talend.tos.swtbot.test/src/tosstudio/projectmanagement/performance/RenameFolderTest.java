@@ -12,18 +12,15 @@
 // ============================================================================
 package tosstudio.projectmanagement.performance;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendFolderItem;
+import org.talend.swtbot.items.TalendJobItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -31,11 +28,9 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class RenameFolderTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
+    private TalendJobItem jobItem;
 
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
+    private TalendFolderItem folderItem;
 
     private static final String JOBNAME = "jobTest";
 
@@ -45,23 +40,21 @@ public class RenameFolderTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
-        Utilities.createFolder(FOLDERNAME, treeNode);
-        SWTBotTreeItem folderNode = treeNode.getNode(FOLDERNAME);
-        Utilities.createJob(JOBNAME, folderNode);
-        gefBot.editorByTitle("Job " + JOBNAME + " 0.1").close();
+        folderItem = Utilities.createFolder(FOLDERNAME, Utilities.TalendItemType.JOB_DESIGNS);
+        jobItem = new TalendJobItem(JOBNAME);
+        jobItem.setFolderPath(folderItem.getFolderPath());
+        jobItem.create();
+        jobItem.getJobEditor().saveAndClose();
     }
 
     @Test
     public void renameFolder() {
-        Utilities.renameFolder(treeNode, FOLDERNAME, NEW_FOLDERNAME);
+        folderItem.rename(NEW_FOLDERNAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.cleanUpRepository(treeNode);
+        Utilities.cleanUpRepository(folderItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

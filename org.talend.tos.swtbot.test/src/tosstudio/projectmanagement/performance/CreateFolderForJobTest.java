@@ -12,18 +12,14 @@
 // ============================================================================
 package tosstudio.projectmanagement.performance;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendFolderItem;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -31,30 +27,22 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class CreateFolderForJobTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
+    private TalendFolderItem folderItem;
 
     private static final String FOLDERNAME = "folder1"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView();
-        view.setFocus();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
     }
 
     @Test
     public void createFolderForJob() {
-        Utilities.createFolder(FOLDERNAME, treeNode);
+        folderItem = Utilities.createFolder(FOLDERNAME, Utilities.TalendItemType.JOB_DESIGNS);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(treeNode, FOLDERNAME, null, null);
+        Utilities.cleanUpRepository(folderItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

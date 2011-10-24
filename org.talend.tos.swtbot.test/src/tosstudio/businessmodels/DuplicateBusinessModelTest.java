@@ -12,18 +12,14 @@
 // ============================================================================
 package tosstudio.businessmodels;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendBusinessModelItem;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -31,11 +27,7 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class DuplicateBusinessModelTest extends TalendSwtBotForTos {
 
-    private SWTBotTree tree;
-
-    private SWTBotView view;
-
-    private SWTBotTreeItem treeNode;
+    private TalendBusinessModelItem businessModelItem;
 
     private static final String BUSINESSMODELNAME = "businessModel1"; //$NON-NLS-1$
 
@@ -43,23 +35,19 @@ public class DuplicateBusinessModelTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView();
-        view.setFocus();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.BUSINESS_MODEL);
-        Utilities.createBusinessModel(BUSINESSMODELNAME, treeNode);
+        businessModelItem = new TalendBusinessModelItem(BUSINESSMODELNAME);
+        businessModelItem.create();
     }
 
     @Test
     public void duplicateBusinessModel() {
-        Utilities.duplicate(treeNode, BUSINESSMODELNAME, "0.1", NEW_BUSINESSMODELNAME);
+        businessModelItem.duplicate(NEW_BUSINESSMODELNAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        gefBot.cTabItem("Model " + BUSINESSMODELNAME).close();
-        Utilities.delete(treeNode, BUSINESSMODELNAME, "0.1", null);
-        Utilities.delete(treeNode, NEW_BUSINESSMODELNAME, "0.1", null);
+        businessModelItem.getModelEditor().saveAndClose();
+        Utilities.cleanUpRepository(businessModelItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

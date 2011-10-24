@@ -40,6 +40,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.talend.swtbot.helpers.JobHelper;
+import org.talend.swtbot.items.TalendFolderItem;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
@@ -895,13 +896,7 @@ public class Utilities {
         return new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
     }
 
-    /**
-     * DOC fzhong Comment method "createFolder".
-     * 
-     * @param folderName
-     * @param treeNode
-     */
-    public static void createFolder(String folderName, SWTBotTreeItem treeNode) {
+    private static SWTBotTreeItem createFolder(String folderName, SWTBotTreeItem treeNode) {
         treeNode.contextMenu("Create folder").click();
         gefBot.waitUntil(Conditions.shellIsActive("New folder"));
         shell = gefBot.shell("New folder");
@@ -926,6 +921,30 @@ public class Utilities {
         } finally {
             Assert.assertNotNull("folder is not created", newFolderItem);
         }
+
+        return newFolderItem;
+    }
+
+    public static TalendFolderItem createFolder(String folderName, TalendItemType itemType) {
+        SWTBotTreeItem folder = createFolder(folderName, Utilities.getTalendItemNode(itemType));
+        TalendFolderItem folderItem = new TalendFolderItem();
+        folderItem.setItem(folder);
+        folderItem.setItemName(folderName);
+        folderItem.setItemPath("");
+        folderItem.setFolderPath(folderName);
+        folderItem.setParentNode(Utilities.getTalendItemNode(itemType));
+        return folderItem;
+    }
+
+    public static TalendFolderItem createFolder(String folderName, TalendFolderItem parentFolder) {
+        SWTBotTreeItem folder = createFolder(folderName, parentFolder.getItem());
+        TalendFolderItem folderItem = new TalendFolderItem();
+        folderItem.setItem(folder);
+        folderItem.setItemName(folderName);
+        folderItem.setItemPath(parentFolder.getFolderPath());
+        folderItem.setFolderPath(parentFolder.getFolderPath() + "/" + folderName);
+        folderItem.setParentNode(parentFolder.getItem());
+        return folderItem;
     }
 
     /**
@@ -1178,27 +1197,6 @@ public class Utilities {
             e.printStackTrace();
         } finally {
             Assert.assertNotNull("embedded rule item is not created", newRuleItem);
-        }
-    }
-
-    public static void renameFolder(SWTBotTreeItem treeNode, String folderName, String newFolderName) {
-        treeNode.getNode(folderName).contextMenu("Rename folder").click();
-        shell = gefBot.shell("New folder").activate();
-        gefBot.textWithLabel("Label").setText(newFolderName);
-        boolean isFinishButtonEnable = gefBot.button("Finish").isEnabled();
-        if (!isFinishButtonEnable) {
-            shell.close();
-            Assert.assertTrue("folder name already exist", isFinishButtonEnable);
-        }
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newFolderItem = null;
-        try {
-            newFolderItem = treeNode.expand().select(newFolderName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("folder is renamed", newFolderItem);
         }
     }
 

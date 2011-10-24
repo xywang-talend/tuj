@@ -12,13 +12,8 @@
 // ============================================================================
 package tosstudio.businessmodels;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,6 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendBusinessModelItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -33,30 +29,24 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class ReadBusinessModelTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
+    private TalendBusinessModelItem businessModelItem;
 
     private static final String BUSINESS_MODEL_NAME = "businessTest";
 
     @Before
     public void createBusinessModel() {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.BUSINESS_MODEL);
-        Utilities.createBusinessModel(BUSINESS_MODEL_NAME, treeNode);
-        gefBot.editorByTitle("Model " + BUSINESS_MODEL_NAME).close();
+        businessModelItem = new TalendBusinessModelItem(BUSINESS_MODEL_NAME);
+        businessModelItem.create();
+        businessModelItem.getModelEditor().close();
     }
 
     @Test
     public void readBusinessModel() {
-        treeNode.getNode(BUSINESS_MODEL_NAME + " 0.1").contextMenu("Read Business Model").click();
+        businessModelItem.getItem().contextMenu("Read Business Model").click();
 
         boolean isEditorActive = false;
         try {
-            isEditorActive = gefBot.editorByTitle("Model " + BUSINESS_MODEL_NAME).isActive();
+            isEditorActive = businessModelItem.getModelEditor().isActive();
         } catch (WidgetNotFoundException wnfe) {
             wnfe.printStackTrace();
         } finally {
@@ -66,8 +56,8 @@ public class ReadBusinessModelTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        gefBot.editorByTitle("Model " + BUSINESS_MODEL_NAME).close();
-        Utilities.cleanUpRepository(treeNode);
+        businessModelItem.getModelEditor().saveAndClose();
+        Utilities.cleanUpRepository(businessModelItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

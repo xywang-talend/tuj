@@ -13,6 +13,8 @@
 package org.talend.swtbot.items;
 
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
 import org.talend.swtbot.Utilities;
@@ -113,7 +115,13 @@ public class TalendItem {
     }
 
     public void setFolderPath(String folderPath) {
+        if ("".equals(folderPath) || folderPath == null)
+            return;
         this.folderPath = folderPath;
+        String[] folders = folderPath.split("/");
+        for (int i = 0; i < folders.length; i++) {
+            setParentNode(parentNode.expandNode(folders[i]));
+        }
     }
 
     protected void initialise(TalendItemType itemType) {
@@ -148,4 +156,49 @@ public class TalendItem {
     public void duplicate(String newItemName) {
         Utilities.duplicate(parentNode, itemName, itemVersion, newItemName);
     }
+
+    public SWTBotShell beginCreationWizard(String contextMenu, final String shellTitle) {
+        parentNode.contextMenu(contextMenu).click();
+
+        SWTBotShell shell = null;
+        if (!"New JobScript".equals(shellTitle)) {
+            gefBot.waitUntil(Conditions.shellIsActive(shellTitle));
+            shell = gefBot.shell(shellTitle);
+            shell.activate();
+        }
+
+        gefBot.textWithLabel("Name").setText(itemName);
+        return shell;
+    }
+
+    public void finishCreationWizard(final SWTBotShell shell) {
+        boolean finishButtonIsEnabled = gefBot.button("Finish").isEnabled();
+        if (finishButtonIsEnabled) {
+            gefBot.button("Finish").click();
+        } else {
+            shell.close();
+            Assert.assertTrue("finish button is not enabled, item created fail. Maybe the item name already exist,",
+                    finishButtonIsEnabled);
+        }
+
+        if (shell.isOpen()) {
+            shell.close();
+            Assert.fail("shell did not close automatically");
+        }
+
+        SWTBotTreeItem newTreeItem = null;
+        try {
+            if (gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").isEnabled()) {
+                gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
+            }
+            newTreeItem = parentNode.expand().select(itemName + " 0.1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("item is not created", newTreeItem);
+        }
+
+        setItem(parentNode.getNode(itemName + " 0.1"));
+    }
+
 }
