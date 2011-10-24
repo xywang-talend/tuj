@@ -24,7 +24,7 @@ public class TestAddTasksNotification extends AddNotification {
 
 	//add a task'notification(Uncheck Active)
 	@Test          
-	@Parameters({"categoryTask","eventTaskFailed","descriptionTaskFailed","labelAddJVMParametersForTask"})
+	@Parameters({"categoryTask","eventTaskFailed","descriptionTaskFailed","modifyTask"})
 	public void testAddTaskNotificationUncheckActive(String categoryTask, String eventTaskFailed,
 			String descriptionTaskFailed, String testAddsimpleTask) {
 		
