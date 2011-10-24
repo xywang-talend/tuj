@@ -39,6 +39,7 @@ public class Audit extends Login {
 		selenium.type("idDbConfigUserNmeInput", userName);
 		selenium.type("idDbConfigPasswordInput", userPassWd);
 		selenium.type("idDbConfigDriverInput", driver);
+		selenium.focus("idDbConfigDriverInput");
 	}
 	
 	public void waitForCheckConnectionStatus(String locator, int OK_Num) {
