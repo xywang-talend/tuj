@@ -19,20 +19,23 @@ CheckAllUsersJobserverTaskOfClickFirstCheckBox {
 				eventUserDeletion, descriptionUserDeletion, "idNotificationRepUserButton");
 		
 		Thread.sleep(3000);
-		Assert.assertTrue(selenium.isElementPresent("//i[contains(text(),'- admin@company.com')]"));
-		Assert.assertTrue(selenium.isElementPresent("//i[contains(text(),'- userWithCvsFile@talend.com')]"));
-		Assert.assertTrue(selenium.isElementPresent("//i[contains(text(),'- testMulripleRoles@company.com')]"));
-		Assert.assertTrue(selenium.isElementPresent("//i[contains(text(),'- account@company.com')]"));
-		Assert.assertTrue(selenium.isElementPresent("//i[contains(text(),'- jackzhang@gamil.com')]"));
-		Assert.assertTrue(selenium.isElementPresent("//i[contains(text(),'- testChooseTypeDataQuality@126.com')]"));
-		Assert.assertTrue(selenium.isElementPresent("//i[contains(text(),'- Copy_of_testUserUncheckActive@gmail.com')]"));		
-		 		
+		//get user count in notification page
+		int actualUserCount = this.getXpathCount("//table[@cellspacing='3']//tr[1]//div[text()='Recipients: ']" +
+				"//parent::td//following-sibling::td//td[1][@align='left']//div//i");
+		
+		//go to user page
+		//get user count in user page
+		this.openPage("idMenuUserElement", "Users");
+		int expectedUserCount = this.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-login']");
+		
+		Assert.assertTrue(actualUserCount == expectedUserCount);
+			
 	}
 	
 	//test select all tasks of click first checkbox
 	@Test
 	@Parameters({"categoryTask","eventTaskFailed","descriptionTaskFailed",
-		"labelAddJVMParametersForTask", "TaskBaseBranch"})
+		"modifyTask", "TaskBaseBranch"})
 	public void testCheckAllTasksOfClickFirstCheckBox(String categoryTask, String eventTaskFailed,
 			String descriptionTaskFailed, String tasklabel, String tasklabelOfBranch) throws InterruptedException {
 		
@@ -40,10 +43,17 @@ CheckAllUsersJobserverTaskOfClickFirstCheckBox {
 				eventTaskFailed, descriptionTaskFailed, "idNotificationTaskButton");
 		
 		Thread.sleep(3000);
-		Assert.assertTrue(selenium.isElementPresent("//i[contains(text(),'- BranchTask')]"));
-		Assert.assertTrue(selenium.isElementPresent("//i[contains(text(),'- testAddsimpleTask')]"));
-		Assert.assertTrue(selenium.isElementPresent("//i[contains(text(),'- testModifyTask')]"));
-		Assert.assertTrue(selenium.isElementPresent("//i[contains(text(),'- testTaskRunTRunJob')]"));
+//		get task count in notification page
+		int actualTaskCount = this.getXpathCount("//table[@cellspacing='3']//tr[2]//div[text()='Tasks: ']" +
+				"//parent::td//following-sibling::td//td[1][@align='left']//div//i");
+		
+		//go to Task page
+		//get task count in task page
+		this.openPage("!!!menu.executionTasks.element!!!", rb.getString("menu.jobConductor"));
+		int expectedTaskCount = this.getXpathCount("//div[text()='Conductor' and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+				"//div[@class='x-grid3-cell-inner x-grid3-col-label']");
+		
+		Assert.assertTrue(actualTaskCount == expectedTaskCount);
  		
 	}
 	
@@ -59,9 +69,18 @@ CheckAllUsersJobserverTaskOfClickFirstCheckBox {
 				eventJobServerAlert, descriptionJobServerAlert, "idNotificationJobserverButton");
 		
 		Thread.sleep(3000);
-		Assert.assertTrue(selenium.isElementPresent("//i[contains(text(),'- use_server_available')]"));
-		Assert.assertTrue(selenium.isElementPresent("//i[contains(text(),'- use_server_unactive')]"));
- 		
+		//get server count in notification page
+		int actualTaskCount = this.getXpathCount("//table[@cellspacing='3']//tr[2]//div[text()='jobServers: ']" +
+				"//parent::td//following-sibling::td//td[1][@align='left']//div//i");
+		
+		//go to Task page
+		//get server count in server page
+		this.openPage("!!!menu.executionServers.element!!!", rb.getString("menu.jobConductor"));
+		int expectedTaskCount = this.getXpathCount("//div[text()='Servers' and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+				"//div[@class='x-grid3-cell-inner x-grid3-col-label']");
+		
+		Assert.assertTrue(actualTaskCount == expectedTaskCount);
+
 	}
 	
 }
