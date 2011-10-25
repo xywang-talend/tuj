@@ -2,10 +2,87 @@ package com.talend.tac.cases.audit;
 
 import static org.testng.Assert.assertTrue;
 
+import java.awt.event.KeyEvent;
+import java.io.File;
+
+import org.testng.Assert;
+
 import com.talend.tac.cases.Login;
 
 
 public class Audit extends Login {
+
+	public String locatorOfAllInputTags = other.getString("commandline.conf.all.input");
+    
+	//check report pdf after audit 
+	public File checkReportPdf(String reportFilePath, String projectName, String jobName) {
+		
+		File auditReportFile = new File(reportFilePath+"/"+this.getReportFileName());
+		System.out.println(auditReportFile);
+	    
+	    for (int seconds = 0;; seconds++) {
+			if (seconds >= WAIT_TIME) {
+				assertTrue(auditReportFile.exists());
+			}
+			if (auditReportFile.exists()) {
+				System.out.println(seconds + "' used to download");
+				break;
+			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	    
+	    Assert.assertTrue(this.isExistedInfoInPdf(this.getDefaultReportPath()+"/"+this.getReportFileName(), projectName));
+	    Assert.assertTrue(this.isExistedInfoInPdf(this.getDefaultReportPath()+"/"+this.getReportFileName(), jobName));
+		return auditReportFile;
+		
+	}
+	
+	//get incipient report path
+	public String  getDefaultReportPath() {
+		
+		//go to configuration page
+		this.clickWaitForElementPresent("idMenuConfigElement");
+		
+		//change value of 'reports stored path' to a directory exist
+		this.waitForElementPresent("//div[contains(text(),'Audit (')]", WAIT_TIME);
+		selenium.mouseDown("//div[contains(text(),'Audit (')]");
+		
+		this.clickWaitForElementPresent(other.getString("audit.conf.reportsStoredPath.editButton"));//click the edit button to make the input tag shown.
+		String defaultPath = selenium.getValue(locatorOfAllInputTags);
+		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+		System.out.println(">>>>>>>>"+defaultPath);
+		return defaultPath;
+	
+   }
+	
+	//creation method for get report file name
+	public String getReportFileName() {		
+		
+	    this.openAudit();
+	    
+	    selenium.mouseOver("//a[contains(text(),'Audit for project')]");
+	    selenium.setSpeed("2000");
+	    
+	    String reportFileHref = "";
+	    reportFileHref = selenium.getAttribute("//a[contains(text(),'Audit for project')]@href");
+	    String reportFileNames[] = reportFileHref.split("file=");
+	    
+	    for(int i= 0; i<reportFileNames.length; i++) {
+    	
+	    	System.out.println(reportFileNames[i]);	
+  	
+	    }
+	    String reportFileName = reportFileNames[1];
+	    System.out.println(reportFileName);
+		return reportFileName;
+	  
+	    
+	}
+	
 	public void openAudit(){
 		this.waitForElementPresent("!!!menu.audit.element!!!", WAIT_TIME);
 		selenium.click("!!!menu.audit.element!!!");
