@@ -1,6 +1,7 @@
 package com.talend.tac.cases.audit;
 
 import java.awt.Event;
+import java.io.File;
 
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -10,10 +11,14 @@ public class TestAuditProjectWithSqlServer extends Audit {
 	
 	//audit a project with sqlserver
 	@Test
-	@Parameters({"sqlserverURL", "sqlserverUserName", "sqlserverPassWord", "sqlserverDriver", "ProjectWithSpaceChar"})
+	@Parameters({"sqlserverURL", "sqlserverUserName", "sqlserverPassWord", "sqlserverDriver", "ProjectWithSpaceChar"
+		, "jobNameTJava"})
 	public void testAuditProjectWithSqlServer(String url, String userName, String userPassWd, String driver,
-			   String projectName) {
+			   String projectName, String tjava) {
 		
+	   //get get incipient report path
+	   String defaultPath = this.getDefaultReportPath(); 
+	   
 	   this.openAudit();
 		   
 	   /*change db info*/
@@ -36,7 +41,10 @@ public class TestAuditProjectWithSqlServer extends Audit {
 	   
 	   int auditListLinkCount = this.checkAuditListLink(projectName);
 	   Assert.assertEquals(auditListLinkCount, 3);
-		
+	   File auditReportFile = this.checkReportPdf(defaultPath, projectName, tjava);
+	   
+	   auditReportFile.delete();
+	   
 	}
 	
 }
