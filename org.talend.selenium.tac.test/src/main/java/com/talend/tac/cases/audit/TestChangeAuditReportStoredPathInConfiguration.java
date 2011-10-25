@@ -1,12 +1,9 @@
 package com.talend.tac.cases.audit;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-
 import java.awt.Event;
 import java.awt.event.KeyEvent;
 import java.io.File;
-
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -14,26 +11,16 @@ import com.talend.tac.base.Base;
 
 public class TestChangeAuditReportStoredPathInConfiguration extends Audit {
 	
-	public String locatorOfAllInputTags = other.getString("commandline.conf.all.input");
-		
 /*	//change audit report stored path in configuration, go to audit page.select a  project
    and branch ,start audit, go to the directory to check the reports generated */
 	@Test
-	@Parameters({"auditStoredReportsPath","mysqlURL", "mysqlUserName", "mysqlPassWord", "mysqlDriver", "ProjectWithSpaceChar"})
+	@Parameters({"auditStoredReportsPath","mysqlURL", "mysqlUserName", "mysqlPassWord", "mysqlDriver", "ProjectWithSpaceChar", 
+		"jobNameTJava"})
 	public void testChangeAuditReportStoredPathInConfiguration(String auditStoredReportsPath, String url, String userName, String userPassWd, String driver,
-			   String projectName) {
+			   String projectName, String tjava) {
 		
-		//go to configuration page
-		this.clickWaitForElementPresent("idMenuConfigElement");
-		
-		//change value of 'reports stored path' to a directory exist
-		this.waitForElementPresent("//div[contains(text(),'Audit (')]", WAIT_TIME);
-		selenium.mouseDown("//div[contains(text(),'Audit (')]");
-		
-		this.clickWaitForElementPresent(other.getString("audit.conf.reportsStoredPath.editButton"));//click the edit button to make the input tag shown.
-		String defaultPath = selenium.getValue(locatorOfAllInputTags);
-		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
-		System.out.println(">>>>>>>>"+defaultPath);
+		//get get incipient report path
+		String defaultPath = this.getDefaultReportPath();
 		
 	    this.typeWordsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),locatorOfAllInputTags, this.getAbsolutePath(auditStoredReportsPath));
 	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),locatorOfAllInputTags, this.getAbsolutePath(auditStoredReportsPath),other.getString("audit.conf.reportsStoredPath.statusIcon"));
@@ -50,49 +37,24 @@ public class TestChangeAuditReportStoredPathInConfiguration extends Audit {
 	   
 	    this.waitForCheckConnectionStatus("//div[text()='OK']", 3);
 	    selenium.click("//div[contains(@class,'x-nodrag x-tool-close x-tool x-component')]");
-	    /*change db info*/
+//	    /*change db info*/
 	   
 	    this.auditProcess(projectName, "trunk");
 	   
 	    /*check audit tesult*/
 	    this.waitForElementPresent("//div//font[1][text()='The Audit process has terminated successfully']", WAIT_TIME*4);
 	    this.waitForElementPresent("//div//font[3][text()='The Audit process has terminated successfully']", WAIT_TIME*4);	   
-//	    this.waitForElementPresent("//a[contains(text(),'Audit for project \"PROJECT_SPACE\" created at')]", WAIT_TIME);
-		
-	    //check report file whether exist in local directory
-	    File   directory   =   new   File(this.getAbsolutePath(auditStoredReportsPath));
-		File[]   file   =   directory.listFiles();
-		
-		String fileName = file[0].getName();		
-		String[] reportFilenames = fileName.split("_",3);
-		
-		String reportFileName = reportFilenames[2];
-		System.out.println(reportFileName);	
-		
-	    File auditReportFile = new File(this.getAbsolutePath(auditStoredReportsPath)+"/"+"PROJECT_SPACE"+"_"+reportFileName);
-		System.out.println(auditReportFile);
+	    this.waitForElementPresent("//a[contains(text(),'Audit for project \"PROJECT_SPACE\" created at')]", WAIT_TIME);
 	    
-	    for (int seconds = 0;; seconds++) {
-			if (seconds >= WAIT_TIME) {
-				assertTrue(auditReportFile.exists());
-			}
-			if (auditReportFile.exists()) {
-				System.out.println(seconds + "' used to download");
-				break;
-			}
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+	    //check report pdf after audit 
+		File auditReportFile = this.checkReportPdf(this.getAbsolutePath(auditStoredReportsPath), projectName, tjava);
 	    
-	    auditReportFile.delete();
+	    auditReportFile.delete(); 	    
 	    
-	  //go to configuration page
+	    //go to configuration page
 		this.clickWaitForElementPresent("idMenuConfigElement");
 		
-		//change value of 'reports stored path' to a directory exist
+//		//change value of 'reports stored path' to a directory exist
 		this.waitForElementPresent("//div[contains(text(),'Audit (')]", WAIT_TIME);
 		selenium.mouseDown("//div[contains(text(),'Audit (')]");
 		
