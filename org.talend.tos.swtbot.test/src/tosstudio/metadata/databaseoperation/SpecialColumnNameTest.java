@@ -86,7 +86,7 @@ public class SpecialColumnNameTest extends TalendSwtBotForTos {
         schemaItem = dbItem.getSchema(TABLE_NAME);
         schemaItem.setComponentType("tMysqlInput");
         schemaItem.setExpectResult("1|a|a");
-        MetadataHelper.output2Console(jobItem.getJobEditor(), schemaItem);
+        MetadataHelper.output2Console(jobItem.getEditor(), schemaItem);
         String actualResult = JobHelper.getExecutionResult();
         MetadataHelper.assertResult(actualResult, schemaItem);
     }
@@ -95,7 +95,7 @@ public class SpecialColumnNameTest extends TalendSwtBotForTos {
     public void removePreviousCreateItem() {
         String sql = "drop table " + TABLE_NAME;
         dbItem.executeSQL(sql);
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(dbItem.getParentNode());
         Utilities.emptyRecycleBin();

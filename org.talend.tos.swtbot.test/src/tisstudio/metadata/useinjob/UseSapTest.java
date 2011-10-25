@@ -60,7 +60,7 @@ public class UseSapTest extends TalendSwtBotForTos {
         sapFunction = sapItem.getSapFunction("RFC_READ_TABLE");
         sapFunction.retrieveSchema("DATA");
         schema = sapFunction.getSchema("DATA");
-        MetadataHelper.output2Console(jobItem.getJobEditor(), schema, "row_DATA_1");
+        MetadataHelper.output2Console(jobItem.getEditor(), schema, "row_DATA_1");
         String actualResult = JobHelper.getExecutionResult();
         schema.setExpectResultFromFile("sap.result");
         MetadataHelper.assertResult(actualResult, schema);
@@ -68,7 +68,7 @@ public class UseSapTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(sapItem.getParentNode());
         Utilities.emptyRecycleBin();

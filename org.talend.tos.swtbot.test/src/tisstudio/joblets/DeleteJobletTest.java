@@ -12,18 +12,14 @@
 // ============================================================================
 package tisstudio.joblets;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendJobletItem;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -31,27 +27,20 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class DeleteJobletTest extends TalendSwtBotForTos {
 
-    private SWTBotTree tree;
-
-    private SWTBotView view;
-
-    private SWTBotTreeItem treeNode;
+    private TalendJobletItem jobletItem;
 
     private static final String JOBLETNAME = "joblet1"; //$NON-NLS-1$
 
     @Before
     public void createJoblet() {
-        view = Utilities.getRepositoryView();
-        view.setFocus();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOBLET_DESIGNS);
-        Utilities.createJoblet(JOBLETNAME, treeNode);
+        jobletItem = new TalendJobletItem(JOBLETNAME);
+        jobletItem.create();
     }
 
     @Test
     public void deleteJoblet() {
-        gefBot.editorByTitle("Joblet " + JOBLETNAME + " 0.1").close();
-        Utilities.delete(treeNode, JOBLETNAME, "0.1", null);
+        jobletItem.getEditor().saveAndClose();
+        jobletItem.delete();
     }
 
     @After

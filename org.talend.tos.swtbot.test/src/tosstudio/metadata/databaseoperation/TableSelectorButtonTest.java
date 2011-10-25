@@ -58,8 +58,8 @@ public class TableSelectorButtonTest extends TalendSwtBotForTos {
     @Test
     public void tableSelectorButtonTest() {
         dbItem.setComponentType("tPostgresqlInput");
-        Utilities.dndMetadataOntoJob(jobItem.getJobEditor(), dbItem.getItem(), dbItem.getComponentType(), new Point(100, 100));
-        getTalendComponentPart(jobItem.getJobEditor(), dbItem.getItemName()).click();
+        Utilities.dndMetadataOntoJob(jobItem.getEditor(), dbItem.getItem(), dbItem.getComponentType(), new Point(100, 100));
+        getTalendComponentPart(jobItem.getEditor(), dbItem.getItemName()).click();
 
         gefBot.viewByTitle("Component").setFocus();
         gefBot.buttonWithTooltip("Show the table list for the current conection").click();
@@ -86,7 +86,7 @@ public class TableSelectorButtonTest extends TalendSwtBotForTos {
     public void removePreviousCreateItem() {
         String sql = "drop table " + TABLE_NAME + ";";
         dbItem.executeSQL(sql);
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(dbItem.getParentNode());
         Utilities.emptyRecycleBin();

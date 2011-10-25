@@ -110,13 +110,13 @@ public class ExportAsContextForXmlTest extends TalendSwtBotForTos {
         }
 
         fileItem.setComponentType("tFileInputXML");
-        MetadataHelper.output2Console(jobItem.getJobEditor(), fileItem);
+        MetadataHelper.output2Console(jobItem.getEditor(), fileItem);
         MetadataHelper.assertResult(JobHelper.getExecutionResult(), fileItem);
     }
 
     @After
     public void removePreviousCreateItem() {
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(fileItem.getParentNode());
         Utilities.cleanUpRepository(Utilities.getTalendItemNode(Utilities.TalendItemType.CONTEXTS));

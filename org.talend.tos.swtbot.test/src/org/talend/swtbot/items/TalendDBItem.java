@@ -131,27 +131,10 @@ public class TalendDBItem extends TalendMetadataItem {
             }
         });
 
-        try {
-            if (gefBot.label(1).getText().equals("\"" + itemName + "\" connection successful.")) {
-                gefBot.button("OK").click();
-                gefBot.button("Finish").click();
-            }
-            gefBot.waitUntil(Conditions.shellCloses(shell));
-        } catch (Exception e) {
-            shell.close();
-            Assert.assertTrue("connection created failure", false);
+        if (gefBot.label(1).getText().equals("\"" + itemName + "\" connection successful.")) {
+            gefBot.button("OK").click();
         }
-
-        SWTBotTreeItem newDbItem = null;
-        try {
-            newDbItem = parentNode.expand().select(itemName + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull(dbType.toString() + " connection is not created", newDbItem);
-        }
-
-        setItem(parentNode.getNode(itemName + " 0.1"));
+        finishCreationWizard(shell);
     }
 
     /**
@@ -306,5 +289,10 @@ public class TalendDBItem extends TalendMetadataItem {
         else
             schemaProp += ".schema";
         return convertString(System.getProperty(schemaProp));
+    }
+
+    @Override
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit connection", "Database Connection");
     }
 }

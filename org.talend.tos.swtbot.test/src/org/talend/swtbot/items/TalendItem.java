@@ -157,6 +157,27 @@ public class TalendItem {
         Utilities.duplicate(parentNode, itemName, itemVersion, newItemName);
     }
 
+    public void rename(String newItemName) {
+        SWTBotShell shell = beginEditWizard();
+        gefBot.text(itemName).setText(newItemName);
+        setItemName(newItemName);
+        finishEditWizard(shell);
+    }
+
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit properties", "Edit properties");
+    }
+
+    public SWTBotShell beginEditWizard(String contextMenu, final String shellTitle) {
+        parentNode.getNode(itemFullName).contextMenu(contextMenu).click();
+        SWTBotShell shell = gefBot.shell(shellTitle).activate();
+        return shell;
+    }
+
+    public void finishEditWizard(final SWTBotShell shell) {
+        finishCreationWizard(shell);
+    }
+
     public SWTBotShell beginCreationWizard(String contextMenu, final String shellTitle) {
         parentNode.contextMenu(contextMenu).click();
 
@@ -200,5 +221,4 @@ public class TalendItem {
 
         setItem(parentNode.getNode(itemName + " 0.1"));
     }
-
 }

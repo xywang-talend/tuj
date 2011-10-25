@@ -14,12 +14,8 @@ package tisstudio.documentation;
 
 import junit.framework.Assert;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
@@ -27,6 +23,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendJobItem;
+import org.talend.swtbot.items.TalendJobletItem;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -34,13 +32,9 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class GenerateAllDocTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
+    private TalendJobItem jobItem;
 
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem jobNode;
-
-    private SWTBotTreeItem jobletNode;
+    private TalendJobletItem jobletItem;
 
     private SWTBotTreeItem docNode;
 
@@ -50,12 +44,10 @@ public class GenerateAllDocTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        jobNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
-        jobletNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOBLET_DESIGNS);
-        Utilities.createJob(JOBNAME, jobNode);
-        Utilities.createJoblet(JOBLETNAME, jobletNode);
+        jobItem = new TalendJobItem(JOBNAME);
+        jobItem.create();
+        jobletItem = new TalendJobletItem(JOBLETNAME);
+        jobletItem.create();
     }
 
     @Test
@@ -82,10 +74,10 @@ public class GenerateAllDocTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
-        gefBot.cTabItem("Joblet " + JOBLETNAME + " 0.1").close();
-        Utilities.delete(jobNode, JOBNAME, "0.1", null);
-        Utilities.delete(jobletNode, JOBLETNAME, "0.1", null);
+        jobItem.getEditor().saveAndClose();
+        jobletItem.getEditor().saveAndClose();
+        Utilities.cleanUpRepository(jobItem.getParentNode());
+        Utilities.cleanUpRepository(jobletItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

@@ -68,7 +68,7 @@ public class ExportJobAsWebserviceInWarFileTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
         shell.close();
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.emptyRecycleBin();
         Utilities.getFileFromCurrentPluginSampleFolder("output_job.war").delete();

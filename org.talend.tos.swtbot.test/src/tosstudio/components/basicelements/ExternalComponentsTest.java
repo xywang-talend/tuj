@@ -50,7 +50,7 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
 
     @Test
     public void useComponentInJob() throws IOException, URISyntaxException {
-        SWTBotGefEditor jobEditor = jobItem.getJobEditor();
+        SWTBotGefEditor jobEditor = jobItem.getEditor();
 
         Utilities.dndPaletteToolOntoJob(jobEditor, "tRowGenerator", new Point(100, 100));
         SWTBotGefEditPart rowGen = getTalendComponentPart(jobEditor, "tRowGenerator_1");
@@ -139,7 +139,7 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.emptyRecycleBin();
     }

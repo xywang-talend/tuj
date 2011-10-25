@@ -12,18 +12,14 @@
 // ============================================================================
 package tosstudio.context;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendContextItem;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -31,11 +27,7 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class DuplicateContextTest extends TalendSwtBotForTos {
 
-    private SWTBotTree tree;
-
-    private SWTBotView view;
-
-    private SWTBotTreeItem treeNode;
+    private TalendContextItem contextItem;
 
     private static final String CONTEXTNAME = "context1"; //$NON-NLS-1$
 
@@ -43,22 +35,18 @@ public class DuplicateContextTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView();
-        view.setFocus();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.CONTEXTS);
-        Utilities.createContext(CONTEXTNAME, treeNode);
+        contextItem = new TalendContextItem(CONTEXTNAME);
+        contextItem.create();
     }
 
     @Test
     public void duplicateContext() {
-        Utilities.duplicate(treeNode, CONTEXTNAME, "0.1", NEW_CONTEXTNAME);
+        contextItem.duplicate(NEW_CONTEXTNAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(treeNode, CONTEXTNAME, "0.1", null);
-        Utilities.delete(treeNode, NEW_CONTEXTNAME, "0.1", null);
+        Utilities.cleanUpRepository(contextItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

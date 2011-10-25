@@ -48,7 +48,7 @@ public class CreateBusinessModelInFolderTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        businessModelItem.getModelEditor().saveAndClose();
+        businessModelItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(businessModelItem.getParentNode());
         Utilities.emptyRecycleBin();
     }

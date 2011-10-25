@@ -12,12 +12,8 @@
 // ============================================================================
 package tosstudio.projectmanagement.performance;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCTabItem;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Assert;
@@ -26,6 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendJobItem;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -33,27 +30,20 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class OpenAnotherVersionOfJobTest extends TalendSwtBotForTos {
 
-    private SWTBotTree tree;
-
-    private SWTBotView view;
-
-    private SWTBotTreeItem treeNode;
+    private TalendJobItem jobItem;
 
     private static final String JOBNAME = "test01"; //$NON-NLS-1$
 
     @Before
     public void createAJob() {
-        view = Utilities.getRepositoryView();
-        view.setFocus();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
-        Utilities.createJob(JOBNAME, treeNode);
+        jobItem = new TalendJobItem(JOBNAME);
+        jobItem.create();
     }
 
     @Test
     public void openAnotherVersionOfJob() {
-        gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
-        treeNode.getNode(JOBNAME + " 0.1").contextMenu("Open an other version").click();
+        jobItem.getEditor().saveAndClose();
+        jobItem.getItem().contextMenu("Open an other version").click();
 
         gefBot.shell("New job").activate();
         gefBot.checkBox("Create new version and open it?").click();
@@ -64,7 +54,9 @@ public class OpenAnotherVersionOfJobTest extends TalendSwtBotForTos {
         SWTBotCTabItem newJobTabItem1 = gefBot.cTabItem("Job " + JOBNAME + " 1.1");
         Assert.assertNotNull("job tab is not opened", newJobTabItem1);
 
-        tree.expandNode("Job Designs").getNode(JOBNAME + " 1.1").contextMenu("Open an other version").click();
+        SWTBotTreeItem newItem = jobItem.getParentNode().expand().getNode(JOBNAME + " 1.1");
+        jobItem.setItem(newItem);
+        jobItem.getItem().contextMenu("Open an other version").click();
         gefBot.shell("New job").activate();
         gefBot.table().select(0);
         gefBot.button("Finish").click();
@@ -78,7 +70,7 @@ public class OpenAnotherVersionOfJobTest extends TalendSwtBotForTos {
         gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
         gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
         gefBot.cTabItem("Job " + JOBNAME + " 1.1").close();
-        Utilities.delete(treeNode, JOBNAME, "1.1", null);
+        Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

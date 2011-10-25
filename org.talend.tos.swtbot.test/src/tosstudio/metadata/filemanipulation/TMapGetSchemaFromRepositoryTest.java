@@ -55,7 +55,7 @@ public class TMapGetSchemaFromRepositoryTest extends TalendSwtBotForTos {
 
     @Test
     public void tMapGetSchemaFromRepositoryTest() {
-        SWTBotGefEditor jobEditor = jobItem.getJobEditor();
+        SWTBotGefEditor jobEditor = jobItem.getEditor();
         Utilities.dndPaletteToolOntoJob(jobEditor, "tMap", new Point(100, 100));
         getTalendComponentPart(jobEditor, "tMap_1").doubleClick();
         SWTBotShell tMapShell = gefBot.shell(System.getProperty("buildTitle") + " - tMap - tMap_1");
@@ -104,7 +104,7 @@ public class TMapGetSchemaFromRepositoryTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(genericSchemaItem.getParentNode());
         Utilities.emptyRecycleBin();

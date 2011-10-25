@@ -12,18 +12,14 @@
 // ============================================================================
 package tisstudio.joblets;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendJobletItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -31,11 +27,7 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class RenameJobletTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
+    private TalendJobletItem jobletItem;
 
     private static final String JOBLET_NAME = "jobletTest";
 
@@ -43,21 +35,19 @@ public class RenameJobletTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOBLET_DESIGNS);
-        Utilities.createJoblet(JOBLET_NAME, treeNode);
-        gefBot.editorByTitle("Joblet " + JOBLET_NAME + " 0.1").saveAndClose();
+        jobletItem = new TalendJobletItem(JOBLET_NAME);
+        jobletItem.create();
+        jobletItem.getEditor().saveAndClose();
     }
 
     @Test
     public void renameJoblet() {
-        Utilities.renameJoblet(treeNode, JOBLET_NAME, NEW_JOBLET_NAME);
+        jobletItem.rename(NEW_JOBLET_NAME);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.cleanUpRepository(treeNode);
+        Utilities.cleanUpRepository(jobletItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

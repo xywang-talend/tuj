@@ -50,7 +50,7 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
         jobItem2 = new TalendJobItem(JOBNAME2);
         jobItem2.create();
         /* Use components in job1 */
-        SWTBotGefEditor jobEditor1 = jobItem1.getJobEditor();
+        SWTBotGefEditor jobEditor1 = jobItem1.getEditor();
         jobEditor1.show();
 
         Utilities.dndPaletteToolOntoJob(jobEditor1, "tRowGenerator", new Point(100, 100));
@@ -77,7 +77,7 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
 
     @Test
     public void copyAndPasteComponents() {
-        SWTBotGefEditor jobEditor1 = jobItem1.getJobEditor();
+        SWTBotGefEditor jobEditor1 = jobItem1.getEditor();
         /* Copy and paste in own job */
         SWTBotGefEditPart rowGen1 = getTalendComponentPart(jobEditor1, "tRowGenerator_1");
         SWTBotGefEditPart logRow1 = getTalendComponentPart(jobEditor1, "tLogRow_1");
@@ -94,7 +94,7 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
         Assert.assertNotNull("no copy the row line in own job", rowMain2);
 
         /* Copy and paste in another job */
-        SWTBotGefEditor jobEditor2 = jobItem2.getJobEditor();
+        SWTBotGefEditor jobEditor2 = jobItem2.getEditor();
         jobEditor2.setFocus();
         jobEditor2.click(100, 100);
         jobEditor2.clickContextMenu("Paste");
@@ -109,8 +109,8 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        jobItem1.getJobEditor().saveAndClose();
-        jobItem2.getJobEditor().saveAndClose();
+        jobItem1.getEditor().saveAndClose();
+        jobItem2.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem1.getParentNode());
         Utilities.emptyRecycleBin();
     }

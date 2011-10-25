@@ -46,7 +46,7 @@ public class LinkManagementTest extends TalendSwtBotForTos {
 
     @Test
     public void useComponentInJob() {
-        SWTBotGefEditor jobEditor = jobItem.getJobEditor();
+        SWTBotGefEditor jobEditor = jobItem.getEditor();
 
         Utilities.dndPaletteToolOntoJob(jobEditor, "tRowGenerator", new Point(100, 100));
         SWTBotGefEditPart rowGen = getTalendComponentPart(jobEditor, "tRowGenerator_1");
@@ -84,7 +84,7 @@ public class LinkManagementTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.delete(jobItem.getParentNode(), JOBNAME, "0.1", null);
         Utilities.emptyRecycleBin();
     }

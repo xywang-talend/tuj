@@ -17,7 +17,6 @@ import java.net.URISyntaxException;
 
 import junit.framework.Assert;
 
-import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
@@ -87,17 +86,7 @@ public class TalendEdiItem extends TalendMetadataItem {
 
     @Override
     public void create() {
-        SWTGefBot gefBot = new SWTGefBot();
-        getParentNode().contextMenu("Create EDI").click();
-        SWTBotShell shell = gefBot.shell("Create new EDI schema").activate();
-        gefBot.textWithLabel("Name").setText(getItemName());
-        boolean isNextButtonEnable = gefBot.button("Next >").isEnabled();
-        if (!isNextButtonEnable) {
-            shell.close();
-            Assert.assertTrue("edi item is not created, maybe the item name already exist", isNextButtonEnable);
-        }
-        gefBot.button("Next >").click();
-
+        SWTBotShell shell = beginCreationWizard("Create EDI", "Create new EDI schema");
         try {
             gefBot.tree().expandNode(getStandard()).getNode(getRelease()).click();
             gefBot.button("Next >").click();
@@ -111,7 +100,6 @@ public class TalendEdiItem extends TalendMetadataItem {
                 dndUtil.dragAndDrop(sourceItem, targetItem);
             }
             gefBot.button("Next >").click();
-            gefBot.button("Finish").click();
         } catch (WidgetNotFoundException wnfe) {
             shell.close();
             Assert.fail(wnfe.getCause().getMessage());
@@ -119,16 +107,6 @@ public class TalendEdiItem extends TalendMetadataItem {
             shell.close();
             Assert.fail(e.getMessage());
         }
-
-        SWTBotTreeItem newEDIItem = null;
-        try {
-            newEDIItem = getParentNode().expand().select(getItemName() + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("validation EDI item is not created", newEDIItem);
-        }
-
-        setItem(getParentNode().getNode(getItemName() + " 0.1"));
+        finishCreationWizard(shell);
     }
 }

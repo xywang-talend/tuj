@@ -53,7 +53,7 @@ public class UseSalesforceTest extends TalendSwtBotForTos {
         TalendSalesforceItem moduleItem = metadataItem.retrieveModules("Account").get("Account");
         moduleItem.setComponentType("tSalesforceInput");
         moduleItem.setExpectResultFromFile("salesforce.result");
-        MetadataHelper.output2Console(jobItem.getJobEditor(), moduleItem);
+        MetadataHelper.output2Console(jobItem.getEditor(), moduleItem);
 
         String result = gefBot.styledText().getText();
         MetadataHelper.assertResult(result, moduleItem);
@@ -61,7 +61,7 @@ public class UseSalesforceTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(metadataItem.getParentNode());
         Utilities.emptyRecycleBin();

@@ -18,7 +18,6 @@ import java.util.List;
 
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
-import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
@@ -39,22 +38,8 @@ public class TalendSapItem extends TalendMetadataItem {
 
     @Override
     public void create() {
-        final SWTGefBot gefBot = new SWTGefBot();
-        getParentNode().contextMenu("Create SAP connection").click();
-        gefBot.waitUntil(Conditions.shellIsActive("SAP Connection"));
-        SWTBotShell shell = gefBot.shell("SAP Connection").activate();
-
+        SWTBotShell shell = beginCreationWizard("Create SAP connection", "SAP Connection");
         try {
-            /* step 1 of 2 */
-            gefBot.textWithLabel("Name").setText(itemName);
-            boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
-            if (nextButtonIsEnabled) {
-                gefBot.button("Next >").click();
-            } else {
-                shell.close();
-                Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
-            }
-
             /* step 2 of 2 */
             gefBot.textWithLabel("Client").setText(System.getProperty("sap.client"));
             gefBot.textWithLabel("Host").setText(System.getProperty("sap.host"));
@@ -76,8 +61,6 @@ public class TalendSapItem extends TalendMetadataItem {
                 shell.close();
                 Assert.fail("connection failure");
             }
-
-            gefBot.button("Finish").click();
         } catch (WidgetNotFoundException wnfe) {
             shell.close();
             Assert.fail(wnfe.getCause().getMessage());
@@ -85,17 +68,7 @@ public class TalendSapItem extends TalendMetadataItem {
             shell.close();
             Assert.fail(e.getMessage());
         }
-
-        SWTBotTreeItem newSapItem = null;
-        try {
-            newSapItem = getParentNode().select(itemName + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("SAP connection is not created", newSapItem);
-        }
-
-        setItem(getParentNode().getNode(itemName + " 0.1"));
+        finishCreationWizard(shell);
     }
 
     public void retrieveSapFunction(String... functionName) {
@@ -164,5 +137,10 @@ public class TalendSapItem extends TalendMetadataItem {
         schemaItem.setItem(getItem().expand().getNode(schemaName));
         schemaItem.setParentNode(getItem());
         return schemaItem;
+    }
+
+    @Override
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit SAP connection", "SAP Connection");
     }
 }

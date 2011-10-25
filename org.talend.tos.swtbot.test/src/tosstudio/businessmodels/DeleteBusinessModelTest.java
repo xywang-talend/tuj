@@ -39,7 +39,7 @@ public class DeleteBusinessModelTest extends TalendSwtBotForTos {
 
     @Test
     public void deleteBusinessModel() {
-        businessModelItem.getModelEditor().saveAndClose();
+        businessModelItem.getEditor().saveAndClose();
         businessModelItem.delete();
     }
 

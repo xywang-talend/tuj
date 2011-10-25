@@ -2,7 +2,6 @@ package org.talend.swtbot.items;
 
 import junit.framework.Assert;
 
-import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
@@ -63,17 +62,7 @@ public class TalendValidationRuleItem extends TalendMetadataItem {
     public void create() {
         if (ruleType == null)
             Assert.fail("please set a rule type");
-        SWTGefBot gefBot = new SWTGefBot();
-        getParentNode().contextMenu("Create validation rule").click();
-        SWTBotShell shell = gefBot.shell("New Validation Rule").activate();
-        gefBot.textWithLabel("Name").setText(getItemName());
-        boolean isNextButtonEnable = gefBot.button("Next >").isEnabled();
-        if (!isNextButtonEnable) {
-            shell.close();
-            Assert.assertTrue("rule item is not created, maybe the item name already exist", isNextButtonEnable);
-        }
-        gefBot.button("Next >").click();
-
+        SWTBotShell shell = beginCreationWizard("Create validation rule", "New Validation Rule");
         try {
             SWTBotTreeItem metadataNode = Utilities.getTalendItemNode(gefBot.tree(), baseMetadata.getItemType());
             if (TalendItemType.DB_CONNECTIONS.equals(baseMetadata.getItemType())) {
@@ -116,7 +105,6 @@ public class TalendValidationRuleItem extends TalendMetadataItem {
                 gefBot.styledText().setText("after_tFileInputDelimited_1.Column0 > 5");
             }
             gefBot.button("Next >").click();
-            gefBot.button("Finish").click();
         } catch (WidgetNotFoundException wnfe) {
             shell.close();
             Assert.fail(wnfe.getCause().getMessage());
@@ -124,16 +112,6 @@ public class TalendValidationRuleItem extends TalendMetadataItem {
             shell.close();
             Assert.fail(e.getMessage());
         }
-
-        SWTBotTreeItem newRuleItem = null;
-        try {
-            newRuleItem = getParentNode().expand().select(getItemName() + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("validation rule item is not created", newRuleItem);
-        }
-
-        setItem(getParentNode().getNode(getItemName() + " 0.1"));
+        finishCreationWizard(shell);
     }
 }

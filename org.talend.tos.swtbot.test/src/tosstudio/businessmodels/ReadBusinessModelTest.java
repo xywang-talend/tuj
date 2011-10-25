@@ -37,7 +37,7 @@ public class ReadBusinessModelTest extends TalendSwtBotForTos {
     public void createBusinessModel() {
         businessModelItem = new TalendBusinessModelItem(BUSINESS_MODEL_NAME);
         businessModelItem.create();
-        businessModelItem.getModelEditor().close();
+        businessModelItem.getEditor().close();
     }
 
     @Test
@@ -46,7 +46,7 @@ public class ReadBusinessModelTest extends TalendSwtBotForTos {
 
         boolean isEditorActive = false;
         try {
-            isEditorActive = businessModelItem.getModelEditor().isActive();
+            isEditorActive = businessModelItem.getEditor().isActive();
         } catch (WidgetNotFoundException wnfe) {
             wnfe.printStackTrace();
         } finally {
@@ -56,7 +56,7 @@ public class ReadBusinessModelTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        businessModelItem.getModelEditor().saveAndClose();
+        businessModelItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(businessModelItem.getParentNode());
         Utilities.emptyRecycleBin();
     }

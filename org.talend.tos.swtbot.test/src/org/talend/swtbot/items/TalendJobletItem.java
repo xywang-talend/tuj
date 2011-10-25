@@ -12,30 +12,35 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.talend.swtbot.Utilities;
 
 /**
  * DOC fzhong class global comment. Detailled comment
  */
-public class TalendBusinessModelItem extends TalendItem {
+public class TalendJobletItem extends TalendItem {
 
-    public TalendBusinessModelItem() {
-        super(Utilities.TalendItemType.BUSINESS_MODEL);
+    public TalendJobletItem() {
+        super(Utilities.TalendItemType.JOBLET_DESIGNS);
     }
 
-    public TalendBusinessModelItem(String itemName) {
-        super(itemName, Utilities.TalendItemType.BUSINESS_MODEL);
+    public TalendJobletItem(String itemName) {
+        super(itemName, Utilities.TalendItemType.JOBLET_DESIGNS);
     }
 
     @Override
     public void create() {
-        SWTBotShell shell = beginCreationWizard("Create Business Model", "New Business Model");
+        SWTBotShell shell = beginCreationWizard("Create Joblet", "New Joblet");
         finishCreationWizard(shell);
     }
 
-    public SWTBotEditor getEditor() {
-        return gefBot.editorByTitle("Model " + itemFullName);
+    @Override
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit Properties", "!!!PropertiesWizard.EditPropertiesPageTitle!!!");
+    }
+
+    public SWTBotGefEditor getEditor() {
+        return gefBot.gefEditor("Joblet " + itemFullName);
     }
 }

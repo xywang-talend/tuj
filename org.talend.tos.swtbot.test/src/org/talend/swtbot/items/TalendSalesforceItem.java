@@ -21,8 +21,8 @@ import java.util.Map;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
 import org.talend.swtbot.Utilities;
 
@@ -31,12 +31,30 @@ import org.talend.swtbot.Utilities;
  */
 public class TalendSalesforceItem extends TalendMetadataItem {
 
+    private String proxyType;
+
+    private static final String HTTP_PROXY = "HTTP";
+
+    private static final String SOCKS_PROXY = "SOCKS";
+
     public TalendSalesforceItem() {
         super(Utilities.TalendItemType.SALESFORCE);
     }
 
     public TalendSalesforceItem(String itemName) {
         super(itemName, Utilities.TalendItemType.SALESFORCE);
+    }
+
+    public String getProxyType() {
+        return proxyType;
+    }
+
+    public void setProxyTypeAsHttp() {
+        this.proxyType = HTTP_PROXY;
+    }
+
+    public void setProxyTypeAsSocks() {
+        this.proxyType = SOCKS_PROXY;
     }
 
     public Map<String, TalendSalesforceItem> retrieveModules(String... moduleName) {
@@ -71,7 +89,38 @@ public class TalendSalesforceItem extends TalendMetadataItem {
 
     @Override
     public void create() {
-        SWTBotTreeItem item = Utilities.createSalesforce(itemName, parentNode);
-        setItem(item);
+        SWTBotShell shell = beginCreationWizard("Create Salesforce Connection", "New Salesforce ");
+        /* step 2 of 4 */
+        gefBot.textWithLabel("User name").setText(System.getProperty("salesforce.username"));
+        gefBot.textWithLabel("Password ").setText(System.getProperty("salesforce.password"));
+
+        if (HTTP_PROXY.equals(proxyType)) {
+            gefBot.checkBox("Enable Http proxy").click();
+            gefBot.button("OK").click();
+        } else if (SOCKS_PROXY.equals(proxyType)) {
+            gefBot.checkBox("Enable Socks proxy").click();
+        }
+        if (proxyType != null && !proxyType.equals("")) {
+            gefBot.textWithLabel("Host").setText(System.getProperty("salesforce.proxy.host"));
+            gefBot.textWithLabel("Port").setText(System.getProperty("salesforce.proxy.port"));
+            gefBot.textWithLabel("Username").setText(System.getProperty("salesforce.proxy.username"));
+            gefBot.textWithLabel("Password").setText(System.getProperty("salesforce.proxy.password"));
+        }
+
+        gefBot.button("Check login").click();
+
+        gefBot.waitUntil(new DefaultCondition() {
+
+            public boolean test() throws Exception {
+                return gefBot.shell("Check Connection ").isActive();
+            }
+
+            public String getFailureMessage() {
+                gefBot.shell("New Salesforce ").close();
+                return "connection failure";
+            }
+        }, 30000);
+        gefBot.button("OK").click();
+        finishCreationWizard(shell);
     }
 }

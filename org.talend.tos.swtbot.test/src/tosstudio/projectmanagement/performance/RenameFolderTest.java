@@ -44,7 +44,7 @@ public class RenameFolderTest extends TalendSwtBotForTos {
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.setFolderPath(folderItem.getFolderPath());
         jobItem.create();
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
     }
 
     @Test

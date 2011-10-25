@@ -54,7 +54,7 @@ public class MultipleDelimitedFileTest extends TalendSwtBotForTos {
 
     @Test
     public void multipleDelimitedFileTest() throws IOException, URISyntaxException {
-        SWTBotGefEditor jobEditor = jobItem.getJobEditor();
+        SWTBotGefEditor jobEditor = jobItem.getEditor();
         Utilities.dndPaletteToolOntoJob(jobEditor, "tFileInputMSDelimited", new Point(100, 100));
         SWTBotGefEditPart tFileInputMSDelimited = getTalendComponentPart(jobEditor, "tFileInputMSDelimited_1").doubleClick();
         SWTBotShell shell = gefBot.shell("Talend Open Studio - tFileInputMSDelimited_1").activate();
@@ -100,7 +100,7 @@ public class MultipleDelimitedFileTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.emptyRecycleBin();
     }

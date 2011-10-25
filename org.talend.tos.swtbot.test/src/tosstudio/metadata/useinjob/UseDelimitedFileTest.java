@@ -52,7 +52,7 @@ public class UseDelimitedFileTest extends TalendSwtBotForTos {
     @Test
     public void useMetadataInJob() throws IOException, URISyntaxException {
         fileItem.setComponentType("tFileInputDelimited");
-        MetadataHelper.output2Console(jobItem.getJobEditor(), fileItem);
+        MetadataHelper.output2Console(jobItem.getEditor(), fileItem);
 
         String result = JobHelper.getExecutionResult();
         MetadataHelper.assertResult(result, fileItem);
@@ -60,7 +60,7 @@ public class UseDelimitedFileTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(fileItem.getParentNode());
         Utilities.emptyRecycleBin();

@@ -74,12 +74,12 @@ public class UseReferenceCheckRulesTest extends TalendSwtBotForTos {
     public void useMetadataInJob() throws IOException, URISyntaxException {
         TalendSchemaItem schema = dbItem.getSchema("test");
         schema.setComponentType("tMysqlInput");
-        Utilities.dndMetadataOntoJob(jobItem.getJobEditor(), schema.getItem(), schema.getComponentType(), new Point(100, 100));
-        SWTBotGefEditPart metadata = getTalendComponentPart(jobItem.getJobEditor(), schema.getItemName());
+        Utilities.dndMetadataOntoJob(jobItem.getEditor(), schema.getItem(), schema.getComponentType(), new Point(100, 100));
+        SWTBotGefEditPart metadata = getTalendComponentPart(jobItem.getEditor(), schema.getItemName());
         Assert.assertNotNull("can not get component '" + schema.getComponentType() + "'", metadata);
         MetadataHelper.activateValidationRule(metadata, ruleItem);
-        JobHelper.connect2TLogRow(jobItem.getJobEditor(), metadata, new Point(300, 100));
-        JobHelper.runJob(jobItem.getJobEditor());
+        JobHelper.connect2TLogRow(jobItem.getEditor(), metadata, new Point(300, 100));
+        JobHelper.runJob(jobItem.getEditor());
         String result = JobHelper.getExecutionResult();
         schema.setExpectResult("1|a\n2|b");
         MetadataHelper.assertResult(result, schema);
@@ -89,7 +89,7 @@ public class UseReferenceCheckRulesTest extends TalendSwtBotForTos {
     public void removePreviousCreateItems() {
         String sql = "drop table test;\n" + "drop table reference;";
         dbItem.executeSQL(sql);
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(dbItem.getParentNode());
         Utilities.cleanUpRepository(ruleItem.getParentNode());

@@ -12,11 +12,9 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
-import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
 import org.talend.swtbot.Utilities;
 
@@ -49,21 +47,8 @@ public class TalendWebServiceItem extends TalendMetadataItem {
 
     @Override
     public void create() {
-        final SWTGefBot gefBot = new SWTGefBot();
-        getParentNode().contextMenu("Create WSDL schema").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Create new WSDL schema"));
-        final SWTBotShell shell = gefBot.shell("Create new WSDL schema").activate();
+        final SWTBotShell shell = beginCreationWizard("Create WSDL schema", "Create new WSDL schema");
         try {
-            /* step 1 of 4 */
-            gefBot.textWithLabel("Name").setText(itemName);
-            boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
-            if (nextButtonIsEnabled) {
-                gefBot.button("Next >").click();
-            } else {
-                shell.close();
-                Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
-            }
-
             if (SIMPLE.equals(type)) {
                 /* step 2 of 4 */
                 gefBot.button("Next >").click();
@@ -145,21 +130,10 @@ public class TalendWebServiceItem extends TalendMetadataItem {
                     return "finish button was never enabled";
                 }
             });
-            gefBot.button("Finish").click();
         } catch (Exception e) {
             shell.close();
             Assert.fail(e.getCause().getMessage());
         }
-
-        SWTBotTreeItem newWebServiceItem = null;
-        try {
-            newWebServiceItem = getParentNode().expand().select(itemName + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("web service item is not created", newWebServiceItem);
-        }
-
-        setItem(getParentNode().getNode(itemName + " 0.1"));
+        finishCreationWizard(shell);
     }
 }

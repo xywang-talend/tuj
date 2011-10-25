@@ -47,7 +47,7 @@ public class TMsgBoxTest extends TalendSwtBotForTos {
 
     @Test
     public void useComponentInJob() {
-        SWTBotGefEditor jobEditor = jobItem.getJobEditor();
+        SWTBotGefEditor jobEditor = jobItem.getEditor();
 
         Utilities.dndPaletteToolOntoJob(jobEditor, "tMsgBox", new Point(100, 100));
         SWTBotGefEditPart msgBox = getTalendComponentPart(jobEditor, "tMsgBox_1");
@@ -61,7 +61,7 @@ public class TMsgBoxTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.delete(jobItem.getParentNode(), JOBNAME, "0.1", null);
         Utilities.emptyRecycleBin();
     }

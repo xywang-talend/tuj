@@ -47,7 +47,7 @@ public class DeleteMultipleAttributesForXmlTest extends TalendSwtBotForTos {
 
     @Test
     public void deleteMultipleAttributesForXmlTest() {
-        SWTBotGefEditor jobEditor = jobItem.getJobEditor();
+        SWTBotGefEditor jobEditor = jobItem.getEditor();
         Utilities.dndPaletteToolOntoJob(jobEditor, "tAdvancedFileOutputXML", new Point(100, 100));
         getTalendComponentPart(jobEditor, "tAdvancedFileOutputXML_1").doubleClick();
         SWTBotShell shell = gefBot.shell("tAdvancedFileOutputXML_1").activate();
@@ -81,7 +81,7 @@ public class DeleteMultipleAttributesForXmlTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.emptyRecycleBin();
     }

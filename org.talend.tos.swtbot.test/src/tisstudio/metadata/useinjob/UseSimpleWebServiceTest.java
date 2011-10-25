@@ -58,7 +58,7 @@ public class UseSimpleWebServiceTest extends TalendSwtBotForTos {
             results += resultArray[i] + ",";
         }
         wsItem.setExpectResult(results);
-        MetadataHelper.output2Console(jobItem.getJobEditor(), wsItem);
+        MetadataHelper.output2Console(jobItem.getEditor(), wsItem);
 
         String actualResult = JobHelper.getExecutionResult();
         MetadataHelper.assertResult(actualResult, wsItem);
@@ -66,7 +66,7 @@ public class UseSimpleWebServiceTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(wsItem.getParentNode());
         Utilities.emptyRecycleBin();

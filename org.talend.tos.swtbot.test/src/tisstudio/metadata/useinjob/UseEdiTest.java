@@ -59,7 +59,7 @@ public class UseEdiTest extends TalendSwtBotForTos {
     public void useMetadataInJob() throws IOException, URISyntaxException {
         ediItem.setFilePath("99a_cuscar.edi");
         ediItem.setExpectResultFromFile("edi.result");
-        MetadataHelper.output2Console(jobItem.getJobEditor(), ediItem);
+        MetadataHelper.output2Console(jobItem.getEditor(), ediItem);
 
         String result = gefBot.styledText().getText();
         MetadataHelper.assertResult(result, ediItem);
@@ -67,7 +67,7 @@ public class UseEdiTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(ediItem.getParentNode());
         Utilities.emptyRecycleBin();

@@ -66,13 +66,13 @@ public class UseCustomCheckRulesTest extends TalendSwtBotForTos {
     @Test
     public void useMetadataInJob() throws IOException, URISyntaxException {
         metadataItem.setComponentType("tFileInputDelimited");
-        Utilities.dndMetadataOntoJob(jobItem.getJobEditor(), metadataItem.getItem(), metadataItem.getComponentType(), new Point(
+        Utilities.dndMetadataOntoJob(jobItem.getEditor(), metadataItem.getItem(), metadataItem.getComponentType(), new Point(
                 100, 100));
-        SWTBotGefEditPart metadata = getTalendComponentPart(jobItem.getJobEditor(), metadataItem.getItemName());
+        SWTBotGefEditPart metadata = getTalendComponentPart(jobItem.getEditor(), metadataItem.getItemName());
         Assert.assertNotNull("can not get component '" + metadataItem.getComponentType() + "'", metadata);
         MetadataHelper.activateValidationRule(metadata, ruleItem);
-        JobHelper.connect2TLogRow(jobItem.getJobEditor(), metadata, new Point(300, 100));
-        JobHelper.runJob(jobItem.getJobEditor());
+        JobHelper.connect2TLogRow(jobItem.getEditor(), metadata, new Point(300, 100));
+        JobHelper.runJob(jobItem.getEditor());
         String actualResult = JobHelper.getExecutionResult();
         String expectResult = metadataItem.getExpectResult();
         expectResult = expectResult.substring(expectResult.indexOf("6"));
@@ -81,7 +81,7 @@ public class UseCustomCheckRulesTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(metadataItem.getParentNode());
         Utilities.cleanUpRepository(ruleItem.getParentNode());

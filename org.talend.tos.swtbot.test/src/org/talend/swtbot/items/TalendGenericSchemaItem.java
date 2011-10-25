@@ -16,7 +16,6 @@ import junit.framework.Assert;
 
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.talend.swtbot.Utilities;
 
 /**
@@ -39,7 +38,6 @@ public class TalendGenericSchemaItem extends TalendMetadataItem {
             for (int i = 0; i < 3; i++) {
                 gefBot.buttonWithTooltip("Add").click();
             }
-            gefBot.button("Finish").click();
         } catch (WidgetNotFoundException wnfe) {
             shell.close();
             Assert.fail(wnfe.getCause().getMessage());
@@ -47,17 +45,7 @@ public class TalendGenericSchemaItem extends TalendMetadataItem {
             shell.close();
             Assert.fail(e.getMessage());
         }
-
-        SWTBotTreeItem newItem = null;
-        try {
-            newItem = parentNode.expand().select(itemName + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("item is not created", newItem);
-        }
-
-        setItem(parentNode.getNode(itemName + " 0.1"));
+        finishCreationWizard(shell);
     }
 
 }

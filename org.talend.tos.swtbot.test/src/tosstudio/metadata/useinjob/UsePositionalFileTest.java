@@ -51,7 +51,7 @@ public class UsePositionalFileTest extends TalendSwtBotForTos {
     @Test
     public void useMetadataInJob() throws IOException, URISyntaxException {
         fileItem.setComponentType("tFileInputPositional");
-        MetadataHelper.output2Console(jobItem.getJobEditor(), fileItem);
+        MetadataHelper.output2Console(jobItem.getEditor(), fileItem);
 
         String result = gefBot.styledText().getText();
         MetadataHelper.assertResult(result, fileItem);
@@ -59,7 +59,7 @@ public class UsePositionalFileTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(fileItem.getParentNode());
         Utilities.emptyRecycleBin();

@@ -52,13 +52,13 @@ public class MetadataWithHeaderOnlyTest extends TalendSwtBotForTos {
     public void metadataWithHeaderOnlyTest() throws IOException, URISyntaxException {
         fileItem.setComponentType("tFileInputDelimited");
         fileItem.setExpectResult("");
-        MetadataHelper.output2Console(jobItem.getJobEditor(), fileItem);
+        MetadataHelper.output2Console(jobItem.getEditor(), fileItem);
         MetadataHelper.assertResult(JobHelper.getExecutionResult(), fileItem);
     }
 
     @After
     public void removePreviousCreateItem() {
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(fileItem.getParentNode());
         Utilities.emptyRecycleBin();

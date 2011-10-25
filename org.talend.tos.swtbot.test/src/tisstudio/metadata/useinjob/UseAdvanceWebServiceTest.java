@@ -55,22 +55,22 @@ public class UseAdvanceWebServiceTest extends TalendSwtBotForTos {
 
     @Test
     public void useMetadataInJob() throws IOException, URISyntaxException {
-        Utilities.dndPaletteToolOntoJob(jobItem.getJobEditor(), "tFixedFlowInput", new Point(100, 100));
-        SWTBotGefEditPart fixedFlowInput = getTalendComponentPart(jobItem.getJobEditor(), "tFixedFlowInput_1");
+        Utilities.dndPaletteToolOntoJob(jobItem.getEditor(), "tFixedFlowInput", new Point(100, 100));
+        SWTBotGefEditPart fixedFlowInput = getTalendComponentPart(jobItem.getEditor(), "tFixedFlowInput_1");
         Assert.assertNotNull("can not get component '" + webServiceItem.getComponentType() + "'", fixedFlowInput);
-        jobItem.getJobEditor().click(fixedFlowInput);
+        jobItem.getEditor().click(fixedFlowInput);
         gefBot.viewByTitle("Component").setFocus();
         gefBot.tableInGroup("Mode").click(0, 1);
         gefBot.text().setText("test");
 
-        Utilities.dndMetadataOntoJob(jobItem.getJobEditor(), webServiceItem.getItem(), "tWebService", new Point(300, 100));
-        SWTBotGefEditPart webService = getTalendComponentPart(jobItem.getJobEditor(), webServiceItem.getItemName());
+        Utilities.dndMetadataOntoJob(jobItem.getEditor(), webServiceItem.getItem(), "tWebService", new Point(300, 100));
+        SWTBotGefEditPart webService = getTalendComponentPart(jobItem.getEditor(), webServiceItem.getItemName());
         Assert.assertNotNull("can not get component '" + webServiceItem.getComponentType() + "'", webService);
 
-        JobHelper.connect(jobItem.getJobEditor(), fixedFlowInput, webService);
-        JobHelper.connect2TLogRow(jobItem.getJobEditor(), webService, new Point(500, 100));
+        JobHelper.connect(jobItem.getEditor(), fixedFlowInput, webService);
+        JobHelper.connect2TLogRow(jobItem.getEditor(), webService, new Point(500, 100));
 
-        JobHelper.runJob(jobItem.getJobEditor());
+        JobHelper.runJob(jobItem.getEditor());
 
         String[] resultArray = { "Sunny", "Party Cloudy", "Rain", "Cloudy" };
         String results = "";
@@ -84,7 +84,7 @@ public class UseAdvanceWebServiceTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(webServiceItem.getParentNode());
         Utilities.emptyRecycleBin();

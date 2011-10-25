@@ -93,10 +93,6 @@ public class TalendMetadataItem extends TalendItem {
         return shell;
     }
 
-    public void finishCreationWizard(final SWTBotShell shell) {
-
-    }
-
     public TalendSchemaItem getSchema(String name) {
         TalendSchemaItem schemaItem = new TalendSchemaItem();
         schemaItem.setItem(item.expand().getNode(name));

@@ -72,11 +72,11 @@ public class CreateXmlFileWithXsdTest extends TalendSwtBotForTos {
     public void createXmlFileWithXsdTest() throws IOException, URISyntaxException {
         fileItem.setComponentType("tFileInputXML");
         Utilities
-                .dndMetadataOntoJob(jobItem.getJobEditor(), fileItem.getItem(), fileItem.getComponentType(), new Point(100, 100));
+                .dndMetadataOntoJob(jobItem.getEditor(), fileItem.getItem(), fileItem.getComponentType(), new Point(100, 100));
         String filePath = Utilities.getFileFromCurrentPluginSampleFolder("test.xml").getAbsolutePath();
         gefBot.textWithLabel("File Name: ").setText(filePath);
         gefBot.button("Confirm").click();
-        getTalendComponentPart(jobItem.getJobEditor(), fileItem.getItemName()).doubleClick();
+        getTalendComponentPart(jobItem.getEditor(), fileItem.getItemName()).doubleClick();
         gefBot.viewByTitle("Component").setFocus();
         String fileName = gefBot.text(2).getText(); // gefBot.textWithLabel("Filename/InputStream").getText()
         String expectedName = "\"" + filePath.replace("\\", "/") + "\"";
@@ -89,7 +89,7 @@ public class CreateXmlFileWithXsdTest extends TalendSwtBotForTos {
         System.setProperty("filexml.schema0", defaultProp_schema0);
         System.setProperty("filexml.schema1", defaultProp_schema1);
         System.setProperty("filexml.schema2", defaultProp_schema2);
-        jobItem.getJobEditor().saveAndClose();
+        jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(fileItem.getParentNode());
         Utilities.emptyRecycleBin();

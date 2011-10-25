@@ -15,13 +15,8 @@ package tosstudio.projectmanagement.statusmanagement;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,6 +24,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendBusinessModelItem;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -36,23 +32,17 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class ChangeAllDocumentationItemsTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
     private SWTBotShell shell;
 
-    private SWTBotTreeItem treeNode;
+    private TalendBusinessModelItem businessModelItem;
 
     private static final String BUSINESSMODELNAME = "businessModel1"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.BUSINESS_MODEL);
-        Utilities.createBusinessModel(BUSINESSMODELNAME, treeNode);
-        gefBot.cTabItem("Model " + BUSINESSMODELNAME).close();
+        businessModelItem = new TalendBusinessModelItem(BUSINESSMODELNAME);
+        businessModelItem.create();
+        businessModelItem.getEditor().saveAndClose();
     }
 
     @Test
@@ -75,7 +65,7 @@ public class ChangeAllDocumentationItemsTest extends TalendSwtBotForTos {
             shell.close();
         }
 
-        tree.expandNode("Business Models").getNode(BUSINESSMODELNAME + " 0.1").contextMenu("Edit properties").click();
+        businessModelItem.getItem().contextMenu("Edit properties").click();
         shell = gefBot.shell("Edit properties");
         shell.activate();
         Assert.assertEquals("Business Models status", "checked", gefBot.ccomboBoxWithLabel("Status").getText());
@@ -86,7 +76,7 @@ public class ChangeAllDocumentationItemsTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         shell.close();
-        Utilities.delete(treeNode, BUSINESSMODELNAME, "0.1", null);
+        Utilities.cleanUpRepository(businessModelItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

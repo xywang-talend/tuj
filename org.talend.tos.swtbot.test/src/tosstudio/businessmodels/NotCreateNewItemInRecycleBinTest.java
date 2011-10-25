@@ -42,7 +42,7 @@ public class NotCreateNewItemInRecycleBinTest extends TalendSwtBotForTos {
         TalendFolderItem folder = Utilities.createFolder(FOLDERNAME, businessModelItem.getItemType());
         businessModelItem.setFolderPath(folder.getFolderPath());
         businessModelItem.create();
-        businessModelItem.getModelEditor().saveAndClose();
+        businessModelItem.getEditor().saveAndClose();
         businessModelItem.delete();
     }
 
