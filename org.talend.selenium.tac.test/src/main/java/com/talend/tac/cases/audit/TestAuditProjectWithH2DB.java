@@ -1,6 +1,7 @@
 package com.talend.tac.cases.audit;
 
 import java.awt.Event;
+import java.io.File;
 
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -9,9 +10,13 @@ import org.testng.annotations.Test;
 public class TestAuditProjectWithH2DB extends Audit {
     
 	@Test
-	@Parameters({"db.url", "H2UserName", "H2PassWord", "H2Driver", "ProjectWithSpaceChar"})
+	@Parameters({"db.url", "H2UserName", "H2PassWord", "H2Driver", "ProjectWithSpaceChar",
+		"jobNameTJava"})
 	public void testAuditProjectWithH2DB(String url, String userName, String userPassWd, String driver,
-			   String projectName) {
+			   String projectName, String tjava) {
+		
+	   //get get incipient report path
+	   String defaultPath = this.getDefaultReportPath();
 		
 	   this.openAudit();
 		   
@@ -36,7 +41,9 @@ public class TestAuditProjectWithH2DB extends Audit {
 	   int auditListLinkCount = this.checkAuditListLink(projectName);
 	   Assert.assertEquals(auditListLinkCount, 2);
 	   
-		
+	   File auditReportFile = this.checkReportPdf(defaultPath, projectName, tjava);
+	   auditReportFile.delete();
+	   
 	}
 	
 }
