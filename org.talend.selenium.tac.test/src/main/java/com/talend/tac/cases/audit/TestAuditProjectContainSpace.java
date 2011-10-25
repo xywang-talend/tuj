@@ -1,17 +1,19 @@
 package com.talend.tac.cases.audit;
 
 import java.awt.Event;
-
+import java.io.File;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class TestAuditProjectContainSpace extends Audit {
    
    @Test
-   @Parameters({"mysqlURL", "mysqlUserName", "mysqlPassWord", "mysqlDriver", "ProjectWithSpaceChar"})
+   @Parameters({"mysqlURL", "mysqlUserName", "mysqlPassWord", "mysqlDriver", "ProjectWithSpaceChar","jobNameTJava"})
    public void testAuditProjectContainsSpace(String url, String userName, String userPassWd, String driver,
-		   String projectName) {
+		   String projectName, String tjava) {
 	   
+	   //get get incipient report path
+	   String defaultPath = this.getDefaultReportPath();
 	   this.openAudit();
 	   
 	   /*change db info*/
@@ -32,6 +34,9 @@ public class TestAuditProjectContainSpace extends Audit {
 	   this.waitForElementPresent("//div//font[1][text()='The Audit process has terminated successfully']", WAIT_TIME*4);
 	   this.waitForElementPresent("//div//font[3][text()='The Audit process has terminated successfully']", WAIT_TIME*4);	   
 	   this.waitForElementPresent("//a[contains(text(),'Audit for project \"PROJECT_SPACE\" created at')]", WAIT_TIME);
+	   
+	   File auditReportFile = this.checkReportPdf(defaultPath, projectName, tjava);       
+       auditReportFile.delete();
 	   
    }	
  	
