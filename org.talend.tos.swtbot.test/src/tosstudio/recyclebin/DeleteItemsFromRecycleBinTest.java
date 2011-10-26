@@ -37,6 +37,7 @@ public class DeleteItemsFromRecycleBinTest extends TalendSwtBotForTos {
     @Before
     public void initialisePrivateField() {
         jobItem = new TalendJobItem(JOBNAME);
+        jobItem.create();
         jobItem.getEditor().saveAndClose();
         jobItem.delete();
     }
