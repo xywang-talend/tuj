@@ -131,7 +131,7 @@ public class TestGridPageSize extends Grid {
 		this.openGridMenu();
 		this.sleep(5000);
 		selenium.click("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//td[@class='x-toolbar-left']//tr[@class='x-toolbar-left-row']//td[9]//table//button");
-		this.sleep(2000);
+		this.sleep(5000);
 		Assert.assertTrue(selenium.getXpathCount("//span[@title='Ok']")
 				.intValue() == 2, "test go to last page failed");
 		Assert.assertTrue(selenium.getXpathCount("//span[@title='Misfired!']")
@@ -261,7 +261,7 @@ public class TestGridPageSize extends Grid {
 							.equals(""+(i+2)));
 		}
 		selenium.click("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//td[@class='x-toolbar-left']//tr[@class='x-toolbar-left-row']//td[8]//table//button");
-		this.sleep(3000);
+		this.sleep(5000);
 		Assert.assertTrue(
 				selenium.getXpathCount(
 						"//div[@class='x-grid3-cell-inner x-grid3-col-taskLabel' and text()='Task: "
