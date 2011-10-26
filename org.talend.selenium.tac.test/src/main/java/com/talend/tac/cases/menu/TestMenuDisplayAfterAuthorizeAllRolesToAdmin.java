@@ -164,7 +164,7 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 				WAIT_TIME);
 	}
 
-	@Test
+//	@Test
 	public void testMenuBMExpend() {
 		this.waitForElementPresent("!!!menu.businessModeler.element!!!", WAIT_TIME);
 		this.waitForElementPresent(
@@ -180,7 +180,7 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 		Assert.assertTrue(selenium.isVisible("!!!menu.businessModeler.browser.element!!!"));
 	}	
 	
-	@Test
+//	@Test
 	public void testMenuBMDesigner(){
 		this.waitForElementPresent("!!!menu.businessModeler.designer.element!!!",
 				WAIT_TIME);

@@ -131,7 +131,7 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 		this.waitForElementPresent(
 				"//div[contains(text(),'SMTP (6 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
-				"//div[contains(text(),'Conductor (4 Parameters')]", WAIT_TIME);
+				"//div[contains(text(),'Conductor (6 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
 				"//div[contains(text(),'Soa manager (4 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
@@ -139,7 +139,7 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 		this.waitForElementPresent("//div[contains(text(),'Audit (6 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent("//div[contains(text(),'Dash board (1 Parameter')]", WAIT_TIME);
 		this.waitForElementPresent("//div[contains(text(),'General (3 Parameters)')]", WAIT_TIME);
-		this.waitForElementPresent("//div[contains(text(),'Version Control (1 Parameter)')]", WAIT_TIME);
+		
 	}
 
 	@Test(dependsOnMethods = { "testMenuBeforeAuthorizeAllRolesToAdmin" })
