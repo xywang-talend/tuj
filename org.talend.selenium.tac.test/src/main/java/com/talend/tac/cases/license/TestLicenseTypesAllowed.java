@@ -59,15 +59,15 @@ public class TestLicenseTypesAllowed extends Login {
 			}
 		}
 		if (waitForCondition(
-				"//div[@class='gwt-HTML' and text()='Master Data Management']",
+				"//div[@class='gwt-HTML' and contains(text(),'Master Data Management')]",
 				30)) {
 			if (selenium
 					.getText(
-							"//div[text()='Master Data Management']/ancestor::div[@class='x-column-inner']//div[@class='x-progress-text x-progress-text-back']//div")
+							"//div[@class='gwt-HTML' and contains(text(),'Master Data Management')]/ancestor::div[@class='x-column-inner']//div[@class='x-progress-text x-progress-text-back']//div/ancestor::div[@class='x-column-inner']//div[@class='x-progress-text x-progress-text-back']//div")
 					.contains("/")) {
 				System.out
 						.println(selenium
-								.getText("//div[text()='Master Data Management']/ancestor::div[@class='x-column-inner']//div[@class='x-progress-text x-progress-text-back']//div"));
+								.getText("//div[@class='gwt-HTML' and contains(text(),'Master Data Management')]/ancestor::div[@class='x-column-inner']//div[@class='x-progress-text x-progress-text-back']//div/ancestor::div[@class='x-column-inner']//div[@class='x-progress-text x-progress-text-back']//div"));
 				types.add("Master Data Management");
 			}
 		}

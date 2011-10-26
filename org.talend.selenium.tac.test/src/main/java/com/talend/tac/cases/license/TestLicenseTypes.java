@@ -32,7 +32,7 @@ public class TestLicenseTypes extends TestLicenseTypesAllowed{
 			Assert.assertTrue((selenium.isVisible("//input[@id='idTypeInput']")),"user type input should appear!");
 			this.clickDropDownList("idTypeInput");
 			for(int i = 0 ; i<pass.length; i++){
-				Assert.assertTrue(this.waitForCondition("//div[@role='listitem'  and text()='"+pass[i]+"']", 30), "license  "+filename+"  shouled contains" +pass[i]+ "users!");
+				Assert.assertTrue(this.waitForCondition("//div[@role='listitem'  and contains(text(),'"+pass[i]+"')]", 30), "license  "+filename+"  shouled contains" +pass[i]+ "users!");
 			}
 			if(unpass!=null){
 			for(int i = 0 ; i<unpass.length; i++){
@@ -59,7 +59,7 @@ public class TestLicenseTypes extends TestLicenseTypesAllowed{
 			Assert.assertTrue((selenium.isVisible("//input[@id='idProjectTypeComboBox']"))," project type input should appear!");
 			this.clickDropDownList("idProjectTypeComboBox");
 			for(int i = 0 ; i<pass.length; i++){
-				Assert.assertTrue(this.waitForCondition("//div[@role='listitem'  and text()='"+pass[i]+"']", 30), "license  "+filename+"  shouled contains" +pass[i]+ "users!");
+				Assert.assertTrue(this.waitForCondition("//div[@role='listitem'  and contains(text(),'"+pass[i]+"')]", 30), "license  "+filename+"  shouled contains" +pass[i]+ "users!");
 			}
 			if(unpass!=null){
 			for(int i = 0 ; i<unpass.length; i++){
