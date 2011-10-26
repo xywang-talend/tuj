@@ -179,6 +179,7 @@ public class Utilities {
     private static SWTBotTreeItem create(String itemType, String itemName, SWTBotTreeItem treeNode) {
         treeNode.contextMenu("Create " + itemType).click();
 
+        shell = gefBot.activeShell();
         if (!"JobScript".equals(itemType)) {
             gefBot.waitUntil(Conditions.shellIsActive("New " + itemType));
             shell = gefBot.shell("New " + itemType);
@@ -218,10 +219,6 @@ public class Utilities {
 
     public static SWTBotTreeItem createSqlTemplate(String sqlTemplateName, SWTBotTreeItem treeNode) {
         return create("SQLTemplate", sqlTemplateName, treeNode);
-    }
-
-    public static SWTBotTreeItem createJob(String jobName, SWTBotTreeItem treeNode) {
-        return create("job", jobName, treeNode);
     }
 
     public static SWTBotTreeItem createRoutine(String routineName, SWTBotTreeItem treeNode) {

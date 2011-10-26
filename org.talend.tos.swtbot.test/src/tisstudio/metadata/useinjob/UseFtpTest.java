@@ -16,12 +16,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
@@ -32,6 +28,7 @@ import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.JobHelper;
 import org.talend.swtbot.helpers.MetadataHelper;
 import org.talend.swtbot.items.TalendFtpItem;
+import org.talend.swtbot.items.TalendJobItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -39,13 +36,7 @@ import org.talend.swtbot.items.TalendFtpItem;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class UseFtpTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem jobNode;
-
-    private SWTBotTreeItem jobItem;
+    private TalendJobItem jobItem;
 
     private SWTBotTreeItem metadataNode;
 
@@ -59,12 +50,9 @@ public class UseFtpTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView();
-        view.setFocus();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        jobNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
-        jobItem = Utilities.createJob(JOBNAME, jobNode);
-        jobEditor = gefBot.gefEditor("Job " + jobItem.getText());
+        jobItem = new TalendJobItem(JOBNAME);
+        jobItem.create();
+        jobEditor = jobItem.getEditor();
         metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FTP);
         metadataItem = Utilities.createFTP(METADATA_NAME, metadataNode);
     }
@@ -85,7 +73,7 @@ public class UseFtpTest extends TalendSwtBotForTos {
     @After
     public void removePreviousCreateItems() {
         jobEditor.saveAndClose();
-        Utilities.cleanUpRepository(jobNode);
+        Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(metadataNode);
         Utilities.emptyRecycleBin();
     }

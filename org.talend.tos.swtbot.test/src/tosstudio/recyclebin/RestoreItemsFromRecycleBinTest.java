@@ -12,11 +12,7 @@
 // ============================================================================
 package tosstudio.recyclebin;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Assert;
@@ -25,6 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendJobItem;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -32,11 +29,7 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class RestoreItemsFromRecycleBinTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
+    private TalendJobItem jobItem;
 
     private SWTBotTreeItem recycleBinNode;
 
@@ -44,12 +37,10 @@ public class RestoreItemsFromRecycleBinTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
-        Utilities.createJob(JOBNAME, treeNode);
-        gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
-        Utilities.delete(treeNode, JOBNAME, "0.1", null);
+        jobItem = new TalendJobItem(JOBNAME);
+        jobItem.create();
+        jobItem.getEditor().saveAndClose();
+        jobItem.delete();
     }
 
     @Test
@@ -57,13 +48,13 @@ public class RestoreItemsFromRecycleBinTest extends TalendSwtBotForTos {
         recycleBinNode = Utilities.getTalendItemNode(Utilities.TalendItemType.RECYCLE_BIN);
         recycleBinNode.getNode(JOBNAME + " 0.1 ()").contextMenu("Restore").click();
 
-        SWTBotTreeItem jobItem = treeNode.expand().select(JOBNAME + " 0.1");
-        Assert.assertNotNull("item did not restore from recycle bin", jobItem);
+        SWTBotTreeItem item = jobItem.getItem().select();
+        Assert.assertNotNull("item did not restore from recycle bin", item);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        Utilities.delete(treeNode, JOBNAME, "0.1", null);
+        jobItem.delete();
         Utilities.emptyRecycleBin();
     }
 }

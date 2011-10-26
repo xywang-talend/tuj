@@ -12,18 +12,15 @@
 // ============================================================================
 package tosstudio.recyclebin;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendJobItem;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -31,11 +28,7 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class DeleteItemsFromRecycleBinTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
+    private TalendJobItem jobItem;
 
     private SWTBotTreeItem recycleBinNode;
 
@@ -43,12 +36,9 @@ public class DeleteItemsFromRecycleBinTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
-        Utilities.createJob(JOBNAME, treeNode);
-        gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
-        Utilities.delete(treeNode, JOBNAME, "0.1", null);
+        jobItem = new TalendJobItem(JOBNAME);
+        jobItem.getEditor().saveAndClose();
+        jobItem.delete();
     }
 
     @Test

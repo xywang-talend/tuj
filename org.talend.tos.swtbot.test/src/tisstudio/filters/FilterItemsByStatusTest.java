@@ -15,15 +15,11 @@ package tisstudio.filters;
 import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withTooltip;
 
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotLabel;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.hamcrest.Matcher;
 import org.junit.After;
@@ -34,6 +30,7 @@ import org.junit.runner.RunWith;
 import org.talend.swtbot.SWTBotLabelExt;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendJobItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -41,11 +38,11 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class FilterItemsByStatusTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
+    private TalendJobItem jobItem1;
 
-    private SWTBotTree tree;
+    private TalendJobItem jobItem2;
 
-    private SWTBotTreeItem treeNode;
+    private TalendJobItem jobItem3;
 
     private SWTBotLabelExt filterLabel;
 
@@ -53,17 +50,17 @@ public class FilterItemsByStatusTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
-        Utilities.createJob("job_a", treeNode);
-        Utilities.createJob("job_b", treeNode);
-        Utilities.createJob("job_c", treeNode);
+        jobItem1 = new TalendJobItem("job_a");
+        jobItem1.create();
+        jobItem2 = new TalendJobItem("job_b");
+        jobItem2.create();
+        jobItem3 = new TalendJobItem("job_c");
+        jobItem3.create();
         for (SWTBotEditor editor : gefBot.editors())
             editor.saveAndClose();
-        editProperties(treeNode.getNode("job_a 0.1"), "testing");
-        editProperties(treeNode.getNode("job_b 0.1"), "development");
-        editProperties(treeNode.getNode("job_c 0.1"), "production");
+        editProperties(jobItem1.getItem(), "testing");
+        editProperties(jobItem2.getItem(), "development");
+        editProperties(jobItem3.getItem(), "production");
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -74,7 +71,7 @@ public class FilterItemsByStatusTest extends TalendSwtBotForTos {
         int rowCount = 0;
 
         Matcher matcher = withTooltip("Filters...\nRight click to set up");
-        SWTBotLabel label = new SWTBotLabel((Label) gefBot.widget(matcher, view.getWidget()));
+        SWTBotLabel label = new SWTBotLabel((Label) gefBot.widget(matcher, Utilities.getRepositoryView().getWidget()));
         filterLabel = new SWTBotLabelExt(label);
         filterLabel.rightClick();
 
@@ -86,8 +83,8 @@ public class FilterItemsByStatusTest extends TalendSwtBotForTos {
             gefBot.button("OK").click();
 
             filterLabel.click();
-            rowCount = treeNode.rowCount();
-            actualJob = treeNode.getNode(0).getText();
+            rowCount = jobItem1.getParentNode().rowCount();
+            actualJob = jobItem1.getParentNode().getNode(0).getText();
         } catch (WidgetNotFoundException wnfe) {
             tempShell.close();
             Assert.fail(wnfe.getCause().getMessage());
@@ -117,7 +114,7 @@ public class FilterItemsByStatusTest extends TalendSwtBotForTos {
         }
         filterLabel.click();
 
-        Utilities.cleanUpRepository(treeNode);
+        Utilities.cleanUpRepository(jobItem1.getParentNode());
         Utilities.emptyRecycleBin();
     }
 

@@ -15,16 +15,11 @@ package tisstudio.filters;
 import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withTooltip;
 
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotLabel;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Assert;
@@ -34,6 +29,7 @@ import org.junit.runner.RunWith;
 import org.talend.swtbot.SWTBotLabelExt;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendJobItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -41,11 +37,7 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class FilterItemsByUserTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
+    private TalendJobItem jobItem;
 
     private SWTBotLabelExt filterLabel;
 
@@ -53,10 +45,8 @@ public class FilterItemsByUserTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOB_DESIGNS);
-        Utilities.createJob("job_a", treeNode);
+        jobItem = new TalendJobItem("job_a");
+        jobItem.create();
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -65,7 +55,7 @@ public class FilterItemsByUserTest extends TalendSwtBotForTos {
         int rowCount = 0;
 
         Matcher matcher = withTooltip("Filters...\nRight click to set up");
-        SWTBotLabel label = new SWTBotLabel((Label) gefBot.widget(matcher, view.getWidget()));
+        SWTBotLabel label = new SWTBotLabel((Label) gefBot.widget(matcher, Utilities.getRepositoryView().getWidget()));
         filterLabel = new SWTBotLabelExt(label);
         filterLabel.rightClick();
 
@@ -76,7 +66,7 @@ public class FilterItemsByUserTest extends TalendSwtBotForTos {
             gefBot.button("OK").click();
 
             filterLabel.click();
-            rowCount = treeNode.rowCount();
+            rowCount = jobItem.getParentNode().rowCount();
         } catch (WidgetNotFoundException wnfe) {
             tempShell.close();
             Assert.fail(wnfe.getCause().getMessage());
@@ -105,7 +95,7 @@ public class FilterItemsByUserTest extends TalendSwtBotForTos {
 
         for (SWTBotEditor editor : gefBot.editors())
             editor.saveAndClose();
-        Utilities.cleanUpRepository(treeNode);
+        Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

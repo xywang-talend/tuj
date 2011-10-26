@@ -36,6 +36,6 @@ public class TalendBusinessModelItem extends TalendItem {
     }
 
     public SWTBotEditor getEditor() {
-        return gefBot.editorByTitle("Model " + itemFullName);
+        return gefBot.editorByTitle("Model " + itemName);
     }
 }
