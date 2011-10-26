@@ -123,12 +123,17 @@ public class TestGridDataFilter extends Grid {
 	}
 	
 	@Test
-	public void testFiltersDisable(){
+	@Parameters({"grid.task.exist","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
+		"context","ServerForUseAvailable","statisticEnabled"})
+	public void testFiltersDisable(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName){
+		this.cleanTask();
+		this.addTask(label, description, projectName, branchName, jobName, version, context, serverName, statisticName);
+		this.runTask(label, 1);
 		this.testFilterBaseOnDetailStatus();
 		this.sleep(5000);
 		Assert.assertTrue(selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-detailedStatus']//span[text()='Ok']").intValue()==0, "");
 		selenium.click("//button[text()='Disable filters']");
-		this.sleep(5000);
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-detailedStatus']//span[text()='Ok']", WAIT_TIME);
 		Assert.assertTrue(selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-detailedStatus']//span[text()='Ok']").intValue()>=1, "");
 		
 	}
