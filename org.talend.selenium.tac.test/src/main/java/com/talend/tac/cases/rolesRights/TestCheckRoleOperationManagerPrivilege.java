@@ -22,7 +22,7 @@ public class TestCheckRoleOperationManagerPrivilege extends Login {
 		assertTrue(selenium.isElementPresent("!!!menu.executionServers.element!!!"));
 		assertTrue(selenium.isElementPresent("!!!menu.virtual_server.element!!!"));
 		assertTrue(selenium.isElementPresent("!!!menu.soamanager.element!!!"));
-		assertTrue(selenium.isElementPresent("!!!menu.businessModeler.element!!!"));
+		assertTrue(selenium.isElementPresent("!!!menu.businessModeler.browser.element!!!"));
 		assertTrue(selenium.isElementPresent("!!!menu.connections.element!!!"));//Connections
 		assertTrue(selenium.isElementPresent("!!!menu.dashjobs.element!!!"));
 		assertTrue(selenium.isElementPresent("!!!menu.soamanager.dashboard.element!!!"));
