@@ -64,7 +64,7 @@ public class TestDataBaseParmeters extends Login {
 		
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idDbConfigLogoutButton"); 
-		Assert.assertTrue(selenium.isTextPresent("Talend Master Data Management"));
+		Assert.assertTrue(selenium.isElementPresent("idLoginButton"));
 		selenium.setSpeed(MIN_SPEED);							
 		
 		selenium.click("idLoginButton");
