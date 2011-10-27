@@ -15,11 +15,11 @@ public class TestGridExecutionsAgainGenerating extends Grid {
 		this.addTask(label, description, projectName, branchName, jobName, version, context, serverName, statisticName);
 	    selenium.mouseDown("//span[text()='" + label + "']");
 	    this.sleep(3000);
-	    selenium.click("//div[text()='Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskGenerateButton']");
+	    selenium.click("//div[contains(text(),'Conductor')]//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskGenerateButton']");
 	    this.waitForTextPresent("Generating...", WAIT_TIME);
 	    this.waitForElementPresent("//span[text()='Ready to deploy']", MAX_WAIT_TIME);
 	    this.sleep(3000);
-	    selenium.click("//div[text()='Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskDeployButton']");
+	    selenium.click("//div[contains(text(),'Conductor')]//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskDeployButton']");
 	    Assert.assertFalse(this.waitElement("//span[text()='Generating...']", WAIT_TIME), "test failed because task was regenerated!");
 	    this.waitForElementPresent("//span[text()='Ready to run']", MAX_WAIT_TIME);
 	    this.deleteTask(label);
