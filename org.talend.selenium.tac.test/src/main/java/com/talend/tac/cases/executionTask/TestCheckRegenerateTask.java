@@ -16,7 +16,7 @@ public class TestCheckRegenerateTask extends Login {
 		
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");//into task page 
         selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+	    Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
 	    selenium.setSpeed(MIN_SPEED);
 	    
 	    this.waitForElementPresent("//span[text()='testAddsimpleTask']", WAIT_TIME);

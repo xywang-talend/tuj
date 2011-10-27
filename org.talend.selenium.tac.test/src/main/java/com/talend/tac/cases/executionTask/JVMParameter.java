@@ -10,7 +10,7 @@ public class JVMParameter extends Login{
 			String jvmParameterDescription, String warnInfo,int waitTime) {
     	
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
     	//select a exist task
     	selenium.setSpeed(MID_SPEED);
     	selenium.mouseDown("//span[text()='"+label+"']");
@@ -107,7 +107,7 @@ public class JVMParameter extends Login{
 		
 
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
     	selenium.setSpeed(MID_SPEED);
     	selenium.mouseDown("//span[text()='"+label+"']");
     	selenium.setSpeed(MIN_SPEED);

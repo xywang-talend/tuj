@@ -162,8 +162,7 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 	@Parameters({"labelStatisticViewTask", "statisticDisabled", "statisticEnabled"})
 	public void testTaskStatisticViewDisable(String tasklabel, String statisticDisabled, String statisticEnabled) throws InterruptedException{
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='"
-				+ rb.getString("menu.jobConductor") + "']"));
+		Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
 		// select a exist task
 		this.waitForElementPresent("//span[text()='"+tasklabel+"']", WAIT_TIME);
 		selenium.mouseDown("//span[text()='"+tasklabel+"']");
@@ -255,8 +254,7 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 	@Parameters({"labelStatisticViewTask", "statisticEnabled"})
 	public void testTaskStatisticViewEnable(String tasklabel, String statisticEnabled) throws InterruptedException{
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='"
-				+ rb.getString("menu.jobConductor") + "']"));
+		Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
 		// select a exist task
 		this.waitForElementPresent("//span[text()='"+tasklabel+"']", WAIT_TIME);
 		selenium.mouseDown("//span[text()='"+tasklabel+"']");

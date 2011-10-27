@@ -55,7 +55,7 @@ public class TaskUtils extends Login {
 		
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");//into JobConductor page
     	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
     	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']"));  
     	selenium.setSpeed(MIN_SPEED);
     	this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);
@@ -157,7 +157,7 @@ public class TaskUtils extends Login {
 		
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
         selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+	    Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
 	    selenium.setSpeed(MIN_SPEED);
 	    
 	    this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);
@@ -172,7 +172,7 @@ public class TaskUtils extends Login {
 //		itemName = "job";
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
         selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+	    Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
 	    selenium.setSpeed(MIN_SPEED);
 	    selenium.click("idSubModuleAddButton");
 		this.typeString("idJobConductorTaskLabelInput", label);//plan name /Label
@@ -222,7 +222,7 @@ public class TaskUtils extends Login {
 		
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");//into executiontask page
     	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
     	selenium.setSpeed(MIN_SPEED);
     	this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select an simple task
@@ -251,7 +251,7 @@ public class TaskUtils extends Login {
     		, TriggerDate endDate, String triggerCount, String repeatInterval, String type) {
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
     	selenium.setSpeed(MIN_SPEED);
     	this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);		
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
@@ -369,7 +369,7 @@ public class TaskUtils extends Login {
 			String weeksStart, String weeksEnd, String monthsStart, String monthsEnd) {
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
     	selenium.setSpeed(MIN_SPEED);
     	this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
@@ -407,7 +407,7 @@ public class TaskUtils extends Login {
 		
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
     	selenium.setSpeed(MIN_SPEED);
     	this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
@@ -464,7 +464,7 @@ public class TaskUtils extends Login {
 		
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
 		selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+	    Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
 		selenium.setSpeed(MIN_SPEED);
 	    selenium.click("idSubModuleRefreshButton"); //click "Refresh"
 		

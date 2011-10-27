@@ -101,7 +101,7 @@ public class TestTaskDisplay extends Login {
 		
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
         selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+	    Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
 	    selenium.setSpeed(MIN_SPEED);
 	    
 	    this.waitForElementPresent("//span[text()='"+taskWithTjavaWithMulripleCheckpoint+"']", WAIT_TIME);

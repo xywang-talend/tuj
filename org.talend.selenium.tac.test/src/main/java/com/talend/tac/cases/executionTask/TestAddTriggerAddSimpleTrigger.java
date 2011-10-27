@@ -64,7 +64,7 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
     	changeCommandLineConfig(localhostAddress);
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
     	selenium.setSpeed(MIN_SPEED);
     	
     	clearTriggers(labelTRunJobByTaskRun);
@@ -84,7 +84,7 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
    
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
     	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
 		selenium.click("idTriggerAdd trigger...");//add a trigger
@@ -149,7 +149,7 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
 	    	       
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
     	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
 		selenium.click("idTriggerAdd trigger...");//add a trigger
@@ -204,12 +204,12 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
     	
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
     	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+taskLabel+"']");//select a exist task
 		selenium.click("idTriggerAdd trigger...");//add a trigger
 		selenium.click("idTriggerAdd simple trigger");//add a SimpleTrigger
-        Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("trigger.action.addSimpleTrigger")+"']"));
+        Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
         
         this.typeString("idJobConductorSimpleTriggerLableInput", label);//label
     	selenium.setSpeed(MID_SPEED);

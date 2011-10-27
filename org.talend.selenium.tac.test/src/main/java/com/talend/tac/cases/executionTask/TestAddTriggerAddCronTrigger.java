@@ -38,7 +38,7 @@ public class TestAddTriggerAddCronTrigger extends TaskUtils {
 		//open to execution task add trigger page
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
     	selenium.setSpeed(MIN_SPEED);
        	selenium.mouseDown("//span[text()='"+taskLabel+"']");
 		selenium.click("idTriggerAdd trigger...");
@@ -80,7 +80,7 @@ public class TestAddTriggerAddCronTrigger extends TaskUtils {
 		//open to execution task add trigger page
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
     	selenium.setSpeed(MIN_SPEED);
     	this.waitForElementPresent("//span[text()='"+taskLabel+"']", WAIT_TIME);
        	selenium.mouseDown("//span[text()='"+taskLabel+"']");

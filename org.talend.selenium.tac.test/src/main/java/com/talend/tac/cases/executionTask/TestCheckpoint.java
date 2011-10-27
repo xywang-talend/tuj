@@ -24,7 +24,7 @@ public class TestCheckpoint extends TaskUtils {
 		
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
         selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+	    Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
 	    selenium.setSpeed(MIN_SPEED);
 	    
 	    this.addTask(label, description, commonpro, branchName, jobName, version, context, serverName, statisticName);
@@ -79,7 +79,7 @@ public class TestCheckpoint extends TaskUtils {
 	    
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");//into task page
         selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+	    Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
 	    selenium.setSpeed(MIN_SPEED);
 	    
 		selenium.mouseDown("//span[text()='"+label+"']");

@@ -11,7 +11,7 @@ public class TestDeteleTask  extends Login {
 	public void testCancleDeleteTask() {
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
 		selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+	    Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
 		selenium.setSpeed(MIN_SPEED);
 	    selenium.click("idSubModuleRefreshButton");//click "Refresh"
 		selenium.mouseDown("//span[text()='testTaskNotChooseActive']");//select a exist task
@@ -28,7 +28,7 @@ public class TestDeteleTask  extends Login {
 	public void testDeleteTask() {
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
 		selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+	    Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
 		selenium.setSpeed(MIN_SPEED);
 	    selenium.click("idSubModuleRefreshButton"); //click "Refresh"
 		selenium.mouseDown("//span[text()='testTaskNotChooseActive']");//select a exist task

@@ -12,7 +12,7 @@ public class TestGenerateDeployRun extends Login {
 		
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");//into executiontask page
     	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
     	selenium.setSpeed(MIN_SPEED);
     	selenium.mouseDown("//span[text()='"+taslLabel+"']");//select an simple task
     	selenium.click(buttonXpath);//click function button

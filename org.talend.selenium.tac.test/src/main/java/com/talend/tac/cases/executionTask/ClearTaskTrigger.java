@@ -6,18 +6,29 @@ import org.testng.annotations.Test;
 
 
 public class ClearTaskTrigger extends TaskUtils {
-    
-   
+    	
     @Test
-    @Parameters({"labelRefProJobByMainProTRunJobRun","TaskDeleteLogs",
+    @Parameters({"labelStatisticViewTask","TaskWithtRunjob","taskForTestFileTriggerOfModifiedOptionFilePathNotWithLastBackslash",
+    	"taskForTestFileTriggerOfCreationOptionFilePathNotWithLastBackslash","taskForTestFileTriggerOfModifiedOption","taskForTestFileTriggerOfCreationOption",
+    	"taskForTestFileTrigger","taskProjectWithContainsSpaceChar","label","labelRefProJobByMainProTRunJobRun","TaskDeleteLogs",
     	"labelReferenceproTjava","TaskWithInactiveServer","duplicateTask","taskWithTjavaWithMulripleCheckpoint"
-    	,"taskWithTrunjobWithCheckpoint","TaskWithJobOfGenerateBigLogs","TaskLabelOfLatestJob", "TaskOfAutomatedSelectingComboValue"})
-    public void clearsTasks(String labelRefProJobByMainProTRunJobRun, 
-    		String taskDeleteLogs,String testAddTaskForTestReferenceproTjava,
-    		String TaskWithInactiveServer,String Copy_of_testTaskNotChooseActive,String taskWithTjavaWithMulripleCheckpoint
-    		,String taskWithTrunjobWithCheckpoint, String TaskWithJobOfGenerateBigLogs, String TaskLabelOfLatestJob
+    	,"taskWithTrunjobWithCheckpoint","TaskLabelOfLatestJob", "TaskOfAutomatedSelectingComboValue"})
+    public void clearsTasks(String labelStatisticViewTask,String TaskWithtRunjob, String taskForTestFileTriggerOfModifiedOptionFilePathNotWithLastBackslash,String taskForTestFileTriggerOfCreationOptionFilePathNotWithLastBackslash
+    		,String taskForTestFileTriggerOfModifiedOption,String taskForTestFileTriggerOfCreationOption,
+    		String taskForTestFileTrigger,String taskProjectWithContainsSpaceChar, String label, String labelRefProJobByMainProTRunJobRun, 
+    		String taskDeleteLogs,String testAddTaskForTestReferenceproTjava,String TaskWithInactiveServer,String Copy_of_testTaskNotChooseActive,String taskWithTjavaWithMulripleCheckpoint
+    		,String taskWithTrunjobWithCheckpoint, String TaskLabelOfLatestJob
     		, String TaskOfAutomatedSelectingComboValue) {
-
+         
+    	 clearTask(label);
+         clearTask(taskProjectWithContainsSpaceChar);
+         clearTask(taskForTestFileTrigger);
+         clearTask(taskForTestFileTriggerOfCreationOption);
+         clearTask(taskForTestFileTriggerOfModifiedOption);
+         clearTask(taskForTestFileTriggerOfCreationOptionFilePathNotWithLastBackslash);
+         clearTask(taskForTestFileTriggerOfModifiedOptionFilePathNotWithLastBackslash);
+         clearTask(TaskWithtRunjob);
+         clearTask(labelStatisticViewTask);
          clearTask(labelRefProJobByMainProTRunJobRun);
          clearTask("testTaskWithItems");
          clearTask(taskDeleteLogs);
@@ -26,8 +37,7 @@ public class ClearTaskTrigger extends TaskUtils {
          clearTask(Copy_of_testTaskNotChooseActive);
          clearTask(taskWithTjavaWithMulripleCheckpoint);
          clearTask(taskWithTrunjobWithCheckpoint);
-         clearTask(TaskWithInactiveServer);         
-         clearTask(TaskWithJobOfGenerateBigLogs);
+         clearTask(TaskWithInactiveServer);    
          clearTask(TaskLabelOfLatestJob);
          clearTask(TaskOfAutomatedSelectingComboValue);
          
@@ -41,7 +51,7 @@ public class ClearTaskTrigger extends TaskUtils {
     	
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
-    	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+    	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
     	selenium.setSpeed(MIN_SPEED);
     	
     	clearTriggers(labelTRunJobByTaskRun);

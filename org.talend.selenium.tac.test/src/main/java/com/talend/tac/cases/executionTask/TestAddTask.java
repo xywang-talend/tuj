@@ -73,7 +73,7 @@ public class TestAddTask  extends TaskUtils {
 		
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
         selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+	    Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
 	    selenium.setSpeed(MIN_SPEED);
 	    selenium.click("idSubModuleAddButton");
 		this.typeString("idJobConductorTaskLabelInput", label);//plan name /Label
@@ -255,7 +255,7 @@ public class TestAddTask  extends TaskUtils {
 	   	
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
         selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
+	    Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Conductor') and @class='header-title']"));
 	    selenium.setSpeed(MIN_SPEED);
 	    selenium.click("idSubModuleAddButton");
 		this.typeString("idJobConductorTaskLabelInput", label);//plan name /Label
