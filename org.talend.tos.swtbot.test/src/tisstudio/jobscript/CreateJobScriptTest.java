@@ -12,18 +12,14 @@
 // ============================================================================
 package tisstudio.jobscript;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendJobScriptItem;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -31,31 +27,24 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class CreateJobScriptTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
+    private TalendJobScriptItem jobScriptItem;
 
     private static final String JOBSCRIPT_NAME = "jobscript1"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView();
-        view.setFocus();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.JOBSCRIPTS);
+        jobScriptItem = new TalendJobScriptItem(JOBSCRIPT_NAME);
     }
 
     @Test
     public void createJobScript() {
-        Utilities.createJobScript(JOBSCRIPT_NAME, treeNode);
+        jobScriptItem.create();
     }
 
     @After
     public void removePreviousCreateItems() {
-        gefBot.cTabItem(JOBSCRIPT_NAME + "_0.1.jobscript").close();
-        Utilities.delete(treeNode, JOBSCRIPT_NAME, "0.1", null);
+        jobScriptItem.getEditor().saveAndClose();
+        Utilities.cleanUpRepository(jobScriptItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

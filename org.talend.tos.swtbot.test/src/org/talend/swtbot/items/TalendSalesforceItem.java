@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
@@ -59,8 +58,7 @@ public class TalendSalesforceItem extends TalendMetadataItem {
 
     public Map<String, TalendSalesforceItem> retrieveModules(String... moduleName) {
         getItem().contextMenu("Retrieve Salesforce Modules").click();
-        final SWTGefBot gefBot = new SWTGefBot();
-        gefBot.waitUntil(Conditions.shellIsActive("Schema"), 10000);
+        gefBot.waitUntil(Conditions.shellIsActive("Schema"), 60000);
         SWTBotShell tempShell = gefBot.shell("Schema");
         Map<String, TalendSalesforceItem> moduleItems = new HashMap<String, TalendSalesforceItem>();
 
@@ -69,7 +67,7 @@ public class TalendSalesforceItem extends TalendMetadataItem {
             for (String module : modules) {
                 gefBot.table(0).getTableItem(module).check();
             }
-            gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")));
+            gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 60000);
             gefBot.button("Finish").click();
 
             for (String module : modules) {

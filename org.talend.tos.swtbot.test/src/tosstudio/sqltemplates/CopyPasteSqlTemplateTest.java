@@ -12,18 +12,14 @@
 // ============================================================================
 package tosstudio.sqltemplates;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendSqlTemplateItem;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -31,11 +27,7 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class CopyPasteSqlTemplateTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
+    private TalendSqlTemplateItem sqlTemplateItem;
 
     private static final String SQLTEMPLATENAME = "sqlTemplate1"; //$NON-NLS-1$
 
@@ -43,23 +35,21 @@ public class CopyPasteSqlTemplateTest extends TalendSwtBotForTos {
 
     @Before
     public void createSqlTemplate() {
-        view = Utilities.getRepositoryView();
-        view.setFocus();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.SQL_TEMPLATES).expandNode("Generic", "UserDefined");
-        Utilities.createSqlTemplate(SQLTEMPLATENAME, treeNode);
+        sqlTemplateItem = new TalendSqlTemplateItem(SQLTEMPLATENAME);
+        sqlTemplateItem.setFolderPath(FOLDERPATH);
+        sqlTemplateItem.create();
     }
 
     @Test
     public void copyAndPasteSqlTemplate() {
-        Utilities.copyAndPaste(treeNode, SQLTEMPLATENAME, "0.1");
+        sqlTemplateItem.copyAndPaste();
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        gefBot.cTabItem(SQLTEMPLATENAME + " 0.1").close();
-        Utilities.delete(treeNode, SQLTEMPLATENAME, "0.1", FOLDERPATH);
-        Utilities.delete(treeNode, "Copy_of_" + SQLTEMPLATENAME, "0.1", FOLDERPATH);
+        sqlTemplateItem.getEditor().saveAndClose();
+        Utilities.delete(sqlTemplateItem.getParentNode(), SQLTEMPLATENAME, "0.1", FOLDERPATH);
+        Utilities.delete(sqlTemplateItem.getParentNode(), "Copy_of_" + SQLTEMPLATENAME, "0.1", FOLDERPATH);
         Utilities.emptyRecycleBin();
     }
 }

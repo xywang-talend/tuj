@@ -168,21 +168,21 @@ public class TalendItem {
         return beginEditWizard("Edit properties", "Edit properties");
     }
 
-    public SWTBotShell beginEditWizard(String contextMenu, final String shellTitle) {
+    public SWTBotShell beginEditWizard(String contextMenu, String shellTitle) {
         parentNode.getNode(itemFullName).contextMenu(contextMenu).click();
         SWTBotShell shell = gefBot.shell(shellTitle).activate();
         return shell;
     }
 
-    public void finishEditWizard(final SWTBotShell shell) {
+    public void finishEditWizard(SWTBotShell shell) {
         finishCreationWizard(shell);
     }
 
-    public SWTBotShell beginCreationWizard(String contextMenu, final String shellTitle) {
+    public SWTBotShell beginCreationWizard(String contextMenu, String shellTitle) {
         parentNode.contextMenu(contextMenu).click();
 
-        SWTBotShell shell = null;
-        if (!"New JobScript".equals(shellTitle)) {
+        SWTBotShell shell = gefBot.activeShell();
+        if (!(itemType == Utilities.TalendItemType.JOBSCRIPTS)) {
             gefBot.waitUntil(Conditions.shellIsActive(shellTitle));
             shell = gefBot.shell(shellTitle);
             shell.activate();
@@ -192,7 +192,7 @@ public class TalendItem {
         return shell;
     }
 
-    public void finishCreationWizard(final SWTBotShell shell) {
+    public void finishCreationWizard(SWTBotShell shell) {
         boolean finishButtonIsEnabled = gefBot.button("Finish").isEnabled();
         if (finishButtonIsEnabled) {
             gefBot.button("Finish").click();

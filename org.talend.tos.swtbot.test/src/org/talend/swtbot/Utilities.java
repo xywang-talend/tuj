@@ -167,68 +167,6 @@ public class Utilities {
         gefBot.button("Yes").click();
     }
 
-    /**
-     * Create item in repository
-     * 
-     * @author fzhong
-     * @param itemType item type
-     * @param itemName item name
-     * @param tree tree in repository
-     * @param shell creating wizard shell
-     */
-    private static SWTBotTreeItem create(String itemType, String itemName, SWTBotTreeItem treeNode) {
-        treeNode.contextMenu("Create " + itemType).click();
-
-        shell = gefBot.activeShell();
-        if (!"JobScript".equals(itemType)) {
-            gefBot.waitUntil(Conditions.shellIsActive("New " + itemType));
-            shell = gefBot.shell("New " + itemType);
-            shell.activate();
-        }
-
-        gefBot.textWithLabel("Name").setText(itemName);
-
-        boolean finishButtonIsEnabled = gefBot.button("Finish").isEnabled();
-        if (finishButtonIsEnabled) {
-            gefBot.button("Finish").click();
-        } else {
-            shell.close();
-            Assert.assertTrue("finish button is not enabled, " + itemType + " created fail. Maybe the item name is exist,",
-                    finishButtonIsEnabled);
-        }
-
-        if (shell.isOpen()) {
-            shell.close();
-            Assert.fail("shell did not close automatically");
-        }
-
-        SWTBotTreeItem newTreeItem = null;
-        try {
-            if (gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").isEnabled()) {
-                gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
-            }
-            newTreeItem = treeNode.expand().select(itemName + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull(itemType + " item is not created", newTreeItem);
-        }
-
-        return treeNode.getNode(itemName + " 0.1");
-    }
-
-    public static SWTBotTreeItem createSqlTemplate(String sqlTemplateName, SWTBotTreeItem treeNode) {
-        return create("SQLTemplate", sqlTemplateName, treeNode);
-    }
-
-    public static SWTBotTreeItem createRoutine(String routineName, SWTBotTreeItem treeNode) {
-        return create("routine", routineName, treeNode);
-    }
-
-    public static SWTBotTreeItem createJobScript(String jobScriptName, SWTBotTreeItem treeNode) {
-        return create("JobScript", jobScriptName, treeNode);
-    }
-
     public static SWTBotTreeItem createCopybook(String copybookNAME, SWTBotTreeItem treeNode) throws IOException,
             URISyntaxException {
         treeNode.contextMenu("Create EBCDIC").click();
