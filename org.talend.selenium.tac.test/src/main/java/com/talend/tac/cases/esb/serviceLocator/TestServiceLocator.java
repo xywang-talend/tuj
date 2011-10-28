@@ -409,7 +409,7 @@ public class TestServiceLocator extends EsbUtil {
 	   //go to configuration page 
 	   this.clickWaitForElementPresent("idMenuConfigElement");
 		  
-	   this.MouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");	   
+	   this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");	   
 	   
 	   modifySAMServer(remoteMonitorServer, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator"));
 	   
@@ -425,7 +425,7 @@ public class TestServiceLocator extends EsbUtil {
 	   //go to configuration page 
 	   this.clickWaitForElementPresent("idMenuConfigElement");
 		  
-	   this.MouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");	   
+	   this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");	   
 
 	   modifySAMServer(remoteMonitorServerWithWrongUrl, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator.wrongURL"));
 	   

@@ -20,7 +20,7 @@ public class TestJobAnalyses extends Login {
 			selenium.click("//label[text()='Active connection:']/following-sibling::div//input/following-sibling::div");
 			flag = selenium.isElementPresent("//div[contains(@class,'x-combo-list-item') and text()=' "+connection+"']");
 		}
-		this.MouseDownWaitForElementPresent("//div[contains(@class,'x-combo-list-item') and text()=' "+connection+"']");
+		this.mouseDownWaitForElementPresent("//div[contains(@class,'x-combo-list-item') and text()=' "+connection+"']", MAX_WAIT_TIME);
 		this.waitForElementPresent("//img[@title='Ok']", WAIT_TIME);
 		//select a connection and simulate a click
 		selenium.mouseDown("//img[@title='Ok']/ancestor::table");
@@ -38,7 +38,7 @@ public class TestJobAnalyses extends Login {
 		//wait and select the first "connection"
 		this.waitForElementPresent("//label[text()='Active connection:']/following-sibling::div//input",WAIT_TIME);
 		selenium.click("//label[text()='Active connection:']/following-sibling::div//input/following-sibling::div");
-		this.MouseDownWaitForElementPresent("//div[contains(@class,'x-combo-list-item') and text()=' "+connection+"']");
+		this.mouseDownWaitForElementPresent("//div[contains(@class,'x-combo-list-item') and text()=' "+connection+"']");
 		this.waitForElementPresent("//img[@title='Ok']", WAIT_TIME);
 		//select a connection and simulate a click
 		selenium.mouseDown("//img[@title='Ok']/ancestor::table");

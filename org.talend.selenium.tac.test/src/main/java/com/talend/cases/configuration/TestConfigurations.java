@@ -21,7 +21,7 @@ public class TestConfigurations extends configuration {
   @Parameters({"commandline.conf.primary.host","commandline.conf.primary.port","commandline.conf.primary.archivePath"})
   public void testSetCommandlinePrimary(String commandlineHost,String commandlinePort,String commandlinePath) {
 	
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),locatorOfAllInputTags, commandlineHost);
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.port.editButton"),locatorOfAllInputTags, commandlinePort);
 	  this.typeWordsInConfigurationMenu(other.getString("commandLine.conf.primary.archivePath.editButton"),locatorOfAllInputTags, this.getAbsolutePath(commandlinePath));
@@ -32,13 +32,13 @@ public class TestConfigurations extends configuration {
 //	  this.waitForElementPresent(other.getString("commandline.conf.primary.genralStatusIcon"), WAIT_TIME);
 	  //->THIS IS NOT SUIT FOR AUTOMATION CURRENTLY,BECAUSE THE GENERAL ICON STATUS DID'T CHANGE IN TIME, AUTHOUGHT THE PARAMETERS ARE ALL CORRECT.
 
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
   }
   @Test
   @Parameters ({"commandline.conf.secondary.host","commandline.conf.secondary.port","commandline.conf.secondary.archivePath"})
   public void testSetCommandlineSecondary(String commandlineHost,String commandlinePort,String commandlinePath) {
 	 
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/secondary')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/secondary')]");
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.secondary.host.editButton"),locatorOfAllInputTags, commandlineHost);
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.secondary.port.editButton"),locatorOfAllInputTags, commandlinePort);
 	  this.typeWordsInConfigurationMenu(other.getString("commandLine.conf.secondary.archivePath.editButton"),locatorOfAllInputTags, this.getAbsolutePath(commandlinePath));
@@ -48,7 +48,7 @@ public class TestConfigurations extends configuration {
 	  this.AssertEqualsInConfigurationMenu(other.getString("commandLine.conf.secondary.archivePath.editButton"),locatorOfAllInputTags, this.getAbsolutePath(commandlinePath));
 //	  this.waitForElementPresent(other.getString("commandline.conf.secondary.generalStatusIcon"), WAIT_TIME);
 	 
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/secondary')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/secondary')]");
 	  
   }
   
@@ -65,7 +65,7 @@ public class TestConfigurations extends configuration {
 		e.printStackTrace();
 	  }
 	  
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");
 	  selenium.setSpeed(MID_SPEED);
 	  this.typeWordsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), locatorOfAllInputTags, zookeeperServer);
 	  selenium.setSpeed(MIN_SPEED);
@@ -80,7 +80,7 @@ public class TestConfigurations extends configuration {
 	  this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), locatorOfAllInputTags,
 			  zookeeperServer, other.getString("esb.conf.StopZookeeperServerStatusIconLocator"));
 	  
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'ESB')]"); 
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]"); 
 	  
   }
   
@@ -98,7 +98,7 @@ public class TestConfigurations extends configuration {
 		e.printStackTrace();
 	  }
 		  
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");		  
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");		  
 	  selenium.setSpeed(MID_SPEED);
 	  this.typeWordsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), locatorOfAllInputTags, zookeeperServer);
 	  selenium.setSpeed(MIN_SPEED);
@@ -114,7 +114,7 @@ public class TestConfigurations extends configuration {
 	  
 	  this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), locatorOfAllInputTags,
 			  zookeeperServer, other.getString("esb.conf.ZookeeperServerStatusIconLocator"));
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");
 	  
 	 	  
 //	  this.clickWaitForElementPresent("//div[contains(text(),'ESB (1 Parameter)')]");  
@@ -125,7 +125,7 @@ public class TestConfigurations extends configuration {
   @Parameters ({"LDAP.conf.useLDAPAutentication","LDAP.conf.ldapServerIp","LDAP.conf.ldapServerPort","LDAP.conf.ldapRoot","LDAP.conf.ldapPrincipalDNPrefix",
 	  "LDAP.conf.ldapAdminPassword","LDAP.conf.ldap.fields.mail","LDAP.conf.ldap.fields.firstname","LDAP.conf.ldap.fields.lastname"})
   public void testSetLDAP(String useLDAPAutentication,String ldapServerIp,String ldapServerPort,String ldapRoot,String ldapPrincipalDNPrefix,String ldapAdminPassword,String ldapFieldsMail,String ldapFieldsFirstName,String ldapFieldsLastName ) {
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'LDAP (11 Parameters')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'LDAP (11 Parameters')]");
 	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.useLDAPAutentication.editButton"), locatorOfAllInputTags, useLDAPAutentication);
 	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.ldapServerIp.editButton"), locatorOfAllInputTags, ldapServerIp);
 	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.ldapServerPort.editButton"), locatorOfAllInputTags, ldapServerPort);
@@ -146,25 +146,25 @@ public class TestConfigurations extends configuration {
 	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.firstname.editButton"), locatorOfAllInputTags, ldapFieldsFirstName);
 	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.lastname.editButton"), locatorOfAllInputTags, ldapFieldsLastName);
 	
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'LDAP (11 Parameters')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'LDAP (11 Parameters')]");
   }
   @Test
   @Parameters ({"log4j.conf.logsPath","log4j.conf.logsName"})
   public void testSetLog4j(String logsPath,String logsName){
 	  	  
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
 	  this.typeWordsInConfigurationMenu(other.getString("log4j.conf.logsPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(logsPath)+logsName);
  
 	  this.AssertEqualsInConfigurationMenu(other.getString("log4j.conf.logsPath.editButton"), locatorOfAllInputTags,
 			  this.getAbsolutePath(logsPath)+logsName, other.getString("log4j.conf.TalendAppenderStatusIconLocator"));
 	  assertTrue(selenium.isElementPresent(other.getString("log4j.conf.ThresholdStatusIconLocator")));
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
 	  this.clickWaitForElementPresent("//div[contains(text(),'Log4j (2 Parameters)')]");  
   }
   @Test
   @Parameters ({"smtp.conf.useSmtp","smtp.conf.mailServerHost","smtp.conf.mailServerPort","smtp.conf.mailUserName","smtp.conf.mailPassword","smtp.conf.serverRequireSSL"})
   public void testSetSMTP(String useSmtp,String mailServerHost,String mailServerPort,String mailUserName,String mailPassword,String serverRequireSSL){//String serverRequireSSL
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'SMTP')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'SMTP')]");
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.useSmtp.editButton"), locatorOfAllInputTags, useSmtp);
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailServerHost.editButton"), locatorOfAllInputTags, mailServerHost);
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailServerPort.editButton"), locatorOfAllInputTags, mailServerPort);
@@ -180,27 +180,27 @@ public class TestConfigurations extends configuration {
 	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.serverRequireSSL.editButton"), locatorOfAllInputTags, serverRequireSSL,other.getString("smtp.conf.serverRequireSSL.statusIcon"));
 //	  this.waitForElementPresent(other.getString("smtp.conf.generalStatusIcon"), WAIT_TIME);
 	  
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'SMTP')]");  
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'SMTP')]");  
 	//assertEquals
   }
   
   @Test
   @Parameters ({"scheduler.conf.ArchivedPath","scheduler.conf.LogsPath"})
   public void testSetScheduler(String ArchivedPath,String logsPath){
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Conductor (')]"); 
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Conductor (')]"); 
 	  this.typeWordsInConfigurationMenu(other.getString("scheduler.conf.ArchivedPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(ArchivedPath));
 	  this.typeWordsInConfigurationMenu(other.getString("scheduler.conf.LogsPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(logsPath));
 	  this.AssertEqualsInConfigurationMenu(other.getString("scheduler.conf.ArchivedPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(ArchivedPath),other.getString("scheduler.conf.ArchivedPath.statusIcon"));
 	  this.AssertEqualsInConfigurationMenu(other.getString("scheduler.conf.LogsPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(logsPath),other.getString("scheduler.conf.LogsPath.statusIcon"));
 //	  this.waitForElementPresent(other.getString("scheduler.conf.generalStatusIcon"), WAIT_TIME);
 	 
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Conductor (')]"); 
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Conductor (')]"); 
 	//assertEquals
   }
   @Test
   @Parameters ({"soaManager.conf.jobsDeployPath","soaManager.conf.serverAddress","soaManager.conf.serverPort"})
   public void testSetSoaManager(String soaJobDeployedPath,String soaMangerHost,String soaMangerProt){
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Soa manager (')]"); 
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Soa manager (')]"); 
 	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.jobsDeployPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(soaJobDeployedPath));
 	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.serverAddress.editButton"), locatorOfAllInputTags, soaMangerHost);
 	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.serverPort.editButton"), locatorOfAllInputTags, soaMangerProt);
@@ -210,7 +210,7 @@ public class TestConfigurations extends configuration {
 	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.serverPort.editButton"), locatorOfAllInputTags, soaMangerProt,other.getString("soaManager.conf.serverPort.statusIcon"));
 //	  this.waitForElementPresent(other.getString("soaManager.conf.generalStatusIcon"), WAIT_TIME);
 	 
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Soa manager (')]"); 
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Soa manager (')]"); 
 	//assertEquals
   }
 
@@ -218,7 +218,7 @@ public class TestConfigurations extends configuration {
   @Test
   @Parameters ({"svn.conf.serverLocationURL","svn.conf.serverUser","svn.conf.serverPassword"})
   public void testSetSVN(String svnServerLocationUrl,String svnServerUser,String svnServerPassword){
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Svn (')]"); 
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Svn (')]"); 
 	  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverLocationURL.editButton"), locatorOfAllInputTags, svnServerLocationUrl);
 	  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverUser.editButton"), locatorOfAllInputTags, svnServerUser);
 	  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverPassword.editButton"), locatorOfAllInputTags, svnServerPassword);
@@ -228,14 +228,14 @@ public class TestConfigurations extends configuration {
 	  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverPassword.editButton"), locatorOfAllInputTags, svnServerPassword,other.getString("svn.conf.serverPassword.statusIcon"));
 //	  this.waitForElementPresent(other.getString("svn.conf.generalStatusIcon"), WAIT_TIME);//assertion of the general icon.It should be green if all the parameters set correctly
 	 
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Svn (')]"); 	
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Svn (')]"); 	
 	//assertEquals
   }
 
   @Test(enabled=false)
   @Parameters ({"suite.link.dqportal","suite.link.drools","suite.link.mdm"})
   public void testLinkToTalendSuite(String dqportal,String drools,String mdm){
-	  this.MouseDownWaitForElementPresent("//div[contains(text(),'Talend suite')]"); 
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Talend suite')]"); 
 	  
 //	  this.typeWordsInConfigurationMenu(other.getString("suite.link.dqportal.editButton"), locatorOfAllInputTags, dqportal);
 //	  this.typeWordsInConfigurationMenu(other.getString("suite.link.drools.editButton"), locatorOfAllInputTags, drools);
@@ -261,7 +261,7 @@ public class TestConfigurations extends configuration {
 	@Test//(enabled=true,dependsOnMethods="testSetLog4j")
 	 @Parameters ({"firefox.download.path","log4j.conf.logsName"})
 	public void testDownloadLog(String downloadPath,String logsName) {
-		this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
+		this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
 		this.clickWaitForElementPresent("//button[text()='Download Log']");
 		
 		try {
@@ -302,7 +302,7 @@ public class TestConfigurations extends configuration {
 	@Test//(enabled=false)
 	@Parameters ({"firefox.download.path"})
 	public void testExportParameters(String downloadPath) {
-		this.MouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
+		this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
 		this.clickWaitForElementPresent("//button[text()='Export parameters']");
 		
 		try {

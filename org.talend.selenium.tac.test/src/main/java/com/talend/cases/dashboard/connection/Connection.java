@@ -17,7 +17,7 @@ public class Connection extends Login {
 		this.sleep(3000);
 		this.waitForElementDispear(
 				"//div[@class='header-title' and text()='Connections']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[text()='Loading...']",
-				WAIT_TIME);
+				MAX_WAIT_TIME);
 	}
 	public void waitForCheckConnectionStatus(int OK_Num) {
 		boolean flag = false;

@@ -75,9 +75,9 @@ public class SoaUtils extends Login {
 	//creation method for change commandline host address
 	public void changeCommandLineConfig(String hostAddress, String statusIcon) {
 		this.clickWaitForElementPresent("idMenuConfigElement");
-		this.MouseDownWaitForElementPresent("//div[contains(text(),'Command line/secondary')]");
+		this.mouseDownWaitForElementPresent("//div[contains(text(),'Command line/secondary')]");
 		selenium.refresh();
-		this.MouseDownWaitForElementPresent("//div[contains(text(),'Command line/primary')]");
+		this.mouseDownWaitForElementPresent("//div[contains(text(),'Command line/primary')]");
 		this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),locatorOfAllInputTags, hostAddress);
 	
 		this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),locatorOfAllInputTags, hostAddress,statusIcon);

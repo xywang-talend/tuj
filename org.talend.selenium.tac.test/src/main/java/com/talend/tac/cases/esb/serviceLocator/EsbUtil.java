@@ -235,7 +235,7 @@ public class EsbUtil extends Login {
 		//go to configuration page 
 		this.clickWaitForElementPresent("idMenuConfigElement");
 		  
-		this.MouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");
+		this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");
 		this.typeWordsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), locatorOfAllInputTags, ServiceLocation);
 	  	
 		selenium.click("idConfigRefreshButton");

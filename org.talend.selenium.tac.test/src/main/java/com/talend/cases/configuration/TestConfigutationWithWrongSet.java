@@ -10,7 +10,7 @@ public class TestConfigutationWithWrongSet extends configuration {
 	  @Parameters ({"svn.conf.wrong.serverLocationURL","svn.conf.wrong.serverUser","svn.conf.wrong.serverPassword"})
 	  public void testSetWrongSVN(String svnServerLocationWrongUrl,String svnServerWrongUser,String svnServerWrongPassword){
 		  
-		  this.MouseDownWaitForElementPresent("//div[contains(text(),'Svn (')]"); 
+		  this.mouseDownWaitForElementPresent("//div[contains(text(),'Svn (')]"); 
 		  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverLocationURL.editButton"), locatorOfAllInputTags, svnServerLocationWrongUrl);
 		  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverUser.editButton"), locatorOfAllInputTags, svnServerWrongUser);
 		  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverPassword.editButton"), locatorOfAllInputTags, svnServerWrongPassword);
@@ -24,14 +24,14 @@ public class TestConfigutationWithWrongSet extends configuration {
 	      		" failed while connecting to "+svnServerLocationWrongUrl+"')]"));
 	      Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Svn')]/parent::div/following-sibling::div//table//div[text()='Password']//ancestor::table[@class='x-grid3-row-table']//div[contains(text(),'Authentication " +
 	      		"failed while connecting to "+svnServerLocationWrongUrl+"')]"));
-		  this.MouseDownWaitForElementPresent("//div[contains(text(),'Svn (')]"); 	
+		  this.mouseDownWaitForElementPresent("//div[contains(text(),'Svn (')]"); 	
 
 	  }
 	  
 	  @Test
 	  @Parameters ({"smtp.conf.useSmtp","smtp.conf.wrong.mailServerHost","smtp.conf.wrong.mailServerPort","smtp.conf.wrong.mailUserName","smtp.conf.wrong.mailPassword","smtp.conf.serverRequireSSL"})
 	  public void testSetWrongSMTP(String useSmtp,String wrongMailServerHost,String wrongMailServerPort,String wrongMailUserName,String wrongMailPassword,String serverRequireSSL){//String serverRequireSSL
-		  this.MouseDownWaitForElementPresent("//div[contains(text(),'SMTP')]");
+		  this.mouseDownWaitForElementPresent("//div[contains(text(),'SMTP')]");
 		  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.useSmtp.editButton"), locatorOfAllInputTags, useSmtp);
 		  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailServerHost.editButton"), locatorOfAllInputTags, wrongMailServerHost);
 		  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailServerPort.editButton"), locatorOfAllInputTags, wrongMailServerPort);
@@ -47,7 +47,7 @@ public class TestConfigutationWithWrongSet extends configuration {
 		  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.serverRequireSSL.editButton"), locatorOfAllInputTags, serverRequireSSL,other.getString("smtp.conf.serverRequireSSL.wrong.statusIcon"));
 //		  this.waitForElementPresent(other.getString("smtp.conf.generalStatusIcon"), WAIT_TIME);
 		  
-		  this.MouseDownWaitForElementPresent("//div[contains(text(),'SMTP')]");  
+		  this.mouseDownWaitForElementPresent("//div[contains(text(),'SMTP')]");  
 		//assertEquals
 	  }
 	
