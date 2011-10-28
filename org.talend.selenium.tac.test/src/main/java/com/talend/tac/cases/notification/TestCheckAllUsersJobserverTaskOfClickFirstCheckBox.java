@@ -50,7 +50,7 @@ CheckAllUsersJobserverTaskOfClickFirstCheckBox {
 		//go to Task page
 		//get task count in task page
 		this.openPage("!!!menu.executionTasks.element!!!", rb.getString("menu.jobConductor"));
-		int expectedTaskCount = this.getXpathCount("//div[text()='Conductor' and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+		int expectedTaskCount = this.getXpathCount("//div[contains(text(),'Conductor') and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
 				"//div[@class='x-grid3-cell-inner x-grid3-col-label']");
 		
 		Assert.assertTrue(actualTaskCount == expectedTaskCount);

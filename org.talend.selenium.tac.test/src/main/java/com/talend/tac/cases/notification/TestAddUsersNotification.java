@@ -15,7 +15,8 @@ public class TestAddUsersNotification extends AddNotification {
     		    if(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-category']")) {
     		    	selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-category']");
       				selenium.chooseOkOnNextConfirmation();
-      				selenium.click("idSubModuleDeleteButton");
+      				selenium.click("//div[contains(text(),'Notification') and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
+      						"//button[@id='idSubModuleDeleteButton']");
       				selenium.setSpeed(MID_SPEED);
       			    Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected notification [\\s\\S]$"));
         		    selenium.setSpeed(MIN_SPEED);
