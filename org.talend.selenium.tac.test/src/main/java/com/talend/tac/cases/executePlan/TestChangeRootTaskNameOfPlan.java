@@ -33,6 +33,7 @@ public class TestChangeRootTaskNameOfPlan extends Plan {
         this.openExecutionPlanMenu();
         this.waitForElementPresent("//span[text()='" + planlabel + "']",
 				WAIT_TIME);
+        selenium.click("idSubModuleRefreshButton");
         this.waitForElementPresent("//span[text()='RootTask']//ancestor::div[@class='x-grid3-viewport']//span[@title='testPlanChangeTaskNew' and text()='testPlanChangeTaskNew']",
 				WAIT_TIME);
 	}

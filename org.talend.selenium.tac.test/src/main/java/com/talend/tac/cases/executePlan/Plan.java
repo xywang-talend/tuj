@@ -72,6 +72,9 @@ public class Plan extends TaskUtils {
 				WAIT_TIME);
 		this.sleep(2000);
 		selenium.mouseDown("//span[text()='" + planLabel + "']");
+		System.out.println("++++++++++++++"+rootTask);
+		System.out.println("---------------"+selenium.getValue("String idExecutionPlanPlanFormTaskComboBox"));
+		
 		Assert.assertTrue(
 				selenium.getValue("String idExecutionPlanPlanFormTaskComboBox")
 						.equals(rootTask), "plan added failed!");

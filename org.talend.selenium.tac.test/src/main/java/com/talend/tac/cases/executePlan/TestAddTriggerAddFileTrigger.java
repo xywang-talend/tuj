@@ -7,14 +7,18 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Hashtable;
 
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.talend.tac.base.AntAction;
 import com.talend.tac.base.Base;
 
 public class TestAddTriggerAddFileTrigger extends Plan {
+	
+	Hashtable properties = new Hashtable();
 	
 	@Test
 	
@@ -27,6 +31,11 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 			String filetriggerlabel, String foldpath, String interval,
 			String mask, String serverName) throws InterruptedException {
 		foldpath = this.getAbsolutePath(foldpath);
+		
+		AntAction antAction = new AntAction();
+		properties.put("file.path", foldpath+"testFiletrigger.txt");
+		antAction.runTarget("File.xml", "create", properties);
+		
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Execution Plan']",
@@ -130,11 +139,11 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
 		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
 				interval, mask, serverName, 1);
-		System.out.println("THE FIRST TIME:");	
-		this.waitForElementPresent("//span[text()='Running...']",
-				Base.MAX_WAIT_TIME);
-		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),'[OK]')]", Base.MAX_WAIT_TIME);
-		System.out.println("THE FIRST TIME ENDED:");
+//		System.out.println("THE FIRST TIME:");	
+//		this.waitForElementPresent("//span[text()='Running...']",
+//				Base.MAX_WAIT_TIME);
+//		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),'[OK]')]", Base.MAX_WAIT_TIME);
+//		System.out.println("THE FIRST TIME ENDED:");
 		if (new FileTrigger().createNewFile(foldpath)) {
 			System.out.println("fiLE CREATED!");
 		} else {
@@ -148,11 +157,9 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 	@Parameters({ "plan.toaddfiletrigger.label",
 			"plan.filetrigger.create.label",
 			"plan.filetrigger.create.forderpath",
-			"plan.filetrigger.create.timeinterval",
-			"plan.filetrigger.create.filemask", "plan.filetrigger.server" })
+			"plan.filetrigger.create.timeinterval", "plan.filetrigger.server" })
 	public void testAddTriggerAddFileTriggerCreateFalse(String plantoaddfiletrigger,
-			String filetriggerlabel, String foldpath, String interval,
-			String mask, String serverName) throws InterruptedException {
+			String filetriggerlabel, String foldpath, String interval, String serverName) throws InterruptedException {
 		foldpath = this.getAbsolutePath(foldpath);
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 		this.waitForElementPresent(
@@ -162,14 +169,16 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 				.isElementPresent("//div[@class='header-title' and text()='Execution Plan']"));
 		filetriggerlabel = filetriggerlabel + "false";
 		addFileTrigger(plantoaddfiletrigger, filetriggerlabel, foldpath,
-				interval, mask, serverName, 1);
-		System.out.println("THE FIRST TIME:");	
-		this.waitForElementPresent("//span[text()='Running...']",
-				Base.MAX_WAIT_TIME);
-		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),': [OK]')]", MAX_WAIT_TIME);
-		Assert.assertTrue(this.waitElement("//span[text()='Ended...']",
-				TriggerCheckTime)||this.waitElement("//span[text()='Ready to run']",
-						TriggerCheckTime), "test failed! ");
+				interval, "*.cvs", serverName, 1);
+//		System.out.println("THE FIRST TIME:");	
+//		this.waitForElementPresent("//span[text()='Running...']",
+//				Base.MAX_WAIT_TIME);
+		
+//		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),': [OK]')]", MAX_WAIT_TIME);
+//		Assert.assertTrue(this.waitElement("//span[text()='Ended...']",
+//				TriggerCheckTime)||this.waitElement("//span[text()='Ready to run']",
+//						TriggerCheckTime), "test failed! ");
+		
 		triggerCheckFalse(filetriggerlabel);	
 	}
 
@@ -407,7 +416,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 			Date date = new Date();
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:MM:ss");
 			String s = df.format(date);// system date
-			FileWriter fw = null;
+			FileWriter fw;
 			try {
 				fw = new FileWriter(newFile.listFiles(fileter)[0],true);
 				fw.write("testModify:"+s);
