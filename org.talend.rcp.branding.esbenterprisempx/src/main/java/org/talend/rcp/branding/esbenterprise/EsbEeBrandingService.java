@@ -34,7 +34,7 @@ public class EsbEeBrandingService extends AbstractTalendBrandingService {
     protected IBrandingConfiguration brandingConfigure;
 
     public String getShortProductName() {
-        return "ESB EE"; //$NON-NLS-1$
+        return getProductName();
     }
 
     public String getCorporationName() {
@@ -68,7 +68,7 @@ public class EsbEeBrandingService extends AbstractTalendBrandingService {
     }
 
     public String getAcronym() {
-        return "esbee";
+        return "esbeempx";
     }
 
     @Override
@@ -77,7 +77,7 @@ public class EsbEeBrandingService extends AbstractTalendBrandingService {
     }
 
     public String getProductName() {
-        return "Talend ESB";
+        return "Talend Platform for Data Services";
     }
 
     public String getOptionName() {

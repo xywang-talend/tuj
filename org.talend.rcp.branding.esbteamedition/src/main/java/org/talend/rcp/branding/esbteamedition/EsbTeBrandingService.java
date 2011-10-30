@@ -76,10 +76,10 @@ public class EsbTeBrandingService extends AbstractTalendBrandingService {
     }
 
     public String getProductName() {
-        return "Talend ESB";
+        return "Talend Platform for Data Services";
     }
 
     public String getOptionName() {
-        return "";
+        return "Team edition";
     }
 }
