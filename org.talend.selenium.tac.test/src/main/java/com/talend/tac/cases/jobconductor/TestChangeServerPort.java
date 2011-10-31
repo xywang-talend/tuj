@@ -33,7 +33,7 @@ public class TestChangeServerPort extends Server {
 		
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idFormSaveButton");
-		this.waitForElementPresent("//span[contains(text(),'Command port: ')]//parent::li//img[@title='This port is " +
+		this.waitForElementPresent("//span[contains(text(),'Command port:')]//parent::li//img[@title='This port is " +
 				"misconfigured or an other application uses it on server!']",
 				WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[contains(text(),'Command port:')]//parent::li//img[@title='This port is " +

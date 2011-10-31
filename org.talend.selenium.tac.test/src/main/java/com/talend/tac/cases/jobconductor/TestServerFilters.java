@@ -75,7 +75,7 @@ public class TestServerFilters extends Server {
 		//go to 'Job Conductor' page
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
 		//click add button, check just appear two jobServers in server drop-down list
-		selenium.click("//div[text()='Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader " +
+		selenium.click("//div[contains(text(),'Conductor')]//ancestor::div[@class='x-panel-body x-panel-body-noheader " +
 		"x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleAddButton']");
 		
 		this.clickWaitForElementPresent("//input[@id='idJobConductorExecutionServerListBox']" +
