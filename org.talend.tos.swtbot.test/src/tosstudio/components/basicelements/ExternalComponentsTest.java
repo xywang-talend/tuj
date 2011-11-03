@@ -42,8 +42,11 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
 
     private static final String JOBNAME = "ExternalComponentsTesting"; //$NON-NLS-1$
 
+    private String buildTitle;
+
     @Before
     public void createJob() {
+        buildTitle = Utilities.getBuildTitle();
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
     }
@@ -65,7 +68,7 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
 
         /* Edit tRowGenerator */
         rowGen.doubleClick();
-        SWTBotShell shell = gefBot.shell(System.getProperty("buildTitle") + " - tRowGenerator - tRowGenerator_1");
+        SWTBotShell shell = gefBot.shell(buildTitle + " - tRowGenerator - tRowGenerator_1");
         shell.activate();
         try {
             /* Add column "id" */
@@ -96,9 +99,9 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
 
             /* Edit tMap */
             map.doubleClick();
-            shell = gefBot.shell(System.getProperty("buildTitle") + " - tMap - tMap_1");
+            shell = gefBot.shell(buildTitle + " - tMap - tMap_1");
             shell.activate();
-            gefBot.waitUntil(Conditions.shellIsActive(System.getProperty("buildTitle") + " - tMap - tMap_1"));
+            gefBot.waitUntil(Conditions.shellIsActive(buildTitle + " - tMap - tMap_1"));
 
             gefBot.toolbarButtonWithTooltip("Add output table").click();
             gefBot.shell("Add a output").activate();

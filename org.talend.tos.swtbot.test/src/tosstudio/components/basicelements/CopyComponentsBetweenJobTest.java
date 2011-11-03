@@ -37,12 +37,16 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem2;
 
+    private String buildTitle;
+
     private static final String JOBNAME1 = "CopyComponentsBetweenJob1"; //$NON-NLS-1$
 
     private static final String JOBNAME2 = "CopyComponentsBetweenJob2"; //$NON-NLS-1$
 
     @Before
     public void createJob() {
+        buildTitle = Utilities.getBuildTitle();
+
         /* Create job1 */
         jobItem1 = new TalendJobItem(JOBNAME1);
         jobItem1.create();
@@ -62,7 +66,7 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
         logRow.select();
 
         rowGen.doubleClick();
-        SWTBotShell shell = gefBot.shell(System.getProperty("buildTitle") + " - tRowGenerator - tRowGenerator_1");
+        SWTBotShell shell = gefBot.shell(buildTitle + " - tRowGenerator - tRowGenerator_1");
         shell.activate();
         gefBot.buttonWithTooltip("Add").click();
         gefBot.buttonWithTooltip("Add").click();

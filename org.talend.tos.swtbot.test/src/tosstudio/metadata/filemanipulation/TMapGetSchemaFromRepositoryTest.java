@@ -41,12 +41,15 @@ public class TMapGetSchemaFromRepositoryTest extends TalendSwtBotForTos {
 
     private TalendGenericSchemaItem genericSchemaItem;
 
+    private String buildTitle;
+
     private static final String JOB_NAME = "jobTest";
 
     private static final String SCHEMA_NAME = "schemaTest";
 
     @Before
     public void createJob() {
+        buildTitle = Utilities.getBuildTitle();
         jobItem = new TalendJobItem(JOB_NAME);
         jobItem.create();
         genericSchemaItem = new TalendGenericSchemaItem(SCHEMA_NAME);
@@ -58,7 +61,7 @@ public class TMapGetSchemaFromRepositoryTest extends TalendSwtBotForTos {
         SWTBotGefEditor jobEditor = jobItem.getEditor();
         Utilities.dndPaletteToolOntoJob(jobEditor, "tMap", new Point(100, 100));
         getTalendComponentPart(jobEditor, "tMap_1").doubleClick();
-        SWTBotShell tMapShell = gefBot.shell(System.getProperty("buildTitle") + " - tMap - tMap_1");
+        SWTBotShell tMapShell = gefBot.shell(buildTitle + " - tMap - tMap_1");
         SWTBotShell tempShell = null;
         try {
             gefBot.toolbarButtonWithTooltip("Add output table").click();

@@ -38,8 +38,11 @@ public class LinkManagementTest extends TalendSwtBotForTos {
 
     public static final String JOBNAME = "linkManagement"; //$NON-NLS-1$
 
+    private String buildTitle;
+
     @Before
     public void createJob() {
+        buildTitle = Utilities.getBuildTitle();
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
     }
@@ -57,7 +60,7 @@ public class LinkManagementTest extends TalendSwtBotForTos {
         logRow.select();
 
         rowGen.doubleClick();
-        SWTBotShell shell = gefBot.shell(System.getProperty("buildTitle") + " - tRowGenerator - tRowGenerator_1");
+        SWTBotShell shell = gefBot.shell(buildTitle + " - tRowGenerator - tRowGenerator_1");
         shell.activate();
         gefBot.buttonWithTooltip("Add").click();
         gefBot.buttonWithTooltip("Add").click();

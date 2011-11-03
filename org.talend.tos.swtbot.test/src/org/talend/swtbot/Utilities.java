@@ -877,4 +877,13 @@ public class Utilities {
         if (gefBot.activeShell().getText().equals("Added context"))
             gefBot.button("Yes").click();
     }
+
+    /**
+     * Get build title, only used in the beginning of one test.
+     * 
+     * @return build title
+     */
+    public static String getBuildTitle() {
+        return gefBot.activeShell().getText().split("\\(")[0].trim();
+    }
 }
