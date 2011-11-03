@@ -11,7 +11,7 @@ public class CheckAllUsersJobserverTaskOfClickFirstCheckBox extends Login {
 		
 		this.clickWaitForElementPresent(menuId);
 		selenium.setSpeed(MID_SPEED);
-	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+pageTitle+"']"));
+	    Assert.assertTrue(selenium.isElementPresent(pageTitle));
 	    selenium.setSpeed(MIN_SPEED);
 		
 	}

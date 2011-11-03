@@ -25,7 +25,7 @@ CheckAllUsersJobserverTaskOfClickFirstCheckBox {
 		
 		//go to user page
 		//get user count in user page
-		this.openPage("idMenuUserElement", "Users");
+		this.openPage("idMenuUserElement", "//div[contains(text(),'Users') and @class='header-title']");
 		int expectedUserCount = this.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-login']");
 		
 		Assert.assertTrue(actualUserCount == expectedUserCount);
@@ -49,7 +49,7 @@ CheckAllUsersJobserverTaskOfClickFirstCheckBox {
 		
 		//go to Task page
 		//get task count in task page
-		this.openPage("!!!menu.executionTasks.element!!!", rb.getString("menu.jobConductor"));
+			this.openPage("!!!menu.executionTasks.element!!!", "//div[contains(text(),'Conductor') and @class='header-title']");
 		int expectedTaskCount = this.getXpathCount("//div[contains(text(),'Conductor') and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
 				"//div[@class='x-grid3-cell-inner x-grid3-col-label']");
 		
@@ -75,7 +75,7 @@ CheckAllUsersJobserverTaskOfClickFirstCheckBox {
 		
 		//go to Task page
 		//get server count in server page
-		this.openPage("!!!menu.executionServers.element!!!", rb.getString("menu.jobConductor"));
+		this.openPage("!!!menu.executionServers.element!!!", "//div[text()='Servers' and @class='header-title']");
 		int expectedTaskCount = this.getXpathCount("//div[text()='Servers' and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
 				"//div[@class='x-grid3-cell-inner x-grid3-col-label']");
 		
