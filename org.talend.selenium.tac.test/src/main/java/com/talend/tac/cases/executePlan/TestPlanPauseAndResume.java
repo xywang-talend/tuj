@@ -64,7 +64,7 @@ public class TestPlanPauseAndResume extends Plan {
 	    }
 		
 	    selenium.setSpeed(MID_SPEED);
-		selenium.click("//a[text()='Pause plan']");
+		selenium.click("idExecutionPlanPlanGridPauseButton");
 		selenium.getConfirmation();
 		selenium.setSpeed(MIN_SPEED);
 		
@@ -74,7 +74,7 @@ public class TestPlanPauseAndResume extends Plan {
 				"//img[@title='All triggers paused']"), "//span[text()='"+planLabel+"']//ancestor::table[@class='x-grid3-row-table']//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-triggersStatus')]" +
 						"//img[@title='All triggers paused'] is without appear");
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+triggerLabel+"']//ancestor::table[@class='x-grid3-row-table']" +
-				"//img[@alt='Paused']"), "//span[text()='"+triggerLabel+"']//ancestor::table[@class='x-grid3-row-table']//img[@alt='Paused'] is without appear");
+				"//img[@title='Paused']"), "//span[text()='"+triggerLabel+"']//ancestor::table[@class='x-grid3-row-table']//img[@title='Paused'] is without appear");
 		
 		//go to execution task page
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
@@ -123,9 +123,9 @@ public class TestPlanPauseAndResume extends Plan {
 				"//img[@title='At least one Trigger is running' ]"), "//span[text()='"+planLabel+"']//ancestor::table[@class='x-grid3-row-table']//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-triggersStatus')]" +
 						"//img[@title='At least one Trigger is running' ] is without appear");
 		this.waitForElementPresent("//span[text()='"+triggerLabel+"']//ancestor::table[@class='x-grid3-row-table']" +
-		"//img[@alt='Normal']", WAIT_TIME);
+		"//img[@title='Normal']", WAIT_TIME);
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+triggerLabel+"']//ancestor::table[@class='x-grid3-row-table']" +
-		"//img[@alt='Normal']"), "//span[text()='"+triggerLabel+"']//ancestor::table[@class='x-grid3-row-table']//img[@alt='Normal'] is without appear");
+		"//img[@title='Normal']"), "//span[text()='"+triggerLabel+"']//ancestor::table[@class='x-grid3-row-table']//img[@title='Normal'] is without appear");
         
         this.waitForElementPresent("//span[text()='"+planLabel+"']//ancestor::tr" +
 				"//span[text()='Running...']", WAIT_TIME);
