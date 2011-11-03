@@ -39,7 +39,6 @@ import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.talend.swtbot.helpers.JobHelper;
 import org.talend.swtbot.items.TalendFolderItem;
 
 /**
@@ -162,9 +161,13 @@ public class Utilities {
      * @return void
      */
     public static void emptyRecycleBin() {
-        tree.select("Recycle bin").contextMenu("Empty recycle bin").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-        gefBot.button("Yes").click();
+        SWTBotTreeItem recycleBin = tree.getTreeItem("Recycle bin");
+        gefBot.waitUntil(Conditions.widgetIsEnabled(recycleBin));
+        if (recycleBin.rowCount() != 0) {
+            recycleBin.contextMenu("Empty recycle bin").click();
+            gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
+            gefBot.button("Yes").click();
+        }
     }
 
     public static SWTBotTreeItem createCopybook(String copybookNAME, SWTBotTreeItem treeNode) throws IOException,
@@ -688,6 +691,7 @@ public class Utilities {
      * @param treeNode treeNode of the tree in repository
      */
     public static void cleanUpRepository(SWTBotTreeItem treeNode) {
+        gefBot.waitUntil(Conditions.widgetIsEnabled(treeNode));
         for (String itemName : treeNode.getNodes()) {
             if (!"system".equals(itemName))
                 treeNode.getNode(itemName).contextMenu("Delete").click();
@@ -843,8 +847,8 @@ public class Utilities {
      * @param locationOnJob the specific location on job
      */
     public static void dndPaletteToolOntoJob(SWTBotGefEditor jobEditor, String toolLabel, Point locationOnJob) {
-        // jobEditor.activateTool(toolLabel).click(locationOnJob.x, locationOnJob.y);
-        new JobHelper().activateTool(jobEditor, toolLabel, locationOnJob);
+        jobEditor.activateTool(toolLabel).click(locationOnJob.x, locationOnJob.y);
+        // new JobHelper().activateTool(jobEditor, toolLabel, locationOnJob);
     }
 
     /**
