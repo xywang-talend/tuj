@@ -30,12 +30,12 @@ public class TestModifyTrigger extends TaskUtils {
        	
        	selenium.click("idTriggerPause trigger");
        	this.waitForElementPresent("//span[text()='TestSimpleTriggerNotChooseDate']//" +
-       			"ancestor::tbody[@role='presentation']//img[@alt='Paused']", WAIT_TIME);
+       			"ancestor::tbody[@role='presentation']//img[@title='Paused']", WAIT_TIME);
        	Assert.assertTrue(selenium.isElementPresent("//span[text()='TestSimpleTriggerNotChooseDate']//" +
-       			"ancestor::tbody[@role='presentation']//img[@alt='Paused']"));
+       			"ancestor::tbody[@role='presentation']//img[@title='Paused']"));
        	selenium.click("idTriggerResume trigger");
     	this.waitForElementPresent("//span[text()='TestSimpleTriggerNotChooseDate']//" +
-       			"ancestor::tbody[@role='presentation']//img[@alt='Normal']", WAIT_TIME);
+       			"ancestor::tbody[@role='presentation']//img[@title='Normal']", WAIT_TIME);
 		
 	}
 	

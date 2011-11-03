@@ -147,7 +147,7 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	that task is executed only one time after the creation of the file.**/
 	@Test
 	@Parameters({"taskForTestFileTriggerOfCreationOption","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled", "addFileTriggerOfCheckExistOption",
+		"context","ServerForUseAvailable","statisticEnabled", "FileTrigger1",
 		"addFileTriggerOfExistDescription","FolderPath",
 		"FileMaskOfTxt"})
 	public void testCreateFileTriggerCheckCreatedOption(String label,
@@ -165,7 +165,7 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	that task is executed only one time after the modification of the file.**/
 	@Test
 	@Parameters({"taskForTestFileTriggerOfModifiedOption","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled", "addFileTriggerOfCheckExistOption",
+		"context","ServerForUseAvailable","statisticEnabled", "FileTrigger2",
 		"addFileTriggerOfExistDescription","FolderPath",
 		"FileMaskOfTxt"})
 	public void testCreateFileTriggerCheckModifiedOption(String label,
@@ -183,7 +183,7 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	that task is executed only one time after the creation of the file.**/
 	@Test
 	@Parameters({"taskForTestFileTriggerOfCreationOptionFilePathNotWithLastBackslash","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled", "addFileTriggerOfCheckExistOption",
+		"context","ServerForUseAvailable","statisticEnabled", "FileTrigger2",
 		"addFileTriggerOfExistDescription","FolderPathNotWithLastBackslash",
 		"FileMaskOfTxt"})
 	public void testCreateFileTriggerCheckCreatedOptionFilePathNotWithLastBackSlash(String label,
@@ -201,7 +201,7 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	that task is executed only one time after the modification of the file.**/
 	@Test
 	@Parameters({"taskForTestFileTriggerOfModifiedOptionFilePathNotWithLastBackslash","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled", "addFileTriggerOfCheckExistOption",
+		"context","ServerForUseAvailable","statisticEnabled", "FileTrigger4",
 		"addFileTriggerOfExistDescription","FolderPathNotWithLastBackslash",
 		"FileMaskOfTxt"})
 	public void testCreateFileTriggerCheckModifiedOptionFilePathNotWithLastBackSlash(String label,
