@@ -18,7 +18,7 @@ public class TestSoaManager extends SoaUtils {
 	}
 
 	
-	@Test(description = "Add a operation with the defined project",dependsOnMethods = { "testAddSoaManagerService" },alwaysRun=true)
+	@Test(description = "Add a operation with the defined project")
 	@Parameters ({"AddcommonProjectname","soaManager.service.name","soaManager.operation.name","soaManager.operation.UsedJob_name"})
 	public void testAddOperationToService(String projectName,String serviceName,String operationName,String UsedJobName) {
 
@@ -26,7 +26,7 @@ public class TestSoaManager extends SoaUtils {
 	
 	}
 	
-	@Test(description = "Add a operation with the defined project",dependsOnMethods = { "testAddSoaManagerService" },alwaysRun=true)
+	@Test(description = "Add a operation with the defined project")
 	@Parameters ({"AddcommonProjectname","soaManager.service.name","soaManager.operation.name","soaManager.operation.UsedJob_name"})
 	public void testAddOperationToServiceWithLatestVersionJob(String projectName,String serviceName,String operationName,String UsedJobName) {
 		
@@ -35,7 +35,7 @@ public class TestSoaManager extends SoaUtils {
 	
 	}
 	
-	@Test(description = "duplicate a service",dependsOnMethods = { "testAddSoaManagerService" },alwaysRun=true)
+	@Test(description = "duplicate a service")
 	@Parameters ({"soaManager.service.name"})
 	public void testDuplicateSoaManagerService(String serviceName){
 		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
@@ -47,7 +47,7 @@ public class TestSoaManager extends SoaUtils {
 		waitForElementPresent("//*[text()='Copy_of_"+serviceName+"']", WAIT_TIME);
 		
 	}
-	@Test(description = "duplicate a operation,there should be a warning and duplication can't be done",dependsOnMethods = { "testAddOperationToService" },alwaysRun=true)
+	@Test(description = "duplicate a operation,there should be a warning and duplication can't be done")
 	@Parameters ({"soaManager.service.name","soaManager.operation.name"})
 	public void testDuplicateSoaManagerOperation(String serviceName,String operationName){
 		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
@@ -62,7 +62,7 @@ public class TestSoaManager extends SoaUtils {
 	}
 	//
 	//
-	@Test (enabled = true,description = "generate,deploy,start a operation",dependsOnMethods = { "testAddOperationToService" ,"testDuplicateSoaManagerOperation"},alwaysRun=true)
+	@Test (description = "generate,deploy,start a operation")
 	@Parameters ({"soaManager.service.name","soaManager.operation.name"})
 	public void testGenerateService(String serviceName,String operationName) {
 		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
@@ -72,7 +72,7 @@ public class TestSoaManager extends SoaUtils {
 				this.waitForElementPresent("//img[@title='GENERATED']",MAX_WAIT_TIME);
 		
 	}
-	@Test (enabled = true,description = "generate,deploy,start a operation",dependsOnMethods = { "testAddOperationToServiceWithLatestVersionJob"},alwaysRun=true)
+	@Test (description = "generate,deploy,start a operation")
 	@Parameters ({"soaManager.service.name","soaManager.operation.name"})
 	public void testGenerateServiceWithLatestVersionJob(String serviceName,String operationName) {
 		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");	
@@ -82,7 +82,7 @@ public class TestSoaManager extends SoaUtils {
 		this.waitForElementPresent("//*[text()='"+serviceName+"']//ancestor::table[@class='x-grid3-row-table']//img[@title='GENERATED']",MAX_WAIT_TIME);
 		
 	}
-	@Test (enabled = true,description = "generate,deploy,start a operation")
+	@Test (description = "generate,deploy,start a operation")
 	@Parameters ({"soaManager.service.name","soaManager.operation.name"})
 	public void testDeployService(String serviceName,String operationName) {
 		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
@@ -91,7 +91,7 @@ public class TestSoaManager extends SoaUtils {
 		selenium.click("idSoaServiceDeployButton    ");
 		this.waitForElementPresent("//img[@title='DEPLOYED']",MAX_WAIT_TIME);
 	}
-	@Test (enabled = true,description = "generate,deploy,start a operation")
+	@Test (description = "generate,deploy,start a operation")
 	@Parameters ({"soaManager.service.name","soaManager.operation.name"})
 	public void testStartService(String serviceName,String operationName) {
 		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
@@ -101,7 +101,7 @@ public class TestSoaManager extends SoaUtils {
 		this.waitForElementPresent("//img[@title='RUNNING']",MAX_WAIT_TIME);
 	}
 	
-	@Test (enabled = true,description = "generate,deploy,start a operation")
+	@Test (description = "generate,deploy,start a operation")
 	@Parameters ({"soaManager.service.name","soaManager.operation.name"})
 	public void testStopService(String serviceName,String operationName) {
 		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
@@ -111,7 +111,7 @@ public class TestSoaManager extends SoaUtils {
 		this.waitForElementPresent("//img[@title='DEPLOYED']",MAX_WAIT_TIME);
 	}
 	//
-	@Test (description = "Delete a soaManager operation",dependsOnMethods = { "testAddSoaManagerService","testAddOperationToService" ,"testDuplicateSoaManagerOperation"},alwaysRun=true)
+	@Test (description = "Delete a soaManager operation")
 	@Parameters ({"soaManager.service.name","soaManager.operation.name"})
 	public void testDeleteSoaManagerOperation(String serviceName,String operationName) {
 		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
@@ -125,7 +125,7 @@ public class TestSoaManager extends SoaUtils {
 		selenium.getConfirmation().equals("Are you sure you want to remove the selected item(s) ?");
 	}
 	
-	@Test (description = "Delete a soaManager service",dependsOnMethods = { "testAddSoaManagerService","testDuplicateSoaManagerService" },alwaysRun=true)
+	@Test (description = "Delete a soaManager service")
 	@Parameters ({"soaManager.service.name"})
 	public void testDeleteSoaManagerService(String serviceName) {
 		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
@@ -136,7 +136,7 @@ public class TestSoaManager extends SoaUtils {
 		
 		selenium.getConfirmation().equals("Are you sure you want to remove the selected item(s) ?");
 	}
-	@Test (description = "Modify soaManager service",dependsOnMethods = { "testAddSoaManagerService","testDuplicateSoaManagerService" },alwaysRun=true)
+	@Test (description = "Modify soaManager service")
 	@Parameters ({"soaManager.service.name"})
 	public void testModifyService(String serviceName) {
 		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
@@ -152,7 +152,7 @@ public class TestSoaManager extends SoaUtils {
 		selenium.click("idFormSaveButton");
 		
 	}
-	@Test(description = "Add a operation with the defined project",dependsOnMethods = { "testAddSoaManagerService" },alwaysRun=true)
+	@Test(description = "Add a operation with the defined project")
 	@Parameters ({"AddcommonProjectname","soaManager.service.name","soaManager.operation.name","soaManager.operation.UsedJob_name"})
 	public void testModifyOperation(String projectName,String serviceName,String operationName,String UsedJobName) {
 		this.clickWaitForElementPresent("!!!menu.soamanager.element!!!");
