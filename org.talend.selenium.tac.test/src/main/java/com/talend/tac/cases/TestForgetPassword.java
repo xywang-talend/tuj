@@ -18,6 +18,12 @@ public class TestForgetPassword extends Base {
 		//type login, then click "forget your password" button
 		selenium.type("idLoginInput", userName);
 		selenium.typeKeys("idLoginPasswordInput", userPassword);
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		selenium.click("idForgetButton");
 		this.waitForElementPresent("//div[text()='" +other.getString("login.forgetPasswd.changePasswdSuccessfully") + "']", WAIT_TIME);
 		selenium.click("idLoginButton");
