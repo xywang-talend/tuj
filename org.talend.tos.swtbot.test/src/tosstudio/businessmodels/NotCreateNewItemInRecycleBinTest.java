@@ -13,6 +13,7 @@
 package tosstudio.businessmodels;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Assert;
@@ -32,6 +33,8 @@ public class NotCreateNewItemInRecycleBinTest extends TalendSwtBotForTos {
 
     private TalendBusinessModelItem businessModelItem;
 
+    private TalendFolderItem folder;
+
     private static final String FOLDERNAME = "folderTest";
 
     private static final String BUSINESS_MODEL_NAME = "businessTest";
@@ -39,11 +42,11 @@ public class NotCreateNewItemInRecycleBinTest extends TalendSwtBotForTos {
     @Before
     public void initialisePrivateField() {
         businessModelItem = new TalendBusinessModelItem(BUSINESS_MODEL_NAME);
-        TalendFolderItem folder = Utilities.createFolder(FOLDERNAME, businessModelItem.getItemType());
+        folder = Utilities.createFolder(FOLDERNAME, businessModelItem.getItemType());
         businessModelItem.setFolderPath(folder.getFolderPath());
         businessModelItem.create();
         businessModelItem.getEditor().saveAndClose();
-        businessModelItem.delete();
+        folder.delete();
     }
 
     @Test
@@ -51,12 +54,15 @@ public class NotCreateNewItemInRecycleBinTest extends TalendSwtBotForTos {
         SWTBotTreeItem recycleBinNode = Utilities.getTalendItemNode(Utilities.TalendItemType.RECYCLE_BIN);
 
         boolean isCreateEnable = false;
+        long defaultTimeout = SWTBotPreferences.TIMEOUT;
         try {
-            recycleBinNode.getNode(FOLDERNAME + " ()").contextMenu("Create Business Model").isEnabled();
+            SWTBotPreferences.TIMEOUT = 500;
+            isCreateEnable = recycleBinNode.getNode(FOLDERNAME + " ()").contextMenu("Create Business Model").isEnabled();
         } catch (Exception e) {
-            e.printStackTrace();
+            // means could not find the menu, could not create item, so test is ok.
         } finally {
-            Assert.assertFalse("can create new item in recycle bin", isCreateEnable);
+            SWTBotPreferences.TIMEOUT = defaultTimeout;
+            Assert.assertFalse("should not create new item in recycle bin", isCreateEnable);
         }
     }
 

@@ -30,6 +30,8 @@ public class CreateBusinessModelInFolderTest extends TalendSwtBotForTos {
 
     private TalendBusinessModelItem businessModelItem;
 
+    private TalendFolderItem folder;
+
     private static final String FOLDERNAME = "folderTest";
 
     private static final String BUSINESS_MODEL_NAME = "businessTest";
@@ -37,7 +39,7 @@ public class CreateBusinessModelInFolderTest extends TalendSwtBotForTos {
     @Before
     public void initialisePrivateField() {
         businessModelItem = new TalendBusinessModelItem(BUSINESS_MODEL_NAME);
-        TalendFolderItem folder = Utilities.createFolder(FOLDERNAME, businessModelItem.getItemType());
+        folder = Utilities.createFolder(FOLDERNAME, businessModelItem.getItemType());
         businessModelItem.setFolderPath(folder.getFolderPath());
     }
 
@@ -49,7 +51,7 @@ public class CreateBusinessModelInFolderTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         businessModelItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(businessModelItem.getParentNode());
+        Utilities.cleanUpRepository(folder.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

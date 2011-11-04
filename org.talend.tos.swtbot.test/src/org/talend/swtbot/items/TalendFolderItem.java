@@ -16,6 +16,7 @@ import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
+import org.talend.swtbot.Utilities;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -112,6 +113,22 @@ public class TalendFolderItem {
             e.printStackTrace();
         } finally {
             Assert.assertNotNull("folder is renamed", newFolderItem);
+        }
+    }
+
+    public void delete() {
+        parentNode.getNode(itemName).contextMenu("Delete").click();
+        SWTBotTreeItem newItem = null;
+        String path = "";
+        try {
+            if (itemPath != null)
+                path = itemPath;
+            path = " (" + path + ")";
+            newItem = Utilities.getRepositoryTree().expandNode("Recycle bin").select(itemName + path);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("item is not deleted to recycle bin", newItem);
         }
     }
 }
