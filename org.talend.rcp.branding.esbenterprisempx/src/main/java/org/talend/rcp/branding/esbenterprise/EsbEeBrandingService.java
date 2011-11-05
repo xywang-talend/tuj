@@ -68,7 +68,7 @@ public class EsbEeBrandingService extends AbstractTalendBrandingService {
     }
 
     public String getAcronym() {
-        return "esbeempx";
+        return "ds";
     }
 
     @Override

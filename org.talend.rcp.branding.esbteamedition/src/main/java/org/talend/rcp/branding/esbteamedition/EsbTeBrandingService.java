@@ -33,7 +33,7 @@ public class EsbTeBrandingService extends AbstractTalendBrandingService {
     protected IBrandingConfiguration brandingConfigure;
 
     public String getShortProductName() {
-        return "ESB TE"; //$NON-NLS-1$
+        return getProductName();
     }
 
     public String getCorporationName() {
@@ -67,7 +67,7 @@ public class EsbTeBrandingService extends AbstractTalendBrandingService {
     }
 
     public String getAcronym() {
-        return "esbte";
+        return "ds";
     }
 
     @Override
