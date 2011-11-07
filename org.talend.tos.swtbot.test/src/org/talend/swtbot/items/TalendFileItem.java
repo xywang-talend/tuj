@@ -18,6 +18,7 @@ import java.net.URISyntaxException;
 
 import junit.framework.Assert;
 
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
@@ -62,35 +63,43 @@ public class TalendFileItem extends TalendMetadataItem {
     }
 
     public void finishCreationWizard(final SWTBotShell shell) {
-        gefBot.waitUntil(new DefaultCondition() {
+        try {
+            gefBot.waitUntil(new DefaultCondition() {
 
-            public boolean test() throws Exception {
+                public boolean test() throws Exception {
 
-                return gefBot.button("Next >").isEnabled();
+                    return gefBot.button("Next >").isEnabled();
+                }
+
+                public String getFailureMessage() {
+                    shell.close();
+                    return "next button was never enabled";
+                }
+            }, 60000);
+            if (isSetHeadingRowAsColumnName) {
+                gefBot.checkBox("Set heading row as column names").click();
             }
+            gefBot.button("Next >").click();
+            gefBot.waitUntil(new DefaultCondition() {
 
-            public String getFailureMessage() {
-                shell.close();
-                return "next button was never enabled";
-            }
-        }, 60000);
-        if (isSetHeadingRowAsColumnName) {
-            gefBot.checkBox("Set heading row as column names").click();
+                public boolean test() throws Exception {
+
+                    return gefBot.button("Finish").isEnabled();
+                }
+
+                public String getFailureMessage() {
+                    shell.close();
+                    return "finish button was never enabled";
+                }
+            });
+            gefBot.button("Finish").click();
+        } catch (WidgetNotFoundException wnfe) {
+            Assert.fail(wnfe.getCause().getMessage());
+        } catch (Exception e) {
+            Assert.fail(e.getMessage());
+        } finally {
+            shell.close();
         }
-        gefBot.button("Next >").click();
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-
-                return gefBot.button("Finish").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                shell.close();
-                return "finish button was never enabled";
-            }
-        });
-        gefBot.button("Finish").click();
 
         SWTBotTreeItem newItem = null;
         try {
