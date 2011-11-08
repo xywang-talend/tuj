@@ -15,13 +15,12 @@ package tosstudio.importexport;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import junit.framework.Assert;
-
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.junit.After;
@@ -46,8 +45,6 @@ public class ExportItemsTest extends TalendSwtBotForTos {
     private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip"; // $NON-NLS-1$
 
     private static final String FILE_SEPARATOR = System.getProperties().getProperty("file.separator"); // $NON-NLS-1$
-
-    private static boolean isExportAsZipFile = false;
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
@@ -76,8 +73,18 @@ public class ExportItemsTest extends TalendSwtBotForTos {
         gefBot.button("Select All").click();
         gefBot.button("Finish").click();
 
-        isExportAsZipFile = Utilities.getFileFromCurrentPluginSampleFolder("output.zip").exists();
-        Assert.assertEquals(true, isExportAsZipFile);
+        gefBot.waitUntil(new DefaultCondition() {
+
+            @Override
+            public boolean test() throws Exception {
+                return Utilities.getFileFromCurrentPluginSampleFolder("output.zip").exists();
+            }
+
+            @Override
+            public String getFailureMessage() {
+                return "could not found the exported file";
+            }
+        });
     }
 
     @After

@@ -15,9 +15,8 @@ package tosstudio.importexport;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import junit.framework.Assert;
-
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.junit.After;
 import org.junit.Before;
@@ -43,8 +42,6 @@ public class ExportJobAsWebserviceInWarFileTest extends TalendSwtBotForTos {
 
     private static final String FILE_SEPARATOR = System.getProperties().getProperty("file.separator"); //$NON-NLS-1$
 
-    private static boolean isExportAsZipFile = false;
-
     @Before
     public void createAJob() {
         jobItem = new TalendJobItem(JOBNAME);
@@ -61,8 +58,18 @@ public class ExportJobAsWebserviceInWarFileTest extends TalendSwtBotForTos {
                         + "output_job.war");
         gefBot.button("Finish").click();
 
-        isExportAsZipFile = Utilities.getFileFromCurrentPluginSampleFolder("output_job.war").exists();
-        Assert.assertEquals(true, isExportAsZipFile);
+        gefBot.waitUntil(new DefaultCondition() {
+
+            @Override
+            public boolean test() throws Exception {
+                return Utilities.getFileFromCurrentPluginSampleFolder("output_job.war").exists();
+            }
+
+            @Override
+            public String getFailureMessage() {
+                return "could not found the exported file";
+            }
+        });
     }
 
     @After
