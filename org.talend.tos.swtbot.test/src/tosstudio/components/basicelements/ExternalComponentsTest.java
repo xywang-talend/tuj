@@ -112,18 +112,22 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
             gefBot.buttonWithTooltip("Copy selected items", 0).click();
             gefBot.buttonWithTooltip("Paste", 1).click();
 
-            gefBot.tableWithLabel("out1").click(0, 0);
+            gefBot.tableWithLabel("out1").click(0, 1);
             gefBot.text().setText("row1.id");
-            gefBot.tableWithLabel("out1").click(1, 0);
+            gefBot.tableWithLabel("out1").click(1, 1);
             gefBot.text().setText("row1.name");
             gefBot.button("Apply").click();
             gefBot.button("Ok").click();
             gefBot.waitUntil(Conditions.shellCloses(shell));
         } catch (WidgetNotFoundException wnfe) {
-            shell.close();
+            gefBot.button("Cancel").click();
+            gefBot.shell("Close without save").activate();
+            gefBot.button("OK").click();
             Assert.fail(wnfe.getCause().getMessage());
         } catch (Exception e) {
-            shell.close();
+            gefBot.button("Cancel").click();
+            gefBot.shell("Close without save").activate();
+            gefBot.button("OK").click();
             Assert.fail(e.getMessage());
         }
 
