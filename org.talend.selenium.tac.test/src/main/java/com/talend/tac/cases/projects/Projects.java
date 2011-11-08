@@ -25,21 +25,28 @@ public class Projects extends Login {
 		this.clickWaitForElementPresent("!!!menu.project.element!!!");
 		this.clickWaitForElementPresent("idSubModuleAddButton");
 		this.typeString("idLabelInput", projectLabel);
-		if (selenium.isVisible("idProjectTypeComboBox")) {
-			this.selectDropDownList("idProjectTypeComboBox", Type);
-		}
-		if ("Java".equals(language) || "".equals(language)) {
-			selenium.click("idLanguageInput");
-			this.waitForElementPresent("//div[@role='listitem'][1]", WAIT_TIME);
-			selenium.mouseDownAt("//div[@role='listitem'][1]", ""
-					+ KeyEvent.VK_ENTER);
-		} else {
-			this.selectDropDownList("idLanguageInput", language);
-		}
 		if (commonReference == PROJECT_ADD_TYPE_REF) {
 			// check reference checkbox
 			selenium.click("idReferenceInput");
 		}
+		if (selenium.isVisible("idProjectTypeComboBox")) {
+			selenium.click("idProjectTypeComboBox");
+			this.sleep(3000);
+			selenium.keyDownNative(""+KeyEvent.VK_DOWN);
+			this.waitForElementPresent("//div[text()='" + Type + "' and @role='listitem']", WAIT_TIME);
+			selenium.mouseDown("//div[text()='" + Type + "' and @role='listitem']");
+			selenium.fireEvent("//input[@id='idProjectTypeComboBox']", "blur");
+		}
+//		
+//		if ("Java".equals(language) || "".equals(language)) {
+//			selenium.click("idLanguageInput");
+//			this.waitForElementPresent("//div[@role='listitem'][1]", WAIT_TIME);
+//			selenium.mouseDownAt("//div[@role='listitem'][1]", ""
+//					+ KeyEvent.VK_ENTER);
+//		} else {
+//			this.selectDropDownList("idLanguageInput", language);
+//		}
+		
 		selenium.click("idFormSaveButton");
 		this.waitForElementPresent(
 				"//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
@@ -59,16 +66,21 @@ public class Projects extends Login {
 		this.clickWaitForElementPresent("idSubModuleAddButton");
 		this.typeString("idLabelInput", projectLabel);
 		if (selenium.isVisible("idProjectTypeComboBox")) {
-			this.selectDropDownList("idProjectTypeComboBox", Type);
+			selenium.click("idProjectTypeComboBox");
+			this.sleep(3000);
+			selenium.keyDownNative(""+KeyEvent.VK_DOWN);
+			this.waitForElementPresent("//div[text()='" + Type + "' and @role='listitem']", WAIT_TIME);
+			selenium.mouseDown("//div[text()='" + Type + "' and @role='listitem']");
+			selenium.fireEvent("//input[@id='idProjectTypeComboBox']", "blur");
 		}
-		if ("Java".equals(language) || "".equals(language)) {
-			selenium.click("idLanguageInput");
-			this.waitForElementPresent("//div[@role='listitem'][1]", WAIT_TIME);
-			selenium.mouseDownAt("//div[@role='listitem'][1]", ""
-					+ KeyEvent.VK_ENTER);
-		} else {
-			this.selectDropDownList("idLanguageInput", language);
-		}
+//		if ("Java".equals(language) || "".equals(language)) {
+//			selenium.click("idLanguageInput");
+//			this.waitForElementPresent("//div[@role='listitem'][1]", WAIT_TIME);
+//			selenium.mouseDownAt("//div[@role='listitem'][1]", ""
+//					+ KeyEvent.VK_ENTER);
+//		} else {
+//			this.selectDropDownList("idLanguageInput", language);
+//		}
 		if (proType == PROJECT_ADD_TYPE_REF) {
 			// check reference checkbox
 			selenium.click("idReferenceInput");

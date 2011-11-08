@@ -13,8 +13,7 @@ public class TestModification extends Projects {
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label']", Base.WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label']");
 		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue((!selenium.isEditable("idLabelInput"))
-				&& (!selenium.isEditable("idLanguageInput")), "idLableInput or idLanguageInput is editable!");
+		Assert.assertTrue((!selenium.isEditable("idLabelInput")), "idLableInput is editable!");
 		selenium.setSpeed(MIN_SPEED);
 		
 	}
