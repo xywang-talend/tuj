@@ -47,12 +47,12 @@ public class TableSelectorButtonTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() {
+        jobItem = new TalendJobItem(JOB_NAME);
+        jobItem.create();
         dbItem = new TalendDBItem(DB_NAME, Utilities.DbConnectionType.POSTGRESQL);
         dbItem.create();
         String sql = "create table " + TABLE_NAME + "(id int, name varchar(20));";
         dbItem.executeSQL(sql);
-        jobItem = new TalendJobItem(JOB_NAME);
-        jobItem.create();
     }
 
     @Test

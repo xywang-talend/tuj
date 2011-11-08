@@ -97,7 +97,7 @@ public class Utilities {
         SALESFORCE,
         GENERIC_SCHEMAS,
         TALEND_MDM,
-        SURVIVORSHIP_RULES,
+        // SURVIVORSHIP_RULES,
         BRMS,
         EMBEDDED_RULES,
         COPYBOOK,
@@ -541,8 +541,8 @@ public class Utilities {
             return tree.expandNode("Metadata", "Generic schemas");
         case TALEND_MDM:
             return tree.expandNode("Metadata", "Talend MDM");
-        case SURVIVORSHIP_RULES:
-            return tree.expandNode("Metadata", "Rules Management", "Survivorship Rules");
+            // case SURVIVORSHIP_RULES:
+            // return tree.expandNode("Metadata", "Rules Management", "Survivorship Rules");
         case BRMS:
             return tree.expandNode("Metadata", "Rules Management", "BRMS");
         case EMBEDDED_RULES:
