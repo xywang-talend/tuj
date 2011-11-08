@@ -59,14 +59,12 @@ public class ExportJobTest extends TalendSwtBotForTos {
 
         gefBot.waitUntil(new DefaultCondition() {
 
-            @Override
             public boolean test() throws Exception {
                 return Utilities.getFileFromCurrentPluginSampleFolder("output_job.zip").exists();
             }
 
-            @Override
             public String getFailureMessage() {
-                return "could not found the exported file";
+                return "could not find the exported file";
             }
         });
     }
