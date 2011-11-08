@@ -70,11 +70,14 @@ public class ExportAsContextForXmlTest extends TalendSwtBotForTos {
             }
             SWTBotTable targetItem = gefBot.tableInGroup("Target Schema", 0);
             dndUtil.dragAndDrop(loop, targetItem);
+            String[] schemas = new String[3];
             for (int i = 0; i < 3; i++) {
-                SWTBotTreeItem schema = loop.getNode(System.getProperty("filexml.schema" + i));
-                targetItem = gefBot.tableInGroup("Target Schema", 1);
-                dndUtil.dragAndDrop(schema, targetItem);
+                schemas[i] = System.getProperty("filexml.schema" + i);
             }
+            SWTBotTreeItem sourceTarget = loop.getNode(schemas[0]);
+            loop.select(schemas);
+            targetItem = gefBot.tableInGroup("Target Schema", 1);
+            dndUtil.dragAndDrop(sourceTarget, targetItem);
             // export as context
             gefBot.button("Export as context").click();
             gefBot.shell("Create / Edit a context group").activate();
