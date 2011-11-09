@@ -866,6 +866,7 @@ public class Utilities {
                 WidgetOfType.widgetOfType(FigureCanvas.class), jobEditor.getWidget()));
         DndUtil dndUtil = new DndUtil(jobEditor.getWidget().getDisplay());
 
+        sourceItem.select();
         dndUtil.dragAndDrop(sourceItem, figureCanvas, locationOnJob);
         if (componentLabel != null) {
             gefBot.shell("Components").activate();

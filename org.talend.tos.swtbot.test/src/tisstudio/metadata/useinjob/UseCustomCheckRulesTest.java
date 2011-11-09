@@ -51,6 +51,9 @@ public class UseCustomCheckRulesTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() {
+        jobItem = new TalendJobItem(JOB_NAME);
+        jobItem.create();
+
         metadataItem = new TalendDelimitedFileItem(METADATA_NAME);
         metadataItem.create();
 
@@ -58,16 +61,13 @@ public class UseCustomCheckRulesTest extends TalendSwtBotForTos {
         ruleItem.setRuleTypeAsCustomCheck();
         ruleItem.setBaseMetadata(metadataItem);
         ruleItem.create();
-
-        jobItem = new TalendJobItem(JOB_NAME);
-        jobItem.create();
     }
 
     @Test
     public void useMetadataInJob() throws IOException, URISyntaxException {
         metadataItem.setComponentType("tFileInputDelimited");
-        Utilities.dndMetadataOntoJob(jobItem.getEditor(), metadataItem.getItem(), metadataItem.getComponentType(), new Point(
-                100, 100));
+        Utilities.dndMetadataOntoJob(jobItem.getEditor(), metadataItem.getItem(), metadataItem.getComponentType(), new Point(100,
+                100));
         SWTBotGefEditPart metadata = getTalendComponentPart(jobItem.getEditor(), metadataItem.getItemName());
         Assert.assertNotNull("can not get component '" + metadataItem.getComponentType() + "'", metadata);
         MetadataHelper.activateValidationRule(metadata, ruleItem);
