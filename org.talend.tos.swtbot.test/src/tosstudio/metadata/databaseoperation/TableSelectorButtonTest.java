@@ -84,10 +84,11 @@ public class TableSelectorButtonTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItem() {
-        String sql = "drop table " + TABLE_NAME + ";";
-        dbItem.executeSQL(sql);
         jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
+        Utilities.emptyRecycleBin();
+        String sql = "drop table " + TABLE_NAME + ";";
+        dbItem.executeSQL(sql);
         Utilities.cleanUpRepository(dbItem.getParentNode());
         Utilities.emptyRecycleBin();
     }

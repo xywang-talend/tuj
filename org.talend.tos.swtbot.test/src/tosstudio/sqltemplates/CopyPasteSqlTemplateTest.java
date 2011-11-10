@@ -48,8 +48,7 @@ public class CopyPasteSqlTemplateTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         sqlTemplateItem.getEditor().saveAndClose();
-        Utilities.delete(sqlTemplateItem.getParentNode(), SQLTEMPLATENAME, "0.1", FOLDERPATH);
-        Utilities.delete(sqlTemplateItem.getParentNode(), "Copy_of_" + SQLTEMPLATENAME, "0.1", FOLDERPATH);
+        Utilities.cleanUpRepository(sqlTemplateItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

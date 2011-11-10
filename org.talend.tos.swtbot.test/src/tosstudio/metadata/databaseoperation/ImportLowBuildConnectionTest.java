@@ -17,7 +17,6 @@ import java.net.URISyntaxException;
 
 import junit.framework.Assert;
 
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -45,7 +44,7 @@ public class ImportLowBuildConnectionTest extends TalendSwtBotForTos {
         gefBot.tree().setFocus();
         gefBot.button("Select All").click();
         gefBot.button("Finish").click();
-        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")));
+        // gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")));
     }
 
     @Test

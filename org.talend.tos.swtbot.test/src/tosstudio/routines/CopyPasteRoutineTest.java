@@ -45,8 +45,7 @@ public class CopyPasteRoutineTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         routineItem.getEditor().saveAndClose();
-        Utilities.delete(routineItem.getParentNode(), ROUTINENAME, "0.1", null);
-        Utilities.delete(routineItem.getParentNode(), "Copy_of_" + ROUTINENAME, "0.1", null);
+        Utilities.cleanUpRepository(routineItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }
