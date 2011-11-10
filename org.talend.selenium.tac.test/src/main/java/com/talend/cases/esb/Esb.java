@@ -7,9 +7,10 @@ import org.testng.annotations.Test;
 
 import com.talend.tac.base.Karaf;
 import com.talend.tac.cases.Login;
+import com.talend.tac.cases.esb.serviceLocator.EsbUtil;
 
 
-public class Esb extends Login {
+public class Esb extends EsbUtil {
 	
 	Karaf karaf = null;
 //		new Karaf("192.168.0.94", "D:/jar");
