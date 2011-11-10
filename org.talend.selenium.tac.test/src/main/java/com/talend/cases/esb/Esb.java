@@ -35,11 +35,12 @@ public class Esb extends Login {
 		karaf = new Karaf(karafURL);
 		System.out.println("service request send-->  start!");
 		for (int i = 0; i < eventsNum; i++) {
-			karaf.karafAction("job:start "+consumerName+"", 10000);
+			karaf.karafAction("uninstall "+consumerName+"", 3000);
+			System.out.println(">>>"+getAbsolutePath("org/talend/tac/folder/esb/"+consumerName+"-0.1.jar"));
+			karaf.karafAction("install -s file://"+getAbsolutePath("org/talend/tac/folder/esb/"+consumerName+"-0.1.jar")+"", 3000);
 			System.err.println("generate events :"+i);
 		}
 	}
 
-	
 	
 }

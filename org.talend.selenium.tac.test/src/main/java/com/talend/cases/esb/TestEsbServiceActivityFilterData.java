@@ -90,7 +90,7 @@ public class TestEsbServiceActivityFilterData extends Esb {
 						.equals(totalPage), "test go to last page failed!");
 		this.sleep(3000);
 		int eventsBefore = selenium.getXpathCount("//div[text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[@class='x-grid3-body']//div[contains(@class,'x-grid3-row')]").intValue();
-		this.sendServiceRequest(karafUrl,consumerName);
+		this.generateEvents(karafUrl,consumerName,1);
 		this.sleep(3000);
 		selenium.click("//div[@class='header-title' and text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//b[text()='Refresh']");
 		this.sleep(3000);
