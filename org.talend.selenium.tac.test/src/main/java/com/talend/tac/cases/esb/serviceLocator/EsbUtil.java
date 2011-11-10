@@ -96,11 +96,10 @@ public class EsbUtil extends Login {
 	
 	public void assertStartService(String jobName) {
 		
-		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='TEST_"+jobName+"']"));
-		Assert.assertTrue(!selenium.isElementPresent("//div[text()='TEST_"+jobName+"']//ancestor::div[contains(@class,'x-grid-group')]" +
+		this.waitForElementPresent("//div[text()='"+jobName+"']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+jobName+"']"));
+		Assert.assertTrue(!selenium.isElementPresent("//div[text()='"+jobName+"']//ancestor::div[contains(@class,'x-grid-group')]" +
 		"//span[contains(text(),'Last seen')]"));
-		selenium.setSpeed(MIN_SPEED);
 			
 	}
 	
