@@ -73,6 +73,7 @@ public class TalendWebServiceItem extends TalendMetadataItem {
                 gefBot.button("Next >").click();
             } else if (ADVANCED.equals(type)) {
                 /* step 2 of 4 */
+                Utilities.deselectDefaultSelection("Simple WSDL");
                 gefBot.radio("Advanced WebService").click();
                 gefBot.button("Next >").click();
 

@@ -13,6 +13,11 @@
 
 package org.talend.swtbot;
 
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.allOf;
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withMnemonic;
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withStyle;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -26,19 +31,25 @@ import junit.framework.Assert;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.URIUtil;
 import org.eclipse.draw2d.FigureCanvas;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefFigureCanvas;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
+import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.hamcrest.Matcher;
 import org.talend.swtbot.items.TalendFolderItem;
 
 /**
@@ -255,6 +266,7 @@ public class Utilities {
                 gefBot.button("Next >").click();
             } else if ("advanced".equals(type)) {
                 /* step 2 of 4 */
+                Utilities.deselectDefaultSelection("Simple WSDL");
                 gefBot.radio("Advanced WebService").click();
                 gefBot.button("Next >").click();
 
@@ -377,6 +389,7 @@ public class Utilities {
                 gefBot.button("Next >").click();
             } else if ("output".equals(type)) {
                 /* step 2 of 5 */
+                Utilities.deselectDefaultSelection("HL7Input");
                 gefBot.radio("HL7OutPut").click();
                 gefBot.button("Next >").click();
 
@@ -886,5 +899,25 @@ public class Utilities {
      */
     public static String getBuildTitle() {
         return gefBot.activeShell().getText().split("\\(")[0].trim();
+    }
+
+    /**
+     * Helper for radio button, to deselect default selection
+     * 
+     * @param currSelection the mnemonicText on the radio button.
+     */
+    public static void deselectDefaultSelection(final String currSelection) {
+        UIThreadRunnable.syncExec(new VoidResult() {
+
+            @SuppressWarnings("unchecked")
+            public void run() {
+                Matcher<Widget> matcher = allOf(widgetOfType(Button.class), withStyle(SWT.RADIO, "SWT.RADIO"),
+                        withMnemonic(currSelection));
+
+                Button b = (Button) gefBot.widget(matcher, 0); // the current selection
+                b.setSelection(false);
+            }
+
+        });
     }
 }

@@ -52,6 +52,7 @@ public class UpdateTheStatusOfEachItemTest extends TalendSwtBotForTos {
         shell.activate();
         try {
             gefBot.tree().expandNode("General").select("Status Management").click();
+            Utilities.deselectDefaultSelection("Change all techinal items to a fixed status.");
             gefBot.radio("Update the Status of each item.").click();
 
             gefBot.tree(1).getTreeItem("Business Models").check();

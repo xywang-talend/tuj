@@ -52,6 +52,7 @@ public class ChangeAllDocumentationItemsTest extends TalendSwtBotForTos {
         shell.activate();
         try {
             gefBot.tree().expandNode("General").select("Status Management").click();
+            Utilities.deselectDefaultSelection("Change all techinal items to a fixed status.");
             gefBot.radio("Change all documentation items to a fixed status.").click();
 
             gefBot.tree(1).getTreeItem("Business Models").check();
