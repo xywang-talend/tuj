@@ -58,12 +58,6 @@ import org.talend.swtbot.items.TalendFolderItem;
  * $Id: talend.epf 1 2006-09-29 17:06:40Z nrousseau $
  * 
  */
-/**
- * DOC Administrator class global comment. Detailled comment
- */
-/**
- * DOC Administrator class global comment. Detailled comment
- */
 public class Utilities {
 
     /**
@@ -172,7 +166,7 @@ public class Utilities {
      * @return void
      */
     public static void emptyRecycleBin() {
-        SWTBotTreeItem recycleBin = tree.getTreeItem("Recycle bin");
+        SWTBotTreeItem recycleBin = tree.expandNode("Recycle bin").select();
         gefBot.waitUntil(Conditions.widgetIsEnabled(recycleBin));
         if (recycleBin.rowCount() != 0) {
             recycleBin.contextMenu("Empty recycle bin").click();

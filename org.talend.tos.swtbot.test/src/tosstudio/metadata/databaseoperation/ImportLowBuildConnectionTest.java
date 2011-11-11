@@ -17,6 +17,7 @@ import java.net.URISyntaxException;
 
 import junit.framework.Assert;
 
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -44,13 +45,22 @@ public class ImportLowBuildConnectionTest extends TalendSwtBotForTos {
         gefBot.tree().setFocus();
         gefBot.button("Select All").click();
         gefBot.button("Finish").click();
-        // gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")));
     }
 
     @Test
     public void checkConnection() {
         dbItem = new TalendDBItem();
-        SWTBotTreeItem item = dbItem.getParentNode().getNode(0);
+        gefBot.waitUntil(new DefaultCondition() {
+
+            public boolean test() throws Exception {
+                return (dbItem.getParentNode().rowCount() != 0);
+            }
+
+            public String getFailureMessage() {
+                return "item did not import";
+            }
+        });
+        SWTBotTreeItem item = dbItem.getParentNode().expand().getNode(0);
         dbItem.setItem(item);
         dbItem.setDbType(Utilities.DbConnectionType.MYSQL);
 
