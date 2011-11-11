@@ -161,12 +161,19 @@ public class Audit extends Login {
 	
 	public boolean checkAuditInfo(String projectName){
 		
-	boolean ok = false;
-	ok = this.waitForTextPresent("The Audit process has terminated successfully", MAX_WAIT_TIME);
-	if(this.waitForTextPresent("The Audit process has terminated with error(s)", WAIT_TIME)){
-		 ok = false;
-	 }
-	return ok;
+		boolean ok = false;
+		
+		this.sleep(60000);
+		boolean failed = selenium.isElementPresent("//font[@color='red' and text()='The Audit process has terminated with error(s)']");
+		int second = 0;
+		System.out.println(failed);
+		while(second<=this.MAX_WAIT_TIME && failed == false ) {
+			second++;
+			ok = this.waitForTextPresent("The Audit process has terminated successfully", MAX_WAIT_TIME);
+				
+			
+		}
+		return ok;
 	
 	}
 	public int checkAuditListLink(String projectName){

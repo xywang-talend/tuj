@@ -73,8 +73,7 @@ public class TestAudit extends Audit {
 		selenium.refresh();
 		this.sleep(5000);
 		auditProcess(projectName, "branch");
-		Assert.assertTrue(this.waitForTextPresent("Failed to connect to CommandLine", MAX_WAIT_TIME));
-		Assert.assertTrue(this.waitForTextPresent("org.talend.administrator.common.exception.SystemException: Failed to connect to CommandLine", MAX_WAIT_TIME));
+		Assert.assertTrue(this.waitForTextPresent("Cannot connect to CommandLine, please check your configuration", MAX_WAIT_TIME));
 		this.sleep(5000);
 		this.changeCommandLineConfig(normalCommondline);
 		selenium.refresh();
