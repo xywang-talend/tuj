@@ -46,13 +46,21 @@ public class JobHelper implements Helper {
     }
 
     public static void runJob(SWTBotGefEditor jobEditor) {
+        runJob(jobEditor, 60000);
+    }
+
+    public static void runJob(SWTBotGefEditor jobEditor, long timeout) {
         String[] array = jobEditor.getTitle().split(" ");
         String jobName = array[1];
         // String jobVersion = array[2];
-        runJob(jobName);
+        runJob(jobName, timeout);
     }
 
     public static void runJob(String jobName) {
+        runJob(jobName, 60000);
+    }
+
+    public static void runJob(String jobName, long timeout) {
         GEFBOT.viewByTitle("Run (Job " + jobName + ")").setFocus();
         GEFBOT.button(" Run").click();
 
@@ -70,7 +78,7 @@ public class JobHelper implements Helper {
             public String getFailureMessage() {
                 return "job did not finish running";
             }
-        }, 60000);
+        }, timeout);
 
         executionResult = GEFBOT.styledText().getText();
     }
@@ -134,6 +142,7 @@ public class JobHelper implements Helper {
     public static void connect(SWTBotGefEditor jobEditor, SWTBotGefEditPart sourceComponent, SWTBotGefEditPart targetComponent,
             String rowName) {
         jobEditor.select(sourceComponent).setFocus();
+        sourceComponent.click();
         jobEditor.clickContextMenu("Row").clickContextMenu(rowName);
         jobEditor.click(targetComponent);
         jobEditor.save();

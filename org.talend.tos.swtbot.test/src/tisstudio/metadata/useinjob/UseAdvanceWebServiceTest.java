@@ -60,8 +60,12 @@ public class UseAdvanceWebServiceTest extends TalendSwtBotForTos {
         Assert.assertNotNull("can not get component '" + webServiceItem.getComponentType() + "'", fixedFlowInput);
         jobItem.getEditor().click(fixedFlowInput);
         gefBot.viewByTitle("Component").setFocus();
-        gefBot.tableInGroup("Mode").click(0, 1);
-        gefBot.text().setText("test");
+        gefBot.button(2).click();
+        gefBot.shell("Schema of tFixedFlowInput_1").activate();
+        gefBot.buttonWithTooltip("Add").click();
+        gefBot.button("OK").click();
+        gefBot.tableInGroup("Mode").click(0, 2);
+        gefBot.text(1).setText("\"test\"");
 
         Utilities.dndMetadataOntoJob(jobItem.getEditor(), webServiceItem.getItem(), "tWebService", new Point(300, 100));
         SWTBotGefEditPart webService = getTalendComponentPart(jobItem.getEditor(), webServiceItem.getItemName());

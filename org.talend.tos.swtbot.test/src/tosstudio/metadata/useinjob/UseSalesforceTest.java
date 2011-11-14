@@ -53,7 +53,7 @@ public class UseSalesforceTest extends TalendSwtBotForTos {
         TalendSalesforceItem moduleItem = metadataItem.retrieveModules("Account").get("Account");
         moduleItem.setComponentType("tSalesforceInput");
         moduleItem.setExpectResultFromFile("salesforce.result");
-        MetadataHelper.output2Console(jobItem.getEditor(), moduleItem);
+        MetadataHelper.output2Console(jobItem.getEditor(), moduleItem, 100000);
 
         String result = gefBot.styledText().getText();
         MetadataHelper.assertResult(result, moduleItem);

@@ -47,6 +47,16 @@ public class MetadataHelper implements Helper {
         output2Console(jobEditor, item, "Main");
     }
 
+    public static void output2Console(SWTBotGefEditor jobEditor, TalendMetadataItem item, long timeout) throws IOException,
+            URISyntaxException {
+        output2Console(jobEditor, item, "Main", timeout);
+    }
+
+    public static void output2Console(SWTBotGefEditor jobEditor, TalendMetadataItem item, String rowName) throws IOException,
+            URISyntaxException {
+        output2Console(jobEditor, item, rowName, 60000);
+    }
+
     /**
      * DOC fzhong Comment method "output2Console". Use component "tLogRow" to output metadata to console.
      * 
@@ -56,8 +66,8 @@ public class MetadataHelper implements Helper {
      * @throws URISyntaxException
      * @throws IOException
      */
-    public static void output2Console(SWTBotGefEditor jobEditor, TalendMetadataItem item, String rowName) throws IOException,
-            URISyntaxException {
+    public static void output2Console(SWTBotGefEditor jobEditor, TalendMetadataItem item, String rowName, long timeout)
+            throws IOException, URISyntaxException {
         Utilities.dndMetadataOntoJob(jobEditor, item.getItem(), item.getComponentType(), new Point(100, 100));
 
         SWTBotGefEditPart metadata = UTIL.getTalendComponentPart(jobEditor, item.getItemName());
@@ -81,7 +91,7 @@ public class MetadataHelper implements Helper {
             GEFBOT.textInGroup("EDI parameters", 0).setText(fileName);
         }
         JobHelper.connect2TLogRow(jobEditor, metadata, rowName, new Point(300, 100));
-        JobHelper.runJob(jobEditor);
+        JobHelper.runJob(jobEditor, timeout);
     }
 
     /**
