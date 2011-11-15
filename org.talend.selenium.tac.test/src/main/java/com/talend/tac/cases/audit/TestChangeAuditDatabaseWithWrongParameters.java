@@ -17,9 +17,11 @@ public class TestChangeAuditDatabaseWithWrongParameters extends Audit {
 		
 		/*check result info*/
 		selenium.click("idDbConfigCheckButton");
-		this.waitForCheckConnectionStatus("//div[text()='OK']", okStatusCounts);		
-		String wrongInfo = selenium.getText("//div[@class='x-form-item x-component'" +
-				" and contains(text(),'"+wrongInfoXpath+"')]");
+		this.waitForCheckConnectionStatus("//div[text()='OK']", okStatusCounts);	
+		this.waitForElementPresent("//div[contains(@class,'x-form-item x-component') and contains(text()," +
+				"'"+wrongInfoXpath+"')]", WAIT_TIME*2);
+		String wrongInfo = selenium.getText("//div[contains(@class,'x-form-item x-component') and contains(text()," +
+				"'"+wrongInfoXpath+"')]");
 		if("Cannot connect to database".equals(wrongInfoXpath)) {
 			
 			String[] newWrongUserNamePwInfo = wrongInfo.split("@");			

@@ -4,6 +4,8 @@ import static org.testng.Assert.assertEquals;
 import java.awt.Event;
 import java.awt.event.KeyEvent;
 import java.io.File;
+
+import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -14,10 +16,11 @@ public class TestChangeAuditReportStoredPathInConfiguration extends Audit {
 /*	//change audit report stored path in configuration, go to audit page.select a  project
    and branch ,start audit, go to the directory to check the reports generated */
 	@Test
-	@Parameters({"auditStoredReportsPath","mysqlURL", "mysqlUserName", "mysqlPassWord", "mysqlDriver", "ProjectWithSpaceChar", 
+	@Parameters({"auditStoredReportsPath","mysqlURL", "mysqlUserName", "mysqlPassWord", "mysqlDriver", "AddcommonProjectname","trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
 		"jobNameTJava"})
 	public void testChangeAuditReportStoredPathInConfiguration(String auditStoredReportsPath, String url, String userName, String userPassWd, String driver,
-			   String projectName, String tjava) {
+			String projectName, String tRunJobCheckPoint, String tjavaCheckpoint,
+			String tjava) {
 		
 		//get get incipient report path
 		String defaultPath = this.getDefaultReportPath();
@@ -41,14 +44,14 @@ public class TestChangeAuditReportStoredPathInConfiguration extends Audit {
 	   
 	    this.auditProcess(projectName, "trunk");
 	   
-	    /*check audit tesult*/
-	    this.waitForElementPresent("//div//font[1][text()='The Audit process has terminated successfully']", WAIT_TIME*4);
-	    this.waitForElementPresent("//div//font[3][text()='The Audit process has terminated successfully']", WAIT_TIME*4);	   
-	    this.waitForElementPresent("//a[contains(text(),'Audit for project \"PROJECT_SPACE\" created at')]", WAIT_TIME);
+//	    int linksbefore = checkAuditListLink(projectName);
+		Assert.assertTrue(checkAuditInfo(projectName),"TestAudit audit trunk failed!");
+		this.sleep(5000);
 	    
 	    //check report pdf after audit 
 		File auditReportFile = this.checkReportPdf(this.getAbsolutePath(auditStoredReportsPath), projectName, tjava);
-	    
+		Assert.assertTrue(this.isExistedInfoInPdf(this.getAbsolutePath(auditStoredReportsPath)+"/"+this.getReportFileName(), tRunJobCheckPoint));
+	    Assert.assertTrue(this.isExistedInfoInPdf(this.getAbsolutePath(auditStoredReportsPath)+"/"+this.getReportFileName(), tjavaCheckpoint));
 	    auditReportFile.delete(); 	    
 	    
 	    //go to configuration page

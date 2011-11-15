@@ -1,4 +1,4 @@
-package com.talend.tac.cases.audit;
+		package com.talend.tac.cases.audit;
 
 import java.awt.Event;
 import java.io.File;
@@ -11,10 +11,10 @@ public class TestAuditProjectWithSqlServer extends Audit {
 	
 	//audit a project with sqlserver
 	@Test
-	@Parameters({"sqlserverURL", "sqlserverUserName", "sqlserverPassWord", "sqlserverDriver", "ProjectWithSpaceChar"
-		, "jobNameTJava"})
+	@Parameters({"sqlserverURL", "sqlserverUserName", "sqlserverPassWord", "sqlserverDriver","AddcommonProjectname","trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
+		"jobNameTJava"})
 	public void testAuditProjectWithSqlServer(String url, String userName, String userPassWd, String driver,
-			   String projectName, String tjava) {
+			String projectName, String trunjobWithCheckpoint, String tjavaWithMulripleCheckpoint, String tjava) {
 		
 	   //get get incipient report path
 	   String defaultPath = this.getDefaultReportPath(); 
@@ -36,13 +36,14 @@ public class TestAuditProjectWithSqlServer extends Audit {
 	   this.auditProcess(projectName, "trunk");
 	   
 	   /*check audit tesult*/
-	   this.waitForElementPresent("//div//font[1][text()='The Audit process has terminated successfully']", WAIT_TIME*4);
-	   this.waitForElementPresent("//div//font[3][text()='The Audit process has terminated successfully']", WAIT_TIME*4);	   
+	   int linksbefore = checkAuditListLink(projectName);
+	   Assert.assertTrue(checkAuditInfo(projectName),"TestAudit audit trunk failed!");
+	   this.sleep(5000);
+	   Assert.assertTrue((checkAuditListLink(projectName)==linksbefore +1),"TestAudit audit trunk failed,not create links!");
 	   
-	   int auditListLinkCount = this.checkAuditListLink(projectName);
-	   Assert.assertEquals(auditListLinkCount, 3);
 	   File auditReportFile = this.checkReportPdf(defaultPath, projectName, tjava);
-	   
+	   Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+this.getReportFileName(), trunjobWithCheckpoint));
+	   Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+this.getReportFileName(), tjavaWithMulripleCheckpoint));
 	   auditReportFile.delete();
 	   
 	}

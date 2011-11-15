@@ -35,8 +35,8 @@ public class Audit extends Login {
 			}
 		}
 	    
-	    Assert.assertTrue(this.isExistedInfoInPdf(this.getDefaultReportPath()+"/"+this.getReportFileName(), projectName));
-	    Assert.assertTrue(this.isExistedInfoInPdf(this.getDefaultReportPath()+"/"+this.getReportFileName(), jobName));
+	    Assert.assertTrue(this.isExistedInfoInPdf(reportFilePath+"/"+this.getReportFileName(), projectName));
+	    Assert.assertTrue(this.isExistedInfoInPdf(reportFilePath+"/"+this.getReportFileName(), jobName));
 		return auditReportFile;
 		
 	}

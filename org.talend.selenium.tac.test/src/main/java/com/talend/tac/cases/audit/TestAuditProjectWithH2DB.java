@@ -10,10 +10,10 @@ import org.testng.annotations.Test;
 public class TestAuditProjectWithH2DB extends Audit {
     
 	@Test
-	@Parameters({"db.url", "H2UserName", "H2PassWord", "H2Driver", "ProjectWithSpaceChar",
+	@Parameters({"db.url", "H2UserName", "H2PassWord", "H2Driver", "AddcommonProjectname","trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
 		"jobNameTJava"})
 	public void testAuditProjectWithH2DB(String url, String userName, String userPassWd, String driver,
-			   String projectName, String tjava) {
+			   String projectName, String trunjobWithCheckpoint, String tjavaWithMulripleCheckpoint, String tjava) {
 		
 	   //get get incipient report path
 	   String defaultPath = this.getDefaultReportPath();
@@ -38,10 +38,12 @@ public class TestAuditProjectWithH2DB extends Audit {
 	   this.waitForElementPresent("//div//font[1][text()='The Audit process has terminated successfully']", WAIT_TIME*4);
 	   this.waitForElementPresent("//div//font[3][text()='The Audit process has terminated successfully']", WAIT_TIME*4);	   
 	   
-	   int auditListLinkCount = this.checkAuditListLink(projectName);
-	   Assert.assertEquals(auditListLinkCount, 2);
+//	   int auditListLinkCount = this.checkAuditListLink(projectName);
+//	   Assert.assertEquals(auditListLinkCount, 2);
 	   
 	   File auditReportFile = this.checkReportPdf(defaultPath, projectName, tjava);
+	   Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+this.getReportFileName(), trunjobWithCheckpoint));
+	   Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+this.getReportFileName(), tjavaWithMulripleCheckpoint));
 	   auditReportFile.delete();
 	   
 	}
