@@ -11,6 +11,7 @@ import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.keyboard.Keystrokes;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotCCombo;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
@@ -1105,5 +1106,15 @@ public class TalendSwtbotTdqCommon {
 
 		return tableItem;
 	}
-
+	public static void CComboSelectContainTextItem(SWTBotCCombo cCombo, String text){
+		String[] itemStrs = cCombo.items();
+		String title = text;
+		for(String str : itemStrs) {
+			if(str.contains(text)) {
+				title = str;
+				break;
+			}
+		}
+		cCombo.setSelection(title);
+	}
 }

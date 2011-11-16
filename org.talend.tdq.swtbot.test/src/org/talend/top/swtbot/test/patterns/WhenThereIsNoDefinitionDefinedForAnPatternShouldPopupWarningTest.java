@@ -4,10 +4,10 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotCCombo;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,7 @@ import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendMetadataTypeEn
 public class WhenThereIsNoDefinitionDefinedForAnPatternShouldPopupWarningTest extends TalendSwtbotForTdq{
 	
 	@Before
-	public void beforeClass(){
+	public void beforeClass() throws Exception{
 		bot.sleep(10000);
 		TalendSwtbotTdqCommon.createConnection(bot, TalendMetadataTypeEnum.MYSQL);
 		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
@@ -32,7 +32,9 @@ public class WhenThereIsNoDefinitionDefinedForAnPatternShouldPopupWarningTest ex
 				bot.viewByTitle("DQ Repository").getWidget()));
 		tree.expandNode("Libraries","Patterns","Regex").getNode(3).expand().getNode(3).select();
 		ContextMenuHelper.clickContextMenu(tree, "Open");
-		formBot.ccomboBox(1).setSelection("MySQL");
+		
+		SWTBotCCombo cCombo = formBot.ccomboBox(1);
+		TalendSwtbotTdqCommon.CComboSelectContainTextItem(cCombo, "MySQL");
 		bot.toolbarButtonWithTooltip("Save").click();
 		try {
 			SWTBotShell shell = bot.shell("refresh");
@@ -95,7 +97,11 @@ public class WhenThereIsNoDefinitionDefinedForAnPatternShouldPopupWarningTest ex
 				bot.viewByTitle("DQ Repository").getWidget()));
 		tree.expandNode("Libraries","Patterns","Regex").getNode(3).expand().getNode(3).select();
 		ContextMenuHelper.clickContextMenu(tree, "Open");
-		formBot.ccomboBox(1).setSelection("Default ");
+		
+		SWTBotCCombo cCombo = formBot.ccomboBox(1);
+		cCombo = formBot.ccomboBox(1);
+		TalendSwtbotTdqCommon.CComboSelectContainTextItem(cCombo, "Default");
+		
 		bot.toolbarButtonWithTooltip("Save").click();
 		try {
 			SWTBotShell shell = bot.shell("refresh");
@@ -105,6 +111,7 @@ public class WhenThereIsNoDefinitionDefinedForAnPatternShouldPopupWarningTest ex
 		}
 		bot.editorByTitle("Gender 0.1").close();
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString()+" 0.1").show();
+		bot.toolbarButtonWithTooltip("Save").click();
 		bot.toolbarButtonWithTooltip("Run").click();
 		try {
 			SWTBotShell shell = bot.shell("Run Analysis");
@@ -113,15 +120,11 @@ public class WhenThereIsNoDefinitionDefinedForAnPatternShouldPopupWarningTest ex
 			
 		}
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString()+" 0.1").close();
-	
-		
 	}
 	@After
 	public void afterClass(){
-		
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,TalendAnalysisTypeEnum.COLUMN.toString());	
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, TalendMetadataTypeEnum.MYSQL.toString());
-		
+		TalendSwtbotTdqCommon.deleteAndCleanCycleBin(bot, TalendItemTypeEnum.ANALYSIS,TalendAnalysisTypeEnum.COLUMN.toString());	
+		TalendSwtbotTdqCommon.deleteAndCleanCycleBin(bot, TalendItemTypeEnum.METADATA, TalendMetadataTypeEnum.MYSQL.toString());
 	}
 
 }
