@@ -40,8 +40,7 @@ public class TestServerDisplyInVirtualServersPage extends Server {
 		this.clickWaitForElementPresent("!!!menu.virtual_server.element!!!");
 		
 		//server 'jobserver' is visiable.
-		this.waitForElementPresent("//div[text()='"+jobServer1+"']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
-				" x-grid3-col-talendRuntime') and text()='Job Server']", WAIT_TIME);
+		this.waitForElementPresent("//span[text()='"+jobServer1+"' and @class='x-tree3-node-text']", WAIT_TIME);
 		
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+jobServer1+"' and @class='x-tree3-node-text']"));
 		

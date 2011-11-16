@@ -65,7 +65,7 @@ public class TestAddServerWithTalendRuntime extends Server {
 		this.addRuntimeServer(lable, description, host, commondport, transfortport, monitorport,
 				time, username, password, "6565", "6566", "6567",
 				"YES");
-        this.checkServerStatus(lable, server_status_up);
+        this.checkServerStatus(lable, server_status_down);
         
         Assert.assertFalse(selenium.isElementPresent("//div[text()='"+lable+"']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
 		" x-grid3-col-talendRuntime') and text()='Job Server']"));
