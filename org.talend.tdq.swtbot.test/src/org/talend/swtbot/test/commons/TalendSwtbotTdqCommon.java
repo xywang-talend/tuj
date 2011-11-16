@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.forms.finder.finders.SWTFormsBot;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.keyboard.Keystrokes;
@@ -744,6 +745,22 @@ public class TalendSwtbotTdqCommon {
 	public static void deleteSource(SWTWorkbenchBot bot,
 			TalendItemTypeEnum type, String label) {
 		TREEITEM_FOUND_TIME += 1;
+		
+//		List<SWTBotView> vs = bo
+        bot.cTabItem(label + " 0.1").close();
+		
+//		List<SWTBotView> views = bot.views();
+//		for(SWTBotView view: views){
+//			System.out.print("--------------------" + view.getTitle());
+//			if(view.getTitle().startsWith(label)){
+//				view.setFocus();
+//				view.close();
+//			}
+//		}
+//		
+//		bot.viewByTitle(label + " 0.1").setFocus();
+//		bot.viewByTitle(label + " 0.1").close();
+		
 	//	bot.sleep(1000);
 		bot.viewByTitle("DQ Repository").setFocus();
 		tree = new SWTBotTree((Tree) bot.widget(
