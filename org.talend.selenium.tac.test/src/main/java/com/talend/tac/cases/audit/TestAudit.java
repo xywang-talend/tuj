@@ -1,6 +1,7 @@
 package com.talend.tac.cases.audit;
 
 
+import java.awt.Event;
 import java.io.File;
 
 import org.testng.Assert;
@@ -9,6 +10,27 @@ import org.testng.annotations.Test;
 
 
 public class TestAudit extends Audit {
+	
+	@Test
+	@Parameters({"mysqlURL", "mysqlUserName", "mysqlPassWord", "mysqlDriver"})
+	public void changeDbToMysql(String url, String userName, String userPassWd, String driver) {
+		
+		this.openAudit();
+		   
+	    /*change db info*/
+	    this.configAuditDB(url, userName, driver, userPassWd);
+	    selenium.setSpeed(MID_SPEED);
+	    selenium.keyPressNative(Event.TAB +"");
+	    selenium.keyPressNative(Event.TAB +"");
+	    selenium.click("idDbConfigSaveButton");
+	    selenium.setSpeed(MIN_SPEED);
+	   
+	    this.waitForCheckConnectionStatus("//div[text()='OK']", 3);
+	    selenium.click("//div[contains(@class,'x-nodrag x-tool-close x-tool x-component')]");
+//	    /*change db info*/
+		
+	}
+	
 	@Test
 	@Parameters({"AddcommonProjectname", "trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
 		"jobNameTJava"})

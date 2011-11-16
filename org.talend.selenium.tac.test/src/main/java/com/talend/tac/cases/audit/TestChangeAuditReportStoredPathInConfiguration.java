@@ -60,9 +60,6 @@ public class TestChangeAuditReportStoredPathInConfiguration extends Audit {
 //		//change value of 'reports stored path' to a directory exist
 		this.waitForElementPresent("//div[contains(text(),'Audit (')]", WAIT_TIME);
 		selenium.mouseDown("//div[contains(text(),'Audit (')]");
-		
-	    this.typeWordsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),locatorOfAllInputTags, defaultPath);
-	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),locatorOfAllInputTags, defaultPath,other.getString("audit.conf.reportsStoredPath.statusIcon"));
 	    
 	}
 	

@@ -169,7 +169,7 @@ public class Audit extends Login {
 		System.out.println(failed);
 		while(second<=this.MAX_WAIT_TIME && failed == false ) {
 			second++;
-			ok = this.waitForTextPresent("The Audit process has terminated successfully", MAX_WAIT_TIME);
+			ok = selenium.isTextPresent("The Audit process has terminated successfully");
 				
 			
 		}
