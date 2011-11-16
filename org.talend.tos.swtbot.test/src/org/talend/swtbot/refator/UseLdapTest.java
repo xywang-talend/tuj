@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tosstudio.metadata.useinjob;
+package org.talend.swtbot.refator;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
