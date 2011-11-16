@@ -16,6 +16,17 @@
   	<parameter  name ="SVNPerlProjecturl" value ="https://192.168.0.216:8443/svn/perl/"/>
   	<parameter  name ="SVNuserName" value ="test"/>
   	<parameter  name ="SVNuserPassword" value ="testing"/>
+  	
+  	<parameter name="svn.conf.serverLocationURL" value="https://192.168.0.216:8443/svn/test_tac/" />
+	<parameter name="svn.conf.serverUser" value="admin" />
+	<parameter name="svn.conf.serverPassword" value="admin" />
+    
+    <parameter name="svn.conf.wrong.serverLocationURL" value="https://192.168.0.216:8443/svn/test_tac.wrong" />
+	<parameter name="svn.conf.wrong.serverUser" value="admin.wrong" />
+	<parameter name="svn.conf.wrong.serverPassword" value="admin.wrong" />
+  	
+  	
+  	
   		
   	<!-- Language parameters -->
   	<parameter  name ="language"	value ="en"/>
@@ -53,12 +64,12 @@
 
 	<!-- Servers for use -->
 	<parameter name="RemoteWindowServerIp" value="192.168.0.144" />
-	<parameter name="RemoteLinuxServerIp" value="192.168.0.39" />
+	<parameter name="RemoteLinuxServerIp" value="192.168.0.241" />
 	
 	<parameter  name ="ServerForUseAvailable" value="use_server_available"/>
     <parameter  name ="ServerForUseUnavailable" value="use_server_unactive"/>
     <parameter  name ="ServerForUseDownlabel" value="use_server_down"/>
-    <parameter  name ="ServeravailableHost" value="192.168.0.39"/>
+    <parameter  name ="ServeravailableHost" value="192.168.0.241"/>
     
 
 	<!-- configuration for File Trigger -->
@@ -67,9 +78,64 @@
   	
     <!-- commandLine HostAddress -->
     <!-- needed start a remote commandline -->
-    <parameter  name ="localhostAddress" value="192.168.0.39"/>
+    <parameter  name ="localhostAddress" value="192.168.0.241"/>
     <parameter  name ="remotehostAddress" value="192.168.0.144"/>
     <parameter  name ="remotehostAddressWithWrong" value="192.168.0.g"/>
+  	
+  	<!-- Ldap parameters -->
+	<parameter name="LDAP.conf.useLDAPAutentication" value="true" />
+	<parameter name="LDAP.conf.ldapServerIp" value="192.168.0.27" />
+	<parameter name="LDAP.conf.ldapServerPort" value="389" />
+	<parameter name="LDAP.conf.ldapRoot" value="dc=talend,dc=com" />
+	<parameter name="LDAP.conf.ldapPrincipalDNPrefix" value="cn=Manager,dc=talend,dc=com" />
+	<parameter name="LDAP.conf.ldapAdminPassword" value="talend" />
+	<parameter name="LDAP.conf.ldap.fields.mail" value="mail" />
+	<parameter name="LDAP.conf.ldap.fields.lastname" value="givenName" />
+	<parameter name="LDAP.conf.ldap.fields.firstname" value="homePhone" />
+  	
+  	<!-- Ldap user dn parameters -->
+  	<parameter name="ldap.user.dn" value="uid=tod, ou=People, dc=talend,dc=com" />
+	<parameter name="ldap.user.userName" value="liuyu@sina.com" />
+  	
+  	<!-- Databases parameters -->
+  	  <parameter  name ="Mysql_Dbname" value ="amc"/>
+  <parameter  name ="Mysql_Dbtype" value="2"/>
+  <parameter  name ="Mysql_Connectionlabel" value ="Mysqlconnection"/>
+  <parameter  name ="Mysql_Host" value ="192.168.0.216"/>
+  <parameter  name ="Mysql_Serverport" value ="3306"/>
+  <parameter  name ="Mysql_Username" value ="root"/>
+  <parameter  name ="Mysql_Password" value ="root"/>
+  <parameter  name ="Mysql_Datasourse" value =""/>
+  <parameter  name ="Mysql_Additional" value =""/>
+  <parameter  name ="Mysql_Stattable" value ="tstats"/>
+  <parameter  name ="Mysql_Logstable" value ="tlogs"/>
+  <parameter  name ="Mysql_meterstable" value ="tmeters"/>
+
+  <parameter  name ="MSSQL_Dbname" value ="amc"/>
+  <parameter  name ="MSSQL_Dbtype" value="4"/>
+  <parameter  name ="MSSQL_Connectionlabel" value ="MSSQLconnection"/>
+  <parameter  name ="MSSQL_Host" value ="192.168.0.94"/>
+  <parameter  name ="MSSQL_Serverport" value ="1433"/>
+  <parameter  name ="MSSQL_Username" value ="sa"/>
+  <parameter  name ="MSSQL_Password" value ="123456"/>
+  <parameter  name ="MSSQL_Datasourse" value =""/>
+  <parameter  name ="MSSQL_Additional" value =""/>
+  <parameter  name ="MSSQL_Stattable" value ="statsinfo"/>		
+  <parameter  name ="MSSQL_Logstable" value ="logsinfo"/>
+   <parameter  name ="MSSQL_meterstable" value ="metersinfo"/>
+  
+  <parameter  name ="Oracle_Dbname" value ="talend"/>
+  <parameter  name ="Oracle_Dbtype" value="3"/>
+  <parameter  name ="Oracle_Connectionlabel" value ="Oracleconnection"/>
+  <parameter  name ="Oracle_Host" value ="192.168.0.25"/>
+  <parameter  name ="Oracle_Serverport" value ="1521"/>
+  <parameter  name ="Oracle_Username" value ="talend"/>
+  <parameter  name ="Oracle_Password" value ="talend"/>
+  <parameter  name ="Oracle_Datasourse" value =""/>
+  <parameter  name ="Oracle_Additional" value =""/>
+  <parameter  name ="Oracle_Stattable" value ="TSTATS"/>
+  <parameter  name ="Oracle_Logstable" value ="TLOGS"/>
+  <parameter  name ="Oracle_meterstable" value ="TMETERS"/>
   	
 	<suite-files>
 		<suite-file path='org/talend/tac/conf/license.xml'/>
