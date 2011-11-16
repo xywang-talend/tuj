@@ -40,6 +40,8 @@ public class UseSalesforceTest extends TalendSwtBotForTos {
 
     private static final String METADATA_NAME = "salesforceTest"; // $NON-NLS-1$
 
+    private static final String MODULE = "UserRole"; // $NON-NLS-1$
+
     @Before
     public void createJobAndMetadata() throws IOException, URISyntaxException {
         jobItem = new TalendJobItem(JOBNAME);
@@ -50,10 +52,10 @@ public class UseSalesforceTest extends TalendSwtBotForTos {
 
     @Test
     public void useMetadataInJob() throws IOException, URISyntaxException {
-        TalendSalesforceItem moduleItem = metadataItem.retrieveModules("Account").get("Account");
+        TalendSalesforceItem moduleItem = metadataItem.retrieveModules(MODULE).get(MODULE);
         moduleItem.setComponentType("tSalesforceInput");
         moduleItem.setExpectResultFromFile("salesforce.result");
-        MetadataHelper.output2Console(jobItem.getEditor(), moduleItem, 100000);
+        MetadataHelper.output2Console(jobItem.getEditor(), moduleItem);
 
         String result = gefBot.styledText().getText();
         MetadataHelper.assertResult(result, moduleItem);
