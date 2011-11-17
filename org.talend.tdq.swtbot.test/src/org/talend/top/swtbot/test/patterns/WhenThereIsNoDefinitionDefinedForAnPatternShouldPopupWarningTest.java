@@ -32,6 +32,12 @@ public class WhenThereIsNoDefinitionDefinedForAnPatternShouldPopupWarningTest ex
 				bot.viewByTitle("DQ Repository").getWidget()));
 		tree.expandNode("Libraries","Patterns","Regex").getNode(3).expand().getNode(3).select();
 		ContextMenuHelper.clickContextMenu(tree, "Open");
+		try {
+			SWTBotShell shell = bot.shell("refresh");
+			bot.waitUntil(Conditions.shellCloses(shell));
+		} catch (Exception e) {
+			bot.sleep(10000);
+		}
 		
 		SWTBotCCombo cCombo = formBot.ccomboBox(1);
 		TalendSwtbotTdqCommon.CComboSelectContainTextItem(cCombo, "MySQL");
