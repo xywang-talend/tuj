@@ -38,10 +38,12 @@ public class JobHelper implements Helper {
      * @return A string between statistics tags
      */
     public static String filterStatistics(String execution) {
+        if (execution == null || "".equals(execution))
+            return null;
         int statConnected = execution.indexOf("[statistics] connected");
         int statDisconnected = execution.indexOf("[statistics] disconnected");
         if (statConnected == -1 || statDisconnected == -1)
-            Assert.fail(execution);
+            return execution;
         return execution.substring(statConnected + "[statistics] connected".length(), statDisconnected).trim();
     }
 

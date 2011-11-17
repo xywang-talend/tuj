@@ -92,13 +92,12 @@ public class TalendEdiItem extends TalendMetadataItem {
             gefBot.button("Next >").click();
 
             String[] schemas = getSchemas();
-            for (int i = 0; i < schemas.length; i++) {
-                SWTBotTreeItem sourceItem = gefBot.tree(0).expandNode("BGM(Beginning_of_message)", "DOCUMENT_MESSAGE_NAME")
-                        .getNode(schemas[i]).click();
-                SWTBotTable targetItem = gefBot.tableInGroup("Schema");
-                DndUtil dndUtil = new DndUtil(shell.display);
-                dndUtil.dragAndDrop(sourceItem, targetItem);
-            }
+            SWTBotTreeItem root = gefBot.tree(0).expandNode("BGM(Beginning_of_message)", "DOCUMENT_MESSAGE_NAME");
+            SWTBotTreeItem sourceItem = root.getNode(schemas[0]);
+            root.select(schemas);
+            SWTBotTable targetItem = gefBot.tableInGroup("Schema");
+            DndUtil dndUtil = new DndUtil(shell.display);
+            dndUtil.dragAndDrop(sourceItem, targetItem);
             gefBot.button("Next >").click();
         } catch (WidgetNotFoundException wnfe) {
             shell.close();

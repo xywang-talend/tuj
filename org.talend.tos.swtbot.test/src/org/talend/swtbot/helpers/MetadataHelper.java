@@ -109,8 +109,10 @@ public class MetadataHelper implements Helper {
 
     public static void assertResult(String actualResult, String expectResult) {
         String realResult = JobHelper.filterStatistics(actualResult);
-        if (!expectResult.contains(realResult))
-            Assert.fail("the results are not expected - " + realResult);
+        if (realResult == null || realResult.equals(actualResult))
+            Assert.fail("job running fail - " + realResult);
+        if (!realResult.contains(expectResult.trim()) && !expectResult.trim().contains(realResult))
+            Assert.fail("the result is not expected - " + realResult);
     }
 
     /**
