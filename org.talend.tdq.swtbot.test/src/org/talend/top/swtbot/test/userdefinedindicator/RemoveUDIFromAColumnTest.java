@@ -55,7 +55,6 @@ public class RemoveUDIFromAColumnTest extends TalendSwtbotForTdq{
 			shell = bot.shell("refresh");
 			bot.waitUntil(Conditions.shellCloses(shell));
 		} catch (Exception e) {
-		
 		}
 	}
 	

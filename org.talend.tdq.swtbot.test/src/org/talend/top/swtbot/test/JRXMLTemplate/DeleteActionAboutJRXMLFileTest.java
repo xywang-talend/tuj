@@ -22,7 +22,7 @@ public class DeleteActionAboutJRXMLFileTest extends TalendSwtbotForTdq{
 		bot.viewByTitle("DQ Repository").setFocus();
 		tree = new SWTBotTree((Tree)bot.widget(WidgetOfType.widgetOfType(Tree.class),
 				bot.viewByTitle("DQ Repository").getWidget()));
-		tree.expandNode("Libraries","JRXML Template","column").getNode(0).select();
+		tree.expandNode("Libraries","JRXML Template","column").expand().getNode(0).select();
 		ContextMenuHelper.clickContextMenu(tree, "Delete");
 		try {
 			SWTBotShell shell = bot.shell("refresh");

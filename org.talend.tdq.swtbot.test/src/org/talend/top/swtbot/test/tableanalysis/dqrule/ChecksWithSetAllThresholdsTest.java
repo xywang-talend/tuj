@@ -94,17 +94,17 @@ public class ChecksWithSetAllThresholdsTest extends TalendSwtbotForTdq{
 		bot.captureScreenshot(System
 				.getProperty("tdq.analysis.result.screenshot.path")
 				+ "dqrule_threshold.jpeg");		
-		
-		
+		bot.editorByTitle(TalendAnalysisTypeEnum.DQRULE.toString() + " 0.1").close();
 		}
+	
 	
 	@After 
 	public void afterClass(){
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+		TalendSwtbotTdqCommon.deleteAndCleanCycleBin(bot, TalendItemTypeEnum.ANALYSIS,
 				TalendAnalysisTypeEnum.DQRULE.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot,
+		TalendSwtbotTdqCommon.deleteAndCleanCycleBin(bot,
 				TalendItemTypeEnum.LIBRARY_DQRULE, DQRULENAME);
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+		TalendSwtbotTdqCommon.deleteAndCleanCycleBin(bot, TalendItemTypeEnum.METADATA,
 				TalendMetadataTypeEnum.MYSQL.toString());
 		
 	}
