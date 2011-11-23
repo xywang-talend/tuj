@@ -26,8 +26,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.URIUtil;
 import org.eclipse.draw2d.FigureCanvas;
@@ -50,6 +48,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.hamcrest.Matcher;
+import org.junit.Assert;
 import org.talend.swtbot.items.TalendFolderItem;
 
 /**
@@ -169,6 +168,7 @@ public class Utilities {
         SWTBotTreeItem recycleBin = tree.expandNode("Recycle bin").select();
         gefBot.waitUntil(Conditions.widgetIsEnabled(recycleBin));
         if (recycleBin.rowCount() != 0) {
+            recycleBin.click();
             recycleBin.contextMenu("Empty recycle bin").click();
             gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
             gefBot.button("Yes").click();
@@ -459,14 +459,16 @@ public class Utilities {
         treeNode.getNode(nodeName).contextMenu("Delete").click();
 
         SWTBotTreeItem newItem = null;
+        SWTBotTreeItem recycleBin = tree.expandNode("Recycle bin").select();
+        gefBot.waitUntil(Conditions.widgetIsEnabled(recycleBin));
         try {
             if (folderPath == null)
                 folderPath = "";
-            newItem = tree.expandNode("Recycle bin").select(nodeName + " (" + folderPath + ")");
+            newItem = recycleBin.expand().getNode(nodeName + " (" + folderPath + ")");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Assert.assertNotNull("item is not deleted to recycle bin", newItem);
+            Assert.assertNotNull("item did not delete to recycle bin", newItem);
         }
     }
 

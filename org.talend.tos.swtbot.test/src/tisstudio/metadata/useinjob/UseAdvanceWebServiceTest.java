@@ -18,6 +18,8 @@ import java.net.URISyntaxException;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -65,6 +67,8 @@ public class UseAdvanceWebServiceTest extends TalendSwtBotForTos {
         gefBot.shell("Schema of tFixedFlowInput_1").activate();
         gefBot.buttonWithTooltip("Add").click();
         gefBot.button("OK").click();
+        SWTBotTable schemaTable = gefBot.tableInGroup("Mode");
+        gefBot.waitUntil(Conditions.tableHasRows(schemaTable, 1));
         gefBot.tableInGroup("Mode").click(0, 2);
         gefBot.text(1).setText("\"test\"");
 
