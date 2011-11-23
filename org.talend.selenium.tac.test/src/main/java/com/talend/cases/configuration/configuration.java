@@ -83,7 +83,7 @@ public String locatorOfAllInputTags = other.getString("commandline.conf.all.inpu
 	}
 	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){		
 
-		 this.waitForElementPresent("//div[contains(text(),'Audit (6') and contains(@class,'x-grid-group-div')]", WAIT_TIME);
+		 this.waitForElementPresent("//div[contains(text(),'Audit (') and contains(@class,'x-grid-group-div')]", WAIT_TIME);
 		 
 		 boolean configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
 		 System.out.println(configurationPageIsNotEdit);
