@@ -252,14 +252,20 @@ public class EsbUtil extends Login {
 	 */
 	public void typeWordsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
          
-		 this.waitForElementPresent("//div[contains(text(),'Audit (') and contains(@class,'x-grid-group-div')]", WAIT_TIME);
-		 
+		 this.waitForElementPresent("//div[contains(text(),'Audit (') and contains(@class,'x-grid-group-div')]", WAIT_TIME);		 
 		 boolean configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
 		 System.out.println(configurationPageIsNotEdit);
 	     while (seconds<=WAIT_TIME*2 && configurationPageIsNotEdit == true) {
 			 
-	    	 seconds++;
-			 System.out.println("can not edit in configuration page");
+	    	 seconds++;	   
+	    	 configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
+	    	 try {
+				Thread.sleep(1000);
+			 } catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			 }
+			 System.out.println("can not edit in configuration page"+seconds);
 			 
 		 }
 	     
@@ -285,10 +291,17 @@ public class EsbUtil extends Login {
 		 
 		 boolean configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
 		 System.out.println(configurationPageIsNotEdit);
-	     while (seconds<=WAIT_TIME*2 && configurationPageIsNotEdit == true) {
-			 
-	    	 seconds++;
-			 System.out.println("can not edit in configuration page");
+	     while (seconds<=WAIT_TIME*2 && configurationPageIsNotEdit == true) {			 
+
+	    	 seconds++;	
+	    	 configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");   	 
+	    	 try {
+				Thread.sleep(1000);
+			 } catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			 }
+			 System.out.println("can not edit in configuration page"+seconds);
 			 
 		 }
 	     
@@ -303,9 +316,16 @@ public class EsbUtil extends Login {
 		 boolean configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
 		 System.out.println(configurationPageIsNotEdit);
 	     while (seconds<=WAIT_TIME*2 && configurationPageIsNotEdit == true) {
-			 
-	    	 seconds++;
-			 System.out.println("can not edit in configuration page");
+
+	    	 seconds++;	  
+	    	 configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
+	    	 try {
+				Thread.sleep(1000);
+			 } catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			 }
+			 System.out.println("can not edit in configuration page"+seconds);
 			 
 		 }
 	     
