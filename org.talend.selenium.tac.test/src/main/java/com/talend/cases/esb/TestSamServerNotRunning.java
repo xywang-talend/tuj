@@ -27,8 +27,8 @@ public class TestSamServerNotRunning extends Esb {
 	@Parameters ({"esb.conf.zookeeperServer","esb.conf.serviceActivityMonitorServer.remote.available","esb.conf.serviceActivityMonitorServer.remote.stop"})
 	public void testSamServerNotRunning(String zookeeperServer,String serviceActivityMonitorServer,String monitorStop){
 		  this.clickWaitForElementPresent("idMenuConfigElement");
-		  this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");
-		
+		  this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB (')]");
+		  selenium.setSpeed(MID_SPEED);
 		  //change sam server to remote stoped
 	      this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), locatorOfAllInputTags, monitorStop);
 	      this.typeWordsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), locatorOfAllInputTags, zookeeperServer);
@@ -40,26 +40,7 @@ public class TestSamServerNotRunning extends Esb {
 		  this.clickWaitForElementPresent("//div[@class='header-title' and text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//b[text()='Refresh']");
 		  Assert.assertTrue(this.waitForTextPresent("Can not connect to SAM Server. The server is unavailable or connection...", WAIT_TIME),"test with stop samserver failed!");
 	}
-	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value,String statusIconLocator){
-		this.AssertEqualsInConfigurationMenu(locatorOfEditButton, locatorOfInput, value);
-		this.waitForElementPresent(statusIconLocator, WAIT_TIME);//wait and check the icon status.
-	}
-	public void typeWordsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
-		 this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
-		 this.typeWaitForElementPresent(locatorOfInput, value);
-		
-	}
-	public void typeWaitForElementPresent(String locator,String value) {
-		this.waitForElementPresent(locator, Base.WAIT_TIME);
-		selenium.type(locator,value);
-		selenium.keyDown(locator, "\\13");
-	}
-	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
-		this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
-		this.waitForElementPresent(locatorOfInput, Base.WAIT_TIME);
-		assertEquals(selenium.getValue(locatorOfInput), value);
-		selenium.fireEvent(locatorOfInput, "blur");
-	}
+	
 	@AfterMethod
 	@Parameters ({"esb.conf.zookeeperServer","esb.conf.serviceActivityMonitorServer.remote.available","esb.conf.serviceActivityMonitorServer.remote.stop"})
 	public void logout(String zookeeperServer,String serviceActivityMonitorServer,String monitorStop) {
