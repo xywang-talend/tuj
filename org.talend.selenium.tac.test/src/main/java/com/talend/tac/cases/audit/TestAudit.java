@@ -47,8 +47,8 @@ public class TestAudit extends Audit {
 		Assert.assertTrue((checkAuditListLink(projectName)==linksbefore +1),"TestAudit audit trunk failed,not create links!");
 		
         File auditReportFile = this.checkReportPdf(defaultPath, projectName, tjava);
-        Assert.assertTrue(this.isExistedInfoInPdf(this.getDefaultReportPath()+"/"+this.getReportFileName(), tRunJobCheckPoint));
-	    Assert.assertTrue(this.isExistedInfoInPdf(this.getDefaultReportPath()+"/"+this.getReportFileName(), tjavaCheckpoint));
+        Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+this.getReportFileName(), tRunJobCheckPoint));
+	    Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+this.getReportFileName(), tjavaCheckpoint));
 	    auditReportFile.delete();
 		
 	}
@@ -80,9 +80,9 @@ public class TestAudit extends Audit {
 		Assert.assertTrue((checkAuditListLink(projectName)==linksbefore +1),"TestAudit audit branch failed,not create links!");
 
         File auditReportFile = this.checkReportPdf(defaultPath, projectName, tjava);
-        Assert.assertTrue(this.isExistedInfoInPdf(this.getDefaultReportPath()+"/"+this.getReportFileName(), tRunJobCheckPoint));
-	    Assert.assertTrue(this.isExistedInfoInPdf(this.getDefaultReportPath()+"/"+this.getReportFileName(), tjavaCheckpoint));
-	    Assert.assertTrue(this.isExistedInfoInPdf(this.getDefaultReportPath()+"/"+this.getReportFileName(), branchJob));;
+        Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+this.getReportFileName(), tRunJobCheckPoint));
+	    Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+this.getReportFileName(), tjavaCheckpoint));
+	    Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+this.getReportFileName(), branchJob));;
 	    auditReportFile.delete();
 	    
 	}
@@ -91,13 +91,13 @@ public class TestAudit extends Audit {
 	@Parameters({"AddcommonProjectname","remotehostAddress","remotehostAddressWithWrong"})
 	public void testAuditWithOutStartCommondline(String projectName,String normalCommondline,String wrongCommondline){
 		System.err.println(wrongCommondline);	
-		this.changeCommandLineConfig(wrongCommondline);
+		this.changeCommandLineConfig(wrongCommondline, other.getString("commandLine.conf.primary.wrong.host.statusIcon"));
 		selenium.refresh();
 		this.sleep(5000);
 		auditProcess(projectName, "branch");
 		Assert.assertTrue(this.waitForTextPresent("Cannot connect to CommandLine, please check your configuration", MAX_WAIT_TIME));
 		this.sleep(5000);
-		this.changeCommandLineConfig(normalCommondline);
+		this.changeCommandLineConfig(normalCommondline, other.getString("commandLine.conf.primary.host.statusIcon"));
 		selenium.refresh();
 		this.sleep(5000);
 	}
