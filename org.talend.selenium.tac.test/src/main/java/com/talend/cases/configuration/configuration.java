@@ -44,6 +44,7 @@ public String locatorOfAllInputTags = other.getString("commandline.conf.all.inpu
 	     while (seconds<=WAIT_TIME*2 && configurationPageIsNotEdit == true) {
 			 
 	    	 seconds++;
+	    	 configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
 			 System.out.println("can not edit in configuration page");
 			 
 		 }
@@ -73,6 +74,7 @@ public String locatorOfAllInputTags = other.getString("commandline.conf.all.inpu
 	     while (seconds<=WAIT_TIME*2 && configurationPageIsNotEdit == true) {
 			 
 	    	 seconds++;
+	    	 configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
 			 System.out.println("can not edit in configuration page");
 			 
 		 }
@@ -90,6 +92,7 @@ public String locatorOfAllInputTags = other.getString("commandline.conf.all.inpu
 	     while (seconds<=WAIT_TIME*2 && configurationPageIsNotEdit == true) {
 			 
 	    	 seconds++;
+	    	 configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
 			 System.out.println("can not edit in configuration page");
 			 
 		 }
