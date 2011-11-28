@@ -24,10 +24,10 @@ public class TestAuditWithRemoteCommondline extends Audit {
 		Assert.assertTrue(checkAuditInfo(projectName),"TestAudit audit trunk failed!");
 		this.sleep(5000);
 		Assert.assertTrue((checkAuditListLink(projectName)==linksbefore +1),"TestAudit audit trunk failed,not create links!");
-		String reportFileName = this.getReportFileName();
+		
 		File auditReportFile = this.checkReportPdf(defaultPath, projectName, tjava);
-        Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+reportFileName, tRunJobCheckPoint));
-	    Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+reportFileName, tjavaCheckpoint));
+        Assert.assertTrue(this.isExistedInfoInPdf(this.getDefaultReportPath()+"/"+this.getReportFileName(), tRunJobCheckPoint));
+	    Assert.assertTrue(this.isExistedInfoInPdf(this.getDefaultReportPath()+"/"+this.getReportFileName(), tjavaCheckpoint));
 	    auditReportFile.delete();
 		
 	}

@@ -91,13 +91,13 @@ public class TalendValidationRuleItem extends TalendMetadataItem {
                 gefBot.radio(1).click();
                 gefBot.button("Next >").click();
                 gefBot.buttonWithTooltip("Add").click();
-                gefBot.tableWithLabel("Conditions").doubleClick(0, 2);
+                gefBot.tableWithLabel("Conditions").click(0, 2);
                 gefBot.ccomboBox().setSelection("Column0");
-                gefBot.tableWithLabel("Conditions").doubleClick(0, 3);
+                gefBot.tableWithLabel("Conditions").click(0, 3);
                 gefBot.ccomboBox().setSelection("Empty");
-                gefBot.tableWithLabel("Conditions").doubleClick(0, 4);
+                gefBot.tableWithLabel("Conditions").click(0, 4);
                 gefBot.ccomboBox().setSelection("Greater");
-                gefBot.tableWithLabel("Conditions").doubleClick(0, 5);
+                gefBot.tableWithLabel("Conditions").click(0, 5);
                 gefBot.text().setText("5");
             } else if (CUSTOM_CHECK.equals(ruleType)) {
                 gefBot.radio(2).click();

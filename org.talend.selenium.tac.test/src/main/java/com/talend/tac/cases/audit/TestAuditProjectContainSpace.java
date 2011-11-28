@@ -2,8 +2,6 @@ package com.talend.tac.cases.audit;
 
 import java.awt.Event;
 import java.io.File;
-
-import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -33,17 +31,11 @@ public class TestAuditProjectContainSpace extends Audit {
 	   this.auditProcess(projectName, "trunk");
 	   
 	   /*check audit tesult*/
-//	   this.waitForElementPresent("//div//font[1][text()='The Audit process has terminated successfully']", WAIT_TIME*4);
-//	   this.waitForElementPresent("//div//font[3][text()='The Audit process has terminated successfully']", WAIT_TIME*4);	   
-//	   this.waitForElementPresent("//a[contains(text(),'Audit for project \"PROJECT_SPACE\" created at')]", WAIT_TIME);
-	  
-	   int linksbefore = checkAuditListLink(projectName);
-	   Assert.assertTrue(checkAuditInfo(projectName),"TestAudit audit branch failed!");
-	   this.sleep(5000);
-	   Assert.assertTrue((checkAuditListLink("PROJECT_SPACE")==linksbefore +1),"TestAudit audit branch failed,not create links!");
+	   this.waitForElementPresent("//div//font[1][text()='The Audit process has terminated successfully']", WAIT_TIME*4);
+	   this.waitForElementPresent("//div//font[3][text()='The Audit process has terminated successfully']", WAIT_TIME*4);	   
+	   this.waitForElementPresent("//a[contains(text(),'Audit for project \"PROJECT_SPACE\" created at')]", WAIT_TIME);
 	   
-	   String reportFileName = this.getReportFileName();
-	   File auditReportFile = this.checkReportPdf(defaultPath+"/"+reportFileName, projectName, tjava);       
+	   File auditReportFile = this.checkReportPdf(defaultPath, projectName, tjava);       
        auditReportFile.delete();
 	   
    }	

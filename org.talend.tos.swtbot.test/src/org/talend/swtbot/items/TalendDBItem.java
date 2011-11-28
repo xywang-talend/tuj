@@ -241,11 +241,11 @@ public class TalendDBItem extends TalendMetadataItem {
             gefBot.button("Next >").click();
             gefBot.button("Finish").click();
         } catch (WidgetNotFoundException wnfe) {
+            tempShell.close();
             Assert.fail(wnfe.getCause().getMessage());
         } catch (Exception e) {
-            Assert.fail(e.getMessage());
-        } finally {
             tempShell.close();
+            Assert.fail(e.getMessage());
         }
     }
 

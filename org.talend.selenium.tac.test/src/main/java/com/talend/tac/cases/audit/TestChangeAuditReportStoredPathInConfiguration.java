@@ -49,12 +49,18 @@ public class TestChangeAuditReportStoredPathInConfiguration extends Audit {
 		this.sleep(5000);
 	    
 	    //check report pdf after audit 
-		String reportFileName = this.getReportFileName();
 		File auditReportFile = this.checkReportPdf(this.getAbsolutePath(auditStoredReportsPath), projectName, tjava);
-		Assert.assertTrue(this.isExistedInfoInPdf(this.getAbsolutePath(auditStoredReportsPath)+"/"+reportFileName, tRunJobCheckPoint));
-	    Assert.assertTrue(this.isExistedInfoInPdf(this.getAbsolutePath(auditStoredReportsPath)+"/"+reportFileName, tjavaCheckpoint));
+		Assert.assertTrue(this.isExistedInfoInPdf(this.getAbsolutePath(auditStoredReportsPath)+"/"+this.getReportFileName(), tRunJobCheckPoint));
+	    Assert.assertTrue(this.isExistedInfoInPdf(this.getAbsolutePath(auditStoredReportsPath)+"/"+this.getReportFileName(), tjavaCheckpoint));
 	    auditReportFile.delete(); 	    
-	    	    
+	    
+	    //go to configuration page
+		this.clickWaitForElementPresent("idMenuConfigElement");
+		
+//		//change value of 'reports stored path' to a directory exist
+		this.waitForElementPresent("//div[contains(text(),'Audit (')]", WAIT_TIME);
+		selenium.mouseDown("//div[contains(text(),'Audit (')]");
+	    
 	}
 	
 	//change 'reports stored path' with not exist path
@@ -84,6 +90,34 @@ public class TestChangeAuditReportStoredPathInConfiguration extends Audit {
 	    /*change 'reports stored path' to incipient path*/
 	    this.typeWordsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),locatorOfAllInputTags, defaultPath);
 	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),locatorOfAllInputTags, defaultPath,other.getString("audit.conf.reportsStoredPath.statusIcon"));
+	}
+	
+	/**
+	 * type a value in configuration menu.click the edit button firstly to wait for the input to appear.
+	 * @param locatorOfEditButton
+	 * @param locatorOfInput
+	 * @param value
+	 */
+	public void typeWordsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
+		 this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
+		 this.typeWaitForElementPresent(locatorOfInput, value);
+		
+	}
+	/**
+	 * assertions,check the value in input tag is as expected,and check the status icon.
+	 * @param locatorOfEditButton
+	 * @param locatorOfInput	
+	 * @param value
+	 */
+		public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value,String statusIconLocator){
+		this.AssertEqualsInConfigurationMenu(locatorOfEditButton, locatorOfInput, value);
+			this.waitForElementPresent(statusIconLocator, WAIT_TIME);//wait and check the icon status.
+	}
+	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
+		this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
+		this.waitForElementPresent(locatorOfInput, Base.WAIT_TIME);
+		assertEquals(selenium.getValue(locatorOfInput), value);
+		selenium.fireEvent(locatorOfInput, "blur");
 	}
 	
 }

@@ -96,7 +96,7 @@ public class TestGridDataFilter extends Grid {
 		this.checkFilter("Ok");
 		this.checkFilter("Killed");
 		this.checkFilter("Error while generating job");
-		this.checkFilter("Connection to server failed");
+		this.checkFilter("Connection to JobServer failed");
 		this.checkFilter("Unreachable server timeout");
 		this.checkFilter("Connection to Generator failed (CommandLine)");
 		this.checkFilter("Sending error");

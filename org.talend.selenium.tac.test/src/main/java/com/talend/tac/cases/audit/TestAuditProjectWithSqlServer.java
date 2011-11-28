@@ -40,10 +40,10 @@ public class TestAuditProjectWithSqlServer extends Audit {
 	   Assert.assertTrue(checkAuditInfo(projectName),"TestAudit audit trunk failed!");
 	   this.sleep(5000);
 	   Assert.assertTrue((checkAuditListLink(projectName)==linksbefore +1),"TestAudit audit trunk failed,not create links!");
-	   String reportFileName = this.getReportFileName();
+	   
 	   File auditReportFile = this.checkReportPdf(defaultPath, projectName, tjava);
-	   Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+reportFileName, trunjobWithCheckpoint));
-	   Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+reportFileName, tjavaWithMulripleCheckpoint));
+	   Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+this.getReportFileName(), trunjobWithCheckpoint));
+	   Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+this.getReportFileName(), tjavaWithMulripleCheckpoint));
 	   auditReportFile.delete();
 	   
 	}
