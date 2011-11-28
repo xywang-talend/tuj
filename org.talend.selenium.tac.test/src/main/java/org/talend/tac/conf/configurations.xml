@@ -1,5 +1,5 @@
 <suite name="Suite" parallel="false">
-
+	
 	<!-- command line parameters -->
 	<parameter name="commandline.conf.primary.host" value="127.0.0.1" />
 	<parameter name="commandline.conf.primary.port" value="8002" />
@@ -8,37 +8,12 @@
 	<parameter name="commandline.conf.secondary.port" value="8003" />
 	<parameter name="commandline.conf.secondary.archivePath"
 		value="org/talend/tac/folder/secondcommandline/" />
-    
-    <!-- esb -->
-    <parameter name="esb.conf.zookeeperServer" value="127.0.0.1:2181"></parameter>
-    <parameter name="esb.conf.serviceActivityMonitorServer" 
-    value="http://localhost:8899/sam-server-war"/>
-    
-	<!-- Ldap parameters -->
-	<parameter name="LDAP.conf.useLDAPAutentication" value="true" />
-	<parameter name="LDAP.conf.ldapServerIp" value="192.168.0.216" />
-	<parameter name="LDAP.conf.ldapServerPort" value="389" />
-	<parameter name="LDAP.conf.ldapRoot" value="dc=wyang,dc=com" />
-	<parameter name="LDAP.conf.ldapPrincipalDNPrefix" value="cn=Manager,dc=wyang,dc=com" />
-	<parameter name="LDAP.conf.ldapAdminPassword" value="Talend12" />
-	<parameter name="LDAP.conf.ldap.fields.mail" value="mail" />
-	<parameter name="LDAP.conf.ldap.fields.lastname" value="givenName" />
-	<parameter name="LDAP.conf.ldap.fields.firstname" value="homePhone" />
-	<parameter name="LDAP.conf.ldap.fields.svnlogin" value="description" />
 		
 	<!-- Log4j parameters -->
 	<parameter name="log4j.conf.logsPath" value="org/talend/tac/fileFolder/" />
 	<parameter name="log4j.conf.logsName" value="talendappender.log" />
 	
-
-	<!-- SMTP parameters -->
-	<parameter name="smtp.conf.useSmtp" value="true" />
-	<parameter name="smtp.conf.mailServerHost" value="smtp.163.com" />
-	<parameter name="smtp.conf.mailServerPort" value="25" />
-	<parameter name="smtp.conf.mailUserName" value="lindy512@163.com" />
-	<parameter name="smtp.conf.mailPassword" value="talend" />
-	<parameter name="smtp.conf.serverRequireSSL" value="false" />
-	
+	<!-- SMTP wrong parameters -->	
 	<parameter name="smtp.conf.wrong.mailServerHost" value="smtp.wrong.163.com" />
 	<parameter name="smtp.conf.wrong.mailServerPort" value="25.wrong" />
 	<parameter name="smtp.conf.wrong.mailUserName" value="lindy512163.com.wrong" />
@@ -52,31 +27,14 @@
 	<!-- soaManager parameters -->
 	<parameter name="soaManager.conf.jobsDeployPath" value="org/talend/tac/folder/soa/" />
 	<parameter name="soaManager.conf.serverAddress" value="127.0.0.1" />
-	<parameter name="soaManager.conf.serverPort" value="8004" />
-
-	<!-- svn parameters -->
-	<parameter name="svn.conf.serverLocationURL" value="https://192.168.0.216:8443/svn/test_tac/" />
-	<parameter name="svn.conf.serverUser" value="admin" />
-	<parameter name="svn.conf.serverPassword" value="admin" />
-    
-    <parameter name="svn.conf.wrong.serverLocationURL" value="https://192.168.0.216:8443/svn/test_tac.wrong" />
-	<parameter name="svn.conf.wrong.serverUser" value="admin.wrong" />
-	<parameter name="svn.conf.wrong.serverPassword" value="admin.wrong" />
-	
+	<parameter name="soaManager.conf.serverPort" value="8004" />  
+		
 	<!-- Talend suite parameters -->
 	<parameter name="suite.link.dqportal" value="testDqportalLink" />
 	<parameter name="suite.link.drools" value="testDroolsLink" />
 	<parameter name="suite.link.mdm" value="testMdmLink" />
-
-	<!-- Ldap user dn parameters -->
-	<parameter name="ldap.user.dn" value="cn=liuyu,dc=wyang,dc=com" />
-	<parameter name="ldap.user.userName" value="liuyu@sina.com" />
-	
-	<!-- Download path -->
-	<parameter name="firefox.download.path" value="org/talend/tac/folder/downloads/" />
-	
-	     
-    	<test name="configuration01_CheckInfoOfDatabaseInConfigurationPage">
+	 
+    <test name="configuration01_CheckInfoOfDatabaseInConfigurationPage">
 		<classes>
 			<class name="com.talend.cases.configuration.TestDataBaseParmeters">
 				<methods>
