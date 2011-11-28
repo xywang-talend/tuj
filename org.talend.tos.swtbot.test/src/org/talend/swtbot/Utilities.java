@@ -861,6 +861,29 @@ public class Utilities {
     }
 
     /**
+     * Drag and drop component from palette onto business model.
+     * 
+     * @param modelEditor business model editor
+     * @param toolLabel component label show in palette
+     * @param locationOnJob the specific location on job
+     * @param toolName component label show in editor
+     */
+    public static void dndPaletteToolOntoBusinessModel(SWTBotGefEditor modelEditor, String toolLabel, Point locationOnModel,
+            String toolName) {
+        modelEditor.activateTool(toolLabel).click(locationOnModel.x, locationOnModel.y);
+        if (toolName != null) {
+            modelEditor.doubleClick(locationOnModel.x + 10, locationOnModel.y + 10);
+            modelEditor.click(locationOnModel.x + 10, locationOnModel.y + 10);
+            gefBot.text().setText(toolName);
+            modelEditor.save();
+        }
+    }
+
+    public static void dndPaletteToolOntoBusinessModel(SWTBotGefEditor modelEditor, String toolLabel, Point locationOnModel) {
+        dndPaletteToolOntoBusinessModel(modelEditor, toolLabel, locationOnModel, null);
+    }
+
+    /**
      * DOC fzhong Comment method "dndMetadataOntoJob". Drag and drop metadata from repository onto job in specific
      * component type.
      * 
@@ -877,15 +900,24 @@ public class Utilities {
 
         sourceItem.select();
         dndUtil.dragAndDrop(sourceItem, figureCanvas, locationOnJob);
-        if (componentLabel != null) {
+        if (componentLabel != null && !"".equals(componentLabel)) {
             gefBot.shell("Components").activate();
             gefBot.table(0).getTableItem(componentLabel).select();
             gefBot.button("OK").click();
+            if (componentLabel.equals("tFileInputPositional"))
+                gefBot.button("OK").click();
         }
-        if (componentLabel != null && componentLabel.equals("tFileInputPositional"))
-            gefBot.button("OK").click();
         if (gefBot.activeShell().getText().equals("Added context"))
             gefBot.button("Yes").click();
+    }
+
+    public static void dndMetadataOntoBusinessModel(SWTBotGefEditor modelEditor, SWTBotTreeItem sourceItem, Point locationOnModel) {
+        SWTBotGefFigureCanvas figureCanvas = new SWTBotGefFigureCanvas((FigureCanvas) gefBot.widget(
+                WidgetOfType.widgetOfType(FigureCanvas.class), modelEditor.getWidget()));
+        DndUtil dndUtil = new DndUtil(modelEditor.getWidget().getDisplay());
+
+        sourceItem.select();
+        dndUtil.dragAndDrop(sourceItem, figureCanvas, locationOnModel);
     }
 
     /**

@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.talend.swtbot.Utilities;
 
@@ -35,7 +35,7 @@ public class TalendBusinessModelItem extends TalendItem {
         finishCreationWizard(shell);
     }
 
-    public SWTBotEditor getEditor() {
-        return gefBot.editorByTitle("Model " + itemName);
+    public SWTBotGefEditor getEditor() {
+        return gefBot.gefEditor("Model " + itemName);
     }
 }
