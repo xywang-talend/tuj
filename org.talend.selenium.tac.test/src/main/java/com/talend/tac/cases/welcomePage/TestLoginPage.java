@@ -88,7 +88,14 @@ public class TestLoginPage extends Base {
 		
 	}
 	
-
+	//check login page of license CLOUD
+	@Test
+	@Parameters({"license.CLOUD", "license.CLOUD.suiteName", "license.CLOUD.appName"})
+	public void testLoginPageOfCLOUD(String license, String suiteName, String appName) {
+		
+		this.checkLoginPage(license, suiteName, appName);
+		
+	}
 	@AfterClass
 	public void killBroswer() {
 		selenium.stop();
