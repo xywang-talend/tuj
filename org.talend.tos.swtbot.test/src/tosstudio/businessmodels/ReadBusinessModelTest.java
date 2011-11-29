@@ -12,6 +12,7 @@
 // ============================================================================
 package tosstudio.businessmodels;
 
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.After;
@@ -44,13 +45,13 @@ public class ReadBusinessModelTest extends TalendSwtBotForTos {
     public void readBusinessModel() {
         businessModelItem.getItem().contextMenu("Read Business Model").click();
 
-        boolean isEditorActive = false;
+        SWTBotGefEditor editor = null;
         try {
-            isEditorActive = businessModelItem.getEditor().isActive();
+            editor = businessModelItem.getEditor();
         } catch (WidgetNotFoundException wnfe) {
             wnfe.printStackTrace();
         } finally {
-            Assert.assertTrue("business model did not open", isEditorActive);
+            Assert.assertNotNull("business model did not open", editor);
         }
     }
 

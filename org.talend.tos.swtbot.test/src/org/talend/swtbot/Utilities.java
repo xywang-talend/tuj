@@ -32,6 +32,7 @@ import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
@@ -45,6 +46,7 @@ import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.hamcrest.Matcher;
@@ -873,8 +875,8 @@ public class Utilities {
         modelEditor.activateTool(toolLabel).click(locationOnModel.x, locationOnModel.y);
         if (toolName != null) {
             modelEditor.doubleClick(locationOnModel.x + 10, locationOnModel.y + 10);
-            modelEditor.click(locationOnModel.x + 10, locationOnModel.y + 10);
-            gefBot.text().setText(toolName);
+            List<?> list = gefBot.widgets(widgetOfType(Text.class), modelEditor.getWidget());
+            new SWTBotText((Text) list.get(0)).setText(toolName);
             modelEditor.save();
         }
     }

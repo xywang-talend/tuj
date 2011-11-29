@@ -16,6 +16,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,5 +60,13 @@ public class FindAssignmentsTest extends TalendSwtBotForTos {
         editor.click(0, 0);
         jobItem.getItem().contextMenu("Find Assignments").click();
         BusinessModelHelper.assertSelected(component);
+    }
+
+    @After
+    public void removePreviouslyCreateItems() {
+        businessModelItem.getEditor().saveAndClose();
+        Utilities.cleanUpRepository(businessModelItem.getParentNode());
+        Utilities.cleanUpRepository(jobItem.getParentNode());
+        Utilities.emptyRecycleBin();
     }
 }
