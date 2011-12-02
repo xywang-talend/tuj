@@ -32,19 +32,24 @@ public class JobHelper implements Helper {
     private static String executionResult;
 
     /**
-     * DOC fzhong Comment method "filterStatistics". Filter all statistics for the execution result.
+     * Filter all strings except the execution result.
      * 
-     * @param execution The result string in execution console
+     * @param result The result string in execution console
      * @return A string between statistics tags
      */
-    public static String filterStatistics(String execution) {
-        if (execution == null || "".equals(execution))
+    public static String execResultFilter(String result) {
+        if (result == null || "".equals(result))
             return null;
-        int statConnected = execution.indexOf("[statistics] connected");
-        int statDisconnected = execution.indexOf("[statistics] disconnected");
-        if (statConnected == -1 || statDisconnected == -1)
-            return execution;
-        return execution.substring(statConnected + "[statistics] connected".length(), statDisconnected).trim();
+
+        String[] strs = result.split("\n");
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < strs.length; i++) {
+            if (!strs[i].contains("Starting job") && !strs[i].contains("[exit code=0]") && !strs[i].contains("[statistics]")) {
+                sb.append(strs[i] + "\n");
+            }
+        }
+
+        return sb.toString().trim();
     }
 
     public static void runJob(SWTBotGefEditor jobEditor) {

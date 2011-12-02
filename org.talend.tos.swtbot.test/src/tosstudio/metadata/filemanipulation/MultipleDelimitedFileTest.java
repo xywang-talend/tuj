@@ -87,7 +87,7 @@ public class MultipleDelimitedFileTest extends TalendSwtBotForTos {
         JobHelper.connect2TLogRow(jobEditor, tFileInputMSDelimited, "row_C_1", new Point(300, 250), "tLogRow_3");
 
         JobHelper.runJob(jobEditor);
-        String actualResult = JobHelper.filterStatistics(JobHelper.getExecutionResult());
+        String actualResult = JobHelper.execResultFilter(JobHelper.getExecutionResult());
         BufferedReader reader = new BufferedReader(new FileReader(sourceFile));
         String tempStr = null;
         StringBuffer rightResult = new StringBuffer();

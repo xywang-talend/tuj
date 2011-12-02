@@ -205,7 +205,7 @@ public class TalendItem {
                 return "finish button is not enabled, item created fail. Maybe the item name already exist";
             }
 
-        }, 2000);
+        });
         gefBot.button("Finish").click();
 
         gefBot.waitUntil(new DefaultCondition() {

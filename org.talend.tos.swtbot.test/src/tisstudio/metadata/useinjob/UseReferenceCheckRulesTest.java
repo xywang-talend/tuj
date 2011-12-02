@@ -52,9 +52,6 @@ public class UseReferenceCheckRulesTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() {
-        jobItem = new TalendJobItem(JOB_NAME);
-        jobItem.create();
-
         dbItem = new TalendDBItem(DB_NAME, Utilities.DbConnectionType.MYSQL);
         dbItem.create();
         String sql = "create table test(id int, name varchar(12));\n" + "insert into test values(1, 'a');\n"
@@ -68,6 +65,9 @@ public class UseReferenceCheckRulesTest extends TalendSwtBotForTos {
         ruleItem.setRuleTypeAsReferenceCheck();
         ruleItem.setBaseMetadata(dbItem);
         ruleItem.create();
+
+        jobItem = new TalendJobItem(JOB_NAME);
+        jobItem.create();
     }
 
     @Test
@@ -87,12 +87,12 @@ public class UseReferenceCheckRulesTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
-        jobItem.getEditor().saveAndClose();
         String sql = "drop table test;\n" + "drop table reference;";
         dbItem.executeSQL(sql);
-        Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(dbItem.getParentNode());
         Utilities.cleanUpRepository(ruleItem.getParentNode());
+        jobItem.getEditor().saveAndClose();
+        Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.emptyRecycleBin();
     }
 }

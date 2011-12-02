@@ -80,6 +80,18 @@ public class TalendFileItem extends TalendMetadataItem {
                 gefBot.checkBox("Set heading row as column names").click();
             }
             gefBot.button("Next >").click();
+            gefBot.waitUntil(new DefaultCondition() {
+
+                public boolean test() throws Exception {
+
+                    return gefBot.button("Finish").isEnabled();
+                }
+
+                public String getFailureMessage() {
+                    shell.close();
+                    return "finish button was never enabled";
+                }
+            }, 10000);
             gefBot.button("Finish").click();
         } catch (WidgetNotFoundException wnfe) {
             Assert.fail(wnfe.getCause().getMessage());
