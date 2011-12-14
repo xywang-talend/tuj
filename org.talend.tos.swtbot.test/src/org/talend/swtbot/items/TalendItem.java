@@ -32,7 +32,7 @@ public class TalendItem {
 
     protected String itemName;
 
-    protected String itemVersion;
+    protected String itemVersion = "0.1"; //$NON-NLS-1$
 
     protected String folderPath;
 
@@ -51,6 +51,7 @@ public class TalendItem {
 
     public TalendItem(String itemName, TalendItemType itemType) {
         this.itemName = itemName;
+        this.itemFullName = this.itemName + " " + this.itemVersion;
         initialise(itemType);
     }
 
@@ -226,6 +227,7 @@ public class TalendItem {
             if (gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").isEnabled()) {
                 gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
             }
+            parentNode.setFocus();
             newTreeItem = parentNode.expand().select(itemName + " 0.1");
         } catch (Exception e) {
             e.printStackTrace();
