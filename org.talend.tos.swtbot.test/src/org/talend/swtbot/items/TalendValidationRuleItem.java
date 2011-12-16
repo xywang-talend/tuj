@@ -4,9 +4,11 @@ import junit.framework.Assert;
 
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.talend.swtbot.DndUtil;
+import org.talend.swtbot.SWTBotTableExt;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.Utilities.TalendItemType;
 
@@ -91,13 +93,23 @@ public class TalendValidationRuleItem extends TalendMetadataItem {
                 gefBot.radio(1).click();
                 gefBot.button("Next >").click();
                 gefBot.buttonWithTooltip("Add").click();
-                gefBot.tableWithLabel("Conditions").click(0, 2);
+                SWTBotTable table = gefBot.tableWithLabel("Conditions");
+                SWTBotTableExt tableExt = new SWTBotTableExt(table);
+                tableExt.click(0, "input column");
+                if (!tableExt.isClicked())
+                    tableExt.click(0, "input column");
                 gefBot.ccomboBox().setSelection("Column0");
-                gefBot.tableWithLabel("Conditions").click(0, 3);
+                tableExt.click(0, "function");
+                if (!tableExt.isClicked())
+                    tableExt.click(0, "function");
                 gefBot.ccomboBox().setSelection("Empty");
-                gefBot.tableWithLabel("Conditions").click(0, 4);
+                tableExt.click(0, "operator");
+                if (!tableExt.isClicked())
+                    tableExt.click(0, "operator");
                 gefBot.ccomboBox().setSelection("Greater");
-                gefBot.tableWithLabel("Conditions").click(0, 5);
+                tableExt.click(0, "value");
+                if (!tableExt.isClicked())
+                    tableExt.click(0, "value");
                 gefBot.text().setText("5");
             } else if (CUSTOM_CHECK.equals(ruleType)) {
                 gefBot.radio(2).click();
@@ -107,9 +119,11 @@ public class TalendValidationRuleItem extends TalendMetadataItem {
             gefBot.button("Next >").click();
         } catch (WidgetNotFoundException wnfe) {
             shell.close();
+            wnfe.printStackTrace();
             Assert.fail(wnfe.getCause().getMessage());
         } catch (Exception e) {
             shell.close();
+            e.printStackTrace();
             Assert.fail(e.getMessage());
         }
         finishCreationWizard(shell);
