@@ -14,6 +14,7 @@ package org.talend.swtbot.items;
 
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
@@ -192,20 +193,33 @@ public class TalendItem {
         return shell;
     }
 
-    public void finishCreationWizard(SWTBotShell shell) {
-        boolean finishButtonIsEnabled = gefBot.button("Finish").isEnabled();
-        if (finishButtonIsEnabled) {
-            gefBot.button("Finish").click();
-        } else {
-            shell.close();
-            Assert.assertTrue("finish button is not enabled, item created fail. Maybe the item name already exist,",
-                    finishButtonIsEnabled);
-        }
+    public void finishCreationWizard(final SWTBotShell shell) {
+        gefBot.waitUntil(new DefaultCondition() {
 
-        if (shell.isOpen()) {
-            shell.close();
-            Assert.fail("shell did not close automatically");
-        }
+            public boolean test() throws Exception {
+                return gefBot.button("Finish").isEnabled();
+            }
+
+            public String getFailureMessage() {
+                shell.close();
+                return "finish button is not enabled, item created fail. Maybe the item name already exist";
+            }
+
+        }, 2000);
+        gefBot.button("Finish").click();
+
+        gefBot.waitUntil(new DefaultCondition() {
+
+            public boolean test() throws Exception {
+                return !shell.isOpen();
+            }
+
+            public String getFailureMessage() {
+                shell.close();
+                return "shell did not close automatically";
+            }
+
+        }, 2000);
 
         SWTBotTreeItem newTreeItem = null;
         try {

@@ -40,10 +40,10 @@ public class TestAuditProjectWithH2DB extends Audit {
 	   
 //	   int auditListLinkCount = this.checkAuditListLink(projectName);
 //	   Assert.assertEquals(auditListLinkCount, 2);
-	   
+	   String reportFileName = this.getReportFileName();
 	   File auditReportFile = this.checkReportPdf(defaultPath, projectName, tjava);
-	   Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+this.getReportFileName(), trunjobWithCheckpoint));
-	   Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+this.getReportFileName(), tjavaWithMulripleCheckpoint));
+	   Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+reportFileName, trunjobWithCheckpoint));
+	   Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+reportFileName, tjavaWithMulripleCheckpoint));
 	   auditReportFile.delete();
 	   
 	}
