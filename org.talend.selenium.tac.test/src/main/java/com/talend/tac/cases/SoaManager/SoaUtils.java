@@ -18,10 +18,10 @@ public class SoaUtils extends Login {
 		selenium.type("idSoaServiceNameInput", serviceName);
 		
 		selenium.fireEvent("idSoaServiceNameInput", "blur");
-		selenium.type("idSoaServiceContactInput", "contact TestService");
+		selenium.type("idSoaServiceContactInput", "contact@TestService.com");
 		selenium.fireEvent("idSoaServiceContactInput", "blur");
-		selenium.type("idSoaServiceContactInput", "This is TestService");
-		selenium.fireEvent("idSoaServiceContactInput", "blur");
+		selenium.type("idSoaServiceDescInput", "This is TestService");
+		selenium.fireEvent("idSoaServiceDescInput", "blur");
 		// selenium.type("idSoaServicePortInput", "8881");
 		selenium.click("idFormSaveButton");
 		waitForElementPresent("//*[text()='"+serviceName+"']", WAIT_TIME);
