@@ -12,7 +12,7 @@ public class TestAuditProjectContainSpace extends Audit {
    @Test
    @Parameters({"mysqlURL", "mysqlUserName", "mysqlPassWord", "mysqlDriver", "ProjectWithSpaceChar","jobNameTJava"})
    public void testAuditProjectContainsSpace(String url, String userName, String userPassWd, String driver,
-		   String projectName, String tjava) {
+		   String projectName, String tjava) {	   
 	   
 	   //get get incipient report path
 	   String defaultPath = this.getDefaultReportPath();
@@ -42,8 +42,8 @@ public class TestAuditProjectContainSpace extends Audit {
 	   this.sleep(5000);
 //	   Assert.assertTrue((checkAuditListLink("PROJECT_SPACE")==linksbefore +1),"TestAudit audit branch failed,not create links!");
 	   
-	   String reportFileName = this.getReportFileName();
-	   File auditReportFile = this.checkReportPdf(defaultPath+"/"+reportFileName, projectName, tjava);       
+//	   String reportFileName = this.getReportFileName();
+	   File auditReportFile = this.checkReportPdf(defaultPath, "project_space", tjava);       
        auditReportFile.delete();
 	   
    }	
