@@ -221,7 +221,7 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
       
         this.typeString("idJobConductorSimpleTriggerRptCountInput", numberOfTriggering);//Number of triggerings
     	selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isElementPresent("//span[text()='Add simple trigger']//ancestor::fieldset//label[text()='Number of triggerings:']/parent::div//img"));
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='Add simple trigger']//ancestor::fieldset//label[text()='Number of repetitions:']/parent::div//img"));
 		selenium.setSpeed(MIN_SPEED);
         this.typeString("idJobConductorSimpleTriggerRptIntervalInput", timeInterval);//Time interval (s)
        	selenium.setSpeed(MID_SPEED);
