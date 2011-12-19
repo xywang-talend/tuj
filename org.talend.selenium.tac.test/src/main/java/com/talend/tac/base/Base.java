@@ -545,9 +545,10 @@ public class Base {
 	 * check pdf contains the info or not
 	 * @param pdfPath
 	 * @param text
+	 * @param caseSensitive
 	 * @return
 	 */
-	public boolean isExistedInfoInPdf(String pdfPath, String text){
+	public boolean isExistedInfoInPdf(String pdfPath, String text, boolean caseSensitive){
 		boolean isExist = false;
 		String result = null;  
 		PDDocument document = null; 
@@ -559,8 +560,13 @@ public class Base {
 			parser.parse();  
 			document = parser.getPDDocument();
 			stripper = new PDFTextStripper();
-			result = stripper.getText(document);
-			isExist = result.contains(text);
+			if(caseSensitive){
+				result = stripper.getText(document);
+				isExist = result.contains(text);
+			} else{
+				result = stripper.getText(document).toLowerCase();
+				isExist = result.contains(text.toLowerCase());
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}finally {  
@@ -580,5 +586,14 @@ public class Base {
 			}  
 		} 
 		return isExist;
+	}
+	/**
+	 * check pdf contains the info or not, case insensitive
+	 * @param pdfPath
+	 * @param text
+	 * @return
+	 */
+	public boolean isExistedInfoInPdf(String pdfPath, String text){
+		return this.isExistedInfoInPdf(pdfPath, text, false);
 	}
 }
