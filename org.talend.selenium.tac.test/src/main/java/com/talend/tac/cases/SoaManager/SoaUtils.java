@@ -1,13 +1,11 @@
 package com.talend.tac.cases.SoaManager;
 
-import static org.testng.Assert.assertEquals;
+
 
 import org.testng.Assert;
+import com.talend.tac.cases.audit.Audit;
 
-import com.talend.tac.base.Base;
-import com.talend.tac.cases.Login;
-
-public class SoaUtils extends Login {
+public class SoaUtils extends Audit {
     
 	public String locatorOfAllInputTags = other.getString("commandline.conf.all.input");
 	
@@ -84,33 +82,5 @@ public class SoaUtils extends Login {
 		this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.port.editButton"),locatorOfAllInputTags, "8002",other.getString("commandline.conf.primary.port.statusIcon"));
 		
 	}
-	/**
-	 * type a value in configuration menu.click the edit button firstly to wait for the input to appear.
-	 * @param locatorOfEditButton
-	 * @param locatorOfInput
-	 * @param value
-	 */
-	public void typeWordsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
-		 this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
-		 this.typeWaitForElementPresent(locatorOfInput, value);
 		
-	}
-	/**
-	 * assertions,check the value in input tag is as expected,and check the status icon.
-	 * @param locatorOfEditButton
-	 * @param locatorOfInput	
-	 * @param value
-	 */
-		public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value,String statusIconLocator){
-		this.AssertEqualsInConfigurationMenu(locatorOfEditButton, locatorOfInput, value);
-			this.waitForElementPresent(statusIconLocator, WAIT_TIME);//wait and check the icon status.
-	}
-	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
-		this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
-		this.waitForElementPresent(locatorOfInput, Base.WAIT_TIME);
-		assertEquals(selenium.getValue(locatorOfInput), value);
-		selenium.fireEvent(locatorOfInput, "blur");
-	}
-	
-	
 }
