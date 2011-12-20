@@ -12,7 +12,7 @@ public class TestPlanExecutionLogsDisplay extends Plan {
 	public void testCheckPlanLogsPerpage(String planLabel,String taskLabel) {
 		// this.addPlan(planLabel, rootTask, "treeManagePlan");
 		this.addPlan(planLabel, taskLabel, "testPlanlogsdisplay");
-		this.runPlanAndCheck(planLabel, taskLabel, 11);
+		this.runPlanAndCheck(planLabel, taskLabel, 11,">   Task: \""+taskLabel+"\" : [OK]");
 		this.clickWaitForElementPresent("//span[@class='x-tab-strip-text  ' and text()='History']");
 		this.clickWaitForElementPresent("//div[contains(@class,'x-small-editor x-toolbar x-component x-toolbar-layout-ct')]//table[contains(@class,'x-btn x-component x-btn-icon')]");
 		this.sleep(5000);
@@ -55,7 +55,7 @@ public class TestPlanExecutionLogsDisplay extends Plan {
 		System.out.println("after modified,logs get is: "+(selenium.getXpathCount("//img[@class='gwt-Image' and @title='Ok']").intValue()+selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-basicStatus' and text()='ERROR']").intValue()));
 		Assert.assertTrue((selenium.getXpathCount("//img[@class='gwt-Image' and @title='Ok']").intValue()+selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-basicStatus' and text()='ERROR']").intValue())==newNum, "test plan execution logs per page failed!");
 	}
-	
+		
 	public void typeAndPressEnter(String xpath,String value){
 		selenium.type(xpath, value);
 		selenium.keyDown(xpath,"\\13");

@@ -12,8 +12,8 @@ public class TestPlanParameters extends Plan {
 	public void testCheckPlanExecutionLogs(String planParameters,String taskLabel) {
 		// this.addPlan(planLabel, rootTask, "treeManagePlan");
 		this.addPlan(planParameters, taskLabel, "testPlanparameters");
-		this.runPlan(planParameters);		
-		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
+		this.runPlanAndCheck(planParameters, taskLabel, 1, ">   Task: \""+taskLabel+"\" : [OK]");	
+//		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),'Task: \""+taskLabel+"\" : [OK]')]", MAX_WAIT_TIME);
         String logs = (this.getPlanLogsValue(planParameters,taskLabel, null));
         Assert.assertTrue((logs.contains("name: JackZhang")), "test failed!");
         Assert.assertTrue((logs.contains("age: 23")), "test failed!");
@@ -29,8 +29,8 @@ public class TestPlanParameters extends Plan {
 		this.sleep(2000);
 		selenium.mouseDown("//span[text()='" + planParameters + "']");
 		this.ChangePlanParamter("name", "talend");
-		this.runPlan(planParameters);
-		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
+		this.runPlanAndCheck(planParameters, taskLabel, 1, ">   Task: \""+taskLabel+"\" : [OK]");
+//		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),'Task: \""+taskLabel+"\" : [OK]')]", MAX_WAIT_TIME);
        String logs = (this.getPlanLogsValue(planParameters,taskLabel, null));
        Assert.assertTrue((logs.contains("name: JackZhang"))&&(logs.contains("age: 23")), "test failed!");
 	   selenium.setSpeed(MIN_SPEED);

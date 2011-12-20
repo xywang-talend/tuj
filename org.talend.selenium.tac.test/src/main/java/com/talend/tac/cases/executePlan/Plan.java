@@ -2,8 +2,6 @@ package com.talend.tac.cases.executePlan;
 
 import org.testng.Assert;
 
-import com.talend.tac.base.Base;
-import com.talend.tac.cases.Login;
 import com.talend.tac.cases.executionTask.TaskUtils;
 
 public class Plan extends TaskUtils {
@@ -108,7 +106,7 @@ public class Plan extends TaskUtils {
 	}
 
 	public void runPlanAndCheck(String planLabel, String taskName,
-			int executeTimes) {
+			int executeTimes, String expectedStatus) {
 		selenium.refresh();
 		this.waitForElementPresent("//span[text()='" + planLabel + "']",
 				WAIT_TIME);
@@ -117,11 +115,13 @@ public class Plan extends TaskUtils {
 		for (int i = 0; i < executeTimes; i++) {
 			selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskRunButton']");
 			this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
-			this.waitForElementPresent("//span[text()='Ready to run']",
+			this.waitForElementPresent("//span[text()='"+planLabel+"']//ancestor::table[@class='x-grid3-row-table']//span[text()='Ready to run']",
 					MAX_WAIT_TIME);
-			this.waitForElementPresent(
-					"//span[@class='x-tree3-node-text' and text()='" + taskName
-							+ " : [OK]']", MAX_WAIT_TIME);
+			this.sleep(3000);
+			String actualStatus = selenium.getText("//div[contains(@class,'x-tree3-node-ct x-tree3 x-component x-unselectable')]//span[2]");
+			actualStatus = actualStatus.trim();
+			System.out.println("actualStatus+"+actualStatus);
+			Assert.assertEquals(actualStatus, expectedStatus);
 			this.sleep(2000);
 		}
 

@@ -128,7 +128,7 @@ public class TestPlanPauseAndResume extends Plan {
 		"//img[@title='Normal']"), "//span[text()='"+triggerLabel+"']//ancestor::table[@class='x-grid3-row-table']//img[@title='Normal'] is without appear");
         
         this.waitForElementPresent("//span[text()='"+planLabel+"']//ancestor::tr" +
-				"//span[text()='Running...']", WAIT_TIME);
+				"//span[text()='Running...']", WAIT_TIME*2);
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+planLabel+"']//ancestor::tr" +
 				"//span[text()='Running...']"));
         this.waitForElementPresent("//span[text()='planPauseAndResumeLabel']//ancestor::tr//span" +
