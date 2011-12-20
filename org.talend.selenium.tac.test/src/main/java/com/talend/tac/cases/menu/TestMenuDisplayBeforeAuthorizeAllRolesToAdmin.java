@@ -98,7 +98,7 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 	public void testMenuUsers() {
 		// test for user page contents
 		this.clickWaitForElementPresent("idMenuUserElement");
-		this.waitForElementPresent(
+				this.waitForElementPresent(
 				"//div[@class='x-grid-group-div' and text()='Role: Administrator (1 Member)']",
 				WAIT_TIME);
 		this.waitForElementPresent(
@@ -130,8 +130,8 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 				"//div[contains(text(),'Log4j (2 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
 				"//div[contains(text(),'SMTP (6 Parameters')]", WAIT_TIME);
-		this.waitForElementPresent(
-				"//div[contains(text(),'Conductor (7 Parameters')]", WAIT_TIME);
+//					this.waitForElementPresent(
+//				"//div[contains(text(),'Conductor (7 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
 				"//div[contains(text(),'Soa manager (4 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
