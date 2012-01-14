@@ -68,7 +68,8 @@ public class OpenAnotherVersionOfJobTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
-        gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
+        if (gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").isEnabled())
+            gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
         gefBot.cTabItem("Job " + JOBNAME + " 1.1").close();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.emptyRecycleBin();
