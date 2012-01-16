@@ -59,7 +59,7 @@ public class TestAddTriggerAddCronTrigger extends TaskUtils {
 		//type months
 		this.typeString("idJobConductorCronTriggerMonthInput", date.months);
 		//type years
-		this.typeString("idJobConductorCronTriggerYearInput", date.years);	
+		this.typeString("idJobConductorCronTriggerYearInput", date.getFuture(+1).years);	
 		//click save button
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idCrontTriggerSave");
@@ -98,7 +98,7 @@ public class TestAddTriggerAddCronTrigger extends TaskUtils {
 		//type months
 		this.typeString("idJobConductorCronTriggerMonthInput", date.months);
 		//type years
-		this.typeString("idJobConductorCronTriggerYearInput", date.years);	
+		this.typeString("idJobConductorCronTriggerYearInput", date.getFuture(+1).years);	
 		//click save button
 		selenium.click("idCrontTriggerSave");
 		selenium.setSpeed("5000");
@@ -111,7 +111,7 @@ public class TestAddTriggerAddCronTrigger extends TaskUtils {
 	@Parameters({"labelRefProJobByMainProTRunJobRun","addCronTriggerLabel","addCronTriggerDescription"})
     public void testAddTriggerAddCronTrigger(String taskLabel,String cronTriggerLabel,String description) throws InterruptedException {
 		
-		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, "2011", 
+		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, date.years, 
 				"Sunday", "Saturday", "January", "December");
     			
 		selenium.click("idCrontTriggerSave");

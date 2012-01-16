@@ -1,13 +1,17 @@
 package com.talend.tac.cases.executionTask;
 
+
+
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.talend.tac.base.Base;
+import com.talend.tac.cases.executePlan.TriggerDate;
 
 public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
-    
+	
+	TriggerDate date = new TriggerDate();
 	//add a task of project contains space and run it, check it running whether normal
 	@Test
 	@Parameters({"taskProjectWithContainsSpaceChar","labelDescription","ProjectWithSpaceChar","branchNameTrunk",
@@ -237,7 +241,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 		
 		intoJobConductor(taskLabel);
 		
-		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, "2011", 
+		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, date.getFuture(+1).years, 
 				"Sunday", "Saturday", "January", "December");
     			
 		selenium.click("idCrontTriggerSave");
