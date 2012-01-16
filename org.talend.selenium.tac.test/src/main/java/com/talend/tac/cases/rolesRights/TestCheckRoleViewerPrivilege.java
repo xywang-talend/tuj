@@ -16,7 +16,7 @@ public class TestCheckRoleViewerPrivilege extends Login {
 		assertTrue(selenium.isElementPresent("!!!menu.executionPlan.element!!!"));
 		assertTrue(selenium.isElementPresent("!!!menu.executionServers.element!!!"));
 		assertTrue(selenium.isElementPresent("!!!menu.virtual_server.element!!!"));
-		assertTrue(selenium.isElementPresent("!!!menu.soamanager.element!!!"));
+//		assertTrue(selenium.isElementPresent("!!!menu.soamanager.element!!!"));
 		assertTrue(selenium.isElementPresent("!!!menu.audit.element!!!"));
 		assertTrue(selenium.isElementPresent("idMenuChangePasswordElement"));//user Settings
 		
