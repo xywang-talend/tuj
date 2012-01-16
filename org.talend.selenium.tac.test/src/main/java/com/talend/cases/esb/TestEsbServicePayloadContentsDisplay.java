@@ -4,6 +4,7 @@ package com.talend.cases.esb;
 import org.testng.annotations.Test;
 
 import java.awt.AWTException;
+import java.awt.Event;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
@@ -24,7 +25,7 @@ public class TestEsbServicePayloadContentsDisplay extends Esb {
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-port']", WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-port']");
 		this.sleep(2000);
-		selenium.click("//legend[text()='Fault IN']//parent::fieldset//img[@class='samui-event-content-popup-link']");
+		this.clickWaitForElementPresent("//legend[text()='Response IN']//parent::fieldset//img[@class='samui-event-content-popup-link']");
 		this.waitForElementPresent("//div[contains(@class,'x-small-editor x-window-header x-window-draggable x-component')]//img[@class=' x-panel-inline-icon']", WAIT_TIME);
 		String getContent = selenium.getText("//div[@class='x-window-body']");
 		String length = selenium.getText("//div[@class='samui-event-content']");
@@ -35,7 +36,11 @@ public class TestEsbServicePayloadContentsDisplay extends Esb {
 		selenium.click("//div[contains(@class,'x-small-editor x-window-header x-window-draggable x-component')]//div[contains(@class,'x-nodrag x-tool-close x-tool x-component')]");
 		this.waitForElementDispear("//div[contains(@class,'x-small-editor x-window-header x-window-draggable x-component')]//img[@class=' x-panel-inline-icon']", WAIT_TIME);
 		
-		selenium.click("//legend[text()='Request OUT']//parent::fieldset//img[@class='samui-event-content-popup-link']");
+		selenium.click("//div[text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader" +
+		" x-panel-body-noborder x-border-layout-ct']//b[text()='Refresh']");
+		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-port']");
+		rob.keyPress(KeyEvent.VK_DOWN);
+		this.clickWaitForElementPresent("//legend[text()='Request OUT']//parent::fieldset//img[@class='samui-event-content-popup-link']");
 		this.waitForElementPresent("//div[contains(@class,'x-small-editor x-window-header x-window-draggable x-component')]//img[@class=' x-panel-inline-icon']", WAIT_TIME);
 		getContent = selenium.getText("//div[@class='x-window-body']");
 		length = selenium.getText("//div[@class='samui-event-content']");
@@ -57,7 +62,7 @@ public class TestEsbServicePayloadContentsDisplay extends Esb {
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-port']", WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-port']");
 		this.sleep(2000);
-		selenium.click("//legend[text()='Fault IN']//parent::fieldset//img[@class='samui-event-content-popup-link']");
+		this.clickWaitForElementPresent("//legend[text()='Response IN']//parent::fieldset//img[@class='samui-event-content-popup-link']");
 		this.waitForElementPresent("//div[contains(@class,'x-small-editor x-window-header x-window-draggable x-component')]//img[@class=' x-panel-inline-icon']", WAIT_TIME);
 		try {
 			 rob = new Robot();
@@ -68,7 +73,12 @@ public class TestEsbServicePayloadContentsDisplay extends Esb {
 		rob.keyPress(KeyEvent.VK_ESCAPE);
 		rob.keyRelease(KeyEvent.VK_ESCAPE);
 		this.waitForElementDispear("//div[contains(@class,'x-small-editor x-window-header x-window-draggable x-component')]//img[@class=' x-panel-inline-icon']", WAIT_TIME);
-		selenium.click("//legend[text()='Request OUT']//parent::fieldset//img[@class='samui-event-content-popup-link']");
+		
+		selenium.click("//div[text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader" +
+				" x-panel-body-noborder x-border-layout-ct']//b[text()='Refresh']");
+		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-port']");
+		rob.keyPress(KeyEvent.VK_DOWN);
+		this.clickWaitForElementPresent("//legend[text()='Request OUT']//parent::fieldset//img[@class='samui-event-content-popup-link']");
 		this.waitForElementPresent("//div[contains(@class,'x-small-editor x-window-header x-window-draggable x-component')]//img[@class=' x-panel-inline-icon']", WAIT_TIME);
 		rob.keyPress(KeyEvent.VK_ESCAPE);
 		rob.keyRelease(KeyEvent.VK_ESCAPE);
