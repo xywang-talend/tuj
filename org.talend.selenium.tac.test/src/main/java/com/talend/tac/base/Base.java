@@ -490,6 +490,13 @@ public class Base {
 
 	}
 	
+public void selectDropDownListByClickArrow(String arrowXpath, String itemName,String classXpath) {
+		
+	    this.clickWaitForElementPresent(arrowXpath);
+		this.waitForElementPresent("//div[contains(@class,'"+classXpath+"') and text()='"+itemName+"']", WAIT_TIME);
+		selenium.mouseDown("//div[contains(@class,'"+classXpath+"') and text()='"+itemName+"']");
+	}
+	
 	/**
 	 * get the Uniform Resource Locator of the filePath
 	 * @param filePath
