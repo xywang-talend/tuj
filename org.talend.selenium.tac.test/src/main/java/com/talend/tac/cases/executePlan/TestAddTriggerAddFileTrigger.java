@@ -68,10 +68,10 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		//*****************************************
 		if(this.waitForTextPresent("Running...",15)){
 			selenium.mouseDown("//span[text()='" + plantoaddfiletrigger + "']");
-			this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),'[OK]')]", MAX_WAIT_TIME);
+			this.waitForElementPresent("[OK]", MAX_WAIT_TIME);
 		}
 		this.runPlan(plantoaddfiletrigger);
-		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
+		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);	
 //		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
 		this.sleep(10000);
 		this.waitForElementPresent("//span[text()='Ready to run']",
@@ -145,12 +145,14 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 //				Base.MAX_WAIT_TIME);
 //		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),'[OK]')]", Base.MAX_WAIT_TIME);
 //		System.out.println("THE FIRST TIME ENDED:");
-		if (new FileTrigger().createNewFile(foldpath)) {
+		File file =new FileTrigger().createNewFile(foldpath);
+		if (file!=null) {
 			System.out.println("fiLE CREATED!");
 		} else {
 			System.out.println("fiLE CREATED  failed!");
 		}
 		triggerCreateCheck(filetriggerlabel);
+		file.delete();
 
 	}
 	
@@ -288,13 +290,11 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 	public void triggerCreateCheck(String fileTriggerLabel) {
 //		this.waitForElementPresent("//span[text()='Running...']",
 //				Base.MAX_WAIT_TIME);
-		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
-		this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+		this.waitForElementPresent("[RUNNING]", MAX_WAIT_TIME);
+		
 //		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),'[OK]')]",
 //				Base.MAX_WAIT_TIME);
-		Assert.assertTrue(this.waitElement("//span[text()='Ended...']",
-				TriggerCheckTime)||this.waitElement("//span[text()='Ready to run']",
-						TriggerCheckTime), "test failed! ");
+	
 		selenium.mouseDown("//span[text()='" + fileTriggerLabel + "']");
 		selenium.chooseOkOnNextConfirmation();
 		try {
@@ -314,11 +314,15 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		Assert.assertFalse(
 				selenium.isElementPresent("//span[text()='" + fileTriggerLabel
 						+ "']"), "trigger delete failed!");
+		Assert.assertTrue(this.waitElement("//span[text()='Ended...']",
+				TriggerCheckTime)||this.waitElement("//span[text()='Ready to run']",
+						TriggerCheckTime), "test failed! ");
+		this.waitForElementPresent("[OK]", MAX_WAIT_TIME);
 	}
 
 	public void triggerExistCheck(String fileTriggerLabel) {
-		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
-		this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+		this.waitForElementPresent("[RUNNING]", MAX_WAIT_TIME);
+		
 //		this.waitForElementPresent("//span[text()='Running...']",
 //				Base.MAX_WAIT_TIME);
 //		this.waitForElementPresent("//span[text()='Ended...']", Base.MAX_WAIT_TIME);
@@ -341,10 +345,11 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		Assert.assertFalse(
 				selenium.isElementPresent("//span[text()='" + fileTriggerLabel
 						+ "']"), "trigger delete failed!");
+		this.waitForElementPresent("[OK]", MAX_WAIT_TIME);
 	}
 	
 	public void triggerCheckFalse(String filetriggerlabel){
-		Assert.assertFalse(this.waitElement("//span[text()='Running...']", TriggerCheckTime),"testAddTriggerAddFileTriggerExistFalse failed!");
+		Assert.assertFalse(this.waitForTextPresent("[RUNNING]",TriggerCheckTime),"testAddTriggerAddFileTriggerExistFalse failed!");
 		selenium.mouseDown("//span[text()='" + filetriggerlabel + "']");
 		selenium.chooseOkOnNextConfirmation();
 		try {
@@ -380,7 +385,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 	}
 
 	class FileTrigger {
-		public boolean createNewFile(String path) {
+		public File createNewFile(String path) {
 			boolean createSuccess = false;
 			Date date = new Date();
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:MM:ss");
@@ -407,8 +412,10 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 				createSuccess = true;
 			}
 
-			return createSuccess;
-
+			
+				return newFile;
+			
+		
 		}
 
 		public boolean modifyFile(String path, String extensionStr) {

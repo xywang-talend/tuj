@@ -35,8 +35,9 @@ public class TestPlanParameters extends Plan {
 		this.clickWaitForElementPresent("//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-customValue ')]//input[@name='group_age']");
 		this.typeWaitForElementPresent("//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-customValue ')]//input[@name='group_age']//ancestor::div[contains(@class,'x-grid3-cell-inner x-grid3-col-customValue')]//div[contains(@class,' x-form-field-wrap  x-component')]//input", ageCustom);
 		this.runPlan(planParameters);	
-		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
-		this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+		this.waitForElementPresent("[RUNNING]",WAIT_TIME);
+		this.waitForElementPresent("[OK]", MAX_WAIT_TIME);
+		this.sleep(10000);
 		selenium.refresh();
 //		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
        String logs = (this.getPlanLogsValue(planParameters,taskLabel, null));
@@ -61,8 +62,9 @@ public class TestPlanParameters extends Plan {
 		selenium.click("//span/b[contains(text(),'>')]");
 		this.selectDropDownListByClickArrow("//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-customValue ')]//input[@name='group_age']//ancestor::table//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-id ')]//img[contains(@class,'x-form-trigger x-form-trigger-arrow')]", parameterToSelected,"x-combo-list-item");
 		this.runPlan(planParameters);	
-		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
-		this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+		this.waitForElementPresent("[RUNNING]", WAIT_TIME);
+		this.waitForElementPresent("[OK]", MAX_WAIT_TIME);
+		this.sleep(10000);
 		selenium.refresh();
 //		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
       String logs = (this.getPlanLogsValue(planParameters,taskLabel, null));
@@ -143,10 +145,10 @@ public class TestPlanParameters extends Plan {
 		this.waitForTextPresent("Override successfully", WAIT_TIME);
 		this.sleep(5000);
 		this.runPlan(planParameters);
-		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
+		this.waitForElementPresent("[RUNNING]", WAIT_TIME);
 		this.sleep(10000);
 		this.waitForElementPresent("//span[text()='Ready to run']", MAX_WAIT_TIME);
-		this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+		this.waitForElementPresent("[OK]", MAX_WAIT_TIME);
 //		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
         String logs = (this.getPlanLogsValue(planParameters,taskLabel, null));
         System.out.println("after override parameters:\n"+logs);

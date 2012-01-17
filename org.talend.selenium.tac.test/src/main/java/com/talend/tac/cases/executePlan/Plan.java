@@ -7,7 +7,7 @@ import com.talend.tac.cases.Login;
 import com.talend.tac.cases.executionTask.TaskUtils;
 
 public class Plan extends TaskUtils {
-	public static int TriggerCheckTime = 40;
+	public static int TriggerCheckTime = 60;
 
 	public void openExecutionPlanMenu() {
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");

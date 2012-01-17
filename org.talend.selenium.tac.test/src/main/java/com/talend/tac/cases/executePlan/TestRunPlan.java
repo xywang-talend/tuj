@@ -22,8 +22,8 @@ public class TestRunPlan extends Plan {
 				version, context, jobServer, statistic);
 		addPlan(planlabel, tasklabel, "planunexcutedRunbyclickrun");
 		this.runPlan(planlabel);
-		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
-		this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+		this.waitForElementPresent("[RUNNING]",WAIT_TIME);
+		this.waitForElementPresent("[OK]", MAX_WAIT_TIME);
 //		this.waitForElementPresent(
 //				"//span[@class='x-tree3-node-text' and text()='" + tasklabel
 //						+ " : [OK]']", MAX_WAIT_TIME);
@@ -73,8 +73,8 @@ public class TestRunPlan extends Plan {
 		Assert.assertTrue(selenium
 				.isElementPresent("//span[text()='RunPlanByTrigier']"));
 		selenium.setSpeed(MIN_SPEED);
-		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
-		this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+		this.waitForElementPresent("[RUNNING]", WAIT_TIME);
+		this.waitForElementPresent("[OK]", MAX_WAIT_TIME);
 //		this.waitForElementPresent(
 //				"//span[@class='x-tree3-node-text' and text()='" + tasklabel
 //						+ " : [OK]']", MAX_WAIT_TIME);

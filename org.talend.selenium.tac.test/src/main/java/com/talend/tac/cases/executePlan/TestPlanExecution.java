@@ -57,8 +57,8 @@ public class TestPlanExecution extends Plan {
 		selenium.mouseDown("//span[text()='" + planLabel + "']");
 		this.sleep(2000);
 		selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskRunButton']");
-		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
-		this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+		this.waitForElementPresent("[RUNNING]", WAIT_TIME);
+		this.waitForElementPresent("[OK]", MAX_WAIT_TIME);
 		this.waitForElementPresent("//span[text()='Ready to run']", MAX_WAIT_TIME);
 	}
 
