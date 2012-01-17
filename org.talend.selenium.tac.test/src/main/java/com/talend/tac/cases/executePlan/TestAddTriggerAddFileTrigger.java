@@ -71,7 +71,8 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 			this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),'[OK]')]", MAX_WAIT_TIME);
 		}
 		this.runPlan(plantoaddfiletrigger);
-		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
+		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
+//		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
 		this.sleep(10000);
 		this.waitForElementPresent("//span[text()='Ready to run']",
 				MAX_WAIT_TIME);
@@ -285,10 +286,12 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 	}
 
 	public void triggerCreateCheck(String fileTriggerLabel) {
-		this.waitForElementPresent("//span[text()='Running...']",
-				Base.MAX_WAIT_TIME);
-		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),'[OK]')]",
-				Base.MAX_WAIT_TIME);
+//		this.waitForElementPresent("//span[text()='Running...']",
+//				Base.MAX_WAIT_TIME);
+		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
+		this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+//		this.waitForElementPresent("//span[@class='x-tree3-node-text' and contains(text(),'[OK]')]",
+//				Base.MAX_WAIT_TIME);
 		Assert.assertTrue(this.waitElement("//span[text()='Ended...']",
 				TriggerCheckTime)||this.waitElement("//span[text()='Ready to run']",
 						TriggerCheckTime), "test failed! ");
@@ -314,9 +317,11 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 	}
 
 	public void triggerExistCheck(String fileTriggerLabel) {
-		this.waitForElementPresent("//span[text()='Running...']",
-				Base.MAX_WAIT_TIME);
-		this.waitForElementPresent("//span[text()='Ended...']", Base.MAX_WAIT_TIME);
+		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
+		this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+//		this.waitForElementPresent("//span[text()='Running...']",
+//				Base.MAX_WAIT_TIME);
+//		this.waitForElementPresent("//span[text()='Ended...']", Base.MAX_WAIT_TIME);
 		selenium.mouseDown("//span[text()='" + fileTriggerLabel + "']");
 		selenium.chooseOkOnNextConfirmation();
 		try {

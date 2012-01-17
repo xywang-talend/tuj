@@ -13,12 +13,97 @@ public class TestPlanParameters extends Plan {
 		// this.addPlan(planLabel, rootTask, "treeManagePlan");
 		this.addPlan(planParameters, taskLabel, "testPlanparameters");
 		this.runPlan(planParameters);		
-		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
+		this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+//		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
         String logs = (this.getPlanLogsValue(planParameters,taskLabel, null));
         Assert.assertTrue((logs.contains("name: JackZhang")), "test failed!");
         Assert.assertTrue((logs.contains("age: 23")), "test failed!");
 	}
 	@Test
+	 @Parameters({ "parameters.plan.label",
+	 "parameters.plan.roottask","parameters.plan.custom.parameterAge.value"})
+	public void testCheckPlanExecutionLogsWithCustomParameterValue(String planParameters,String taskLabel,String ageCustom) {
+		// this.addPlan(planLabel, rootTask, "treeManagePlan");
+		this.openExecutionPlanMenu();
+		this.waitForElementPresent("//span[text()='" + planParameters + "']",
+				WAIT_TIME);
+		selenium.mouseDown("//span[text()='" + planParameters + "']");
+		this.sleep(3000);
+		selenium.click("idExecutionPlanTreeViewRefreshButton");
+		this.waitForElementPresent("//span/b[contains(text(),'>')]", WAIT_TIME);
+		selenium.click("//span/b[contains(text(),'>')]");
+		this.clickWaitForElementPresent("//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-customValue ')]//input[@name='group_age']");
+		this.typeWaitForElementPresent("//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-customValue ')]//input[@name='group_age']//ancestor::div[contains(@class,'x-grid3-cell-inner x-grid3-col-customValue')]//div[contains(@class,' x-form-field-wrap  x-component')]//input", ageCustom);
+		this.runPlan(planParameters);	
+		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
+		this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+		selenium.refresh();
+//		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
+       String logs = (this.getPlanLogsValue(planParameters,taskLabel, null));
+       System.err.println(logs);
+       Assert.assertTrue((logs.contains("name: JackZhang")), "test failed!");
+       Assert.assertTrue((logs.contains("age: "+ageCustom)), "test failed!");
+	}
+	
+	
+	@Test
+	 @Parameters({ "parameters.plan.label",
+	 "parameters.plan.roottask","parameters.plan.parameterAge","parameters.plan.parameterAge.value"})
+	public void testCheckPlanExecutionLogsWithSelectedParameter(String planParameters,String taskLabel,String parameterToSelected,String parameterSelectedValue) {
+		// this.addPlan(planLabel, rootTask, "treeManagePlan");
+		this.openExecutionPlanMenu();
+		this.waitForElementPresent("//span[text()='" + planParameters + "']",
+				WAIT_TIME);
+		selenium.mouseDown("//span[text()='" + planParameters + "']");
+		this.sleep(3000);
+		selenium.click("idExecutionPlanTreeViewRefreshButton");
+		this.waitForElementPresent("//span/b[contains(text(),'>')]", WAIT_TIME);
+		selenium.click("//span/b[contains(text(),'>')]");
+		this.selectDropDownListByClickArrow("//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-customValue ')]//input[@name='group_age']//ancestor::table//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-id ')]//img[contains(@class,'x-form-trigger x-form-trigger-arrow')]", parameterToSelected,"x-combo-list-item");
+		this.runPlan(planParameters);	
+		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
+		this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+		selenium.refresh();
+//		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
+      String logs = (this.getPlanLogsValue(planParameters,taskLabel, null));
+      System.err.println(logs);
+      Assert.assertTrue((logs.contains("name: JackZhang")), "test failed!");
+      Assert.assertTrue((logs.contains("age: "+parameterSelectedValue)), "test failed!");
+	}
+	
+	@Test
+	 @Parameters({ "parameters.plan.label",
+	 "parameters.plan.roottask","parameters.plan.parameterAge","parameters.plan.parameterAge.value","parameters.plan.parameterName","parameters.plan.parameterName.value"})
+	public void testAddParametersForPlan(String planParameters,String taskLabel,String ageName,String ageValue,String nameName,String nameValue) {
+		// this.addPlan(planLabel, rootTask, "treeManagePlan");
+		this.openExecutionPlanMenu();
+		this.waitForElementPresent("//span[text()='" + planParameters + "']",
+				WAIT_TIME);
+		this.sleep(2000);
+		selenium.mouseDown("//span[text()='" + planParameters + "']");
+		this.AddParameterToPlan(ageName, ageValue);
+		
+		
+	}
+	
+	
+	@Test
+	 @Parameters({ "parameters.plan.label",
+	 "parameters.plan.roottask","parameters.plan.parameterAge","parameters.plan.parameterAge.value","parameters.plan.parameterName","parameters.plan.parameterName.value"})
+	public void testDeleteParametersOfPlan(String planParameters,String taskLabel,String ageName,String ageValue,String nameName,String nameValue) {
+		// this.addPlan(planLabel, rootTask, "treeManagePlan");
+		this.openExecutionPlanMenu();
+		this.waitForElementPresent("//span[text()='" + planParameters + "']",
+				WAIT_TIME);
+		this.sleep(2000);
+		selenium.mouseDown("//span[text()='" + planParameters + "']");
+		this.AddParameterToPlan(nameName, nameValue);
+		this.DeleteParametersOfPlan(nameName, nameValue);
+	}
+	
+	
+	
+//	@Test
 	 @Parameters({ "parameters.plan.label",
 	 "parameters.plan.roottask"})
 	public void testChangePlanParametersNotClickOverride(String planParameters,String taskLabel) {
@@ -30,13 +115,14 @@ public class TestPlanParameters extends Plan {
 		selenium.mouseDown("//span[text()='" + planParameters + "']");
 		this.ChangePlanParamter("name", "talend");
 		this.runPlan(planParameters);
-		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
+		this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+//		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
        String logs = (this.getPlanLogsValue(planParameters,taskLabel, null));
        Assert.assertTrue((logs.contains("name: JackZhang"))&&(logs.contains("age: 23")), "test failed!");
 	   selenium.setSpeed(MIN_SPEED);
 	}
 	
-	@Test
+//	@Test
 	 @Parameters({ "parameters.plan.label",
 	 "parameters.plan.roottask"})
 	public void testChangePlanParametersAndClickOverride(String planParameters,String taskLabel) {
@@ -57,10 +143,11 @@ public class TestPlanParameters extends Plan {
 		this.waitForTextPresent("Override successfully", WAIT_TIME);
 		this.sleep(5000);
 		this.runPlan(planParameters);
-		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
+		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
 		this.sleep(10000);
 		this.waitForElementPresent("//span[text()='Ready to run']", MAX_WAIT_TIME);
-		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
+		this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+//		this.waitForElementPresent("//span[@class='x-tree3-node-text' and text()='"+taskLabel+" : [OK]']", MAX_WAIT_TIME);
         String logs = (this.getPlanLogsValue(planParameters,taskLabel, null));
         System.out.println("after override parameters:\n"+logs);
         Assert.assertTrue((logs.contains("name: JackZhang"))&&(logs.contains("age: 50")), "test failed!");
@@ -75,6 +162,23 @@ public class TestPlanParameters extends Plan {
 		this.input("//input[contains(@class,'x-form-field x-form-text x-form-focus')]",context);
 		this.clickWaitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-description']");
 	    this.input("//input[contains(@class,'x-form-field x-form-text')]",value);
+	}
+	public void AddParameterToPlan(String name,String value){
+		this.clickWaitForElementPresent("//span[@class='x-tab-strip-text  ' and text()='Parameter']");
+		this.clickWaitForElementPresent("idJobConductorCmdPrmAddButton");
+		this.clickWaitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-parameter']");
+		this.input("//input[contains(@class,'x-form-field x-form-text x-form-focus')]",name);
+		this.clickWaitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-description']");
+	    this.input("//input[contains(@class,'x-form-field x-form-text')]",value);
+	}
+	public void DeleteParametersOfPlan(String name,String value){
+		this.clickWaitForElementPresent("//span[@class='x-tab-strip-text  ' and text()='Parameter']");
+		selenium.mouseDown("//div[contains(text(),'name1')]//ancestor::div[@class='x-grid3-cell-inner x-grid3-col-parameter']");
+		this.sleep(5000);
+		selenium.click("idJobConductorCmdPrmDeleteButton");
+		selenium.getConfirmation();
+		this.sleep(3000);
+		Assert.assertFalse(this.waitElement("//div[contains(text(),'name1')]//ancestor::div[@class='x-grid3-cell-inner x-grid3-col-parameter']", 10));
 	}
 	
 	public void input(String inputXpath,String value){

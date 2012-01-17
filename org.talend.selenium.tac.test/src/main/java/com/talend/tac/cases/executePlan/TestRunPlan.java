@@ -22,10 +22,11 @@ public class TestRunPlan extends Plan {
 				version, context, jobServer, statistic);
 		addPlan(planlabel, tasklabel, "planunexcutedRunbyclickrun");
 		this.runPlan(planlabel);
-		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
-		this.waitForElementPresent(
-				"//span[@class='x-tree3-node-text' and text()='" + tasklabel
-						+ " : [OK]']", MAX_WAIT_TIME);
+		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
+		this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+//		this.waitForElementPresent(
+//				"//span[@class='x-tree3-node-text' and text()='" + tasklabel
+//						+ " : [OK]']", MAX_WAIT_TIME);
 	}
 
 	@Test
@@ -72,10 +73,11 @@ public class TestRunPlan extends Plan {
 		Assert.assertTrue(selenium
 				.isElementPresent("//span[text()='RunPlanByTrigier']"));
 		selenium.setSpeed(MIN_SPEED);
-		this.waitForElementPresent("//span[text()='Running...']", WAIT_TIME);
-		this.waitForElementPresent(
-				"//span[@class='x-tree3-node-text' and text()='" + tasklabel
-						+ " : [OK]']", MAX_WAIT_TIME);
+		this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
+		this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+//		this.waitForElementPresent(
+//				"//span[@class='x-tree3-node-text' and text()='" + tasklabel
+//						+ " : [OK]']", MAX_WAIT_TIME);
 		//delete trigger added
 		this.deleteTrigger("RunPlanByTrigier");
 	}

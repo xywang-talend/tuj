@@ -113,6 +113,8 @@ public class TestPlanPauseAndResume extends Plan {
 	    }
 		
 		selenium.setSpeed(MID_SPEED);
+		selenium.click("idExecutionPlanTreeViewRefreshButton");
+		this.sleep(3000);
 		selenium.click("//a[text()='Resume plan']");
 		selenium.getConfirmation();
 		selenium.setSpeed(MIN_SPEED);
@@ -126,15 +128,16 @@ public class TestPlanPauseAndResume extends Plan {
 		"//img[@title='Normal']", WAIT_TIME);
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+triggerLabel+"']//ancestor::table[@class='x-grid3-row-table']" +
 		"//img[@title='Normal']"), "//span[text()='"+triggerLabel+"']//ancestor::table[@class='x-grid3-row-table']//img[@title='Normal'] is without appear");
-        
-        this.waitForElementPresent("//span[text()='"+planLabel+"']//ancestor::tr" +
-				"//span[text()='Running...']", WAIT_TIME);
-        Assert.assertTrue(selenium.isElementPresent("//span[text()='"+planLabel+"']//ancestor::tr" +
-				"//span[text()='Running...']"));
-        this.waitForElementPresent("//span[text()='planPauseAndResumeLabel']//ancestor::tr//span" +
-        		"[text()='Ready to run']", WAIT_TIME);
-        Assert.assertTrue(selenium.isElementPresent("//span[text()='planPauseAndResumeLabel']//ancestor::tr" +
-        		"//span[text()='Ready to run']")); 
+        this.waitForTextPresent("[RUNNING]", MAX_WAIT_TIME);
+//        this.waitForElementPresent("//span[text()='"+planLabel+"']//ancestor::tr" +
+//				"//span[text()='Running...']", WAIT_TIME);
+//        Assert.assertTrue(selenium.isElementPresent("//span[text()='"+planLabel+"']//ancestor::tr" +
+//				"//span[text()='Running...']"));
+        this.waitForTextPresent("[OK]", MAX_WAIT_TIME);
+//        this.waitForElementPresent("//span[text()='planPauseAndResumeLabel']//ancestor::tr//span" +
+//        		"[text()='Ready to run']", WAIT_TIME);
+//        Assert.assertTrue(selenium.isElementPresent("//span[text()='planPauseAndResumeLabel']//ancestor::tr" +
+//        		"//span[text()='Ready to run']")); 
       
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
