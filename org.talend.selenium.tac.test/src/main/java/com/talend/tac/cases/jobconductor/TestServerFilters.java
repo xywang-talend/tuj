@@ -84,8 +84,8 @@ public class TestServerFilters extends Server {
 		this.waitForElementPresent("//div[text()='"+jobServer1+"' and @role='listitem']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+jobServer1+"' and @role='listitem']"));
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+jobServer2+"' and @role='listitem']"));
-		Assert.assertFalse(selenium.isElementPresent("//div[text()='"+esbServer1+"' and @role='listitem']"));
-		Assert.assertFalse(selenium.isElementPresent("//div[text()='"+esbServer2+"' and @role='listitem']"));
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+esbServer1+"' and @role='listitem']"));
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+esbServer2+"' and @role='listitem']"));
 		
 	}
 	
