@@ -100,14 +100,14 @@ public class TestServiceLocator extends EsbUtil {
 	@Parameters({"jobFiveProvider"})
 	public void testServicePerColumnsValue(String jobFiveProvider) {
 		
-		String xpathOfFirstProviderServiceEndpoint = "//table[@class='x-grid3-row-table']//div[text()='http://localhost:8040/services/services/"+jobFiveProvider+"']";
+		String xpathOfFirstProviderServiceEndpoint = "//table[@class='x-grid3-row-table']//div[text()='http://localhost:8040/services/"+jobFiveProvider+"']";
 		String xpathOfFirstProviderServiceUptime = "//div[contains(text(),'"+jobFiveProvider+"')]//ancestor::div[contains(@class,'x-grid-group')]" +
 				"//span[contains(text(),'Last seen')]";
-		String xpathOfFirstProviderServiceHttp = "//div[text()='http://localhost:8040/services/services/"+jobFiveProvider+"']//ancestor::table[@class='x-grid3-row-table']" +
+		String xpathOfFirstProviderServiceHttp = "//div[text()='http://localhost:8040/services/"+jobFiveProvider+"']//ancestor::table[@class='x-grid3-row-table']" +
 				"//td[1]//img[@class='gwt-Image x-component']";
-		String xpathOfFirstProviderServiceSOAP11 = "//div[text()='http://localhost:8040/services/services/"+jobFiveProvider+"']//ancestor::table[@class='x-grid3-row-table']" +
+		String xpathOfFirstProviderServiceSOAP11 = "//div[text()='http://localhost:8040/services/"+jobFiveProvider+"']//ancestor::table[@class='x-grid3-row-table']" +
 		"//td[2]//img[@class='gwt-Image x-component']";
-		String xpathOfFirstProviderServiceNameSpace = "//div[text()='http://localhost:8040/services/services/"+jobFiveProvider+"']//ancestor::table[@class='x-grid3-row-table']" +
+		String xpathOfFirstProviderServiceNameSpace = "//div[text()='http://localhost:8040/services/"+jobFiveProvider+"']//ancestor::table[@class='x-grid3-row-table']" +
 				"//div[text()='http://www.talend.org/service/']";
 		
 		//go to 'ServiceLocator' page
@@ -188,8 +188,8 @@ public class TestServiceLocator extends EsbUtil {
 		selenium.setSpeed(MIN_SPEED);
 		
 		checkSortAscendingSortDescending("name", jobThirdProvider, jobFirstProvider);
-		checkSortAscendingSortDescending("endpoint", "http://localhost:8040/services/services/jobThirdProvider",
-				"http://localhost:8040/services/services/jobFirstProvider");
+		checkSortAscendingSortDescending("endpoint", "http://localhost:8040/services/jobThirdProvider",
+				"http://localhost:8040/services/jobFirstProvider");
 		
 	}
 	
@@ -205,7 +205,7 @@ public class TestServiceLocator extends EsbUtil {
 			
 		changeGroupDisplayService("endpoint", "name", "jobFirstProvider");
 		changeGroupDisplayService("endpoint", "isAlive", "false");	
-		changeGroupDisplayService("name", "endpoint", "http://localhost:8040/services/services/jobFirstProvider");
+		changeGroupDisplayService("name", "endpoint", "http://localhost:8040/services/jobFirstProvider");
 		changeGroupDisplayService("name", "transport_protocol", "http://www.talend.org/service/");
 		
 		this.clickWaitForElementPresent("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-endpoint')]/a");		
@@ -271,8 +271,8 @@ public class TestServiceLocator extends EsbUtil {
 		selenium.setSpeed(MIN_SPEED);
 		
 		checkSortAscendingSortDescending("name", jobThirdProvider, jobFirstProvider);
-		checkSortAscendingSortDescending("endpoint", "http://localhost:8040/services/services/jobThirdProvider",
-				"http://localhost:8040/services/services/jobFirstProvider");
+		checkSortAscendingSortDescending("endpoint", "http://localhost:8040/services/jobThirdProvider",
+				"http://localhost:8040/services/jobFirstProvider");
 		
 	}
 	
