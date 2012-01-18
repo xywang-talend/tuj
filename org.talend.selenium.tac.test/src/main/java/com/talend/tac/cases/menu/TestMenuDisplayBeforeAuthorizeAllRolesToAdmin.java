@@ -119,9 +119,13 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 		this.waitForElementPresent(
 				"//div[contains(text(),'Command line/secondary (4 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
-				"//div[contains(text(),'Database (5 Parameters')]", WAIT_TIME);
+				"//div[contains(text(),'Database (')]", WAIT_TIME);
 		this.waitForElementPresent(
-				"//div[contains(text(),'ESB (2 Parameter')]", WAIT_TIME);
+				"//div[contains(text(),'ESB (2 Parameter')]", WAIT_TIME); 
+		this.waitForElementPresent(
+						"//div[contains(text(),'ESB conductor (4 Parameters')]", WAIT_TIME);
+		this.waitForElementPresent(
+				"//div[contains(text(),' Job conductor (3 Parameters)')]", WAIT_TIME);
 		this.waitForElementPresent(
 				"//div[contains(text(),'Extended configuration (1 Parameter')]", WAIT_TIME);
 		this.waitForElementPresent(
@@ -131,13 +135,15 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 		this.waitForElementPresent(
 				"//div[contains(text(),'SMTP (6 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
-				"//div[contains(text(),'Conductor (7 Parameters')]", WAIT_TIME);
+				"//div[contains(text(),' Dashboard (1 Parameter')]", WAIT_TIME);			
 		this.waitForElementPresent(
 				"//div[contains(text(),'Soa manager (4 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
 				"//div[contains(text(),'Talend suite (3 Parameters')]", WAIT_TIME);
+		this.waitForElementPresent(
+				"//div[contains(text(),'Software Update (5 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent("//div[contains(text(),'Audit (6 Parameters')]", WAIT_TIME);
-		this.waitForElementPresent("//div[contains(text(),'Dash board (1 Parameter')]", WAIT_TIME);
+		this.waitForElementPresent("//div[contains(text(),'Dashboard (1 Parameter')]", WAIT_TIME);
 		this.waitForElementPresent("//div[contains(text(),'General (3 Parameters)')]", WAIT_TIME);
 		
 	}
@@ -210,6 +216,16 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='User settings']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-fieldset-header-text' and text()='User Password']",
 				WAIT_TIME);
+	}
+	
+	@Test(dependsOnMethods = { "testMenuBeforeAuthorizeAllRolesToAdmin" })
+	public void testMenuSoftwareUpdate() {
+		// check for user setting page contents
+		this.waitForElementPresent("//span[@title='Check for Updates' and text()='Software update']", WAIT_TIME);
+		this.clickWaitForElementPresent("!!!menu.softwareupdate.element!!!");
+		this.waitForElementPresent("//div[@class='header-title' and text()='Software update']",WAIT_TIME);
+	    this.waitForElementPresent("Current Version is", WAIT_TIME);
+	    this.waitForElementPresent("Software update repository cannot be reached ().", WAIT_TIME);
 	}
 
 }

@@ -147,7 +147,7 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 		
 	}
 
-	@Test
+//	@Test
 	public void testMenuSoaManager() {
 		this.waitForElementPresent("!!!menu.soamanager.element!!!", WAIT_TIME);
 		selenium.click("!!!menu.soamanager.element!!!");
@@ -164,6 +164,20 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 				WAIT_TIME);
 	}
 
+	@Test
+	public void testMenuRepositoryBroswer(){
+		this.waitForElementPresent("//span[@title='browse business model' and text()='Repository browser']",
+				WAIT_TIME);
+		this.sleep(2000);
+		selenium.click("!!!menu.businessModeler.browser.element!!!");
+		this.waitForElementPresent(
+				"//div[@class='header-title' and text()='Repository browser']",
+				WAIT_TIME);
+		this.waitForTextPresent("Select a Project", WAIT_TIME);
+		this.waitForTextPresent("Select a Branch", WAIT_TIME);
+		this.waitForElementPresent("//button[text()='Show All Items']", WAIT_TIME);
+	}
+	
 //	@Test
 	public void testMenuBMExpend() {
 		this.waitForElementPresent("!!!menu.businessModeler.element!!!", WAIT_TIME);
@@ -196,7 +210,7 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 		this.waitForElementPresent("//div[@class='ext-el-mask']", WAIT_TIME);
 	}
 	
-	@Test
+//	@Test
 	public void testMenuBMBroswer(){
 		this.waitForElementPresent("!!!menu.businessModeler.browser.element!!!",
 				WAIT_TIME);
@@ -219,8 +233,10 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 		this.sleep(5000);
 		Assert.assertFalse(selenium.isVisible("!!!menu.connections.element!!!"));
 		Assert.assertFalse(selenium.isVisible("!!!menu.dashjobs.element!!!"));
+//		Assert.assertFalse(selenium
+//				.isVisible("!!!menu.soamanager.dashboard.element!!!"));
 		Assert.assertFalse(selenium
-				.isVisible("!!!menu.soamanager.dashboard.element!!!"));
+				.isVisible("!!!menu.dashamc.element!!!"));
 		Assert.assertFalse(selenium
 				.isVisible("!!!menu.commandline.dashboard.element!!!"));
 		Assert.assertFalse(selenium
@@ -233,8 +249,10 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 		this.sleep(5000);
 		Assert.assertTrue(selenium.isVisible("!!!menu.connections.element!!!"));
 		Assert.assertTrue(selenium.isVisible("!!!menu.dashjobs.element!!!"));
+//		Assert.assertTrue(selenium
+//				.isVisible("!!!menu.soamanager.dashboard.element!!!"));
 		Assert.assertTrue(selenium
-				.isVisible("!!!menu.soamanager.dashboard.element!!!"));
+				.isVisible("!!!menu.dashamc.element!!!"));
 		Assert.assertTrue(selenium
 				.isVisible("!!!menu.commandline.dashboard.element!!!"));
 		Assert.assertTrue(selenium
@@ -314,7 +332,7 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 				WAIT_TIME);
 	}
 
-	@Test
+//	@Test
 	public void testMenuSoaDashboard() {
 		// check menu soa
 		this.clickWaitForElementPresent("!!!menu.soamanager.dashboard.element!!!");
@@ -343,5 +361,17 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 				WAIT_TIME);
 
 	}
+	
+	@Test
+	public void testMenuAMC() {
+
+		this.waitForElementPresent("//span[@title='See jobs performance analyses' and text()='AMC']",WAIT_TIME);
+		this.clickWaitForElementPresent("!!!menu.dashamc.element!!!");
+		this.waitForElementPresent("//div[@class='header-title' and text()='AMC']",WAIT_TIME);
+		this.waitForElementPresent("//div[contains(@class,'x-component x-abs-layout-item')and text()='AMC url is not correctly set']", WAIT_TIME);
+
+	}
+
+
 
 }
