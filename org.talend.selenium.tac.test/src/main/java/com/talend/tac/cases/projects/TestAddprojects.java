@@ -31,7 +31,7 @@ public class TestAddprojects extends Projects {
 	@Test
 	@Parameters({ "SVNurl", "ProjectType", "SVNuserName", "SVNuserPassword",
 		"AddProjectAndCheckItAppearInProjectAuthorization",  "Prolanguage" })
-	public void testAddNewProjectAndCheckItAppearInProjectAuthorization(String url, String type, String user,
+	public void testAddNewCommonProjectAndCheckItAppearInProjectAuthorizationAndReferences(String url, String type, String user,
 			String password, String proname,String language) {
 		
 		this.openMenuProject();
@@ -43,6 +43,38 @@ public class TestAddprojects extends Projects {
 				" and @class='header-title']", WAIT_TIME);	
 		this.waitForElementPresent("//span[text()='"+proname+"']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+proname+"']"));
+		
+		this.clickWaitForElementPresent("!!!menu.refprojects.element!!!");
+		this.waitForElementPresent("//div[text()='Projects references' and @class='header-title']", WAIT_TIME);	
+		this.waitForElementPresent("//span[text()='"+proname+" - trunk']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+proname+" - trunk']"));
+		
+		this.openMenuProject();
+		deleteProjectOK(proname);
+	}
+	
+	
+	@Test
+	@Parameters({ "SVNurl", "ProjectType", "SVNuserName", "SVNuserPassword",
+		"AddProjectAndCheckItAppearInProjectAuthorization",  "Prolanguage" })
+	public void testAddNewReferenceProjectAndCheckItAppearInProjectAuthorizationAndReferences(String url, String type, String user,
+			String password, String proname,String language) {
+		
+		this.openMenuProject();
+		this.addProjectSVN_DEFAULT(proname, "add project and check it whether normal in project authorization page",
+				language, Projects.PROJECT_ADD_TYPE_REF, type);	
+		
+		this.clickWaitForElementPresent("!!!menu.projectsauthorizations.element!!!");
+		this.waitForElementPresent("//div[text()='Projects authorizations'" +
+				" and @class='header-title']", WAIT_TIME);	
+		this.waitForElementPresent("//span[text()='"+proname+"']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+proname+"']"));
+		
+		this.clickWaitForElementPresent("!!!menu.refprojects.element!!!");
+		this.waitForElementPresent("//div[text()='Projects references' and @class='header-title']", WAIT_TIME);	
+		
+		this.waitForElementPresent("//span[@class='x-panel-header-text' and text()='Projects available as reference']//ancestor::div[@class='x-panel-body x-panel-body-noheader']//div[@class='x-panel-body x-panel-body-noborder']//div[text()='"+proname+"']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//span[@class='x-panel-header-text' and text()='Projects available as reference']//ancestor::div[@class='x-panel-body x-panel-body-noheader']//div[@class='x-panel-body x-panel-body-noborder']//div[text()='"+proname+"']"));
 		
 		this.openMenuProject();
 		deleteProjectOK(proname);
