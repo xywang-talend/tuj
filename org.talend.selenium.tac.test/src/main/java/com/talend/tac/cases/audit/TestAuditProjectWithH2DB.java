@@ -24,7 +24,7 @@ public class TestAuditProjectWithH2DB extends Audit {
 	   this.configAuditDB(this.getFormatedDbURL(url), userName, driver, userPassWd);
 	   selenium.setSpeed(MID_SPEED);
 	   selenium.keyPressNative(Event.TAB +"");
-	   selenium.keyPressNative(Event.TAB +"");
+//	   selenium.keyPressNative(Event.TAB +"");
 	   selenium.click("idDbConfigSaveButton");
 	   selenium.setSpeed(MIN_SPEED);
 	   

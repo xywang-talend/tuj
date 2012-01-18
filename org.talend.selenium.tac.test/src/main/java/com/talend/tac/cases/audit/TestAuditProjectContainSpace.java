@@ -21,7 +21,7 @@ public class TestAuditProjectContainSpace extends Audit {
 	   this.configAuditDB(url, userName, driver, userPassWd);
 	   selenium.setSpeed(MID_SPEED);
 	   selenium.keyPressNative(Event.TAB +"");
-	   selenium.keyPressNative(Event.TAB +"");
+//	   selenium.keyPressNative(Event.TAB +"");
 	   selenium.click("idDbConfigSaveButton");
 	   selenium.setSpeed(MIN_SPEED);
 	   
