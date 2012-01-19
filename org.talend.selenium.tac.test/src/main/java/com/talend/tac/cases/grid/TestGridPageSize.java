@@ -93,6 +93,9 @@ public class TestGridPageSize extends Grid {
 		this.addTask(label, description, projectName, branchName, jobName,
 				version, context, serverName, statisticName);
 		this.addSimpleTriggerForTask(label, "testTrigger", "3600", "9");
+		this.waitForElementPresent("//span[@title='Generating...']", WAIT_TIME);
+//	    this.waitForElementPresent("//span[@title='Ready to deploy']", MAX_WAIT_TIME);
+		this.waitForElementPresent("//span[@title='Ready to run']", MAX_WAIT_TIME);
 		this.sleep(8000);
 		this.openGridMenu();
 		this.sleep(5000);
@@ -108,7 +111,7 @@ public class TestGridPageSize extends Grid {
 		Assert.assertTrue(
 				selenium.getXpathCount(
 						"//div[@class='x-grid3-cell-inner x-grid3-col-detailedStatus']//span[@title='Generating...']")
-						.intValue() == 1, "Grid generating counts is wrong!");
+						.intValue() <= 1, "Grid generating counts is wrong!");
 	}
 
 	@Test
