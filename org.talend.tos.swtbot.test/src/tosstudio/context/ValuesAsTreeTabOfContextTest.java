@@ -58,7 +58,7 @@ public class ValuesAsTreeTabOfContextTest extends TalendSwtBotForTos {
         SWTBotTreeExt treeExt = new SWTBotTreeExt(gefBot.tree(0));
         treeExt.header("Variable").click();
         String actual = gefBot.tree(0).cell(0, "Variable");
-        Assert.assertEquals("var2", actual);
+        Assert.assertEquals("the order is not the expected order ", "var2", actual);
 
     }
 
