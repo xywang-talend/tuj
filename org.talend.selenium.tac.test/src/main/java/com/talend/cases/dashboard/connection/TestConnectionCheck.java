@@ -57,18 +57,52 @@ public class TestConnectionCheck extends Connection {
 	@Parameters( { "Mysql_Connectionlabel", "Mysql_Dbname", "Mysql_Dbtype",
 			"Mysql_Host", "Mysql_Serverport", "Mysql_Username",
 			"Mysql_Password", "Mysql_Datasourse", "Mysql_Additional",
-			"Mysql_Stattable", "Mysql_Logstable" ,"Mysql_meterstable"})
-	public void testConnectionCheckWithTableNotExist(String label, String dbname, String dbtype,
+			"Mysql_Stattable_notexist", "Mysql_Logstable" ,"Mysql_meterstable"})
+	public void testConnectionCheckWithStatTableNotExist(String label, String dbname, String dbtype,
 			String host, String serverport, String username, String password,
 			String datasourse, String additional, String stat, String logs,String meters) {
-		stat = "testtable";
+		
 		this.openConnection();
 		this.configConnectionParameters(label, dbname, dbtype, host, serverport, username, password, datasourse, additional, stat, logs, meters);
 		selenium.click("idCheckUrlButton");
-		Assert.assertTrue(this.waitForTextPresent("Table '"+dbname+"."+stat+"' doesn't exist", WAIT_TIME),"check connection with table not exist failed!");
+		waitForCheckConnectionStatus(3);
+		Assert.assertTrue(this.waitForTextPresent("Table '"+dbname+"."+stat+"' doesn't exist", WAIT_TIME),"check connection with stat table not exist failed!");
+
+	}
+	
+	@Test
+	@Parameters( { "Mysql_Connectionlabel", "Mysql_Dbname", "Mysql_Dbtype",
+			"Mysql_Host", "Mysql_Serverport", "Mysql_Username",
+			"Mysql_Password", "Mysql_Datasourse", "Mysql_Additional",
+			"Mysql_Stattable", "Mysql_Logstable_notexist" ,"Mysql_meterstable"})
+	public void testConnectionCheckWithLogsTableNotExist(String label, String dbname, String dbtype,
+			String host, String serverport, String username, String password,
+			String datasourse, String additional, String stat, String logs,String meters) {
+		
+		this.openConnection();
+		this.configConnectionParameters(label, dbname, dbtype, host, serverport, username, password, datasourse, additional, stat, logs, meters);
+		selenium.click("idCheckUrlButton");
+		waitForCheckConnectionStatus(3);
+		Assert.assertTrue(this.waitForTextPresent("Table '"+dbname+"."+logs+"' doesn't exist", WAIT_TIME),"check connection with logs table not exist failed!");
 
 	}
 
+	@Test
+	@Parameters( { "Mysql_Connectionlabel", "Mysql_Dbname", "Mysql_Dbtype",
+			"Mysql_Host", "Mysql_Serverport", "Mysql_Username",
+			"Mysql_Password", "Mysql_Datasourse", "Mysql_Additional",
+			"Mysql_Stattable", "Mysql_Logstable" ,"Mysql_meterstable_notexist"})
+	public void testConnectionCheckWithMetersTableNotExist(String label, String dbname, String dbtype,
+			String host, String serverport, String username, String password,
+			String datasourse, String additional, String stat, String logs,String meters) {
+		
+		this.openConnection();
+		this.configConnectionParameters(label, dbname, dbtype, host, serverport, username, password, datasourse, additional, stat, logs, meters);
+		selenium.click("idCheckUrlButton");
+		waitForCheckConnectionStatus(3);
+		Assert.assertTrue(this.waitForTextPresent("Table '"+dbname+"."+meters+"' doesn't exist", WAIT_TIME),"check connection with meters table not exist failed!");
+
+	}
 
 	
 }
