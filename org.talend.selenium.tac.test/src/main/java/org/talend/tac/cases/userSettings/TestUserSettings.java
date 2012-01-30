@@ -1,9 +1,12 @@
 package org.talend.tac.cases.userSettings;
 
+import java.awt.Event;
+
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
+import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
 public class TestUserSettings extends Login {
@@ -23,12 +26,31 @@ public class TestUserSettings extends Login {
 	}
 
 	@Test
-	@Parameters( { "userSetting.currentUser.newPasswd" })
-	public void testChangePasswdOfCurrentUser(String newPasswd) {
+	@Parameters( {"userName","userPassword", "userSetting.currentUser.newPasswd" })
+	public void testChangePasswdOfCurrentUser(String user,String pass,String newPasswd) {
 
 		doModify(newPasswd);
+		selenium.click("idLeftMenuTreeLogoutButton");
+		this.waitForElementPresent("idLoginButton", MAX_WAIT_TIME);
+		this.waitForElementPresent("idLoginInput", WAIT_TIME);
+		selenium.type("idLoginInput", user);
+		
+		String pwValue = selenium.getValue("idLoginPasswordInput");
+		selenium.typeKeys("idLoginPasswordInput", newPasswd);
+		selenium.type("idLoginPasswordInput", newPasswd);
+		selenium.keyPressNative(Event.TAB +"");
+		this.waitForElementPresent("idLoginInput", Base.WAIT_TIME);
+		selenium.click("idLoginButton");
+		selenium.setSpeed(MID_SPEED);
+		if (selenium
+				.isTextPresent("Failed to log on: user admin@company.com already logged on to webapp")) {
+			selenium.click("idLoginForceLogoutButton");
+			selenium.click("idLoginButton");
+		}
+		selenium.setSpeed(MIN_SPEED);
+		this.waitForElementPresent("idMenuChangePasswordElement",WAIT_TIME);
 		// change password back to avoid conflict with other cases
-		doModify("admin");
+		doModify(pass);
 	}
 
 	public void doModify(String newPasswd) {
@@ -44,6 +66,6 @@ public class TestUserSettings extends Login {
 		selenium.keyUp("idChangePwdNewPwdInput", "\\13");
 		this.waitForElementPresent("idChangePwdValidateButton", 30);
 		selenium.click("idChangePwdValidateButton");
-//		assertTrue(selenium.isTextPresent(rb.getString("password.ok")));
+		assertTrue(this.waitForTextPresent(rb.getString("password.ok"),WAIT_TIME));
 	}
 }
