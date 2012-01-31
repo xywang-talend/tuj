@@ -44,7 +44,7 @@ public class VariablesTabTest extends TalendSwtBotForTos {
     private static final String CONTEXT_NAME = "contextTest"; //$NON-NLS-1$
 
     @Before
-    public void createJobs() {
+    public void initialisePrivateFields() {
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
         contextItem = new TalendContextItem(CONTEXT_NAME);
