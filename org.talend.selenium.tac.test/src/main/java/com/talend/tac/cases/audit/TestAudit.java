@@ -64,6 +64,36 @@ public class TestAudit extends Audit {
 		Assert.assertFalse(this.waitForTextPresent("Saving reports... !", WAIT_TIME),"TestAudit stop audit trunk failed!");
 	}
 	
+	
+	@Test
+	@Parameters({"AddcommonProjectname","trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
+		"jobNameTJava"})
+	public void testAuditTrunkStopRelaunchAudit(String projectName, String tRunJobCheckPoint, String tjavaCheckpoint,
+			String tjava){
+		auditProcess(projectName, "trunk");
+		Assert.assertTrue(this.waitForTextPresent("Running...", WAIT_TIME));
+		this.sleep(2000);
+		selenium.click("//button[text()='Stop']");
+		Assert.assertTrue(this.waitForTextPresent("Stopping...", WAIT_TIME));
+		Assert.assertFalse(this.waitForTextPresent("Saving reports... !", WAIT_TIME),"TestAudit stop audit trunk failed!");
+		Assert.assertTrue(this.waitForTextPresent("The Audit process has terminated successfully", 300));
+		this.sleep(3000);
+		Assert.assertTrue(selenium.isVisible("//button[text()='Start audit']"));
+		
+        String defaultPath = this.getDefaultReportPath();
+		
+        selenium.click("//button[text()='Start audit']");
+		int linksbefore = checkAuditListLink(projectName);
+		Assert.assertTrue(checkAuditInfo(projectName),"TestAudit audit trunk failed!");
+		this.sleep(5000);
+		Assert.assertTrue((checkAuditListLink(projectName)==linksbefore +1),"TestAudit audit trunk failed,not create links!");
+		
+        File auditReportFile = this.checkReportPdf(defaultPath, projectName, tjava);
+        Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+this.getReportFileName(), tRunJobCheckPoint));
+	    Assert.assertTrue(this.isExistedInfoInPdf(defaultPath+"/"+this.getReportFileName(), tjavaCheckpoint));
+	    auditReportFile.delete();
+	}
+	
 	@Test
 	@Parameters({"AddcommonProjectname", "trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
 		"jobNameTJava", "jobNameBranchJob"})

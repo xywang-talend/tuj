@@ -169,7 +169,7 @@ public class Audit extends Login {
 		boolean failed = selenium.isElementPresent("//font[@color='red' and text()='The Audit process has terminated with error(s)']");
 		int second = 0;
 		System.out.println(failed);
-		while(second <= 500 && failed == false && ok==false) {
+		while(second <= MAX_WAIT_TIME && failed == false && ok==false) {
 			second++;
 			System.out.println(second);
 			try {
