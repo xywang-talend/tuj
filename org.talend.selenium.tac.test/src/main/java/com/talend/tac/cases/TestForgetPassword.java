@@ -11,6 +11,7 @@ public class TestForgetPassword extends Base {
 	@Test(description = "test changePassword using adminRole user created before.")
 	@Parameters( { "user.admin.login", "user.admin.passwd" })
 	public void testForgetPassword(String userName,String userPassword){
+		selenium.windowMaximize();
 		this.waitForElementPresent("idForgetButton", WAIT_TIME);
 		//no login typed,click "forget your password" button
 		selenium.click("idForgetButton");
