@@ -49,13 +49,9 @@ public class RemoveUDIFromAColumnTest extends TalendSwtbotForTdq{
 		}
 		formBot.ccomboBox(1).setSelection("MySQL");
 		bot.toolbarButtonWithTooltip("Save").click();
-	//	bot.editorByTitle("newAUserDefinedIndicator 0.1").close();
+		bot.editorByTitle("newAUserDefinedIndicator 0.1").close();
 		TalendSwtbotTdqCommon.createAnalysis(bot, TalendAnalysisTypeEnum.COLUMN);
-		try {
-			shell = bot.shell("refresh");
-			bot.waitUntil(Conditions.shellCloses(shell));
-		} catch (Exception e) {
-		}
+		
 	}
 	
 	@Test
@@ -109,41 +105,27 @@ public class RemoveUDIFromAColumnTest extends TalendSwtbotForTdq{
 			
 		}
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString()+" 0.1").close();
-		try {
-			shell = bot.shell("refresh");
-			bot.waitUntil(Conditions.shellCloses(shell));
-		} catch (Exception e) {
 		
-		}
-		bot.editorByTitle("newAUserDefinedIndicator 0.1").close();
 	}
 	
 	@After
 	public void afterClass(){
-		TalendSwtbotTdqCommon.deleteAndCleanCycleBin(bot, TalendItemTypeEnum.ANALYSIS, TalendAnalysisTypeEnum.COLUMN.toString());
-		bot.viewByTitle("DQ Repository").setFocus();
-		tree = new SWTBotTree((Tree) bot.widget(
-				WidgetOfType.widgetOfType(Tree.class),
-				bot.viewByTitle("DQ Repository").getWidget()));
-		
-		SWTBotTreeItem item = tree.expandNode("Libraries","Indicators").getNode(1).expand().select();
-		System.out.println(item.getText()+ "---------");
-		
-		tree.expandNode("Libraries","Indicators").getNode(1).expand()
-		.getNode(0).select();
-		ContextMenuHelper.clickContextMenu(tree, "Delete");
-		try {
-			shell = bot.shell("refresh");
-			bot.waitUntil(Conditions.shellCloses(shell));
-		} catch (Exception e) {
-		
-		}
-		
-		TalendSwtbotTdqCommon.cleanItemFromCycleBin(bot, tree, "newAUserDefinedIndicator");
-//	//	Assert.assertNotNull(tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator"));
-//	//	tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator");
-//		Assert.assertNotNull(tree.expandNode("Recycle Bin").getNode(0).select());
-//		tree.expandNode("Recycle Bin").getNode(0).select();
+		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, TalendAnalysisTypeEnum.COLUMN.toString());
+		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.LIBRARY_UDI, "newAUserDefinedIndicator");
+//		bot.viewByTitle("DQ Repository").setFocus();
+//		tree = new SWTBotTree((Tree) bot.widget(
+//				WidgetOfType.widgetOfType(Tree.class),
+//				bot.viewByTitle("DQ Repository").getWidget()));
+//		tree.expandNode("Libraries","Indicators").getNode(1).expand().select("newAUserDefinedIndicator 0.1");
+//		ContextMenuHelper.clickContextMenu(tree, "Delete");
+//		try {
+//			shell = bot.shell("refresh");
+//			bot.waitUntil(Conditions.shellCloses(shell));
+//		} catch (Exception e) {
+//		
+//		}
+//		Assert.assertNotNull(tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator"));
+//		tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator");
 //		ContextMenuHelper.clickContextMenu(tree, "Delete");
 //		try {
 //			bot.waitUntil(Conditions.shellIsActive("Delete forever"));
@@ -156,7 +138,8 @@ public class RemoveUDIFromAColumnTest extends TalendSwtbotForTdq{
 //			bot.waitUntil(Conditions.shellCloses(shell));
 //		} catch (Exception e) {
 //		}
-		TalendSwtbotTdqCommon.deleteAndCleanCycleBin(bot, TalendItemTypeEnum.METADATA, TalendMetadataTypeEnum.MYSQL.toString());
+		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, TalendMetadataTypeEnum.MYSQL.toString());
+		
 	}
 
 }

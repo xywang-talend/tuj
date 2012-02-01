@@ -23,6 +23,7 @@ public class CreateConnectionAnalysisTest extends TalendSwtbotForTdq {
 	public void beforeRunning() {
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 	}
 
 	@Test

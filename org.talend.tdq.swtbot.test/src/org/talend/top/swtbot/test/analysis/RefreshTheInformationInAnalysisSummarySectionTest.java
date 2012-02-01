@@ -89,7 +89,7 @@ public class RefreshTheInformationInAnalysisSummarySectionTest extends TalendSwt
 				.getProperty("tdq.analysis.result.screenshot.path")
 				+ "dqrule_refresh_graphics.jpeg");		
 		
-		
+		bot.editorByTitle(TalendAnalysisTypeEnum.DQRULE.toString() + " 0.1").close();
 		}
 	
 	@After 

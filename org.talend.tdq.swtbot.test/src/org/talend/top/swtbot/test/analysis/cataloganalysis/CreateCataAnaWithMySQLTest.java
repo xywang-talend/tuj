@@ -29,6 +29,7 @@ public class CreateCataAnaWithMySQLTest extends TalendSwtbotForTdq {
 	public void createCataAnaWithMySQL() {
 		TalendSwtbotTdqCommon.createAnalysis(bot,
 				TalendAnalysisTypeEnum.CATALOG, TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 
 		bot.viewByTitle("DQ Repository").setFocus();
 		bot.toolbarButtonWithTooltip("Refresh").click();
@@ -38,6 +39,7 @@ public class CreateCataAnaWithMySQLTest extends TalendSwtbotForTdq {
 				.getNode(0).expand()
 				.select(TalendAnalysisTypeEnum.CATALOG.toString() + " 0.1");
 		Assert.assertNotNull(analysisItem);
+		bot.editorByTitle(TalendAnalysisTypeEnum.CATALOG.toString()+" 0.1").close();
 	}
 
 	@After

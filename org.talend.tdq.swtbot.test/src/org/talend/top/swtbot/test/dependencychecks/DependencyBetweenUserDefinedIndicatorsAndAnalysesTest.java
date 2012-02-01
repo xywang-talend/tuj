@@ -46,8 +46,8 @@ public class DependencyBetweenUserDefinedIndicatorsAndAnalysesTest extends Talen
 		
 		}
 		formBot.ccomboBox(1).setSelection("MySQL");
-	//	bot.toolbarButtonWithTooltip("Save").click();
-	//	bot.editorByTitle("newAUserDefinedIndicator 0.1").close();
+		bot.toolbarButtonWithTooltip("Save").click();
+		bot.editorByTitle("newAUserDefinedIndicator 0.1").close();
 		TalendSwtbotTdqCommon.createAnalysis(bot, TalendAnalysisTypeEnum.COLUMN);
 		
 	}
@@ -116,10 +116,8 @@ public class DependencyBetweenUserDefinedIndicatorsAndAnalysesTest extends Talen
 		} catch (Exception e) {
 		
 		}
-	//	Assert.assertNotNull(tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator"));
-		Assert.assertNotNull(tree.expandNode("Recycle Bin").getNode(0).select());
-		//tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator");
-		tree.expandNode("Recycle Bin").getNode(0).select();
+		Assert.assertNotNull(tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator"));
+		tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator");
 		ContextMenuHelper.clickContextMenu(tree, "Delete");
 		bot.waitUntil(Conditions.shellIsActive("Confirm Resource Delete"));
 		Assert.assertNotNull(bot.shell("Confirm Resource Delete"));
@@ -130,8 +128,7 @@ public class DependencyBetweenUserDefinedIndicatorsAndAnalysesTest extends Talen
 			bot.waitUntil(Conditions.shellCloses(shell));
 		} catch (Exception e) {
 		}
-		//tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator");
-		tree.expandNode("Recycle Bin").getNode(0).select();
+		tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator");
 		ContextMenuHelper.clickContextMenu(tree, "Restore");
 		try {
 			shell = bot.shell("refresh");
@@ -157,10 +154,8 @@ public class DependencyBetweenUserDefinedIndicatorsAndAnalysesTest extends Talen
 		} catch (Exception e) {
 		
 		}
-	//	Assert.assertNotNull(tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator"));
-		Assert.assertNotNull(tree.expandNode("Recycle Bin").getNode(0).select());
-		//tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator");
-		tree.expandNode("Recycle Bin").getNode(0).select();
+		Assert.assertNotNull(tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator"));
+		tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator");
 		ContextMenuHelper.clickContextMenu(tree, "Delete");
 		bot.waitUntil(Conditions.shellIsActive("Delete forever"));
 		shell = bot.shell("Delete forever");

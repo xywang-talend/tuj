@@ -25,6 +25,7 @@ public class OverViewSchemaAnalysisTest extends TalendSwtbotForTdq {
 	public void beforeRunning() {
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MSSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MSSQL.toString()+" 0.1").close();
 	}
 
 	@Test

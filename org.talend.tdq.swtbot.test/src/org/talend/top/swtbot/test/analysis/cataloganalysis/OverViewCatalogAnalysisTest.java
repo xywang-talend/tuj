@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.talend.swtbot.test.commons.ContextMenuHelper;
 import org.talend.swtbot.test.commons.TalendSwtbotForTdq;
 import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon;
+import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendAnalysisTypeEnum;
 import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendItemTypeEnum;
 import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendMetadataTypeEnum;
 
@@ -25,6 +26,7 @@ public class OverViewCatalogAnalysisTest extends TalendSwtbotForTdq {
 	public void beforeRunning() {
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 	}
 
 	@Test
@@ -42,6 +44,7 @@ public class OverViewCatalogAnalysisTest extends TalendSwtbotForTdq {
 		SWTBotTreeItem analysisItem = tree.expandNode("Data Profiling")
 				.getNode(0).expand().select(ANALYSISLABEL + " 0.1");
 		Assert.assertNotNull(analysisItem);
+		bot.editorByTitle(ANALYSISLABEL+" 0.1").close();
 	}
 
 	@After

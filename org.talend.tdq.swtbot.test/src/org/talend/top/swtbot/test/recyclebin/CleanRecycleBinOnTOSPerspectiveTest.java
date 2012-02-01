@@ -20,8 +20,7 @@ public class CleanRecycleBinOnTOSPerspectiveTest extends TalendSwtbotForTdq{
 	public void CcleanRecycleBinOnTOSPerspective(){
 		bot.sleep(10000);
 		try {
-//			bot.menu("Window").menu("Perspective").menu("Service Builder").click();
-			bot.menu("Window").menu("Perspective").menu("Integration").click();
+			bot.menu("Window").menu("Perspective").menu("Service Builder").click();
 		} catch (WidgetNotFoundException e2) {
 			System.out.println("Haven't found Service Builder!");
 		}

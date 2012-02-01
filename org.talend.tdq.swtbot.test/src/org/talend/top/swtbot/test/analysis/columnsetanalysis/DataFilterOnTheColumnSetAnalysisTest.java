@@ -1,5 +1,8 @@
 package org.talend.top.swtbot.test.analysis.columnsetanalysis;
 
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.allOf;
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withMnemonic;
+
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
@@ -13,6 +16,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotLabel;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -102,9 +106,9 @@ public class DataFilterOnTheColumnSetAnalysisTest extends TalendSwtbotForTdq {
 		bot.sleep(10000);
 		SWTBotEditor ed = bot.editorByTitle(TalendAnalysisTypeEnum.COLUMNSET
 				.toString() + " 0.1");
-		// Matcher matcher = withMnemonic("Data");
+		Matcher matcher = allOf(withMnemonic("Data"),WidgetOfType.widgetOfType(Label.class));
 		SWTBotLabel label = new SWTBotLabel((Label) formBot.widget(
-				WidgetOfType.widgetOfType(Label.class), ed.getWidget()));
+				matcher, ed.getWidget()));
 		SWTBotLabelExt Label1 = new SWTBotLabelExt(label);
 		Label1.click();
 		formBot.button("Filter Data").click();

@@ -31,6 +31,7 @@ public class RunTLaunchDQReportToGenerateFileTes extends TalendSwtbotForTdq {
 		TalendSwtbotTdqCommon.setReportDB(bot, TalendReportDBType.MySQL);
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon
 				.createAnalysis(bot, TalendAnalysisTypeEnum.COLUMN);
 
@@ -75,6 +76,7 @@ public class RunTLaunchDQReportToGenerateFileTes extends TalendSwtbotForTdq {
 //			bot.waitUntil(Conditions.shellCloses(shell));
 //		} catch (TimeoutException e) {
 //		}
+		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon.createReport(bot, REPORTLABEL);
 		generateReport(bot, formBot, REPORTLABEL,
 				TalendReportTemplate.Evolution,

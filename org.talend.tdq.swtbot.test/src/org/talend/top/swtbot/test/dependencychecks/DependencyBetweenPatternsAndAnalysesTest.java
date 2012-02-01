@@ -118,8 +118,7 @@ public class DependencyBetweenPatternsAndAnalysesTest extends TalendSwtbotForTdq
 		} catch (Exception e) {
 		
 		}
-	//	Assert.assertNotNull(tree.expandNode("Recycle Bin").select("newsqlpattern"));
-		Assert.assertNotNull(tree.expandNode("Recycle Bin").getNode(0).select());
+		Assert.assertNotNull(tree.expandNode("Recycle Bin").select("newsqlpattern"));
 		tree.expandNode("Recycle Bin").getNode(0).select();
 		ContextMenuHelper.clickContextMenu(tree, "Delete");
 		bot.waitUntil(Conditions.shellIsActive("Confirm Resource Delete"));
@@ -131,8 +130,7 @@ public class DependencyBetweenPatternsAndAnalysesTest extends TalendSwtbotForTdq
 			bot.waitUntil(Conditions.shellCloses(shell));
 		} catch (Exception e) {
 		}
-	//	tree.expandNode("Recycle Bin").select("newsqlpattern");
-	tree.expandNode("Recycle Bin").getNode(0).select();
+		tree.expandNode("Recycle Bin").select("newsqlpattern");
 		ContextMenuHelper.clickContextMenu(tree, "Restore");
 		try {
 			shell = bot.shell("refresh");
@@ -158,10 +156,8 @@ public class DependencyBetweenPatternsAndAnalysesTest extends TalendSwtbotForTdq
 		} catch (Exception e) {
 		
 		}
-	//	Assert.assertNotNull(tree.expandNode("Recycle Bin").select("newsqlpattern"));
-		Assert.assertNotNull(tree.expandNode("Recycle Bin").getNode(0).select());
-	///	tree.expandNode("Recycle Bin").select("newsqlpattern");
-		tree.expandNode("Recycle Bin").getNode(0).select();
+		Assert.assertNotNull(tree.expandNode("Recycle Bin").select("newsqlpattern"));
+		tree.expandNode("Recycle Bin").select("newsqlpattern");
 		ContextMenuHelper.clickContextMenu(tree, "Delete");
 		try {
 			bot.waitUntil(Conditions.shellIsActive("Delete forever"));

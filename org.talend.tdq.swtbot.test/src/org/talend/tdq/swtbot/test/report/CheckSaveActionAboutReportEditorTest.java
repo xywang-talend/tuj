@@ -3,7 +3,6 @@ package org.talend.tdq.swtbot.test.report;
 import junit.framework.Assert;
 
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;

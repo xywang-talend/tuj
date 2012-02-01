@@ -34,6 +34,8 @@ public class CreateReportTest extends TalendSwtbotForTdq {
 		SWTBotTreeItem report = tree.expandNode("Data Profiling").getNode(1)
 				.expand().select(REPORTLABEL + " 0.1");
 		Assert.assertNotNull(report);
+		bot.editorByTitle(REPORTLABEL + " 0.1").close();
+		
 	}
 
 	@After

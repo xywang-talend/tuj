@@ -18,8 +18,11 @@ public class RevertInFunctionalAnaTest extends TalendSwtbotForTdq {
 	public void beforeRunning() {
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon.createAnalysis(bot,
 				TalendAnalysisTypeEnum.FUNCTIONAL);
+		bot.editorByTitle(TalendAnalysisTypeEnum.FUNCTIONAL.toString() + " 0.1")
+		.close();
 	}
 
 	@Test

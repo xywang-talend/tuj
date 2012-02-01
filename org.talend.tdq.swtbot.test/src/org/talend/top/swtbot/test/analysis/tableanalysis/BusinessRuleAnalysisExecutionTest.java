@@ -27,6 +27,7 @@ public class BusinessRuleAnalysisExecutionTest extends TalendSwtbotForTdq {
 	public void beforeRunning() {
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon
 				.createAnalysis(bot, TalendAnalysisTypeEnum.DQRULE);
 		TalendSwtbotTdqCommon.createDQRule(bot, DQRULENAME, RULEEXPRESSION);
@@ -69,6 +70,7 @@ public class BusinessRuleAnalysisExecutionTest extends TalendSwtbotForTdq {
 			bot.waitUntil(Conditions.shellCloses(bot.shell("Run Analysis")));
 		} catch (TimeoutException e) {
 		}
+		bot.editorByTitle(TalendAnalysisTypeEnum.DQRULE.toString()+" 0.1").close();
 	}
 
 	@After

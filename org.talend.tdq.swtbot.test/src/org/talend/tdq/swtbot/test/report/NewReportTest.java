@@ -25,6 +25,7 @@ public class NewReportTest extends TalendSwtbotForTdq {
 		TalendSwtbotTdqCommon.setReportDB(bot, TalendReportDBType.MySQL);
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon
 				.createAnalysis(bot, TalendAnalysisTypeEnum.COLUMN);
 		TalendSwtbotTdqCommon.createAnalysis(bot,
@@ -66,6 +67,8 @@ public class NewReportTest extends TalendSwtbotForTdq {
 		}
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
 				.close();
+		bot.editorByTitle(TalendAnalysisTypeEnum.CATALOG.toString()+" 0.1").close();
+		bot.editorByTitle(TalendAnalysisTypeEnum.CONNECTION.toString()+" 0.1").close();
 
 		TalendSwtbotTdqCommon.createReport(bot, REPORTLABEL);
 		TalendSwtbotTdqCommon.generateReport(bot, formBot, REPORTLABEL,

@@ -29,7 +29,6 @@ public class CreateFileDelimitedConnectionTest extends TalendSwtbotForTdq {
 		SWTBotTreeItem delimitedFile = tree.expandNode("Metadata",
 				"FileDelimited connections").getNode(FILENAME);
 		Assert.assertNotNull(delimitedFile);
-	//	bot.editorByTitle(FILENAME + " 0.1").close();
 	}
 
 	@After

@@ -49,10 +49,8 @@ public class OpenDuplicateAPatternTest extends TalendSwtbotForTdq{
 		} catch (Exception e) {
 		
 		}
-	//	Assert.assertNotNull(tree.expandNode("Recycle Bin").select("Copy_of_BE_Code_postal"));
-	//	tree.expandNode("Recycle Bin").select("Copy_of_BE_Code_postal");
-		Assert.assertNotNull(tree.expandNode("Recycle Bin").getNode(0).select());
-		tree.expandNode("Recycle Bin").getNode(0).select();
+		Assert.assertNotNull(tree.expandNode("Recycle Bin").select("Copy_of_BE_Code_postal"));
+		tree.expandNode("Recycle Bin").select("Copy_of_BE_Code_postal");
 		ContextMenuHelper.clickContextMenu(tree, "Delete");
 		bot.waitUntil(Conditions.shellIsActive("Delete forever"));
 		shell = bot.shell("Delete forever");

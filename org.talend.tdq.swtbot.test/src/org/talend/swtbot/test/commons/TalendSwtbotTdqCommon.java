@@ -5,7 +5,6 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.forms.finder.finders.SWTFormsBot;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.keyboard.Keystrokes;
@@ -32,7 +31,7 @@ public class TalendSwtbotTdqCommon {
 	public static int TREEITEM_FOUND_TIME = 0;
 
 	public enum TalendItemTypeEnum {
-		METADATA, ANALYSIS, REPORT, FILE_DELIMITED, MDM, LIBRARY_DQRULE;
+		METADATA, ANALYSIS, REPORT, FILE_DELIMITED, MDM, LIBRARY_DQRULE,LIBRARY_UDI;
 	}
 
 	public enum TalendMetadataTypeEnum {
@@ -197,7 +196,7 @@ public class TalendSwtbotTdqCommon {
 				bot.buttonWithTooltip("Select class name").click();
 				bot.textWithLabel("User name ").setText(
 						System.getProperty("mysqljdbc.login"));
-				bot.textWithLabel("Password").setText(
+				bot.textWithLabel("Password ").setText(
 						System.getProperty("mysqljdbc.password"));
 				break;
 			case MSACCESSODBC:
@@ -445,9 +444,7 @@ public class TalendSwtbotTdqCommon {
 		ContextMenuHelper.clickContextMenu(tree, "New Report");
 		try {
 			bot.textWithLabel("Name").setText(label);
-			bot.sleep(2000);
 			bot.button("Finish").click();
-			bot.sleep(2000);
 		} catch (Exception e) {
 			bot.shell("").close();
 		}
@@ -455,7 +452,7 @@ public class TalendSwtbotTdqCommon {
 
 	public static void setReportDB(SWTWorkbenchBot bot,
 			TalendReportDBType dbType) {
-		bot.sleep(1000);
+		bot.sleep(10000);
 		try {
 			bot.menu("Window").menu("Preferences").click();
 		} catch (WidgetNotFoundException e1) {
@@ -557,9 +554,14 @@ public class TalendSwtbotTdqCommon {
 //		System.out.println(System.getProperty("reportdb.oracle.password")
 //				+ "qqqq" + bot.textWithLabel("Password").getText() + "bbbbb");
 	}
+	
+	public static void generateReport(SWTWorkbenchBot bot, SWTFormsBot formBot,
+			String label, TalendReportTemplate template, String... analyses){
+		generateReport(bot, formBot, label, template, null, -1, analyses);
+	}
 
 	public static void generateReport(SWTWorkbenchBot bot, SWTFormsBot formBot,
-			String label, TalendReportTemplate template, String... analyses) {
+			String label, TalendReportTemplate template, String folder, int temp, String... analyses) {
 		bot.viewByTitle("DQ Repository").setFocus();
 		tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
 				.widgetOfType(Tree.class)));
@@ -583,10 +585,13 @@ public class TalendSwtbotTdqCommon {
 			if (template == TalendReportTemplate.User_defined) {
 				String tmp = template.toString().replace("_", " ");
 				formBot.ccomboBox(i).setSelection(tmp);
+				formBot.button("Browse...").click();
+				bot.waitUntil(Conditions.shellIsActive("Report Template Selector"));
+				SWTBotTree tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
+						.widgetOfType(Tree.class)));
+				tree.expandNode(folder).getNode(temp).select();
+				bot.button("OK").click();
 
-				/**
-			 * 
-			 */
 			} else {
 				formBot.ccomboBox(i).setSelection(template.toString());
 			}
@@ -600,7 +605,7 @@ public class TalendSwtbotTdqCommon {
 		try {
 			bot.waitUntil(
 					Conditions.shellCloses(bot.shell("Generate Report File")),
-					80000);
+					360000);
 			// SWTBotShell shell = bot.shell("refresh");
 			// bot.waitUntil(Conditions.shellCloses(shell));
 		} catch (TimeoutException e) {
@@ -746,22 +751,6 @@ public class TalendSwtbotTdqCommon {
 	public static void deleteSource(SWTWorkbenchBot bot,
 			TalendItemTypeEnum type, String label) {
 		TREEITEM_FOUND_TIME += 1;
-		
-//		List<SWTBotView> vs = bo
-        bot.cTabItem(label + " 0.1").close();
-		
-//		List<SWTBotView> views = bot.views();
-//		for(SWTBotView view: views){
-//			System.out.print("--------------------" + view.getTitle());
-//			if(view.getTitle().startsWith(label)){
-//				view.setFocus();
-//				view.close();
-//			}
-//		}
-//		
-//		bot.viewByTitle(label + " 0.1").setFocus();
-//		bot.viewByTitle(label + " 0.1").close();
-		
 	//	bot.sleep(1000);
 		bot.viewByTitle("DQ Repository").setFocus();
 		tree = new SWTBotTree((Tree) bot.widget(
@@ -790,6 +779,12 @@ public class TalendSwtbotTdqCommon {
 				tree.expandNode("Libraries", "Rules", "SQL").select(
 						label + " 0.1");
 				break;
+			case LIBRARY_UDI:
+				tree.expandNode("Libraries","Indicators").getNode(1).expand().select(
+						label + " 0.1");
+			
+				break;
+				
 			}
 			ContextMenuHelper.clickContextMenu(tree, "Delete");
 		} catch (Exception e) {
@@ -800,13 +795,11 @@ public class TalendSwtbotTdqCommon {
 			deleteSource(bot, type, label);
 		}
 		try {
-			//Assert.assertNotNull(tree.expandNode("Recycle Bin").select(label));
-			Assert.assertNotNull(tree.expandNode("Recycle Bin").expand().getNode(0).select());
+			Assert.assertNotNull(tree.expandNode("Recycle Bin").select(label));
 			boolean b = false;
 			do {
 				try {
-				//	tree.expandNode("Recycle Bin").select(label);
-					tree.expandNode("Recycle Bin").expand().getNode(0).select();
+					tree.expandNode("Recycle Bin").select(label);
 					ContextMenuHelper.clickContextMenu(tree, "Delete");
 					b = false;
 				} catch (Exception e) {
@@ -1117,4 +1110,18 @@ public class TalendSwtbotTdqCommon {
 		}
 		cCombo.setSelection(title);
 	}
+	public static void  ImportJRXMLTemplate(SWTWorkbenchBot bot){
+		bot.viewByTitle("DQ Repository").setFocus();
+		tree = new SWTBotTree((Tree) bot.widget(
+				WidgetOfType.widgetOfType(Tree.class),
+				bot.viewByTitle("DQ Repository").getWidget()));
+		tree.expandNode("Libraries").select("JRXML Template");
+			ContextMenuHelper.clickContextMenu(tree, "Import Built-in JRXML");
+			try {
+			bot.waitUntil(Conditions.shellIsActive("refresh"));
+			shell = bot.shell("refresh");
+		} catch (Exception e1) {
+			}
+		}
+		
 }

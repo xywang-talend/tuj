@@ -3,9 +3,7 @@ package org.talend.tdq.swtbot.test.report;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +22,7 @@ public class RunAReportWithManyAnalysesTest extends TalendSwtbotForTdq{
 	public void beforeClass(){
 		TalendSwtbotTdqCommon.setReportDB(bot, TalendReportDBType.MySQL);
 		TalendSwtbotTdqCommon.createConnection(bot, TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon.createAnalysis(bot, TalendAnalysisTypeEnum.COLUMN);
 		TalendSwtbotTdqCommon.createAnalysis(bot, TalendAnalysisTypeEnum.COLUMNSET);
 	}

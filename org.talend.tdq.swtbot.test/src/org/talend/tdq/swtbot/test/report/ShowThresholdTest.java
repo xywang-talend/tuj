@@ -26,6 +26,7 @@ public class ShowThresholdTest extends TalendSwtbotForTdq {
 		TalendSwtbotTdqCommon.setReportDB(bot, TalendReportDBType.MySQL);
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon
 				.createAnalysis(bot, TalendAnalysisTypeEnum.COLUMN);
 	}
@@ -97,6 +98,7 @@ public class ShowThresholdTest extends TalendSwtbotForTdq {
 		bot.captureScreenshot(System
 				.getProperty("tdq.analysis.result.screenshot.path")
 				+ "column_ana_threshold.jpeg");		
+		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon.createReport(bot, REPORTLABEL);
 		TalendSwtbotTdqCommon.generateReport(bot, formBot, REPORTLABEL,
 				TalendReportTemplate.Evolution,

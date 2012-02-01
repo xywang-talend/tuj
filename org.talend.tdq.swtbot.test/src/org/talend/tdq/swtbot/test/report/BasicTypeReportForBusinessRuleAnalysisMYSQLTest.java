@@ -24,7 +24,6 @@ public class BasicTypeReportForBusinessRuleAnalysisMYSQLTest extends TalendSwtbo
 	
 	@Before
 	public void beforeClass(){
-		bot.sleep(10000);
 		bot.menu("Window").menu("Show view...").click();
 		bot.waitUntil(Conditions.shellIsActive("Show View"));
 		SWTBotTree tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
@@ -72,11 +71,11 @@ public class BasicTypeReportForBusinessRuleAnalysisMYSQLTest extends TalendSwtbo
 		bot.editorByTitle(TalendAnalysisTypeEnum.DQRULE.toString() + " 0.1")
 				.save();
 		bot.toolbarButtonWithTooltip("Run").click();
-//		try {
-//			SWTBotShell shell =bot.shell("Run Analysis"); 
-//			bot.waitUntil(Conditions.shellCloses(shell));
-//		} catch (TimeoutException e) {
-//		}
+		try {
+			SWTBotShell shell =bot.shell("Run Analysis"); 
+			bot.waitUntil(Conditions.shellCloses(shell));
+		} catch (TimeoutException e) {
+		}
 		bot.editorByTitle(TalendAnalysisTypeEnum.DQRULE.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon.createReport(bot, REPORTLABEL);
 		TalendSwtbotTdqCommon.generateReport(bot, formBot, REPORTLABEL,

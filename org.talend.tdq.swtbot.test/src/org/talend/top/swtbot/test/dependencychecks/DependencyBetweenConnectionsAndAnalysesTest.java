@@ -73,8 +73,7 @@ public class DependencyBetweenConnectionsAndAnalysesTest extends TalendSwtbotFor
 		} catch (Exception e) {
 		
 		}
-		//Assert.assertNotNull(tree.expandNode("Recycle Bin").select(TalendMetadataTypeEnum.MYSQL.toString()));
-		Assert.assertNotNull(tree.expandNode("Recycle Bin").getNode(0).select());
+		Assert.assertNotNull(tree.expandNode("Recycle Bin").select(TalendMetadataTypeEnum.MYSQL.toString()));
 		tree.expandNode("Recycle Bin").getNode(0).select();
 		ContextMenuHelper.clickContextMenu(tree, "Delete");
 		bot.waitUntil(Conditions.shellIsActive("Confirm Resource Delete"));
@@ -88,8 +87,7 @@ public class DependencyBetweenConnectionsAndAnalysesTest extends TalendSwtbotFor
 			bot.waitUntil(Conditions.shellCloses(shell));
 		} catch (Exception e) {
 		}
-	//	tree.expandNode("Recycle Bin").select(TalendMetadataTypeEnum.MYSQL.toString());
-		tree.expandNode("Recycle Bin").getNode(0).select();
+		tree.expandNode("Recycle Bin").select(TalendMetadataTypeEnum.MYSQL.toString());
 		ContextMenuHelper.clickContextMenu(tree, "Restore");
 		try {
 			shell = bot.shell("refresh");

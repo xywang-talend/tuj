@@ -5,6 +5,7 @@ import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,8 +51,8 @@ public class CreateEvolutionTypeOfReportForColumnSetAnalysisTest extends TalendS
 		if(bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString()+" 0.1").isDirty())
 			bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString()+" 0.1").save();
 		formBot.hyperlink("Select indicators for each column").click();
-		bot.waitUntil(Conditions.shellIsActive("Indicator Selection"));
-		shell = bot.shell("Indicator Selection");
+//		bot.waitUntil(Conditions.shellIsActive("Indicator Selection"));
+//		shell = bot.shell("Indicator Selection");
 		tree = new SWTBotTree(bot.widget(WidgetOfType.widgetOfType(Tree.class)));
 		tree.expandNode("Simple Statistics").select("Row Count").click(1);
 		bot.checkBox().click();
@@ -59,6 +60,11 @@ public class CreateEvolutionTypeOfReportForColumnSetAnalysisTest extends TalendS
 		if(bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString()+" 0.1").isDirty())
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString()+" 0.1").save();
 		bot.toolbarButtonWithTooltip("Run").click();
+		try {
+			shell = bot.shell("Run Analysis");
+			bot.waitUntil(Conditions.shellCloses(shell));
+		} catch (TimeoutException e) {
+		}
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN+" 0.1").close();
 		TalendSwtbotTdqCommon.createReport(bot, REPORTLABEL);
 		TalendSwtbotTdqCommon.generateReport(bot, formBot, REPORTLABEL, TalendReportTemplate.Evolution, TalendAnalysisTypeEnum.COLUMN.toString());

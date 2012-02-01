@@ -31,7 +31,7 @@ public class CheckDatabaseVersionBeforeRunningAnyReportTest extends TalendSwtbot
 		TalendSwtbotTdqCommon.createConnection(bot, TalendMetadataTypeEnum.MYSQL);
 		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon.createAnalysis(bot, TalendAnalysisTypeEnum.CONNECTION, TalendMetadataTypeEnum.MYSQL);
-		bot.editorByTitle(TalendAnalysisTypeEnum.CONNECTION.toString()+" 0.1");
+		bot.editorByTitle(TalendAnalysisTypeEnum.CONNECTION.toString()+" 0.1").close();
 		
 		
 	}

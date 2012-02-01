@@ -66,10 +66,10 @@ public class TalendSwtbotForTdq {
 		}
 		
 		try {
-			bot.menu("Window").menu("Perspective").menu("Profiler")
+			bot.menu("Window").menu("Perspective").menu("Data Profiler")
 			.click();
 		} catch (WidgetNotFoundException e1) {
-			System.out.println("Haven't found Profiler!");
+			System.out.println("Haven't found Data Profiler!");
 		}
 		
 		try {
