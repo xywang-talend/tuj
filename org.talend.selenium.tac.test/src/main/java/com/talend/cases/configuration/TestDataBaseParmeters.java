@@ -96,7 +96,7 @@ public class TestDataBaseParmeters extends Login {
 		
 		this.waitForTextPresent(tacUrl + "/h2console", WAIT_TIME);
 		selenium.open(tacUrl + "/h2console");
-
+        this.sleep(10000);
 		this.waitForElementPresent("login", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//a[text()='Preferences']"));
 		Assert.assertTrue(selenium.isElementPresent("//a[text()='Tools']"));

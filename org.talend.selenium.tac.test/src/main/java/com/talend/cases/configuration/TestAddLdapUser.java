@@ -21,7 +21,7 @@ public class TestAddLdapUser extends Login {
 		selenium.click("idValidateButton");
 		selenium.click("idFormSaveButton");
 		
-			waitForElementPresent("//div[text()='"+userName+"']", WAIT_TIME);
+	   waitForElementPresent("//div[text()='"+userName+"']", WAIT_TIME);
 		
 	}
 }

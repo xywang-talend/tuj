@@ -18,8 +18,8 @@ public class TestConfigutationWithWrongSet extends configuration {
 		  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverLocationURL.editButton"), locatorOfAllInputTags, svnServerLocationWrongUrl,other.getString("svn.conf.serverLocationURL.wrong.statusIcon"));
 		  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverUser.editButton"), locatorOfAllInputTags, svnServerWrongUser,other.getString("svn.conf.serverUser.wrong.statusIcon"));
 		  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverPassword.editButton"), locatorOfAllInputTags, svnServerWrongPassword,other.getString("svn.conf.serverPassword.wrong.statusIcon"));
-	      Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Svn')]/parent::div/following-sibling::div//table//div[text()='Server location url']//ancestor::table[@class='x-grid3-row-table']//div[contains(text(),'Authentication" +
-	      		" failed while connecting to "+svnServerLocationWrongUrl+"')]"));
+	      Assert.assertTrue(this.waitElement("//div[contains(text(),'Svn')]/parent::div/following-sibling::div//table//div[text()='Server location url']//ancestor::table[@class='x-grid3-row-table']//div[contains(text(),'Authentication" +
+	      		" failed while connecting to "+svnServerLocationWrongUrl+"')]",WAIT_TIME));
 	      Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Svn')]/parent::div/following-sibling::div//table//div[text()='Username']//ancestor::table[@class='x-grid3-row-table']//div[contains(text(),'Authentication" +
 	      		" failed while connecting to "+svnServerLocationWrongUrl+"')]"));
 	      Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Svn')]/parent::div/following-sibling::div//table//div[text()='Password']//ancestor::table[@class='x-grid3-row-table']//div[contains(text(),'Authentication " +

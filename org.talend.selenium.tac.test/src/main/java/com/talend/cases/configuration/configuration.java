@@ -39,7 +39,7 @@ public String locatorOfAllInputTags = other.getString("commandline.conf.all.inpu
          
 		 this.waitForElementPresent("//div[contains(text(),'Audit (') and contains(@class,'x-grid-group-div')]", WAIT_TIME);		 
 		 boolean configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
-		 System.out.println(configurationPageIsNotEdit);
+//		 System.out.println(configurationPageIsNotEdit);
 	     while (seconds<=WAIT_TIME*2 && configurationPageIsNotEdit == true) {
 			 
 	    	 seconds++;	   
@@ -75,7 +75,7 @@ public String locatorOfAllInputTags = other.getString("commandline.conf.all.inpu
 		 this.waitForElementPresent("//div[contains(text(),'Audit (') and contains(@class,'x-grid-group-div')]", WAIT_TIME);
 		 
 		 boolean configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
-		 System.out.println(configurationPageIsNotEdit);
+//		 System.out.println(configurationPageIsNotEdit);
 	     while (seconds<=WAIT_TIME*2 && configurationPageIsNotEdit == true) {			 
 
 	    	 seconds++;	
@@ -99,7 +99,7 @@ public String locatorOfAllInputTags = other.getString("commandline.conf.all.inpu
 		 this.waitForElementPresent("//div[contains(text(),'Audit (') and contains(@class,'x-grid-group-div')]", WAIT_TIME);
 		 
 		 boolean configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
-		 System.out.println(configurationPageIsNotEdit);
+//		 System.out.println(configurationPageIsNotEdit);// 
 	     while (seconds<=WAIT_TIME*2 && configurationPageIsNotEdit == true) {
 
 	    	 seconds++;	  

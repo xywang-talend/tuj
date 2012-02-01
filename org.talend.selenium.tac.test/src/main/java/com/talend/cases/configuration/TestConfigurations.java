@@ -55,7 +55,7 @@ public class TestConfigurations extends configuration {
   
   //set a stop zkServer
   @Test
-  @Parameters ({"esb.conf.zookeeperServer","esb.conf.serviceActivityMonitorServer"})
+  @Parameters ({"esb.conf.zookeeperServer.stop","esb.conf.serviceActivityMonitorServer.stop"})
   public void testSetESBWithStopZKServer(String zookeeperServer,String serviceActivityMonitorServer){
 		
 	  try {
@@ -146,6 +146,11 @@ public class TestConfigurations extends configuration {
 	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.firstname.editButton"), locatorOfAllInputTags, ldapFieldsFirstName);
 	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.lastname.editButton"), locatorOfAllInputTags, ldapFieldsLastName);
 	
+	  
+	  //check ldap imgs
+	  if(useLDAPAutentication.equals("true")){
+	  this.waitForElementPresent("//div[contains(text(),' LDAP (11 Parameters')]/parent::div/following-sibling::div//table//div[text()='Host']/parent::td/following-sibling::td//img[@title='Ok']",WAIT_TIME);
+	  }
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),'LDAP (11 Parameters')]");
   }
   @Test
@@ -186,15 +191,15 @@ public class TestConfigurations extends configuration {
   
   @Test
   @Parameters ({"scheduler.conf.ArchivedPath","scheduler.conf.LogsPath"})
-  public void testSetScheduler(String ArchivedPath,String logsPath){
-	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Conductor (')]"); 
+  public void testSetJobconductor(String ArchivedPath,String logsPath){
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Job conductor (')]"); 
 	  this.typeWordsInConfigurationMenu(other.getString("scheduler.conf.ArchivedPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(ArchivedPath));
 	  this.typeWordsInConfigurationMenu(other.getString("scheduler.conf.LogsPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(logsPath));
 	  this.AssertEqualsInConfigurationMenu(other.getString("scheduler.conf.ArchivedPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(ArchivedPath),other.getString("scheduler.conf.ArchivedPath.statusIcon"));
 	  this.AssertEqualsInConfigurationMenu(other.getString("scheduler.conf.LogsPath.editButton"), locatorOfAllInputTags, this.getAbsolutePath(logsPath),other.getString("scheduler.conf.LogsPath.statusIcon"));
 //	  this.waitForElementPresent(other.getString("scheduler.conf.generalStatusIcon"), WAIT_TIME);
 	 
-	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Conductor (')]"); 
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Job conductor (')]"); 
 	//assertEquals
   }
   @Test
