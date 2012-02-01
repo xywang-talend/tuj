@@ -69,8 +69,8 @@
     <parameter  name ="ServeravailableHost" value="192.168.0.94"/>
     
     <!-- needed start a remote commandline -->
-    <parameter  name ="localhostAddress" value="localhost"/>
-    <parameter  name ="remotehostAddress" value="localhost"/>
+    <parameter  name ="localhostAddress" value="192.168.0.120"/>
+    <parameter  name ="remotehostAddress" value="192.168.0.120"/>
     <parameter  name ="remotehostAddressWithWrong" value="192.168.0.g"/>
     
 	<!-- configuration for File Trigger -->
@@ -120,16 +120,18 @@
   	
   	<!-- *****************************Configuration*********************** -->
     <!-- esb -->
-    <parameter name="esb.conf.zookeeperServer" value="127.0.0.1:2181"></parameter>
+    <parameter name="esb.conf.zookeeperServer" value="192.168.0.216:2181"/>
+    <parameter name="esb.conf.zookeeperServer.stop" value="192.168.0.94:2181"/>
     <parameter name="esb.conf.serviceActivityMonitorServer" 
     value="http://192.168.0.216:8899/sam-server-war"/>
-    
+      <parameter name="esb.conf.serviceActivityMonitorServer.stop" 
+    value="http://192.168.0.94:8080/sam-server-war"/>
 	<!-- Ldap parameters -->
 	<parameter name="LDAP.conf.useLDAPAutentication" value="true" />
 	<parameter name="LDAP.conf.ldapServerIp" value="192.168.0.216" />
 	<parameter name="LDAP.conf.ldapServerPort" value="389" />
 	<parameter name="LDAP.conf.ldapRoot" value="dc=wyang,dc=com" />
-	<parameter name="LDAP.conf.ldapPrincipalDNPrefix" value="cn=Manager,dc=wyang,dc=com" />
+	<parameter name="LDAP.conf.ldapPrincipalDNPrefix" value="cn=Mangaer,dc=wyang,dc=com" />
 	<parameter name="LDAP.conf.ldapAdminPassword" value="Talend12" />
 	<parameter name="LDAP.conf.ldap.fields.mail" value="mail" />
 	<parameter name="LDAP.conf.ldap.fields.lastname" value="givenName" />
@@ -140,7 +142,7 @@
 	<parameter name="smtp.conf.useSmtp" value="true" />
 	<parameter name="smtp.conf.mailServerHost" value="smtp.163.com" />
 	<parameter name="smtp.conf.mailServerPort" value="25" />
-	<parameter name="smtp.conf.mailUserName" value="lindy512@163.com" />
+	<parameter name="smtp.conf.mailUserName" value="talend_smtp@163.com" />
 	<parameter name="smtp.conf.mailPassword" value="talend" />
 	<parameter name="smtp.conf.serverRequireSSL" value="false" />	
 
@@ -228,11 +230,10 @@
     <!-- ********************** ESB_ServiceLocator *********************-->
        
 	<suite-files>
-		<suite-file path='org/talend/tac/conf/license.xml'/>
+	 	<suite-file path='org/talend/tac/conf/license.xml'/>
 		<suite-file path='org/talend/tac/conf/licensetypes.xml'/>
 	    <suite-file path='org/talend/tac/conf/menu.xml'/>
 		<suite-file path='org/talend/tac/conf/configurations.xml'/>
-		<suite-file path='org/talend/tac/conf/privilege.xml'/>
 		<suite-file path='org/talend/tac/conf/login.xml'/>
 		<suite-file path='org/talend/tac/conf/license_account.xml'/>
 		<suite-file path='org/talend/tac/conf/user.xml'/>
@@ -246,5 +247,6 @@
 		<suite-file path='org/talend/tac/conf/notification.xml'/>
 		<suite-file path='org/talend/tac/conf/ServiceLocator.xml'/>
 		<suite-file path='org/talend/tac/conf/monitors.xml'/>
+		<suite-file path='org/talend/tac/conf/privilege.xml'/>
 	</suite-files>
 </suite>
