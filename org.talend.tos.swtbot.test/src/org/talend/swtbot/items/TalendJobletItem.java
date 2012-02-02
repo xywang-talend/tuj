@@ -37,7 +37,7 @@ public class TalendJobletItem extends TalendItem {
 
     @Override
     public SWTBotShell beginEditWizard() {
-        return beginEditWizard("Edit Properties", "!!!PropertiesWizard.EditPropertiesPageTitle!!!");
+        return beginEditWizard("Edit Properties", "Edit properties");
     }
 
     public SWTBotGefEditor getEditor() {
