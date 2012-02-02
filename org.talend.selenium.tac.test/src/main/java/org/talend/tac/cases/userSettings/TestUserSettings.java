@@ -18,6 +18,7 @@ public class TestUserSettings extends Login {
 		selenium.type("idChangePwdSvnLoginInput", newSvnLogin);
 		selenium.type("idChangePwdSvnPasswdInput", newSvnPasswd);
 		selenium.click("idChangePwdSaveButton");
+		this.waitForTextPresent("Svn account change", WAIT_TIME);
 		selenium.click("idMenuUserElement");
 		this.waitForElementPresent("//div[text()='"+ CurrentLoginName + "']", WAIT_TIME);
 		selenium.mouseDown("//div[text()='"+ CurrentLoginName + "']");
@@ -27,7 +28,9 @@ public class TestUserSettings extends Login {
 		selenium.type("idChangePwdSvnLoginInput", svnConfUser);
 		selenium.type("idChangePwdSvnPasswdInput", svnConfPass);
 		selenium.click("idChangePwdSaveButton");
+		this.waitForTextPresent("Svn account change", WAIT_TIME);
 		selenium.click("idMenuUserElement");
+		selenium.refresh();
 		this.waitForElementPresent("//div[text()='"+ CurrentLoginName + "']", WAIT_TIME);
 		selenium.mouseDown("//div[text()='"+ CurrentLoginName + "']");
 		assertEquals(selenium.getValue("idSvnLogin"), svnConfUser);
