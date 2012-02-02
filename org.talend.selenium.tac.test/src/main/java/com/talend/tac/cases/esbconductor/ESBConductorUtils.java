@@ -1,5 +1,7 @@
 package com.talend.tac.cases.esbconductor;
 
+import org.testng.Assert;
+
 import com.talend.tac.cases.Login;
 
 public class ESBConductorUtils extends Login {
@@ -71,6 +73,40 @@ public class ESBConductorUtils extends Login {
 		this.selectDropDownListForESBConductor("idESBConductorTaskContextListBox", context, "Context:");
 		this.selectDropDownListForESBConductor("idJobConductorExecutionServerListBox", server, "Server:");
 		selenium.click("idFormSaveButton");
+		
+	}
+	
+	/*
+	 * method to delete 
+	 * */
+	public void deleteESBConductorOK(String label) {
+		
+		this.intoESBConductorPage();
+		this.waitForElementPresent("//div[text()='"+label+"']", WAIT_TIME);
+		selenium.mouseDown("//div[text()='"+label+"']");
+		this.sleep(3000);
+		selenium.chooseOkOnNextConfirmation();//
+		selenium.click("idESBConductorTaskGridDeleteButton");
+		Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected esb task [\\s\\S]$"));
+		this.waitForElementDispear("//div[text()='"+label+"']", WAIT_TIME);
+		
+	}
+	
+	/*
+	 * method to delete 
+	 * */
+	public void deleteESBConductorCancel(String label) {
+		
+		this.intoESBConductorPage();
+		this.waitForElementPresent("//div[text()='"+label+"']", WAIT_TIME);
+		selenium.mouseDown("//div[text()='"+label+"']");
+		this.sleep(3000);
+		selenium.chooseCancelOnNextConfirmation();//choose 'Cancel'
+		selenium.click("idESBConductorTaskGridDeleteButton");
+		Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected esb task [\\s\\S]$"));
+		this.sleep(3000);
+		selenium.refresh();
+		this.waitForElementPresent("//div[text()='"+label+"']", WAIT_TIME);
 		
 	}
 	
