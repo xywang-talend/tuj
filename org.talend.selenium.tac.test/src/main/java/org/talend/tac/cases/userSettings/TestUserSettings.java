@@ -11,8 +11,8 @@ import com.talend.tac.cases.Login;
 
 public class TestUserSettings extends Login {
 	@Test
-	@Parameters( { "userName" ,"userSetting.CurrentUser.newSvnLogin","userSetting.CurrentUser.newSvnPasswd"})
-	public void testChangeSVNaCCOUNT(String CurrentLoginName,String newSvnLogin,String newSvnPasswd) {
+	@Parameters( { "userName" ,"userSetting.CurrentUser.newSvnLogin","userSetting.CurrentUser.newSvnPasswd","svn.conf.serverUser","svn.conf.serverPassword"})
+	public void testChangeSVNaCCOUNT(String CurrentLoginName,String newSvnLogin,String newSvnPasswd,String svnConfUser,String svnConfPass) {
 
 		this.clickWaitForElementPresent("idMenuChangePasswordElement");
 		selenium.type("idChangePwdSvnLoginInput", newSvnLogin);
@@ -22,6 +22,15 @@ public class TestUserSettings extends Login {
 		this.waitForElementPresent("//div[text()='"+ CurrentLoginName + "']", WAIT_TIME);
 		selenium.mouseDown("//div[text()='"+ CurrentLoginName + "']");
 		assertEquals(selenium.getValue("idSvnLogin"), newSvnLogin);
+		
+		this.clickWaitForElementPresent("idMenuChangePasswordElement");
+		selenium.type("idChangePwdSvnLoginInput", svnConfUser);
+		selenium.type("idChangePwdSvnPasswdInput", svnConfPass);
+		selenium.click("idChangePwdSaveButton");
+		selenium.click("idMenuUserElement");
+		this.waitForElementPresent("//div[text()='"+ CurrentLoginName + "']", WAIT_TIME);
+		selenium.mouseDown("//div[text()='"+ CurrentLoginName + "']");
+		assertEquals(selenium.getValue("idSvnLogin"), svnConfUser);
 		
 	}
 
