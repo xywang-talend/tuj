@@ -1,6 +1,5 @@
 package com.talend.tac.cases.esbconductor;
 
-import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -9,28 +8,16 @@ public class TestDeployESBConductor extends ESBConductorUtils {
 	@Test
 	@Parameters({"labelOfService", "name"})
 	public void testDeployESBConductor(String label, String name) {
+
+		String deployId = "idESBConductorTaskGridDeployButton";
+		String status = "Deployed and started";
+		String promptInfo = "Feature '"+name+"' deployed.";
 		
 		this.intoESBConductorPage();
 		
-		this.waitForElementPresent("//div[text()='"+label+"']", WAIT_TIME);
-		selenium.mouseDown("//div[text()='"+label+"']");
-		
-		selenium.click("idESBConductorTaskGridDeployButton");
-		
-		this.waitForTextPresent("Feature '"+name+"' deployed.", WAIT_TIME);
-		selenium.setSpeed(MID_SPEED);
-		selenium.click("idESBConductorTaskGridRefreshButton");
-		selenium.setSpeed(MIN_SPEED);
-		
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+label+"']" +
-				"//ancestor::table[@class='x-grid3-row-table']//span[text()='Deployed and started']"));
-		
+		this.deployStartConductor(label, name, promptInfo,
+				deployId, status);
+				
 	}
 	
 
@@ -38,30 +25,17 @@ public class TestDeployESBConductor extends ESBConductorUtils {
 	@Parameters({"labelOfService", "name"})
 	public void testUndeployESBConductor(String label, String name) {
 		
+		String undeployId = "idESBConductorTaskGridUndeployButton";
+		String status = "Undeployed";
+		String popupInfo = "Are you sure you want to undeploy the feature '"+name+"'";
+		String promptInfo = "Feature '"+name+"' undeployed.";
+		
 		this.intoESBConductorPage();
 		
-		this.waitForElementPresent("//div[text()='"+label+"']", WAIT_TIME);
-		selenium.mouseDown("//div[text()='"+label+"']");
-		
-		this.sleep(3000);
-		selenium.chooseOkOnNextConfirmation();
-		selenium.click("idESBConductorTaskGridUndeployButton");
-		Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to undeploy the feature '"+name+"' [\\s\\S]$"));
-		
-		this.waitForTextPresent("Feature '"+name+"' undeployed.", WAIT_TIME);
-		selenium.setSpeed(MID_SPEED);
-		selenium.click("idESBConductorTaskGridRefreshButton");
-		selenium.setSpeed(MIN_SPEED);
-		
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+label+"']" +
-				"//ancestor::table[@class='x-grid3-row-table']//span[text()='Undeployed']"));
-		
+		this.undeployStopConductor(label, name, undeployId,
+				status, popupInfo, 
+				promptInfo);
+						
 	}
 	
 }

@@ -110,4 +110,48 @@ public class ESBConductorUtils extends Login {
 		
 	}
 	
+	/*deploy start a conductor*/
+	public void deployStartConductor(String label, String name, String promptInfo,
+			String id, String status) {
+		
+		this.waitForElementPresent("//div[text()='"+label+"']", WAIT_TIME);
+		selenium.mouseDown("//div[text()='"+label+"']");
+		
+		selenium.click(id);//button{deploy start}
+		
+		this.waitForTextPresent(promptInfo, WAIT_TIME);
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("idESBConductorTaskGridRefreshButton");
+		selenium.setSpeed(MIN_SPEED);
+		
+		this.waitForElementPresent("//div[text()='"+label+"']" +
+		"//ancestor::table[@class='x-grid3-row-table']//span[text()='"+status+"']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+label+"']" +
+		"//ancestor::table[@class='x-grid3-row-table']//span[text()='"+status+"']"));
+	}
+	
+	/*undeploy stop conductor*/
+    public void undeployStopConductor(String label, String name, String id, String status,
+    		String popupInfo, String promptInfo) {
+    	
+    	this.waitForElementPresent("//div[text()='"+label+"']", WAIT_TIME);
+		selenium.mouseDown("//div[text()='"+label+"']");
+		
+		this.sleep(3000);
+		selenium.chooseOkOnNextConfirmation();
+		selenium.click(id);//button {undeploy stop}
+		Assert.assertTrue(selenium.getConfirmation().matches("^"+popupInfo+" [\\s\\S]$"));
+		
+		this.waitForTextPresent(promptInfo, WAIT_TIME);
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("idESBConductorTaskGridRefreshButton");
+		selenium.setSpeed(MIN_SPEED);
+		
+		this.waitForElementPresent("//div[text()='"+label+"']" +
+				"//ancestor::table[@class='x-grid3-row-table']//span[text()='"+status+"']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+label+"']" +
+				"//ancestor::table[@class='x-grid3-row-table']//span[text()='"+status+"']"));
+    	
+    }
+	
 }
