@@ -23,8 +23,7 @@ public class TestDuplicateESBConductor extends ESBConductorUtils {
 		Assert.assertTrue(selenium.getValue("idESBConductorTasklabelInput").toString().equals(labelAfterCopy));
 		selenium.click("idFormSaveButton");
 		this.waitForElementPresent("//div[text()='"+labelAfterCopy+"']", WAIT_TIME);
-		this.waitForElementPresent("//div[text()='"+label+"']" +
-				"//ancestor::table[@class='x-grid3-row-table']//span[text()='Ready to deploy']", WAIT_TIME);
+		this.waitForElementPresent("//div[text()='"+label+"']", WAIT_TIME);
 		selenium.mouseDown("//div[text()='"+labelAfterCopy+"']");
 		this.sleep(2000);
 		Assert.assertTrue(selenium.getValue("idESBConductorTasklabelInput").toString().equals(labelAfterCopy));
