@@ -72,10 +72,11 @@ public class TestAddprojects extends Projects {
 		
 		this.clickWaitForElementPresent("!!!menu.refprojects.element!!!");
 		this.waitForElementPresent("//div[text()='Projects references' and @class='header-title']", WAIT_TIME);	
-		
-		this.waitForElementPresent("//span[@class='x-panel-header-text' and text()='Projects available as reference']//ancestor::div[@class='x-panel-body x-panel-body-noheader']//div[@class='x-panel-body x-panel-body-noborder']//div[text()='"+proname+"']", WAIT_TIME);
-		Assert.assertTrue(selenium.isElementPresent("//span[@class='x-panel-header-text' and text()='Projects available as reference']//ancestor::div[@class='x-panel-body x-panel-body-noheader']//div[@class='x-panel-body x-panel-body-noborder']//div[text()='"+proname+"']"));
-		
+		this.sleep(3000);
+		Assert.assertTrue(selenium.getXpathCount("//span[@class='x-panel-header-text' and text()='Projects available as reference']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-border-layout-ct']//div[text()='"+proname+"']").intValue()>=1);
+//		this.waitForElementPresent("//span[@class='x-panel-header-text' and text()='Projects available as reference']//ancestor::div[@class='x-panel-body x-panel-body-noheader']//div[@class='x-panel-body x-panel-body-noborder']//div[text()='"+proname+"']", WAIT_TIME);
+//		Assert.assertTrue(selenium.isElementPresent("//span[@class='x-panel-header-text' and text()='Projects available as reference']//ancestor::div[@class='x-panel-body x-panel-body-noheader']//div[@class='x-panel-body x-panel-body-noborder']//div[text()='"+proname+"']"));
+		////span[@class='x-panel-header-text' and text()='Projects available as reference']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-border-layout-ct']//div[text()='"+proname+"']
 		this.openMenuProject();
 		deleteProjectOK(proname);
 	}
