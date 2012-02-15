@@ -348,10 +348,10 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 
 		}
 		//add a simple trigger for task added
-		addSimpleTrigger(tasklabel,simpletrigger,"15");
+		addSimpleTrigger(tasklabel,simpletrigger,"500");
 		String filetriggerlabel = "testFileTrigger";
 		//add a file trigger for task added
-		addFileTrigger(tasklabel,filetriggerlabel ,path,"30",mark,server);
+		addFileTrigger(tasklabel,filetriggerlabel ,path,"500",mark,server);
 		//active one context of task
 		selenium.mouseDown("//span[text()='"+tasklabel+"']");	
 		this.clickWaitForElementPresent("//span[text()='Context parameters']");
@@ -364,6 +364,14 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 		//add a jvm parameter for task
 //		addJVM();
 		//then delete the task.
+		Thread.sleep(2000);
+		if(selenium.isElementPresent("//span[text()='"+tasklabel+"']//ancestor::tr" +
+	   			"//span[text()='Generating...']")) {
+			
+			this.waitForElementPresent("//span[text()='"+tasklabel+"']//ancestor::tr" +
+				"//span[text()='Ready to run']", WAIT_TIME*6);
+			
+		}
 		deleteTask(tasklabel);
 		//add a task with same name ,to see if these items exist still
 		addTask(tasklabel,"", projectName, branchName, jobName, version, context,
