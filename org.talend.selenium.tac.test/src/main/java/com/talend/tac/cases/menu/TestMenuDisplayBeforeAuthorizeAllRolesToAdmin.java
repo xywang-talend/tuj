@@ -142,7 +142,7 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 				"//div[contains(text(),'Talend suite (3 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
 				"//div[contains(text(),'Software Update (5 Parameters')]", WAIT_TIME);
-		this.waitForElementPresent("//div[contains(text(),'Audit (5 Parameters')]", WAIT_TIME);
+		this.waitForElementPresent("//div[contains(text(),'Audit (6 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent("//div[contains(text(),'Dashboard (1 Parameter')]", WAIT_TIME);
 		this.waitForElementPresent("//div[contains(text(),'General (3 Parameters)')]", WAIT_TIME);
 		
