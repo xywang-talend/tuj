@@ -49,8 +49,8 @@ public class TestNumberFormatExceptionAboutTriggerRepetitions extends Grid {
 				Base.WAIT_TIME);
 	    this.addSimpleTriggerForTask(label, "testNumberFormateEqual", "3600", "100000");
 	    this.waitForElementPresent("//span[@title='Generating...']", WAIT_TIME);
-	    this.waitForElementPresent("//span[@title='Ready to deploy']", MAX_WAIT_TIME);
-	    this.waitForElementPresent("//span[@title='Ready to run']", WAIT_TIME);
+//	    this.waitForElementPresent("//span[@title='Ready to deploy']", MAX_WAIT_TIME);
+	    this.waitForElementPresent("//span[@title='Ready to run']", MAX_WAIT_TIME);
 	    this.deleteSimpleTriggerOfTask(label, "testNumberFormateEqual");
 	    this.addSimpleTriggerForTask(label, "testNumberFormateSmaller", "3600", "99999");
 	    this.deleteSimpleTriggerOfTask(label, "testNumberFormateSmaller");
