@@ -51,12 +51,12 @@ public class TestMenuDisplayAfterChangeLicenseToCLOUD extends Login {
 	   Assert.assertTrue(selenium.isElementPresent("!!!menu.executionPlan.element!!!"));
 	   Assert.assertTrue(selenium.isElementPresent("!!!menu.executionServers.element!!!"));
 	   Assert.assertTrue(selenium.isElementPresent("!!!menu.virtual_server.element!!!"));
-	   Assert.assertTrue(selenium.isElementPresent("!!!menu.soamanager.element!!!"));
+//	   Assert.assertTrue(selenium.isElementPresent("!!!menu.soamanager.element!!!"));
 	   Assert.assertTrue(selenium.isElementPresent("!!!menu.businessModeler.browser.element!!!"));
 	   Assert.assertTrue(selenium.isElementPresent("!!!menu.connections.element!!!"));
 	   Assert.assertTrue(selenium.isElementPresent("!!!menu.dashjobs.element!!!"));
 	   Assert.assertTrue(selenium.isElementPresent("!!!menu.dashamc.element!!!"));
-	   Assert.assertTrue(selenium.isElementPresent("!!!menu.soamanager.dashboard.element!!!"));
+//	   Assert.assertTrue(selenium.isElementPresent("!!!menu.soamanager.dashboard.element!!!"));
 	   Assert.assertTrue(selenium.isElementPresent("!!!menu.commandline.dashboard.element!!!"));
 	   Assert.assertTrue(selenium.isElementPresent("!!!menu.grid_task_executions_history.element!!!"));
 	   Assert.assertTrue(selenium.isElementPresent("!!!menu.graphic_task_executions_history.element!!!"));

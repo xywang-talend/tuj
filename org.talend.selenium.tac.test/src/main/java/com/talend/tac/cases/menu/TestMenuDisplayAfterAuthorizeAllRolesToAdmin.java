@@ -147,7 +147,7 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 		
 	}
 
-	@Test
+//	@Test
 	public void testMenuSoaManager() {
 		this.waitForElementPresent("!!!menu.soamanager.element!!!", WAIT_TIME);
 		selenium.click("!!!menu.soamanager.element!!!");
@@ -219,8 +219,8 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 		this.sleep(5000);
 		Assert.assertFalse(selenium.isVisible("!!!menu.connections.element!!!"));
 		Assert.assertFalse(selenium.isVisible("!!!menu.dashjobs.element!!!"));
-		Assert.assertFalse(selenium
-				.isVisible("!!!menu.soamanager.dashboard.element!!!"));
+//		Assert.assertFalse(selenium
+//				.isVisible("!!!menu.soamanager.dashboard.element!!!"));
 		Assert.assertFalse(selenium
 				.isVisible("!!!menu.commandline.dashboard.element!!!"));
 		Assert.assertFalse(selenium
@@ -233,8 +233,8 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 		this.sleep(5000);
 		Assert.assertTrue(selenium.isVisible("!!!menu.connections.element!!!"));
 		Assert.assertTrue(selenium.isVisible("!!!menu.dashjobs.element!!!"));
-		Assert.assertTrue(selenium
-				.isVisible("!!!menu.soamanager.dashboard.element!!!"));
+//		Assert.assertTrue(selenium
+//				.isVisible("!!!menu.soamanager.dashboard.element!!!"));
 		Assert.assertTrue(selenium
 				.isVisible("!!!menu.commandline.dashboard.element!!!"));
 		Assert.assertTrue(selenium
@@ -314,7 +314,7 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 				WAIT_TIME);
 	}
 
-	@Test
+//	@Test
 	public void testMenuSoaDashboard() {
 		// check menu soa
 		this.clickWaitForElementPresent("!!!menu.soamanager.dashboard.element!!!");

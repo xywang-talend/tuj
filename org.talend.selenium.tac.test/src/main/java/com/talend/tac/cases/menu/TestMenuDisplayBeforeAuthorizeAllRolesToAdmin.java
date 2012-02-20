@@ -122,8 +122,8 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 				"//div[contains(text(),'Database (5 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
 				"//div[contains(text(),'ESB (2 Parameter')]", WAIT_TIME);
-		this.waitForElementPresent(
-				"//div[contains(text(),'Extended configuration (1 Parameter')]", WAIT_TIME);
+//		this.waitForElementPresent(
+//				"//div[contains(text(),'Extended configuration (1 Parameter')]", WAIT_TIME);
 		this.waitForElementPresent(
 				"//div[contains(text(),'LDAP (11 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent(
@@ -137,7 +137,7 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 		this.waitForElementPresent(
 				"//div[contains(text(),'Talend suite (3 Parameters')]", WAIT_TIME);
 		this.waitForElementPresent("//div[contains(text(),'Audit (6 Parameters')]", WAIT_TIME);
-		this.waitForElementPresent("//div[contains(text(),'Dash board (1 Parameter')]", WAIT_TIME);
+		this.waitForElementPresent("//div[contains(text(),' Dashboard (1 Parameter')]", WAIT_TIME);
 		this.waitForElementPresent("//div[contains(text(),'General (3 Parameters)')]", WAIT_TIME);
 		
 	}
@@ -177,13 +177,13 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 				selenium.isElementPresent("//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='admin@company.com']"),
 				"admin user should not display here,only designers!");
 		this.waitForElementPresent(
-				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']//ancestor::div[@class=' x-panel x-component']//span[@class='x-tree3-node-text' and text()='Data Integration']",
+				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']//ancestor::div[contains(@class,'x-panel x-component x-border-panel')]//span[@class='x-tree3-node-text' and text()='Data Integration']",
 				WAIT_TIME);
 		this.waitForElementPresent(
-				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']//ancestor::div[@class=' x-panel x-component']//span[@class='x-tree3-node-text' and text()='Data Quality']",
+				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']//ancestor::div[contains(@class,'x-panel x-component x-border-panel')]//span[@class='x-tree3-node-text' and text()='Data Quality']",
 				WAIT_TIME);
 		this.waitForElementPresent(
-				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']//ancestor::div[@class=' x-panel x-component']//div[contains(@class,'x-tree3-node-ct x-tree3 x-component')]//span[contains(text(),'Master Data Management')]",
+				"//div[@class='header-title' and text()='Projects authorizations']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-panel-header-text' and text()='Projects']//ancestor::div[contains(@class,'x-panel x-component x-border-panel')]//span[contains(text(),'Master Data Management')]",
 				WAIT_TIME);
 	}
 
