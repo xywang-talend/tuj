@@ -105,11 +105,11 @@ public class ExportAsContextForXmlTest extends TalendSwtBotForTos {
             // finish
             fileItem.finishCreationWizard(shell);
         } catch (WidgetNotFoundException wnfe) {
-            shell.close();
             Assert.fail(wnfe.getCause().getMessage());
         } catch (Exception e) {
-            shell.close();
             Assert.fail(e.getMessage());
+        } finally {
+            shell.close();
         }
 
         fileItem.setComponentType("tFileInputXML");
