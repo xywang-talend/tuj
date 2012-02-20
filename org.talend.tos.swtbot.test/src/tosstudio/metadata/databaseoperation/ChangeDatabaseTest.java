@@ -59,6 +59,8 @@ public class ChangeDatabaseTest extends TalendSwtBotForTos {
             gefBot.button("Next >").click();
             gefBot.textWithLabel("DataBase").setText(DATABASE_NAME);
             gefBot.button("Finish").click();
+            gefBot.shell("Confirm Reload Connection").activate();
+            gefBot.button("OK").click();
             gefBot.shell("Modification").activate();
             gefBot.button("No").click();
 

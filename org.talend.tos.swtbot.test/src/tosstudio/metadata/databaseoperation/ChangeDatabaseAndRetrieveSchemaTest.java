@@ -69,6 +69,8 @@ public class ChangeDatabaseAndRetrieveSchemaTest extends TalendSwtBotForTos {
             gefBot.button("Next >").click();
             gefBot.textWithLabel("DataBase").setText(DATABASE_NAME);
             gefBot.button("Finish").click();
+            gefBot.shell("Confirm Reload Connection").activate();
+            gefBot.button("OK").click();
             gefBot.shell("Modification").activate();
             gefBot.button("No").click();
 
@@ -83,10 +85,10 @@ public class ChangeDatabaseAndRetrieveSchemaTest extends TalendSwtBotForTos {
             catalog.getNode(TABLE2).check();
             gefBot.button("Next >").click();
             gefBot.button("Finish").click();
-            gefBot.shell("Modification").activate();
-            gefBot.button("Yes").click();
-            gefBot.shell("No modification needed").activate();
-            gefBot.button("OK").click();
+            // gefBot.shell("Modification").activate();
+            // gefBot.button("Yes").click();
+            // gefBot.shell("No modification needed").activate();
+            // gefBot.button("OK").click();
 
             Assert.assertNotNull("did not retrieve schema", table1.getItem());
             TalendSchemaItem table2 = dbItem.getSchema(TABLE2);
