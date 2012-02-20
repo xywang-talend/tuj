@@ -15,6 +15,7 @@ package tosstudio.businessmodels;
 import junit.framework.Assert;
 
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
@@ -66,7 +67,9 @@ public class SaveAsForBusinessModelTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        bmItem2.getEditor().saveAndClose();
+        for (SWTBotEditor editor : gefBot.editors()) {
+            editor.saveAndClose();
+        }
         Utilities.cleanUpRepository(bmItem1.getParentNode());
         Utilities.emptyRecycleBin();
     }
