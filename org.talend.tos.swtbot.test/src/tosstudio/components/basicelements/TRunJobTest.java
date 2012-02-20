@@ -74,7 +74,7 @@ public class TRunJobTest extends TalendSwtBotForTos {
         gefBot.viewByTitle("Component").setFocus();
         gefBot.button(4).click();
         gefBot.shell("Find a Job").setFocus();
-        gefBot.tree().getTreeItem(jobItem1.getItemFullName()).select();
+        Utilities.getTalendItemNode(gefBot.tree(), jobItem1.getItemType()).getNode(jobItem1.getItemFullName()).select();
         gefBot.button("OK").click();
         JobHelper.runJob(jobItem2.getItemName());
         String result1 = JobHelper.execResultFilter(JobHelper.getExecutionResult());
