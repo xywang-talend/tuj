@@ -237,7 +237,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 		
 		intoJobConductor(taskLabel);
 		
-		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, "2011", 
+		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, date.years, 
 				"Sunday", "Saturday", "January", "December");
     			
 		selenium.click("idCrontTriggerSave");

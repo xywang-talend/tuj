@@ -111,7 +111,7 @@ public class TestAddTriggerAddCronTrigger extends TaskUtils {
 	@Parameters({"labelRefProJobByMainProTRunJobRun","addCronTriggerLabel","addCronTriggerDescription"})
     public void testAddTriggerAddCronTrigger(String taskLabel,String cronTriggerLabel,String description) throws InterruptedException {
 		
-		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, "2011", 
+		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, date.years, 
 				"Sunday", "Saturday", "January", "December");
     			
 		selenium.click("idCrontTriggerSave");
