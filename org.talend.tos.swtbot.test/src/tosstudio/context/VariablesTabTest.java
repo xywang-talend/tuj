@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -54,6 +54,7 @@ public class VariablesTabTest extends TalendSwtBotForTos {
     @Test
     public void variablesTabTest() {
         gefBot.viewByTitle("Contexts(Job " + jobItem.getItemFullName() + ")").setFocus();
+        gefBot.cTabItem("Variables").activate();
         SWTBotTree varTree = gefBot.tree(0);
         SWTBotButton addBtn = gefBot.button(0);
         SWTBotButton deleteBtn = gefBot.button(1);
