@@ -371,7 +371,14 @@ public class TestServiceLocator extends EsbUtil {
     	
 	   //go to configuration page 
 	   this.clickWaitForElementPresent("idMenuConfigElement");
-		  
+	   
+	   this.waitForElementPresent("//div[@class='header-title' and text()='Configuration']", WAIT_TIME);
+	   if(selenium.isElementPresent("//button[@class='x-btn-text' and @aria-pressed='true']")) {
+		
+		 selenium.click("//button[@class='x-btn-text' and @aria-pressed='true']");
+		 this.waitForElementPresent("//button[@class='x-btn-text' and @aria-pressed='false']", WAIT_TIME);
+		
+	   }	  
 	   this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");	   
 	   
 	   modifySAMServer(remoteMonitorServer, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator"));
@@ -387,6 +394,14 @@ public class TestServiceLocator extends EsbUtil {
     	
 	   //go to configuration page 
 	   this.clickWaitForElementPresent("idMenuConfigElement");
+	   
+	   this.waitForElementPresent("//div[@class='header-title' and text()='Configuration']", WAIT_TIME);
+	   if(selenium.isElementPresent("//button[@class='x-btn-text' and @aria-pressed='true']")) {
+		
+		 selenium.click("//button[@class='x-btn-text' and @aria-pressed='true']");
+		 this.waitForElementPresent("//button[@class='x-btn-text' and @aria-pressed='false']", WAIT_TIME);
+		
+	   }
 		  
 	   this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");	   
 
