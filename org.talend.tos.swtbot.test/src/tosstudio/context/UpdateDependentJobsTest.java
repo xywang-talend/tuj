@@ -58,9 +58,10 @@ public class UpdateDependentJobsTest extends TalendSwtBotForTos {
         gefBot.shell("Create / Edit a context group").activate();
         gefBot.button("Next >").click();
         gefBot.cTabItem("Values as table").activate();
+        gefBot.tree(0).getTreeItem(System.getProperty("context.variable0")).select();
         gefBot.tree(0).getTreeItem(System.getProperty("context.variable0")).click(1);
         gefBot.text().setText("test");
-        gefBot.tree(0).getTreeItem(System.getProperty("context.variable0")).select();
+        gefBot.tree(0).getTreeItem(System.getProperty("context.variable0")).click();
         gefBot.button("Finish").click();
 
         gefBot.shell("Modification").activate();
