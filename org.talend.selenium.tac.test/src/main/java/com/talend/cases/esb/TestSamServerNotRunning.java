@@ -27,6 +27,14 @@ public class TestSamServerNotRunning extends Esb {
 	@Parameters ({"esb.conf.zookeeperServer","esb.conf.serviceActivityMonitorServer.remote.available","esb.conf.serviceActivityMonitorServer.remote.stop"})
 	public void testSamServerNotRunning(String zookeeperServer,String serviceActivityMonitorServer,String monitorStop){
 		  this.clickWaitForElementPresent("idMenuConfigElement");
+		  
+		  this.waitForElementPresent("//div[@class='header-title' and text()='Configuration']", WAIT_TIME);
+		  if(selenium.isElementPresent("//button[@class='x-btn-text' and @aria-pressed='true']")) {
+			
+			 selenium.click("//button[@class='x-btn-text' and @aria-pressed='true']");
+			 this.waitForElementPresent("//button[@class='x-btn-text' and @aria-pressed='false']", WAIT_TIME);
+			
+		  }
 		  this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB (')]");
 		  selenium.setSpeed(MID_SPEED);
 		  //change sam server to remote stoped
