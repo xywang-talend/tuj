@@ -169,8 +169,9 @@ public class ESBConductorUtils extends Login {
 	 */
 	public void typeWordsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
 		 this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
+		 selenium.setSpeed("2000");
 		 this.typeWaitForElementPresent(locatorOfInput, value);
-		
+		 selenium.setSpeed("0");
 	}
 	/**
 	 * assertions,check the value in input tag is as expected,and check the status icon.
