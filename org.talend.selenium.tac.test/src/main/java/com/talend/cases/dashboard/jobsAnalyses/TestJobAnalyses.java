@@ -29,8 +29,10 @@ public class TestJobAnalyses extends Login {
 		this.mouseDownWaitForElementPresent("//div[contains(@class,'x-combo-list-item') and text()=' "+connection+"']", WAIT_TIME);
 		this.waitForElementPresent("//img[@title='Ok']", WAIT_TIME);
 		//select a connection and simulate a click
+		this.sleep(3000);
 		selenium.mouseDown("//img[@title='Ok']/ancestor::table");
 		//not less than one "Ok"s are displayed
+		this.sleep(5000);
 		assertTrue(selenium.getXpathCount("//img[@title='Ok']").intValue() > 1);
 		//System.out.println(selenium.getXpathCount("//img[@title='Ok']"));
 	}
@@ -57,8 +59,10 @@ public class TestJobAnalyses extends Login {
 		this.mouseDownWaitForElementPresent("//div[contains(@class,'x-combo-list-item') and text()=' "+connection+"']", WAIT_TIME);
 		this.waitForElementPresent("//img[@title='Ok']", WAIT_TIME);
 		//select a connection and simulate a click
+		this.sleep(3000);
 		selenium.mouseDown("//img[@title='Ok']/ancestor::table");
 		//not less than one "Ok"s are displayed
+		this.sleep(5000);
 		assertTrue(selenium.getXpathCount("//img[@title='Ok']").intValue() > 1);
 		//System.out.println(selenium.getXpathCount("//img[@title='Ok']"));
 	}
@@ -82,10 +86,12 @@ public class TestJobAnalyses extends Login {
 		}
 		
 		this.mouseDownWaitForElementPresent("//div[contains(@class,'x-combo-list-item') and text()=' "+connection+"']", WAIT_TIME);
+		this.sleep(3000);
 		this.waitForElementPresent("//img[@title='Ok']", WAIT_TIME);
 		//select a connection and simulate a click
 		selenium.mouseDown("//img[@title='Ok']/ancestor::table");
 		//not less than one "Ok"s are displayed
+		this.sleep(5000);
 		assertTrue(selenium.getXpathCount("//img[@title='Ok']").intValue() > 1);
 		//System.out.println(selenium.getXpathCount("//img[@title='Ok']"));
 	}
@@ -102,9 +108,10 @@ public class TestJobAnalyses extends Login {
 		this.mouseDownWaitForElementPresent("//div[contains(@class,'x-combo-list-item') and text()=' "+connection+"']");
 		this.waitForElementPresent("//img[@title='Ok']", WAIT_TIME);
 		//select a connection and simulate a click
+		this.sleep(3000);
 		selenium.mouseDown("//img[@title='Ok']/ancestor::table");
 		//not less than one "Ok"s are displayed
-		
+		this.sleep(5000);
 		assertTrue(selenium.getXpathCount("//img[@title='Ok']").intValue() > 1);
 		//System.out.println(selenium.getXpathCount("//img[@title='Ok']"));
 		this.clickWaitForElementPresent("!!!menu.connections.element!!!");
