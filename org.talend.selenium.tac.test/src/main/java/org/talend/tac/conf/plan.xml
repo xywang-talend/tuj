@@ -41,12 +41,12 @@
 		<parameter name="plan.filetrigger.exist.forderpath" value="org/talend/tac/folder/filetrigger/exist" />
 		<parameter name="plan.filetrigger.exist.forderpathFalse"
 			value="org/talend/tac/folder/filetrigger/notexist" />
-		<parameter name="plan.filetrigger.exist.timeinterval" value="10" />
+		<parameter name="plan.filetrigger.exist.timeinterval" value="50" />
 		<parameter name="plan.filetrigger.exist.filemask" value="*.txt" />
 		<parameter name="plan.filetrigger.create.label" value="fileTriggerCreate" />
 		<parameter name="plan.filetrigger.create.forderpath" value="org/talend/tac/folder/filetrigger/exist" />
 		<parameter name="plan.filetrigger.create.timeinterval"
-			value="10" />
+			value="30" />
 		<parameter name="plan.filetrigger.create.filemask" value="*.txt" />
 		<parameter name="plan.filetrigger.modify.label" value="fileTriggerModify" />
 		<parameter name="plan.filetrigger.modify.forderpath" value="org/talend/tac/folder/filetrigger/exist" />
@@ -78,8 +78,13 @@
 		<parameter name="planexecutionlogsdisplay.plan.label" value="testPlanlogsdisplay" />
 		<parameter name="planexecutionlogsdisplay.plan.roottask"
 			value="BranchTask" />
-			
-   	<test name="deleteAllTasks">
+	 	<parameter name="parameters.plan.parameterAge" value="age1" />
+	 	<parameter name="parameters.plan.parameterAge.value" value="100" />
+	 	<parameter name="parameters.plan.custom.parameterAge.value" value="50" />
+	 	<parameter name="parameters.plan.parameterName" value="name1" />
+	 	<parameter name="parameters.plan.parameterName.value" value="talend" />
+	  		
+	   <test name="deleteAllTasks">
 		<classes>
 			<class name="com.talend.tac.cases.grid.TestGridCleanTask" />
 		</classes>
@@ -125,16 +130,18 @@
 		<classes>
 			<class name="com.talend.tac.cases.executePlan.TestPrepareTasks" />
 		</classes>
-	</test> 
- 
-     <test name="test_CronTrigger_add_plan">
+	</test>
+
+
+
+    <test name="test_CronTrigger_add_plan">
 		<classes>
 			<class name="com.talend.tac.cases.executePlan.TestAddTriggerAddCronTrigger" />
 			<class name="com.talend.tac.cases.executePlan.TestAddTriggerAddCronTriggerByUI" />
 			<class name="com.talend.tac.cases.executePlan.TestAddTriggerAddCronTriggerUsePasttime" />
 		</classes>
 	</test>
-   <test name="test_CronTrigger_duplicate_plan">
+  <test name="test_CronTrigger_duplicate_plan">
 		<classes>
 			<class name="com.talend.tac.cases.executePlan.TestDuplicateCrontrigger" />
 		</classes>
@@ -241,38 +248,64 @@
         </classes>
     </test>
         
-            <test name="test_plan_execution_parameters_notclickoverride">
+                 <test name="test_plan_execution_parameters_DeleteParameters">
         <classes> 
             <class name="com.talend.tac.cases.executePlan.TestPlanParameters">
                 <methods>
-                    <include name="testChangePlanParametersNotClickOverride"></include>
+                    <include name="testDeleteParametersOfPlan"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+        
+        
+        
+            <test name="test_plan_execution_parameters_AddParameters">
+        <classes> 
+            <class name="com.talend.tac.cases.executePlan.TestPlanParameters">
+                <methods>
+                    <include name="testAddParametersForPlan"></include>
                 </methods>
             </class>
         </classes>
     </test>
          
-            <test name="test_plan_execution_parameters_clickoverride">
+
+               <test name="test_plan_execution_parameters_customvalue">
         <classes> 
             <class name="com.talend.tac.cases.executePlan.TestPlanParameters">
                 <methods>
-                    <include name="testChangePlanParametersAndClickOverride"></include>
+                    <include name="testCheckPlanExecutionLogsWithCustomParameterValue"></include>
                 </methods>
             </class>
         </classes>
     </test>
     
-    	<test name="test_plan_treeview manage">
+    
+              <test name="test_plan_execution_parameters_selectedParameters">
+        <classes> 
+            <class name="com.talend.tac.cases.executePlan.TestPlanParameters">
+                <methods>
+                    <include name="testCheckPlanExecutionLogsWithSelectedParameter"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    
+    
+    <!-- 	<test name="test_plan_treeview manage">
 		<classes>
 			<class name="com.talend.tac.cases.executePlan.TestPlanedTreeViewManage" />
 		</classes>
-	</test> -->
+	</test>-->
 	
 	<test name="test_plan_filetrigger">
 		<classes>
 			<class name="com.talend.tac.cases.executePlan.TestAddTriggerAddFileTrigger" />
 		</classes>
 	</test> 
-	
+	 
       	<test name="test_plan_simpletrigger_add">
 		<classes>
 			<class name="com.talend.tac.cases.executePlan.TestAddAddSimpleTriggerUseDefaulttime" />
@@ -289,7 +322,7 @@
 		</classes>
 	</test>
 	
-	    	<test name="test_informationsbetweenplans">
+	     	<test name="test_informationsbetweenplans">
 		<classes>
 			<class name="com.talend.tac.cases.executePlan.TestAddTwoPlansCheckInformations" />
 		</classes>
@@ -299,9 +332,9 @@
 		<classes>
 			<class name="com.talend.tac.cases.executePlan.TestPlanPauseAndResume" />
 		</classes>
-	</test>
+	</test> 
 	
-	<test name="TestStopPlan_testStopPlan">
+	<!-- <test name="TestStopPlan_testStopPlan">
 		<parameter name="plan.stop.task.label" value="taskForStopPlan"/>	
         <parameter name="plan.stop.label" value="stopPlan"/>
 		<parameter name="labelDescription" value="add a task" />
@@ -314,6 +347,6 @@
 		<classes>
 			<class name="com.talend.tac.cases.executePlan.TestStopPlan" />
 		</classes>
-	</test> 
-	</suite>
+	</test> -->
+</suite>
 
