@@ -13,6 +13,11 @@ import com.talend.tac.cases.Login;
 
 public class TestLicenseAccountsCount extends Login {
 	public double moreOver = 0.20;
+	
+	@Test
+	public void testCleanUsersNotUsed() throws InterruptedException {
+		cleanAllExceptAdmin();
+	}
 
 	@Test
 	public void testAddDIChangeToDQ() throws InterruptedException {
