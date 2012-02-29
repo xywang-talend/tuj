@@ -156,8 +156,8 @@ public class TestCheckLogs extends TaskUtils {
 		/*test last page*/
 		
 		/*test first page*/
-		selenium.click("//span[text()='Logs']//ancestor::div[contains(@class,'x-tab-panel x-component')]" +
-		"//td[1]/table[contains(@class,'x-component x-unselectable')]//button");//click first page button
+		selenium.click("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//td[@class='x-toolbar-left']" +
+				"//tr[@class='x-toolbar-left-row']//td[1]//table//button");//click first page button
 
 		selenium.setSpeed(MID_SPEED);
 		String firstPageNumber = selenium.getValue("//span[text()='Logs']//ancestor::div[contains(@class,'x-tab-panel x-component')]//td[5]/input");
@@ -277,7 +277,7 @@ public class TestCheckLogs extends TaskUtils {
 	}
 	
 	//check generated big logs if normal
-	@Test
+//	@Test
 	@Parameters({"TaskWithJobOfGenerateBigLogs","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameOfgenerateBigLogs","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled", "firefox.download.path"})
 	public void testDownloadBiglogsAndCheckIt (String label, String labelDescription,String commonpro,String trunk,String jobName,
