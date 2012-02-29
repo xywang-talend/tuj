@@ -251,16 +251,18 @@ public class EsbUtil extends Login {
 		
 	}
 	
-	 /**
+	/**
 	 * type a value in configuration menu.click the edit button firstly to wait for the input to appear.
 	 * @param locatorOfEditButton
 	 * @param locatorOfInput
 	 * @param value
 	 */
 	public void typeWordsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
-		 this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
-		 this.typeWaitForElementPresent(locatorOfInput, value);
 		
+		this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
+		selenium.setSpeed("2000");
+		this.typeWaitForElementPresent(locatorOfInput, value);
+		selenium.setSpeed("0");
 	}
 	/**
 	 * assertions,check the value in input tag is as expected,and check the status icon.
@@ -269,15 +271,21 @@ public class EsbUtil extends Login {
 	 * @param value
 	 */
 		public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value,String statusIconLocator){
-		this.AssertEqualsInConfigurationMenu(locatorOfEditButton, locatorOfInput, value);
+		    selenium.setSpeed(MID_SPEED);
+			this.AssertEqualsInConfigurationMenu(locatorOfEditButton, locatorOfInput, value);
 			this.waitForElementPresent(statusIconLocator, WAIT_TIME);//wait and check the icon status.
-	}
+	        selenium.setSpeed(MIN_SPEED);
+		}
 	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
+		
 		this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
 		this.waitForElementPresent(locatorOfInput, Base.WAIT_TIME);
+		selenium.setSpeed(MID_SPEED);
 		assertEquals(selenium.getValue(locatorOfInput), value);
+		selenium.setSpeed(MIN_SPEED);
 		selenium.fireEvent(locatorOfInput, "blur");
 	}
+	
 	
 	public void modifySAMServer(String MonitorServer, String MonitorServerStatusIconLocator) {					     
 		  
