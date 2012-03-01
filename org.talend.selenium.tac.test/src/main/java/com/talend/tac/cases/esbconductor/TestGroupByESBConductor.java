@@ -65,6 +65,7 @@ public class TestGroupByESBConductor extends ESBConductorUtils {
 			String group, String artifact, String version, String name, String type, 
 			String context, String server,String tagA, String tagB) {
 		
+		
 		this.addESBConductor(label1, des, repository, group, artifact, version,
 				name, type, context, server,tagA,0);
 		this.addESBConductor(label2, des, repository, group, artifact, version,
@@ -81,9 +82,9 @@ public class TestGroupByESBConductor extends ESBConductorUtils {
 		selenium.click("//a[text()='Group By This Field']");
 		this.sleep(3000);
 		Assert.assertTrue(selenium.getXpathCount("//div[contains(@class,'x-grid-group-div') and contains(text(),'Tag:  (')]").intValue()>=2);
-	    this.deleteESBConductorOK(label1);
-	    this.deleteESBConductorOK(label2);
-	    this.deleteESBConductorOK(label3);
+	    this.deleteESBConductorOK(label1, name);
+	    this.deleteESBConductorOK(label2, name);
+	    this.deleteESBConductorOK(label3, name);
 	}
 	
 

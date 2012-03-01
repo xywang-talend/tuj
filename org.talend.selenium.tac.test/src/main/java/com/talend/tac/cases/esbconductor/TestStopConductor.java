@@ -1,5 +1,7 @@
 package com.talend.tac.cases.esbconductor;
 
+import junit.framework.Assert;
+
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -30,7 +32,7 @@ public class TestStopConductor extends ESBConductorUtils {
 		this.undeployStopConductor(label, name, stopId,
 						stopStatus, stopPopupInfo, 
 						StopPromptInfo);
-		
+		Assert.assertEquals(serviceStatus, true);
 	}
 	
 }

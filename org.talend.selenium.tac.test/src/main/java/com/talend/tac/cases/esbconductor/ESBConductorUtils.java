@@ -12,7 +12,7 @@ import com.talend.tac.cases.Login;
 public class ESBConductorUtils extends Login {
 	
 	public String locatorOfAllInputTags = other.getString("commandline.conf.all.input");	
-	
+	public boolean serviceStatus;
 	/*go to ESBConductor page*/
 	public void intoESBConductorPage() {
 		
@@ -82,23 +82,47 @@ public class ESBConductorUtils extends Login {
 		selenium.click("idFormSaveButton");
 		
 	}
+
 	
 	/*
 	 * method to delete 
 	 * */
-	public void deleteESBConductorOK(String label) {
-		
+	public void deleteESBConductorOK(String label, String name) {
+				
+		String undeployId = "idESBConductorTaskGridUndeployButton";
+		String status = "Undeployed";
+		String popupInfo = "Are you sure you want to undeploy the feature '"+name+"'";
+		String promptInfo = "Feature '"+name+"' undeployed.";
+				
 		this.intoESBConductorPage();
 		this.waitForElementPresent("//div[text()='"+label+"']", WAIT_TIME);
 		selenium.mouseDown("//div[text()='"+label+"']");
 		this.sleep(3000);
+		if(selenium.isElementPresent("//div[text()='"+label+"']" +
+				"//ancestor::table[@class='x-grid3-row-table']//span[text()='Deployed']") || 
+				selenium.isElementPresent("//div[text()='"+label+"']" +
+				"//ancestor::table[@class='x-grid3-row-table']//span[text()='Ready to redeploy']")) {
+			
+			this.waitForElementPresent("//div[text()='"+label+"']" +
+				"//ancestor::table[@class='x-grid3-row-table']//span[text()='Deployed']", WAIT_TIME);
+			this.undeployStopConductor(label, name, undeployId, status, popupInfo, promptInfo);
+			if(selenium.isTextPresent("Error: undeployment of feature '"+name+"' might" +
+					" have failed: java.lang.Exception: Feature named '"+name+"'" +
+					" with version '0.1.0' is not installed")) {
+				
+				this.waitForElementPresent("//div[text()='"+label+"']" +
+				"//ancestor::table[@class='x-grid3-row-table']//span[text()='Ready to deploy']", WAIT_TIME);
+				
+			}
+			
+			
+		}
 		selenium.chooseOkOnNextConfirmation();//
 		selenium.click("idESBConductorTaskGridDeleteButton");
 		Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected esb task [\\s\\S]$"));
 		this.waitForElementDispear("//div[text()='"+label+"']", WAIT_TIME);
 		
 	}
-	
 	/*
 	 * method to delete 
 	 * */
@@ -138,8 +162,9 @@ public class ESBConductorUtils extends Login {
 	}
 	
 	/*undeploy stop conductor*/
-    public void undeployStopConductor(String label, String name, String id, String status,
+    public boolean undeployStopConductor(String label, String name, String id, String status,
     		String popupInfo, String promptInfo) {
+    	   	
     	
     	this.waitForElementPresent("//div[text()='"+label+"']", WAIT_TIME);
 		selenium.mouseDown("//div[text()='"+label+"']");
@@ -152,13 +177,12 @@ public class ESBConductorUtils extends Login {
 		this.waitForTextPresent(promptInfo, WAIT_TIME);
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idESBConductorTaskGridRefreshButton");
-		selenium.setSpeed(MIN_SPEED);
 		
-		this.waitForElementPresent("//div[text()='"+label+"']" +
-				"//ancestor::table[@class='x-grid3-row-table']//span[text()='"+status+"']", WAIT_TIME);
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+label+"']" +
-				"//ancestor::table[@class='x-grid3-row-table']//span[text()='"+status+"']"));
-    	
+		serviceStatus = selenium.isElementPresent("//div[text()='"+label+"']" +
+				"//ancestor::table[@class='x-grid3-row-table']//span[text()='"+status+"']");
+    	selenium.setSpeed(MIN_SPEED);
+		return serviceStatus;
+		
     }
     
     /**

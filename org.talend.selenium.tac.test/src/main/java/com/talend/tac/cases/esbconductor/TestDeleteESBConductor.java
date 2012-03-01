@@ -23,7 +23,7 @@ public class TestDeleteESBConductor extends ESBConductorUtils {
 	public void testDeleteESBConductorOfServiceOk(String label, String des, String repository,
 			String group, String artifact, String version, String name, String type, 
 			String context, String server) {
-	this.deleteESBConductorOK(label);
+	this.deleteESBConductorOK(label, name);
 	}
 	
 	@Test
@@ -47,7 +47,7 @@ public class TestDeleteESBConductor extends ESBConductorUtils {
 		this.deployStartConductor(label, name, promptInfo, deployId, status);
 		this.undeployStopConductor(label, name, undeployId, undeployStatus,
 				undeployPopupInfo, undeployPromptInfo);
-		this.deleteESBConductorOK(label);
+		this.deleteESBConductorOK(label, name);
 		
 	}
 	
