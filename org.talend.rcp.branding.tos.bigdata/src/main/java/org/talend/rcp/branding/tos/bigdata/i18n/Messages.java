@@ -31,7 +31,7 @@ public class Messages extends MessagesCore {
 
     private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
 
-    private static final String PLUGIN_ID = "org.talend.rcp.branding.camel"; //$NON-NLS-1$
+    private static final String PLUGIN_ID = "org.talend.rcp.branding.tos.bigdata"; //$NON-NLS-1$
 
     private static ResourceBundle resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME);
 

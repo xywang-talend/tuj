@@ -34,28 +34,6 @@ import org.talend.repository.model.RepositoryNode;
  */
 public class HortonBrandingConfiguration extends DefaultBrandingConfiguration {
 
-    public List<IRepositoryNode> getHiddenRepositoryCategory(RepositoryNode parent, String type) {
-        List<IRepositoryNode> nodes = super.getHiddenRepositoryCategory(parent, type);
-
-        RepositoryNode businessProcessNode = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
-        businessProcessNode.setProperties(EProperties.LABEL, ERepositoryObjectType.BUSINESS_PROCESS);
-        businessProcessNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.BUSINESS_PROCESS);
-        nodes.add(businessProcessNode);
-
-        RepositoryNode docNode = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
-        docNode.setProperties(EProperties.LABEL, ERepositoryObjectType.DOCUMENTATION);
-        docNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.DOCUMENTATION);
-        nodes.add(docNode);
-
-        RepositoryNode metadataNode = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
-        metadataNode.setProperties(EProperties.LABEL, ERepositoryObjectType.METADATA);
-        metadataNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.METADATA);
-        nodes.add(metadataNode);
-
-        return nodes;
-
-    }
-
     /*
      * (non-Jsdoc)
      * 
@@ -165,7 +143,7 @@ public class HortonBrandingConfiguration extends DefaultBrandingConfiguration {
         pm.find("org.talend.core.prefs").findSubNode("org.talend.designer.core.ui.preferences.SpecificSettingPreferencePage")
                 .remove("org.talend.sqlbuilder.ui.prefs.sqlbuilder");
         pm.find("org.talend.core.prefs").remove("org.talend.designer.core.ui.preferences.PerformancePreferencePage");
-        return IBrandingConfiguration.PERSPECTIVE_CAMEL_ID;
+        return IBrandingConfiguration.PERSPECTIVE_DI_ID;
     }
 
     /*
@@ -184,6 +162,30 @@ public class HortonBrandingConfiguration extends DefaultBrandingConfiguration {
      */
     public void setUseProductRegistration(boolean useProductRegistration) {
 
+    }
+
+    @Override
+    public List<IRepositoryNode> getHiddenRepositoryCategory(IRepositoryNode nodeParent, String type) {
+        RepositoryNode parent = (RepositoryNode) nodeParent;
+
+        List<IRepositoryNode> nodes = super.getHiddenRepositoryCategory(parent, type);
+
+        RepositoryNode businessProcessNode = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
+        businessProcessNode.setProperties(EProperties.LABEL, ERepositoryObjectType.BUSINESS_PROCESS);
+        businessProcessNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.BUSINESS_PROCESS);
+        nodes.add(businessProcessNode);
+
+        RepositoryNode docNode = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
+        docNode.setProperties(EProperties.LABEL, ERepositoryObjectType.DOCUMENTATION);
+        docNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.DOCUMENTATION);
+        nodes.add(docNode);
+
+        RepositoryNode metadataNode = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
+        metadataNode.setProperties(EProperties.LABEL, ERepositoryObjectType.METADATA);
+        metadataNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.METADATA);
+        nodes.add(metadataNode);
+
+        return nodes;
     }
 
 }

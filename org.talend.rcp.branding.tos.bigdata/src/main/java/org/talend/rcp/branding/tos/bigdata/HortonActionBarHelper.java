@@ -46,7 +46,7 @@ public class HortonActionBarHelper extends ActionBarBuildHelper {
 
         String[] perspectivesId = { "org.eclipse.jdt.ui.JavaPerspective", "org.eclipse.team.ui.TeamSynchronizingPerspective",
                 "org.eclipse.ui.resourcePerspective", "org.epic.core.Perspective", "org.eclipse.pde.ui.PDEPerspective",
-                "org.talend.rcp.perspective" };
+                "org.talend.camel.perspective" };
 
         List<IPerspectiveDescriptor> perspectivesToDelete = new ArrayList<IPerspectiveDescriptor>();
 
