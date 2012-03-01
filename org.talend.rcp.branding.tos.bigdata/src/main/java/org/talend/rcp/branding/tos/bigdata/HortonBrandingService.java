@@ -77,7 +77,7 @@ public class HortonBrandingService extends AbstractTalendBrandingService {
     }
 
     public boolean isPoweredOnlyCamel() {
-        return true;
+        return false;
     }
 
     public String getProductName() {
