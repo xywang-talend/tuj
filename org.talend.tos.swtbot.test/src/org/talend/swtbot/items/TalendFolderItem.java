@@ -117,7 +117,7 @@ public class TalendFolderItem {
     }
 
     public void delete() {
-        parentNode.getNode(itemName).contextMenu("Delete").click();
+        parentNode.expand().getNode(itemName).contextMenu("Delete").click();
         SWTBotTreeItem newItem = null;
         String path = "";
         try {

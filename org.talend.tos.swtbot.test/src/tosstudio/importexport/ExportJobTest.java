@@ -17,7 +17,6 @@ import java.net.URISyntaxException;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,8 +30,6 @@ import org.talend.swtbot.items.TalendJobItem;
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class ExportJobTest extends TalendSwtBotForTos {
-
-    private SWTBotShell shell;
 
     private TalendJobItem jobItem;
 
@@ -51,7 +48,7 @@ public class ExportJobTest extends TalendSwtBotForTos {
     @Test
     public void exportJob() throws IOException, URISyntaxException {
         jobItem.getItem().contextMenu("Export Job").click();
-        shell = gefBot.shell("Export Job").activate();
+        gefBot.shell("Export Job").activate();
         gefBot.comboBoxWithLabel("To &archive file:").setText(
                 Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getParent() + FILE_SEPARATOR
                         + "output_job.zip");
@@ -71,10 +68,7 @@ public class ExportJobTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
-        shell.close();
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.emptyRecycleBin();
+        Utilities.resetActivePerspective();
         Utilities.getFileFromCurrentPluginSampleFolder("output_job.zip").delete();
     }
 }

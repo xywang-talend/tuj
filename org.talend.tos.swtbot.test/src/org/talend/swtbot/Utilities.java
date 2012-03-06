@@ -167,13 +167,19 @@ public class Utilities {
      * @return void
      */
     public static void emptyRecycleBin() {
-        SWTBotTreeItem recycleBin = tree.expandNode("Recycle bin").select();
-        gefBot.waitUntil(Conditions.widgetIsEnabled(recycleBin));
-        if (recycleBin.rowCount() != 0) {
-            recycleBin.click();
-            recycleBin.contextMenu("Empty recycle bin").click();
-            gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-            gefBot.button("Yes").click();
+        try {
+            SWTBotTreeItem recycleBin = tree.expandNode("Recycle bin").select();
+            gefBot.waitUntil(Conditions.widgetIsEnabled(recycleBin));
+            if (recycleBin.rowCount() != 0) {
+                recycleBin.click();
+                recycleBin.contextMenu("Empty recycle bin").click();
+                gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
+                gefBot.button("Yes").click();
+            }
+        } catch (Exception e) {
+            gefBot.closeAllShells();
+            System.out.println("ERROR: Empty recycle bin error.");
+            e.printStackTrace();
         }
     }
 
@@ -441,7 +447,7 @@ public class Utilities {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Assert.assertNotNull("item is not copied", newItem);
+            Assert.assertNotNull("copy of item '" + itemName + " " + itemVersion + "' does not exist", newItem);
         }
     }
 
@@ -495,7 +501,7 @@ public class Utilities {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Assert.assertNotNull("item is not duplicated", newItem);
+            Assert.assertNotNull("duplicate of item '" + itemName + " " + itemVersion + "' does not exist", newItem);
         }
     }
 
@@ -674,11 +680,9 @@ public class Utilities {
                 treeNode = treeNode.expandNode("Generic", "UserDefined"); // focus on specific sql template type
             if (TalendItemType.DOCUMENTATION.equals(itemType) || TalendItemType.RECYCLE_BIN.equals(itemType))
                 continue; // undo with documentation and recycle bin
-            for (String itemName : treeNode.getNodes()) {
-                if (!"system".equals(itemName))
-                    treeNode.getNode(itemName).contextMenu("Delete").click();
-            }
+            cleanUpRepository(treeNode);
         }
+        emptyRecycleBin();
     }
 
     public static List<TalendItemType> getTISItemTypes() {
@@ -703,10 +707,21 @@ public class Utilities {
      */
     public static void cleanUpRepository(SWTBotTreeItem treeNode) {
         gefBot.waitUntil(Conditions.widgetIsEnabled(treeNode));
-        for (String itemName : treeNode.getNodes()) {
-            if (!"system".equals(itemName))
-                treeNode.getNode(itemName).contextMenu("Delete").click();
+        List<String> items = treeNode.expand().getNodes();
+        String exceptItem = "system";
+        if (items.contains(exceptItem))
+            items.remove(exceptItem);
+        if (items.isEmpty())
+            return;
+        SWTBotTreeItemExt treeNodeExt = new SWTBotTreeItemExt(treeNode.select(items.toArray(new String[items.size()])));
+        try {
+            treeNodeExt.contextMenu("Delete").click();
+        } catch (Exception e) {
+            System.out.println("ERROR: Could not delete items under tree node '" + treeNode.getText() + "'.");
+            e.printStackTrace();
+            return;
         }
+        cleanUpRepository(treeNode);
     }
 
     public static SWTBotTreeItem createFTP(String ftpName, SWTBotTreeItem treeNode) {
@@ -949,5 +964,22 @@ public class Utilities {
             }
 
         });
+    }
+
+    /**
+     * Does a <em>best effort</em> to reset the perspective. This method attempts to:
+     * <ul>
+     * <li>close all non-workbench windows</li>
+     * <li>save and close all open editors</li>
+     * <li>clean up all items in repository</li>
+     * <li>reset the <em>active</em> perspective</li>
+     * <ul>
+     */
+    public static void resetActivePerspective() {
+        gefBot.closeAllShells();
+        gefBot.saveAllEditors();
+        gefBot.closeAllEditors();
+        cleanUpRepository(getRepositoryTree(), System.getProperty("buildType"));
+        gefBot.resetActivePerspective();
     }
 }

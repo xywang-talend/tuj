@@ -139,7 +139,7 @@ public class TalendItem {
     }
 
     public void delete() {
-        parentNode.getNode(itemFullName).contextMenu("Delete").click();
+        parentNode.expand().getNode(itemFullName).contextMenu("Delete").click();
         SWTBotTreeItem newItem = null;
         String path = "";
         try {

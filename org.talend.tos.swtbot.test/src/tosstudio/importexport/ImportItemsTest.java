@@ -15,13 +15,8 @@ package tosstudio.importexport;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Assert;
@@ -38,25 +33,18 @@ import org.talend.swtbot.Utilities.TalendItemType;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class ImportItemsTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotShell shell;
-
     private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip";
 
     @Before
     public void initialisePrivateFields() {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
+
     }
 
     @Test
     public void importItems() throws IOException, URISyntaxException {
         gefBot.toolbarButtonWithTooltip("Import Items").click();
 
-        shell = gefBot.shell("Import items").activate();
+        gefBot.shell("Import items").activate();
         gefBot.radio("Select archive file:").click();
         gefBot.text(1).setText(Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
         gefBot.tree().setFocus();
@@ -64,8 +52,7 @@ public class ImportItemsTest extends TalendSwtBotForTos {
         gefBot.button("Finish").click();
         gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")));
 
-        view.setFocus();
-        tree.setFocus();
+        Utilities.getRepositoryTree().setFocus();
         for (TalendItemType itemType : TalendItemType.values()) {
             if (Utilities.getTISItemTypes().contains(itemType))
                 continue;
@@ -83,8 +70,6 @@ public class ImportItemsTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        shell.close();
-        Utilities.cleanUpRepository(tree, System.getProperty("buildType"));
-        Utilities.emptyRecycleBin();
+        Utilities.resetActivePerspective();
     }
 }
