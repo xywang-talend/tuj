@@ -108,7 +108,7 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         shell.close();
-        Utilities.cleanUpRepository(tree, System.getProperty("buildType"));
+        Utilities.cleanUpRepository();
         Utilities.emptyRecycleBin();
     }
 

@@ -664,13 +664,11 @@ public class Utilities {
     /**
      * DOC fzhong Comment method "cleanUpRepository". Delete all items in repository to recycle bin.
      * 
-     * @param tree tree in repository
-     * @param buildType "TOS" or "TIS"
      */
-    public static void cleanUpRepository(SWTBotTree tree, String buildType) {
+    public static void cleanUpRepository() {
         List<TalendItemType> itemList = null;
         for (TalendItemType itemType : TalendItemType.values()) {
-            if ("TOS".equals(buildType)) {
+            if ("TOS".equals(System.getProperty("buildType"))) {
                 itemList = getTISItemTypes(); // if TOS, get TIS items and pass next step
             }
             if (itemList != null && itemList.contains(itemType))
@@ -979,7 +977,7 @@ public class Utilities {
         gefBot.closeAllShells();
         gefBot.saveAllEditors();
         gefBot.closeAllEditors();
-        cleanUpRepository(getRepositoryTree(), System.getProperty("buildType"));
+        cleanUpRepository();
         gefBot.resetActivePerspective();
     }
 }
