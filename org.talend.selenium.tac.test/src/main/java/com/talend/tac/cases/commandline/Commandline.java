@@ -9,7 +9,17 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class Commandline {
+	private String server = "localhost";
+	private int port = 8002;
 
+	public Commandline() {
+		if(System.getProperty("commandline.server")!=null)
+			this.server = System.getProperty("commandline.server");
+		
+		if(System.getProperty("commandline.port")!=null)
+			this.port = Integer.parseInt(System.getProperty("commandline.port"));
+	}
+	
 	public StringBuffer runCommand(String server, int port, String command) throws UnknownHostException, IOException{
 		StringBuffer sb = new StringBuffer();
 		Socket s = new Socket(server, port);
