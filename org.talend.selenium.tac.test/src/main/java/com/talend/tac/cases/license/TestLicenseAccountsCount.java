@@ -1128,6 +1128,8 @@ public class TestLicenseAccountsCount extends Login {
 	public void testMDMUsersMoreOverUnactive() throws InterruptedException {
 		// cleanAllExceptAdmin();
 		int n = getMDMcounts();
+		this.waitForElementPresent("idMenuUserElement", WAIT_TIME);
+		selenium.click("idMenuUserElement");
 		if(n!=-1){
 		String username = "";
 		String name = "";
@@ -1136,7 +1138,7 @@ public class TestLicenseAccountsCount extends Login {
 			name = "DQ_" + i;
 			//
 			selenium.refresh();
-			this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
+			this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME*2);
 			selenium.click("idSubModuleAddButton");
 			selenium.type("idUserLoginInput", username);
 			selenium.fireEvent("idUserLoginInput", "blur");
