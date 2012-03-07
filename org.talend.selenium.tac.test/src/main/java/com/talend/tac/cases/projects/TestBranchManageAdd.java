@@ -34,7 +34,7 @@ public class TestBranchManageAdd extends Login {
 		selenium.click("//button[text()='"
 				+ other.getString("project.branchmanage.add.conform.ok")
 				+ "']");
-		this.waitForElementPresent("//span[text()='" + branchname + "']", WAIT_TIME);
+		this.waitForElementPresent("//span[text()='" + branchname + "']", WAIT_TIME*2);
 		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 		
 		/*if (selenium.isElementPresent("//span[text()='"
