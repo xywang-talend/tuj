@@ -96,6 +96,23 @@ public class Plan extends TaskUtils {
 				selenium.isElementPresent("//span[text()='" + planLabel + "']"),
 				"plan " + planLabel + " delete failed! ");
 	}
+	
+	public void deleteAllPlan() {
+		this.openExecutionPlanMenu();
+
+		for (int i = 0;; i++) {
+			this.sleep(2000);
+			if (selenium
+					.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label']")) {
+				selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label']");
+				deletePlan(selenium.getValue("idExecutionPlanPlanFormLabelInput").toString());
+			} else {
+				break;
+			}
+		}
+		selenium.setSpeed(MIN_SPEED);
+
+	}
 
 	public void runPlan(String planLabel) {
 		selenium.refresh();
