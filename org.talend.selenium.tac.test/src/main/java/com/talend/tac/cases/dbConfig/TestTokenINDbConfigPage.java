@@ -2,6 +2,7 @@ package com.talend.tac.cases.dbConfig;
 
 import static org.testng.Assert.assertTrue;
 
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
@@ -39,8 +40,10 @@ public class TestTokenINDbConfigPage extends DbConfig {
 		waitForElementPresent("idTokenInput", WAIT_TIME);
 		selenium.type("idTokenInput", tokenTXT);
 		selenium.click("idEnterValidationButton");
-		assertTrue(selenium.isTextPresent(rb
-				.getString("license.token.setOk")));
+		Assert.assertTrue(this.waitForTextPresent(rb
+				.getString("license.token.setOk"), WAIT_TIME));
+//		assertTrue(selenium.isTextPresent(rb
+//				.getString("license.token.setOk")));
 		waitForCheckConnectionStatus("//div[text()='OK']", 5);
 
 	}
