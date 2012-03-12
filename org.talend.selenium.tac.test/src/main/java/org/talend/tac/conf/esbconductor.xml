@@ -11,105 +11,148 @@
     <parameter name ='type' value='Service'/>
     <parameter name ='context' value='Default'/>
     <parameter name ='serverOfRuntime' value='testRuntimeServer'/> 
+    <parameter name ='InactiveServerOfRuntime' value='testInactiveRuntimeServer'/> 
+    <parameter name ='labelOfServiceWithInactiveServer' value='testDeployWithInactiveServer'/>
     <parameter name ='labelOfServicetodelete' value='testesbConductorDelete'/>
     <parameter name ='deleteWithUndeployConductor' value='deleteWithUndeployConductor'/>
-    <parameter name ='artifactRepositoryUrl' value='http://192.168.0.216:8082/archiva'/>
+    <parameter name ='artifactRepositoryUrl' value='http://192.168.0.169:8082/archiva'/>
     <parameter name ='artifactRepositoryUserName' value='tadmin'/>
     <parameter name ='artifactRepositoryPassWord' value='tadmin1'/>
     <parameter name ='mavenProtocolExpected' value='Reachable'/>
     <parameter name ='artifactRepositoryPassWordWithWrong' value='tadmin1Wrong'/>
-    
-    <test name="ESBConductor01_testConfigurationESBConductor" preserve-order="true">
-		<classes>
-			<class name="com.talend.tac.cases.esbconductor.TestConfigurationESBConductor" >
-			    <methods>
-			        <include name='testConfigurationESBConductorIsWrong'/>
-			        <include name='testConfigurationESBConductorIsOK'/>
-			    </methods>
-			</class>
-		</classes>
-	</test>
-	
-	<test name="ESBConductor02_ClearService">
-	    	      
-		<classes>
-			<class name="com.talend.tac.cases.esbconductor.ClearService" />				
-		</classes>
-	</test>
-	
-	
+    <parameter name ='warning_Num' value='4'/>
+
+    <test name="ESBConductor01_testConfigurationESBConductor"
+        preserve-order="true">
+        <classes>
+            <class
+                name="com.talend.tac.cases.esbconductor.TestConfigurationESBConductor">
+                <methods>
+                    <include name='testConfigurationESBConductorIsWrong' />
+                    <include name='testConfigurationESBConductorIsOK' />
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="ESBConductor02_ClearService">
+
+        <classes>
+            <class name="com.talend.tac.cases.esbconductor.ClearService" />
+        </classes>
+    </test>
+
+
     <test name="ESBConductor02_testAddESBConductor" preserve-order="true">
-		<classes>
-			<class name="com.talend.tac.cases.esbconductor.TestAddESBConductor" >
-			    <methods>
-			        <include name='testAddESBConductorOfService'/>
-			        <include name='testAddESBConductorWithAlreadyLabel'/>
-			    </methods>
-			</class>
-		</classes>
-	</test>
-	
-	<test name="ESBConductor03_testDeployESBConductor" preserve-order="true">
-		<classes>
-			<class name="com.talend.tac.cases.esbconductor.TestDeployESBConductor" >
-			    <methods>
-			        <include name='testDeployESBConductor'/>
-			        <include name='testUndeployESBConductor'/>
-			    </methods>
-			</class>
-		</classes>
-	</test>
-	
-	<test name="ESBConductor04_testDuplicateESBConductor" preserve-order="true">
-		<classes>
-			<class name="com.talend.tac.cases.esbconductor.TestDuplicateESBConductor" />
-		</classes>
-	</test>
-	
-	<test name="ESBConductor05_testDeleteESBConductor_cancel" preserve-order="true">
-		<classes>
-			<class name="com.talend.tac.cases.esbconductor.TestDeleteESBConductor" />
-			<methods>
-			<include name="testDeleteESBConductorOfServiceCancel"/>
-			<include name="testDeleteESBConductorOfServiceOk"/>
-			<include name="testDeleteUndeployESBConductor"/>
-			</methods>
-		</classes>
-	</test>
-	
-	<test name="ESBConductor06_testStartESBConductor">
-	    <parameter name ='labelOfService' value='addConductorForTestStart'/> 
-		<classes>
-			<class name="com.talend.tac.cases.esbconductor.TestStartESBConductor" />
-				<methods>
-					<include name="testStartESBConductor"/>
-				</methods>
-		</classes>
-	</test>
-	
-	<test name="ESBConductor07_testStopESBConductor">
-	    <parameter name ='labelOfService' value='addConductorForTestStop'/> 
-		<classes>
-			<class name="com.talend.tac.cases.esbconductor.TestStopConductor" />
-				<methods>
-					<include name="testStopESBConductor"/>
-				</methods>
-		</classes>
-	</test>
-	
-		<test name="ESBConductor08_testStopESBConductor">
-	    <parameter name ='labelOfService_1' value='service_1'/> 
-	     <parameter name ='labelOfService_2' value='service_2'/> 
-	      <parameter name ='labelOfService_3' value='service_3'/> 
-	      <parameter name ='tag_1' value='tagA'/> 
-	      <parameter name ='tag_2' value='tagB'/> 
-	      
-	      
-		<classes>
-			<class name="com.talend.tac.cases.esbconductor.TestGroupByESBConductor" />
-				<methods>
-					<include name="testGroupESBConductorOfService"/>
-				</methods>
-		</classes>
-	</test>
+        <classes>
+            <class
+                name="com.talend.tac.cases.esbconductor.TestAddESBConductor">
+                <methods>
+                    <include name='testAddESBConductorOfService' />
+                    <include name='testAddESBConductorWithAlreadyLabel' />
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="ESBConductor0x_testAddESBConductorWithInactiveServer"
+        preserve-order="true">
+        <classes>
+            <class
+                name="com.talend.tac.cases.esbconductor.TestDeployWithInactiveRuntime">
+                <methods>
+                    <include name='testDeployConductorWithInactiveRuntime' />
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="ESBConductor0x_testSelectFeatureFromArchiva"
+        preserve-order="true">
+        <classes>
+            <class
+                name="com.talend.tac.cases.esbconductor.TestSelectFeatureFromArchiva">
+                <methods>
+                    <include name='testSelectFeature' />
+                    <include name='uncheckGroupFromArchiva' />
+                    <include name='uncheckRepositoryFromArchiva' />
+                    <include name='uncheckArtifactFromArchiva' />
+                    <include name='uncheckVersionFromArchiva' />
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+
+
+    <test name="ESBConductor03_testDeployESBConductor"
+        preserve-order="true">
+        <classes>
+            <class
+                name="com.talend.tac.cases.esbconductor.TestDeployESBConductor">
+                <methods>
+                    <include name='testDeployESBConductor' />
+                    <include name='testUndeployESBConductor' />
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="ESBConductor04_testDuplicateESBConductor"
+        preserve-order="true">
+        <classes>
+            <class
+                name="com.talend.tac.cases.esbconductor.TestDuplicateESBConductor" />
+        </classes>
+    </test>
+
+    <test name="ESBConductor05_testDeleteESBConductor_cancel"
+        preserve-order="true">
+        <classes>
+            <class
+                name="com.talend.tac.cases.esbconductor.TestDeleteESBConductor" />
+            <methods>
+                <include name="testDeleteESBConductorOfServiceCancel" />
+                <include name="testDeleteESBConductorOfServiceOk" />
+                <include name="testDeleteUndeployESBConductor" />
+            </methods>
+        </classes>
+    </test>
+
+    <test name="ESBConductor06_testStartESBConductor">
+        <parameter name='labelOfService' value='addConductorForTestStart' />
+        <classes>
+            <class
+                name="com.talend.tac.cases.esbconductor.TestStartESBConductor" />
+            <methods>
+                <include name="testStartESBConductor" />
+            </methods>
+        </classes>
+    </test>
+
+    <test name="ESBConductor07_testStopESBConductor">
+        <parameter name='labelOfService' value='addConductorForTestStop' />
+        <classes>
+            <class name="com.talend.tac.cases.esbconductor.TestStopConductor" />
+            <methods>
+                <include name="testStopESBConductor" />
+            </methods>
+        </classes>
+    </test>
+
+    <test name="ESBConductor08_testStopESBConductor">
+        <parameter name='labelOfService_1' value='service_1' />
+        <parameter name='labelOfService_2' value='service_2' />
+        <parameter name='labelOfService_3' value='service_3' />
+        <parameter name='tag_1' value='tagA' />
+        <parameter name='tag_2' value='tagB' />
+
+
+        <classes>
+            <class
+                name="com.talend.tac.cases.esbconductor.TestGroupByESBConductor" />
+            <methods>
+                <include name="testGroupESBConductorOfService" />
+            </methods>
+        </classes>
+    </test>
 </suite>
