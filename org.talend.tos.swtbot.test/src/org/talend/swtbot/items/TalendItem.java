@@ -13,6 +13,7 @@
 package org.talend.swtbot.items;
 
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
@@ -24,7 +25,7 @@ import org.talend.swtbot.Utilities.TalendItemType;
 /**
  * DOC fzhong class global comment. Detailled comment
  */
-public class TalendItem {
+public class TalendItem implements Cloneable {
 
     protected SWTBotTreeItem item;
 
@@ -56,7 +57,7 @@ public class TalendItem {
     }
 
     public SWTBotTreeItem getItem() {
-        return this.item;
+        return parentNode.getNode(itemFullName);
     }
 
     public void setItem(SWTBotTreeItem item) {
@@ -134,8 +135,23 @@ public class TalendItem {
     public void create() {
     }
 
-    public void copyAndPaste() {
-        Utilities.copyAndPaste(parentNode, itemName, itemVersion);
+    @SuppressWarnings("finally")
+    public TalendItem copyAndPaste() {
+        item.contextMenu("Copy").click();
+        parentNode.contextMenu("Paste").click();
+
+        TalendItem copyItem = (TalendItem) this.clone();
+        SWTBotTreeItem newItem = null;
+        try {
+            newItem = parentNode.getNode("Copy_of_" + itemFullName);
+        } catch (WidgetNotFoundException e) {
+            Assert.fail("copy of item '" + itemFullName + "' does not exist");
+        } finally {
+            if (newItem == null)
+                return null;
+            copyItem.setItem(newItem);
+            return copyItem;
+        }
     }
 
     public void delete() {
@@ -155,8 +171,25 @@ public class TalendItem {
         }
     }
 
-    public void duplicate(String newItemName) {
-        Utilities.duplicate(parentNode, itemName, itemVersion, newItemName);
+    @SuppressWarnings("finally")
+    public TalendItem duplicate(String newItemName) {
+        item.contextMenu("Duplicate").click();
+        gefBot.shell("Please input new name ").activate();
+        gefBot.textWithLabel("Input new name").setText(newItemName);
+        gefBot.button("OK").click();
+
+        TalendItem duplicateItem = (TalendItem) this.clone();
+        SWTBotTreeItem newItem = null;
+        try {
+            newItem = parentNode.getNode(newItemName + " " + itemVersion);
+        } catch (WidgetNotFoundException e) {
+            Assert.fail("duplicate of item '" + itemFullName + "' does not exist");
+        } finally {
+            if (newItem == null)
+                return null;
+            duplicateItem.setItem(newItem);
+            return duplicateItem;
+        }
     }
 
     public void rename(String newItemName) {
@@ -209,6 +242,12 @@ public class TalendItem {
         });
         gefBot.button("Finish").click();
 
+        if ("Problem Executing Operation".equals(gefBot.activeShell().getText())) {
+            String errorLog = gefBot.label(1).getText();
+            gefBot.button("OK").click();
+            Assert.fail(errorLog);
+        }
+
         gefBot.waitUntil(new DefaultCondition() {
 
             public boolean test() throws Exception {
@@ -216,11 +255,10 @@ public class TalendItem {
             }
 
             public String getFailureMessage() {
-                shell.close();
                 return "shell did not close automatically";
             }
 
-        }, 2000);
+        }, 500);
 
         SWTBotTreeItem newTreeItem = null;
         try {
@@ -236,5 +274,15 @@ public class TalendItem {
         }
 
         setItem(parentNode.getNode(itemName + " 0.1"));
+    }
+
+    protected Object clone() {
+        TalendItem item = null;
+        try {
+            item = (TalendItem) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return item;
     }
 }

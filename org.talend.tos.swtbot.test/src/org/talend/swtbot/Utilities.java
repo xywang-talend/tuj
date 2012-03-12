@@ -186,45 +186,6 @@ public class Utilities {
         }
     }
 
-    public static SWTBotTreeItem createCopybook(String copybookNAME, SWTBotTreeItem treeNode) throws IOException,
-            URISyntaxException {
-        treeNode.contextMenu("Create EBCDIC").click();
-        gefBot.waitUntil(Conditions.shellIsActive("EBCDIC Connection"));
-        shell = gefBot.shell("EBCDIC Connection").activate();
-
-        /* step 1 of 3 */
-        gefBot.textWithLabel("Name").setText(copybookNAME);
-        boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
-        if (nextButtonIsEnabled) {
-            gefBot.button("Next >").click();
-        } else {
-            shell.close();
-            Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
-        }
-
-        /* step 2 of 3 */
-        gefBot.textWithLabel("File").setText(
-                getFileFromCurrentPluginSampleFolder(System.getProperty("copybook.filepath")).getAbsolutePath());
-        gefBot.textWithLabel("Data file").setText(
-                getFileFromCurrentPluginSampleFolder(System.getProperty("copybook.datafile")).getAbsolutePath());
-        gefBot.button("Generate").click();
-        gefBot.button("Next >").click();
-
-        /* step 3 of 3 */
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newCopybookItem = null;
-        try {
-            newCopybookItem = treeNode.select(copybookNAME + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("copybook item is not created", newCopybookItem);
-        }
-
-        return treeNode.getNode(copybookNAME + " 0.1");
-    }
-
     /**
      * DOC fzhong Comment method "createWebService".
      * 
@@ -665,7 +626,7 @@ public class Utilities {
     }
 
     /**
-     * DOC fzhong Comment method "cleanUpRepository". Delete all items in repository to recycle bin.
+     * DOC fzhong Comment method "cleanUpRepository". Delete all items in repository.
      * 
      */
     public static void cleanUpRepository() {
@@ -797,72 +758,6 @@ public class Utilities {
             e.printStackTrace();
         } finally {
             Assert.assertNotNull("mdm item is not created", newMDMItem);
-        }
-    }
-
-    /**
-     * DOC fzhong Comment method "createEmbeddedRules".
-     * 
-     * @param resourceType 'XLS' or 'DRL'
-     * @param treeNode
-     * @param rulesName
-     * @param rulesName
-     * @throws URISyntaxException
-     * @throws IOException
-     */
-    public static void createEmbeddedRules(String resourceType, String ruleName, SWTBotTreeItem treeNode) throws IOException,
-            URISyntaxException {
-        treeNode.contextMenu("Create Rules").click();
-        shell = gefBot.shell("New Rule ...").activate();
-        gefBot.textWithLabel("Name").setText(ruleName);
-        boolean isNextButtonEnable = gefBot.button("Next >").isEnabled();
-        if (!isNextButtonEnable) {
-            shell.close();
-            Assert.assertTrue("rule item is not created, maybe the item name already exist", isNextButtonEnable);
-        }
-        gefBot.button("Next >").click();
-
-        try {
-            if ("XLS".equals(resourceType)) {
-                gefBot.radio("select").click();
-                gefBot.comboBoxWithLabel("Type of rule resource:").setSelection("New XLS (Excel)");
-                gefBot.textWithLabel("DRL/XLS").setText(
-                        getFileFromCurrentPluginSampleFolder("ExcelRulesTest.xls").getAbsolutePath());
-                gefBot.button("Finish").click();
-                // can't get download shell at this step
-            } else if ("DRL".equals(resourceType)) {
-                gefBot.radio("create").click();
-                gefBot.comboBoxWithLabel("Type of rule resource:").setSelection("New DRL (rule package)");
-                gefBot.button("Finish").click();
-            }
-        } catch (WidgetNotFoundException wnfe) {
-            shell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            shell.close();
-            Assert.fail(e.getMessage());
-        }
-
-        SWTBotShell errorShell = null;
-        try {
-            errorShell = gefBot.shell("Problem Executing Operation").activate();
-            if (errorShell.isActive()) {
-                gefBot.button("OK").click();
-                gefBot.cTabItem(ruleName + " 0.1").close();
-            }
-        } catch (WidgetNotFoundException wnfe) {
-            // ignor this exception, shell did not open means item create successfully.
-        } finally {
-            Assert.assertNull("bug for cannot create or restore resource because it already exist.", errorShell);
-        }
-
-        SWTBotTreeItem newRuleItem = null;
-        try {
-            newRuleItem = treeNode.expand().select(ruleName + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("embedded rule item is not created", newRuleItem);
         }
     }
 

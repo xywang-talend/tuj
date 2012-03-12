@@ -43,7 +43,9 @@ public class TalendDBItem extends TalendMetadataItem {
 
     public TalendSchemaItem getSchema(String name) {
         name = convertString(name);
-        SWTBotTreeItem schemaNode = item.expand().expandNode("Table schemas");
+        SWTBotTreeItem schemaNode = getItem().expand().expandNode("Table schemas");
+        if (schemaNode.getNodes() == null)
+            return null;
         TalendSchemaItem schemaItem = new TalendSchemaItem();
         schemaItem.setItem(schemaNode.getNode(name));
         schemaItem.setParentNode(schemaNode);
@@ -182,8 +184,8 @@ public class TalendDBItem extends TalendMetadataItem {
     }
 
     public void executeSQL(String sql) {
-        if (sql == null)
-            Assert.fail("sql could not be null");
+        if (sql == null || "".equals(sql))
+            return;
         if (item == null)
             Assert.fail("could not find item");
         SWTBotShell shell = null;
