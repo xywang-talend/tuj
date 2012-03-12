@@ -1,6 +1,7 @@
 package com.talend.tac.cases.esbconductor;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 import java.awt.event.KeyEvent;
 
@@ -50,6 +51,16 @@ public class ESBConductorUtils extends Login {
 		selenium.fireEvent("//input[@id='"+id+"']", "blur");
 
 	}
+    /*select drop down list for negative scenario*/
+        public void selectDropDownList(String id, String itemName, String filedName) {
+            selenium.isElementPresent("//label[text()='"+filedName+"']//parent::div" +
+                                      "//input[@id='"+id+"']"
+                                      + "/following-sibling::div");
+                      
+            selenium.click("//label[text()='"+filedName+"']//parent::div" +
+                                      "//input[@id='"+id+"']"
+                                      + "/following-sibling::div");
+        }
 	
 	
 	/*add esbconductor*/
@@ -82,47 +93,50 @@ public class ESBConductorUtils extends Login {
 		selenium.click("idFormSaveButton");
 		
 	}
-
-	
+     
 	/*
 	 * method to delete 
 	 * */
 	public void deleteESBConductorOK(String label, String name) {
-				
-		String undeployId = "idESBConductorTaskGridUndeployButton";
-		String status = "Undeployed";
-		String popupInfo = "Are you sure you want to undeploy the feature '"+name+"'";
-		String promptInfo = "Feature '"+name+"' undeployed.";
-				
-		this.intoESBConductorPage();
-		this.waitForElementPresent("//div[text()='"+label+"']", WAIT_TIME);
-		selenium.mouseDown("//div[text()='"+label+"']");
-		this.sleep(3000);
-		if(selenium.isElementPresent("//div[text()='"+label+"']" +
-				"//ancestor::table[@class='x-grid3-row-table']//span[text()='Deployed']") || 
-				selenium.isElementPresent("//div[text()='"+label+"']" +
-				"//ancestor::table[@class='x-grid3-row-table']//span[text()='Ready to redeploy']")) {
-			
-			this.waitForElementPresent("//div[text()='"+label+"']" +
-				"//ancestor::table[@class='x-grid3-row-table']//span[text()='Deployed']", WAIT_TIME);
-			this.undeployStopConductor(label, name, undeployId, status, popupInfo, promptInfo);
-			if(selenium.isTextPresent("Error: undeployment of feature '"+name+"' might" +
-					" have failed: java.lang.Exception: Feature named '"+name+"'" +
-					" with version '0.1.0' is not installed")) {
-				
-				this.waitForElementPresent("//div[text()='"+label+"']" +
-				"//ancestor::table[@class='x-grid3-row-table']//span[text()='Ready to deploy']", WAIT_TIME);
-				
-			}
-			
-			
-		}
-		selenium.chooseOkOnNextConfirmation();//
-		selenium.click("idESBConductorTaskGridDeleteButton");
-		Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected esb task [\\s\\S]$"));
-		this.waitForElementDispear("//div[text()='"+label+"']", WAIT_TIME);
-		
-	}
+            
+            String undeployId = "idESBConductorTaskGridUndeployButton";
+            String status = "Undeployed";
+            String popupInfo = "Are you sure you want to undeploy the feature '"+name+"'";
+            String promptInfo = "Feature '"+name+"' undeployed.";
+                            
+            this.intoESBConductorPage();
+            this.waitForElementPresent("//div[text()='"+label+"']", WAIT_TIME);
+            selenium.mouseDown("//div[text()='"+label+"']");
+            this.sleep(3000);
+            if(selenium.isElementPresent("//div[text()='"+label+"']" +
+                            "//ancestor::table[@class='x-grid3-row-table']//span[text()='Deployed']") || 
+                            selenium.isElementPresent("//div[text()='"+label+"']" +
+                            "//ancestor::table[@class='x-grid3-row-table']//span[text()='Ready to redeploy']") ||
+                            selenium.isElementPresent("//div[text()='"+label+"']" + 
+                            "//ancestor::table[@class='x-grid3-row-table']//span[text()='Started']") ||
+                            selenium.isElementPresent("//div[text()='"+label+"']" + 
+                            "//ancestor::table[@class='x-grid3-row-table']//span[text()='Stopped']")) {
+                    
+//                  this.waitForElementPresent("//div[text()='"+label+"']" +
+//                          "//ancestor::table[@class='x-grid3-row-table']//span[text()='Deployed']", WAIT_TIME);
+                    this.undeployStopConductor(label, name, undeployId, status, popupInfo, promptInfo);
+                    if(selenium.isTextPresent("Error: undeployment of feature '"+name+"' might" +
+                                    " have failed: java.lang.Exception: Feature named '"+name+"'" +
+                                    " with version '0.1.0' is not installed")) {
+                            
+                            this.waitForElementPresent("//div[text()='"+label+"']" +
+                            "//ancestor::table[@class='x-grid3-row-table']//span[text()='Ready to deploy']", WAIT_TIME);
+                            
+                    }
+                    
+                    
+            }
+            selenium.chooseOkOnNextConfirmation();//
+            selenium.click("idESBConductorTaskGridDeleteButton");
+            Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected esb task [\\s\\S]$"));
+            this.waitForElementDispear("//div[text()='"+label+"']", WAIT_TIME);
+            
+    }
 	/*
 	 * method to delete 
 	 * */
@@ -249,5 +263,84 @@ public class ESBConductorUtils extends Login {
 		Assert.assertTrue(selenium.isElementPresent(other.getString(mavenStatus)));	
 		
 	}
-	
+	/*select feature*/
+        public void testSelectFeatureFromServer(String label, String des, String repository, String group,
+                                            String artifact, String version, String name) {
+                this.commonMethodForSelectFeature(label,des);
+                this.selectDropDownListForESBConductor("idTaskProjectListBox", repository, "Repository:");
+                this.selectDropDownListForESBConductor("idTaskBranchListBox", group, "Group:");
+                this.selectDropDownListForESBConductor("idTaskApplicationListBox", artifact, "Artifact:");
+                this.selectDropDownListForESBConductor("idTaskVersionListBox", version, "Version:");
+                selenium.click("//span[text()='Select Feature from Talend repository']"
+                       + "//ancestor::div[@class=' x-window x-component']" + "//button[text()='OK']");// save select feature info after click OK
+                this.selectDropDownListForESBConductor("idTaskProjectListBox", name, "Name:");
+    }
+    
+  
+    /* select feature with uncheck repository*/
+        public void testSelectFeatureWithUncheckRepository(String label, String des) {
+                this.commonMethodForSelectFeature(label,des);
+                selenium.click("//span[text()='Select Feature from Talend repository']"
+                       + "//ancestor::div[@class=' x-window x-component']" + "//button[text()='OK']");// save select feature info after click OK
+                                           
+        }
+    /* select feature with uncheck group*/
+        public void testSelectFeatureWithUncheckGroup(String label, String des, String repository, String name) {
+                this.commonMethodForSelectFeature(label,des);
+                this.selectDropDownListForESBConductor("idTaskProjectListBox", repository, "Repository:");
+                selenium.click("//span[text()='Select Feature from Talend repository']"
+                       + "//ancestor::div[@class=' x-window x-component']" + "//button[text()='OK']");// save select feature info after click OK
+                this.selectDropDownList("idTaskProjectListBox", name, "Name:");
+        }
+   
+    /*select feature with uncheck artifact*/
+        public void testSelectFeatureWithUncheckArtifact(String label, String des, String repository, String group,
+                                                       String name) {
+                this.commonMethodForSelectFeature(label,des);
+                this.selectDropDownListForESBConductor("idTaskProjectListBox", repository, "Repository:");
+                this.selectDropDownListForESBConductor("idTaskBranchListBox", group, "Group:");
+                selenium.click("//span[text()='Select Feature from Talend repository']"
+                       + "//ancestor::div[@class=' x-window x-component']" + "//button[text()='OK']");// save select feature info after click OK
+                this.selectDropDownList("idTaskProjectListBox", name, "Name:");
+        }
+    /* select feature with uncheck version*/
+        public void testSelectFeatureWithUncheckVersion(String label, String des, String repository, String group,
+                                            String artifact, String name) {
+                this.commonMethodForSelectFeature(label,des);
+                this.selectDropDownListForESBConductor("idTaskProjectListBox", repository, "Repository:");
+                this.selectDropDownListForESBConductor("idTaskBranchListBox", group, "Group:");
+                this.selectDropDownListForESBConductor("idTaskApplicationListBox", artifact, "Artifact:");
+                selenium.click("//span[text()='Select Feature from Talend repository']"
+                       + "//ancestor::div[@class=' x-window x-component']" + "//button[text()='OK']");// save select feature info after click OK
+                this.selectDropDownList("idTaskProjectListBox", name, "Name:");
+        }
+     /*validate number of warns*/
+        public void waitForCheckInputStatus(String locator, int error_Num) {
+                boolean flag = false;
+                int seconds_Counter = 0;
+                while (flag == false) {
+                    try {
+                            Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                    }
+                    flag = selenium.getXpathCount(locator).intValue() >= error_Num;
+                    System.out.println("------------------No:"+selenium.getXpathCount(locator).intValue());
+                    seconds_Counter++;
+                    if(seconds_Counter >= WAIT_TIME)
+                        System.out.println("**************No:"+selenium.getXpathCount(locator).intValue());
+                            assertTrue(selenium.getXpathCount(locator).intValue() >= error_Num);
+          }
+        }  
+        /*a common method for negative select feature*/
+        public void commonMethodForSelectFeature(String label,String des) {
+                this.intoESBConductorPage();
+                this.clickWaitForElementPresent("idESBConductorTaskGridAddButton");
+                this.waitForElementPresent("//img[@class='gwt-Image" + " x-component ']", WAIT_TIME);
+                this.typeString("idESBConductorTasklabelInput", label);
+                this.typeString("idESBConductorTaskdesInput", des);
+                selenium.click("idESBConductorTaskSelectButton");
+                this.waitForElementPresent("//span[text()='Select" + " Feature from Talend repository']", WAIT_TIME);
+        }
 }
