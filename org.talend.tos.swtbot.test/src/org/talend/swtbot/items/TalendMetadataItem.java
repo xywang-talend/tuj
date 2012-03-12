@@ -72,7 +72,7 @@ public class TalendMetadataItem extends TalendItem {
             StringBuffer rightResult = new StringBuffer();
             while ((tempStr = reader.readLine()) != null)
                 rightResult.append(tempStr + "\n");
-            this.expectResult = rightResult.toString();
+            this.expectResult = rightResult.toString().trim();
         } catch (Exception e) {
             e.printStackTrace();
         }

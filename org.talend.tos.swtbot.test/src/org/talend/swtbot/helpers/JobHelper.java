@@ -12,6 +12,10 @@
 // ============================================================================
 package org.talend.swtbot.helpers;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
@@ -187,4 +191,22 @@ public class JobHelper implements Helper {
         DndUtil dndUtil = new DndUtil(jobEditor.getWidget().getDisplay());
         dndUtil.dragAndDrop(paletteFigureCanvas, new Point(x, y + 20 * folderLevel), jobFigureCanvas, locationOnJob);
     }
+
+    public static String getExpectResultFromFile(String fileName) {
+        String result = null;
+        try {
+            File resultFile = Utilities.getFileFromCurrentPluginSampleFolder(fileName);
+            BufferedReader reader = new BufferedReader(new FileReader(resultFile));
+            String tempStr = null;
+            StringBuffer rightResult = new StringBuffer();
+            while ((tempStr = reader.readLine()) != null)
+                rightResult.append(tempStr + "\n");
+            result = rightResult.toString().trim();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
 }

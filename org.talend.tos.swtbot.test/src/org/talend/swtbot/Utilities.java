@@ -37,12 +37,14 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefFigureCanvas;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
+import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
@@ -52,6 +54,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.talend.swtbot.items.TalendFolderItem;
+import org.talend.swtbot.items.TalendJobItem;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
@@ -980,4 +983,53 @@ public class Utilities {
         cleanUpRepository();
         gefBot.resetActivePerspective();
     }
+
+    /**
+     * to set the value in the component view of all kinds of DB and test the data viewer
+     * 
+     * @param gefEdiPart the specified DB
+     * @param jobItem the job Item
+     * @param expected the expected result
+     * @param dbName the db name
+     * @param componentType the db component type
+     */
+    public static void setComponentValueOfDB(SWTBotGefEditPart gefEdiPart, TalendJobItem jobItem, String expected, String dbName,
+            String componentType) {
+        // the id for text,default for msql is 6
+        int id = 6;
+        gefEdiPart.doubleClick();
+        gefBot.viewByTitle("Component").setFocus();
+        SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
+        gefBot.sleep(1000);
+
+        if (componentType.equals("tMSSqlInput")) {
+            id = 7;
+        }
+
+        gefBot.text(id).selectAll().typeText("\"dataviwer\"");
+        gefBot.button(3).click();
+        gefBot.shell("Schema of " + dbName).activate();
+        gefBot.buttonWithTooltip("Add").click();
+        gefBot.table(0).click(0, 3);
+        gefBot.text("newColumn").setText("id");
+        gefBot.table(0).click(0, 5);
+        gefBot.ccomboBox("String").setSelection("int | Integer");
+        gefBot.table(0).select(0);
+        gefBot.buttonWithTooltip("Add").click();
+        gefBot.table(0).click(1, 3);
+        gefBot.text("newColumn1").setText("name");
+        gefBot.table(0).select(1);
+        gefBot.button("OK").click();
+        gefBot.button("Guess Query").click();
+
+        jobItem.getEditor().select(gefEdiPart).setFocus();
+        gefEdiPart.click();
+        jobItem.getEditor().clickContextMenu("Data viewer");
+        gefBot.waitUntil(Conditions.shellIsActive("Data Preview: " + componentType + "_1"), 10000);
+        gefBot.shell("Data Preview: " + componentType + "_1").activate();
+        String result1 = gefBot.tree().cell(0, 1);
+        String result2 = gefBot.tree().cell(0, 2);
+        Assert.assertEquals("the result is not the expected result", expected, result1 + result2);
+    }
+
 }
