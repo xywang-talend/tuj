@@ -14,13 +14,11 @@ package tosstudio.projectmanagement.performance;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobItem;
 
 /**
@@ -60,9 +58,4 @@ public class CreateNewVersionOfJobTest extends TalendSwtBotForTos {
         }
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

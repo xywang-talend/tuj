@@ -13,12 +13,10 @@
 package tisstudio.joblets;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobletItem;
 
 /**
@@ -44,10 +42,4 @@ public class DuplicateJobletTest extends TalendSwtBotForTos {
         jobletItem.duplicate(NEW_JOBLETNAME);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        jobletItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobletItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

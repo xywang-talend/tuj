@@ -20,7 +20,6 @@ import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -95,13 +94,6 @@ public class TunitTest extends TalendSwtBotForTos {
         String result = JobHelper.execResultFilter(JobHelper.getExecutionResult());
         Assert.assertEquals("the result is not the expected result", JobHelper.getExpectResultFromFile(RESULTFILE), result);
 
-    }
-
-    @After
-    public void removePreviousCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 
 }

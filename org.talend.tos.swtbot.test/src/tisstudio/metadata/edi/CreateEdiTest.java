@@ -13,12 +13,10 @@
 package tisstudio.metadata.edi;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendEdiItem;
 
 /**
@@ -40,17 +38,12 @@ public class CreateEdiTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
+        ediItem = new TalendEdiItem(EDINAME, STANDARD, RELEASE, SCHEMAS);
     }
 
     @Test
     public void createEdi() {
-        ediItem = new TalendEdiItem(EDINAME, STANDARD, RELEASE, SCHEMAS);
         ediItem.create();
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.cleanUpRepository(ediItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

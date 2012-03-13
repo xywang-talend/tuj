@@ -18,7 +18,6 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,9 +52,4 @@ public class CreateHL7OutputTest extends TalendSwtBotForTos {
         Utilities.createHL7(TYPE, treeNode, HL7NAME);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.delete(treeNode, HL7NAME, "0.1", null);
-        Utilities.emptyRecycleBin();
-    }
 }

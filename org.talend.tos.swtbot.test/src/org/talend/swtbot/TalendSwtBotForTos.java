@@ -68,6 +68,8 @@ public class TalendSwtBotForTos {
 
     protected static boolean isGenerationEngineInitialised = false;
 
+    private static String buildTitle;
+
     /**
      * wait for the Generation engine to be intialised, and this is done only once during the lifetime of the
      * application.
@@ -91,6 +93,7 @@ public class TalendSwtBotForTos {
             } catch (WidgetNotFoundException wnfe) {
                 // ignor this exception, this means there is not Cheat Sheet
             }
+            buildTitle = gefBot.activeShell().getText().split("\\(")[0].trim();
         }
     }
 
@@ -171,7 +174,16 @@ public class TalendSwtBotForTos {
 
     @AfterClass
     public static void after() {
-    	Utilities.resetActivePerspective();
+        Utilities.resetActivePerspective();
     }
-    
+
+    /**
+     * Get the testing build title.
+     * 
+     * @return build title
+     */
+    public String getBuildTitle() {
+        return buildTitle;
+    }
+
 }

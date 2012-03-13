@@ -13,12 +13,10 @@
 package tosstudio.metadata.salesforce;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendSalesforceItem;
 
 /**
@@ -44,9 +42,4 @@ public class DuplicateSalesforceTest extends TalendSwtBotForTos {
         salesforceItem.duplicate(NEW_SALESFORCENAME);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.cleanUpRepository(salesforceItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

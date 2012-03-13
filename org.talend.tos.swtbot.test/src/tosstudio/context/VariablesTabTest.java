@@ -20,12 +20,10 @@ import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendContextItem;
 import org.talend.swtbot.items.TalendJobItem;
 
@@ -104,11 +102,4 @@ public class VariablesTabTest extends TalendSwtBotForTos {
         varTree.getTreeItem(CONTEXT_NAME).click();
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(contextItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

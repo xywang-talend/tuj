@@ -78,7 +78,5 @@ public class ModifyMetadataSchemaTest extends TalendSwtBotForTos {
     public void removePreviouslyCreateItems() {
         String sql = "drop table " + TABLENAME;
         dbItem.executeSQL(sql);
-        Utilities.cleanUpRepository(dbItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 }

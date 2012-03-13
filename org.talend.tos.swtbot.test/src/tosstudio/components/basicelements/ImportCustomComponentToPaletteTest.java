@@ -115,9 +115,6 @@ public class ImportCustomComponentToPaletteTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
         deleteUserComponent(USER_COMPONENT_FOLDER + "/" + USER_COMPONENT_NAME2);
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 
     private void waitInitialization() {

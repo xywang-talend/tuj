@@ -55,7 +55,5 @@ public class RetrieveSchemaForMssqlTest extends TalendSwtBotForTos {
     public void removePreviousCreateItem() {
         String sql = "drop table " + TABLE_NAME;
         dbItem.executeSQL(sql);
-        Utilities.cleanUpRepository(dbItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 }

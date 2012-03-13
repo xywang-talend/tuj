@@ -13,7 +13,6 @@
 package tosstudio.metadata.databaseoperation;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,11 +37,5 @@ public class CreateFolderForDbConnTest extends TalendSwtBotForTos {
     @Test
     public void createFolderForDbConn() {
         folderItem = Utilities.createFolder(FOLDERNAME, Utilities.TalendItemType.DB_CONNECTIONS);
-    }
-
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.cleanUpRepository(folderItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 }

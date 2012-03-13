@@ -22,7 +22,6 @@ import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.talend.swtbot.DndUtil;
@@ -117,12 +116,4 @@ public class ExportAsContextForXmlTest extends TalendSwtBotForTos {
         MetadataHelper.assertResult(JobHelper.getExecutionResult(), fileItem);
     }
 
-    @After
-    public void removePreviousCreateItem() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(fileItem.getParentNode());
-        Utilities.cleanUpRepository(Utilities.getTalendItemNode(Utilities.TalendItemType.CONTEXTS));
-        Utilities.emptyRecycleBin();
-    }
 }

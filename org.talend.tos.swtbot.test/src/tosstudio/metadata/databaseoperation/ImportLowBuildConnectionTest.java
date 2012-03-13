@@ -20,7 +20,6 @@ import junit.framework.Assert;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.talend.swtbot.TalendSwtBotForTos;
@@ -67,10 +66,4 @@ public class ImportLowBuildConnectionTest extends TalendSwtBotForTos {
         Assert.assertNotNull("schemas disappear", dbItem.getSchema("user"));
     }
 
-    @After
-    public void removePreviousCreateItem() {
-        shell.close();
-        Utilities.cleanUpRepository(dbItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

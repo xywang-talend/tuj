@@ -17,7 +17,6 @@ import java.net.URISyntaxException;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -74,10 +73,4 @@ public class UpdateTheStatusOfEachItemTest extends TalendSwtBotForTos {
         shell.close();
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        shell.close();
-        Utilities.cleanUpRepository(businessModelItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

@@ -20,7 +20,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,10 +58,4 @@ public class CopyPasteBusinessModelElementTest extends TalendSwtBotForTos {
         Assert.assertEquals("business model elements did not copy", 2, editParts.size());
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        businessModelItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(businessModelItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

@@ -13,7 +13,6 @@
 package tosstudio.metadata.databaseoperation;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,8 +41,4 @@ public class DeleteMssqlTest extends TalendSwtBotForTos {
         dbItem.delete();
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.emptyRecycleBin();
-    }
 }

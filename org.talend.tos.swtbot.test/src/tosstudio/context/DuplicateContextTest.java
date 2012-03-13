@@ -13,12 +13,10 @@
 package tosstudio.context;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendContextItem;
 
 /**
@@ -44,9 +42,4 @@ public class DuplicateContextTest extends TalendSwtBotForTos {
         contextItem.duplicate(NEW_CONTEXTNAME);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.cleanUpRepository(contextItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

@@ -16,7 +16,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,7 +55,6 @@ public class DataViewerOnFilesComponentsTest extends TalendSwtBotForTos {
 
     @Test
     public void testFileDataViewer() {
-        String title = Utilities.getBuildTitle();
         SWTBotGefEditor jobEditor = jobItem.getEditor();
         Utilities.dndPaletteToolOntoJob(jobEditor, "tRowGenerator", new Point(100, 100));
         SWTBotGefEditPart tRowGenerator = getTalendComponentPart(jobEditor, "tRowGenerator_1");
@@ -72,7 +70,7 @@ public class DataViewerOnFilesComponentsTest extends TalendSwtBotForTos {
 
         tRowGenerator.doubleClick();
 
-        gefBot.shell(title + " - tRowGenerator - tRowGenerator_1").activate();
+        gefBot.shell(getBuildTitle() + " - tRowGenerator - tRowGenerator_1").activate();
 
         gefBot.tableWithLabel("Schema").click(0, 10);
         gefBot.ccomboBox("...").setFocus();
@@ -105,8 +103,4 @@ public class DataViewerOnFilesComponentsTest extends TalendSwtBotForTos {
 
     }
 
-    @After
-    public void removePreviousCreateItems() {
-        Utilities.resetActivePerspective();
-    }
 }

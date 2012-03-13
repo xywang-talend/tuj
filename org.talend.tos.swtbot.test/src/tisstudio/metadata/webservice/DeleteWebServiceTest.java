@@ -18,7 +18,6 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,8 +54,4 @@ public class DeleteWebServiceTest extends TalendSwtBotForTos {
         Utilities.delete(treeNode, WEBSERVICENAME, "0.1", null);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.emptyRecycleBin();
-    }
 }

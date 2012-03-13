@@ -64,7 +64,5 @@ public class UpdateTableNameTest extends TalendSwtBotForTos {
     public void removePreviousCreateItem() {
         String sql = "drop table " + NEW_TABLE_NAME;
         dbItem.executeSQL(sql);
-        Utilities.cleanUpRepository(dbItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 }

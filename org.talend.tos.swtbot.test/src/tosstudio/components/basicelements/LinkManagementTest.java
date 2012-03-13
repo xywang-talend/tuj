@@ -20,7 +20,6 @@ import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,13 +41,13 @@ public class LinkManagementTest extends TalendSwtBotForTos {
 
     @Before
     public void createJob() {
-        buildTitle = Utilities.getBuildTitle();
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
     }
 
     @Test
     public void useComponentInJob() {
+        buildTitle = getBuildTitle();
         SWTBotGefEditor jobEditor = jobItem.getEditor();
 
         Utilities.dndPaletteToolOntoJob(jobEditor, "tRowGenerator", new Point(100, 100));
@@ -85,10 +84,4 @@ public class LinkManagementTest extends TalendSwtBotForTos {
         gefBot.button("OK").click();
     }
 
-    @After
-    public void removePreviousCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.delete(jobItem.getParentNode(), JOBNAME, "0.1", null);
-        Utilities.emptyRecycleBin();
-    }
 }

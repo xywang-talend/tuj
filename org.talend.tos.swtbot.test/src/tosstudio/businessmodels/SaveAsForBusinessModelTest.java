@@ -15,12 +15,10 @@ package tosstudio.businessmodels;
 import junit.framework.Assert;
 
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,12 +63,4 @@ public class SaveAsForBusinessModelTest extends TalendSwtBotForTos {
         Assert.assertNotNull("components didn't save in new business model", editPart);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        for (SWTBotEditor editor : gefBot.editors()) {
-            editor.saveAndClose();
-        }
-        Utilities.cleanUpRepository(bmItem1.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

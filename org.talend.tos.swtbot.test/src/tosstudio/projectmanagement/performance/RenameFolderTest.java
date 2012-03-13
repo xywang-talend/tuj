@@ -13,7 +13,6 @@
 package tosstudio.projectmanagement.performance;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,9 +51,4 @@ public class RenameFolderTest extends TalendSwtBotForTos {
         folderItem.rename(NEW_FOLDERNAME);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.cleanUpRepository(folderItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

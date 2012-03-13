@@ -17,7 +17,6 @@ import junit.framework.Assert;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -72,12 +71,4 @@ public class GenerateAllDocTest extends TalendSwtBotForTos {
         }
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        jobletItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(jobletItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

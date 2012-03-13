@@ -4,7 +4,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -59,10 +58,4 @@ public class TMsgBoxTest extends TalendSwtBotForTos {
         JobHelper.runJob(jobEditor);
     }
 
-    @After
-    public void removePreviousCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.delete(jobItem.getParentNode(), JOBNAME, "0.1", null);
-        Utilities.emptyRecycleBin();
-    }
 }

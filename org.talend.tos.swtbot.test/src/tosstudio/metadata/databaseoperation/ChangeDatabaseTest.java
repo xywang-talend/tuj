@@ -84,7 +84,5 @@ public class ChangeDatabaseTest extends TalendSwtBotForTos {
     public void removePreviouslyCreateItems() {
         String sql = "drop database " + DATABASE_NAME;
         dbItem.executeSQL(sql);
-        Utilities.cleanUpRepository(dbItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 }

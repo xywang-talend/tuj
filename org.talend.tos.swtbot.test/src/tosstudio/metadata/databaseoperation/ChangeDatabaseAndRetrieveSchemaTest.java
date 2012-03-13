@@ -107,7 +107,5 @@ public class ChangeDatabaseAndRetrieveSchemaTest extends TalendSwtBotForTos {
         String sql = "use " + System.getProperty("mysql.dataBase") + ";\n" + "drop table " + TABLE1 + ";\n" + "drop database "
                 + DATABASE_NAME;
         dbItem.executeSQL(sql);
-        Utilities.cleanUpRepository(dbItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 }

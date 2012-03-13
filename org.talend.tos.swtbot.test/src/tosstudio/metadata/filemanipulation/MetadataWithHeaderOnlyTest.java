@@ -15,11 +15,9 @@ package tosstudio.metadata.filemanipulation;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.JobHelper;
 import org.talend.swtbot.helpers.MetadataHelper;
 import org.talend.swtbot.items.TalendDelimitedFileItem;
@@ -56,11 +54,4 @@ public class MetadataWithHeaderOnlyTest extends TalendSwtBotForTos {
         MetadataHelper.assertResult(JobHelper.getExecutionResult(), fileItem);
     }
 
-    @After
-    public void removePreviousCreateItem() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(fileItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

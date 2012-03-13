@@ -15,7 +15,6 @@ package tisstudio.filters;
 import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withTooltip;
 
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotLabel;
@@ -92,10 +91,5 @@ public class FilterItemsByUserTest extends TalendSwtBotForTos {
             Assert.fail(e.getMessage());
         }
         filterLabel.click();
-
-        for (SWTBotEditor editor : gefBot.editors())
-            editor.saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 }

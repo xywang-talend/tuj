@@ -24,7 +24,6 @@ import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -128,11 +127,4 @@ public class TAggregateRowTest extends TalendSwtBotForTos {
         MetadataHelper.assertResult(actualResult, fileItem);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(fileItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

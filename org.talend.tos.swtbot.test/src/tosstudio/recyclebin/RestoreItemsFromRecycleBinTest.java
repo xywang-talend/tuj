@@ -14,7 +14,6 @@ package tosstudio.recyclebin;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,9 +52,4 @@ public class RestoreItemsFromRecycleBinTest extends TalendSwtBotForTos {
         Assert.assertNotNull("item did not restore from recycle bin", item);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        jobItem.delete();
-        Utilities.emptyRecycleBin();
-    }
 }

@@ -12,15 +12,12 @@
 // ============================================================================
 package tosstudio.projectmanagement.performance;
 
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobItem;
 
 /**
@@ -50,13 +47,4 @@ public class CloseAllJobsTest extends TalendSwtBotForTos {
         Assert.assertTrue("jobs are not all closed", gefBot.editors().isEmpty());
     }
 
-    @After
-    public void removePreviouslyCreateFields() {
-        for (SWTBotEditor editor : gefBot.editors()) {
-            editor.close();
-        }
-
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

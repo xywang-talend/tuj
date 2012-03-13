@@ -13,7 +13,6 @@
 package tosstudio.metadata.databaseoperation;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,11 +41,5 @@ public class DuplicateMssqlTest extends TalendSwtBotForTos {
     @Test
     public void duplicateMssql() {
         dbItem.duplicate(NEW_DBNAME);
-    }
-
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.cleanUpRepository(dbItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 }

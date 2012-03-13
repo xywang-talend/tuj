@@ -18,7 +18,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -92,14 +91,6 @@ public class ValuesAsTableTabOfContextTest extends TalendSwtBotForTos {
         treeItemExt.click(0);
         String value = gefBot.tree(0).getTreeItem("new1").cell(1);
         Assert.assertEquals("is unable to fixed the data of built-in type context", builtValue, value);
-    }
-
-    @After
-    public void removePreviousCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(contextItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 
 }

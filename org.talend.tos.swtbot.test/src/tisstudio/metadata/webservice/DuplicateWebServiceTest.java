@@ -18,7 +18,6 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,10 +56,4 @@ public class DuplicateWebServiceTest extends TalendSwtBotForTos {
         Utilities.duplicate(treeNode, WEBSERVICENAME, "0.1", NEW_WEBSERVICENAME);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.delete(treeNode, WEBSERVICENAME, "0.1", null);
-        Utilities.delete(treeNode, NEW_WEBSERVICENAME, "0.1", null);
-        Utilities.emptyRecycleBin();
-    }
 }

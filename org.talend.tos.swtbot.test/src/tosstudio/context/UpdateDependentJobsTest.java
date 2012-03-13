@@ -15,9 +15,7 @@ package tosstudio.context;
 import junit.framework.Assert;
 
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -76,16 +74,6 @@ public class UpdateDependentJobsTest extends TalendSwtBotForTos {
         assertContextInJob("Copy_of_" + JOBNAME + "_b 0.1");
         assertContextInJob("Copy_of_" + JOBNAME + "_c 0.1");
         assertContextInJob("Copy_of_" + JOBNAME + "_d 0.1");
-    }
-
-    @After
-    public void removePreviouslyCreateItems() {
-        for (SWTBotEditor editor : gefBot.editors()) {
-            editor.saveAndClose();
-        }
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(contextItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 
     private void assertContextInJob(String jobFullName) {

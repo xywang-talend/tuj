@@ -13,12 +13,10 @@
 package tisstudio.metadata.validationrules;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendDelimitedFileItem;
 import org.talend.swtbot.items.TalendValidationRuleItem;
 
@@ -51,10 +49,4 @@ public class CopyPasteBasicValueCheckRulesTest extends TalendSwtBotForTos {
         ruleItem.copyAndPaste();
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.cleanUpRepository(ruleItem.getParentNode());
-        Utilities.cleanUpRepository(metadataItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

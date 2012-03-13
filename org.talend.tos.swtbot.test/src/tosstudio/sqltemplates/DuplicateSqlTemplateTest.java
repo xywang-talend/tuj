@@ -13,12 +13,10 @@
 package tosstudio.sqltemplates;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendSqlTemplateItem;
 
 /**
@@ -47,10 +45,4 @@ public class DuplicateSqlTemplateTest extends TalendSwtBotForTos {
         sqlTemplateItem.duplicate(NEW_SQLTEMPLATENAME);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        sqlTemplateItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(sqlTemplateItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

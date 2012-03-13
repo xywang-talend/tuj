@@ -15,13 +15,11 @@ package tosstudio.projectmanagement.performance;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCTabItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobItem;
 
 /**
@@ -65,13 +63,4 @@ public class OpenAnotherVersionOfJobTest extends TalendSwtBotForTos {
         Assert.assertNotNull("job tab is not opened", newJobTabItem2);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        gefBot.cTabItem("Job " + JOBNAME + " 0.1").close();
-        if (gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").isEnabled())
-            gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
-        gefBot.cTabItem("Job " + JOBNAME + " 1.1").close();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

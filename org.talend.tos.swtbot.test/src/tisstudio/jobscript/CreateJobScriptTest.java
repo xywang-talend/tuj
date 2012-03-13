@@ -13,12 +13,10 @@
 package tisstudio.jobscript;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobScriptItem;
 
 /**
@@ -41,10 +39,4 @@ public class CreateJobScriptTest extends TalendSwtBotForTos {
         jobScriptItem.create();
     }
 
-    @After
-    public void removePreviousCreateItems() {
-        jobScriptItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobScriptItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

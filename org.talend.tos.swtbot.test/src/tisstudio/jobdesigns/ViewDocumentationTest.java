@@ -14,13 +14,11 @@ package tisstudio.jobdesigns;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCTabItem;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobItem;
 
 /**
@@ -47,11 +45,4 @@ public class ViewDocumentationTest extends TalendSwtBotForTos {
         Assert.assertNotNull("document tab is not opened", newDocumentTabItem);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        gefBot.cTabItem(JOBNAME + "_0.1.html").close();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

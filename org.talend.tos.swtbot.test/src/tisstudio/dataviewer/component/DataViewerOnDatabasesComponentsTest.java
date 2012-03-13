@@ -123,7 +123,6 @@ public class DataViewerOnDatabasesComponentsTest extends TalendSwtBotForTos {
     public void removePreviousCreateItems() {
         String sql = "drop table dataviwer;\n";
         dbItem.executeSQL(sql);
-        Utilities.resetActivePerspective();
     }
 
 }

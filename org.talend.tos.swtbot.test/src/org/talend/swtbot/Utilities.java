@@ -834,15 +834,6 @@ public class Utilities {
     }
 
     /**
-     * Get build title, only used in the beginning of one test.
-     * 
-     * @return build title
-     */
-    public static String getBuildTitle() {
-        return gefBot.activeShell().getText().split("\\(")[0].trim();
-    }
-
-    /**
      * Helper for radio button, to deselect default selection
      * 
      * @param currSelection the mnemonicText on the radio button.
@@ -895,7 +886,7 @@ public class Utilities {
         gefEdiPart.doubleClick();
         gefBot.viewByTitle("Component").setFocus();
         SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
-        gefBot.sleep(1000);
+        // gefBot.sleep(1000);
 
         if (componentType.equals("tMSSqlInput")) {
             id = 7;

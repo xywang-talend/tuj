@@ -89,7 +89,5 @@ public class SchemaConsistenceTest extends TalendSwtBotForTos {
     public void removePreviousCreateItem() {
         String sql = "drop table " + TABLE1 + ";\n" + "drop table " + TABLE2;
         dbItem.executeSQL(sql);
-        Utilities.cleanUpRepository(dbItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 }

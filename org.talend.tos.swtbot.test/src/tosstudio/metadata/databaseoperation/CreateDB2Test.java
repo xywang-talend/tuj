@@ -13,7 +13,6 @@
 package tosstudio.metadata.databaseoperation;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,9 +40,4 @@ public class CreateDB2Test extends TalendSwtBotForTos {
         dbItem.create();
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.cleanUpRepository(dbItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

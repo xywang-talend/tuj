@@ -15,7 +15,6 @@ package tosstudio.businessmodels;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,8 +65,4 @@ public class NotCreateNewItemInRecycleBinTest extends TalendSwtBotForTos {
         }
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.emptyRecycleBin();
-    }
 }

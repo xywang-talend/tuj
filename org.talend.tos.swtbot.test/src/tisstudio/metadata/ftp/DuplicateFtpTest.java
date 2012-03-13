@@ -18,7 +18,6 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,10 +53,4 @@ public class DuplicateFtpTest extends TalendSwtBotForTos {
         Utilities.duplicate(treeNode, FTPNAME, "0.1", NEW_FTPNAME);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.delete(treeNode, FTPNAME, "0.1", null);
-        Utilities.delete(treeNode, NEW_FTPNAME, "0.1", null);
-        Utilities.emptyRecycleBin();
-    }
 }

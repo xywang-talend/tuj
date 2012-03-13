@@ -12,16 +12,12 @@
 // ============================================================================
 package tisstudio.metadata.hl7;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,8 +53,4 @@ public class DeleteHL7Test extends TalendSwtBotForTos {
         Utilities.delete(treeNode, HL7NAME, "0.1", null);
     }
 
-    @After
-    public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
-        Utilities.emptyRecycleBin();
-    }
 }

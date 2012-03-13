@@ -95,9 +95,5 @@ public class SpecialColumnNameTest extends TalendSwtBotForTos {
     public void removePreviousCreateItem() {
         String sql = "drop table " + TABLE_NAME;
         dbItem.executeSQL(sql);
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(dbItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 }

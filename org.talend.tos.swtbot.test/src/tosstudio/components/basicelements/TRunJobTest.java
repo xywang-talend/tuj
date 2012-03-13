@@ -16,7 +16,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,7 +47,7 @@ public class TRunJobTest extends TalendSwtBotForTos {
 
     @Test
     public void testTRunJob() {
-        String buitdTitle = Utilities.getBuildTitle();
+        String buitdTitle = getBuildTitle();
         SWTBotGefEditor jobEditor1 = jobItem1.getEditor();
 
         Utilities.dndPaletteToolOntoJob(jobEditor1, "tRowGenerator", new Point(100, 100));
@@ -81,14 +80,4 @@ public class TRunJobTest extends TalendSwtBotForTos {
         Assert.assertNotNull("the bug for job cann't execute", result1);
 
     }
-
-    @After
-    public void removePreviousCreateItems() {
-        jobItem1.getEditor().saveAndClose();
-        jobItem2.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem1.getParentNode());
-        Utilities.cleanUpRepository(jobItem2.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
-
 }

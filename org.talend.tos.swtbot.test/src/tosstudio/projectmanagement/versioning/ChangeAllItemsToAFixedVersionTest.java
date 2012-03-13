@@ -23,7 +23,6 @@ import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -103,13 +102,6 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
                 }
             }
         }
-    }
-
-    @After
-    public void removePreviouslyCreateItems() {
-        shell.close();
-        Utilities.cleanUpRepository();
-        Utilities.emptyRecycleBin();
     }
 
     private void assertItemVersion(String itemName, String... nodes) {

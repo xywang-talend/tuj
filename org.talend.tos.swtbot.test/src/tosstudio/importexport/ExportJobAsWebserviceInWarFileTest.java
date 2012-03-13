@@ -69,7 +69,10 @@ public class ExportJobAsWebserviceInWarFileTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
-        Utilities.resetActivePerspective();
-        Utilities.getFileFromCurrentPluginSampleFolder("output_job.war").delete();
+        try {
+            Utilities.getFileFromCurrentPluginSampleFolder("output_job.war").delete();
+        } catch (NullPointerException e) {
+            // pass this exception, means no file need to delete.
+        }
     }
 }

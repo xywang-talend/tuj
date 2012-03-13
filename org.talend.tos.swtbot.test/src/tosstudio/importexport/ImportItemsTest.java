@@ -18,7 +18,6 @@ import java.net.URISyntaxException;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -68,8 +67,4 @@ public class ImportItemsTest extends TalendSwtBotForTos {
         }
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.resetActivePerspective();
-    }
 }
