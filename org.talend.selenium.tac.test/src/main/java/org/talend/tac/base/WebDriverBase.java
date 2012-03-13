@@ -108,6 +108,13 @@ public class WebDriverBase {
 		return false;
 	}
 	
+	public boolean isElementPresent(By by, int timeout) {
+		if(this.waitfor(by, WAIT_TIME_MIN) == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 	
 	/**
 	 */
