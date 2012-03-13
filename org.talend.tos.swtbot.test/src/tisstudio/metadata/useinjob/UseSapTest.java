@@ -16,12 +16,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.JobHelper;
 import org.talend.swtbot.helpers.MetadataHelper;
 import org.talend.swtbot.items.TalendJobItem;
@@ -66,11 +64,4 @@ public class UseSapTest extends TalendSwtBotForTos {
         MetadataHelper.assertResult(actualResult, schema);
     }
 
-    @After
-    public void removePreviousCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(sapItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

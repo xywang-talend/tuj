@@ -15,18 +15,12 @@ package tisstudio.metadata.embeddedrules;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendEmbeddedRulesItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -34,11 +28,7 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class DuplicateEmbeddedRulesTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
+    private TalendEmbeddedRulesItem ruleItem;
 
     private static final String EMBEDDED_RULES_NAME = "rulesTest";
 
@@ -48,21 +38,13 @@ public class DuplicateEmbeddedRulesTest extends TalendSwtBotForTos {
 
     @Before
     public void createDrlEmbeddedRules() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.EMBEDDED_RULES);
-        Utilities.createEmbeddedRules(TYPE_OF_RULE_RESOURCE, EMBEDDED_RULES_NAME, treeNode);
-        gefBot.cTabItem(EMBEDDED_RULES_NAME + " 0.1").close();
+        ruleItem = new TalendEmbeddedRulesItem(EMBEDDED_RULES_NAME, TYPE_OF_RULE_RESOURCE);
+        ruleItem.create();
     }
 
     @Test
     public void duplicateEmbeddedRules() {
-        Utilities.duplicate(treeNode, EMBEDDED_RULES_NAME, "0.1", NEW_EMBEDDED_RULES_NAME);
+        ruleItem.duplicate(NEW_EMBEDDED_RULES_NAME);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.cleanUpRepository(treeNode);
-        Utilities.emptyRecycleBin();
-    }
 }

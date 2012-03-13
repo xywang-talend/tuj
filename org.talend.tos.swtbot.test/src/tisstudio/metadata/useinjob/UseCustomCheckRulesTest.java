@@ -18,7 +18,6 @@ import java.net.URISyntaxException;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,12 +78,4 @@ public class UseCustomCheckRulesTest extends TalendSwtBotForTos {
         MetadataHelper.assertResult(actualResult, expectResult);
     }
 
-    @After
-    public void removePreviousCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(metadataItem.getParentNode());
-        Utilities.cleanUpRepository(ruleItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

@@ -17,16 +17,14 @@ import java.net.URISyntaxException;
 
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.MetadataHelper;
 import org.talend.swtbot.items.TalendCopybookItem;
 import org.talend.swtbot.items.TalendJobItem;
+import org.talend.swtbot.items.TalendSchemaItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -36,11 +34,9 @@ public class UseCopybookTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 
-    private SWTBotTreeItem metadataNode;
-
-    private SWTBotTreeItem metadataItem;
-
     private SWTBotGefEditor jobEditor;
+
+    private TalendCopybookItem copybookItem;
 
     private static final String JOBNAME = "jobTest"; // $NON-NLS-1$
 
@@ -51,29 +47,19 @@ public class UseCopybookTest extends TalendSwtBotForTos {
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
         jobEditor = jobItem.getEditor();
-        metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.COPYBOOK);
-        metadataItem = Utilities.createCopybook(METADATA_NAME, metadataNode);
+        copybookItem = new TalendCopybookItem(METADATA_NAME);
+        copybookItem.create();
     }
 
     @Test
     public void useMetadataInJob() throws IOException, URISyntaxException {
-        TalendCopybookItem cItem = new TalendCopybookItem();
-        cItem.setItem(metadataItem);
-        SWTBotTreeItem schemaItem = cItem.retrieveSchema("_0").get("_0");
-        cItem.setItem(schemaItem);
-        cItem.setComponentType("tFileInputEBCDIC");
-        cItem.setExpectResultFromFile("copybook.result");
-        MetadataHelper.output2Console(jobEditor, cItem, "row__0_1");
+        TalendSchemaItem schemaItem = copybookItem.retrieveSchema("_0").get("_0");
+        schemaItem.setComponentType("tFileInputEBCDIC");
+        schemaItem.setExpectResultFromFile("copybook.result");
+        MetadataHelper.output2Console(jobEditor, schemaItem, "row__0_1");
 
         String result = gefBot.styledText().getText();
-        MetadataHelper.assertResult(result, cItem);
+        MetadataHelper.assertResult(result, schemaItem);
     }
 
-    @After
-    public void removePreviousCreateItems() {
-        jobEditor.saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(metadataNode);
-        Utilities.emptyRecycleBin();
-    }
 }

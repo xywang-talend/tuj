@@ -20,7 +20,6 @@ import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -91,11 +90,4 @@ public class UseAdvanceWebServiceTest extends TalendSwtBotForTos {
         MetadataHelper.assertResult(actualResult, webServiceItem);
     }
 
-    @After
-    public void removePreviousCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(webServiceItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

@@ -89,10 +89,5 @@ public class UseReferenceCheckRulesTest extends TalendSwtBotForTos {
     public void removePreviousCreateItems() {
         String sql = "drop table test;\n" + "drop table reference;";
         dbItem.executeSQL(sql);
-        Utilities.cleanUpRepository(dbItem.getParentNode());
-        Utilities.cleanUpRepository(ruleItem.getParentNode());
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 }
