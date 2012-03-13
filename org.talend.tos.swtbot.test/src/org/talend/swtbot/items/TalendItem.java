@@ -258,7 +258,7 @@ public class TalendItem implements Cloneable {
                 return "shell did not close automatically";
             }
 
-        }, 500);
+        }, 2000);
 
         SWTBotTreeItem newTreeItem = null;
         try {

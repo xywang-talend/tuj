@@ -19,6 +19,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
@@ -88,7 +89,8 @@ public class MetadataHelper implements Helper {
             }, 10000);
             String fileName = "\"" + ((TalendEdiItem) item).getAbsoluteFilePath() + "\"";
             fileName = fileName.replace("\\", "/");
-            GEFBOT.textInGroup("EDI parameters", 0).setText(fileName);
+            SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
+            GEFBOT.textInGroup("EDI parameters", 0).selectAll().typeText(fileName, 0);
         }
         JobHelper.connect2TLogRow(jobEditor, metadata, rowName, new Point(300, 100));
         JobHelper.runJob(jobEditor, timeout);
