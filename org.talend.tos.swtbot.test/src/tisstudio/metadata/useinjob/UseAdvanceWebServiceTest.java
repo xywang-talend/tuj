@@ -58,7 +58,7 @@ public class UseAdvanceWebServiceTest extends TalendSwtBotForTos {
     public void useMetadataInJob() throws IOException, URISyntaxException {
         Utilities.dndPaletteToolOntoJob(jobItem.getEditor(), "tFixedFlowInput", new Point(100, 100));
         SWTBotGefEditPart fixedFlowInput = getTalendComponentPart(jobItem.getEditor(), "tFixedFlowInput_1");
-        Assert.assertNotNull("can not get component '" + webServiceItem.getComponentType() + "'", fixedFlowInput);
+        Assert.assertNotNull("can not get component 'fixedFlowInput'", fixedFlowInput);
         jobItem.getEditor().click(fixedFlowInput);
         gefBot.viewByTitle("Component").setFocus();
         selecteAllTalendTabbedPropertyListIndex(0);
@@ -70,8 +70,9 @@ public class UseAdvanceWebServiceTest extends TalendSwtBotForTos {
         gefBot.waitUntil(Conditions.tableHasRows(schemaTable, 1));
         gefBot.tableInGroup("Mode").click(0, 2);
         gefBot.text(1).setText("\"test\"");
-
-        Utilities.dndMetadataOntoJob(jobItem.getEditor(), webServiceItem.getItem(), null, new Point(300, 100));
+        webServiceItem.setComponentType("tWebService");
+        Utilities.dndMetadataOntoJob(jobItem.getEditor(), webServiceItem.getItem(), webServiceItem.getComponentType(), new Point(
+                300, 100));
         SWTBotGefEditPart webService = getTalendComponentPart(jobItem.getEditor(), webServiceItem.getItemName());
         Assert.assertNotNull("can not get component '" + webServiceItem.getComponentType() + "'", webService);
 
