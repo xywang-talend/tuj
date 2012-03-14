@@ -1,5 +1,10 @@
 package org.talend.tac.modules;
 
+import java.util.List;
+
+import junit.framework.Assert;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,33 +16,39 @@ import org.talend.tac.base.WebDriverBase;
 import com.talend.tac.base.Base;
 
 public class Authorization extends WebDriverBase {
-	@FindBy(how = How.ID, using = "!!!menu.projectsauthorizations.element!!!")
-	WebElement authorization;
+//	@FindBy(how = How.ID, using = "!!!menu.projectsauthorizations.element!!!")
+	
 	
 	public Authorization(WebDriver driver) {
 		super.setDriver(driver);
 		this.driver = driver;
 	}
 	public void gotoAuthorzationPage(){
-		authorization.click();
-//		getElementById("!!!menu.projectsauthorizations.element!!!").click();
+//		WebElement authorization = driver.findElement(By.id("!!!menu.projectsauthorizations.element!!!"));
+//		
+//		authorization.click();
+		
+		getElementById("!!!menu.projectsauthorizations.element!!!").click();
 		this.waitforTextDisplayed("PROJECTS AUTHORIZATIONS", this.WAIT_TIME_MAX);
 		logger.info("Go to authorization page");
 		
 	}
 	
-	public void authorization(String user_name, String project){
+	public void authorization(String user_name, String project, String user_info){
 		WebElement user = getElementByXpath("//div[text()='"+user_name+"']");
 		WebElement projectUser = getElementByXpath("//span[text()='"+project+"']");
 		dragAndDrop(user, projectUser);
+		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='"+project+"']//ancestor::div[contains(@class,'x-tree3-node')]//following-sibling::div//span[contains(text(),'"+user_info+"')]"), 10));
 		logger.info("Authorization project - '" + project + "'  to user '"+ user_name +"'");
 	}
 
 	
-	public void reAuthorization(String user_name, String project){
+	public void reAuthorization(String user_name, String project, String user_info){
 		WebElement user = getElementByXpath("//div[text()='"+user_name+"']");
 		WebElement projectUser = getElementByXpath("//span[text()='"+project+"']");
-		dragAndDrop(user, projectUser);
+		dragAndDrop(user, projectUser);		
+		List l = this.getElementsByXpath("//span[text()='"+project+"']//ancestor::div[contains(@class,'x-tree3-el x-tree3-node-joint')]//following-sibling::div//span[contains(text(),'"+user_info+"')]");
+		Assert.assertEquals(1, l.size());
 		logger.info("Reauthorization project - '" + project + "'  to user '"+ user_name +"'");
 	}
 	

@@ -10,14 +10,14 @@ public class AuthorizationImpl extends Authorization {
 		this.driver = driver;
 	}
 
-	public void authorizationImpl(String user_name, String project){
+	public void authorizationImpl(String user_name, String project, String user_info){
 		this.gotoAuthorzationPage();
-		this.authorization(user_name, project);
+		this.authorization(user_name, project, user_info);
 	}
 	
-	public void reAuthorizationImpl(String user_name, String project){
+	public void reAuthorizationImpl(String user_name, String project, String user_info){
 		this.gotoAuthorzationPage();
-		this.reAuthorization(user_name, project);
+		this.reAuthorization(user_name, project, user_info);
 	}
 	
 	public void deleteAuthorizationImpl(String project, String lastName, String firstName){
