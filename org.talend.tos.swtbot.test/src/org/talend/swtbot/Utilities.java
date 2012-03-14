@@ -88,7 +88,7 @@ public class Utilities {
     public enum TalendItemType {
         BUSINESS_MODEL,
         JOB_DESIGNS,
-        // SERVICES,
+        SERVICES,
         JOBLET_DESIGNS,
         CONTEXTS,
         ROUTINES,
@@ -486,8 +486,8 @@ public class Utilities {
             return tree.expandNode("Business Models");
         case JOB_DESIGNS:
             return tree.expandNode("Job Designs");
-            // case SERVICES:
-            // return tree.expandNode("Services");
+        case SERVICES:
+            return tree.expandNode("Services");
         case JOBLET_DESIGNS:
             return tree.expandNode("Joblet Designs");
         case CONTEXTS:
@@ -881,23 +881,38 @@ public class Utilities {
      */
     public static void setComponentValueOfDB(SWTBotGefEditPart gefEdiPart, TalendJobItem jobItem, String expected, String dbName,
             String componentType) {
-        // the id for text,default for msql is 6
-        int id = 6;
+        // the id for text,default
+        int id = 7;
         gefEdiPart.doubleClick();
         gefBot.viewByTitle("Component").setFocus();
         SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
         // gefBot.sleep(1000);
 
-        if (componentType.equals("tMSSqlInput")) {
-            id = 7;
+        if (componentType.equals("tMysqlInput")) {
+            id = 6;
+        } else if (componentType.equals("tAS400Input") || componentType.equals("tTeradataInput")) {
+            id = 5;
+        } else if (componentType.equals("tInformixInput")) {
+            id = 8;
         }
 
-        gefBot.text(id).selectAll().typeText("\"dataviwer\"");
+        if (componentType.equals("tTeradataInput")) {
+            gefBot.text(id).selectAll().typeText("\"myTable\"");
+        } else {
+            gefBot.text(id).selectAll().typeText("\"dataviwer\"");
+        }
+
         gefBot.button(3).click();
         gefBot.shell("Schema of " + dbName).activate();
         gefBot.buttonWithTooltip("Add").click();
         gefBot.table(0).click(0, 3);
-        gefBot.text("newColumn").setText("id");
+
+        if (componentType.equals("tTeradataInput")) {
+            gefBot.text("newColumn").setText("id");
+        } else {
+            gefBot.text("newColumn").setText("age");
+        }
+
         gefBot.table(0).click(0, 5);
         gefBot.ccomboBox("String").setSelection("int | Integer");
         gefBot.table(0).select(0);
@@ -911,11 +926,18 @@ public class Utilities {
         jobItem.getEditor().select(gefEdiPart).setFocus();
         gefEdiPart.click();
         jobItem.getEditor().clickContextMenu("Data viewer");
-        gefBot.waitUntil(Conditions.shellIsActive("Data Preview: " + componentType + "_1"), 10000);
+        gefBot.waitUntil(Conditions.shellIsActive("Data Preview: " + componentType + "_1"), 20000);
         gefBot.shell("Data Preview: " + componentType + "_1").activate();
-        String result1 = gefBot.tree().cell(0, 1);
-        String result2 = gefBot.tree().cell(0, 2);
-        Assert.assertEquals("the result is not the expected result", expected, result1 + result2);
+
+        if (componentType.equals("tTeradataInput")) {
+            int result = gefBot.tree().rowCount();
+            Assert.assertEquals("the result is not the expected result", Integer.parseInt(expected), result);
+        } else {
+            String result1 = gefBot.tree().cell(0, 1);
+            String result2 = gefBot.tree().cell(0, 2);
+            Assert.assertEquals("the result is not the expected result", expected, result1 + result2);
+        }
+
     }
 
 }
