@@ -249,7 +249,21 @@ public class WebDriverBase {
 	}
 	
 	public void dragAndDrop(WebElement source, WebElement target){
-		(new Actions(driver)).dragAndDrop(source, target).perform();
+		this.clickAndOnHold(source);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.moveToElement(target);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.release();
 	}
 	
 	public void dragAndDropBy(WebElement source, int xOffset, int yOffset){
