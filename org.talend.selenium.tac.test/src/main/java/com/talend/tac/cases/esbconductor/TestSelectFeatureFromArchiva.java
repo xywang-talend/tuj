@@ -59,7 +59,6 @@ public class TestSelectFeatureFromArchiva extends ESBConductorUtils {
     })
     public void uncheckGroupFromArchiva(String label, String des, String repository, String name) {
         this.testSelectFeatureWithUncheckGroup(label, des, repository, name);
-        System.out.println("**************" + selenium.getValue("//input[@name='repositoryName']"));
         Assert.assertTrue(selenium.getValue("//input[@name='repositoryName']").equals(repository));
         Assert.assertTrue(selenium.getValue("//input[@id='idESBConductorTaskFeatureUrlInput']")
             .equals("mvn:null/null/null/xml"));

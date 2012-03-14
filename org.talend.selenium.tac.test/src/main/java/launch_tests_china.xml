@@ -2,12 +2,12 @@
 <suite name="Suite" parallel="false">
 
 	<!-- Selenium parameters -->
-	<parameter  name ="server"	value ="192.168.0.94"/>
+	<parameter  name ="server"	value ="192.168.0.169"/>
 	<parameter  name ="port"	value ="4444"/>
 	<parameter  name ="browser"	value ="*firefox C:\Program Files (x86)\Mozilla Firefox\firefox.exe"/>
 	
 	<!-- TAC Webapp parameters -->
-	<parameter  name ="url"		value ="http://192.168.0.94:8080"/>
+	<parameter  name ="url"		value ="http://192.168.0.169:8085"/>
 	<parameter  name ="root"	value ="/org.talend.administrator/"/>
 	
 	<!-- SVN parameters -->
@@ -50,6 +50,7 @@
 	<!-- Login user -->
 	<parameter name="userName" value="admin@company.com" />
 	<parameter name="userPassword" value="admin" />
+    <parameter name="message" value="Failed to log on: user admin@company.com already logged on to webapp" />
 	
 	<!-- karaf url -->
 	<parameter name="esb.monitor.karafurl"  value="localhost"/>
@@ -60,13 +61,13 @@
   	<parameter  name ="ProjectWithSpaceChar" value="project space"/>
 
 	<!-- Servers for use -->
-	<parameter name="RemoteWindowServerIp" value="192.168.0.94" />
-	<parameter name="RemoteLinuxServerIp" value="192.168.0.94" />
+	<parameter name="RemoteWindowServerIp" value="192.168.0.169" />
+	<parameter name="RemoteLinuxServerIp" value="192.168.0.169" />
 	
 	<parameter  name ="ServerForUseAvailable" value="use_server_available"/>
     <parameter  name ="ServerForUseUnavailable" value="use_server_unactive"/>
     <parameter  name ="ServerForUseDownlabel" value="use_server_down"/>
-    <parameter  name ="ServeravailableHost" value="192.168.0.94"/>
+    <parameter  name ="ServeravailableHost" value="192.168.0.169"/>
     
     <!-- needed start a remote commandline -->
     <parameter  name ="localhostAddress" value="192.168.0.55"/>
@@ -127,11 +128,11 @@
   	<!-- *****************************Configuration*********************** -->
     <!-- esb -->
     <parameter name="esb.conf.zookeeperServer" value="192.168.0.216:2181"/>
-    <parameter name="esb.conf.zookeeperServer.stop" value="192.168.0.94:2181"/>
+    <parameter name="esb.conf.zookeeperServer.stop" value="192.168.0.169:2181"/>
     <parameter name="esb.conf.serviceActivityMonitorServer" 
     value="http://192.168.0.216:8899/sam-server-war"/>
       <parameter name="esb.conf.serviceActivityMonitorServer.stop" 
-    value="http://192.168.0.94:8080/sam-server-war"/>
+    value="http://192.168.0.169:8085/sam-server-war"/>
 	<!-- Ldap parameters -->
 	<parameter name="LDAP.conf.useLDAPAutentication" value="true" />
 	<parameter name="LDAP.conf.ldapServerIp" value="192.168.0.216" />
@@ -227,9 +228,9 @@
     
     <!-- esb configuration monitorServer-->
     <parameter name="esb.conf.serviceActivityRemoteMonitorServer" 
-     value="http://192.168.0.94:8080/sam-server-war"/>
+     value="http://192.168.0.169:8085/sam-server-war"/>
     <parameter name="esb.conf.serviceActivityMonitorServerWithWrong" 
-     value="http://192.168.0.g:8080/sam-server-war"/>
+     value="http://192.168.0.g:8085/sam-server-war"/>
      
     <!-- license path -->                                
     <parameter  name ="license.esb.file.path"	value ="org/talend/tac/folder/license/ESB_EE.license"/>
@@ -237,7 +238,7 @@
        
 	<suite-files>
 	
-		<suite-file path='org/talend/tac/conf/license.xml'/>
+		<!-- <suite-file path='org/talend/tac/conf/license.xml'/>
 		<suite-file path='org/talend/tac/conf/licensetypes.xml'/>
 	    <suite-file path='org/talend/tac/conf/menu.xml'/>
 		<suite-file path='org/talend/tac/conf/configurations.xml'/>
@@ -254,7 +255,7 @@
 		<suite-file path='org/talend/tac/conf/notification.xml'/>
 		<suite-file path='org/talend/tac/conf/ServiceLocator.xml'/>
 		<suite-file path='org/talend/tac/conf/monitors.xml'/>
-		<suite-file path='org/talend/tac/conf/privilege.xml'/>
+		<suite-file path='org/talend/tac/conf/privilege.xml'/> -->
         <suite-file path='org/talend/tac/conf/esbconductor.xml'/>
 	</suite-files>
 </suite>

@@ -343,4 +343,10 @@ public class ESBConductorUtils extends Login {
                 selenium.click("idESBConductorTaskSelectButton");
                 this.waitForElementPresent("//span[text()='Select" + " Feature from Talend repository']", WAIT_TIME);
         }
+       /* deploy with choosing defined context before
+        public void selectContext(String label, String des, String repository, String group,
+                                  String artifact, String name) {
+                this.commonMethodForSelectFeature(label, des);
+                
+        }*/
 }
