@@ -15,15 +15,22 @@ public class TestProjectAuthorization extends WebdriverLogin {
 	}
 	
 	@Test
-	@Parameters( { "user_name", "project" })
-	public void testAuthorization(String user_name, String project){
-		authorizationImpl.authorizationImpl(user_name, project);
+	@Parameters( { "userName", "AddcommonProjectname", "AddreferenceProjectname", 
+		"ProjectWithSpaceChar", "user.info"})
+	public void testAuthorization(String user_name, String commonpro,
+			String refPro, String spacePro, String user_info){	
+		
+		authorizationImpl.authorizationImpl(user_name, commonpro, user_info);
+		authorizationImpl.authorizationImpl(user_name, refPro, user_info);
+		authorizationImpl.authorizationImpl(user_name, spacePro, user_info);
+		
+		
 	}
 	
 	@Test
-	@Parameters( { "user_name", "project" })
-	public void testReAuthorization(String user_name, String project){
-		authorizationImpl.reAuthorizationImpl(user_name, project);
+	@Parameters( { "userName", "AddcommonProjectname",  "user.info" })
+	public void testReAuthorization(String user_name, String project, String user_info){
+		authorizationImpl.reAuthorizationImpl(user_name, project, user_info);
 	}
 	
 	@Test
