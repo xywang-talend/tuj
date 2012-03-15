@@ -71,13 +71,10 @@ public class Login extends Base{
 		WebElement userE = this.getElementByName("j_username");
 		userE.clear();
 		userE.sendKeys(userName);
-
 		WebElement passwordE = this.getElementByName("j_password");
 		passwordE.clear();
 		passwordE.sendKeys(userPassword);
-
 		this.getElementByName("login").click();
-		
 		logger.info("Login MDM");
 	}
 	
@@ -85,16 +82,8 @@ public class Login extends Base{
 	@AfterMethod
 	public void logout() {
 		
-		List<WebElement> elements= driver.findElements(By.xpath("//button"));
-		for(WebElement element : elements) {
-//			System.out.println(element.getText());
-//			System.out.println(element.getLocation());
-			if("Logout".equals(element.getText())) {
-				element.click();
-				break;
-			}
-		}
-		
+		logger.info("Click MDM logout button");
+		this.getElementByXpath("//button[text()='Logout']").click();
 		logger.info("Logout MDM");
 	}
 
