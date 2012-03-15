@@ -44,10 +44,14 @@ public class TalendDBItem extends TalendMetadataItem {
     public TalendSchemaItem getSchema(String name) {
         name = convertString(name);
         SWTBotTreeItem schemaNode = getItem().expand().expandNode("Table schemas");
-        if (schemaNode.getNodes() == null)
+        SWTBotTreeItem schema = null;
+        try {
+            schema = schemaNode.getNode(name);
+        } catch (WidgetNotFoundException e) {
             return null;
+        }
         TalendSchemaItem schemaItem = new TalendSchemaItem();
-        schemaItem.setItem(schemaNode.getNode(name));
+        schemaItem.setItem(schema);
         schemaItem.setParentNode(schemaNode);
         schemaItem.setItemName("\"" + schemaItem.getItemName() + "\"");
         return schemaItem;

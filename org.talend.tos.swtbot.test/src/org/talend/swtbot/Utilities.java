@@ -90,7 +90,6 @@ public class Utilities {
         JOB_DESIGNS,
         SERVICES,
         JOBLET_DESIGNS,
-        CONTEXTS,
         ROUTINES,
         JOBSCRIPTS,
         SQL_TEMPLATES,
@@ -115,6 +114,7 @@ public class Utilities {
         FTP,
         HL7,
         EDI,
+        CONTEXTS,
         DOCUMENTATION,
         RECYCLE_BIN
     }
