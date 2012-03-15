@@ -53,6 +53,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.hamcrest.Matcher;
 import org.junit.Assert;
+import org.talend.swtbot.items.TalendDBItem;
 import org.talend.swtbot.items.TalendFolderItem;
 import org.talend.swtbot.items.TalendJobItem;
 
@@ -879,15 +880,21 @@ public class Utilities {
      * @param dbName the db name
      * @param componentType the db component type
      */
-    public static void setComponentValueOfDB(SWTBotGefEditPart gefEdiPart, TalendJobItem jobItem, String expected, String dbName,
+    public static void dataViewerOnDBComponent(TalendDBItem dbItem, TalendJobItem jobItem, String expected, String dbName,
             String componentType) {
-        // the id for text,default
-        int id = 7;
+        TalendSwtBotForTos swtbot = new TalendSwtBotForTos();
+        // test drag db2 input component to workspace
+        dbItem.setComponentType(componentType);
+        Utilities.dndMetadataOntoJob(jobItem.getEditor(), dbItem.getItem(), dbItem.getComponentType(), new Point(100, 100));
+        SWTBotGefEditPart gefEdiPart = swtbot.getTalendComponentPart(jobItem.getEditor(), dbItem.getItemName());
+        Assert.assertNotNull("cann't get component " + dbItem.getComponentType() + "", gefEdiPart);
+
         gefEdiPart.doubleClick();
         gefBot.viewByTitle("Component").setFocus();
         SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
-        // gefBot.sleep(1000);
-
+        // the id for text,default is 7
+        int id = 7;
+        // set the table name
         if (componentType.equals("tMysqlInput")) {
             id = 6;
         } else if (componentType.equals("tAS400Input") || componentType.equals("tTeradataInput")) {
@@ -900,8 +907,10 @@ public class Utilities {
             gefBot.text(id).selectAll().typeText("\"myTable\"");
         } else {
             gefBot.text(id).selectAll().typeText("\"dataviwer\"");
+
         }
 
+        // edit schema
         gefBot.button(3).click();
         gefBot.shell("Schema of " + dbName).activate();
         gefBot.buttonWithTooltip("Add").click();
@@ -921,8 +930,11 @@ public class Utilities {
         gefBot.text("newColumn1").setText("name");
         gefBot.table(0).select(1);
         gefBot.button("OK").click();
+
+        // guess query
         gefBot.button("Guess Query").click();
 
+        // dataviewer
         jobItem.getEditor().select(gefEdiPart).setFocus();
         gefEdiPart.click();
         jobItem.getEditor().clickContextMenu("Data viewer");
