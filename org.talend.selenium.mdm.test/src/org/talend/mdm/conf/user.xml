@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="false">
-<!-- 	<parameter  name ="url"		value ="http://192.168.0.179:8180"/> -->
-<!-- 	<parameter  name ="root"	value ="/talendmdm/secure/"/>  -->
-<!-- 	<parameter name="user.name" value="administrator" /> -->
-<!-- 	<parameter name="user.password" value="administrator" /> -->
-<!-- 	<parameter name="message" value="User 'administrator' is already logged in another session!" /> -->
   
-    <test name="Add unactive user">
+     <test name="Add users allowed admin">
 	    <classes>
-		    <parameter name="identifier" value="user2" />
+			<parameter name="roles" value="System_Admin" />
+		    <class name="org.talend.mdm.cases.user.TestUser">
+				<methods>
+		           <include name="testAddUserAllowedAdmin"/>
+		        </methods>
+		    </class>
+	    </classes>
+  </test>
+  
+        <test name="Add users allowed web">
+	    <classes>
+			<parameter name="roles" value="System_Web" />
+		    <class name="org.talend.mdm.cases.user.TestUser">
+				<methods>
+		           <include name="testAddUserAllowedWeb"/>
+		        </methods>
+		    </class>
+	    </classes>
+  </test>
+  
+
+ <test name="test add web user over license allowed">
+	    <classes>
+		    <parameter name="identifier" value="usercui" />
 			<parameter name="first.name" value="firstname2" />
 			<parameter name="last.name" value="lastname2" />
 			<parameter name="password" value="password2" />
@@ -17,12 +35,13 @@
 			<parameter name="company" value="company2" />
 			<parameter name="default.version" value="universe2" />
 			<parameter name="active" value="true" />
-			<parameter name="roles" value="System_Web,administration,System_Web" />
+			<parameter name="roles" value="System_Web" />
 		    <class name="org.talend.mdm.cases.user.TestUser">
 				<methods>
-		           <include name="testAddUser"/>
+		           <include name="testAddUserWebOverAllowed"/>
 		        </methods>
 		    </class>
 	    </classes>
   </test>
+
 </suite>
