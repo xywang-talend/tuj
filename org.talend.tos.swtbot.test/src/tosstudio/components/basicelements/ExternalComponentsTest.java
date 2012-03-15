@@ -76,7 +76,7 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
         gefBot.table(0).click(0, 4);
         gefBot.ccomboBox("String").setSelection("int | Integer");
         gefBot.table(0).click(0, 10);
-        gefBot.ccomboBox().setSelection("sequence");
+        gefBot.ccomboBox().setSelection("Numeric.sequence");
         gefBot.table(0).select(0);
         /* Add column "name" */
         gefBot.buttonWithTooltip("Add").click();
