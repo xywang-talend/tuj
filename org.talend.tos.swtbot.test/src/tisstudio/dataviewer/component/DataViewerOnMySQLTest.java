@@ -60,7 +60,8 @@ public class DataViewerOnMySQLTest extends TalendSwtBotForTos {
         Assert.assertNotNull("cann't get component " + dbItem.getComponentType() + "", mysql);
 
         // test data viwer
-        Utilities.setComponentValueOfDB(mysql, jobItem, "1a", DBNAME, dbItem.getComponentType());
+        //Utilities.setComponentValueOfDB(mysql, jobItem, "1a", DBNAME, dbItem.getComponentType());
+        Utilities.dataViewerOnDBComponent(dbItem, jobItem, "1a", DBNAME, dbItem.getComponentType());
 
     }
 
