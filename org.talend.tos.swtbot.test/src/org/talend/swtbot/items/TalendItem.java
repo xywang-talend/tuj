@@ -213,11 +213,18 @@ public class TalendItem implements Cloneable {
         finishCreationWizard(shell);
     }
 
+    /**
+     * Open creation wizard and configure first step of the wizard.
+     * 
+     * @param contextMenu context menu to open creation wizard
+     * @param shellTitle title of the wizard, set as <code>null</code> if without title name.
+     * @return the shell widget
+     */
     public SWTBotShell beginCreationWizard(String contextMenu, String shellTitle) {
         parentNode.contextMenu(contextMenu).click();
 
         SWTBotShell shell = gefBot.activeShell();
-        if (!(itemType == Utilities.TalendItemType.JOBSCRIPTS)) {
+        if (shellTitle != null) {
             gefBot.waitUntil(Conditions.shellIsActive(shellTitle));
             shell = gefBot.shell(shellTitle);
             shell.activate();
