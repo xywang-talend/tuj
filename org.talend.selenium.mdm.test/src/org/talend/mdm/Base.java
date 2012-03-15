@@ -217,6 +217,10 @@ public class Base {
 		return driver.findElement(By.tagName("body")).getText();
 	}
 	
+	public String getValue(WebElement element){
+		return element.getText();
+	}
+	
     public boolean isTextPresent(String what) {
         try {
                 return driver.findElement(By.tagName("body")).getText().contains(what);
