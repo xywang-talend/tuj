@@ -14,6 +14,7 @@ package org.talend.swtbot.items;
 
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
@@ -230,7 +231,9 @@ public class TalendItem implements Cloneable {
             shell.activate();
         }
 
-        gefBot.textWithLabel("Name").setText(itemName);
+//        gefBot.textWithLabel("Name").setText(itemName);
+        SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
+        gefBot.textWithLabel("Name").typeText(itemName, 0);
         return shell;
     }
 

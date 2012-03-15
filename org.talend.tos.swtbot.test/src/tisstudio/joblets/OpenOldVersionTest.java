@@ -19,6 +19,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.items.TalendJobletItem;
 
@@ -34,6 +35,7 @@ public class OpenOldVersionTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
+    	repositories.add(ERepositoryObjectType.JOBLET);
         jobletItem = new TalendJobletItem(JOBLET_NAME);
         jobletItem.create();
         jobletItem.getEditor().saveAndClose();

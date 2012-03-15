@@ -26,6 +26,7 @@
 // ============================================================================
 package org.talend.swtbot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.gef.EditPart;
@@ -43,8 +44,13 @@ import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.properties.tab.TalendTabbedPropertyList;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.designer.core.ui.editor.connections.ConnLabelEditPart;
 import org.talend.designer.core.ui.editor.connections.ConnectionLabel;
 import org.talend.designer.core.ui.editor.nodes.NodePart;
@@ -70,6 +76,8 @@ public class TalendSwtBotForTos {
 
     private static String buildTitle;
 
+    public static List<ERepositoryObjectType> repositories = new ArrayList<ERepositoryObjectType>();
+	
     /**
      * wait for the Generation engine to be intialised, and this is done only once during the lifetime of the
      * application.
@@ -173,8 +181,23 @@ public class TalendSwtBotForTos {
     }
 
     @AfterClass
-    public static void after() {
-        Utilities.resetActivePerspective();
+    public static void after() throws PersistenceException {
+        gefBot.closeAllShells();
+        gefBot.saveAllEditors();
+        gefBot.closeAllEditors();
+	   	 for(ERepositoryObjectType epot : repositories ) {
+	   		 System.out.print("ERepositoryObjectType-"+ epot.getAlias());
+	            List<IRepositoryViewObject> ivos = ProxyRepositoryFactory.getInstance().getAll(epot);
+	            for (IRepositoryViewObject ivo : ivos) {
+	   			ProxyRepositoryFactory.getInstance().deleteObjectPhysical(ivo);
+	            }
+	            RepositoryManager.refresh(epot);
+	            RepositoryManager.refresh(ERepositoryObjectType.RECYCLE_BIN);
+	            gefBot.resetActivePerspective();
+	            Utilities.emptyRecycleBin();
+	   	 }
+	        
+	   	 repositories.clear();
     }
 
     /**
