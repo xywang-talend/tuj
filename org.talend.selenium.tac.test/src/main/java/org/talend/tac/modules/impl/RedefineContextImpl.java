@@ -31,8 +31,14 @@ public class RedefineContextImpl extends RedefineContext {
            this.driver = driver;
        }
        
-       public void redefineContext() {
+       public void redefineContext(String label, String des, String repository,
+               String group, String artifact, String version, String name, String type, 
+               String context, String server,String variableName,String variableValue) {
            this.intoESBConductorPage();
+           this.addESBConductor(label, des, repository, group, artifact, version, name, type, context, server); 
+           this.defineContext(label,variableName,variableValue);
+           this.deployEsbConductor(label, name);
+           
        }
 
 }

@@ -22,6 +22,7 @@ package org.talend.tac.cases.esbconductor;
 import org.talend.tac.base.WebdriverLogin;
 import org.talend.tac.modules.impl.RedefineContextImpl;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 /**
  * 
@@ -34,7 +35,11 @@ public class TestRedefineContext extends WebdriverLogin {
        }
     
        @Test
-       public void testRedefineContext() {
-           redefineContextImpl.redefineContext();
+       @Parameters({"labelOfServiceWithDifferentContext", "desOfService", "repositoryForContext", "group", "artifactForContext",
+   		"versionForContext", "featureName", "typeForContext", "addedContext", "serverOfRuntime","contextVariableName","contextVariableValue"})
+       public void testRedefineContext(String label, String des, String repository,
+           String group, String artifact, String version, String name, String type, 
+           String context, String server,String variableName,String variableValue) {
+           redefineContextImpl.redefineContext(label, des, repository, group, artifact, version, name, type, context, server,variableName,variableValue);
     }
 }
