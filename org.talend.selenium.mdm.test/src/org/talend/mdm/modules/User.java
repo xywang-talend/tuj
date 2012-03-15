@@ -3,11 +3,11 @@ package org.talend.mdm.modules;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.talend.mdm.Base;
+import org.testng.Assert;
 
 
 public class User extends Base{
@@ -17,10 +17,41 @@ public class User extends Base{
 		this.driver = driver;
 	}
 	
+	protected void openMenuAdministrator(){
+		this.clickElementByXpath(locator.getString("xpath.Administration.menu"));
+		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.mangeuser.menu")), this.WAIT_TIME_MAX));
+	}
+	
 	protected void gotoUserManagePage(){
-		this.clickElementByXpath("//span[text()='Administration']");
-		this.clickElementByXpath("//span[text()='Manage Users']");
-		Assert.assertTrue("Go to User Manage page", this.isElementPresent(By.xpath(locator.getString("xpath.user.button.add")), this.WAIT_TIME_MAX));
+		this.clickElementByXpath(locator.getString("xpath.mangeuser.menu"));
+		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.user.button.add")), this.WAIT_TIME_MAX));
+	}
+	
+	protected void configureUser(String identifier,String firstName,String lastName,String password,String confirmPassword,
+			String email, String company, String defaultVersion, boolean active, String roles) {
+		
+		
+		this.typeTextByName(locator.getString("name.user.add.name"), identifier);
+		this.typeTextByName(locator.getString("name.user.add.password"), password);
+		this.typeTextByXpath(locator.getString("xpath.user.add.password.confirm"), confirmPassword);
+		this.typeTextByName(locator.getString("name.user.add.givenName"), firstName);
+		this.typeTextByName(locator.getString("name.user.add.familyName"), lastName);
+		this.typeTextByName(locator.getString("name.user.add.realEmail"), email);
+		this.typeTextByName(locator.getString("name.user.add.company"), company);
+		this.typeTextByName(locator.getString("name.user.add.universe"), defaultVersion);
+		if(active) {
+			this.getElementByName(locator.getString("name.user.add.enabled")).click();
+			this.logger.info("click add user active button!");
+		}
+		this.logger.info("click to open roles selection drop down list!");
+		this.clickElementByXpath(locator.getString("xpath.user.add.role.img"));
+		this.logger.info("roles selection drop down list opened ok!");
+		this.logger.info("select role to add");
+		this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.select", roles)), WAIT_TIME_MAX);
+		this.clickElementByXpath(this.getString(locator, "xpath.user.add.role.select", roles));
+		this.clickElementByXpath(locator.getString("xpath.user.add.role.add"));
+		this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.added.listview", roles)),WAIT_TIME_MAX);
+		this.logger.info("select role to add");
 	}
 	
 	protected void addUser(String identifier,String firstName,String lastName,String password,String confirmPassword,
@@ -42,10 +73,49 @@ public class User extends Base{
 			this.clickElementByXpath(this.getString(locator, "xpath.user.add.role.select", role));
 			this.clickElementByXpath(locator.getString("xpath.user.add.role.add"));
 		}
-		this.clickElementByXpath("//table[contains(@id,'usermanager')]//button[text()='Save']");
-		this.getElementByXpath("//button[text()='Ok']").click();
-		Assert.assertNotNull("Haven't add the user " + identifier + "successfully!", getUserDeleteElement(identifier));
+		this.clickElementByXpath(locator.getString("xpath.user.add.role.save"));
+		this.getElementByXpath(locator.getString("xpath.user.add.role.flashcache.ok")).click();
+		
+//		Assert.assertNotNull("Haven't add the user " + identifier + "successfully!", getUserDeleteElement(identifier));
 	}
+	
+	protected void addUser(String identifier,String firstName,String lastName,String password,String confirmPassword,
+			String email, String company, String defaultVersion, boolean active, String roles) {
+		
+		
+		this.clickElementByXpath(locator.getString("xpath.user.button.add"));
+		this.typeTextByName(locator.getString("name.user.add.name"), identifier);
+		this.typeTextByName(locator.getString("name.user.add.password"), password);
+		this.typeTextByXpath(locator.getString("xpath.user.add.password.confirm"), confirmPassword);
+		this.typeTextByName(locator.getString("name.user.add.givenName"), firstName);
+		this.typeTextByName(locator.getString("name.user.add.familyName"), lastName);
+		this.typeTextByName(locator.getString("name.user.add.realEmail"), email);
+		this.typeTextByName(locator.getString("name.user.add.company"), company);
+		this.typeTextByName(locator.getString("name.user.add.universe"), defaultVersion);
+		if(active) {
+			this.getElementByName(locator.getString("name.user.add.enabled")).click();
+			this.logger.info("click add user active button!");
+		}
+		this.logger.info("click to open roles selection drop down list!");
+		this.clickElementByXpath(locator.getString("xpath.user.add.role.img"));
+		this.logger.info("roles selection drop down list opened ok!");
+		this.logger.info("select role to add");
+		this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.select", roles)), WAIT_TIME_MAX);
+		this.clickElementByXpath(this.getString(locator, "xpath.user.add.role.select", roles));
+		this.clickElementByXpath(locator.getString("xpath.user.add.role.add"));
+		this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.added.listview", roles)),WAIT_TIME_MAX);
+		this.logger.info("select role to add");
+		this.clickElementByXpath(locator.getString("xpath.user.add.role.save"));
+		this.logger.info("click add user save button!");
+		this.getElementByXpath(locator.getString("xpath.user.add.role.flashcache.ok")).click();
+		this.logger.info("click add flush cache ok button!");
+	    Assert.assertTrue((this.isElementPresent(By.xpath(this.getString(locator, "xpath.user.identifier", identifier)), WAIT_TIME_MAX)));
+	    this.logger.info("user "+identifier+" had been added succussfull!");
+	}
+	
+	
+	
+
 	
 	public void deleteUser(String userName) {
 		this.clickElementByXpath(this.getString(locator, "xpath.user.delete", userName));
@@ -131,6 +201,6 @@ public class User extends Base{
 	}
 	
 	public boolean isUserSheetExist(){
-		return this.getElementsByXpath("//span[contains(@class, 'x-tab-strip-text') and text()='User Manager']") != null;
+		return this.getElementsByXpath(locator.getString("xpath.user.sheet")) != null;
 	}
 }
