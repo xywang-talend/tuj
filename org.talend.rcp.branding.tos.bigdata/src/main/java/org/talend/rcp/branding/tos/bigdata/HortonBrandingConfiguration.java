@@ -180,10 +180,35 @@ public class HortonBrandingConfiguration extends DefaultBrandingConfiguration {
         docNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.DOCUMENTATION);
         nodes.add(docNode);
 
-        RepositoryNode metadataNode = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
+        RepositoryNode metadataNode = new RepositoryNode(null, parent, ENodeType.STABLE_SYSTEM_FOLDER);
         metadataNode.setProperties(EProperties.LABEL, ERepositoryObjectType.METADATA);
         metadataNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.METADATA);
         nodes.add(metadataNode);
+
+        RepositoryNode sqlTemplates = new RepositoryNode(null, parent, ENodeType.SIMPLE_FOLDER);
+        sqlTemplates.setProperties(EProperties.LABEL, "Generic");
+        sqlTemplates.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.SQLPATTERNS);
+        nodes.add(sqlTemplates);
+        sqlTemplates = new RepositoryNode(null, parent, ENodeType.SIMPLE_FOLDER);
+        sqlTemplates.setProperties(EProperties.LABEL, "MySQL");
+        sqlTemplates.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.SQLPATTERNS);
+        nodes.add(sqlTemplates);
+        sqlTemplates = new RepositoryNode(null, parent, ENodeType.SIMPLE_FOLDER);
+        sqlTemplates.setProperties(EProperties.LABEL, "Netezza");
+        sqlTemplates.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.SQLPATTERNS);
+        nodes.add(sqlTemplates);
+        sqlTemplates = new RepositoryNode(null, parent, ENodeType.SIMPLE_FOLDER);
+        sqlTemplates.setProperties(EProperties.LABEL, "Oracle");
+        sqlTemplates.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.SQLPATTERNS);
+        nodes.add(sqlTemplates);
+        sqlTemplates = new RepositoryNode(null, parent, ENodeType.SIMPLE_FOLDER);
+        sqlTemplates.setProperties(EProperties.LABEL, "ParAccel");
+        sqlTemplates.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.SQLPATTERNS);
+        nodes.add(sqlTemplates);
+        sqlTemplates = new RepositoryNode(null, parent, ENodeType.SIMPLE_FOLDER);
+        sqlTemplates.setProperties(EProperties.LABEL, "Teradata");
+        sqlTemplates.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.SQLPATTERNS);
+        nodes.add(sqlTemplates);
 
         return nodes;
     }

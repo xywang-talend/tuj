@@ -38,15 +38,14 @@ public class HortonActionBarHelper extends ActionBarBuildHelper {
             windowMenu.remove(id);
         }
 
-        String[] removeHelpIds = { "org.eclipse.core.internal.registry.ConfigurationElementHandle@1a8a", "org.talend.help.perl",
-                "org.eclipse.ui.actionSet.keyBindings", "org.talend.help.perl.OpenPerlHelpAction" };
+        String[] removeHelpIds = { "org.eclipse.core.internal.registry.ConfigurationElementHandle@1a8a",
+                "org.eclipse.ui.actionSet.keyBindings" };
         for (String id : removeHelpIds) {
             helpMenu.remove(id);
         }
 
         String[] perspectivesId = { "org.eclipse.jdt.ui.JavaPerspective", "org.eclipse.team.ui.TeamSynchronizingPerspective",
-                "org.eclipse.ui.resourcePerspective", "org.epic.core.Perspective", "org.eclipse.pde.ui.PDEPerspective",
-                "org.talend.camel.perspective" };
+                "org.eclipse.ui.resourcePerspective", "org.eclipse.pde.ui.PDEPerspective" };
 
         List<IPerspectiveDescriptor> perspectivesToDelete = new ArrayList<IPerspectiveDescriptor>();
 
@@ -70,11 +69,8 @@ public class HortonActionBarHelper extends ActionBarBuildHelper {
                 "org.eclipse.ui.cheatsheets.views.CheatSheetView", "org.eclipse.ui.texteditor.TemplatesView",
                 "org.eclipse.ui.views.AllMarkersView", "org.eclipse.ui.views.BookmarkView",
                 "org.eclipse.team.sync.views.SynchronizeView", "org.eclipse.ui.views.ProblemView",
-                "org.eclipse.ui.views.PropertySheet", "org.eclipse.ui.views.TaskList", "org.epic.core.views.browser.BrowserView",
-                "org.epic.perleditor.views.ExplainErrorsView", "org.epic.perleditor.views.PerlDocView",
-                "org.epic.regexp.views.RegExpView", "org.talend.designer.core.codeView", "org.talend.scheduler.views.Scheduler",
-                "org.eclipse.ui.navigator.ProjectExplorer", "org.talend.designer.components.ecosystem.ui.views.EcosystemView",
-                "org.talend.designer.codegen.perlmodule.ModulesView", "org.eclipse.wst.common.snippets.internal.ui.SnippetsView" };
+                "org.eclipse.ui.views.PropertySheet", "org.eclipse.ui.views.TaskList",
+                "org.eclipse.ui.navigator.ProjectExplorer", "org.eclipse.wst.common.snippets.internal.ui.SnippetsView" };
 
         List<IViewDescriptor> viewsToDelete = new ArrayList<IViewDescriptor>();
 
@@ -94,7 +90,7 @@ public class HortonActionBarHelper extends ActionBarBuildHelper {
         String[] prefsId = { "org.eclipse.ant.ui.AntPreferencePage",
                 "org.eclipse.datatools.connectivity.internal.ui.preferences.DataToolsMainPage",
                 "org.eclipse.debug.ui.DebugPreferencePage", "org.eclipse.team.ui.TeamPreferences",
-                "org.epic.core.preferences.PerlMainPreferencePage", "org.eclipse.pde.ui.MainPreferencePage" };
+                "org.eclipse.pde.ui.MainPreferencePage" };
         List<IPreferenceNode> prefsToDelete = new ArrayList<IPreferenceNode>();
         for (IPreferenceNode node : window.getWorkbench().getPreferenceManager().getRootSubNodes()) {
             if (ArrayUtils.contains(prefsId, node.getId())) {

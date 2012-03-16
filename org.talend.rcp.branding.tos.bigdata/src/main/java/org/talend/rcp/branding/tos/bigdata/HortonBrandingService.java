@@ -68,14 +68,14 @@ public class HortonBrandingService extends AbstractTalendBrandingService {
     }
 
     public String getAcronym() {
-        return "tcs";
+        return "tos";
     }
 
     @Override
     public String getJobLicenseHeader(String version) {
-        return Messages.getString("CamelBrandingService_job_license_header_content", this.getFullProductName(), version);
+        return Messages.getString("TosBrandingService_job_license_header_content", this.getFullProductName(), version);
     }
-
+    
     public boolean isPoweredOnlyCamel() {
         return false;
     }
@@ -85,6 +85,6 @@ public class HortonBrandingService extends AbstractTalendBrandingService {
     }
 
     public String getOptionName() {
-        return "for tos bigdata";
+        return "for Big Data";
     }
 }
