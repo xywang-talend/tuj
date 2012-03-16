@@ -41,5 +41,9 @@ public class TestRedefineContext extends WebdriverLogin {
            String group, String artifact, String version, String name, String type, 
            String context, String server,String variableName,String variableValue) {
            redefineContextImpl.redefineContext(label, des, repository, group, artifact, version, name, type, context, server,variableName,variableValue);
-    }
+           redefineContextImpl.deleteContextProperties(label);
+           redefineContextImpl.undeployConductor(label);
+           redefineContextImpl.deleteUndeployedConductor(label, name);
+       }
+       
 }

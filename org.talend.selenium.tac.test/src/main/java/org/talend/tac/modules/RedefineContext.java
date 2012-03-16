@@ -41,8 +41,7 @@ public class RedefineContext extends WebDriverBase {
            super.setDriver(driver);
            this.driver = driver;
        }
-       
-       
+             
        public void selectDropDownList(String name,String id, String value) {
     	   	   
     	   getElementByXpath("//label[text()='"+name+"']//following-sibling::div//input[@id='"+id+"']//following-sibling::div[contains(@class,'x-form-trigger x-form-trigger-arrow')]").click();
@@ -54,6 +53,11 @@ public class RedefineContext extends WebDriverBase {
     	   Locatable hoverItem = (Locatable) driver.findElement(By.xpath(xpathExpression));
     	   Mouse mouse = ((HasInputDevices) driver).getMouse();
     	   mouse.mouseDown(hoverItem.getCoordinates());
+    	   try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
        }
        
        public void intoESBConductorPage() {
@@ -89,11 +93,10 @@ public class RedefineContext extends WebDriverBase {
        public void defineContext(String label,String variableName,String variableValue) {
     	   Robot bot;
 		try {
-			
-			bot = new Robot();
-		    this.waitforElementDisplayed(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MAX);
+		   bot = new Robot();
+		   this.waitforElementDisplayed(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MAX);
 		   this.mouseDown("//div[text()='" + label + "']");
-    	   this.getElementById("idESBConductorPropertyAddButton").click();
+    	   this.clickElementById(other.getString("ESBConductor.ConfigProperties.AddButtonId"));
     	   getElementByXpath(other.getString("ESBConductor.ConfigProperties.Name")).click();
     	   this.typeString(By.xpath("//span[text()='Name']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input"), variableName, WAIT_TIME_MAX);
     	   getElementByXpath(other.getString("ESBConductor.ConfigProperties.Value")).click();
@@ -105,19 +108,45 @@ public class RedefineContext extends WebDriverBase {
 			e.printStackTrace();
 		}
 		   this.mouseDown(other.getString("ESBConductor.ConfigProperties.Value"));
-		   this.clickElementById("idESBConductorPropertySaveButton");
+		   this.clickElementById(other.getString("ESBConductor.ConfigProperties.SaveButtonId"));
 		   Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+label+"']"), WAIT_TIME_MAX));
     	   
        }
+       
        public void deployEsbConductor(String label,String name) {
            String status = "Deployed and started";
            String promptInfo = "Feature '" + name + "' deployed.";
            this.mouseDown("//div[text()='" + label + "']");
-           this.clickElementById(other.getString("ESBConductor.DeployButtonID"));
+           this.clickElementById(other.getString("ESBConductor.DeployButtonId"));
            this.waitforTextDisplayed(promptInfo, WAIT_TIME_MAX);
-           this.clickElementById(other.getString("ESBConductor.RefreshButtonId"));
+          // this.clickElementById(other.getString("ESBConductor.RefreshButtonId"));
            Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='" + label + "']"
                    + "//ancestor::table[@class='x-grid3-row-table']//span[text()='" + status
                    + "']"), WAIT_TIME_MAX));
        }
-}
+       
+       public void deleteContextPropertiesOk(String label) {
+    	   this.mouseDown("//div[text()='" + label + "']");
+    	   this.mouseDown("//span[text()='Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input");
+    	   this.clickElementById(other.getString("ESBConductor.ConfigProperties.DeleteButtonId"));
+           this.acceptAlert(); 
+       }
+       
+       public void undeployEsbConductorOk(String label) {
+    	   String status="Undeployed";
+    	   this.mouseDown("//div[text()='" + label + "']");
+    	   this.clickElementById(other.getString("ESBConductor.UndeployButtonId"));
+    	   this.acceptAlert();
+    	   this.clickElementById(other.getString("ESBConductor.RefreshButtonId"));
+    	   Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='" + label + "']"
+                   + "//ancestor::table[@class='x-grid3-row-table']//span[text()='" + status
+                   + "']"), WAIT_TIME_MAX));
+       }
+       
+       public void deleteUndeployedConductorOk(String label,String name) {
+    	   this.mouseDown("//div[text()='" + label + "']");
+    	   this.clickElementById(other.getString("ESBConductor.DeleteButtonId"));
+    	   this.acceptAlert(); 	   
+           Assert.assertFalse(this.waitforElementDisplayed(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MAX));
+       }
+    }
