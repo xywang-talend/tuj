@@ -22,6 +22,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobItem;
@@ -42,6 +43,7 @@ public class CopyComponentsBetweenJobTest extends TalendSwtBotForTos {
 
     @Before
     public void createJob() {
+        repositories.add(ERepositoryObjectType.PROCESS);
         /* Create job1 */
         jobItem1 = new TalendJobItem(JOBNAME1);
         jobItem1.create();

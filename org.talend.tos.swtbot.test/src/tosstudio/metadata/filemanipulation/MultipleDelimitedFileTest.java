@@ -30,6 +30,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.JobHelper;
@@ -47,6 +48,7 @@ public class MultipleDelimitedFileTest extends TalendSwtBotForTos {
 
     @Before
     public void createJob() {
+        repositories.add(ERepositoryObjectType.PROCESS);
         jobItem = new TalendJobItem(JOB_NAME);
         jobItem.create();
     }

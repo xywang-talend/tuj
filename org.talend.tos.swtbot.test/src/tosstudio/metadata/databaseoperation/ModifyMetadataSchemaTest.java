@@ -20,6 +20,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendDBItem;
@@ -39,6 +40,7 @@ public class ModifyMetadataSchemaTest extends TalendSwtBotForTos {
 
     @Before
     public void createDBConnection() {
+        repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
         dbItem = new TalendDBItem(DBNAME, Utilities.DbConnectionType.MYSQL);
         dbItem.create();
         String sql = "create table " + TABLENAME + "(id int, name varchar(20))";

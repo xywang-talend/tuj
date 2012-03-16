@@ -21,6 +21,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendBusinessModelItem;
@@ -39,6 +40,7 @@ public class ChangeAllDocumentationItemsTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
+        repositories.add(ERepositoryObjectType.BUSINESS_PROCESS);
         businessModelItem = new TalendBusinessModelItem(BUSINESSMODELNAME);
         businessModelItem.create();
         businessModelItem.getEditor().saveAndClose();

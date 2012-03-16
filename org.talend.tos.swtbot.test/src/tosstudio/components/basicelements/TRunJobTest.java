@@ -20,6 +20,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.JobHelper;
@@ -41,6 +42,7 @@ public class TRunJobTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobs() {
+        repositories.add(ERepositoryObjectType.PROCESS);
         jobItem1 = new TalendJobItem(JOBNAME1);
         jobItem1.create();
     }

@@ -17,6 +17,7 @@ import java.net.URISyntaxException;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.helpers.JobHelper;
 import org.talend.swtbot.helpers.MetadataHelper;
@@ -38,6 +39,9 @@ public class MetadataWithHeaderOnlyTest extends TalendSwtBotForTos {
 
     @Before
     public void createMetadata() {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.METADATA_FILE_DELIMITED);
+
         jobItem = new TalendJobItem(JOB_NAME);
         jobItem.create();
         fileItem = new TalendDelimitedFileItem(FILE_NAME);

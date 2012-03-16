@@ -21,6 +21,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.SWTBotTreeExt;
 import org.talend.swtbot.SWTBotTreeItemExt;
 import org.talend.swtbot.TalendSwtBotForTos;
@@ -48,6 +49,8 @@ public class ValuesAsTreeTabOfContextTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
+        repositories.add(ERepositoryObjectType.CONTEXT);
+        repositories.add(ERepositoryObjectType.PROCESS);
         jobItem = new TalendJobItem(jobName);
         jobItem.create();
         contextItem = new TalendContextItem(contextName);

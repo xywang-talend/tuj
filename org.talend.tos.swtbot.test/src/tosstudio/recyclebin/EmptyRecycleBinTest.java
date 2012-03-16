@@ -18,6 +18,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobItem;
@@ -36,6 +37,8 @@ public class EmptyRecycleBinTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.RECYCLE_BIN);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
         jobItem.getEditor().saveAndClose();

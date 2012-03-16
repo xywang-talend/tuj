@@ -21,6 +21,7 @@ import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendBusinessModelItem;
@@ -42,6 +43,8 @@ public class AssignmentForBusinessModelTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.BUSINESS_PROCESS);
         businessModelItem = new TalendBusinessModelItem(BUSINESSMODEL_NAME);
         businessModelItem.create();
         jobItem = new TalendJobItem(JOB_NAME);

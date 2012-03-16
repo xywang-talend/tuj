@@ -41,8 +41,9 @@ public class RetrieveSchemaInContextModeTest extends TalendSwtBotForTos {
 
     @Before
     public void createDBConnection() {
-    	repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
-    	repositories.add(ERepositoryObjectType.CONTEXT);
+        repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
+        repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
+        repositories.add(ERepositoryObjectType.CONTEXT);
         dbItem = new TalendDBItem(DBNAME, Utilities.DbConnectionType.MYSQL);
         dbItem.create();
         String sql = "create table " + TABLENAME + "(id int, name varchar(20))";

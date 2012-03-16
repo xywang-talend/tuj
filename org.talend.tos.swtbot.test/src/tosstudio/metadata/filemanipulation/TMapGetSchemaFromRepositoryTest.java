@@ -23,6 +23,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendGenericSchemaItem;
@@ -48,6 +49,8 @@ public class TMapGetSchemaFromRepositoryTest extends TalendSwtBotForTos {
 
     @Before
     public void createJob() {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.METADATA_GENERIC_SCHEMA);
         jobItem = new TalendJobItem(JOB_NAME);
         jobItem.create();
         genericSchemaItem = new TalendGenericSchemaItem(SCHEMA_NAME);

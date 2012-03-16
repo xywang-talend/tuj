@@ -19,6 +19,7 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.items.TalendLdifFileItem;
 
@@ -34,6 +35,7 @@ public class DeleteLdifFileTest extends TalendSwtBotForTos {
 
     @Before
     public void createLdifFile() throws IOException, URISyntaxException {
+        repositories.add(ERepositoryObjectType.METADATA_FILE_LDIF);
         fileItem = new TalendLdifFileItem(FILENAME);
         fileItem.create();
     }

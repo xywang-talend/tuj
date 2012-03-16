@@ -19,6 +19,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendBusinessModelItem;
@@ -40,6 +41,7 @@ public class NotCreateNewItemInRecycleBinTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
+        repositories.add(ERepositoryObjectType.BUSINESS_PROCESS);
         businessModelItem = new TalendBusinessModelItem(BUSINESS_MODEL_NAME);
         folder = Utilities.createFolder(FOLDERNAME, businessModelItem.getItemType());
         businessModelItem.setFolderPath(folder.getFolderPath());

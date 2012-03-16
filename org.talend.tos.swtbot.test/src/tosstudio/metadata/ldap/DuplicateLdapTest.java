@@ -16,6 +16,7 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.items.TalendLdapItem;
 
@@ -33,6 +34,7 @@ public class DuplicateLdapTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
+        repositories.add(ERepositoryObjectType.METADATA_LDAP_SCHEMA);
         ldapItem = new TalendLdapItem(LDAPNAME);
         ldapItem.create();
     }

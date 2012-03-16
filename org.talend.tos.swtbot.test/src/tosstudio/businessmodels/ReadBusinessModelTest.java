@@ -19,6 +19,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.items.TalendBusinessModelItem;
 
@@ -34,6 +35,7 @@ public class ReadBusinessModelTest extends TalendSwtBotForTos {
 
     @Before
     public void createBusinessModel() {
+        repositories.add(ERepositoryObjectType.BUSINESS_PROCESS);
         businessModelItem = new TalendBusinessModelItem(BUSINESS_MODEL_NAME);
         businessModelItem.create();
         businessModelItem.getEditor().close();

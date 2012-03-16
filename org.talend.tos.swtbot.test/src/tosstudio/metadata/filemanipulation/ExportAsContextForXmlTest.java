@@ -24,6 +24,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Before;
 import org.junit.Test;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.DndUtil;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
@@ -47,6 +48,8 @@ public class ExportAsContextForXmlTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.METADATA_FILE_XML);
         jobItem = new TalendJobItem(JOB_NAME);
         jobItem.create();
         fileItem = new TalendXmlFileItem(FILE_NAME);
