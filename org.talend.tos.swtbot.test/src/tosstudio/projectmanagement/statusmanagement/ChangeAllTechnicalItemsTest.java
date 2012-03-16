@@ -24,6 +24,7 @@ import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -122,6 +123,11 @@ public class ChangeAllTechnicalItemsTest extends TalendSwtBotForTos {
             assertItemStatus(treeItems[i + k2], metadataContextMenu[k2], metadataShellTitle[k2], "testing", treeNodes[i],
                     metadataNodes[k2]);
         }
+    }
+
+    @After
+    public void cleanup() {
+        Utilities.resetActivePerspective();
     }
 
     private void assertItemStatus(String itemName, String contextMenu, String shellTitle, String assertExpect, String... nodes) {

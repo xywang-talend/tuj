@@ -27,7 +27,7 @@ import org.talend.swtbot.items.TalendDBItem;
  * DOC fzhong class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CreateSubscribersTableTest extends TalendSwtBotForTos {
+public class OnceExecutionForDeletingCDCTest extends TalendSwtBotForTos {
 
     private TalendDBItem dbItem, copy_of_dbItem;
 
@@ -44,31 +44,17 @@ public class CreateSubscribersTableTest extends TalendSwtBotForTos {
     }
 
     @Test
-    public void createSubscribersTableTest() {
-        dbItem.getItem().expand().getNode("CDC Foundation").contextMenu("Create CDC").click();
-        gefBot.shell("Create Change Data Capture").activate();
-        gefBot.button("...").click();
-        gefBot.shell("Repository Content").activate();
-        gefBot.tree().expandNode("Db Connections").select(copy_of_dbItem.getItemFullName());
-        gefBot.button("OK").click();
-        gefBot.button("Create Subscriber").click();
+    public void onceExecutionForDeletingCDCTest() {
+        isSubscriberCreated = dbItem.createCDC(copy_of_dbItem);
+        dbItem.getCDCFoundation().contextMenu("Delete CDC").click();
         gefBot.shell("Create Subscriber and Execute SQL Script").activate();
         gefBot.button("Execute").click();
         gefBot.shell("Execute SQL Statement").activate();
-        if ("Table 'tsubscribers' already exists".equals(gefBot.label(1).getText())) {
-            isSubscriberCreated = true;
-            gefBot.button("Cancel").click();
-            gefBot.button("Close").click();
-            gefBot.button("Cancel").click();
-            Assert.fail("Table 'tsubscribers' already exists");
-        }
         gefBot.button("OK").click();
-        isSubscriberCreated = true;
-        gefBot.button("Close").click();
-        gefBot.button("Finish").click();
+        isSubscriberCreated = false;
 
-        copy_of_dbItem.retrieveDbSchema("tsubscribers");
-        Assert.assertNotNull("schema 'tsubscribers' did not create in database", copy_of_dbItem.getSchema("tsubscribers"));
+        Assert.assertFalse("execute button is still enable", gefBot.button("Execute").isEnabled());
+        gefBot.button("Close").click();
     }
 
     @After

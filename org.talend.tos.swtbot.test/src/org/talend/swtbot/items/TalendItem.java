@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import org.apache.log4j.Logger;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
@@ -27,6 +28,8 @@ import org.talend.swtbot.Utilities.TalendItemType;
  * DOC fzhong class global comment. Detailled comment
  */
 public class TalendItem implements Cloneable {
+
+    protected final Logger log = Logger.getLogger(getClass());
 
     protected SWTBotTreeItem item;
 
@@ -58,7 +61,11 @@ public class TalendItem implements Cloneable {
     }
 
     public SWTBotTreeItem getItem() {
-        return parentNode.getNode(itemFullName);
+        try {
+            return parentNode.getNode(itemFullName);
+        } catch (WidgetNotFoundException e) {
+            return null;
+        }
     }
 
     public void setItem(SWTBotTreeItem item) {
@@ -138,7 +145,7 @@ public class TalendItem implements Cloneable {
 
     @SuppressWarnings("finally")
     public TalendItem copyAndPaste() {
-        item.contextMenu("Copy").click();
+        getItem().contextMenu("Copy").click();
         parentNode.contextMenu("Paste").click();
 
         TalendItem copyItem = (TalendItem) this.clone();
@@ -174,7 +181,7 @@ public class TalendItem implements Cloneable {
 
     @SuppressWarnings("finally")
     public TalendItem duplicate(String newItemName) {
-        item.contextMenu("Duplicate").click();
+        getItem().contextMenu("Duplicate").click();
         gefBot.shell("Please input new name ").activate();
         gefBot.textWithLabel("Input new name").setText(newItemName);
         gefBot.button("OK").click();
@@ -231,7 +238,7 @@ public class TalendItem implements Cloneable {
             shell.activate();
         }
 
-//        gefBot.textWithLabel("Name").setText(itemName);
+        // gefBot.textWithLabel("Name").setText(itemName);
         SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
         gefBot.textWithLabel("Name").typeText(itemName, 0);
         return shell;

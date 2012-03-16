@@ -53,26 +53,9 @@ public class CreateCDCTest extends TalendSwtBotForTos {
 
     @Test
     public void createCDCTest() {
-        dbItem.getItem().expand().getNode("CDC Foundation").contextMenu("Create CDC").click();
-        gefBot.shell("Create Change Data Capture").activate();
-        gefBot.button("...").click();
-        gefBot.shell("Repository Content").activate();
-        gefBot.tree().expandNode("Db Connections").select(copy_of_dbItem.getItemFullName());
-        gefBot.button("OK").click();
-        gefBot.button("Create Subscriber").click();
-        gefBot.shell("Create Subscriber and Execute SQL Script").activate();
-        gefBot.button("Execute").click();
-        gefBot.shell("Execute SQL Statement").activate();
-        if ("Table 'tsubscribers' already exists".equals(gefBot.label(1).getText())) {
-            isSubscriberCreated = true;
-            gefBot.button("Ignore").click();
-        }
-        gefBot.button("OK").click();
-        isSubscriberCreated = true;
-        gefBot.button("Close").click();
-        gefBot.button("Finish").click();
+        isSubscriberCreated = dbItem.createCDC(copy_of_dbItem);
 
-        Assert.assertNotNull(dbItem.getItem().expandNode("CDC Foundation", copy_of_dbItem.getItemName()).getNode("TSUBSCRIBERS"));
+        Assert.assertNotNull(dbItem.getCDCFoundation().expand().getNode("TSUBSCRIBERS"));
 
         SWTBotTreeItem temp = dbItem.getSchema(TABLE_NAME).getItem();
         Assert.assertTrue(temp.contextMenu("add CDC").isEnabled());

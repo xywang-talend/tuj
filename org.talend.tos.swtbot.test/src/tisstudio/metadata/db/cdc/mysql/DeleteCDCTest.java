@@ -13,6 +13,9 @@
 package tisstudio.metadata.db.cdc.mysql;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,11 +30,15 @@ import org.talend.swtbot.items.TalendDBItem;
  * DOC fzhong class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CreateSubscribersTableTest extends TalendSwtBotForTos {
+public class DeleteCDCTest extends TalendSwtBotForTos {
 
     private TalendDBItem dbItem, copy_of_dbItem;
 
     private static final String DB_NAME = "mysql";
+
+    private static final String TABLE_NAME = "autotest";
+
+    private boolean isTableCreated = false;
 
     private boolean isSubscriberCreated = false;
 
@@ -41,41 +48,38 @@ public class CreateSubscribersTableTest extends TalendSwtBotForTos {
         dbItem = new TalendDBItem(DB_NAME, DbConnectionType.MYSQL);
         dbItem.create();
         copy_of_dbItem = (TalendDBItem) dbItem.copyAndPaste();
+        dbItem.executeSQL("create table " + TABLE_NAME + "(id int, name varchar(20));");
+        isTableCreated = true;
+        dbItem.retrieveDbSchema(TABLE_NAME);
     }
 
     @Test
-    public void createSubscribersTableTest() {
-        dbItem.getItem().expand().getNode("CDC Foundation").contextMenu("Create CDC").click();
-        gefBot.shell("Create Change Data Capture").activate();
-        gefBot.button("...").click();
-        gefBot.shell("Repository Content").activate();
-        gefBot.tree().expandNode("Db Connections").select(copy_of_dbItem.getItemFullName());
-        gefBot.button("OK").click();
-        gefBot.button("Create Subscriber").click();
-        gefBot.shell("Create Subscriber and Execute SQL Script").activate();
-        gefBot.button("Execute").click();
-        gefBot.shell("Execute SQL Statement").activate();
-        if ("Table 'tsubscribers' already exists".equals(gefBot.label(1).getText())) {
-            isSubscriberCreated = true;
-            gefBot.button("Cancel").click();
-            gefBot.button("Close").click();
-            gefBot.button("Cancel").click();
-            Assert.fail("Table 'tsubscribers' already exists");
-        }
-        gefBot.button("OK").click();
-        isSubscriberCreated = true;
-        gefBot.button("Close").click();
-        gefBot.button("Finish").click();
+    public void deleteCDCTest() {
+        isSubscriberCreated = dbItem.createCDC(copy_of_dbItem);
+        if (dbItem.deleteCDC())
+            isSubscriberCreated = false;
 
-        copy_of_dbItem.retrieveDbSchema("tsubscribers");
-        Assert.assertNotNull("schema 'tsubscribers' did not create in database", copy_of_dbItem.getSchema("tsubscribers"));
+        Assert.assertNull("did not delete cdc foundation", dbItem.getCDCFoundation());
+        SWTBotTreeItem temp = dbItem.getSchema(TABLE_NAME).getItem();
+        long defaultTimeout = SWTBotPreferences.TIMEOUT;
+        try {
+            SWTBotPreferences.TIMEOUT = 500;
+            if (temp.contextMenu("add CDC").isEnabled())
+                Assert.fail("context menu 'add CDC' still avialable");
+        } catch (TimeoutException e) {
+            // ignore, it's right if the context menu could not be found.
+        } finally {
+            SWTBotPreferences.TIMEOUT = defaultTimeout;
+        }
     }
 
     @After
     public void cleanUp() {
-        String sql = null;
+        String sql = "";
+        if (isTableCreated)
+            sql = sql + "drop table " + TABLE_NAME + ";\n";
         if (isSubscriberCreated)
-            sql = "drop table tsubscribers;";
+            sql = sql + "drop table tsubscribers;\n";
         dbItem.executeSQL(sql);
     }
 }

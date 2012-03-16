@@ -58,7 +58,7 @@ public class OnceExecutionForCreatingSubscribersTest extends TalendSwtBotForTos 
         gefBot.button("OK").click();
         isSubscriberCreated = true;
 
-        Assert.assertFalse(gefBot.button("Execute").isEnabled());
+        Assert.assertFalse("execute button is still enable", gefBot.button("Execute").isEnabled());
         gefBot.button("Close").click();
         gefBot.button("Finish").click();
     }

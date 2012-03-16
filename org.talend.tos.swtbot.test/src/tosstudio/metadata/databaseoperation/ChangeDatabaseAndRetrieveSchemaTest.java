@@ -79,8 +79,8 @@ public class ChangeDatabaseAndRetrieveSchemaTest extends TalendSwtBotForTos {
         gefBot.button("Next >").click();
         gefBot.button("Finish").click();
 
-        Assert.assertNotNull("did not retrieve schema " + TABLE1, dbItem.getSchema(TABLE1));
-        Assert.assertNotNull("did not retrieve schema " + TABLE2, dbItem.getSchema(TABLE2));
+        Assert.assertNotNull("did not retrieve schema " + TABLE1 + ", old schema did not save", dbItem.getSchema(TABLE1));
+        Assert.assertNotNull("did not retrieve schema " + TABLE2 + ", new schema did not retrieve", dbItem.getSchema(TABLE2));
     }
 
     @After

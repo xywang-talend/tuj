@@ -211,7 +211,7 @@ public class TalendDBItem extends TalendMetadataItem {
             try {
                 gefBot.waitUntil(Conditions.shellIsActive("Error Executing SQL"), 10000);
                 gefBot.button("OK").click();
-                throw new Exception("execute sql fail");
+                throw new Exception("execute sql fail [" + sql + "]");
             } catch (TimeoutException e) {
                 // ignor this, means did not pop up error dialog, sql executed successfully.
             }
@@ -226,33 +226,34 @@ public class TalendDBItem extends TalendMetadataItem {
     }
 
     public void retrieveDbSchema(String... schemas) {
-        SWTBotShell tempShell = null;
-        try {
-            getParentNode().getNode(itemName + " 0.1").contextMenu("Retrieve Schema").click();
-            tempShell = gefBot.shell("Schema").activate();
-            gefBot.button("Next >").click();
-            List<String> schemaList = new ArrayList<String>(Arrays.asList(schemas));
+        getParentNode().getNode(itemName + " 0.1").contextMenu("Retrieve Schema").click();
+        gefBot.shell("Schema").activate();
+        gefBot.button("Next >").click();
+        List<String> schemaList = new ArrayList<String>(Arrays.asList(schemas));
 
-            gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 10000);
-            SWTBotTree root = gefBot.treeInGroup("Select Schema to create");
-            SWTBotTreeItem treeNode = null;
-            if (getCatalog() != null && getSchema() == null)
-                treeNode = root.expandNode(getCatalog());
-            if (getCatalog() == null && getSchema() != null)
-                treeNode = root.expandNode(getSchema());
-            if (getCatalog() != null && getSchema() != null)
-                treeNode = root.expandNode(getCatalog(), getSchema());
-            for (String schema : schemaList) {
+        gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 10000);
+        SWTBotTree root = gefBot.treeInGroup("Select Schema to create");
+        SWTBotTreeItem treeNode = null;
+        if (getCatalog() != null && getSchema() == null)
+            treeNode = root.expandNode(getCatalog());
+        if (getCatalog() == null && getSchema() != null)
+            treeNode = root.expandNode(getSchema());
+        if (getCatalog() != null && getSchema() != null)
+            treeNode = root.expandNode(getCatalog(), getSchema());
+        int checkedCount = 0;
+        for (String schema : schemaList) {
+            try {
                 treeNode.getNode(convertString(schema)).check();
+                checkedCount++;
+            } catch (WidgetNotFoundException e) {
+                log.warn("Could not find schema '" + schema + "'");
             }
+        }
+        if (checkedCount == 0)
+            gefBot.button("Cancel").click();
+        else {
             gefBot.button("Next >").click();
             gefBot.button("Finish").click();
-        } catch (WidgetNotFoundException wnfe) {
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            Assert.fail(e.getMessage());
-        } finally {
-            tempShell.close();
         }
     }
 
@@ -301,4 +302,130 @@ public class TalendDBItem extends TalendMetadataItem {
     public SWTBotShell beginEditWizard() {
         return beginEditWizard("Edit connection", "Database Connection");
     }
+
+    private boolean cdcWizard(TalendDBItem linkConnection) {
+        boolean isSubscriberCreated = false;
+        gefBot.shell("Create Change Data Capture").activate();
+        gefBot.button("...").click();
+        gefBot.shell("Repository Content").activate();
+        gefBot.tree().expandNode("Db Connections").select(linkConnection.getItemFullName());
+        gefBot.button("OK").click();
+        gefBot.button("Create Subscriber").click();
+        gefBot.shell("Create Subscriber and Execute SQL Script").activate();
+        gefBot.button("Execute").click();
+        gefBot.shell("Execute SQL Statement").activate();
+        if ("Table 'tsubscribers' already exists".equals(gefBot.label(1).getText())) {
+            isSubscriberCreated = true;
+            gefBot.button("Ignore").click();
+        }
+        gefBot.button("OK").click();
+        isSubscriberCreated = true;
+        gefBot.button("Close").click();
+        gefBot.button("Finish").click();
+        return isSubscriberCreated;
+    }
+
+    public boolean createCDC(TalendDBItem linkConnection) {
+        getItem().expand().getNode("CDC Foundation").contextMenu("Create CDC").click();
+        return cdcWizard(linkConnection);
+    }
+
+    public boolean editCDC(TalendDBItem linkConnection) {
+        boolean isNewSubscriberCreated = false;
+        boolean isOldSubscriberDeleted = false;
+        getCDCFoundation().contextMenu("Edit CDC").click();
+        isNewSubscriberCreated = cdcWizard(linkConnection);
+        gefBot.shell("CDC changed").activate();
+        gefBot.button("Yes").click();
+        gefBot.shell("Execute SQL Statement").activate();
+        gefBot.button("OK").click();
+        isOldSubscriberDeleted = true;
+        return (isNewSubscriberCreated && isOldSubscriberDeleted);
+    }
+
+    public boolean deleteCDC() {
+        boolean isSubscriberDeleted = false;
+        getCDCFoundation().contextMenu("Delete CDC").click();
+        gefBot.shell("Create Subscriber and Execute SQL Script").activate();
+        gefBot.button("Execute").click();
+        gefBot.shell("Execute SQL Statement").activate();
+        gefBot.button("OK").click();
+        isSubscriberDeleted = true;
+        gefBot.button("Close").click();
+        return isSubscriberDeleted;
+    }
+
+    /**
+     * Add CDC for schema with the default subscriber name 'APP1' and the default events to catch (Insert, Update,
+     * Delete).
+     * 
+     * @param schemaName the schema name which need to add CDC
+     * @return
+     */
+    public boolean addCDC(String schemaName) {
+        return addCDC(schemaName, null, true, true, true);
+    }
+
+    /**
+     * Add CDC for schema with the default events to catch (Insert, Update, Delete).
+     * 
+     * @param schemaName the schema name which need to add CDC
+     * @param subscriberName the subscriber name
+     * @return
+     */
+    public boolean addCDC(String schemaName, String subscriberName) {
+        return addCDC(schemaName, subscriberName, true, true, true);
+    }
+
+    /**
+     * Add CDC for schema with the default subscriber name 'APP1'.
+     * 
+     * @param schemaName the schema name which need to add CDC
+     * @param catchInsert to catch insert event
+     * @param catchUpdate to catch update event
+     * @param catchDelete to catch delete event
+     * @return
+     */
+    public boolean addCDC(String schemaName, boolean catchInsert, boolean catchUpdate, boolean catchDelete) {
+        return addCDC(schemaName, null, catchInsert, catchUpdate, catchDelete);
+    }
+
+    /**
+     * Add CDC for schema.
+     * 
+     * @param schemaName the schema name which need to add CDC
+     * @param subscriberName the subscriber name
+     * @param catchInsert to catch insert event
+     * @param catchUpdate to catch update event
+     * @param catchDelete to catch delete event
+     * @return
+     */
+    public boolean addCDC(String schemaName, String subscriberName, boolean catchInsert, boolean catchUpdate, boolean catchDelete) {
+        boolean isAddOK = false;
+        getSchema(schemaName).getItem().contextMenu("add CDC").click();
+        gefBot.shell("Create Subscriber and Execute SQL Script").activate();
+        if (subscriberName != null)
+            gefBot.textWithLabel("Subscriber Name:").setText(subscriberName);
+        if (catchInsert)
+            gefBot.checkBox("Insert").select();
+        if (catchUpdate)
+            gefBot.checkBox("Update").select();
+        if (catchDelete)
+            gefBot.checkBox("Delete").select();
+        gefBot.button("Execute").click();
+        gefBot.shell("Execute SQL Statement").activate();
+        gefBot.button("OK").click();
+        isAddOK = true;
+        gefBot.button("Close").click();
+        return isAddOK;
+    }
+
+    public SWTBotTreeItem getCDCFoundation() {
+        try {
+            return getItem().expandNode("CDC Foundation").getNode(0);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
 }

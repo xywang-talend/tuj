@@ -27,13 +27,19 @@ import org.talend.swtbot.items.TalendDBItem;
  * DOC fzhong class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CreateSubscribersTableTest extends TalendSwtBotForTos {
+public class AddCDCToTableWithPrimaryKeyTest extends TalendSwtBotForTos {
 
     private TalendDBItem dbItem, copy_of_dbItem;
 
     private static final String DB_NAME = "mysql";
 
-    private boolean isSubscriberCreated = false;
+    private static final String TABLE_NAME = "autotest";
+
+    private static final String TSUBSCRIBERS = "tsubscribers";
+
+    private static final String TCDC_TABLE = "tcdc_" + TABLE_NAME;
+
+    private boolean isTableCreated = false;
 
     @Before
     public void createDb() {
@@ -41,41 +47,27 @@ public class CreateSubscribersTableTest extends TalendSwtBotForTos {
         dbItem = new TalendDBItem(DB_NAME, DbConnectionType.MYSQL);
         dbItem.create();
         copy_of_dbItem = (TalendDBItem) dbItem.copyAndPaste();
+        dbItem.executeSQL("create table " + TABLE_NAME + "(id int, name varchar(20), primary key(id));");
+        isTableCreated = true;
+        dbItem.retrieveDbSchema(TABLE_NAME);
     }
 
     @Test
-    public void createSubscribersTableTest() {
-        dbItem.getItem().expand().getNode("CDC Foundation").contextMenu("Create CDC").click();
-        gefBot.shell("Create Change Data Capture").activate();
-        gefBot.button("...").click();
-        gefBot.shell("Repository Content").activate();
-        gefBot.tree().expandNode("Db Connections").select(copy_of_dbItem.getItemFullName());
-        gefBot.button("OK").click();
-        gefBot.button("Create Subscriber").click();
-        gefBot.shell("Create Subscriber and Execute SQL Script").activate();
-        gefBot.button("Execute").click();
-        gefBot.shell("Execute SQL Statement").activate();
-        if ("Table 'tsubscribers' already exists".equals(gefBot.label(1).getText())) {
-            isSubscriberCreated = true;
-            gefBot.button("Cancel").click();
-            gefBot.button("Close").click();
-            gefBot.button("Cancel").click();
-            Assert.fail("Table 'tsubscribers' already exists");
-        }
-        gefBot.button("OK").click();
-        isSubscriberCreated = true;
-        gefBot.button("Close").click();
-        gefBot.button("Finish").click();
+    public void addCDCToTableWithPrimaryKeyTest() {
+        dbItem.createCDC(copy_of_dbItem);
+        dbItem.addCDC(TABLE_NAME);
 
-        copy_of_dbItem.retrieveDbSchema("tsubscribers");
-        Assert.assertNotNull("schema 'tsubscribers' did not create in database", copy_of_dbItem.getSchema("tsubscribers"));
+        copy_of_dbItem.retrieveDbSchema(TSUBSCRIBERS, TCDC_TABLE);
+        Assert.assertNotNull("schema" + TSUBSCRIBERS + " did not create in new database", copy_of_dbItem.getSchema(TSUBSCRIBERS));
+        Assert.assertNotNull("schema" + TCDC_TABLE + " did not create in new database", copy_of_dbItem.getSchema(TCDC_TABLE));
     }
 
     @After
     public void cleanUp() {
-        String sql = null;
-        if (isSubscriberCreated)
-            sql = "drop table tsubscribers;";
+        dbItem.deleteCDC();
+        String sql = "";
+        if (isTableCreated)
+            sql = sql + "drop table " + TABLE_NAME + ";\n";
         dbItem.executeSQL(sql);
     }
 }

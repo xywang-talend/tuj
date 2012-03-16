@@ -79,5 +79,6 @@ public class ExportItemsTest extends TalendSwtBotForTos {
         } catch (NullPointerException e) {
             // pass this exception, means no file need to delete
         }
+        Utilities.resetActivePerspective();
     }
 }
