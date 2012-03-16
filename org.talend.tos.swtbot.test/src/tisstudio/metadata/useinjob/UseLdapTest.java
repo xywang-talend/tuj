@@ -19,6 +19,7 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.helpers.MetadataHelper;
 import org.talend.swtbot.items.TalendJobItem;
@@ -40,6 +41,8 @@ public class UseLdapTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() throws IOException, URISyntaxException {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.METADATA_LDAP_SCHEMA);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
         ldapItem = new TalendLdapItem(METADATA_NAME);

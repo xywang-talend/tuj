@@ -23,6 +23,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.JobHelper;
@@ -52,6 +53,9 @@ public class UseReferenceCheckRulesTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.METADATA_VALIDATION_RULES);
+        repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
         dbItem = new TalendDBItem(DB_NAME, Utilities.DbConnectionType.MYSQL);
         dbItem.create();
         String sql = "create table test(id int, name varchar(12));\n" + "insert into test values(1, 'a');\n"

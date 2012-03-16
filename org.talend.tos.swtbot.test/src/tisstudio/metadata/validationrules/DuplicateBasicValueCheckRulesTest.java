@@ -19,6 +19,7 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.items.TalendDelimitedFileItem;
 import org.talend.swtbot.items.TalendValidationRuleItem;
@@ -41,6 +42,8 @@ public class DuplicateBasicValueCheckRulesTest extends TalendSwtBotForTos {
 
     @Before
     public void createBasicValueCheckRules() throws IOException, URISyntaxException {
+        repositories.add(ERepositoryObjectType.METADATA_VALIDATION_RULES);
+        repositories.add(ERepositoryObjectType.METADATA_FILE_DELIMITED);
         metadataItem = new TalendDelimitedFileItem(METADATA_NAME);
         metadataItem.create();
         ruleItem = new TalendValidationRuleItem(VALIDATION_RULES_NAME);

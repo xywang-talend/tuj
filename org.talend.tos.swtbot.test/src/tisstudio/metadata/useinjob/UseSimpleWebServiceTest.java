@@ -19,6 +19,7 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.helpers.JobHelper;
 import org.talend.swtbot.helpers.MetadataHelper;
@@ -41,6 +42,8 @@ public class UseSimpleWebServiceTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() throws IOException, URISyntaxException {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.METADATA_WSDL_SCHEMA);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
         wsItem = new TalendWebServiceItem(METADATA_NAME);
@@ -56,6 +59,7 @@ public class UseSimpleWebServiceTest extends TalendSwtBotForTos {
             results += resultArray[i] + ",";
         }
         wsItem.setExpectResult(results);
+        // wsItem.setComponentType("tWebServiceInput");
         MetadataHelper.output2Console(jobItem.getEditor(), wsItem);
 
         String actualResult = JobHelper.getExecutionResult();

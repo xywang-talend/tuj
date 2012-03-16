@@ -20,6 +20,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendDBItem;
@@ -41,6 +42,9 @@ public class CreateReferenceCheckRulesTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
+        repositories.add(ERepositoryObjectType.METADATA_VALIDATION_RULES);
+        repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
+        // repositories.add(ERepositoryObjectType.METADATA_CON_TABLE);
         dbItem = new TalendDBItem(DB_NAME, Utilities.DbConnectionType.MYSQL);
         dbItem.create();
         String sql = "create table test(id int, name varchar(12));\n" + "create table reference(id int, name varchar(12));\n";

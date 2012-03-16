@@ -25,6 +25,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.SWTBotLabelExt;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
@@ -44,6 +45,7 @@ public class FilterItemsByNameTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
+        repositories.add(ERepositoryObjectType.PROCESS);
         jobItem = new TalendJobItem("job_a");
         jobItem.create();
         jobItem = new TalendJobItem("job_b");
@@ -100,9 +102,5 @@ public class FilterItemsByNameTest extends TalendSwtBotForTos {
         }
         filterLabel.click();
 
-        // for (SWTBotEditor editor : gefBot.editors())
-        // editor.saveAndClose();
-        // Utilities.cleanUpRepository(jobItem.getParentNode());
-        // Utilities.emptyRecycleBin();
     }
 }

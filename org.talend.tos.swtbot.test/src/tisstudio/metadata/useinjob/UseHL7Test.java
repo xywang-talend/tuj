@@ -21,6 +21,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.MetadataHelper;
@@ -47,6 +48,8 @@ public class UseHL7Test extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() throws IOException, URISyntaxException {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.METADATA_FILE_HL7);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
         jobEditor = jobItem.getEditor();

@@ -18,6 +18,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.Utilities.DbConnectionType;
@@ -35,6 +36,7 @@ public class WizardOfCDCFoundationTest extends TalendSwtBotForTos {
 
     @Before
     public void createDb() {
+        repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
         dbItem = new TalendDBItem(DB_NAME, DbConnectionType.MYSQL);
         dbItem.create();
     }

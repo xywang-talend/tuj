@@ -21,6 +21,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 
@@ -42,6 +43,7 @@ public class CopyPasteWebServiceTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
+        repositories.add(ERepositoryObjectType.METADATA_WSDL_SCHEMA);
         view = Utilities.getRepositoryView();
         view.setFocus();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));

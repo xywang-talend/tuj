@@ -24,6 +24,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.JobHelper;
@@ -47,6 +48,8 @@ public class UseAdvanceWebServiceTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.METADATA_WSDL_SCHEMA);
         jobItem = new TalendJobItem(JOB_NAME);
         jobItem.create();
         webServiceItem = new TalendWebServiceItem(METADATA_NAME);

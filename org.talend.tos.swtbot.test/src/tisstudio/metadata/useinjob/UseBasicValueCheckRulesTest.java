@@ -22,6 +22,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.JobHelper;
@@ -50,6 +51,10 @@ public class UseBasicValueCheckRulesTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.METADATA_FILE_DELIMITED);
+        repositories.add(ERepositoryObjectType.METADATA_VALIDATION_RULES);
+
         jobItem = new TalendJobItem(JOB_NAME);
         jobItem.create();
 

@@ -19,11 +19,13 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.JobHelper;
@@ -58,9 +60,12 @@ public class DataViewerOnDatabasesComponentsTest extends TalendSwtBotForTos {
 
     @Before
     public void createJob() throws IOException, URISyntaxException {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
+        repositories.add(ERepositoryObjectType.METADATA_FILE_DELIMITED);
         dbItem = new TalendDBItem(DB_NAME, Utilities.DbConnectionType.MYSQL);
         dbItem.create();
-        String sql = "create table dataviwer(id int, name varchar(12));\n";
+        String sql = "create table dataviwer(age int, name varchar(12));\n";
         dbItem.executeSQL(sql);
         dbItem.retrieveDbSchema("dataviwer");
 
@@ -94,6 +99,7 @@ public class DataViewerOnDatabasesComponentsTest extends TalendSwtBotForTos {
         jobEditor1.select(table).setFocus();
         table.click();
         jobEditor1.clickContextMenu("Data viewer");
+        gefBot.waitUntil(Conditions.shellIsActive("Data Preview: tMysqlOutput_1"), 20000);
         gefBot.shell("Data Preview: tMysqlOutput_1").activate();
         int out = gefBot.tree().rowCount();
         Assert.assertEquals("didn't show the data viewer", 12, out);
@@ -112,6 +118,7 @@ public class DataViewerOnDatabasesComponentsTest extends TalendSwtBotForTos {
         jobItem2.getEditor().select(tab).setFocus();
         tab.click();
         jobEditor1.clickContextMenu("Data viewer");
+        gefBot.waitUntil(Conditions.shellIsActive("Data Preview: tMysqlOutput_1"), 20000);
         gefBot.shell("Data Preview: tMysqlInput_1").activate();
         int in = gefBot.tree().rowCount();
         Assert.assertEquals("didn't show the data viewer", 12, in);

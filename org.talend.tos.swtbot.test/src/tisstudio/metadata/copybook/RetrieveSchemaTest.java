@@ -23,6 +23,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.items.TalendCopybookItem;
 
@@ -38,6 +39,7 @@ public class RetrieveSchemaTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
+        repositories.add(ERepositoryObjectType.METADATA_FILE_EBCDIC);
         copybookItem = new TalendCopybookItem(COPYBOOK_NAME);
         copybookItem.create();
     }

@@ -18,6 +18,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities.DbConnectionType;
 import org.talend.swtbot.items.TalendDBItem;
@@ -36,6 +37,7 @@ public class OnceExecutionForCreatingSubscribersTest extends TalendSwtBotForTos 
 
     @Before
     public void createDb() {
+        repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
         dbItem = new TalendDBItem(DB_NAME, DbConnectionType.MYSQL);
         dbItem.create();
         copy_of_dbItem = (TalendDBItem) dbItem.copyAndPaste();

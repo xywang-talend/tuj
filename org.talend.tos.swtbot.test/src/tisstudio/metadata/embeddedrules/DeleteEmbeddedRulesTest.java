@@ -19,6 +19,7 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.items.TalendEmbeddedRulesItem;
 
@@ -36,6 +37,7 @@ public class DeleteEmbeddedRulesTest extends TalendSwtBotForTos {
 
     @Before
     public void createDrlEmbeddedRules() throws IOException, URISyntaxException {
+        repositories.add(ERepositoryObjectType.METADATA_FILE_RULES);
         ruleItem = new TalendEmbeddedRulesItem(EMBEDDED_RULES_NAME, TYPE_OF_RULE_RESOURCE);
         ruleItem.create();
     }

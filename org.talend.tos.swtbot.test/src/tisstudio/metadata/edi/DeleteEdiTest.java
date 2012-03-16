@@ -16,6 +16,7 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.items.TalendEdiItem;
 
@@ -38,6 +39,7 @@ public class DeleteEdiTest extends TalendSwtBotForTos {
 
     @Before
     public void createEdi() {
+        repositories.add(ERepositoryObjectType.METADATA_EDIFACT);
         ediItem = new TalendEdiItem(EDINAME, STANDARD, RELEASE, SCHEMAS);
         ediItem.create();
     }

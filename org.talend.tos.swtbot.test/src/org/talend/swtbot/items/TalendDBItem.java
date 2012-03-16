@@ -16,6 +16,7 @@ import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.junit.Assert;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.Utilities.DbConnectionType;
@@ -208,10 +209,10 @@ public class TalendDBItem extends TalendMetadataItem {
             gefBot.toolbarButtonWithTooltip("Execute SQL (Ctrl+Enter)").click();
 
             try {
-                if (gefBot.shell("Error Executing SQL").isActive())
-                    gefBot.button("OK").click();
+                gefBot.waitUntil(Conditions.shellIsActive("Error Executing SQL"), 10000);
+                gefBot.button("OK").click();
                 throw new Exception("execute sql fail");
-            } catch (WidgetNotFoundException wnfe) {
+            } catch (TimeoutException e) {
                 // ignor this, means did not pop up error dialog, sql executed successfully.
             }
         } catch (WidgetNotFoundException wnfe) {

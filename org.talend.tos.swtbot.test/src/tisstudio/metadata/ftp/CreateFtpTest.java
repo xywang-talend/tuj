@@ -21,6 +21,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 
@@ -40,6 +41,7 @@ public class CreateFtpTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
+        repositories.add(ERepositoryObjectType.METADATA_FILE_FTP);
         view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FTP);

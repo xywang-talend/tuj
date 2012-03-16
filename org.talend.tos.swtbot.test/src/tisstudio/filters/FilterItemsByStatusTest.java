@@ -27,6 +27,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.SWTBotLabelExt;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
@@ -50,6 +51,7 @@ public class FilterItemsByStatusTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
+        repositories.add(ERepositoryObjectType.PROCESS);
         jobItem1 = new TalendJobItem("job_a");
         jobItem1.create();
         jobItem2 = new TalendJobItem("job_b");
@@ -114,8 +116,6 @@ public class FilterItemsByStatusTest extends TalendSwtBotForTos {
         }
         filterLabel.click();
 
-        Utilities.cleanUpRepository(jobItem1.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 
     private void editProperties(SWTBotTreeItem itemNode, String status) {
