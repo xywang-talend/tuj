@@ -12,14 +12,12 @@
 // ============================================================================
 package tisstudio.dataviewer.component;
 
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendDBItem;
@@ -41,9 +39,11 @@ public class DataViewerOnMySQLTest extends TalendSwtBotForTos {
 
     @Before
     public void createJob() {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
         dbItem = new TalendDBItem(DBNAME, Utilities.DbConnectionType.MYSQL);
         dbItem.create();
-        String sql = "create table dataviwer(id int, name varchar(12));\n " + "insert into dataviwer values(1, 'a');\n";
+        String sql = "create table dataviwer(age int, name varchar(12));\n " + "insert into dataviwer values(1, 'a');\n";
         dbItem.executeSQL(sql);
 
         jobItem = new TalendJobItem(JOBNMAE);
@@ -53,15 +53,9 @@ public class DataViewerOnMySQLTest extends TalendSwtBotForTos {
 
     @Test
     public void testMySQL() {
-        // test drag Mysql input component to workspace
-        dbItem.setComponentType("tMysqlInput");
-        Utilities.dndMetadataOntoJob(jobItem.getEditor(), dbItem.getItem(), dbItem.getComponentType(), new Point(100, 100));
-        SWTBotGefEditPart mysql = getTalendComponentPart(jobItem.getEditor(), dbItem.getItemName());
-        Assert.assertNotNull("cann't get component " + dbItem.getComponentType() + "", mysql);
-
         // test data viwer
-        //Utilities.setComponentValueOfDB(mysql, jobItem, "1a", DBNAME, dbItem.getComponentType());
-        Utilities.dataViewerOnDBComponent(dbItem, jobItem, "1a", DBNAME, dbItem.getComponentType());
+
+        Utilities.dataViewerOnDBComponent(dbItem, jobItem, "1a", DBNAME, "tMysqlInput");
 
     }
 
