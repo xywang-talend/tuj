@@ -196,6 +196,13 @@ public class User extends Base{
 	public void clickSave(){
 		this.clickElementByXpath(locator.getString("xpath.user.add.role.save"));
 	}
+	
+	public void clickSaveAndCheckExpectedTrue(String userName){
+		this.clickElementByXpath(locator.getString("xpath.user.add.role.save"));
+		this.clickElementByXpath(locator.getString("xpath.user.add.role.flashcache.ok"));
+	    Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.user.identifier", userName)), WAIT_TIME_MID), "user"+userName+"added failed!");
+	}
+	
 	public void selectAUser(String userName) {
 		this.clickElementByXpath(this.getString(locator, "xpath.user.select", userName));
 	}

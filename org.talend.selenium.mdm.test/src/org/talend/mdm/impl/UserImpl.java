@@ -62,4 +62,20 @@ public class UserImpl extends User{
 		logger.info("save new  user button clicked");
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("user.add.webuser.over")), WAIT_TIME_MAX));
 	}
+	
+	
+	public void addUserOverAllowedWebInactive(String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion,boolean active,String roles,int n){
+		logger.info("click administration to display menu user manage");
+		logger.info("click  menu user manage");
+		Assert.assertTrue(n==0, "users within license!");
+		this.gotoUserManagePage();
+		logger.info("user manage page opened!");
+		logger.info("user manage page opened!");
+		this.clickAddNewUser();
+		logger.info("new user button clicked");
+		this.configureUser(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, roles);
+	    this.clickSaveAndCheckExpectedTrue(identifier);
+	    this.clickElementByXpath(this.getString(locator, "xpath.user.status", identifier));
+	    Assert.assertTrue(this.getValue(this.getElementByXpath(this.getString(locator, "xpath.user.status", identifier))).equals("false"), "Inactive user "+identifier+" added failed!");
+	}
 }

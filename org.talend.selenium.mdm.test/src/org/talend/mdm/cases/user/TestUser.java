@@ -40,4 +40,11 @@ public class TestUser extends Login {
 		license.openLicense();
 		userImpl.addUserOverAllowedWeb(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, roles,license.getAvailableWeb());
 	}
+	
+	@Test
+	@Parameters( { "identifier", "first.name", "last.name", "password", "confirm.password", "email", "company", "default.version", "active", "roles" })
+	public void testAddUserWebOverAllowedInactive(String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion,boolean active,String roles) {
+		license.openLicense();
+		userImpl.addUserOverAllowedWebInactive(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, roles,license.getAvailableWeb());
+	}
 }
