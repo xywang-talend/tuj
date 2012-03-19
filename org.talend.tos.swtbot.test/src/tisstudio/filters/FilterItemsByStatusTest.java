@@ -123,7 +123,7 @@ public class FilterItemsByStatusTest extends TalendSwtBotForTos {
         try {
             itemNode.contextMenu("Edit properties").click();
             tempShell = gefBot.shell("Edit properties").activate();
-            gefBot.ccomboBoxWithLabel("Status").setText(status);
+            gefBot.ccomboBoxWithLabel("Status").setSelection(status);
             gefBot.button("Finish").click();
         } catch (WidgetNotFoundException wnfe) {
             tempShell.close();
