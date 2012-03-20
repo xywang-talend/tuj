@@ -57,7 +57,7 @@ public class UserImpl extends User{
 		logger.info("user manage page opened!");
 		this.clickAddNewUser();
 		logger.info("new user button clicked");
-		this.configureUser(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, roles);
+		this.configureUser(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, splitParameter(roles));
 		this.clickSave();
 		logger.info("save new  user button clicked");
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("user.add.webuser.over")), WAIT_TIME_MAX));
@@ -73,9 +73,34 @@ public class UserImpl extends User{
 		logger.info("user manage page opened!");
 		this.clickAddNewUser();
 		logger.info("new user button clicked");
-		this.configureUser(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, roles);
+		this.configureUser(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, splitParameter(roles));
 	    this.clickSaveAndCheckExpectedTrue(identifier);
 	    this.clickElementByXpath(this.getString(locator, "xpath.user.status", identifier));
 	    Assert.assertTrue(this.getValue(this.getElementByXpath(this.getString(locator, "xpath.user.status", identifier))).equals("false"), "Inactive user "+identifier+" added failed!");
+	}
+	
+	public void addUserWithMultipleRoles(String userNameAdministrator,String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String[] roles){
+		this.openMenuAdministrator();
+		this.gotoUserManagePage();
+		this.deleteAllUsersExcept(userNameAdministrator);
+		this.addUser(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, roles);
+		this.deleteUser(identifier);
+	}
+	
+	public void addUserWithMultipleRolesOneAllowedAnotherNot(String userNameAdministrator,String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String[] roles){
+		this.openMenuAdministrator();
+		this.gotoUserManagePage();
+		this.clickAddNewUser();
+		this.configureUser(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, roles);
+        this.clickSave();
+        Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("user.add.admin.over")), WAIT_TIME_MAX));
+	}
+	
+	public void addUserWithPasswordNotEqualsConfirmPassword(String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String[] roles){
+		this.openMenuAdministrator();
+		this.gotoUserManagePage();
+		this.clickAddNewUser();
+		this.configureUser(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, roles);
+		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.user.add.password.confirm.alert.img")), WAIT_TIME_MID));
 	}
 }

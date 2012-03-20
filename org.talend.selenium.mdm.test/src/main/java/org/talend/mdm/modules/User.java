@@ -18,17 +18,18 @@ public class User extends Base{
 	}
 	
 	protected void openMenuAdministrator(){
+		this.logger.info("open Administration page");
+		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.Administration.menu")), WAIT_TIME_MAX));
 		this.clickElementByXpath(locator.getString("xpath.Administration.menu"));
-		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.mangeuser.menu")), this.WAIT_TIME_MAX));
-	}
+		}
 	
-	protected void gotoUserManagePage(){
+	public void gotoUserManagePage(){
 		this.clickElementByXpath(locator.getString("xpath.mangeuser.menu"));
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.user.button.add")), this.WAIT_TIME_MAX));
 	}
 	
 	protected void configureUser(String identifier,String firstName,String lastName,String password,String confirmPassword,
-			String email, String company, String defaultVersion, boolean active, String roles) {
+			String email, String company, String defaultVersion, boolean active, String[] roles) {
 		
 		
 		this.typeTextByName(locator.getString("name.user.add.name"), identifier);
@@ -43,7 +44,21 @@ public class User extends Base{
 			this.getElementByName(locator.getString("name.user.add.enabled")).click();
 			this.logger.info("click add user active button!");
 		}
-		this.logger.info("click to open roles selection drop down list!");
+		
+		
+		for(String role: roles) {
+			this.clickElementByXpath(locator.getString("xpath.user.add.role.img"));
+			this.clickElementByXpath(this.getString(locator, "xpath.user.add.role.select", role));
+			this.clickElementByXpath(locator.getString("xpath.user.add.role.add"));
+			this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.added.listview", roles)),WAIT_TIME_MAX);
+		}
+		
+		
+		
+		
+		
+		
+/*		this.logger.info("click to open roles selection drop down list!");
 		this.clickElementByXpath(locator.getString("xpath.user.add.role.img"));
 		this.logger.info("roles selection drop down list opened ok!");
 		this.logger.info("select role to add");
@@ -51,7 +66,7 @@ public class User extends Base{
 		this.clickElementByXpath(this.getString(locator, "xpath.user.add.role.select", roles));
 		this.clickElementByXpath(locator.getString("xpath.user.add.role.add"));
 		this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.added.listview", roles)),WAIT_TIME_MAX);
-		this.logger.info("select role to add");
+		this.logger.info("select role to add");*/
 	}
 	
 	protected void addUser(String identifier,String firstName,String lastName,String password,String confirmPassword,
@@ -75,7 +90,8 @@ public class User extends Base{
 		}
 		this.clickElementByXpath(locator.getString("xpath.user.add.role.save"));
 		this.getElementByXpath(locator.getString("xpath.user.add.role.flashcache.ok")).click();
-		
+		Assert.assertTrue((this.isElementPresent(By.xpath(this.getString(locator, "xpath.user.identifier", identifier)), WAIT_TIME_MAX)));
+	    this.logger.info("user "+identifier+" had been added succussfull!");
 //		Assert.assertNotNull("Haven't add the user " + identifier + "successfully!", getUserDeleteElement(identifier));
 	}
 	
@@ -119,9 +135,48 @@ public class User extends Base{
 	
 	public void deleteUser(String userName) {
 		this.clickElementByXpath(this.getString(locator, "xpath.user.delete", userName));
+		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.user.delete.yes")), WAIT_TIME_MAX));
 		this.clickElementByXpath(locator.getString("xpath.user.delete.yes"));
+		logger.info("########" + this.getElementByXpath(this.getString(locator, "xpath.user.delete", userName)));
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		Assert.assertFalse(this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.delete", userName)), 30), "user "+userName+" delete failed!");
 	}
 	
+	protected void deleteAllUsersExcept(String userExcept){
+		
+		
+		
+		List a = this.getElementsByXpath(locator.getString("xpath.user.listdisplay.identiferlist"));
+		List b = new ArrayList<String>();
+		for(int i=0;i<a.size();i++){
+			String userName = this.getValue((WebElement)a.get(i));
+			logger.info(userName);
+			if(userName.equals(userExcept)){
+				logger.info("------------------------------------------------"+userName);
+				continue;
+			}
+			else{
+				b.add(this.getValue((WebElement)a.get(i)));
+				logger.info("b+++++++++++++++++++++++++++++++++++++++++++++++++++++"+userName);
+			}
+//			System.err.println("total user number is :"+this.getElementsByXpath(locator.getString("xpath.user.listdisplay.identiferlist")).size());
+		}
+		
+		for(int j=0;j <b.size();j++){
+			String userName = b.get(j).toString();
+			logger.info("###############################"+userName);
+			this.deleteUser(userName);
+			
+		}
+		System.err.println("after delete,total user number is :"+this.getElementsByXpath(locator.getString("xpath.user.listdisplay.identiferlist")).size());
+		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.user.listdisplay.identiferlist")).size()==1);
+		
+	}
 
 	public void searchUser(String userName) {
 		this.modifyTextByXpath(locator.getString("xpath.user.search.input"), userName);

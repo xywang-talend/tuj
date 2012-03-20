@@ -1,9 +1,9 @@
 package org.talend.mdm.modules;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.talend.mdm.Base;
+import org.testng.Assert;
 
 
 public class License extends Base{
@@ -14,15 +14,24 @@ public class License extends Base{
 	}
 
 	
+	/****
+	 * click menu license to jump to license page
+	 */
+	protected void openAdministration(){
+		this.logger.info("open Administration page");
+		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.Administration.menu")), WAIT_TIME_MAX));
+		this.clickElementByXpath(locator.getString("xpath.Administration.menu"));
+		
+	}
+	
 	
 	/****
 	 * click menu license to jump to license page
 	 */
 	protected void gotoLicensePage(){
-		this.logger.info("go to license page");
-		this.clickElementByXpath(locator.getString("xpath.Administration.menu"));
+		
 		this.clickElementByXpath("//span[text()='License']");
-		Assert.assertTrue("Go to License page", this.isElementPresent(By.xpath(locator.getString("xpath.license.edit")), this.WAIT_TIME_MAX));
+		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.license.edit")), this.WAIT_TIME_MAX));
 		this.logger.info("go to license page ok");
 	}
 	

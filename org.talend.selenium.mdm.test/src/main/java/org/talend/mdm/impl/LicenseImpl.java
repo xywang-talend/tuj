@@ -13,7 +13,7 @@ public class LicenseImpl extends License{
 	}
 	
 	public void openLicense(){
-		
+		this.openAdministration();
 		this.gotoLicensePage();
 		
 	}
