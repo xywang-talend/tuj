@@ -47,4 +47,25 @@ public class TestUser extends Login {
 		license.openLicense();
 		userImpl.addUserOverAllowedWebInactive(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, roles,license.getAvailableWeb());
 	}
+	
+	
+	@Test
+	@Parameters( {"user.name","identifier", "first.name", "last.name", "password", "confirm.password", "email", "company", "default.version", "active", "roles" })
+	public void testAddUserMultipleRoles(String userNameAdministrator,String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String roles) {
+		userImpl.addUserWithMultipleRoles(userNameAdministrator,identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, splitParameter(roles));
+	}
+	
+	
+	@Test
+	@Parameters( {"user.name","identifier", "first.name", "last.name", "password", "confirm.password", "email", "company", "default.version", "active", "roles" })
+	public void testaddUserWithMultipleRolesOneAllowedAnotherNot(String userNameAdministrator,String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String roles) {
+		userImpl.addUserWithMultipleRolesOneAllowedAnotherNot(userNameAdministrator,identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, splitParameter(roles));
+	}
+	
+	
+	@Test
+	@Parameters( {"identifier", "first.name", "last.name", "password", "confirm.password", "email", "company", "default.version", "active", "roles" })
+	public void testAddUserWithPasswordNotEqualsConfirmPassword(String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String roles) {
+		userImpl.addUserWithPasswordNotEqualsConfirmPassword(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, splitParameter(roles));
+	}
 }
