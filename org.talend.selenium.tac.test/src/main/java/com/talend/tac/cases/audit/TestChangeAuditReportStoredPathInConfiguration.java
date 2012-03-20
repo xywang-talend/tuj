@@ -25,8 +25,8 @@ public class TestChangeAuditReportStoredPathInConfiguration extends Audit {
 		//get get incipient report path
 		String defaultPath = this.getDefaultReportPath();
 		
-	    this.typeWordsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),locatorOfAllInputTags, this.getAbsolutePath(auditStoredReportsPath));
-	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),locatorOfAllInputTags, this.getAbsolutePath(auditStoredReportsPath),other.getString("audit.conf.reportsStoredPath.statusIcon"));
+	    this.typeWordsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),other.getString("audit.conf.reportsStoredPath.input"), this.getAbsolutePath(auditStoredReportsPath));
+	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),other.getString("audit.conf.reportsStoredPath.input"), this.getAbsolutePath(auditStoredReportsPath),other.getString("audit.conf.reportsStoredPath.statusIcon"));
 		
 	    this.openAudit();
 		   
@@ -70,20 +70,20 @@ public class TestChangeAuditReportStoredPathInConfiguration extends Audit {
 		selenium.mouseDown("//div[contains(text(),'Audit (')]");
 		
 		this.clickWaitForElementPresent(other.getString("audit.conf.reportsStoredPath.editButton"));//click the edit button to make the input tag shown.
-		String defaultPath = selenium.getValue(locatorOfAllInputTags);
+		String defaultPath = selenium.getValue(other.getString("audit.conf.reportsStoredPath.input"));
 		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 		System.out.println(">>>>>>>>"+defaultPath);
 		
 		/*change 'reports stored path' to a not exist path*/
-	    this.typeWordsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),locatorOfAllInputTags, notExistPath);
-	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),locatorOfAllInputTags, notExistPath,other.getString("audit.conf.reportsStoredPath.notExistPath.statusIcon"));
+	    this.typeWordsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),other.getString("audit.conf.reportsStoredPath.input"), notExistPath);
+	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),other.getString("audit.conf.reportsStoredPath.input"), notExistPath,other.getString("audit.conf.reportsStoredPath.notExistPath.statusIcon"));
 	    
 	    this.waitForElementPresent("//div[contains(text(),'Audit (')]/parent::div/following-sibling::div//table//div[text()='Reports stored path']/parent::td/following-sibling::" +
 	    		"td//div[text()='Path does not exist']", WAIT_TIME);
 	    
 	    /*change 'reports stored path' to incipient path*/
-	    this.typeWordsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),locatorOfAllInputTags, defaultPath);
-	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),locatorOfAllInputTags, defaultPath,other.getString("audit.conf.reportsStoredPath.statusIcon"));
+	    this.typeWordsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),other.getString("audit.conf.reportsStoredPath.input"), defaultPath);
+	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),other.getString("audit.conf.reportsStoredPath.input"), defaultPath,other.getString("audit.conf.reportsStoredPath.statusIcon"));
 	}
 	
 }
