@@ -18,7 +18,6 @@ import java.net.URISyntaxException;
 import junit.framework.Assert;
 
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,12 +32,10 @@ public class ImportLowBuildConnectionTest extends TalendSwtBotForTos {
 
     private TalendDBItem dbItem;
 
-    private SWTBotShell shell;
-
     @Before
     public void importConnection() throws IOException, URISyntaxException {
         gefBot.toolbarButtonWithTooltip("Import Items").click();
-        shell = gefBot.shell("Import items").activate();
+        gefBot.shell("Import items").activate();
         gefBot.radio("Select archive file:").click();
         gefBot.text(1).setText(Utilities.getFileFromCurrentPluginSampleFolder("mysql_conn.zip").getAbsolutePath());
         gefBot.tree().setFocus();
@@ -59,7 +56,7 @@ public class ImportLowBuildConnectionTest extends TalendSwtBotForTos {
                 return "item did not import";
             }
         });
-        SWTBotTreeItem item = dbItem.getParentNode().expand().getNode(0);
+        SWTBotTreeItem item = dbItem.getParentNode().expand().getNode("old_mysql 0.1");
         dbItem.setItem(item);
         dbItem.setDbType(Utilities.DbConnectionType.MYSQL);
 
