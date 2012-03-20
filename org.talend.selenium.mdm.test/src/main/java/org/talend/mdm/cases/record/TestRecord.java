@@ -30,5 +30,9 @@ public class TestRecord extends Login {
 	public void testUpdateRecord(String container,String modle,String entity,String subelement,String name,String age) {
 		recordImpl.updateRecordImpl(container, modle, entity, subelement, name, age);
 	}
-	
+	@Test
+	@Parameters( { "container","modle","entity","searchFeild", "opeartion", "value" })
+	public void testSearchRecordByValue(String container,String modle,String entity,String searchFeild,String opeartion,String value) {
+		recordImpl.SearchRecordByValueImpl(container, modle, entity, searchFeild,opeartion,value);
+	}
 }

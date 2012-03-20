@@ -21,4 +21,7 @@ public class RecordImpl extends Record{
 	public void updateRecordImpl(String container,String modle,String entity,String subelement,String name,String age){
 		this.updateRecord(container, modle, entity, subelement, name, age);
 	}
+	public void SearchRecordByValueImpl(String container,String modle,String entity,String searchFeild,String opeartion,String value){
+		this.searchRecordByValue(container, modle, entity, searchFeild,opeartion,value);
+	}
 }

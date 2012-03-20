@@ -5,29 +5,10 @@
 <!-- 	<parameter name="user.name" value="administrator" /> -->
 <!-- 	<parameter name="user.password" value="administrator" /> -->
 <!-- 	<parameter name="message" value="User 'administrator' is already logged in another session!" /> -->
-    
-<!--     <test name="record">
-	    <classes>	
-	        <parameter name="entity" value="boss" />
-  			<parameter name="subelement" value="62" />  			
-  			<parameter name="name" value="N" />
-  			<parameter name="age" value="20" />			
-		    <class name="org.talend.mdm.cases.record.TestRecord">
-				<methods>
-				  <method>		           
-		           <include name="testCreateRecord"/>		       
-		        </method>	
-		          <method>		           
-		           <include name="testDeleteRecord"/>		       
-		        </method>     
-		      </methods>
-		    </class>
-	    </classes>
-  </test> -->
- <!-- <test name="create a record">
-	    <classes>	
-	        <parameter name="entity" value="boss" />
-  			<parameter name="subelement" value="62" />  			
+        <parameter name="entity" value="boss" />
+  		<parameter name="subelement" value="65" />  
+<!--  <test name="create a record">
+	    <classes>	 			
   			<parameter name="name" value="N" />
   			<parameter name="age" value="20" />			
 		    <class name="org.talend.mdm.cases.record.TestRecord">
@@ -36,13 +17,11 @@
 		        </methods>
 		    </class>
 	    </classes>
-  </test>   -->
+  </test>  
     
-<test name="update a record">
-	    <classes>	
-	        <parameter name="entity" value="boss" />
-  			<parameter name="subelement" value="62" />  			
-  			<parameter name="name" value="update3" />
+ <test name="update a record">
+	    <classes>			
+  			<parameter name="name" value="update5" />
   			<parameter name="age" value="90" />			
 		    <class name="org.talend.mdm.cases.record.TestRecord">
 				<methods> 
@@ -50,15 +29,25 @@
 		        </methods>
 		    </class>
 	    </classes>
-  </test>
-  
-  
- <!--  <test name="delete a record">
+  </test> -->
+    
+   <test name="search records">
 	    <classes>	
 	        <parameter name="entity" value="boss" />
-  			<parameter name="subelement" value="62" />  			
-  			<parameter name="name" value="N" />
-  			<parameter name="age" value="20" />			
+	        <parameter name="searchFeild" value="Age" />
+	        <parameter name="opeartion" value="is greater than" />
+  			<parameter name="value" value="24" />			
+		    <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 
+		           <include name="testSearchRecordByValue"/> 
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
+  
+<!--     
+  <test name="delete a record">
+	    <classes>
 		    <class name="org.talend.mdm.cases.record.TestRecord">
 				<methods> 
 		           <include name="testDeleteRecord"/> 
