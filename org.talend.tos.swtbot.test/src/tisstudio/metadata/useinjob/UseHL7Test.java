@@ -61,7 +61,6 @@ public class UseHL7Test extends TalendSwtBotForTos {
     public void useMetadataInJob() throws IOException, URISyntaxException {
         TalendHL7Item hl7Item = new TalendHL7Item();
         hl7Item.setItem(metadataItem);
-        hl7Item.setComponentType("tHL7Input");
         MetadataHelper.output2Console(jobEditor, hl7Item, "row_MSH_1");
 
         String result = gefBot.styledText().getText();
