@@ -69,7 +69,8 @@ public class ChangeDbConnectionForCDCTest extends TalendSwtBotForTos {
     @Test
     public void changeDbConnectionForCDCTest() {
         isSubscriberCreated = dbItem1.createCDC(dbItem2);
-        dbItem1.editCDC(dbItem3);
+        if (dbItem1.editCDC(dbItem3))
+            isSubscriberCreated = false;
 
         String defaultProperty = System.getProperty("mysql.dataBase");
         System.setProperty("mysql.dataBase", DATABASE);
