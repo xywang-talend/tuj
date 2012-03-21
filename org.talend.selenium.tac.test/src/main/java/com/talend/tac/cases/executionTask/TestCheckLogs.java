@@ -277,7 +277,7 @@ public class TestCheckLogs extends TaskUtils {
 	}
 	
 	//check generated big logs if normal
-//	@Test
+	@Test
 	@Parameters({"TaskWithJobOfGenerateBigLogs","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameOfgenerateBigLogs","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled", "firefox.download.path"})
 	public void testDownloadBiglogsAndCheckIt (String label, String labelDescription,String commonpro,String trunk,String jobName,
