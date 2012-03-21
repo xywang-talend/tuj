@@ -34,7 +34,7 @@ public class DuplicateSalesforceTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-        repositories.add(ERepositoryObjectType.METADATA_SAPCONNECTIONS);
+        repositories.add(ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA);
         salesforceItem = new TalendSalesforceItem(SALESFORCENAME);
         salesforceItem.create();
     }
