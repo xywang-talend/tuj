@@ -34,22 +34,22 @@ public class Authorization extends WebDriverBase {
 		
 	}
 	
-	public void authorization(String user_name, String project, String user_info){
-		WebElement user = getElementByXpath("//div[text()='"+user_name+"']");
-		WebElement projectUser = getElementByXpath("//span[text()='"+project+"']");
+	public void authorization(String userName, String project, String userInfo){
+		WebElement user = getElementByXpath("//div[text()='"+userName+"']");
+		WebElement projectUser = getElementByXpath("//span[text()='Projects']//ancestor::div[contains(@class,'x-small-editor x-panel-head')]//following-sibling::div//span[text()='"+project+"']");
 		dragAndDrop(user, projectUser);
-		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='"+project+"']//ancestor::div[contains(@class,'x-tree3-node')]//following-sibling::div//span[contains(text(),'"+user_info+"')]"), 10));
-		logger.info("Authorization project - '" + project + "'  to user '"+ user_name +"'");
+		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='"+project+"']//ancestor::div[contains(@class,'x-tree3-node')]//following-sibling::div//span[contains(text(),'"+userInfo+"')]"), 10));
+		logger.info("Authorization project - '" + project + "'  to user '"+ userName +"'");
 	}
 
 	
-	public void reAuthorization(String user_name, String project, String user_info){
-		WebElement user = getElementByXpath("//div[text()='"+user_name+"']");
+	public void reAuthorization(String userName, String project, String user_info){
+		WebElement user = getElementByXpath("//div[text()='"+userName+"']");
 		WebElement projectUser = getElementByXpath("//span[text()='"+project+"']");
 		dragAndDrop(user, projectUser);		
 		List l = this.getElementsByXpath("//span[text()='"+project+"']//ancestor::div[contains(@class,'x-tree3-el x-tree3-node-joint')]//following-sibling::div//span[contains(text(),'"+user_info+"')]");
 		Assert.assertEquals(1, l.size());
-		logger.info("Reauthorization project - '" + project + "'  to user '"+ user_name +"'");
+		logger.info("Reauthorization project - '" + project + "'  to user '"+ userName +"'");
 	}
 	
 	
