@@ -59,6 +59,8 @@ public class DataViewerOnFilesComponentsTest extends TalendSwtBotForTos {
     @Test
     public void testFileDataViewer() {
         SWTBotGefEditor jobEditor = jobItem.getEditor();
+
+        // drag component to job
         Utilities.dndPaletteToolOntoJob(jobEditor, "tRowGenerator", new Point(100, 100));
         SWTBotGefEditPart tRowGenerator = getTalendComponentPart(jobEditor, "tRowGenerator_1");
         Assert.assertNotNull("can not get component 'tRowGenerator_1'", tRowGenerator);
@@ -71,6 +73,7 @@ public class DataViewerOnFilesComponentsTest extends TalendSwtBotForTos {
         JobHelper.connect(jobEditor, tRowGenerator, delimitedFile);
         gefBot.button("Yes").click();
 
+        // set edit schema of tRowGenerator
         tRowGenerator.doubleClick();
 
         gefBot.shell(getBuildTitle() + " - tRowGenerator - tRowGenerator_1").activate();
@@ -93,12 +96,11 @@ public class DataViewerOnFilesComponentsTest extends TalendSwtBotForTos {
 
         gefBot.button("OK").click();
 
+        // run job
         JobHelper.runJob(JOBNAME);
 
-        jobEditor.select(delimitedFile).setFocus();
-        delimitedFile.click();
-        jobEditor.clickContextMenu("Data viewer");
-        gefBot.shell("Data Preview: tFileOutputDelimited_1").activate();
+        // data viewer
+        Utilities.dataView(jobItem, delimitedFile, metadataItem.getComponentType());
         String london = gefBot.tree().cell(0, 1);
         String england = gefBot.tree().cell(0, 2);
         Assert.assertEquals("the result is not the expected result", CONTENT, london + england);

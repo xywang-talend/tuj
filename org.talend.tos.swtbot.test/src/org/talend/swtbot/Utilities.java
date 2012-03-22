@@ -874,7 +874,7 @@ public class Utilities {
     /**
      * to set the value in the component view of all kinds of DB and test the data viewer
      * 
-     * @param gefEdiPart the specified DB
+     * @param dbItem the DB item
      * @param jobItem the job Item
      * @param expected the expected result
      * @param dbName the db name
@@ -889,13 +889,13 @@ public class Utilities {
         SWTBotGefEditPart gefEdiPart = swtbot.getTalendComponentPart(jobItem.getEditor(), dbItem.getItemName());
         Assert.assertNotNull("cann't get component " + dbItem.getComponentType() + "", gefEdiPart);
 
-        gefEdiPart.doubleClick();
+        gefEdiPart.click();
         gefBot.viewByTitle("Component").setFocus();
         SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
         // the id for text,default is 7
         int id = 7;
         // set the table name
-        if (componentType.equals("tMysqlInput")) {
+        if (componentType.equals("tMysqlInput") || componentType.equals("tMysqlSCD")) {
             id = 6;
         } else if (componentType.equals("tAS400Input") || componentType.equals("tTeradataInput")) {
             id = 5;
@@ -911,7 +911,12 @@ public class Utilities {
         }
 
         // edit schema
-        gefBot.button(3).click();
+        if (componentType.contains("SCD")) {
+            gefBot.button(5).click();
+        } else {
+            gefBot.button(3).click();
+        }
+
         gefBot.shell("Schema of " + dbName).activate();
         gefBot.buttonWithTooltip("Add").click();
         gefBot.table(0).click(0, 3);
@@ -931,15 +936,13 @@ public class Utilities {
         gefBot.table(0).select(1);
         gefBot.button("OK").click();
 
-        // guess query
-        gefBot.button("Guess Query").click();
+        if (componentType.contains("Input")) {
+            // guess query
+            gefBot.button("Guess Query").click();
+        }
 
         // dataviewer
-        jobItem.getEditor().select(gefEdiPart).setFocus();
-        gefEdiPart.click();
-        jobItem.getEditor().clickContextMenu("Data viewer");
-        gefBot.waitUntil(Conditions.shellIsActive("Data Preview: " + componentType + "_1"), 20000);
-        gefBot.shell("Data Preview: " + componentType + "_1").activate();
+        dataView(jobItem, gefEdiPart, componentType);
 
         if (componentType.equals("tTeradataInput")) {
             int result = gefBot.tree().rowCount();
@@ -950,6 +953,22 @@ public class Utilities {
             Assert.assertEquals("the result is not the expected result", expected, result1 + result2);
         }
 
+    }
+
+    /**
+     * data viewer of metadataItem
+     * 
+     * @param jobItem the job Item
+     * @param gefEditPart the specified SWTBoTGefEditPart
+     * @param componentType the type of component
+     */
+
+    public static void dataView(TalendJobItem jobItem, SWTBotGefEditPart gefEditPart, String componentType) {
+        jobItem.getEditor().select(gefEditPart).setFocus();
+        gefEditPart.click();
+        jobItem.getEditor().clickContextMenu("Data viewer");
+        gefBot.waitUntil(Conditions.shellIsActive("Data Preview: " + componentType + "_1"), 20000);
+        gefBot.shell("Data Preview: " + componentType + "_1").activate();
     }
 
 }

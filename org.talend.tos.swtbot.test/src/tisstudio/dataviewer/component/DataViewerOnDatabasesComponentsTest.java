@@ -19,7 +19,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -95,12 +94,10 @@ public class DataViewerOnDatabasesComponentsTest extends TalendSwtBotForTos {
 
         JobHelper.connect(jobEditor1, dfile, table);
         gefBot.button("Yes").click();
+        // run job
         JobHelper.runJob(OUTPUTJOBNAME);
-        jobEditor1.select(table).setFocus();
-        table.click();
-        jobEditor1.clickContextMenu("Data viewer");
-        gefBot.waitUntil(Conditions.shellIsActive("Data Preview: tMysqlOutput_1"), 20000);
-        gefBot.shell("Data Preview: tMysqlOutput_1").activate();
+        // data viewer
+        Utilities.dataView(jobItem1, table, schema.getComponentType());
         int out = gefBot.tree().rowCount();
         Assert.assertEquals("didn't show the data viewer", 12, out);
         gefBot.button("Close").click();
@@ -115,11 +112,8 @@ public class DataViewerOnDatabasesComponentsTest extends TalendSwtBotForTos {
         JobHelper.runJob(INPUTJOBNAME);
         String result = JobHelper.execResultFilter(JobHelper.getExecutionResult());
         Assert.assertEquals("the result is not the expected", JobHelper.getExpectResultFromFile(FILENAME), result);
-        jobItem2.getEditor().select(tab).setFocus();
-        tab.click();
-        jobEditor1.clickContextMenu("Data viewer");
-        gefBot.waitUntil(Conditions.shellIsActive("Data Preview: tMysqlOutput_1"), 20000);
-        gefBot.shell("Data Preview: tMysqlInput_1").activate();
+        // data viewer
+        Utilities.dataView(jobItem2, tab, schema.getComponentType());
         int in = gefBot.tree().rowCount();
         Assert.assertEquals("didn't show the data viewer", 12, in);
         gefBot.button("Close").click();

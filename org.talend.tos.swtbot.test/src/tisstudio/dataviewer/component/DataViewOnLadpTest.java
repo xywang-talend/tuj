@@ -58,6 +58,7 @@ public class DataViewOnLadpTest extends TalendSwtBotForTos {
         ldapItem.setComponentType("tLDAPInput");
         Utilities.dndMetadataOntoJob(jobItem.getEditor(), ldapItem.getItem(), ldapItem.getComponentType(), new Point(100, 100));
         SWTBotGefEditPart ldap = getTalendComponentPart(jobItem.getEditor(), METADATA_NAME);
+        Assert.assertNotNull("cann't get component " + ldapItem.getComponentType() + "", ldap);
         jobItem.getEditor().select(ldap).setFocus();
         ldap.click();
         jobItem.getEditor().clickContextMenu("Data viewer");
