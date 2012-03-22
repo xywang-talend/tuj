@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+    
+    <!-- common parameters --> 
+	<parameter name="type.DI" value="Data Integration"/>
+	<parameter name="type.DQ" value="Data Quality"/>
+	<parameter name="type.MDM" value="Master Data Management"/>
+	<parameter name="spacepro.info" value="project space - trunk"/>
+	<parameter name="ref.pro.info" value="referencepro - trunk"/>	
+	<parameter name="branch" value="branch"/>
+	<parameter name="trunk" value="trunk"/>
+    <!-- common parameters -->
+
+	<test name="reference01_testReference" preserve-order="true">
+	    <!-- simple reference  -->	
+	    <parameter name="comm.pro.trunk" value="commonpro - trunk"/>
+	    <!-- simple reference  -->	
+	    <parameter name="testlinkID" value="TDIQA-372"/>
+		<classes>
+			<class name="org.talend.tac.cases.reference.TestProjectReference">
+				<methods>
+					<include name="testReference" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="reference02_testCycleReferenceproRestriction" preserve-order="true">
+	    <!-- cycle reference --> 
+	    <parameter name="cycle.ref.pro1" value="cycleRefPro1"/>  
+	    <parameter name="cycle.ref.pro2" value="cycleRefPro2"/>  
+	    <parameter name="cycle.ref.pro3" value="cycleRefPro3"/>
+	    <parameter name="cycle.ref.pro1.info" value="cycleRefPro1 - trunk"/>
+	    <parameter name="cycle.ref.pro2.info" value="cycleRefPro2 - trunk"/>
+	    <parameter name="cycle.ref.pro3.info" value="cycleRefPro3 - trunk"/>
+	    <!-- cycle reference --> 
+	    <parameter name="testlinkID" value="TDIQA-376"/>
+		<classes>
+			<class name="org.talend.tac.cases.reference.TestProjectReference">
+				<methods>
+					<include name="testCycleReferenceproRestriction"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="reference03_testRemoveReference" preserve-order="true">
+	    <!-- remove reference --> 
+	    <parameter name="remove.ref.pro1" value="removeRefPro1"/>
+	    <parameter name="remove.ref.pro1.info" value="removeRefPro1 - trunk"/>
+	    <!-- remove reference --> 
+	    <parameter name="testlinkID" value="TDIQA-382"/>
+		<classes>
+			<class name="org.talend.tac.cases.reference.TestProjectReference">
+				<methods>
+					<include name="testRemoveReference"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="reference04_testRetrievePeoject" preserve-order="true">
+	    <!-- remove reference  -->
+	    <parameter name="retrieve.ref.pro1" value="retrieveRefPro1"/>
+	    <parameter name="retrieve.ref.pro1.info" value="retrieveRefPro1 - trunk"/>
+	    <!-- remove reference  -->
+	    <parameter name="testlinkID" value="TDIQA-378"/>
+		<classes>
+			<class name="org.talend.tac.cases.reference.TestProjectReference">
+				<methods>
+					<include name="testRetrievePeoject"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<!--<test name="reference05_testDeleteRefProDisplay" preserve-order="true">
+	     remove reference  
+	    <parameter name="delete.ref.pro1" value="delRefPro1"/>
+	    <parameter name="del.ref.pro1.info" value="delRefPro1 - trunk"/>
+	     remove reference  
+	    <parameter name="testlinkID" value="TDIQA-5344"/>
+		<classes>
+			<class name="org.talend.tac.cases.reference.TestProjectReference">
+				<methods>
+					<include name="testDeleteRefProDisplay"/>
+				</methods>
+			</class>
+		</classes>
+	</test>		
+	
+--></suite>
+
