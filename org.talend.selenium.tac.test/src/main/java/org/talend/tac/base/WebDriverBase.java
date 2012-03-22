@@ -26,6 +26,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver.Window;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.IClass;
 import org.testng.ITestContext;
@@ -64,15 +65,10 @@ public class WebDriverBase {
 		 WebDriverWait wait = new WebDriverWait(driver, timeout);
 
 		 try {
-			element = wait.until((new Function<WebDriver, WebElement>() {
-			    public WebElement apply(WebDriver webDriver) {
-			    	WebElement wElement = webDriver.findElement(by);
-			        if (wElement != null) {
-			            return wElement;
-			        }
-			        return null;
-			    }
-			}));
+			 element = wait.until(new ExpectedCondition<WebElement>(){
+				    public WebElement apply(WebDriver d) {
+				     return d.findElement(by);
+				    }});
 		} catch (Exception e) {
 			System.out.println("Couldn't find the element - " + by);
 		}
@@ -109,7 +105,7 @@ public class WebDriverBase {
 	}
 	
 	public boolean isElementPresent(By by, int timeout) {
-		if(this.waitfor(by, WAIT_TIME_MIN) == null) {
+		if(this.waitfor(by, timeout) == null) {
 			return false;
 		} else {
 			return true;
@@ -249,6 +245,7 @@ public class WebDriverBase {
 	}
 	
 	public void dragAndDrop(WebElement source, WebElement target){
+		logger.info("click and on hold referecepro");
 		this.clickAndOnHold(source);
 		try {
 			Thread.sleep(1000);
@@ -256,6 +253,7 @@ public class WebDriverBase {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		logger.info("move refpro to commpro-trunk");
 		this.moveToElement(target);
 		try {
 			Thread.sleep(1000);
@@ -484,4 +482,22 @@ public class WebDriverBase {
 			return this.getString(locator, key, new String[] { param });
 		}
 	}
+	
+	public void selectDropDownList(String id, String value) {
+        
+        if(getElementByXpath("//span[text()='Select Feature from Talend repository']").isDisplayed()) {
+         
+               getElementByXpath("//span[text()='Select Feature from Talend repository']//ancestor::div[@class='x-window-tl']//following-sibling::div//input[@id='"+id+"']//following-sibling::div[contains(@class,'x-form-trigger x-form-trigger-arrow')]").click();
+               getElementByXpath("//div[text()='"+value+"']").click();
+         
+        } else {
+         
+        	   getElementByXpath("//input[@id='"+id+"']//following-sibling::div").click();
+               getElementByXpath("//div[text()='"+value+"']").click();
+         
+        }
+        
+        
+       }
+	
 }
