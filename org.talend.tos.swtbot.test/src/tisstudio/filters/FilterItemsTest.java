@@ -71,8 +71,8 @@ public class FilterItemsTest extends TalendSwtBotForTos {
         tempShell = gefBot.shell("Repository Filter").activate();
         try {
             for (TalendItemType itemType : TalendItemType.values()) {
-                if (TalendItemType.ROUTINES.equals(itemType) || TalendItemType.RECYCLE_BIN.equals(itemType))
-                    continue; // undo with routine and recycle bin
+                if (TalendItemType.RECYCLE_BIN.equals(itemType))
+                    continue; // undo wrecycle bin
                 tempTreeNode = Utilities.getTalendItemNode(gefBot.tree(0), itemType);
                 tempTreeNode.uncheck();
             }
