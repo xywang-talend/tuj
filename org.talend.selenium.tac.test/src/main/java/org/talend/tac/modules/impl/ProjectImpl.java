@@ -34,4 +34,18 @@ public class ProjectImpl extends Project {
 		
 	}
 	
+	public void addBranchProjectImpl(String project, String branchName) {
+		
+		this.gotoProject();
+		this.addBranch(project, branchName);
+		
+	}
+	
+	public void deleteBranchProjectImpl(String project, String branchName) {
+		
+		this.gotoProject();
+		this.deleteBranch(project, branchName);
+		
+	}
+	
 }

@@ -18,7 +18,7 @@ public class ReferenceImpl extends Reference {
 	public void referenceImpl(String source, String target, String refInfo) {
 		
 		this.gotoReferencePage();
-		this.reference(source, target, refInfo, 2);
+		this.reference(source, target, refInfo, 2, "trunk");
 	}
 	
 	public void cycleRestrictionReferenceproImpl(String type, int commonReference, 
@@ -29,8 +29,8 @@ public class ReferenceImpl extends Reference {
 		projectIml.addProjectImpl(cycleRefPro2, type, commonReference);
 		projectIml.addProjectImpl(cycleRefPro3, type, commonReference);
 		this.gotoReferencePage();
-		this.reference(cycleRefPro1, cycleRefPro2Info, cycleRefPro1Info, 2);
-		this.reference(cycleRefPro2, cycleRefPro3Info, cycleRefPro2Info, 2);
+		this.reference(cycleRefPro1, cycleRefPro2Info, cycleRefPro1Info, 2, "trunk");
+		this.reference(cycleRefPro2, cycleRefPro3Info, cycleRefPro2Info, 2, "trunk");
 		this.failedReference(cycleRefPro3, cycleRefPro1Info, cycleRefPro3Info, 2);
 		this.removeReference(cycleRefPro2Info, cycleRefPro1Info, 2);
 		this.removeReference(cycleRefPro3Info, cycleRefPro2Info, 2);
@@ -45,7 +45,7 @@ public class ReferenceImpl extends Reference {
 		
 		projectIml.addProjectImpl(projectLabel, type, commonReference);
 		this.gotoReferencePage();
-		this.reference(source, target, refInfo, 2);
+		this.reference(source, target, refInfo, 2, "trunk");
 		this.removeReference(target, refInfo, 2);
 		projectIml.deleteProjectImpl(projectLabel);
 		
@@ -60,9 +60,9 @@ public class ReferenceImpl extends Reference {
 		this.gotoReferencePage();
 		this.checkRefProDisplay(projectLabel, branch, projectLabelType);
 		this.checkRefProDisplay(refPro, refProBranch, refProType);
-		this.reference(projectLabel, spaceproTarget, refproLabelInfo1, 2);
-		this.reference(refPro, spaceproTarget, refproInfo2, 2);
-		this.reference(refPro, refproLabelInfo1, refproInfo2, 2);
+		this.reference(projectLabel, spaceproTarget, refproLabelInfo1, 2, "trunk");
+		this.reference(refPro, spaceproTarget, refproInfo2, 2, "trunk");
+		this.reference(refPro, refproLabelInfo1, refproInfo2, 2, "trunk");
 		this.removeReference(refproLabelInfo1, refproInfo2, 2);
 		this.removeReference(spaceproTarget, refproLabelInfo1, 2);
 		this.removeReference(spaceproTarget, refproInfo2, 2);
@@ -76,11 +76,41 @@ public class ReferenceImpl extends Reference {
 		
 		projectIml.addProjectImpl(projectLabel, type, commonReference);
 		this.gotoReferencePage();
-		this.reference(source, target, refInfo, nodeLevel);
+		this.reference(source, target, refInfo, nodeLevel, "trunk");
 		projectIml.failedDeleteProjectImpl(projectLabel, rb.getString("project.error.referenced"));
 		this.gotoReferencePage();
 		this.removeReference(target, refInfo, nodeLevel);
 		projectIml.deleteProjectImpl(projectLabel);
+		
+	}
+	
+
+	public void referenceBranchToTrunkReferenceImpl(String sourePro, String branchName, String targetPro, 
+			String refInfo) {		
+		
+		projectIml.addBranchProjectImpl(sourePro, branchName);		
+		this.gotoReferencePage();		
+		this.reference(sourePro, targetPro, refInfo, 2, "branch");
+		this.removeReference(targetPro, refInfo, 2);
+		
+	}
+
+	public void referenceBranchToBranchReferenceImpl(String sourePro, String branchName, String targetPro, 
+			String refInfo) {		
+			
+		this.gotoReferencePage();		
+		this.reference(sourePro, targetPro, refInfo, 2, "branch");
+		this.removeReference(targetPro, refInfo, 2);
+		
+	}	
+
+	public void referenceTrunkToBranchReferenceImpl(String sourePro, String branchName, String targetPro, 
+			String refInfo) {		
+			
+		this.gotoReferencePage();		
+		this.reference(sourePro, targetPro, refInfo, 2, branchName);
+		this.removeReference(targetPro, refInfo, 2);
+		projectIml.deleteBranchProjectImpl(sourePro, "branch");
 		
 	}
 	
