@@ -6,7 +6,9 @@
 	<parameter name="type.DQ" value="Data Quality"/>
 	<parameter name="type.MDM" value="Master Data Management"/>
 	<parameter name="spacepro.info" value="project space - trunk"/>
-	<parameter name="ref.pro.info" value="referencepro - trunk"/>	
+	<parameter name="ref.pro.info" value="referencepro - trunk"/>
+	<parameter name="refbranch.pro.info" value="referencepro - branch"/>
+	<parameter name="commbranch.pro.info" value="commonpro - test_branch"/>	
 	<parameter name="branch" value="branch"/>
 	<parameter name="trunk" value="trunk"/>
     <!-- common parameters -->
@@ -74,11 +76,10 @@
 		</classes>
 	</test>
 	
-	<!--<test name="reference05_testDeleteRefProDisplay" preserve-order="true">
-	     remove reference  
+	<test name="reference05_testDeleteRefProDisplay" preserve-order="true">
+	      
 	    <parameter name="delete.ref.pro1" value="delRefPro1"/>
 	    <parameter name="del.ref.pro1.info" value="delRefPro1 - trunk"/>
-	     remove reference  
 	    <parameter name="testlinkID" value="TDIQA-5344"/>
 		<classes>
 			<class name="org.talend.tac.cases.reference.TestProjectReference">
@@ -87,7 +88,40 @@
 				</methods>
 			</class>
 		</classes>
-	</test>		
+	</test>
+
+	<test name="reference06_testRefBranchToTrunk" preserve-order="true">
+	    <parameter name="testlinkID" value="QAI-2816"/>
+		<classes>
+			<class name="org.talend.tac.cases.reference.TestProjectReference">
+				<methods>
+				    <include name="testRefBranchToTrunk"/>
+				</methods>
+			</class>
+		</classes>
+	</test>	
+				
+	<test name="reference07_testRefBranchToTrunk" preserve-order="true">
+	    <parameter name="testlinkID" value="TDIQA-5851"/>
+		<classes>
+			<class name="org.talend.tac.cases.reference.TestProjectReference">
+				<methods>
+				    <include name="testRefBranchToBranch"/>					
+				</methods>
+			</class>
+		</classes>
+	</test>
 	
---></suite>
+	<test name="reference8_testRefBranchToTrunk" preserve-order="true">
+	    <parameter name="testlinkID" value="QAI-5852"/>
+		<classes>
+			<class name="org.talend.tac.cases.reference.TestProjectReference">
+				<methods>
+				    <include name="testRefTrunkToBranch"/>					
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+</suite>
 
