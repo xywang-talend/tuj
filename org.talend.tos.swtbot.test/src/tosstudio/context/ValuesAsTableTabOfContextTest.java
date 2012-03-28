@@ -88,11 +88,11 @@ public class ValuesAsTableTabOfContextTest extends TalendSwtBotForTos {
         gefBot.cTabItem("Variables").activate();
         gefBot.button(0).click();
         gefBot.cTabItem("Values as table").activate();
-        SWTBotTreeItemExt treeItemExt = new SWTBotTreeItemExt(gefBot.tree(0).getTreeItem("new1"));
+        SWTBotTreeItemExt treeItemExt = new SWTBotTreeItemExt(gefBot.tree(0).getTreeItem("new1").select());
         treeItemExt.click(1);
         gefBot.text().setText(builtValue);
         treeItemExt.click(0);
-        String value = gefBot.tree(0).getTreeItem("new1").cell(1);
+        String value = treeItemExt.cell(1);
         Assert.assertEquals("is unable to fixed the data of built-in type context", builtValue, value);
     }
 

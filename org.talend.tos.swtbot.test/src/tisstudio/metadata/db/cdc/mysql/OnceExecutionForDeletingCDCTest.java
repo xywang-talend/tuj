@@ -45,7 +45,7 @@ public class OnceExecutionForDeletingCDCTest extends TalendSwtBotForTos {
 
     @Test
     public void onceExecutionForDeletingCDCTest() {
-        isSubscriberCreated = dbItem.createCDC(copy_of_dbItem);
+        isSubscriberCreated = dbItem.createCDCWith(copy_of_dbItem);
         dbItem.getCDCFoundation().contextMenu("Delete CDC").click();
         gefBot.shell("Create Subscriber and Execute SQL Script").activate();
         gefBot.button("Execute").click();

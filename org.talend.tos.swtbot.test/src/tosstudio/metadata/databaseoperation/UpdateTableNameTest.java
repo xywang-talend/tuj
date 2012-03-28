@@ -39,6 +39,8 @@ public class UpdateTableNameTest extends TalendSwtBotForTos {
 
     private static String NEW_TABLE_NAME = "newtest";
 
+    private boolean isNewTableCreated = false;
+
     @Before
     public void createMetadata() {
         repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
@@ -56,6 +58,7 @@ public class UpdateTableNameTest extends TalendSwtBotForTos {
 
         String sql = "ALTER TABLE " + TABLE_NAME + " RENAME TO " + NEW_TABLE_NAME;
         dbItem.executeSQL(sql);
+        isNewTableCreated = true;
         dbItem.retrieveDbSchema(NEW_TABLE_NAME);
         TalendSchemaItem newSchema = dbItem.getSchema(NEW_TABLE_NAME);
         Assert.assertNotNull("schema did not retrieved", newSchema.getItem());
@@ -65,6 +68,8 @@ public class UpdateTableNameTest extends TalendSwtBotForTos {
     @After
     public void removePreviousCreateItem() {
         String sql = "drop table " + NEW_TABLE_NAME;
+        if (!isNewTableCreated)
+            sql = "drop table " + TABLE_NAME;
         dbItem.executeSQL(sql);
     }
 }

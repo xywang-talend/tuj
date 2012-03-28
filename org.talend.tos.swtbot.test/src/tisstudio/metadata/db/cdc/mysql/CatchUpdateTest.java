@@ -15,7 +15,8 @@ package tisstudio.metadata.db.cdc.mysql;
 import junit.framework.Assert;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +30,7 @@ import org.talend.swtbot.items.TalendDBItem;
  * DOC fzhong class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class AddCDCToTableWithoutPrimaryKeyTest extends TalendSwtBotForTos {
+public class CatchUpdateTest extends TalendSwtBotForTos {
 
     private TalendDBItem dbItem, copy_of_dbItem;
 
@@ -39,40 +40,48 @@ public class AddCDCToTableWithoutPrimaryKeyTest extends TalendSwtBotForTos {
 
     private boolean isTableCreated = false;
 
-    private boolean isSubscriberCreated = false;
-
     @Before
     public void createDb() {
         repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
         dbItem = new TalendDBItem(DB_NAME, DbConnectionType.MYSQL);
         dbItem.create();
         copy_of_dbItem = (TalendDBItem) dbItem.copyAndPaste();
-        dbItem.executeSQL("create table " + TABLE_NAME + "(id int, name varchar(20));");
-        isTableCreated = true;
+        isTableCreated = dbItem.executeSQL("create table " + TABLE_NAME + "(id int, name varchar(20), primary key(id));");
         dbItem.retrieveDbSchema(TABLE_NAME);
     }
 
     @Test
-    public void addCDCToTableWithoutPrimaryKeyTest() {
-        isSubscriberCreated = dbItem.createCDCWith(copy_of_dbItem);
-        dbItem.getSchema(TABLE_NAME).getItem().contextMenu("add CDC").click();
-        try {
-            gefBot.shell("Add CDC").activate();
-            Assert.assertEquals("did not alert for no primary key", "Selected table has no primary key", gefBot.label(1)
-                    .getText());
-        } catch (TimeoutException e) {
-            Assert.fail("did not pop up alert dialog for no primary key");
+    public void catchUpdateTest() {
+        dbItem.createCDCWith(copy_of_dbItem);
+        dbItem.addCDCFor(TABLE_NAME, false, true, false);
+
+        String sql_i = "insert into " + TABLE_NAME + " values(1, 'a');\n";
+        String sql_u = "update " + TABLE_NAME + " set name='b' where id=1;\n";
+        String sql_d = "delete from " + TABLE_NAME + " where id=1;\n";
+        dbItem.executeSQL(sql_i + sql_u + sql_d);
+
+        SWTBotShell shell = dbItem.viewAllChangesFor(TABLE_NAME);
+        SWTBotTable table = gefBot.table();
+        String events = null;
+        for (int i = 0; i < table.rowCount(); i++) {
+            String event = table.cell(i, "TALEND_CDC_TYPE");
+            if (!"U".equals(event)) {
+                if (events == null)
+                    events = "";
+                events = event + ".";
+            }
         }
-        gefBot.button("OK").click();
+        shell.close();
+
+        Assert.assertNull("catch other events [" + events + "] besides insert", events);
     }
 
     @After
     public void cleanUp() {
+        dbItem.deleteCDC();
         String sql = "";
         if (isTableCreated)
             sql = sql + "drop table " + TABLE_NAME + ";\n";
-        if (isSubscriberCreated)
-            sql = sql + "drop table tsubscribers;\n";
         dbItem.executeSQL(sql);
     }
 }

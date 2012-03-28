@@ -54,8 +54,8 @@ public class AddCDCToTableWithPrimaryKeyTest extends TalendSwtBotForTos {
 
     @Test
     public void addCDCToTableWithPrimaryKeyTest() {
-        dbItem.createCDC(copy_of_dbItem);
-        dbItem.addCDC(TABLE_NAME);
+        dbItem.createCDCWith(copy_of_dbItem);
+        dbItem.addCDCFor(TABLE_NAME);
 
         copy_of_dbItem.retrieveDbSchema(TSUBSCRIBERS, TCDC_TABLE);
         Assert.assertNotNull("schema" + TSUBSCRIBERS + " did not create in new database", copy_of_dbItem.getSchema(TSUBSCRIBERS));

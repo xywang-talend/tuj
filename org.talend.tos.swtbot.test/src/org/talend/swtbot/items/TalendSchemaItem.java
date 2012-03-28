@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
-import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 
 /**
@@ -21,14 +21,31 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 public class TalendSchemaItem extends TalendMetadataItem {
 
     /**
+     * get the actived shell after click context menu of schema
+     * 
+     * @return shell of context menu
+     */
+    private SWTBotShell activeShellOfContextMenu(String contextMenu, String shellTitle) {
+        getItem().contextMenu(contextMenu).click();
+        gefBot.waitUntil(Conditions.shellIsActive(shellTitle), 30000);
+        return gefBot.shell(shellTitle).activate();
+    }
+
+    /**
      * Right click schema and click 'Edit Schema'.
      * 
      * @return shell of 'Edit Schema'
      */
     public SWTBotShell editSchema() {
-        SWTBotShell shell;
-        getItem().contextMenu("Edit Schema").click();
-        shell = new SWTGefBot().shell("Schema");
-        return shell;
+        return activeShellOfContextMenu("Edit Schema", "Schema");
+    }
+
+    /**
+     * Right click schema and click 'Data Viewer'/
+     * 
+     * @return shell of 'Data Viewer'
+     */
+    public SWTBotShell dataViewer() {
+        return activeShellOfContextMenu("Data Viewer", "Data Preview: ");
     }
 }

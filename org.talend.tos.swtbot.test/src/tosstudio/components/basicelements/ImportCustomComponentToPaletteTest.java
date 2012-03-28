@@ -78,7 +78,8 @@ public class ImportCustomComponentToPaletteTest extends TalendSwtBotForTos {
         gefBot.button("OK").click();
 
         Utilities.dndPaletteToolOntoJob(jobItem.getEditor(), USER_COMPONENT_NAME, new Point(100, 100));
-        Assert.assertNotNull(getTalendComponentPart(jobItem.getEditor(), USER_COMPONENT_NAME + "_1"));
+        Assert.assertNotNull("could not find user component in palette",
+                getTalendComponentPart(jobItem.getEditor(), USER_COMPONENT_NAME + "_1"));
 
         // test copy user component in Component Designer
         gefBot.menu("Window").menu("Preferences").click();
@@ -101,7 +102,8 @@ public class ImportCustomComponentToPaletteTest extends TalendSwtBotForTos {
         }
         gefBot.button("OK").click();
 
-        Assert.assertNotNull(projectTree.getNode(USER_COMPONENT_NAME2));
+        Assert.assertNotNull("did not get the copy of user component in Component Designer",
+                projectTree.getNode(USER_COMPONENT_NAME2));
 
         // test push component to palette
         projectTree.getNode(USER_COMPONENT_NAME2).contextMenu("Push Components to Palette").click();
@@ -111,7 +113,8 @@ public class ImportCustomComponentToPaletteTest extends TalendSwtBotForTos {
         gefBot.menu("Window").menu("Perspective").menu("Integration").click();
 
         Utilities.dndPaletteToolOntoJob(jobItem.getEditor(), USER_COMPONENT_NAME2, new Point(300, 100));
-        Assert.assertNotNull(getTalendComponentPart(jobItem.getEditor(), USER_COMPONENT_NAME2 + "_1"));
+        Assert.assertNotNull("user component has not been pushed to palette",
+                getTalendComponentPart(jobItem.getEditor(), USER_COMPONENT_NAME2 + "_1"));
     }
 
     @After

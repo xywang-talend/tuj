@@ -53,7 +53,7 @@ public class CreateCDCTest extends TalendSwtBotForTos {
 
     @Test
     public void createCDCTest() {
-        isSubscriberCreated = dbItem.createCDC(copy_of_dbItem);
+        isSubscriberCreated = dbItem.createCDCWith(copy_of_dbItem);
 
         Assert.assertNotNull(dbItem.getCDCFoundation().expand().getNode("TSUBSCRIBERS"));
 

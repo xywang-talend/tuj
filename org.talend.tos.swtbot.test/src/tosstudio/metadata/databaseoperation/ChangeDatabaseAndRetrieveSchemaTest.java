@@ -66,9 +66,8 @@ public class ChangeDatabaseAndRetrieveSchemaTest extends TalendSwtBotForTos {
         gefBot.textWithLabel("DataBase").setText(DATABASE_NAME);
         gefBot.button("Finish").click();
         gefBot.shell("Confirm Reload Connection").activate();
-        gefBot.button("OK").click();
-        gefBot.shell("Modification").activate();
-        gefBot.button("No").click();
+        gefBot.button("Cancel").click();
+        gefBot.button("Finish").click();
 
         dbItem.getItem().contextMenu("Retrieve Schema").click();
         gefBot.shell("Schema").activate();

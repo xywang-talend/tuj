@@ -55,7 +55,7 @@ public class DeleteCDCTest extends TalendSwtBotForTos {
 
     @Test
     public void deleteCDCTest() {
-        isSubscriberCreated = dbItem.createCDC(copy_of_dbItem);
+        isSubscriberCreated = dbItem.createCDCWith(copy_of_dbItem);
         if (dbItem.deleteCDC())
             isSubscriberCreated = false;
 

@@ -17,7 +17,6 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
-import org.junit.Assert;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.Utilities.DbConnectionType;
 
@@ -188,41 +187,68 @@ public class TalendDBItem extends TalendMetadataItem {
             gefBot.textWithLabel("Additional parameters").setText(System.getProperty(db + ".additionalParameters"));
     }
 
-    public void executeSQL(String sql) {
-        if (sql == null || "".equals(sql))
-            return;
-        if (item == null)
-            Assert.fail("could not find item");
+    public boolean executeSQL(String sql) {
+        if (sql == null || "".equals(sql)) {
+            log.warn("sql is null");
+            return false;
+        }
+        if (item == null) {
+            log.warn("item is null");
+            return false;
+        }
+
         SWTBotShell shell = null;
+        item.contextMenu("Edit queries").click();
+
         long defaultTimeout = SWTBotPreferences.TIMEOUT;
         SWTBotPreferences.TIMEOUT = 100;
         try {
-            item.contextMenu("Edit queries").click();
-            try {
-                if (gefBot.shell("Choose context").isActive())
-                    gefBot.button("OK").click();
-            } catch (WidgetNotFoundException wnfe) {
-                // ignor this, means it's not context mode, did not pop up context confirm dialog
-            }
-            shell = gefBot.shell("SQL Builder [Repository Mode]").activate();
-            gefBot.styledText(0).setText(sql);
-            gefBot.toolbarButtonWithTooltip("Execute SQL (Ctrl+Enter)").click();
-
-            try {
-                gefBot.waitUntil(Conditions.shellIsActive("Error Executing SQL"), 10000);
+            if (gefBot.shell("Choose context").isActive())
                 gefBot.button("OK").click();
-                throw new Exception("execute sql fail [" + sql + "]");
-            } catch (TimeoutException e) {
-                // ignor this, means did not pop up error dialog, sql executed successfully.
-            }
         } catch (WidgetNotFoundException wnfe) {
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            Assert.fail(e.getMessage());
+            // ignor this, means it's not context mode, did not pop up context confirm dialog
         } finally {
-            shell.close();
             SWTBotPreferences.TIMEOUT = defaultTimeout;
         }
+        shell = gefBot.shell("SQL Builder [Repository Mode]").activate();
+
+        String[] sqls = sql.split(";");
+        for (String str : sqls) {
+            str = str.trim();
+            if ("".equals(str))
+                continue;
+            gefBot.styledText(0).setText(str);
+            gefBot.toolbarButtonWithTooltip("Execute SQL (Ctrl+Enter)").click();
+
+            SWTBotPreferences.TIMEOUT = 100;
+            try {
+                gefBot.waitUntil(Conditions.shellIsActive("Error Executing SQL"));
+                String errorLog = gefBot.label(1).getText();
+                if (errorLog.contains("Table") && errorLog.contains("already exists")) {
+                    String table = errorLog.split("'")[1];
+                    str = "drop table " + table + ";\n" + str;
+                }
+                if (errorLog.contains("database exists")) {
+                    String database = errorLog.split("'")[2];
+                    str = "drop database " + database + ";\n" + str;
+                }
+
+                if (errorLog.contains("Unknown table") && errorLog.contains("database doesn't exist")) {
+                    gefBot.button("OK").click();
+                } else {
+                    gefBot.button("OK").click();
+                    shell.activate();
+                    gefBot.styledText(0).setText(str);
+                    gefBot.toolbarButtonWithTooltip("Execute SQL (Ctrl+Enter)").click();
+                }
+            } catch (TimeoutException e) {
+                // ignor this, means execute sql successfully, did not pop up error dialog
+            } finally {
+                SWTBotPreferences.TIMEOUT = defaultTimeout;
+            }
+        }
+        shell.close();
+        return true;
     }
 
     public void retrieveDbSchema(String... schemas) {
@@ -325,12 +351,12 @@ public class TalendDBItem extends TalendMetadataItem {
         return isSubscriberCreated;
     }
 
-    public boolean createCDC(TalendDBItem linkConnection) {
+    public boolean createCDCWith(TalendDBItem linkConnection) {
         getItem().expand().getNode("CDC Foundation").contextMenu("Create CDC").click();
         return cdcWizard(linkConnection);
     }
 
-    public boolean editCDC(TalendDBItem linkConnection) {
+    public boolean editCDCWith(TalendDBItem linkConnection) {
         boolean isNewSubscriberCreated = false;
         boolean isOldSubscriberDeleted = false;
         getCDCFoundation().contextMenu("Edit CDC").click();
@@ -345,6 +371,8 @@ public class TalendDBItem extends TalendMetadataItem {
 
     public boolean deleteCDC() {
         boolean isSubscriberDeleted = false;
+        if (getCDCFoundation() == null)
+            return isSubscriberDeleted;
         getCDCFoundation().contextMenu("Delete CDC").click();
         gefBot.shell("Create Subscriber and Execute SQL Script").activate();
         gefBot.button("Execute").click();
@@ -362,8 +390,8 @@ public class TalendDBItem extends TalendMetadataItem {
      * @param schemaName the schema name which need to add CDC
      * @return
      */
-    public boolean addCDC(String schemaName) {
-        return addCDC(schemaName, null, true, true, true);
+    public boolean addCDCFor(String schemaName) {
+        return addCDCFor(schemaName, null, true, true, true);
     }
 
     /**
@@ -373,8 +401,8 @@ public class TalendDBItem extends TalendMetadataItem {
      * @param subscriberName the subscriber name
      * @return
      */
-    public boolean addCDC(String schemaName, String subscriberName) {
-        return addCDC(schemaName, subscriberName, true, true, true);
+    public boolean addCDCFor(String schemaName, String subscriberName) {
+        return addCDCFor(schemaName, subscriberName, true, true, true);
     }
 
     /**
@@ -386,8 +414,8 @@ public class TalendDBItem extends TalendMetadataItem {
      * @param catchDelete to catch delete event
      * @return
      */
-    public boolean addCDC(String schemaName, boolean catchInsert, boolean catchUpdate, boolean catchDelete) {
-        return addCDC(schemaName, null, catchInsert, catchUpdate, catchDelete);
+    public boolean addCDCFor(String schemaName, boolean catchInsert, boolean catchUpdate, boolean catchDelete) {
+        return addCDCFor(schemaName, null, catchInsert, catchUpdate, catchDelete);
     }
 
     /**
@@ -400,18 +428,19 @@ public class TalendDBItem extends TalendMetadataItem {
      * @param catchDelete to catch delete event
      * @return
      */
-    public boolean addCDC(String schemaName, String subscriberName, boolean catchInsert, boolean catchUpdate, boolean catchDelete) {
+    public boolean addCDCFor(String schemaName, String subscriberName, boolean catchInsert, boolean catchUpdate,
+            boolean catchDelete) {
         boolean isAddOK = false;
         getSchema(schemaName).getItem().contextMenu("add CDC").click();
         gefBot.shell("Create Subscriber and Execute SQL Script").activate();
         if (subscriberName != null)
             gefBot.textWithLabel("Subscriber Name:").setText(subscriberName);
-        if (catchInsert)
-            gefBot.checkBox("Insert").select();
-        if (catchUpdate)
-            gefBot.checkBox("Update").select();
-        if (catchDelete)
-            gefBot.checkBox("Delete").select();
+        if (!catchInsert)
+            gefBot.checkBox("Insert").deselect();
+        if (!catchUpdate)
+            gefBot.checkBox("Update").deselect();
+        if (!catchDelete)
+            gefBot.checkBox("Delete").deselect();
         gefBot.button("Execute").click();
         gefBot.shell("Execute SQL Statement").activate();
         gefBot.button("OK").click();
@@ -423,9 +452,44 @@ public class TalendDBItem extends TalendMetadataItem {
     public SWTBotTreeItem getCDCFoundation() {
         try {
             return getItem().expandNode("CDC Foundation").getNode(0);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
+            log.error("exception for getting CDC foundation", e);
             return null;
         }
+    }
+
+    /**
+     * View all changes for schema.
+     * 
+     * @param schemaName the name of the schema
+     * @return a shell named 'View All Changes' to view all changes
+     */
+    public SWTBotShell viewAllChangesFor(String schemaName) {
+        getSchema(schemaName).getItem().contextMenu("View All Changes").click();
+        gefBot.waitUntil(Conditions.shellIsActive("View All Changes"), 20000);
+        return gefBot.shell("View All Changes").activate();
+    }
+
+    public void addSubscribersFor(String schemaName, String... subscribers) {
+        getSchema(schemaName).getItem().contextMenu("Edit CDC Subscribers").click();
+        gefBot.shell("Edit CDC").activate();
+        for (String subscriber : subscribers) {
+            gefBot.button("Add").click();
+            gefBot.shell("Input subscriber name").activate();
+            gefBot.text().setText(subscriber);
+            if (!gefBot.button("OK").isEnabled()) {
+                gefBot.button("Cancel").click();
+                log.warn("the subscriber name '" + subscriber + "' already exist");
+                continue;
+            }
+            gefBot.button("OK").click();
+            gefBot.shell("Create Subscriber and Execute SQL Script").activate();
+            gefBot.button("Execute").click();
+            gefBot.shell("Execute SQL Statement").activate();
+            gefBot.button("OK").click();
+            gefBot.button("Close").click();
+        }
+        gefBot.button("OK").click();
     }
 
 }
