@@ -55,6 +55,7 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 				"idJobConductorFileTriggerFtExitCheckBox");
 		
 		selenium.setSpeed(MIN_SPEED);
+		this.refreshTaskStatus(50000, taskLabel, "Running...");
 		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
 				"//span[text()='Running...']", Base.MAX_WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +

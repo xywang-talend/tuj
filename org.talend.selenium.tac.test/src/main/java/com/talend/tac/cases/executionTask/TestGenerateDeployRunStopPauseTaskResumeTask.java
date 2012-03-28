@@ -37,11 +37,13 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 	public void testGenerateTask(String taskLabel) {
 		 
 		
-		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton");//click generate button
+		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton");//click generate button		
+		this.refreshTaskStatus(8000, taskLabel, "Generating...");
 		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
 				"//span[text()='Generating...']", WAIT_TIME);
 	   	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
 	   			"//span[text()='Generating...']"));
+	   	this.refreshTaskStatus(100000, taskLabel, "Ready to deploy");
     	this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
     			"//span[text()='Ready to deploy']", Base.MAX_WAIT_TIME);
     	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
@@ -55,6 +57,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 	public void testDeployTask(String taskLabel) {
 		
 		generateDeployRunTask(taskLabel,"//button[@id='idJobConductorTaskDeployButton' and text()='Deploy']");//click Deploy button
+		this.refreshTaskStatus(14000, taskLabel, "Ready to run");
 		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
 				"//span[text()='Ready to run']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
@@ -84,11 +87,13 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 		 
 		
 		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton");//click generate button
+		this.refreshTaskStatus(6000, taskLabel, "Generating...");
 		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
 				"//span[text()='Generating...']", WAIT_TIME);
 	   	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
 	   			"//span[text()='Generating...']"));
-    	this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+	   	this.refreshTaskStatus(100000, taskLabel, "Ready to deploy");
+	   	this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
     			"//span[text()='Ready to deploy']", Base.MAX_WAIT_TIME);
     	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
     			"//span[text()='Ready to deploy']"));
@@ -101,6 +106,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 	public void testDeployTaskWithLatestJob(String taskLabel) {
 		
 		generateDeployRunTask(taskLabel,"//button[@id='idJobConductorTaskDeployButton' and text()='Deploy']");//click Deploy button
+		this.refreshTaskStatus(14000, taskLabel, "Ready to run");
 		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
 				"//span[text()='Ready to run']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
@@ -163,9 +169,11 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 		changeCommandLineConfig(remotehostAddress);	
 		
 		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton");//click generate button
+        this.refreshTaskStatus(6000, taskLabel, "Generating...");
 		selenium.setSpeed(MID_SPEED);
 	   	Assert.assertTrue(selenium.isTextPresent("Generating..."));
     	selenium.setSpeed(MIN_SPEED);
+    	this.refreshTaskStatus(100000, taskLabel, "Ready to deploy");
     	this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
     			"//span[text()='Ready to deploy']", Base.MAX_WAIT_TIME);
     	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
@@ -184,6 +192,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 		changeCommandLineConfig(remotehostAddressWithWrong);
 		
 		generateDeployRunTask(taskLabel,"idJobConductorTaskGenerateButton");//click generate button	
+		this.refreshTaskStatus(10000, taskLabel, "Generating...");
     	this.waitForElementPresent("//span[text()='"+rb.getString("executionTask.errorStatus.connectionToCommandLineFailed")+"']", WAIT_TIME);
     	Assert.assertTrue(selenium.isElementPresent("//span[text()='"+rb.getString("executionTask.errorStatus.connectionToCommandLineFailed")+"']"));
     	
@@ -237,7 +246,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 		
 		intoJobConductor(taskLabel);
 		
-		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, date.years, 
+		addTriggerAddCronTrigger(taskLabel,cronTriggerLabel, description, "2012", 
 				"Sunday", "Saturday", "January", "December");
     			
 		selenium.click("idCrontTriggerSave");
@@ -288,6 +297,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idJobConductorTaskGenerateButton");//click generate button
 		selenium.setSpeed(MIN_SPEED);
+		this.refreshTaskStatus(3000, taskLabel, "Generating...");
 		this.waitForElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
 				"//span[text()='Generating...']", WAIT_TIME);
 		
@@ -299,7 +309,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 	   
         this.typeString("idJobConductorSimpleTriggerRptIntervalInput", "20");//Time interval (s)
 	       		
-	    selenium.setSpeed(MAX_SPEED);
+	    selenium.setSpeed("2000");
 	    selenium.click("idSimpleTriggerSave");
 		selenium.setSpeed(MIN_SPEED);
 		

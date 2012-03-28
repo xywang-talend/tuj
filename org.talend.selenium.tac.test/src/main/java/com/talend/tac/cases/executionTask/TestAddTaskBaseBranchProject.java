@@ -346,12 +346,18 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 					+ tasklabel + "']"));
 			selenium.setSpeed(MIN_SPEED);
 
-		}
+		}	
 		//add a simple trigger for task added
-		addSimpleTrigger(tasklabel,simpletrigger,"500");
+		addSimpleTrigger(tasklabel,simpletrigger,"1000");
 		String filetriggerlabel = "testFileTrigger";
 		//add a file trigger for task added
-		addFileTrigger(tasklabel,filetriggerlabel ,path,"500",mark,server);
+		addFileTrigger(tasklabel,filetriggerlabel ,path,"1000",mark,server);
+		this.refreshTaskStatus(6000, tasklabel, "Generating...");
+		
+		this.refreshTaskStatus(100000, tasklabel, "Ready to run");
+		this.waitForElementPresent("//span[text()='"+tasklabel+"']//ancestor::tr" +
+			"//span[text()='Ready to run']", WAIT_TIME*6);
+		
 		//active one context of task
 		selenium.mouseDown("//span[text()='"+tasklabel+"']");	
 		this.clickWaitForElementPresent("//span[text()='Context parameters']");
@@ -360,18 +366,11 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 			selenium.mouseDown("//div[text()='age']/ancestor::table[@class='x-grid3-row-table']//div[@class='x-grid3-check-col x-grid3-check-col x-grid3-cc-override']");
 		
 		}
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='age']/ancestor::table[@class='x-grid3-row-table']//div[@class='x-grid3-check-col x-grid3-check-col-on x-grid3-cc-override']"), "active context age failed!");
+			Assert.assertTrue(selenium.isElementPresent("//div[text()='age']/ancestor::table[@class='x-grid3-row-table']//div[@class='x-grid3-check-col x-grid3-check-col-on x-grid3-cc-override']"), "active context age failed!");
 		//add a jvm parameter for task
 //		addJVM();
 		//then delete the task.
-		Thread.sleep(2000);
-		if(selenium.isElementPresent("//span[text()='"+tasklabel+"']//ancestor::tr" +
-	   			"//span[text()='Generating...']")) {
-			
-			this.waitForElementPresent("//span[text()='"+tasklabel+"']//ancestor::tr" +
-				"//span[text()='Ready to run']", WAIT_TIME*6);
-			
-		}
+		
 		deleteTask(tasklabel);
 		//add a task with same name ,to see if these items exist still
 		addTask(tasklabel,"", projectName, branchName, jobName, version, context,
@@ -389,7 +388,7 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 				+ tasklabel + "']");
 		this.clickWaitForElementPresent("//span[text()='Context parameters']");
 		Thread.sleep(5000);
-		Assert.assertFalse(selenium.isElementPresent("//div[text()='age']/ancestor::table[@class='x-grid3-row-table']//div[@class='x-grid3-check-col x-grid3-check-col-on x-grid3-cc-override']"), "task delete context failed!");
+			Assert.assertFalse(selenium.isElementPresent("//div[text()='age']/ancestor::table[@class='x-grid3-row-table']//div[@class='x-grid3-check-col x-grid3-check-col-on x-grid3-cc-override']"), "task delete context failed!");
 		this.clickWaitForElementPresent("//span[@class='x-tab-strip-text  ' and text()='Triggers']");
 		Thread.sleep(5000);
 		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+filetriggerlabel+"']"), "test task remove failed!");

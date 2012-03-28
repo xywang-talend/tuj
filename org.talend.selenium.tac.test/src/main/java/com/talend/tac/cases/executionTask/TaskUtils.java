@@ -237,12 +237,10 @@ public class TaskUtils extends Login {
 		this.clickWaitForElementPresent("idMenuConfigElement");//into Configuration page
 		this.waitForElementPresent("//div[contains(text(),'Command line/primary')]", WAIT_TIME);
 		selenium.mouseDown("//div[contains(text(),'Command line/primary')]");
-		this.clickWaitForElementPresent("//div[contains(text(),' Command line/primary')]/parent::div/following-sibling::div//table//tr/td/div[text()='Host']" +
-				"//parent::td/following-sibling::td/div/img[@title='Click to edit']");
-		this.waitForElementPresent("//div[contains(text(),' Command line/primary (')]/ancestor::div[@class='x-grid3-body']" +
-				"/following-sibling::div/div/input", WAIT_TIME); 
+		this.clickWaitForElementPresent(other.getString("commandline.conf.primary.host.editButton"));
+		this.waitForElementPresent(other.getString("commandline.conf.primary.host.input"), WAIT_TIME); 
 		System.out.println("*--------------*");
-		this.typeString("//div[@class=' x-form-field-wrap  x-component']//input",hostAddress);
+		this.typeString(other.getString("commandline.conf.primary.host.input"),hostAddress);
 			
 	}
 	
@@ -678,6 +676,24 @@ public class TaskUtils extends Login {
 		}
 		
 		return readStr; //return read content from textfile
+		
+	}
+	
+	public void refreshTaskStatus(long waitTime, String taskLabel, 
+			String status) {
+		
+		try {
+			Thread.sleep(waitTime);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(!selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::tr" +
+				"//span[text()='"+status+"']")) {
+			
+			selenium.click("//div[text()='Job Conductor' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//following-sibling::div//button[@id='idSubModuleRefreshButton']");
+			
+		}
 		
 	}
 	

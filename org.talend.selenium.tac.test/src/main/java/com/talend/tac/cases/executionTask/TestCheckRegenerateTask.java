@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.talend.tac.base.Base;
 import com.talend.tac.cases.Login;
 
-public class TestCheckRegenerateTask extends Login {
+public class TestCheckRegenerateTask extends TaskUtils {
     
 	//add case for check regenerate task
 	@Test
@@ -30,7 +30,9 @@ public class TestCheckRegenerateTask extends Login {
 	 	    selenium.setSpeed(MIN_SPEED);
 	    	
 	    }
-	   	    
+	   	
+	    this.refreshTaskStatus(3000, "testAddsimpleTask", "Generating...");
+	    this.refreshTaskStatus(100000, "testAddsimpleTask", "Ready to deploy");
 	    this.waitForElementPresent("//span[text()='testAddsimpleTask']//ancestor::tr//span[text()=" +
 	    		"'Ready to deploy']", Base.MAX_WAIT_TIME);
 	    Assert.assertTrue(selenium.isElementPresent("//span[text()='testAddsimpleTask']//ancestor::tr" +

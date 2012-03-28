@@ -109,7 +109,7 @@ public class TestAddTriggerAddSimpleTrigger extends TaskUtils {
 			selenium.click("idTriggerRefresh");
 			
     	}
-    	
+		
 		waitForElementPresent("//span[text()='2 / 2']",WAIT_TIME);
 	  			
 		selenium.setSpeed(MID_SPEED);
