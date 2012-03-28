@@ -2,6 +2,8 @@ package com.talend.cases.configuration;
 
 import static org.testng.Assert.assertEquals;
 
+import java.awt.Event;
+import java.awt.event.KeyEvent;
 import java.util.Hashtable;
 
 import org.testng.annotations.AfterClass;
@@ -14,8 +16,7 @@ import com.talend.tac.cases.Login;
 
 public class configuration extends Login {
   
-public String locatorOfAllInputTags = other.getString("commandline.conf.all.input");
-	
+
 	int seconds = 0;
 	//start zookeeper server
 	public void startStopZkServer(String controlZkServer, String zookeeperPath) {
@@ -36,33 +37,19 @@ public String locatorOfAllInputTags = other.getString("commandline.conf.all.inpu
 	 * @param value
 	 */
 	public void typeWordsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
-         
-		 this.waitForElementPresent("//div[contains(text(),'Audit (') and contains(@class,'x-grid-group-div')]", WAIT_TIME);		 
-		 boolean configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
-		 System.out.println(configurationPageIsNotEdit);
-	     while (seconds<=WAIT_TIME*2 && configurationPageIsNotEdit == true) {
-			 
-	    	 seconds++;	   
-	    	 configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
-	    	 try {
-				Thread.sleep(1000);
-			 } catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			 }
-			 System.out.println("can not edit in configuration page"+seconds);
-			 
-		 }
-	     
 		 this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
+		 selenium.setSpeed(MID_SPEED);
 		 this.typeWaitForElementPresent(locatorOfInput, value);
-		 try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		selenium.keyDown(locatorOfInput, "\\13");
+		 selenium.keyPress(locatorOfInput, KeyEvent.VK_ENTER+"");
+		 selenium.setSpeed(MIN_SPEED);
+	}
+	
+	public void selectDropDownListInConfigurationMenu(String locatorOfEditButton,String locatorOfSelect,String value){
+		 this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
+		 selenium.setSpeed(MID_SPEED);
+		 this.selectDropDownList(locatorOfSelect, value);
+//		 selenium.fireEvent(locatorOfInput, "blur");
+		 selenium.setSpeed(MIN_SPEED);
 	}
 	/**
 	 * assertions,check the value in input tag is as expected,and check the status icon.
@@ -70,57 +57,29 @@ public String locatorOfAllInputTags = other.getString("commandline.conf.all.inpu
 	 * @param locatorOfInput	
 	 * @param value
 	 */
-	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value,String statusIconLocator){
-		
-		 this.waitForElementPresent("//div[contains(text(),'Audit (') and contains(@class,'x-grid-group-div')]", WAIT_TIME);
-		 
-		 boolean configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
-		 System.out.println(configurationPageIsNotEdit);
-	     while (seconds<=WAIT_TIME*2 && configurationPageIsNotEdit == true) {			 
-
-	    	 seconds++;	
-	    	 configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");   	 
-	    	 try {
-				Thread.sleep(1000);
-			 } catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			 }
-			 System.out.println("can not edit in configuration page"+seconds);
-			 
-		 }
-	     
-		this.clickWaitForElementPresent(locatorOfEditButton);
-		this.AssertEqualsInConfigurationMenu(locatorOfEditButton, locatorOfInput, value);
-		this.waitForElementPresent(statusIconLocator, WAIT_TIME);//wait and check the icon status.
-	}
-	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){		
-
-		 this.waitForElementPresent("//div[contains(text(),'Audit (') and contains(@class,'x-grid-group-div')]", WAIT_TIME);
-		 
-		 boolean configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
-		 System.out.println(configurationPageIsNotEdit);
-	     while (seconds<=WAIT_TIME*2 && configurationPageIsNotEdit == true) {
-
-	    	 seconds++;	  
-	    	 configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
-	    	 try {
-				Thread.sleep(1000);
-			 } catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			 }
-			 System.out.println("can not edit in configuration page"+seconds);
-			 
-		 }
-	     
+		public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value,String statusIconLocator){
+		    this.AssertEqualsInConfigurationMenu(locatorOfEditButton, locatorOfInput, value);
+			this.clickWaitForElementPresent(locatorOfEditButton);
+			selenium.setSpeed(MID_SPEED);
+		    selenium.keyPress(locatorOfInput, KeyEvent.VK_ENTER+"");
+		    this.waitForElementPresent(statusIconLocator, WAIT_TIME);//wait and check the icon status.
+	        selenium.setSpeed(MIN_SPEED);  
+		}
+	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
 		this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
 		this.waitForElementPresent(locatorOfInput, Base.WAIT_TIME);
 		assertEquals(selenium.getValue(locatorOfInput), value);
-		selenium.fireEvent(locatorOfInput, "blur");
+		selenium.keyPressNative(KeyEvent.VK_ENTER+"");
+		
 	}
 	
-	
+	public void selectDropDownList(String xpath, String value) {
+		
+		selenium.click(xpath);
+		selenium.mouseDownAt("//div[contains(@class,'x-combo-list-item') and text()='"+value+"']", ""
+				+ Event.ENTER);
+		
+	}
 	@BeforeClass
 	@Override
 	@Parameters( { "userName", "userPassword" })
@@ -128,6 +87,16 @@ public String locatorOfAllInputTags = other.getString("commandline.conf.all.inpu
 		super.login(user, password);
 		this.clickWaitForElementPresent("idMenuConfigElement");
 //		selenium.setSpeed("500");
+		this.waitForElementPresent("//div[text()='Configuration' and @class='header-title']", WAIT_TIME);
+		String onlineButton = "//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]/following-sibling::div//button[@aria-pressed='true']";
+		String offlineButton = "//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]/following-sibling::div//button[@aria-pressed='false']";
+		if(selenium.isElementPresent(onlineButton)) {
+			
+			selenium.click(onlineButton);			
+			
+		}
+		this.waitForElementPresent(offlineButton, WAIT_TIME);
+		
 	}
 
 	@AfterClass
