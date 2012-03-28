@@ -484,20 +484,10 @@ public class WebDriverBase {
 	}
 	
 	public void selectDropDownList(String id, String value) {
+         
+	   getElementByXpath("//input[@id='"+id+"']//following-sibling::div").click();
+       getElementByXpath("//div[text()='"+value+"']").click();
         
-        if(getElementByXpath("//span[text()='Select Feature from Talend repository']").isDisplayed()) {
-         
-               getElementByXpath("//span[text()='Select Feature from Talend repository']//ancestor::div[@class='x-window-tl']//following-sibling::div//input[@id='"+id+"']//following-sibling::div[contains(@class,'x-form-trigger x-form-trigger-arrow')]").click();
-               getElementByXpath("//div[text()='"+value+"']").click();
-         
-        } else {
-         
-        	   getElementByXpath("//input[@id='"+id+"']//following-sibling::div").click();
-               getElementByXpath("//div[text()='"+value+"']").click();
-         
-        }
-        
-        
-       }
+    }
 	
 }
