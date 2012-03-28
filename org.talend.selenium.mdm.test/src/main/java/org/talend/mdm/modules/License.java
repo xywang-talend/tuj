@@ -1,5 +1,8 @@
 package org.talend.mdm.modules;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.talend.mdm.Base;
@@ -12,6 +15,7 @@ public class License extends Base{
 		super.setDriver(driver);
 		this.driver = driver;
 	}
+	
 
 	
 	/****
@@ -38,6 +42,37 @@ public class License extends Base{
 	protected void uploadLicense(){
 		
 	}
+	
+    protected void clickEditlicenseKey(){
+    logger.info("Read to click edit license key button.");
+    Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.license.edit")), WAIT_TIME_MAX), "The button edit license key is not displayed right now.");
+	this.clickElementByXpath(locator.getString("xpath.license.edit"));
+	logger.info("click edit license key button ok");
+    }
+	
+    protected void clickBrowseLicenseButton(){
+        logger.info("Read to click browse license button.");
+        Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.license.edit.browse.input")), WAIT_TIME_MAX), "The button browse license is not displayed right now.");
+    	this.clickElementByXpath(locator.getString("xpath.license.edit.browse.input"));
+    	
+    	logger.info("click browse license button ok");
+        }
+    
+    protected void clickUploadLicenseButton(){
+        logger.info("Read to click upload license button.");
+        Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.license.ok")), WAIT_TIME_MAX), "The button browse license is not displayed right now.");
+    	this.clickElementByXpath(locator.getString("xpath.license.ok"));
+    	
+    	logger.info("click upload license button ok");
+        }
+    
+    protected void typeInlicenseFile(String file){
+        logger.info("Read to type in license file.");
+        Assert.assertTrue(this.isElementPresent(By.id(locator.getString("id.license.edit.inputlicense.input")), WAIT_TIME_MAX), "The input filed for license is not displayed right now.");
+    	this.typeTextByXpath("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", file);
+    	logger.info("type in license file ok.");
+        }
+    
 	protected String getUsersAllowedCountAdmin(){
 		this.clickElementByXpath(locator.getString("xpath.license.refresh.button"));
 		this.waitforElementDisplayed(By.id(locator.getString("id.license.input.admincount")), WAIT_TIME_MAX);

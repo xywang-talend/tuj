@@ -28,10 +28,31 @@ public class User extends Base{
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.user.button.add")), this.WAIT_TIME_MAX));
 	}
 	
-	protected void configureUser(String identifier,String firstName,String lastName,String password,String confirmPassword,
-			String email, String company, String defaultVersion, boolean active, String[] roles) {
+	public void selectRoles(String[] roles){
+		for(String role: roles) {
+			this.clickElementByXpath(locator.getString("xpath.user.add.role.img"));
+			this.waitfor(By.xpath(this.getString(locator, "xpath.user.add.role.select", role)), 30);
+			this.clickElementByXpath(this.getString(locator, "xpath.user.add.role.select", role));
+			this.clickElementByXpath(locator.getString("xpath.user.add.role.add"));
+			this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.added.listview", roles)),WAIT_TIME_MAX);
+		}
 		
-		
+	}
+	
+	public void selectRoles(String roles){
+		this.logger.info("click to open roles selection drop down list!");
+		this.clickElementByXpath(locator.getString("xpath.user.add.role.img"));
+		this.logger.info("roles selection drop down list opened ok!");
+		this.logger.info("select role to add");
+		this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.select", roles)), WAIT_TIME_MAX);
+		this.clickElementByXpath(this.getString(locator, "xpath.user.add.role.select", roles));
+		this.clickElementByXpath(locator.getString("xpath.user.add.role.add"));
+		this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.added.listview", roles)),WAIT_TIME_MAX);
+		this.logger.info("select role to add");
+	}
+	
+	public void confBaseUserInfo(String identifier,String firstName,String lastName,String password,String confirmPassword,
+			String email, String company, String defaultVersion, boolean active){
 		this.typeTextByName(locator.getString("name.user.add.name"), identifier);
 		this.typeTextByName(locator.getString("name.user.add.password"), password);
 		this.typeTextByXpath(locator.getString("xpath.user.add.password.confirm"), confirmPassword);
@@ -45,49 +66,20 @@ public class User extends Base{
 			this.logger.info("click add user active button!");
 		}
 		
+	}
+	
+	public void configureUser(String identifier,String firstName,String lastName,String password,String confirmPassword,
+			String email, String company, String defaultVersion, boolean active, String[] roles) {
 		
-		for(String role: roles) {
-			this.clickElementByXpath(locator.getString("xpath.user.add.role.img"));
-			this.clickElementByXpath(this.getString(locator, "xpath.user.add.role.select", role));
-			this.clickElementByXpath(locator.getString("xpath.user.add.role.add"));
-			this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.added.listview", roles)),WAIT_TIME_MAX);
-		}
-		
-		
-		
-		
-		
-		
-/*		this.logger.info("click to open roles selection drop down list!");
-		this.clickElementByXpath(locator.getString("xpath.user.add.role.img"));
-		this.logger.info("roles selection drop down list opened ok!");
-		this.logger.info("select role to add");
-		this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.select", roles)), WAIT_TIME_MAX);
-		this.clickElementByXpath(this.getString(locator, "xpath.user.add.role.select", roles));
-		this.clickElementByXpath(locator.getString("xpath.user.add.role.add"));
-		this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.added.listview", roles)),WAIT_TIME_MAX);
-		this.logger.info("select role to add");*/
+		this.confBaseUserInfo(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active);
+		this.selectRoles(roles);
 	}
 	
 	protected void addUser(String identifier,String firstName,String lastName,String password,String confirmPassword,
 			String email, String company, String defaultVersion, boolean active, String[] roles) {
 		this.clickElementByXpath(locator.getString("xpath.user.button.add"));
-		this.typeTextByName(locator.getString("name.user.add.name"), identifier);
-		this.typeTextByName(locator.getString("name.user.add.password"), password);
-		this.typeTextByXpath(locator.getString("xpath.user.add.password.confirm"), confirmPassword);
-		this.typeTextByName(locator.getString("name.user.add.givenName"), firstName);
-		this.typeTextByName(locator.getString("name.user.add.familyName"), lastName);
-		this.typeTextByName(locator.getString("name.user.add.realEmail"), email);
-		this.typeTextByName(locator.getString("name.user.add.company"), company);
-		this.typeTextByName(locator.getString("name.user.add.universe"), defaultVersion);
-		if(active) {
-			this.getElementByName(locator.getString("name.user.add.enabled")).click();
-		}
-		for(String role: roles) {
-			this.clickElementByXpath(locator.getString("xpath.user.add.role.img"));
-			this.clickElementByXpath(this.getString(locator, "xpath.user.add.role.select", role));
-			this.clickElementByXpath(locator.getString("xpath.user.add.role.add"));
-		}
+		this.confBaseUserInfo(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active);
+		this.selectRoles(roles);
 		this.clickElementByXpath(locator.getString("xpath.user.add.role.save"));
 		this.getElementByXpath(locator.getString("xpath.user.add.role.flashcache.ok")).click();
 		Assert.assertTrue((this.isElementPresent(By.xpath(this.getString(locator, "xpath.user.identifier", identifier)), WAIT_TIME_MAX)));
@@ -100,27 +92,8 @@ public class User extends Base{
 		
 		
 		this.clickElementByXpath(locator.getString("xpath.user.button.add"));
-		this.typeTextByName(locator.getString("name.user.add.name"), identifier);
-		this.typeTextByName(locator.getString("name.user.add.password"), password);
-		this.typeTextByXpath(locator.getString("xpath.user.add.password.confirm"), confirmPassword);
-		this.typeTextByName(locator.getString("name.user.add.givenName"), firstName);
-		this.typeTextByName(locator.getString("name.user.add.familyName"), lastName);
-		this.typeTextByName(locator.getString("name.user.add.realEmail"), email);
-		this.typeTextByName(locator.getString("name.user.add.company"), company);
-		this.typeTextByName(locator.getString("name.user.add.universe"), defaultVersion);
-		if(active) {
-			this.getElementByName(locator.getString("name.user.add.enabled")).click();
-			this.logger.info("click add user active button!");
-		}
-		this.logger.info("click to open roles selection drop down list!");
-		this.clickElementByXpath(locator.getString("xpath.user.add.role.img"));
-		this.logger.info("roles selection drop down list opened ok!");
-		this.logger.info("select role to add");
-		this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.select", roles)), WAIT_TIME_MAX);
-		this.clickElementByXpath(this.getString(locator, "xpath.user.add.role.select", roles));
-		this.clickElementByXpath(locator.getString("xpath.user.add.role.add"));
-		this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.added.listview", roles)),WAIT_TIME_MAX);
-		this.logger.info("select role to add");
+		this.confBaseUserInfo(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active);
+		this.selectRoles(roles);
 		this.clickElementByXpath(locator.getString("xpath.user.add.role.save"));
 		this.logger.info("click add user save button!");
 		this.getElementByXpath(locator.getString("xpath.user.add.role.flashcache.ok")).click();
@@ -134,16 +107,12 @@ public class User extends Base{
 
 	
 	public void deleteUser(String userName) {
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.user.delete", userName)), WAIT_TIME_MAX), "the user to delete not present right now.");
+		this.sleepCertainTime(1000);
 		this.clickElementByXpath(this.getString(locator, "xpath.user.delete", userName));
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.user.delete.yes")), WAIT_TIME_MAX));
 		this.clickElementByXpath(locator.getString("xpath.user.delete.yes"));
 		logger.info("########" + this.getElementByXpath(this.getString(locator, "xpath.user.delete", userName)));
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 //		Assert.assertFalse(this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.delete", userName)), 30), "user "+userName+" delete failed!");
 	}
 	
@@ -157,7 +126,6 @@ public class User extends Base{
 			String userName = this.getValue((WebElement)a.get(i));
 			logger.info(userName);
 			if(userName.equals(userExcept)){
-				logger.info("------------------------------------------------"+userName);
 				continue;
 			}
 			else{
@@ -169,10 +137,11 @@ public class User extends Base{
 		
 		for(int j=0;j <b.size();j++){
 			String userName = b.get(j).toString();
-			logger.info("###############################"+userName);
+			logger.info("The "+j+" time to delete user name is :"+userName);
 			this.deleteUser(userName);
 			
 		}
+		this.sleepCertainTime(3000);
 		System.err.println("after delete,total user number is :"+this.getElementsByXpath(locator.getString("xpath.user.listdisplay.identiferlist")).size());
 		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.user.listdisplay.identiferlist")).size()==1);
 		
@@ -217,6 +186,14 @@ public class User extends Base{
 	
 	public void clickActive() {
 		this.getElementByName(locator.getString("name.user.add.enabled")).click();
+	}
+	
+	public void clickFlushCacheButton(){
+		this.clickElementByXpath(locator.getString("xpath.user.add.role.flashcache.button"));
+	}
+	
+	public void clickFlushCacheOK(){
+		this.clickElementByXpath(locator.getString("xpath.user.add.role.flashcache.ok"));
 	}
 	public boolean isActive(){
 		return this.getElementByXpath(locator.getString("xpath.user.add.enabled.true")) != null;

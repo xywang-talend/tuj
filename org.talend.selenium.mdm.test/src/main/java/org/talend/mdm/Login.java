@@ -68,10 +68,10 @@ public class Login extends Base{
 
 	public void login(String userName, String userPassword) {
 
-		WebElement userE = this.getElementByName("j_username");
+		WebElement userE = this.getElementByName(locator.getString("id.login.username"));
 		userE.clear();
 		userE.sendKeys(userName);
-		WebElement passwordE = this.getElementByName("j_password");
+		WebElement passwordE = this.getElementByName(locator.getString("id.login.password"));
 		passwordE.clear();
 		passwordE.sendKeys(userPassword);
 		this.getElementByName("login").click();

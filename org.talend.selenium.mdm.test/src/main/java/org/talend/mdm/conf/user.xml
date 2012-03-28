@@ -13,9 +13,28 @@
   </test>
   
   
+ <test name="test add admin user over license allowed">
+	    <classes>
+		    <parameter name="identifier" value="testUserAdminOverLicense" />
+			<parameter name="first.name" value="firstname2" />
+			<parameter name="last.name" value="lastname2" />
+			<parameter name="password" value="password2" />
+			<parameter name="confirm.password" value="password2" />
+			<parameter name="email" value="eamil@administrator2" />
+			<parameter name="company" value="company2" />
+			<parameter name="default.version" value="universe2" />
+			<parameter name="active" value="true" />
+			<parameter name="roles" value="System_Admin" />
+		    <class name="org.talend.mdm.cases.user.TestUser">
+				<methods>
+		           <include name="testAddUserAdminOverAllowed"/>
+		        </methods>
+		    </class>
+	    </classes>
+  </test>
+  
   
      <test name="test add user with multiple roles one another">
-    
     	    <parameter name="identifier" value="testUserMultipleRolesOneAnother" />
 			<parameter name="first.name" value="firstname2" />
 			<parameter name="last.name" value="lastname2" />
@@ -27,7 +46,6 @@
 			<parameter name="active" value="true" />
 			<parameter name="roles" value="System_Web,System_Admin" />
 	    <classes>
-		    
 		    <class name="org.talend.mdm.cases.user.TestUser">
 				<methods>
 		           <include name="testaddUserWithMultipleRolesOneAllowedAnotherNot"/>
@@ -35,10 +53,6 @@
 		    </class>
 	    </classes>
   </test>
-  
-  
-  
-  
   
   
         <test name="Add users allowed web">
@@ -55,7 +69,7 @@
 
  <test name="test add web user over license allowed">
 	    <classes>
-		    <parameter name="identifier" value="usercui" />
+		    <parameter name="identifier" value="testUserWebOverLicense" />
 			<parameter name="first.name" value="firstname2" />
 			<parameter name="last.name" value="lastname2" />
 			<parameter name="password" value="password2" />
@@ -72,6 +86,7 @@
 		    </class>
 	    </classes>
   </test>
+  
   
   <test name="test add web user over license allowed inactive">
 	    <classes>
@@ -93,8 +108,8 @@
 	    </classes>
   </test>
   
+  
   <test name="test add user with multiple roles">
-    
     	    <parameter name="identifier" value="testUserWithMultipleRoles" />
 			<parameter name="first.name" value="firstname2" />
 			<parameter name="last.name" value="lastname2" />
@@ -106,7 +121,6 @@
 			<parameter name="active" value="true" />
 			<parameter name="roles" value="System_Web,System_Interactive" />
 	    <classes>
-		    
 		    <class name="org.talend.mdm.cases.user.TestUser">
 				<methods>
 		           <include name="testAddUserMultipleRoles"/>
@@ -115,8 +129,29 @@
 	    </classes>
   </test>
   
+  
+    <test name="test user selected after save successfully">
+    	    <parameter name="identifier" value="testUserSelectedSaved" />
+			<parameter name="first.name" value="firstname2" />
+			<parameter name="last.name" value="lastname2" />
+			<parameter name="password" value="password2" />
+			<parameter name="confirm.password" value="password2" />
+			<parameter name="email" value="eamil@administrator2" />
+			<parameter name="company" value="company2" />
+			<parameter name="default.version" value="universe2" />
+			<parameter name="active" value="true" />
+			<parameter name="roles" value="System_Web,System_Interactive" />
+	    <classes>
+		    <class name="org.talend.mdm.cases.user.TestUser">
+				<methods>
+		           <include name="testUserSelectedAfterSave"/>
+		        </methods>
+		    </class>
+	    </classes>
+  </test>
+  
+  
  <test name="test add user with password not equals to confirm">
-    
     	    <parameter name="identifier" value="testUserPasswordNotEqaulConfirm" />
 			<parameter name="first.name" value="firstname2" />
 			<parameter name="last.name" value="lastname2" />
@@ -128,10 +163,61 @@
 			<parameter name="active" value="true" />
 			<parameter name="roles" value="System_Web,System_Interactive" />
 	    <classes>
-		    
 		    <class name="org.talend.mdm.cases.user.TestUser">
 				<methods>
 		           <include name="testAddUserWithPasswordNotEqualsConfirmPassword"/>
+		        </methods>
+		    </class>
+	    </classes>
+  </test>
+  
+    
+ <test name="test add user without select roles">
+    	    <parameter name="identifier" value="testUserWithoutRoles" />
+			<parameter name="first.name" value="firstname2" />
+			<parameter name="last.name" value="lastname2" />
+			<parameter name="password" value="password" />
+			<parameter name="confirm.password" value="password" />
+			<parameter name="email" value="eamil@administrator2" />
+			<parameter name="company" value="company2" />
+			<parameter name="default.version" value="universe2" />
+			<parameter name="active" value="true" />
+	    <classes>
+		    <class name="org.talend.mdm.cases.user.TestUser">
+				<methods>
+		           <include name="testAddUserWithoutSelectRoles"/>
+		        </methods>
+		    </class>
+	    </classes>
+  </test>
+  
+  
+   <test name="test set user inactive as active check login">
+    	    <parameter name="identifier" value="testUserInactiveThenActive" />
+			<parameter name="first.name" value="firstname2" />
+			<parameter name="last.name" value="lastname2" />
+			<parameter name="password" value="password" />
+			<parameter name="confirm.password" value="password" />
+			<parameter name="email" value="eamil@administrator2" />
+			<parameter name="company" value="company2" />
+			<parameter name="default.version" value="" />
+			<parameter name="active" value="false" />
+			<parameter name="roles" value="System_Web" />
+	    <classes>
+		    <class name="org.talend.mdm.cases.user.TestUser">
+				<methods>
+		           <include name="testAddUserInactiveCheckLoginThenActive"/>
+		        </methods>
+		    </class>
+	    </classes>
+  </test>
+  
+  
+  <test name="test flush cache">
+	    <classes>
+		    <class name="org.talend.mdm.cases.user.TestUser">
+				<methods>
+		           <include name="testFlushCache"/>
 		        </methods>
 		    </class>
 	    </classes>

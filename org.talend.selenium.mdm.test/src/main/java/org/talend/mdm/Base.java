@@ -12,9 +12,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.imageio.ImageIO;
-
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -22,8 +20,10 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.IClass;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -43,15 +43,42 @@ public class Base {
 	public ResourceBundle other = ResourceBundle.getBundle("org.talend.mdm.resources.other",currentLocale);
 	public ResourceBundle locator = ResourceBundle.getBundle("org.talend.mdm.resources.locator",currentLocale);
 	
-	public final static int WAIT_TIME_MIN =100;
+	public final static int WAIT_TIME_MIN =50;
 	public final static int WAIT_TIME_MID = 300;
 	public final static int WAIT_TIME_MAX = 5000;
-	
 	public WebDriver driver;
 	public void setDriver(WebDriver driver) {
 		this.driver = driver;
 	}
 
+	
+	public void sleepCertainTime(int sleepTime){
+		try {
+			Thread.sleep(sleepTime);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void refreshBrowser(){
+		driver.navigate().refresh();
+	}
+	
+	public void openURL(WebDriver dri,String url){
+		dri.get(url);
+	}
+	
+	public WebDriver initNewDriver(){
+		
+		return new FirefoxDriver();
+		
+	}
+	
+	public WebElement findElementDefineDriver(WebDriver dri,By by){
+		return dri.findElement(by);
+	}
+	
 	public WebElement waitfor(final By by, int timeout) {
 		 WebElement element = null;
 		 
@@ -167,6 +194,11 @@ public class Base {
 			}
 		 }));
 		return false;
+	}
+	
+	public void typeString(WebElement ele,String value){
+		ele.clear();
+		ele.sendKeys(value);
 	}
 	
 	public void typeString(By by, String str, int timeout) {
@@ -323,6 +355,16 @@ public class Base {
 		System.out.println(driver.switchTo().alert().getText());
 		alert.accept();
 	}
+	public void acceptAlert(String allertMessage){
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		Alert alert = driver.switchTo().alert();
+		Assert.assertTrue((driver.switchTo().alert().getText().contains(allertMessage)),"allert wrong message!");
+		alert.accept();
+	}
 	
 	public void dismissAlert(){
 		try {
@@ -334,6 +376,7 @@ public class Base {
 		System.out.println(driver.switchTo().alert().getText());
 		alert.dismiss();
 	}
+	
 	
 	
 	public void windowMaximize(){
