@@ -65,8 +65,38 @@ public class TestProjectReference extends WebdriverLogin {
 			String spaceProInfo, String delRefPro1Info) {
 		
 		refernceImpl.deleteRefproDispalyReferenceImpl(projectLabel, typeDI, 1,
-				projectLabel, spaceProInfo, delRefPro1Info, 1);
+				projectLabel, spaceProInfo, delRefPro1Info, 2);
 		
 	}
 	
+	@Test
+	@Parameters({"AddreferenceProjectname", "branch", "spacepro.info", "refbranch.pro.info"})
+	public void testRefBranchToTrunk(String sourePro, String branchName, 
+			String targetPro, String refBranchProInfo) {
+		
+		refernceImpl.referenceBranchToTrunkReferenceImpl(sourePro, branchName, 
+				targetPro, refBranchProInfo);
+		
+	}	
+	
+	@Test
+	@Parameters({"AddreferenceProjectname", "branch", "commbranch.pro.info", "refbranch.pro.info"})
+	public void testRefBranchToBranch(String sourePro, String branchName, 
+			String targetPro, String refBranchProInfo) {
+		
+		refernceImpl.referenceBranchToBranchReferenceImpl(sourePro, branchName, 
+				targetPro, refBranchProInfo);
+		
+	}	
+
+	@Test
+	@Parameters({"AddreferenceProjectname", "trunk", "commbranch.pro.info", "ref.pro.info"})
+	public void testRefTrunkToBranch(String sourePro, String branchName, 
+			String targetPro, String refBranchProInfo) {
+		
+		refernceImpl.referenceTrunkToBranchReferenceImpl(sourePro, branchName, 
+				targetPro, refBranchProInfo);
+		
+		
+	}
 }
