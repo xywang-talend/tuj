@@ -27,9 +27,9 @@ public class Reference extends WebDriverBase {
 		
 	}
 
-	protected void reference(String source, String target, String refInfo, int nodeLevel){
+	protected void reference(String source, String target, String refInfo, int nodeLevel, String branchName){
 		logger.info("get source");
-		WebElement sourceProject = getElementByXpath("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+source+"']");
+		WebElement sourceProject = getElementByXpath("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+branchName+"']//parent::td//preceding-sibling::td//div[text()='referencepro']");
 		this.waitforElementDisplayed(sourceProject, WAIT_TIME_MID);
 		logger.info("get target");
 		logger.info(target);
@@ -38,6 +38,7 @@ public class Reference extends WebDriverBase {
 		WebElement targetProject = getElementByXpath("//div[@aria-level='1']//span[text()='"+target+"']");
 		this.waitforElementDisplayed(targetProject, WAIT_TIME_MID);
 		dragAndDrop(sourceProject, targetProject);
+		logger.info("//span[text()='"+target+"']//ancestor::div[contains(@class,'x-tree3-el') and @aria-level='1']//following-sibling::div//div[@aria-level='"+nodeLevel+"']//span[contains(text(),'"+refInfo+"')]");
 		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='"+target+"']//ancestor::div[contains(@class,'x-tree3-el') and @aria-level='1']//following-sibling::div//div[@aria-level='"+nodeLevel+"']//span[contains(text(),'"+refInfo+"')]"), 5));
 		logger.info("Reference project - '" + source + "'  to comm project '"+ target +"'");
 	    if(this.isElementPresent(By.xpath("//span[text()='"+target+"']//ancestor::div[contains(@class,'x-tree3-el') and @aria-level='1']//following-sibling::div//div[@aria-level='3']//span[contains(text(),'"+refInfo+"')]"), 5)) {

@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.HasInputDevices;
 import org.openqa.selenium.Mouse;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.internal.Locatable;
 import org.talend.tac.base.WebDriverBase;
 import org.testng.Assert;
@@ -100,9 +101,9 @@ public class Project extends WebDriverBase {
 		logger.info("accept alert");
 		this.acceptAlert();
 		logger.info("check project whether disappear");
-		Assert.assertTrue(this.waitforTextDisplayed(delProInfo, 20));
-		Assert.assertTrue(this.waitforElementDisplayed(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
-				+ projectLabel + "')]"), 100));
+		Assert.assertTrue(this.isElementPresent(By.xpath("//div[contains(text(),'"+delProInfo+"')]"), 10));
+		Assert.assertTrue(this.isElementPresent(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				+ projectLabel + "')]"), 2));
 		
 	}
 
@@ -125,6 +126,60 @@ public class Project extends WebDriverBase {
 		Assert.assertFalse(this.waitforElementDisplayed(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ projectLabel + "')]"), 100));
 		
+	}
+	
+	protected void addBranch(String project, String branchName) {
+		
+		logger.info("mouse down project");
+		this.getElementByXpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				+ project + "')]").click();
+		logger.info("click add branch");
+		this.getElementById("idBranchManagementButton").click();
+		logger.info("click trunk in add branch view");
+		this.getElementByXpath("//span[text()='trunk']").click();
+		
+		if(!this.isElementPresent(By.xpath("//input[@aria-describedby]"), 5)) {
+			
+			this.selectDropDownList("idBranchManagementSourceInput", "trunk");
+			
+		}
+		
+		logger.info("enter branch name");
+		this.getElementById("idBranchManagementTargetInput").sendKeys(branchName);
+		logger.info("click create button");
+		this.getElementById("idBranchManagementCreateButton").click();
+		logger.info("choose Yes");
+		this.getElementByXpath("//button[text()='Yes']").click();	
+		logger.info("check branch whether success");
+		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='" + branchName + "']"), 40));
+		logger.info("click close window button");
+		this.getElementByXpath("//div[@class=' x-nodrag x-tool-close x-tool x-component']").click();
+			
+	}
+	
+	protected void deleteBranch(String project, String branchName) {		
+		
+		this.waitElemet(3000);
+		this.getElementByXpath("//div[text()='commonpro']").click();
+		logger.info("mouse down project");		
+		this.getElementByXpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				+ project + "')]").click();
+		logger.info("click add branch button");
+		this.waitElemet(2000);
+		this.getElementById("idBranchManagementButton").click();		
+		WebElement rightBranch = driver.findElement(By.xpath("//span[text()='" + branchName + "']"));
+		logger.info("right click branch");
+		this.rightClick(rightBranch);
+		logger.info("click delete btanch");
+		this.getElementById("delete-item-branch").click();
+		logger.info("choose Yes");
+		this.getElementByXpath("//button[text()='Yes']").click();	
+		logger.info("check beanch whether add success");
+		this.waitElemet(3000);
+		Assert.assertFalse(this.isElementPresent(By.xpath("//span[text()='" + branchName + "']"), 10));
+		logger.info("click close button");
+		this.getElementByXpath("//div[@class=' x-nodrag x-tool-close x-tool x-component']").click();
+				
 	}
 	
 	protected void waitElemet(long time) {
