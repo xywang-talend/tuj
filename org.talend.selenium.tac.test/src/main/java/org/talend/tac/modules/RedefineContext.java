@@ -41,12 +41,10 @@ public class RedefineContext extends WebDriverBase {
            super.setDriver(driver);
            this.driver = driver;
        }
-             
-       public void selectDropDownList(String name,String id, String value) {
-    	   	   
+                 
+       public void selectDropDownList(String name, String id, String value) {
     	   getElementByXpath("//label[text()='"+name+"']//following-sibling::div//input[@id='"+id+"']//following-sibling::div[contains(@class,'x-form-trigger x-form-trigger-arrow')]").click();
-           getElementByXpath("//div[text()='"+value+"']").click();
-   
+		   getElementByXpath("//div[text()='"+value+"']").click();
        }
       
        public void mouseDown(String xpathExpression) {
@@ -68,25 +66,32 @@ public class RedefineContext extends WebDriverBase {
        public void addESBConductor(String label, String des, String repository,
                                    String group, String artifact, String version, String name, String type, 
                                    String context, String server) {
-           this.getElementById("idESBConductorTaskGridAddButton").click();
+    	   this.getElementById("idESBConductorTaskGridAddButton").click();
            this.isElementPresent(By.xpath("//img[@class='gwt-Image" +
-				" x-component ']"), WAIT_TIME_MAX);
+   				" x-component ']"), WAIT_TIME_MAX);
            this.typeTextById("idESBConductorTasklabelInput", label);
            this.typeTextById("idESBConductorTaskdesInput", des);
            this.getElementById("idESBConductorTaskSelectButton").click();
            this.isElementPresent(By.xpath("//span[text()='Select" +
-				" Feature from Talend repository']"), WAIT_TIME_MAX);
-           this.selectDropDownList("Repository:","idTaskProjectListBox", repository);
-           this.selectDropDownList("Group:","idTaskBranchListBox", group);
-           this.selectDropDownList("Artifact:","idTaskApplicationListBox", artifact);
-           this.selectDropDownList("Version:","idTaskVersionListBox", version);
-           this.getElementByXpath("//span[text()='Select Feature from Talend repository']" +
-				"//ancestor::div[@class=' x-window x-component']" +
-				"//button[text()='OK']").click();
+   				" Feature from Talend repository']"), WAIT_TIME_MAX);
+           this.waitforElementDisplayed(By.xpath("//label[text()='Repository:']//following-sibling::div//div[contains(@class,'x-form-trigger x-form-trigger-arrow')]"), WAIT_TIME_MAX);         
+           getElementByXpath("//label[text()='Repository:']//following-sibling::div//div[contains(@class,'x-form-trigger x-form-trigger-arrow')]").click();
+           this.waitforElementDisplayed(By.xpath("//div[text()='"+repository+"'and @role='listitem']"), WAIT_TIME_MAX);
+           getElementByXpath("//div[text()='"+repository+"'and @role='listitem']").click();
+   		   this.getElementByXpath("//span[text()='" + group + "']").click();
+   		   this.getElementByXpath("//div[text()='" + artifact + "']")
+   			   .click();
+   		   this.getElementByXpath("//div[text()='" + version + "']").click();
+   		   this.getElementByXpath(
+   			   "//span[text()='Select Feature from Talend repository']"
+   					+ "//ancestor::div[@class=' x-window x-component']"
+   					+ "//button[text()='OK']").click();
            this.selectDropDownList("Name:","idTaskProjectListBox", name);
            this.selectDropDownList("Type:","idJobConductorExecutionServerListBox", type);
            this.selectDropDownList("Context:","idESBConductorTaskContextListBox", context);
+           logger.info("select context");
            this.selectDropDownList("Server:","idJobConductorExecutionServerListBox", server);
+           logger.info("select server");
            this.getElementById("idFormSaveButton").click();           
        }
        
@@ -94,13 +99,15 @@ public class RedefineContext extends WebDriverBase {
     	   Robot bot;
 		try {
 		   bot = new Robot();
-		   this.waitforElementDisplayed(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MAX);
+		   this.waitforElementDisplayed(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MIN);
 		   this.mouseDown("//div[text()='" + label + "']");
-    	   this.clickElementById(other.getString("ESBConductor.ConfigProperties.AddButtonId"));
+		   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertyAddButton']"), WAIT_TIME_MIN);
+		   this.getElementById("idESBConductorPropertyAddButton").click();
+		   this.clickElementById(other.getString("ESBConductor.ConfigProperties.AddButtonId"));
     	   getElementByXpath(other.getString("ESBConductor.ConfigProperties.Name")).click();
-    	   this.typeString(By.xpath("//span[text()='Name']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input"), variableName, WAIT_TIME_MAX);
+    	   this.typeString(By.xpath("//span[text()='Name']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input"), variableName, WAIT_TIME_MIN);
     	   getElementByXpath(other.getString("ESBConductor.ConfigProperties.Value")).click();
-    	   this.typeString(By.xpath("//span[text()='Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input"), variableValue, WAIT_TIME_MAX);
+    	   this.typeString(By.xpath("//span[text()='Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input"), variableValue, WAIT_TIME_MIN);
     	   bot.keyPress(KeyEvent.VK_ENTER);
     	   bot.keyRelease(KeyEvent.VK_ENTER);    
 		} catch (AWTException e) {
@@ -108,8 +115,10 @@ public class RedefineContext extends WebDriverBase {
 			e.printStackTrace();
 		}
 		   this.mouseDown(other.getString("ESBConductor.ConfigProperties.Value"));
+		   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertySaveButton']"), WAIT_TIME_MIN);
+		   this.getElementById("idESBConductorPropertySaveButton").click();
 		   this.clickElementById(other.getString("ESBConductor.ConfigProperties.SaveButtonId"));
-		   Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+label+"']"), WAIT_TIME_MAX));
+		   Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+label+"']"), WAIT_TIME_MIN));
     	   
        }
        
@@ -117,17 +126,20 @@ public class RedefineContext extends WebDriverBase {
            String status = "Deployed and started";
            String promptInfo = "Feature '" + name + "' deployed.";
            this.mouseDown("//div[text()='" + label + "']");
+           this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridDeployButton']"), WAIT_TIME_MIN);
+		   this.getElementById("idESBConductorTaskGridDeployButton").click();
            this.clickElementById(other.getString("ESBConductor.DeployButtonId"));
-           this.waitforTextDisplayed(promptInfo, WAIT_TIME_MAX);
-          // this.clickElementById(other.getString("ESBConductor.RefreshButtonId"));
+           this.waitforTextDisplayed(promptInfo, WAIT_TIME_MIN);
            Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='" + label + "']"
                    + "//ancestor::table[@class='x-grid3-row-table']//span[text()='" + status
-                   + "']"), WAIT_TIME_MAX));
+                   + "']"), WAIT_TIME_MIN));
        }
        
        public void deleteContextPropertiesOk(String label) {
     	   this.mouseDown("//div[text()='" + label + "']");
     	   this.mouseDown("//span[text()='Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input");
+           this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertyDeleteButton']"), WAIT_TIME_MIN);
+    	   this.getElementById("idESBConductorPropertyDeleteButton").click();
     	   this.clickElementById(other.getString("ESBConductor.ConfigProperties.DeleteButtonId"));
            this.acceptAlert(); 
        }
@@ -135,18 +147,22 @@ public class RedefineContext extends WebDriverBase {
        public void undeployEsbConductorOk(String label) {
     	   String status="Undeployed";
     	   this.mouseDown("//div[text()='" + label + "']");
+    	   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridUndeployButton']"), WAIT_TIME_MIN);
+    	   this.getElementById("idESBConductorTaskGridUndeployButton").click();    	   
     	   this.clickElementById(other.getString("ESBConductor.UndeployButtonId"));
     	   this.acceptAlert();
     	   this.clickElementById(other.getString("ESBConductor.RefreshButtonId"));
     	   Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='" + label + "']"
                    + "//ancestor::table[@class='x-grid3-row-table']//span[text()='" + status
-                   + "']"), WAIT_TIME_MAX));
+                   + "']"), WAIT_TIME_MIN));
        }
        
        public void deleteUndeployedConductorOk(String label,String name) {
     	   this.mouseDown("//div[text()='" + label + "']");
+    	   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridDeleteButton']"), WAIT_TIME_MIN);
+    	   this.getElementById("idESBConductorTaskGridDeleteButton").click();        	   
     	   this.clickElementById(other.getString("ESBConductor.DeleteButtonId"));
     	   this.acceptAlert(); 	   
-           Assert.assertFalse(this.waitforElementDisplayed(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MAX));
+           Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MIN));
        }
     }
