@@ -268,6 +268,7 @@ public class Base {
     	this.getElementByName(name).click();
     }
     public void clickElementByXpath(String xpath){
+    	Assert.assertTrue(this.waitfor(By.xpath(xpath), WAIT_TIME_MIN)!=null);    	
     	this.getElementByXpath(xpath).click();
     }
     

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Record" parallel="false">
+        <parameter name="entity" value="Shipper" />        
+  		<parameter name="feild1Value" value="SHIP-8" />  
+  		<parameter name="feild1Name" value="ShipperId" />
+  		<parameter name="feild2Name" value="Name" />
+  		<parameter name="feild3Name" value="PerOunceRate" />
+   	
+   <test name="create a record">
+	    <classes>	       	 			
+  			<parameter name="feild2Value" value="Shipper_c" />
+  			<parameter name="feild3Value" value="0.1" />			
+		    <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods>				 	           
+		           <include name="testCreateRecord"/>
+		        </methods>
+		    </class>
+	    </classes>
+  </test>   
+   
+<test name="update a record">
+	    <classes>			  				 			
+  			<parameter name="feild2Value" value="Shipper_up" />
+  			<parameter name="feild3Value" value="0.2" />		
+		    <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 
+		           <include name="testUpdateRecord"/> 
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+
+ <test name="duplicate a record">
+	    <classes>
+  			<parameter name="feild1UpdateValue" value="SHIP-9" /> 			
+  			<parameter name="feild2Value" value="Shipper_dup" />
+  			<parameter name="feild3Value" value="0.3" />		
+		    <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 
+		           <include name="testDuplicateRecord"/> 
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
+
+ <test name="search records by date the opeartion equals">
+	    <classes>	
+	        <parameter name="entity" value="Customer" />
+	        <parameter name="searchFeild" value="date" />
+	        <parameter name="opeartion" value="equals" />
+  			<parameter name="value" value="2010-01-27" />			
+		    <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 
+		           <include name="testSearchRecordByDate"/> 
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+  
+    <test name="search records by date the opeartion is after">
+	    <classes>	
+	        <parameter name="entity" value="Customer" />
+	        <parameter name="searchFeild" value="date" />
+	        <parameter name="opeartion" value="is after" />
+  			<parameter name="value" value="2010-03-07" />			
+		    <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 
+		           <include name="testSearchRecordByDate"/> 
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+  
+    <test name="search records by date the opeartion is before">
+	    <classes>	
+	        <parameter name="entity" value="Customer" />
+	        <parameter name="searchFeild" value="date" />
+	        <parameter name="opeartion" value="is before" />
+  			<parameter name="value" value="2010-03-07" />			
+		    <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 
+		           <include name="testSearchRecordByDate"/> 
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+
+   <test name="search records by value the opeartion is greater than">
+	    <classes>	
+	        <parameter name="entity" value="POItem" />
+	        <parameter name="searchFeild" value="Price" />
+	        <parameter name="opeartion" value="is greater than" />
+  			<parameter name="value" value="24" />			
+		    <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 
+		           <include name="testSearchRecordByValue"/> 
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+
+     <test name="search records by value the opeartion is equal to">
+	    <classes>	
+	        <parameter name="entity" value="POItem" />
+	        <parameter name="searchFeild" value="Price" />
+	        <parameter name="opeartion" value="is equal to" />
+  			<parameter name="value" value="1" />			
+		    <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 
+		           <include name="testSearchRecordByValue"/> 
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+  
+    <test name="search records by value the opeartion is greater or equals">
+	    <classes>	
+	        <parameter name="entity" value="POItem" />
+	        <parameter name="searchFeild" value="Price" />
+	        <parameter name="opeartion" value="is greater or equals" />
+  			<parameter name="value" value="4" />			
+		    <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 
+		           <include name="testSearchRecordByValue"/> 
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
+    
+     <test name="search records by value the opeartion is lower than">
+	    <classes>	
+	        <parameter name="entity" value="POItem" />
+	        <parameter name="searchFeild" value="Price" />
+	        <parameter name="opeartion" value="is lower than" />
+  			<parameter name="value" value="4" />			
+		    <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 
+		           <include name="testSearchRecordByValue"/> 
+		        </methods>
+		    </class>
+	    </classes>
+  </test>   
+  
+     <test name="search records by value the opeartion is lower or equals">
+	    <classes>	
+	        <parameter name="entity" value="POItem" />
+	        <parameter name="searchFeild" value="Price" />
+	        <parameter name="opeartion" value="is lower or equals" />
+  			<parameter name="value" value="24" />			
+		    <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 
+		           <include name="testSearchRecordByValue"/> 
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+ 
+      <test name="search records by value the opeartion is not equal to">
+	    <classes>	
+	        <parameter name="entity" value="POItem" />
+	        <parameter name="searchFeild" value="Price" />
+	        <parameter name="opeartion" value="is not equal to" />
+  			<parameter name="value" value="24" />			
+		    <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 
+		           <include name="testSearchRecordByValue"/> 
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+  
+ <test name="search records by string the opeartion contains the word(s)">
+	    <classes>	
+	        <parameter name="entity" value="Customer" />
+	        <parameter name="searchFeild" value="name" />
+	        <parameter name="opeartion" value="contains the word(s)" />
+  			<parameter name="value" value="a" />			
+		    <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 
+		           <include name="testSearchRecordByString"/> 
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
+ 
+     <test name="search records by string the opeartion contains a word starting with">
+	    <classes>	
+	        <parameter name="entity" value="Customer" />
+	        <parameter name="searchFeild" value="name" />
+	        <parameter name="opeartion" value="contains a word starting with" />
+  			<parameter name="value" value="d" />			
+		    <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 
+		           <include name="testSearchRecordByString"/> 
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
+     
+    <test name="search records by string the opeartion contains the sentence">
+	    <classes>	
+	        <parameter name="entity" value="Customer" />
+	        <parameter name="searchFeild" value="name" />
+	        <parameter name="opeartion" value="contains the sentence" />
+  			<parameter name="value" value="2" />			
+		    <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 
+		           <include name="testSearchRecordByString"/> 
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
+      
+   <test name="delete a record">
+	    <classes>
+	            <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 
+		           <include name="testDeleteRecord"/> 
+		        </methods>
+		    </class>
+	    </classes>
+  </test>     
+ 
+ 
+      <test name="delete a record to recycle and restore the record " preserve-order="true">
+	    <classes>
+	        <parameter name="feild1Value" value="SHIP-9" /> 
+	        <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 		          
+		        <include name="testDeleteRecordToRecycle"/>  
+		           <include name="testRestoreFromRecycle"/> 		          	                
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+  
+   
+<!--    <test name="journal open a  record detail">
+	    <classes>	    
+		    <class name="org.talend.mdm.cases.record.TestRecord">
+				<methods> 
+		           <include name="testJournalOpenRecord"/> 
+		           
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+   -->
+  
+</suite>

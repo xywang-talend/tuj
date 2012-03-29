@@ -56,6 +56,7 @@ public void updateRecord(String container,String modle,String entity,String feil
 	Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersFeild2)), 3000));
 	this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersFeild2)), feild2Value);
 	this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild3",parametersFeild3)), feild3Value);
+	this.sleepCertainTime(5000);
 	this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
 	if (this.isTextPresent("No change since last save")){
 		this.clickElementByXpath("//button[text()='Ok']");		
@@ -68,6 +69,7 @@ public void updateRecord(String container,String modle,String entity,String feil
    }
 }
 public void duplicateRecord(String container,String modle,String entity,String feild1Value,String feild2Value,String feild3Value,String feild1Name,String feild2Name,String feild3Name,String feild1UpdateValue) {
+	String[] parametersFeild1Value={entity,feild1Value};
 	String[] parametersFeild1={entity,feild1Name};	
 	String[] parametersFeild2={entity,feild2Name};
 	String[] parametersFeild3={entity,feild3Name};
@@ -82,7 +84,8 @@ public void duplicateRecord(String container,String modle,String entity,String f
 	this.sleepCertainTime(5000);
 	this.clickElementByXpath(locator.getString("xpath.record.Duplicate.click"));
 	Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.Duplicate.input",parametersFeild1)), WAIT_TIME_MAX),"duplicateARecord");
-	this.clickElementByXpath(locator.getString("xpath.record.Duplicate.close.origin"));	
+	this.sleepCertainTime(5000);
+	this.clickElementByXpath(this.getString(locator,"xpath.record.Duplicate.close.origin",parametersFeild1Value));	
 	this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.Duplicate.input",parametersFeild1)), feild1UpdateValue);
 	this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersFeild2)), feild2Value);
 	this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild3",parametersFeild3)), feild3Value);
@@ -151,7 +154,10 @@ public void restoreFromRecycle(String container,String modle,String entity,Strin
 	chooseModle(modle);
 	clickSave();
 	clickRecycle();
+	this.sleepCertainTime(5000);
+	this.clickElementByXpath(this.getString(locator, "xpath.record.recycle.click.record",feild1Value));
 	this.clickElementByXpath(this.getString(locator,"xpath.record.recycle.click.record.restore",feild1Value));
+	this.sleepCertainTime(5000);
 	this.clickElementByXpath(locator.getString("xpath.record.recycle.click.record.restore.yes"));
 	 if (this.isElementPresent(By.xpath("//span[contains(text(),'Please input all necessary search ')]"),WAIT_TIME_MIN)){
 		 this.clickElementByXpath("//button[text()='Ok']");}
