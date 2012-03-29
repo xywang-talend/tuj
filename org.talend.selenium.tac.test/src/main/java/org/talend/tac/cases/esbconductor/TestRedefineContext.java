@@ -35,7 +35,7 @@ public class TestRedefineContext extends WebdriverLogin {
        }
     
        @Test
-       @Parameters({"labelOfServiceWithDifferentContext", "desOfService", "repositoryForContext", "group", "artifactForContext",
+       @Parameters({"labelOfServiceWithDifferentContext", "desOfService", "repositoryForContext", "groupForContext", "artifactForContext",
    		"versionForContext", "featureName", "typeForContext", "addedContext", "serverOfRuntime","contextVariableName","contextVariableValue"})
        public void testRedefineContext(String label, String des, String repository,
            String group, String artifact, String version, String name, String type, 
