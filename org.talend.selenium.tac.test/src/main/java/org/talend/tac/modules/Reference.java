@@ -28,9 +28,11 @@ public class Reference extends WebDriverBase {
 	}
 
 	protected void reference(String source, String target, String refInfo, int nodeLevel, String branchName){
+		this.waitElement(2000);
 		logger.info("get source");
-		WebElement sourceProject = getElementByXpath("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+branchName+"']//parent::td//preceding-sibling::td//div[text()='referencepro']");
-		this.waitforElementDisplayed(sourceProject, WAIT_TIME_MID);
+		logger.info("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+branchName+"']//parent::td//preceding-sibling::td//div[text()='"+source+"']");
+		WebElement sourceProject = getElementByXpath("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+branchName+"']//parent::td//preceding-sibling::td//div[text()='"+source+"']");
+//		this.waitforElementDisplayed(sourceProject, WAIT_TIME_MID);
 		logger.info("get target");
 		logger.info(target);
 		logger.info("//div[@aria-level='1']//span[text()='"+target+"']");
@@ -50,9 +52,11 @@ public class Reference extends WebDriverBase {
 	}
 	
 	protected void failedReference(String source, String target, String refInfo, int nodeLevel){
+		this.waitElement(2000);
 		logger.info("get source");
+		logger.info("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+source+"']");
 		WebElement sourceProject = getElementByXpath("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+source+"']");
-		this.waitforElementDisplayed(sourceProject, WAIT_TIME_MID);
+//		this.isElementPresent(By.xpath("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+source+"']"), 5);
 		logger.info("get target");
 		WebElement targetProject = getElementByXpath("//div[@aria-level='1']//span[text()='"+target+"']");
 		this.waitforElementDisplayed(targetProject, WAIT_TIME_MID);
@@ -71,7 +75,7 @@ public class Reference extends WebDriverBase {
 	}
 	
 	public void removeReference(String target, String refInfo, int nodeLevel) {
-		        
+		
 		logger.info("click right refinfo(sourcePro)");
 		logger.info("//span[text()='"+target+"']//ancestor::div[contains(@class,'x-tree3-el') and @aria-level='1']//following-sibling::div[@class='x-tree3-node-ct']//div[@aria-level='"+nodeLevel+"']//span[contains(text(),'"+refInfo+"')]");
 		this.rightClick(getElementByXpath("//span[text()='"+target+"']//ancestor::div[contains(@class,'x-tree3-el') and @aria-level='1']//following-sibling::div[@class='x-tree3-node-ct']//div[@aria-level='"+nodeLevel+"']//span[contains(text(),'"+refInfo+"')]"));
