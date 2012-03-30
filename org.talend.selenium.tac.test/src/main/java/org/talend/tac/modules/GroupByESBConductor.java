@@ -1,25 +1,17 @@
 package org.talend.tac.modules;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
-
 import junit.framework.Assert;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.HasInputDevices;
 import org.openqa.selenium.Mouse;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverBackedSelenium;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.internal.Locatable;
-import org.openqa.selenium.server.SeleniumDriverResourceHandler;
 import org.talend.tac.base.WebDriverBase;
 
-import com.thoughtworks.selenium.Selenium;
 
-public class GroupByESBConductor extends WebDriverBase{
+public class GroupByESBConductor extends WebDriverBase {
 	
 	
 	public GroupByESBConductor(WebDriver driver) {
@@ -124,58 +116,73 @@ public class GroupByESBConductor extends WebDriverBase{
 		this.clickElementByXpath("//a[text()='Group By This Field']");
 	}
 	
+//	public void checkColumn(String columnName){
+////		boolean present = this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"),WAIT_TIME_MIN);
+//		WebElement tag = driver.findElement(By.xpath("//span[text()='Tag']"));
+//		boolean present = driver.findElement(By.xpath("//span[text()='"+columnName+"']")).isDisplayed();
+//		if(!present){			
+//			this.waitElememt();
+//			driver.findElement(By.xpath("//a[text()='"+columnName+"']/img")).click();
+//			this.waitElememt();
+//			driver.findElement(By.xpath("//span[text()='"+columnName+"']")).isDisplayed();
+//		}
+//		else{
+//			
+//			this.waitElememt();
+//			logger.info("//a[text()='"+columnName+"']");
+//			WebElement tag1 = driver.findElement(By.xpath("//span[text()='Tag']"));
+//			this.moveToElement(tag1);
+//			WebElement jjj = driver.findElement(By.xpath("//span[text()='Tag']//parent::div[contains(@class,'x-grid3-hd-inner x-grid3-hd-applicationGroup x-component')]//a"));
+//			//build and perform the mouseOver with Advanced User Interactions API
+//			//then click when menu option is visible
+//			jjj.click();
+//			this.waitforElementDisplayed(By.xpath("//a[text()='Columns']"), WAIT_TIME_MIN);
+//			WebElement columns = driver.findElement(By.xpath("//a[text()='Columns']"));
+//
+//			this.moveToElement(columns);
+//			try {
+//				Thread.sleep(50000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}	
+//			logger.info("234234234234234"+"//a[text()='"+columnName+"']/img");
+//			driver.findElement(By.xpath("//a[text()='"+columnName+"']/img")).click();
+//			try {
+//				Thread.sleep(50000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}	
+//			Assert.assertFalse(this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"),WAIT_TIME_MIN));
+//			
+//		}
+//	}
 	public void checkColumn(String columnName){
-//		boolean present = this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"),WAIT_TIME_MIN);
-		WebElement tag = driver.findElement(By.xpath("//span[text()='Tag']"));
-		boolean present = driver.findElement(By.xpath("//span[text()='"+columnName+"']")).isDisplayed();
-		if(!present){			
-			this.waitElememt();
-			driver.findElement(By.xpath("//a[text()='"+columnName+"']/img")).click();
-			this.waitElememt();
-			driver.findElement(By.xpath("//span[text()='"+columnName+"']")).isDisplayed();
+		boolean present = this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"),WAIT_TIME_MIN);
+		if(!present){
+			this.clickElementByXpath("//a[text()='"+columnName+"']");
+			this.waitforElementDisplayed(By.xpath("//span[text()='"+columnName+"']"), WAIT_TIME_MIN);
+//			selenium.click("//a[text()='"+columnName+"']");
+//			this.waitForElementDispear("//span[text()='"+columnName+"']", WAIT_TIME);
 		}
 		else{
-			
-			this.waitElememt();
-			logger.info("//a[text()='"+columnName+"']");
-			WebElement tag1 = driver.findElement(By.xpath("//span[text()='Tag']"));
-			this.moveToElement(tag1);
-			WebElement jjj = driver.findElement(By.xpath("//span[text()='Tag']//parent::div[contains(@class,'x-grid3-hd-inner x-grid3-hd-applicationGroup x-component')]//a"));
-			//build and perform the mouseOver with Advanced User Interactions API
-			//then click when menu option is visible
-			jjj.click();
-			this.waitforElementDisplayed(By.xpath("//a[text()='Columns']"), WAIT_TIME_MIN);
-			WebElement columns = driver.findElement(By.xpath("//a[text()='Columns']"));
-
-			this.moveToElement(columns);
-			try {
-				Thread.sleep(50000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-			logger.info("234234234234234"+"//a[text()='"+columnName+"']/img");
-			driver.findElement(By.xpath("//a[text()='"+columnName+"']/img")).click();
-//			this.waitElememt();
-			try {
-				Thread.sleep(50000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-			Assert.assertFalse(this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"),WAIT_TIME_MIN));
-			
+			this.clickElementByXpath("//a[text()='"+columnName+"']");
+			Assert.assertFalse(this.isElementPresent(By.xpath("//a[text()='"+columnName+"']"), WAIT_TIME_MIN));
+//			selenium.click("//a[text()='"+columnName+"']");
+//			this.waitForElementPresent("//span[text()='"+columnName+"']", WAIT_TIME);
 		}
+		
 	}
 	
-	public void waitElememt() {
-		
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-	}
+//	public void waitElememt() {
+//		
+//		try {
+//			Thread.sleep(5000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}	
+//	}
 	
 }

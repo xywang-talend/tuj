@@ -23,12 +23,12 @@ public class TestGroupByESBConductor extends WebdriverLogin {
 	public void testGroupESBConductorOfService(String label1,String label2,String label3, String des, String repository,
 			String group, String artifact, String version, String name, String type, 
 			String context, String server,String tagA, String tagB) {
-//		groupByESBConductorImpl.addESBConductors(label1, des, repository, group, artifact, version,
-//				name, type, context, server,tagA,0);
-//		groupByESBConductorImpl.addESBConductors(label2, des, repository, group, artifact, version, 
-//				name, type, context, server, tagB, 0);
-//		groupByESBConductorImpl.addESBConductors(label3, des, repository, group, artifact, version,
-//				name, type, context, server, tagB, 0);
+		groupByESBConductorImpl.addESBConductors(label1, des, repository, group, artifact, version,
+				name, type, context, server,tagA,0);
+		groupByESBConductorImpl.addESBConductors(label2, des, repository, group, artifact, version, 
+				name, type, context, server, tagB, 0);
+		groupByESBConductorImpl.addESBConductors(label3, des, repository, group, artifact, version,
+				name, type, context, server, tagB, 0);
 		groupByESBConductorImpl.groupESBConductorByKey();
 	}
 	

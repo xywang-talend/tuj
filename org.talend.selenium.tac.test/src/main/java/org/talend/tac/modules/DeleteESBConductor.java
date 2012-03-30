@@ -93,7 +93,7 @@ public class DeleteESBConductor extends WebDriverBase{
         this.getElementById("idESBConductorTaskGridDeleteButton").click();
         this.clickElementById(other.getString("ESBConductor.DeleteButtonId"));
         this.acceptAlert();
-        this.waitforTextDisappeared("//div[text()='"+label+"']", WAIT_TIME_MIN);
+ //       this.waitforTextDisappeared("//div[text()='"+label+"']", WAIT_TIME_MIN);
         } 
     }
     public void undeployESBConductor(String label, String name) {
