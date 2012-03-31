@@ -5,14 +5,15 @@
   		<parameter name="feild1Name" value="ShipperId" />
   		<parameter name="feild2Name" value="Name" />
   		<parameter name="feild3Name" value="PerOunceRate" />
-   	
-   <test name="create a record">
+    	
+   <test name="create a record"  preserve-order="true">
 	    <classes>	       	 			
   			<parameter name="feild2Value" value="Shipper_c" />
   			<parameter name="feild3Value" value="0.1" />			
 		    <class name="org.talend.mdm.cases.record.TestRecord">
 				<methods>				 	           
 		           <include name="testCreateRecord"/>
+		           <include name="testJournalOpenRecord"/> 
 		        </methods>
 		    </class>
 	    </classes>
@@ -24,7 +25,7 @@
   			<parameter name="feild3Value" value="0.2" />		
 		    <class name="org.talend.mdm.cases.record.TestRecord">
 				<methods> 
-		           <include name="testUpdateRecord"/> 
+		           <include name="testUpdateRecord"/> 		           
 		        </methods>
 		    </class>
 	    </classes>
@@ -233,9 +234,8 @@
 		    </class>
 	    </classes>
   </test>  
-  
-   
-<!--    <test name="journal open a  record detail">
+
+   <test name="journal open a  record detail">
 	    <classes>	    
 		    <class name="org.talend.mdm.cases.record.TestRecord">
 				<methods> 
@@ -244,7 +244,6 @@
 		        </methods>
 		    </class>
 	    </classes>
-  </test>  
-   -->
-  
+  </test>   
+ 
 </suite>

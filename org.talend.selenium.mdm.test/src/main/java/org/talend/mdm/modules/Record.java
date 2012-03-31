@@ -1,13 +1,21 @@
 package org.talend.mdm.modules;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.HasInputDevices;
+import org.openqa.selenium.Mouse;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.internal.Locatable;
+
 import org.talend.mdm.Base;
 import org.testng.Assert;
 
@@ -137,9 +145,24 @@ public void JournalOpenRecord(String container,String modle,String entity,String
 	this.typeTextByXpath(locator.getString("xpath.record.choose.journal.key"), feild1Value);
 	this.clickElementByXpath(locator.getString("xpath.record.choose.journal.operation.arrows")); 
 	this.clickElementByXpath(locator.getString("xpath.record.choose.journal.operation.choose")); 
-	logger.info(locator.getString("xpath.record.choose.journal.search"));
-	this.sleepCertainTime(5000);
-	this.clickElementByXpath(locator.getString("xpath.record.choose.journal.search")); 
+	
+	
+	
+//	logger.info(locator.getString("xpath.record.choose.journal.search"));
+	this.sleepCertainTime(2000);
+	try {
+		Robot bot = new Robot();
+		bot.keyPress(KeyEvent.VK_TAB);
+		bot.keyRelease(KeyEvent.VK_TAB);
+        bot.keyPress(KeyEvent.VK_TAB);
+		bot.keyRelease(KeyEvent.VK_TAB);
+		bot.keyPress(KeyEvent.VK_TAB);
+		bot.keyRelease(KeyEvent.VK_TAB);
+		bot.keyPress(KeyEvent.VK_ENTER);
+	} catch (AWTException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.journal.choose.record", feild1Value)), WAIT_TIME_MIN);
 	this.doubleClick(this.getElementByXpath(this.getString(locator, "xpath.record.choose.journal.choose.record", feild1Value)));
 	this.isElementPresent(By.xpath("//button[text()='Open Record']"), WAIT_TIME_MIN);
@@ -520,6 +543,7 @@ public void clickSave() {
 
 public void chooseEntity(String entity) { 
 	this.clickElementByXpath(locator.getString("xpath.record.click.DataBrowser"));
+	
 	this.clickElementByXpath(locator.getString("xpath.record.choose.entity.arrows"));	 
 	this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.entity",entity)), WAIT_TIME_MAX);
 	this.clickElementByXpath(this.getString(locator, "xpath.record.choose.entity",entity));
