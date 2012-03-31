@@ -15,6 +15,14 @@ public class UserImpl extends User{
 	}
 	
 	
+	public void logoutThenloginAdministratorAndDeleteUser(String userName,String userPassword,String message,String userDelete){
+		this.logout();
+		this.loginAdministrator(userName, userPassword, message);
+		this.openMenuAdministrator();
+		this.gotoUserManagePage();
+		this.deleteUser(userDelete);
+	}
+	
 	public void addUserImpl(String identifier,String firstName,String lastName,String password,String confirmPassword,
 			String email, String company, String defaultVersion, boolean active, String[] roles){
 		this.gotoUserManagePage();
@@ -188,6 +196,24 @@ public class UserImpl extends User{
 	    
 	}
 	
+	public void AddUserInactiveCheckLoginThenActive(String administrator,String adminPass,String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String roles) {
+		this.addUserInactive(administrator, adminPass, identifier,
+				firstName, lastName, password, confirmPassword, email, company,
+				defaultVersion, active, splitParameter(roles));
+		this.logout();
+		this.loginWithExistInactiveUserImpl(identifier, password, locator
+				.getString("login.exist.user.inactive.allert.message"));
+		this.loginAdministrator(administrator, adminPass, locator
+				.getString("login.administrator.forcelogin.message"));
+		this.activeAnUserInactive(identifier, firstName, lastName,
+				password, confirmPassword, email, company, defaultVersion,
+				active, splitParameter(roles));
+		this.logout();
+		this.loginAdministrator(identifier, password, locator
+				.getString("login.administrator.forcelogin.message"));
+		this.logoutThenloginAdministratorAndDeleteUser(administrator, adminPass, locator.getString("login.administrator.forcelogin.message"), identifier);
+	}
+	
 	public void flushCache(String userName,String cacheUrl){
 		logger.info("Ready to test flush cache!");
 		this.openMenuAdministrator();
@@ -218,6 +244,34 @@ public class UserImpl extends User{
 		logger.info("second time check with click flush cache button ok,string administraor not appeared.");
 		driver2.quit();
 		logger.info("driver2 controls browser to quit.");
+		
+	}
+	
+	public void addUserWithCustomizeRoles(String administrator,String administratorPass,String identifier, String firstName, String lastName, String password, String confirmPassword, String email, String company,String defaultVersion,boolean active, String rolesCustomize,String rolesSystem){
+		
+		logger.info("Ready to test add user with customized roles");
+		this.openMenuAdministrator();
+		this.gotoUserManagePage();
+		logger.info("login ok and into user mange page ok.");
+		this.clickAddNewUser();
+		logger.info("click add new user ok.");
+		logger.info("ready to configure new user's base infomation.");
+		this.confBaseUserInfo(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active);
+		logger.info(" user's base infomation configure ok.");
+		this.selectRoles(rolesCustomize);
+		logger.info("add demo roles only for user ok.");
+		this.clickSave();
+		logger.info("user save button click ok.");
+		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.user.add.user.without.system.roles.warning")), WAIT_TIME_MAX));
+		logger.info("warning information let you to add system roles appear ok.");
+		this.clickElementByXpath(locator.getString("xpath.user.add.user.without.system.roles.warning.ok"));
+		this.selectRoles(rolesSystem);
+		logger.info("click ok button and select a system role for user");
+		this.clickSaveAndCheckExpectedTrue(identifier);
+		logger.info("after select a system role for user and click save user button ,checked new user added ok.");
+		this.logout();
+		this.loginUserForce(identifier, password);
+		this.logoutThenloginAdministratorAndDeleteUser(administrator, administratorPass, locator.getString("login.administrator.forcelogin.message"), identifier);
 		
 	}
 }

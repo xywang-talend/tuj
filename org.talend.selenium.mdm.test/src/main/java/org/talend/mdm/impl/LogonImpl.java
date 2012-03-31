@@ -23,9 +23,23 @@ public class LogonImpl extends Logon{
 		if(this.isTextPresent(message)) {
 			this.getElementByLinkText("Force user to logout").click();
 			this.configureLogin(userName, userPassword);
-		} else {
+			this.clickLogin();
 			logger.info("Force Login MDM");
 		}
+		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.sheet.welcome")), WAIT_TIME_MAX));
+	}
+	
+	public void loginUserForce(String userName,String userPassword){
+		Assert.assertTrue(this.isTextPresent(locator.getString("mdm.suit.name")));
+		Assert.assertTrue(this.isTextPresent(locator.getString("mdm.edition.name")));
+		this.configureLogin(userName, userPassword);
+		this.clickLogin();
+		if(this.isTextPresent(this.getString(locator, "login.user.forcelogin.message", userName))) {
+			this.getElementByLinkText("Force user to logout").click();
+			this.configureLogin(userName, userPassword);
+			this.clickLogin();
+			logger.info("Force Login MDM");
+		} 
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.sheet.welcome")), WAIT_TIME_MAX));
 	}
 	
@@ -37,7 +51,7 @@ public class LogonImpl extends Logon{
 		if(this.isTextPresent(message)) {
 			this.getElementByLinkText("Force user to logout").click();
 			this.configureLogin(userName, userPassword);
-		} else {
+			this.clickLogin();
 			logger.info("Force Login MDM");
 		}
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.sheet.welcome")), WAIT_TIME_MAX));

@@ -7,18 +7,25 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.talend.mdm.Base;
+import org.talend.mdm.impl.LogonImpl;
 import org.testng.Assert;
 
 
-public class User extends Base{
+public class User extends LogonImpl{
 	
-	public User(WebDriver driver) {
+public User(WebDriver driver) {
+		super(driver);
+		// TODO Auto-generated constructor stub
+	}
+
+/*	public User(WebDriver driver) {
 		super.setDriver(driver);
 		this.driver = driver;
-	}
+	}*/
 	
-	protected void openMenuAdministrator(){
+	public void openMenuAdministrator(){
 		this.logger.info("open Administration page");
+		this.waitfor(By.xpath(locator.getString("xpath.Administration.menu")), WAIT_TIME_MAX);
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.Administration.menu")), WAIT_TIME_MAX));
 		this.clickElementByXpath(locator.getString("xpath.Administration.menu"));
 		}

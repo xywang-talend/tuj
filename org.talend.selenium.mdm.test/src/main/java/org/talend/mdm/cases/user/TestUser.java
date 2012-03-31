@@ -94,21 +94,10 @@ public class TestUser extends Login {
 	@Test
 	@Parameters( {"user.name","user.password" ,"identifier", "first.name", "last.name", "password", "confirm.password", "email", "company", "default.version", "active", "roles" })
 	public void testAddUserInactiveCheckLoginThenActive(String administrator,String adminPass,String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String roles) {
-		userImpl.addUserInactive(administrator, adminPass, identifier,
+		userImpl.AddUserInactiveCheckLoginThenActive(administrator, adminPass, identifier,
 				firstName, lastName, password, confirmPassword, email, company,
-				defaultVersion, active, splitParameter(roles));
-		loger.logout();
-		loger.loginWithExistInactiveUserImpl(identifier, password, locator
-				.getString("login.exist.user.inactive.allert.message"));
-		loger.loginAdministrator(administrator, adminPass, locator
-				.getString("login.administrator.forcelogin.message"));
-		userImpl.activeAnUserInactive(identifier, firstName, lastName,
-				password, confirmPassword, email, company, defaultVersion,
-				active, splitParameter(roles));
-		loger.logout();
-		loger.loginAdministrator(identifier, password, locator
-				.getString("login.administrator.forcelogin.message"));
- 
+				defaultVersion, active, (roles));
+
 	}
 	
 	@Test
@@ -123,4 +112,10 @@ public class TestUser extends Login {
 		userImpl.flushCache(userName,url);
 	}
 	
+	@Test
+	@Parameters( {"user.name","user.password" ,"identifier", "first.name", "last.name", "password", "confirm.password", "email", "company", "default.version", "active","roles.customize", "roles" })
+	public void testaddUserWithCustomizeRoles(String administrator,String administratorPass,String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String rolesCustomize,String rolesSystem) {
+		userImpl.addUserWithCustomizeRoles(administrator,administratorPass,identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, rolesCustomize,rolesSystem);
+		
+	}
 }
