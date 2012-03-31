@@ -98,4 +98,6 @@ public class SWTBotTreeItemExt extends SWTBotTreeItem {
     private void notifyTree(int eventType, Event event) {
         notify(eventType, event, tree);
     }
+    
+    
 }

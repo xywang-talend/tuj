@@ -12,6 +12,9 @@
 // ============================================================================
 package tosstudio.businessmodels;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +41,12 @@ public class CreateBusinessModelInFolderTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
+    	List<String> folders = new ArrayList<String>();
+    	folders.add(FOLDERNAME);
+    	
+    	
         repositories.add(ERepositoryObjectType.BUSINESS_PROCESS);
+        reporsitoriesFolders.put(ERepositoryObjectType.BUSINESS_PROCESS, folders);
         businessModelItem = new TalendBusinessModelItem(BUSINESS_MODEL_NAME);
         folder = Utilities.createFolder(FOLDERNAME, businessModelItem.getItemType());
         businessModelItem.setFolderPath(folder.getFolderPath());
