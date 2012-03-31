@@ -85,28 +85,37 @@ public class DeleteESBConductor extends WebDriverBase{
         this.mouseDown("//div[text()='"+label+"']");
         if(this.isElementPresent(By.xpath("//div[text()='"+label+"']" +
            "//ancestor::td[@class='x-grid3-col x-grid3-cell x-grid3-td-label ']"+
-           "//preceding-sibling::td//span[text()='Ready to deploy']"),WAIT_TIME_MIN) ||
+           "//preceding-sibling::td//span[text()='Ready to deploy']"),10) ||
             this.isElementPresent(By.xpath("//div[text()='"+label+"']" +
            "//ancestor::td[@class='x-grid3-col x-grid3-cell x-grid3-td-label ']"+
-           "//preceding-sibling::td//span[text()='Undeployed']"),WAIT_TIME_MIN)) {    
-        this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridDeleteButton']"), WAIT_TIME_MIN);
-        this.getElementById("idESBConductorTaskGridDeleteButton").click();
-        this.clickElementById(other.getString("ESBConductor.DeleteButtonId"));
+           "//preceding-sibling::td//span[text()='Undeployed']"),10)) {    
+        logger.info(other.getString("ESBConductor.DeleteButtonId"));
+        this.getElementByXpath("//button[@id='idESBConductorTaskGridDeleteButton']").click();
+        this.clickElementById("idESBConductorTaskGridDeleteButton");
         this.acceptAlert();
- //       this.waitforTextDisappeared("//div[text()='"+label+"']", WAIT_TIME_MIN);
+        Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='"+label+"']"), 20));
         } 
     }
     public void undeployESBConductor(String label, String name) {
-		String promptInfo ="Feature'"+name+"'undeployed.";
-		logger.info("feature name:"+name);
+    	String promptInfo="Feature '"+name+"' undeployed.";
     	String status = "Undeployed";   	
     	this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']"), WAIT_TIME_MIN);
 		this.mouseDown("//div[text()='"+label+"']");
 		this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridUndeployButton']"), WAIT_TIME_MIN);
 	    this.getElementById("idESBConductorTaskGridUndeployButton").click();	
 		this.clickElementById("idESBConductorTaskGridUndeployButton");
-		this.acceptAlert();
-		this.clickElementById("idESBConductorTaskGridRefreshButton");		
+		this.acceptAlert();		
+		try {
+			Thread.sleep(2000);
+			this.waitforTextDisplayed(promptInfo, 20);
+		} catch (InterruptedException e) {		
+			e.printStackTrace();
+		}
+		
+		this.getElementById("idESBConductorTaskGridRefreshButton");
+		this.clickElementById("idESBConductorTaskGridRefreshButton");	
+		this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']" +
+				"//ancestor::table[@class='x-grid3-row-table']//span[text()='"+status+"']"), WAIT_TIME_MIN);
 	    Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+label+"']" +
 				"//ancestor::table[@class='x-grid3-row-table']//span[text()='"+status+"']"),WAIT_TIME_MIN));
     			
