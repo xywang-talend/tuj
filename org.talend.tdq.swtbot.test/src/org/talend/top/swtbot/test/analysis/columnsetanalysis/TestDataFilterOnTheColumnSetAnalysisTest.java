@@ -117,13 +117,13 @@ public class TestDataFilterOnTheColumnSetAnalysisTest extends
 
 	}
 
-	@After
-	public void afterClass() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.COLUMNSET.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-
-	}
+//	@After
+//	public void afterClass() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.COLUMNSET.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//
+//	}
 
 }

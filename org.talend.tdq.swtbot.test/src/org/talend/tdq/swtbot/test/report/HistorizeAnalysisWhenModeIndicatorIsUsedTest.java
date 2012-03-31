@@ -71,9 +71,9 @@ public class HistorizeAnalysisWhenModeIndicatorIsUsedTest extends TalendSwtbotFo
 				TalendAnalysisTypeEnum.COLUMN.toString());
 		
 	}
-	@After
-	public void afterClass(){
-		
-	}
+//	@After
+//	public void afterClass(){
+//		
+//	}
 
 }

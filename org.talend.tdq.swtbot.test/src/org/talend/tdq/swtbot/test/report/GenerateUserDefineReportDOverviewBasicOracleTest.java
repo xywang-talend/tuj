@@ -31,20 +31,20 @@ public class GenerateUserDefineReportDOverviewBasicOracleTest extends TalendSwtb
 	public void GenerateUserDefineReportDOverviewBasicHsql(){
 		TalendSwtbotTdqCommon.createReport(bot, REPORTLABEL);
 		TalendSwtbotTdqCommon.generateReport(bot, formBot, REPORTLABEL, 
-				TalendReportTemplate.User_defined, "overview", 1,
+				"overview", "1", TalendReportTemplate.User_defined, 
 				TalendAnalysisTypeEnum.CONNECTION.toString());
 		
 	}
-	@After
-	public void afterClass(){
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
-				REPORTLABEL);
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.CONNECTION.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-		
-		
-	}
+//	@After
+//	public void afterClass(){
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
+//				REPORTLABEL);
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.CONNECTION.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//		
+//		
+//	}
 
 }

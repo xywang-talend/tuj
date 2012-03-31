@@ -74,17 +74,17 @@ public class GenerateUserDefineReportDqRuleBasicTest extends TalendSwtbotForTdq{
 	bot.editorByTitle(TalendAnalysisTypeEnum.DQRULE.toString()+" 0.1").close();
 	TalendSwtbotTdqCommon.createReport(bot, REPORTLABEL);
 	TalendSwtbotTdqCommon.generateReport(bot, formBot, REPORTLABEL, 
-			TalendReportTemplate.User_defined, "dq_rule", 0,
+			"dq_rule", "b03_column_basic_dq_rules", TalendReportTemplate.User_defined, 
 			TalendAnalysisTypeEnum.DQRULE.toString());
 	
 	}
-	@After
-	public void afterClass(){
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT, REPORTLABEL);
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, TalendAnalysisTypeEnum.DQRULE.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.LIBRARY_DQRULE, DQRULENAME);
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, TalendMetadataTypeEnum.MYSQL.toString());
-		
-	}
+//	@After
+//	public void afterClass(){
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT, REPORTLABEL);
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, TalendAnalysisTypeEnum.DQRULE.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.LIBRARY_DQRULE, DQRULENAME);
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, TalendMetadataTypeEnum.MYSQL.toString());
+//		
+//	}
 
 }

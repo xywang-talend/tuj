@@ -33,10 +33,10 @@ public class CreateSybaseConnectionTest extends TalendSwtbotForTdq {
 				.close();
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.SYBASE.toString());
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.SYBASE.toString());
+//	}
 
 }

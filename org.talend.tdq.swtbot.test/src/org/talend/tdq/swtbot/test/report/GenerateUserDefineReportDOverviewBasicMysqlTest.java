@@ -30,19 +30,19 @@ public class GenerateUserDefineReportDOverviewBasicMysqlTest extends TalendSwtbo
 	public void GenerateUserDefineReportDOverviewBasicMysql(){
 		TalendSwtbotTdqCommon.createReport(bot, REPORTLABEL);
 		TalendSwtbotTdqCommon.generateReport(bot, formBot, REPORTLABEL, 
-				TalendReportTemplate.User_defined, "overview", 0,
+				"overview", "b03_overview_basic", TalendReportTemplate.User_defined, 
 				TalendAnalysisTypeEnum.CONNECTION.toString());
 	
 	
 	}
-	@After
-	public void afterClass(){
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
-				REPORTLABEL);
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.CONNECTION.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-		
-	}
+//	@After
+//	public void afterClass(){
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
+//				REPORTLABEL);
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.CONNECTION.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//		
+//	}
 }

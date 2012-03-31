@@ -38,10 +38,10 @@ public class CreateReportTest extends TalendSwtbotForTdq {
 		
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
-				REPORTLABEL);
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
+//				REPORTLABEL);
+//	}
 
 }

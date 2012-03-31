@@ -71,11 +71,11 @@ public class ComparisonAnaExecutionTest extends TalendSwtbotForTdq {
 				.close();
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.REDUNDANCY.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.REDUNDANCY.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//	}
 }

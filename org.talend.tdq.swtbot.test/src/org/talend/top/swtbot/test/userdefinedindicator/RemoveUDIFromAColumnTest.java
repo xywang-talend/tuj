@@ -108,38 +108,38 @@ public class RemoveUDIFromAColumnTest extends TalendSwtbotForTdq{
 		
 	}
 	
-	@After
-	public void afterClass(){
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, TalendAnalysisTypeEnum.COLUMN.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.LIBRARY_UDI, "newAUserDefinedIndicator");
-//		bot.viewByTitle("DQ Repository").setFocus();
-//		tree = new SWTBotTree((Tree) bot.widget(
-//				WidgetOfType.widgetOfType(Tree.class),
-//				bot.viewByTitle("DQ Repository").getWidget()));
-//		tree.expandNode("Libraries","Indicators").getNode(1).expand().select("newAUserDefinedIndicator 0.1");
-//		ContextMenuHelper.clickContextMenu(tree, "Delete");
-//		try {
-//			shell = bot.shell("refresh");
-//			bot.waitUntil(Conditions.shellCloses(shell));
-//		} catch (Exception e) {
+//	@After
+//	public void afterClass(){
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, TalendAnalysisTypeEnum.COLUMN.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.LIBRARY_UDI, "newAUserDefinedIndicator");
+////		bot.viewByTitle("DQ Repository").setFocus();
+////		tree = new SWTBotTree((Tree) bot.widget(
+////				WidgetOfType.widgetOfType(Tree.class),
+////				bot.viewByTitle("DQ Repository").getWidget()));
+////		tree.expandNode("Libraries","Indicators").getNode(1).expand().select("newAUserDefinedIndicator 0.1");
+////		ContextMenuHelper.clickContextMenu(tree, "Delete");
+////		try {
+////			shell = bot.shell("refresh");
+////			bot.waitUntil(Conditions.shellCloses(shell));
+////		} catch (Exception e) {
+////		
+////		}
+////		Assert.assertNotNull(tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator"));
+////		tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator");
+////		ContextMenuHelper.clickContextMenu(tree, "Delete");
+////		try {
+////			bot.waitUntil(Conditions.shellIsActive("Delete forever"));
+////		} catch (Exception e) {
+////			
+////		}
+////		shell = bot.shell("Delete forever");
+////		bot.button("Yes").click();
+////		try {
+////			bot.waitUntil(Conditions.shellCloses(shell));
+////		} catch (Exception e) {
+////		}
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, TalendMetadataTypeEnum.MYSQL.toString());
 //		
-//		}
-//		Assert.assertNotNull(tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator"));
-//		tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator");
-//		ContextMenuHelper.clickContextMenu(tree, "Delete");
-//		try {
-//			bot.waitUntil(Conditions.shellIsActive("Delete forever"));
-//		} catch (Exception e) {
-//			
-//		}
-//		shell = bot.shell("Delete forever");
-//		bot.button("Yes").click();
-//		try {
-//			bot.waitUntil(Conditions.shellCloses(shell));
-//		} catch (Exception e) {
-//		}
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, TalendMetadataTypeEnum.MYSQL.toString());
-		
-	}
+//	}
 
 }

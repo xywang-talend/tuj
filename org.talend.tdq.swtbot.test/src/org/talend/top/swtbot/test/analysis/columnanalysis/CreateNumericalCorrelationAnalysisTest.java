@@ -46,11 +46,11 @@ public class CreateNumericalCorrelationAnalysisTest extends TalendSwtbotForTdq {
 						+ " 0.1").close();
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.NUMERICAL_CORRELATION.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.NUMERICAL_CORRELATION.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//	}
 }

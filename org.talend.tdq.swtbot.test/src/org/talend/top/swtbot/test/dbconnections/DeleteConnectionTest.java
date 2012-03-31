@@ -20,10 +20,10 @@ public class DeleteConnectionTest extends TalendSwtbotForTdq {
 				.close();
 	}
 
-	@Test
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-	}
+//	@Test
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//	}
 
 }

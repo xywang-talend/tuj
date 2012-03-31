@@ -96,15 +96,15 @@ public class ImportedDQRuleDependencyTest extends TalendSwtbotForTdq{
 		
 		
 	}
-	@After
-	public void afterClass(){
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, "dqrule");
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.LIBRARY_DQRULE, "RuleDependency");
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, "mysql");
-		
-		
-		
-	}
+//	@After
+//	public void afterClass(){
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, "dqrule");
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.LIBRARY_DQRULE, "RuleDependency");
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, "mysql");
+//		
+//		
+//		
+//	}
 	
 
 }

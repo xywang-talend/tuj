@@ -73,14 +73,14 @@ public class BusinessRuleAnalysisExecutionTest extends TalendSwtbotForTdq {
 		bot.editorByTitle(TalendAnalysisTypeEnum.DQRULE.toString()+" 0.1").close();
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.DQRULE.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot,
-				TalendItemTypeEnum.LIBRARY_DQRULE, DQRULENAME);
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.DQRULE.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot,
+//				TalendItemTypeEnum.LIBRARY_DQRULE, DQRULENAME);
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//	}
 
 }

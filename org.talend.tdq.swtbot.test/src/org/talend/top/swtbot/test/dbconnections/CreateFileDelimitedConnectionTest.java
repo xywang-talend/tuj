@@ -31,10 +31,10 @@ public class CreateFileDelimitedConnectionTest extends TalendSwtbotForTdq {
 		Assert.assertNotNull(delimitedFile);
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot,
-				TalendItemTypeEnum.FILE_DELIMITED, FILENAME);
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot,
+//				TalendItemTypeEnum.FILE_DELIMITED, FILENAME);
+//	}
 
 }

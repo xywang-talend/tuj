@@ -10,6 +10,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 public class TalendSwtbotForTdq {
@@ -65,18 +66,36 @@ public class TalendSwtbotForTdq {
 			System.out.println("Haven't found Welcome page!");
 		}
 		
+		
 		try {
-			bot.menu("Window").menu("Perspective").menu("Data Profiler")
+			bot.menu("Window").menu("Perspective").menu("Profiler")
 			.click();
 		} catch (WidgetNotFoundException e1) {
-			System.out.println("Haven't found Data Profiler!");
+			System.out.println("Haven't found Profiler!");
 		}
+		
 		
 		try {
 			bot.cTabItem("Cheat Sheets").close();
 		} catch (WidgetNotFoundException e) {
 			System.out.println("Haven't found Cheat Sheets");
 		}
+		try {
+			bot.cTabItem("Talend Platform").close();
+		} catch (Exception e) {
+			System.out.println("Haven't found Talend Platform");
+		}
+		try {
+			bot.menu("Window").menu("Show view...").click();
+			bot.waitUntil(Conditions.shellIsActive("Show View"));
+			SWTBotTree tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
+					.widgetOfType(Tree.class)));
+			tree.expandNode("General").select("Error Log");
+			bot.button("OK").click();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("can't find the view Error log");
+		} 
 	}
 	
 //	@AfterClass
@@ -120,5 +139,14 @@ public class TalendSwtbotForTdq {
 		return tableItem;
 	}
 	
-	
+	@AfterClass
+	public static void resetActivePerspective(){
+    	SWTWorkbenchBot bot = new SWTWorkbenchBot();
+    	bot.closeAllShells();
+    	bot.saveAllEditors();
+    	bot.closeAllEditors();
+    	TalendSwtbotTdqCommon.cleanUpRepository();
+    	bot.resetActivePerspective();
+    }
+		
 }

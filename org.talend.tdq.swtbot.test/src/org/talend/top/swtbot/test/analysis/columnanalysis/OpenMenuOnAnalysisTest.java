@@ -41,9 +41,9 @@ public class OpenMenuOnAnalysisTest extends TalendSwtbotForTdq {
 				.close();
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.COLUMN.toString());
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.COLUMN.toString());
+//	}
 }

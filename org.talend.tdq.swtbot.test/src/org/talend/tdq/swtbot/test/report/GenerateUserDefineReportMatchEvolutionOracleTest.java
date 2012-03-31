@@ -77,19 +77,19 @@ public class GenerateUserDefineReportMatchEvolutionOracleTest extends TalendSwtb
 				.close();
 		TalendSwtbotTdqCommon.createReport(bot, REPORTLABEL);
 		TalendSwtbotTdqCommon.generateReport(bot, formBot, REPORTLABEL,
-				TalendReportTemplate.User_defined, "match",3,TalendAnalysisTypeEnum.REDUNDANCY.toString());
+				"match","3", TalendReportTemplate.User_defined, TalendAnalysisTypeEnum.REDUNDANCY.toString());
 		
 	}
-	@After
-	public void afterClass(){
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
-				REPORTLABEL);
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.REDUNDANCY.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-		
-		
-	}
+//	@After
+//	public void afterClass(){
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
+//				REPORTLABEL);
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.REDUNDANCY.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//		
+//		
+//	}
 
 }

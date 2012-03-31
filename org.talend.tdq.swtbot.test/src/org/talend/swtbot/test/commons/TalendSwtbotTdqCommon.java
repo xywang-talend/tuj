@@ -1,5 +1,6 @@
 package org.talend.swtbot.test.commons;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
@@ -18,6 +19,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.hamcrest.Matcher;
 import org.junit.Assert;
+import org.talend.swtbot.test.commons.Utilities.TalendItemType;
 
 import static org.eclipse.swtbot.swt.finder.matchers.WithText.withText;
 import static org.eclipse.swtbot.swt.finder.matchers.AllOf.allOf;
@@ -31,7 +33,7 @@ public class TalendSwtbotTdqCommon {
 	public static int TREEITEM_FOUND_TIME = 0;
 
 	public enum TalendItemTypeEnum {
-		METADATA, ANALYSIS, REPORT, FILE_DELIMITED, MDM, LIBRARY_DQRULE,LIBRARY_UDI;
+		REPORT, ANALYSIS, LIBRARY_DQRULE, LIBRARY_UDI, LIBRARY_PATTERNS_SQL, LIBRARY_SourceFiles, LIBRARY_PATTERNS_REGEX, METADATA,  FILE_DELIMITED, MDM, RECYCLE_BIN;
 	}
 
 	public enum TalendMetadataTypeEnum {
@@ -461,7 +463,7 @@ public class TalendSwtbotTdqCommon {
 		bot.waitUntil(Conditions.shellIsActive("Preferences"));
 		tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
 				.widgetOfType(Tree.class)));
-		tree.expandNode("Talend", "Data Profiler").select("Reporting");
+		tree.expandNode("Talend", "Profiler").select("Reporting");
 		bot.textWithLabel("Default Report Folder:").setText(
 				System.getProperty("default.reportpath"));
 
@@ -511,6 +513,8 @@ public class TalendSwtbotTdqCommon {
 			SWTBotShell shell = bot.shell("Set database");
 			bot.button("OK").click();
 			bot.waitUntil(Conditions.shellCloses(shell), 60000);
+			SWTBotShell shellp = bot.shell("Progress Information");
+			bot.waitUntil(Conditions.shellCloses(shellp), 60000);
 			if(bot.activeShell().getText().equals("Confirm")){
 				System.out.println(bot.activeShell().getText()+"::::::::::::::::::");
 			bot.waitUntil(Conditions.shellIsActive("Confirm"));
@@ -525,16 +529,18 @@ public class TalendSwtbotTdqCommon {
 			bot.button("OK").click();
 			bot.waitUntil(Conditions.shellIsActive("Set database"));
 			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellCloses(shell));
+			bot.waitUntil(Conditions.shellCloses(shell),60000);
+			bot.waitUntil(Conditions.shellCloses(shellp), 60000);
+
 			if(bot.activeShell().getText().equals("Confirm")){
 			bot.waitUntil(Conditions.shellIsActive("Confirm"));
 			SWTBotShell shell2 = bot.shell("Confirm");
 			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellCloses(shell2));
+			bot.waitUntil(Conditions.shellCloses(shell2),60000);
 			}
 			bot.waitUntil(Conditions.shellIsActive("Warning"));
 			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellCloses(shell1));
+			bot.waitUntil(Conditions.shellCloses(shell1),60000);
 		} catch (TimeoutException e) {
 		}
 		// System.out.println("aaaaa");
@@ -557,11 +563,11 @@ public class TalendSwtbotTdqCommon {
 	
 	public static void generateReport(SWTWorkbenchBot bot, SWTFormsBot formBot,
 			String label, TalendReportTemplate template, String... analyses){
-		generateReport(bot, formBot, label, template, null, -1, analyses);
+		generateReport(bot, formBot, label, null, null, template, analyses);
 	}
 
 	public static void generateReport(SWTWorkbenchBot bot, SWTFormsBot formBot,
-			String label, TalendReportTemplate template, String folder, int temp, String... analyses) {
+			String label, String folder, String temp, TalendReportTemplate template, String... analyses) {
 		bot.viewByTitle("DQ Repository").setFocus();
 		tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
 				.widgetOfType(Tree.class)));
@@ -589,7 +595,7 @@ public class TalendSwtbotTdqCommon {
 				bot.waitUntil(Conditions.shellIsActive("Report Template Selector"));
 				SWTBotTree tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
 						.widgetOfType(Tree.class)));
-				tree.expandNode(folder).getNode(temp).select();
+				tree.expandNode(folder).select(temp);
 				bot.button("OK").click();
 
 			} else {
@@ -987,8 +993,9 @@ public class TalendSwtbotTdqCommon {
 						System.getProperty("msaccessodbc.source"));
 				break;
 			}
+			bot.sleep(10000);
 			bot.button("Check").click();
-			bot.waitUntil(Conditions.shellIsActive("Check Connection"));
+			bot.waitUntil(Conditions.shellIsActive("Check Connection "));
 			if (bot.label(1)
 					.getText()
 					.equals("\"" + metadataType.toString()
@@ -996,11 +1003,11 @@ public class TalendSwtbotTdqCommon {
 				bot.button("OK").click();
 			bot.button("Finish").click();
 		} catch (Exception e) {
-			shell.close();
+			shell = bot.shell("Database Connection");
+			bot.waitUntil(Conditions.shellCloses(shell));
 			return;
 		}
-		shell = bot.shell("Database Connection");
-		bot.waitUntil(Conditions.shellCloses(shell));
+		
 	}
 
 	// creat cheatsheet analysis
@@ -1041,7 +1048,7 @@ public class TalendSwtbotTdqCommon {
 		bot.button("Next >").click();
 		bot.button("Finish").click();
 	}
-
+	
 	public static boolean deleteItemToCycleBin() {
 		boolean deleted = false;
 		
@@ -1123,5 +1130,175 @@ public class TalendSwtbotTdqCommon {
 		} catch (Exception e1) {
 			}
 		}
+	 /**
+     * Empty Recycle bin
+     * 
+     * @author fzhong
+     * @return void
+     */
+    public static void emptyRecycleBin() {
+    	 SWTWorkbenchBot bot = new SWTWorkbenchBot();
+    	 SWTBotTreeItem recycleBin = tree.expandNode("Recycle Bin").select();
+         bot.waitUntil(Conditions.widgetIsEnabled(recycleBin));
+         if (recycleBin.rowCount() != 0) {
+     //   	 recycleBin.click();
+    //    	 bot.viewByTitle("DQ Repository").setFocus();
+//     		tree = new SWTBotTree((Tree) bot.widget(
+//     				WidgetOfType.widgetOfType(Tree.class),
+//     				bot.viewByTitle("DQ Repository").getWidget()));
+     		ContextMenuHelper.clickContextMenu(tree, "Empty recycle bin");
+            
+   //          recycleBin.contextMenu("Empty recycle bin").click();
+         	
+             bot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
+             bot.button("Yes").click();
+         }
+        
+    }
+	/**
+     * DOC yhbai Comment method "cleanUpRepository". Delete all items under the tree node to recycle bin.
+     * 
+     * @param treeNode treeNode of the tree in repository
+     */
+	
+	public static SWTBotTreeItem  getTalendItemNode(SWTWorkbenchBot bot,
+			TalendItemTypeEnum type) {
+		
+		bot.viewByTitle("DQ Repository").setFocus();
+		tree = new SWTBotTree((Tree) bot.widget(
+				WidgetOfType.widgetOfType(Tree.class),
+				bot.viewByTitle("DQ Repository").getWidget()));
+		
+			switch (type) {
+			case METADATA:
+				return tree.expandNode("Metadata", "DB connections");
+				
+			case ANALYSIS:
+				return tree.expandNode("Data Profiling").getNode(0).expand();
+				
+			case REPORT:
+				return tree.expandNode("Data Profiling").getNode(1).expand();
+			
+			case FILE_DELIMITED:
+				return tree.expandNode("Metadata", "FileDelimited connections");
+				
+			case MDM:
+				return tree.expandNode("Metadata", "MDM connections");
+				
+			case LIBRARY_DQRULE:
+				return tree.expandNode("Libraries", "Rules", "SQL");
+				
+			case LIBRARY_UDI:
+				return tree.expandNode("Libraries","Indicators","User Defined Indicators");
+				
+			case LIBRARY_PATTERNS_SQL:
+				return tree.expandNode("Libraries","Patterns","SQL");
+				
+			case LIBRARY_SourceFiles:
+				return tree.expandNode("Libraries","Source Files");
+				
+			case LIBRARY_PATTERNS_REGEX:
+				return tree.expandNode("Libraries","Patterns","Regex");
+				
+			 case RECYCLE_BIN:
+		            return tree.expandNode("Recycle Bin");
+		        default:
+		            break;
+		        }
+		        return null;
+		}
+	 
+			
+	
+	
+	/**
+     * DOC yhbai Comment method "cleanUpRepository". Delete all items under the tree node to recycle bin.
+     * 
+     * @param treeNode treeNode of the tree in repository
+     */
+    public static void cleanUpRepository(SWTBotTreeItem treeNode,SWTWorkbenchBot bot) {
+    	bot.waitUntil(Conditions.widgetIsEnabled(treeNode));
+        List<String> items = treeNode.expand().getNodes();
+        List<String> items2 = treeNode.expand().getNodes();
+        String exceptItem = "Demo DQ Rule 0.1";
+        String exceptItem2 = "internet";
+        String exceptItem3 = "TEST_TOP";
+        String exceptItem4 = "address";
+        String exceptItem5 = "code";
+        String exceptItem6 = "color";
+        String exceptItem7 = "customer";
+        String exceptItem8 = "date";
+        String exceptItem9 = "number";
+        String exceptItem10 = "phone";
+        String exceptItem11 = "text";
+       
+        if (items.contains(exceptItem))
+            items.remove(exceptItem);
+        if (items.contains(exceptItem2))
+            items.remove(exceptItem2);
+        if (items.contains(exceptItem3))
+            items.remove(exceptItem3);
+        if (items.contains(exceptItem4))
+            items.remove(exceptItem4);
+        if (items.contains(exceptItem5))
+            items.remove(exceptItem5);
+        if (items.contains(exceptItem6))
+            items.remove(exceptItem6);
+        if (items.contains(exceptItem7))
+            items.remove(exceptItem7);
+        if (items.contains(exceptItem8))
+            items.remove(exceptItem8);
+        if (items.contains(exceptItem9))
+            items.remove(exceptItem9);
+        if (items.contains(exceptItem10))
+            items.remove(exceptItem10);
+        if (items.contains(exceptItem11))
+            items.remove(exceptItem11);
+        
+        if (items.isEmpty())
+            return;
+        bot.viewByTitle("DQ Repository").setFocus();
+        tree = new SWTBotTree((Tree) bot.widget(
+        		WidgetOfType.widgetOfType(Tree.class),
+        		bot.viewByTitle("DQ Repository").getWidget()));
+        SWTBotTreeItem treeItems = treeNode.select(items.toArray(new String[items.size()]));
+        try {
+//            treeNodeExt.contextMenu("Delete").click();
+            ContextMenuHelper.clickContextMenu(tree, "Delete");
+            
+        } catch (Exception e) {
+            System.out.println("ERROR: Could not delete items under tree node '" + treeNode.getText() + "'.");
+            e.printStackTrace();
+            return;
+        }
+        
+        
+        cleanUpRepository(treeNode,bot);
+    }
+
+
+ /**
+     * DOC yhbai Comment method "cleanUpRepository". Delete all items in repository.
+     * 
+     */
+    public static void cleanUpRepository() {
+        List<TalendItemTypeEnum> itemList = null;
+        for (TalendItemTypeEnum itemType : TalendItemTypeEnum.values()) {
+//            if ("TOS".equals(System.getProperty("buildType"))) {
+//                itemList = getTISItemTypes(); // if TOS, get TIS items and pass next step
+//            }
+//            if (itemList != null && itemList.contains(itemType))
+//                continue; // if TOS, pass TIS items
+            SWTBotTreeItem treeNode = getTalendItemNode(new SWTWorkbenchBot(),itemType);
+//           if (TalendItemTypeEnum.SQL_TEMPLATES.equals(itemType))
+//                treeNode = treeNode.expandNode("Generic", "UserDefined"); // focus on specific sql template type
+//            if (TalendItemTypeEnum.RECYCLE_BIN.equals(itemType))
+//                continue; // undo with recycle bin
+            cleanUpRepository(treeNode,new SWTWorkbenchBot());
+            emptyRecycleBin();
+        }
+    }
+  
+  
 		
 }

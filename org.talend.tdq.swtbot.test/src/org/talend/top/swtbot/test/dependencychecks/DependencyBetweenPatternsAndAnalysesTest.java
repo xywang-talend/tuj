@@ -140,36 +140,36 @@ public class DependencyBetweenPatternsAndAnalysesTest extends TalendSwtbotForTdq
 		
 	}
 	
-	@After
-	public void afterClass(){
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, TalendAnalysisTypeEnum.COLUMN.toString());
-		bot.viewByTitle("DQ Repository").setFocus();
-		tree = new SWTBotTree((Tree) bot.widget(
-				WidgetOfType.widgetOfType(Tree.class),
-				bot.viewByTitle("DQ Repository").getWidget()));
-		tree.expandNode("Libraries","Patterns","SQL").getNode(0).expand()
-		.getNode(2).select();
-		ContextMenuHelper.clickContextMenu(tree, "Delete");
-		try {
-			shell = bot.shell("refresh");
-			bot.waitUntil(Conditions.shellCloses(shell));
-		} catch (Exception e) {
-		
-		}
-		Assert.assertNotNull(tree.expandNode("Recycle Bin").select("newsqlpattern"));
-		tree.expandNode("Recycle Bin").select("newsqlpattern");
-		ContextMenuHelper.clickContextMenu(tree, "Delete");
-		try {
-			bot.waitUntil(Conditions.shellIsActive("Delete forever"));
-		
-		shell = bot.shell("Delete forever");
-		bot.button("Yes").click();
-		bot.waitUntil(Conditions.shellCloses(shell));
-		} catch (Exception e) {
-			
-		}
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, TalendMetadataTypeEnum.MYSQL.toString());
-		
-	}
+//	@After
+//	public void afterClass(){
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, TalendAnalysisTypeEnum.COLUMN.toString());
+//		bot.viewByTitle("DQ Repository").setFocus();
+//		tree = new SWTBotTree((Tree) bot.widget(
+//				WidgetOfType.widgetOfType(Tree.class),
+//				bot.viewByTitle("DQ Repository").getWidget()));
+//		tree.expandNode("Libraries","Patterns","SQL").getNode(0).expand()
+//		.getNode(2).select();
+//		ContextMenuHelper.clickContextMenu(tree, "Delete");
+//		try {
+//			shell = bot.shell("refresh");
+//			bot.waitUntil(Conditions.shellCloses(shell));
+//		} catch (Exception e) {
+//		
+//		}
+//		Assert.assertNotNull(tree.expandNode("Recycle Bin").select("newsqlpattern"));
+//		tree.expandNode("Recycle Bin").select("newsqlpattern");
+//		ContextMenuHelper.clickContextMenu(tree, "Delete");
+//		try {
+//			bot.waitUntil(Conditions.shellIsActive("Delete forever"));
+//		
+//		shell = bot.shell("Delete forever");
+//		bot.button("Yes").click();
+//		bot.waitUntil(Conditions.shellCloses(shell));
+//		} catch (Exception e) {
+//			
+//		}
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, TalendMetadataTypeEnum.MYSQL.toString());
+//		
+//	}
 
 }

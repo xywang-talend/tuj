@@ -73,11 +73,11 @@ public class ColumnAnaWithMDMTest extends TalendSwtbotForTdq {
 
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.COLUMN.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.MDM,
-				CONNECTIONNAME);
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.COLUMN.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.MDM,
+//				CONNECTIONNAME);
+//	}
 }

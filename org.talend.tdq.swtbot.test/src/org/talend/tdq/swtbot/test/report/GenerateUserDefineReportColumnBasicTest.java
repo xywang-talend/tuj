@@ -53,18 +53,18 @@ public class GenerateUserDefineReportColumnBasicTest extends TalendSwtbotForTdq{
 		bot.toolbarButtonWithTooltip("Run").click();
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon.createReport(bot, REPORTLABEL);
-		TalendSwtbotTdqCommon.generateReport(bot, formBot, REPORTLABEL, TalendReportTemplate.User_defined, "column", 0, TalendAnalysisTypeEnum.COLUMN.toString());
+		TalendSwtbotTdqCommon.generateReport(bot, formBot, REPORTLABEL, "column", "b01_column_basic",TalendReportTemplate.User_defined,  TalendAnalysisTypeEnum.COLUMN.toString());
 		
     	
     }
-    @After
-    public void afterClass(){
-    	TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
-				REPORTLABEL);
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.COLUMN.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-    	
-    }
+//    @After
+//    public void afterClass(){
+//    	TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
+//				REPORTLABEL);
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.COLUMN.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//    	
+//    }
 }

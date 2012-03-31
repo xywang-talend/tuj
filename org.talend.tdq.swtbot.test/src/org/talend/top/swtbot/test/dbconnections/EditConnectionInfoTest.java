@@ -45,10 +45,10 @@ public class EditConnectionInfoTest extends TalendSwtbotForTdq {
 		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString() + " 0.1").close();
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//	}
 
 }

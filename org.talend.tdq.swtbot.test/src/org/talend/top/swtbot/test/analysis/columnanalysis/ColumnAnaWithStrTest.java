@@ -49,13 +49,13 @@ public class ColumnAnaWithStrTest extends TalendSwtbotForTdq {
 		bot.editorByTitle(ANALYSISLABEL + " 0.1").close();
 	}
 
-	@After
-	public void cleanSource() {
-//		TalendSwtbotTdqCommon.deleteAndCleanCycleBin(bot, TalendItemTypeEnum.ANALYSIS,
+//	@After
+//	public void cleanSource() {
+////		TalendSwtbotTdqCommon.deleteAndCleanCycleBin(bot, TalendItemTypeEnum.ANALYSIS,
+////				ANALYSISLABEL);
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
 //				ANALYSISLABEL);
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				ANALYSISLABEL);
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-	}
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//	}
 }

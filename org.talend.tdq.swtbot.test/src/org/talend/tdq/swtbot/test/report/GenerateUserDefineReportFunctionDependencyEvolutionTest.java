@@ -28,6 +28,7 @@ public class GenerateUserDefineReportFunctionDependencyEvolutionTest extends Tal
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
 		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
+		TalendSwtbotTdqCommon.ImportJRXMLTemplate(bot);
 		TalendSwtbotTdqCommon.createAnalysis(bot,
 				TalendAnalysisTypeEnum.FUNCTIONAL);
 		TalendSwtbotTdqCommon.createReport(bot, REPORTLABEL);
@@ -82,18 +83,18 @@ public class GenerateUserDefineReportFunctionDependencyEvolutionTest extends Tal
 				.close();
 
 		TalendSwtbotTdqCommon.generateReport(bot, formBot, REPORTLABEL,
-				TalendReportTemplate.User_defined,"match",5,
+				"match","functionalDependencyEvolution", TalendReportTemplate.User_defined,
 				TalendAnalysisTypeEnum.FUNCTIONAL.toString());
 		
 	}
-	@After
-	public void afterClass(){
-		
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
-				REPORTLABEL);
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.FUNCTIONAL.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-	}
+//	@After
+//	public void afterClass(){
+//		
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
+//				REPORTLABEL);
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.FUNCTIONAL.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//	}
 }
