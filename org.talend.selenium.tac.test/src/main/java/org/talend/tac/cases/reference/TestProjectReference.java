@@ -128,7 +128,7 @@ public class TestProjectReference extends WebdriverLogin {
 	}
 	
 	@Test
-	@Parameters({"DIPro", "DQPro", "DIPro.info", "DQPro.info",})
+	@Parameters({"DIPro", "DQPro", "DIPro.info", "DQPro.info"})
 	public void testReferenceDQProToDIPro(String DIPro, String DQPro,
 			String DIProInfo, String DQProInfo) {
 		
