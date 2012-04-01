@@ -77,6 +77,12 @@ public class TestUser extends Login {
 		userImpl.userSelectedAfterSave(userNameAdministrator,identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, splitParameter(roles));
 	}
 	
+	@Test
+	@Parameters( {"user.name","user.password","identifier", "first.name", "last.name", "password", "confirm.password", "email", "company", "default.version", "active", "roles" })
+	public void testUserLoginWithNewRole(String userNameAdministrator,String adminPass,String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String roles) {
+		userImpl.userLoginWithNewRole(userNameAdministrator,adminPass,identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, (roles));
+	}
+	
 	
 	@Test
 	@Parameters( {"user.name","identifier", "first.name", "last.name", "password", "confirm.password", "email", "company", "default.version", "active", "roles" })

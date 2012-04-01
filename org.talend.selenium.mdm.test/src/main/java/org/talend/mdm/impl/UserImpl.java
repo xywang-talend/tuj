@@ -274,4 +274,23 @@ public class UserImpl extends User{
 		this.logoutThenloginAdministratorAndDeleteUser(administrator, administratorPass, locator.getString("login.administrator.forcelogin.message"), identifier);
 		
 	}
+	
+	public void userLoginWithNewRole(String userNameAdministrator,String adminPass,String identifier, String firstName,String  lastName, String password, String confirmPassword, String email,String  company, String defaultVersion, boolean active, String roles){
+		
+		logger.info("Ready to test user login with new role.");
+		this.openMenuAdministrator();
+		this.gotoUserManagePage();
+		logger.info("expend administration and loged into user manage page ok.");
+		logger.info("configure a new user and save.");
+		this.addUser(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, roles);
+		logger.info("configure a new user and saved ok.");
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.user.selecteduser.row", identifier)), WAIT_TIME_MAX));
+		logger.info("new user added ok,ready to check new user login.");
+		this.logout();
+		this.loginUserForce(identifier, password);
+		logger.info("test login with new user ok.");
+		logger.info("login administrator and delete the new user added just now.");
+		this.logoutThenloginAdministratorAndDeleteUser(userNameAdministrator, adminPass, locator.getString("login.administrator.forcelogin.message"), identifier);
+		logger.info("delete the new user added ok.");
+	}
 }
