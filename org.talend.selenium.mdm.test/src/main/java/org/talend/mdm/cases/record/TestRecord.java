@@ -36,7 +36,7 @@ public class TestRecord extends Login {
 	@Test
 	@Parameters( { "container","modle","entity","feild1Value","feild1Name" })
 	public void testRestoreFromRecycle(String container,String modle,String entity,String feild1Value,String feild1Name ) {
-		recordImpl.restoreFromRecycle(container,modle,entity,feild1Value,feild1Name);
+		recordImpl.restoreFromRecycleImpl(container, modle, entity, feild1Value, feild1Name);
 	}		
 	
 	@Test

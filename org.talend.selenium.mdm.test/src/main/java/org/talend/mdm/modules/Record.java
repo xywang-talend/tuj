@@ -1,131 +1,18 @@
 package org.talend.mdm.modules;
-import static org.junit.Assert.assertTrue;
-
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Enumeration;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.HasInputDevices;
-import org.openqa.selenium.Mouse;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.internal.Locatable;
-
 import org.talend.mdm.Base;
 import org.testng.Assert;
 
-
-public class Record extends Base{
-	
-	
-	
+public class Record extends Base{	
 public Record(WebDriver driver) {
 		super.setDriver(driver);
 		this.driver = driver;
 	}
-public void createRecord(String container,String modle,String entity,String feild1Value,String feild2Value,String feild3Value,String feild1Name,String feild2Name,String feild3Name) {
-	String[] parametersFeild1={entity,feild1Name};
-	String[] parametersFeild2={entity,feild2Name};
-	String[] parametersFeild3={entity,feild3Name};
-	String[] parametersFeild1Assert={entity,feild1Name,feild1Value};
-	String[] parametersFeild2Assert={entity,feild2Name,feild2Value};
-	String[] parametersFeild3Assert={entity,feild3Name,feild3Value};	
-	chooseContainer(container);	
-	chooseModle(modle);
-	clickSave();
-	chooseEntity(entity);	
-	this.clickElementByXpath(locator.getString("xpath.record.choose.create")); 	
-	this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.record.choose.create.input.feild1",parametersFeild1)), WAIT_TIME_MAX);
-	this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild1",parametersFeild1), feild1Value);
-	this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersFeild2), feild2Value);
-	this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild3",parametersFeild3), feild3Value);
-	this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
-	Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild1",parametersFeild1Assert)), WAIT_TIME_MAX),"createARecord");
-	Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersFeild2Assert)), WAIT_TIME_MAX),"createARecord");
-	Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild3",parametersFeild3Assert)), WAIT_TIME_MAX),"createARecord");
-     
-}
-public void updateRecord(String container,String modle,String entity,String feild1Value,String feild2Value,String feild3Value,String feild1Name,String feild2Name,String feild3Name) {
-	String[] parametersFeild2={entity,feild2Name};
-	String[] parametersFeild3={entity,feild3Name};
-	String[] parametersFeild2Assert={entity,feild2Name,feild2Value};
-	String[] parametersFeild3Assert={entity,feild3Name,feild3Value};
-	chooseContainer(container);	
-	chooseModle(modle);
-	clickSave();
-	chooseEntity(entity);	
-	chooseRcord(entity,feild1Name,feild1Value);	
-	this.sleepCertainTime(5000);
-	Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersFeild2)), 3000));
-	this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersFeild2)), feild2Value);
-	this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild3",parametersFeild3)), feild3Value);
-	this.sleepCertainTime(5000);
-	this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
-	if (this.isTextPresent("No change since last save")){
-		this.clickElementByXpath("//button[text()='Ok']");		
-	}
-	else 
-	{
-	this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
-	Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersFeild2Assert)), WAIT_TIME_MAX),"updateARecord");
-	Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild3",parametersFeild3Assert)), WAIT_TIME_MAX),"updateARecord");
-   }
-}
-public void duplicateRecord(String container,String modle,String entity,String feild1Value,String feild2Value,String feild3Value,String feild1Name,String feild2Name,String feild3Name,String feild1UpdateValue) {
-	String[] parametersFeild1Value={entity,feild1Value};
-	String[] parametersFeild1={entity,feild1Name};	
-	String[] parametersFeild2={entity,feild2Name};
-	String[] parametersFeild3={entity,feild3Name};
-	String[] parametersFeild1Assert={entity,feild1Name,feild1UpdateValue};
-	String[] parametersFeild2Assert={entity,feild2Name,feild2Value};
-	String[] parametersFeild3Assert={entity,feild3Name,feild3Value};	
-	chooseContainer(container);	
-	chooseModle(modle);
-	clickSave();
-	chooseEntity(entity);	
-	chooseRcord(entity,feild1Name,feild1Value);		
-	this.sleepCertainTime(5000);
-	this.clickElementByXpath(locator.getString("xpath.record.Duplicate.click"));
-	Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.Duplicate.input",parametersFeild1)), WAIT_TIME_MAX),"duplicateARecord");
-	this.sleepCertainTime(5000);
-	this.clickElementByXpath(this.getString(locator,"xpath.record.Duplicate.close.origin",parametersFeild1Value));	
-	this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.Duplicate.input",parametersFeild1)), feild1UpdateValue);
-	this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersFeild2)), feild2Value);
-	this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild3",parametersFeild3)), feild3Value);
-	
-	this.clickElementByXpath(locator.getString("xpath.record.Duplicate.saveAndClose"));	
-	this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
-	Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild1",parametersFeild1Assert)), WAIT_TIME_MAX),"duplicateARecord");
-	Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersFeild2Assert)), WAIT_TIME_MAX),"createARecord");
-	Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild3",parametersFeild3Assert)), WAIT_TIME_MAX),"createARecord");
-}
-
-
-public void deleteRecord(String container,String modle,String entity,String feild1Value,String feild1Name) {
-	
-	chooseContainer(container);	
-	chooseModle(modle);
-	clickSave();
-	chooseEntity(entity);
-	chooseRcord(entity,feild1Name,feild1Value);	
-    this.sleepCertainTime(5000);
-    deleteTheRecord(entity);
-/*	logger.info(this.getString(locator, "xpath.record.delete.record",entity));
-	this.clickElementByXpath(this.getString(locator, "xpath.record.delete.record",entity)); 
-	this.clickElementByXpath(locator.getString("xpath.record.delete.record.choose")); 	 
-	this.clickElementByXpath(locator.getString("xpath.record.delete.record.choose.yes")); 	
-			if (this.isElementPresent(By.xpath(locator.getString("xpath.record.delete.record.warn")),WAIT_TIME_MIN)){
-				this.clickElementByXpath("//button[text()='No']");		
-			}*/
-}
 public void deleteTheRecord(String  entity){ 
-	
-logger.info(this.getString(locator, "xpath.record.delete.record",entity));
 this.clickElementByXpath(this.getString(locator, "xpath.record.delete.record",entity)); 
 this.clickElementByXpath(locator.getString("xpath.record.delete.record.choose")); 	 
 this.clickElementByXpath(locator.getString("xpath.record.delete.record.choose.yes")); 	
@@ -133,117 +20,6 @@ this.clickElementByXpath(locator.getString("xpath.record.delete.record.choose.ye
 			this.clickElementByXpath("//button[text()='No']");		
 		}
 }
-public void JournalOpenRecord(String container,String modle,String entity,String feild1Value,String feild1Name) {
-	String[] parameters={entity,feild1Value};
-	chooseContainer(container);	
-	chooseModle(modle);
-	clickSave();
-	//click the journal
-	clickJournal();
-	//input the search condition
-	this.typeTextByXpath(locator.getString("xpath.record.choose.journal.entity"), entity);
-	this.typeTextByXpath(locator.getString("xpath.record.choose.journal.key"), feild1Value);
-	this.clickElementByXpath(locator.getString("xpath.record.choose.journal.operation.arrows")); 
-	this.clickElementByXpath(locator.getString("xpath.record.choose.journal.operation.choose")); 
-	
-	
-	
-//	logger.info(locator.getString("xpath.record.choose.journal.search"));
-	this.sleepCertainTime(2000);
-	try {
-		Robot bot = new Robot();
-		bot.keyPress(KeyEvent.VK_TAB);
-		bot.keyRelease(KeyEvent.VK_TAB);
-        bot.keyPress(KeyEvent.VK_TAB);
-		bot.keyRelease(KeyEvent.VK_TAB);
-		bot.keyPress(KeyEvent.VK_TAB);
-		bot.keyRelease(KeyEvent.VK_TAB);
-		bot.keyPress(KeyEvent.VK_ENTER);
-	} catch (AWTException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.journal.choose.record", feild1Value)), WAIT_TIME_MIN);
-	this.doubleClick(this.getElementByXpath(this.getString(locator, "xpath.record.choose.journal.choose.record", feild1Value)));
-	this.isElementPresent(By.xpath("//button[text()='Open Record']"), WAIT_TIME_MIN);
-	this.clickElementByXpath("//button[text()='Open Record']");
-	//assert can see the record detail	
-	Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.journal.assert.open",parameters)), WAIT_TIME_MIN),"open detail");
-  }
-
-public void restoreFromRecycle(String container,String modle,String entity,String feild1Value,String feild1Name) {
-	String[] parameters={entity,feild1Name,feild1Value};
-	chooseContainer(container);	
-	chooseModle(modle);
-	clickSave();
-	clickRecycle();
-	this.sleepCertainTime(5000);
-	this.clickElementByXpath(this.getString(locator, "xpath.record.recycle.click.record",feild1Value));
-	this.clickElementByXpath(this.getString(locator,"xpath.record.recycle.click.record.restore",feild1Value));
-	this.sleepCertainTime(5000);
-	this.clickElementByXpath(locator.getString("xpath.record.recycle.click.record.restore.yes"));
-	 if (this.isElementPresent(By.xpath("//span[contains(text(),'Please input all necessary search ')]"),WAIT_TIME_MIN)){
-		 this.clickElementByXpath("//button[text()='Ok']");}
-	//assert the record restore in the entity		
-	this.clickElementByXpath(locator.getString("xpath.record.click.databrowser"));	 
-	this.clickElementByXpath(locator.getString("xpath.record.choose.entity.arrows"));
-	
-	this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.entity",entity)), WAIT_TIME_MIN);
-	this.clickElementByXpath(this.getString(locator, "xpath.record.choose.entity",entity));   
-	this.sleepCertainTime(5000);
-	//this.clickElementByXpath(this.getString(locator, "xpath.record.choose.delete.record",parameters));
-	Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.delete.record",parameters)), WAIT_TIME_MIN),"the record restore in the entity");
-	chooseRcord(entity,feild1Name,feild1Value);
-	this.sleepCertainTime(5000);
-	deleteTheRecord(entity);
-}
-
-
-
-public void deleteRecordToRecycle(String container,String modle,String entity,String feild1Value,String feild1Name) {
-	String[] parameters_container={feild1Value,container};
-	String[] parameters_modle={feild1Value,modle};
-	String[] parameters_entity={feild1Value,entity};
-	chooseContainer(container);	
-	chooseModle(modle);
-	clickSave();
-	chooseEntity(entity);
-	chooseRcord(entity,feild1Name,feild1Value);	
-	this.sleepCertainTime(5000);
-	logger.info(this.getString(locator, "xpath.record.delete.record",entity));
-	this.clickElementByXpath(this.getString(locator, "xpath.record.delete.record",entity)); 
-	this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.choose")); 	 
-	this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.choose.ok")); 	
-			if (this.isElementPresent(By.xpath(locator.getString("xpath.record.delete.record.warn")),WAIT_TIME_MIN)){
-				this.clickElementByXpath("//button[text()='No']");		
-			}
-	// assert the record which been deleted in the recycle
-	clickRecycle();	
-	//this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.assert.clickRefresh")); 
-	logger.info(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.container",parameters_container));
-	Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.container",parameters_container)), WAIT_TIME_MIN ),"container");
-	Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.modle",parameters_modle)), WAIT_TIME_MIN ),"modle");
-	Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.entity",parameters_entity)), WAIT_TIME_MIN ),"entity");
-}
-
-public void searchRecordByValue(String container,String modle,String entity,String searchFeild,String opeartion,String value) {
-	chooseContainer(container);	
-	chooseModle(modle);
-	clickSave();
-	chooseEntity(entity);	
-	searchCondition(searchFeild,opeartion,value);
-	searchValueAssert(searchFeild,opeartion,value,entity);
-}
-
-public void searchRecordByDate(String container,String modle,String entity,String searchFeild,String opeartion,String value) {
-	chooseContainer(container);	
-	chooseModle(modle);
-	clickSave();
-	chooseEntity(entity);	
-	searchCondition(searchFeild,opeartion,value);
-	searchDateAssert(searchFeild,opeartion,value,entity);
-}
-
 public void searchDateAssert(String searchFeild,String opeartion,String value,String entity){
 	String[] parametersSearch={entity,searchFeild};
 	int recordCount;
@@ -320,15 +96,6 @@ public void searchDateAssert(String searchFeild,String opeartion,String value,St
 	}
 	Assert.assertTrue(result); 	
 	
-}
-public void searchRecordByString(String container,String modle,String entity,String searchFeild,String opeartion,String value) {
-
-	chooseContainer(container);	
-	chooseModle(modle);
-	clickSave();
-	chooseEntity(entity);	
-	searchCondition(searchFeild,opeartion,value);
-	searchStringAssert(searchFeild,opeartion,value,entity);
 }
 
 
