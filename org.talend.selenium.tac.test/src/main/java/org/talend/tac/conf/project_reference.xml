@@ -9,8 +9,15 @@
 	<parameter name="ref.pro.info" value="referencepro - trunk"/>
 	<parameter name="refbranch.pro.info" value="referencepro - branch"/>
 	<parameter name="commbranch.pro.info" value="commonpro - test_branch"/>	
+	<parameter name="comm.pro.trunk" value="commonpro - trunk"/>
 	<parameter name="branch" value="branch"/>
 	<parameter name="trunk" value="trunk"/>
+	<parameter name="DIPro" value="DIPro"/>	  
+    <parameter name="DQPro" value="DQPro"/>
+    <parameter name="MDMPro" value="MDMPro"/>
+	<parameter name="MDMPro.info" value="MDMPro - trunk"/>
+	<parameter name="DQPro.info" value="DQPro - trunk"/>
+	<parameter name="DIPro.info" value="DIPro - trunk"/>
     <!-- common parameters -->
 	
 	<test name="reference01_testCycleReferenceproRestriction" preserve-order="true">
@@ -122,5 +129,65 @@
 			</class>
 		</classes>
 	</test>
+	
+	<test name="reference09_testLevelRestriction" preserve-order="true">
+	  <parameter name="refPro.level1" value="refProLevel1"/>	    
+	  <parameter name="refPro.level2" value="refProLevel2"/>
+		<parameter name="refPro.level1.info" value="refProLevel1 - trunk"/>
+		<parameter name="refPro.level2.info" value="refProLevel2 - trunk"/>
+	  <parameter name="testlinkID" value="TDIQA-374"/>
+		<classes>
+			<class name="org.talend.tac.cases.reference.TestProjectReference">
+				<methods>
+					<include name="testLevelRestriction" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="reference10_testReferenceDIProTODQPro" preserve-order="true">
+	  <parameter name="testlinkID" value="TDIQA-5868"/>
+		<classes>
+			<class name="org.talend.tac.cases.reference.TestProjectReference">
+				<methods>
+					<include name="testReferenceDIProTODQPro" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="reference11_testReferenceDIProTODQPro" preserve-order="true">
+	  <parameter name="testlinkID" value="TDIQA-5869"/>
+		<classes>
+			<class name="org.talend.tac.cases.reference.TestProjectReference">
+				<methods>
+					<include name="testReferenceDQProToDIPro" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="reference12_testReferenceMDMProToDQPro" preserve-order="true">
+	  <parameter name="testlinkID" value="TDIQA-5870"/>
+		<classes>
+			<class name="org.talend.tac.cases.reference.TestProjectReference">
+				<methods>
+					<include name="testReferenceMDMProToDQPro" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="reference13_testReferenceMDMProToDIPro" preserve-order="true">
+	  <parameter name="testlinkID" value="TDIQA-5871"/>
+		<classes>
+			<class name="org.talend.tac.cases.reference.TestProjectReference">
+				<methods>
+					<include name="testReferenceMDMProToDIPro" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
 </suite>
 

@@ -101,9 +101,9 @@ public class Project extends WebDriverBase {
 		logger.info("accept alert");
 		this.acceptAlert();
 		logger.info("check project whether disappear");
-		Assert.assertTrue(this.isElementPresent(By.xpath("//div[contains(text(),'"+delProInfo+"')]"), 10));
+		Assert.assertTrue(this.isElementPresent(By.xpath("//div[contains(text(),'"+delProInfo+"')]"), WAIT_TIME_MIN));
 		Assert.assertTrue(this.isElementPresent(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
-				+ projectLabel + "')]"), 2));
+				+ projectLabel + "')]"), WAIT_TIME_MIN));
 		
 	}
 
@@ -123,8 +123,9 @@ public class Project extends WebDriverBase {
 		logger.info("accept alert");
 		this.acceptAlert();
 		logger.info("check project whether disappear");
-		Assert.assertFalse(this.waitforElementDisplayed(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
-				+ projectLabel + "')]"), 100));
+		this.waitElemet(2000);
+		Assert.assertFalse(this.isElementPresent(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				+ projectLabel + "')]"), 5));
 		
 	}
 	
@@ -151,7 +152,7 @@ public class Project extends WebDriverBase {
 		logger.info("choose Yes");
 		this.getElementByXpath("//button[text()='Yes']").click();	
 		logger.info("check branch whether success");
-		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='" + branchName + "']"), 40));
+		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='" + branchName + "']"), WAIT_TIME_MIN));
 		logger.info("click close window button");
 		this.getElementByXpath("//div[@class=' x-nodrag x-tool-close x-tool x-component']").click();
 			

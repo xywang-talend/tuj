@@ -1,5 +1,8 @@
 package org.talend.tac.modules;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.HasInputDevices;
 import org.openqa.selenium.Mouse;
@@ -27,6 +30,38 @@ public class Reference extends WebDriverBase {
 		
 	}
 
+	protected void multipleSameTimeReference(String sourcePro1, String branchName, String sourcePro2, String targetPro) {
+		
+		this.waitElement(2000);
+		logger.info("get source");
+		logger.info("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+branchName+"']//parent::td//preceding-sibling::td//div[text()='"+sourcePro1+"']");
+		WebElement sourceProject1 = getElementByXpath("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+branchName+"']//parent::td//preceding-sibling::td//div[text()='"+sourcePro1+"']");
+		WebElement sourceProject2 = getElementByXpath("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+branchName+"']//parent::td//preceding-sibling::td//div[text()='"+sourcePro2+"']");
+		
+//		String sourceProject1 = "//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+branchName+"']//parent::td//preceding-sibling::td//div[text()='"+sourcePro1+"']";
+		logger.info("sourceProject1"+sourceProject1);
+//		String sourceProject2 = "//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+branchName+"']//parent::td//preceding-sibling::td//div[text()='"+sourcePro2+"']";
+		logger.info("sourceProject2"+sourceProject2);
+		WebElement targetProject = driver.findElement(By.xpath("//div[@aria-level='1']//span[text()='"+targetPro+"']"));
+		try {
+			Robot bot = new Robot();
+			this.clickAndOnHold(sourceProject1);
+			bot.keyPress(16);
+			this.clickAndOnHold(sourceProject2);
+			bot.keyRelease(16);
+			this.waitElement(4000);
+			this.moveToElement(targetProject);
+			this.waitElement(4000);
+			this.release();
+			this.waitElement(4000);
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		this.clickAndOnHold(sourceProject1);
+		
+	}
+	
 	protected void reference(String source, String target, String refInfo, int nodeLevel, String branchName){
 		this.waitElement(2000);
 		logger.info("get source");
@@ -41,24 +76,24 @@ public class Reference extends WebDriverBase {
 		this.waitforElementDisplayed(targetProject, WAIT_TIME_MID);
 		dragAndDrop(sourceProject, targetProject);
 		logger.info("//span[text()='"+target+"']//ancestor::div[contains(@class,'x-tree3-el') and @aria-level='1']//following-sibling::div//div[@aria-level='"+nodeLevel+"']//span[contains(text(),'"+refInfo+"')]");
-		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='"+target+"']//ancestor::div[contains(@class,'x-tree3-el') and @aria-level='1']//following-sibling::div//div[@aria-level='"+nodeLevel+"']//span[contains(text(),'"+refInfo+"')]"), 5));
+		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='"+target+"']//ancestor::div[contains(@class,'x-tree3-el') and @aria-level='1']//following-sibling::div//div[@aria-level='"+nodeLevel+"']//span[contains(text(),'"+refInfo+"')]"), WAIT_TIME_MIN));
 		logger.info("Reference project - '" + source + "'  to comm project '"+ target +"'");
 	    if(this.isElementPresent(By.xpath("//span[text()='"+target+"']//ancestor::div[contains(@class,'x-tree3-el') and @aria-level='1']//following-sibling::div//div[@aria-level='3']//span[contains(text(),'"+refInfo+"')]"), 5)) {
 	    	
-	    	Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='"+target+"']//ancestor::div[contains(@class,'x-tree3-el') and @aria-level='1']//following-sibling::div//div[@aria-level='3']//span[contains(text(),'"+refInfo+"')]"), 5));
+	    	Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='"+target+"']//ancestor::div[contains(@class,'x-tree3-el') and @aria-level='1']//following-sibling::div//div[@aria-level='3']//span[contains(text(),'"+refInfo+"')]"), WAIT_TIME_MIN));
 	    	
 	    }
 	    getElementByXpath("//div[text()='Projects references' and @class='header-title']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleRefreshButton']").click();
 	}
 	
-	protected void failedReference(String source, String target, String refInfo, int nodeLevel){
+	protected void failedReference(String source, String target, String refInfo, int nodeLevel, int targerNodeLevel){
 		this.waitElement(2000);
 		logger.info("get source");
 		logger.info("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+source+"']");
 		WebElement sourceProject = getElementByXpath("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+source+"']");
 //		this.isElementPresent(By.xpath("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+source+"']"), 5);
 		logger.info("get target");
-		WebElement targetProject = getElementByXpath("//div[@aria-level='1']//span[text()='"+target+"']");
+		WebElement targetProject = getElementByXpath("//div[@aria-level='"+targerNodeLevel+"']//span[text()='"+target+"']");
 		this.waitforElementDisplayed(targetProject, WAIT_TIME_MID);
 		dragAndDrop(sourceProject, targetProject);	
 		logger.info("//span[text()='"+target+"']//ancestor::div[contains(@class,'x-tree3-el') and @aria-level='1']//following-sibling::div//div[@aria-level='"+nodeLevel+"']//span[contains(text(),'"+refInfo+"')]");
@@ -68,8 +103,8 @@ public class Reference extends WebDriverBase {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		logger.info("//span[text()='"+target+"']//ancestor::div[contains(@class,'x-tree3-el') and @aria-level='1']//following-sibling::div//div[@aria-level='"+nodeLevel+"']//span[contains(text(),'"+refInfo+"')]");
-		Assert.assertFalse(this.isElementPresent(By.xpath("//span[text()='"+target+"']//ancestor::div[contains(@class,'x-tree3-el') and @aria-level='1']//following-sibling::div//div[@aria-level='"+nodeLevel+"']//span[contains(text(),'"+refInfo+"')]"), 5));
+		logger.info("//span[text()='"+target+"']//ancestor::div[contains(@class,'x-tree3-el') and @aria-level='"+targerNodeLevel+"']//following-sibling::div//div[@aria-level='"+nodeLevel+"']//span[contains(text(),'"+refInfo+"')]");
+		Assert.assertFalse(this.isElementPresent(By.xpath("//span[text()='"+target+"']//ancestor::div[contains(@class,'x-tree3-el') and @aria-level='"+targerNodeLevel+"']//following-sibling::div//div[@aria-level='"+nodeLevel+"']//span[contains(text(),'"+refInfo+"')]"), 5));
 		logger.info(" Cannot reference project - '" + source + "'  to comm project '"+ target +"'");
 	    
 	}
@@ -94,13 +129,13 @@ public class Reference extends WebDriverBase {
 	public void checkRefProDisplay(String projectLabel, String branch, String type) {
 		
 		logger.info("//span[text()='"+projectLabel+"']");
-		Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+projectLabel+"']"), 5));
+		Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+projectLabel+"']"), WAIT_TIME_MIN));
 		logger.info("//div[text()='"+projectLabel+"']//parent::td//preceding-sibling::td//div[contains(@class,'x-grid3-cell-inner x-grid3-col-projectBean')]//img");
-		Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+projectLabel+"']//parent::td//preceding-sibling::td//div[contains(@class,'x-grid3-cell-inner x-grid3-col-projectBean')]//img"), 5));
+		Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+projectLabel+"']//parent::td//preceding-sibling::td//div[contains(@class,'x-grid3-cell-inner x-grid3-col-projectBean')]//img"), WAIT_TIME_MIN));
 		logger.info("//div[text()='"+projectLabel+"']//parent::td//following-sibling::td//div[contains(text(),'"+branch+"')]");
-		Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+projectLabel+"']//parent::td//following-sibling::td//div[contains(text(),'"+branch+"')]"), 5));
+		Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+projectLabel+"']//parent::td//following-sibling::td//div[contains(text(),'"+branch+"')]"), WAIT_TIME_MIN));
 		logger.info("//div[text()='"+projectLabel+"']//parent::td//following-sibling::td//div[contains(@class,'x-grid3-cell-inner x-grid3-col-projectBean')]//img[@title='Data Integration']");
-		Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+projectLabel+"']//parent::td//following-sibling::td//div[contains(@class,'x-grid3-cell-inner x-grid3-col-projectBean')]//img[@title='"+type+"']"), 5));
+		Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+projectLabel+"']//parent::td//following-sibling::td//div[contains(@class,'x-grid3-cell-inner x-grid3-col-projectBean')]//img[@title='"+type+"']"), WAIT_TIME_MIN));
 		
 	}
 	
