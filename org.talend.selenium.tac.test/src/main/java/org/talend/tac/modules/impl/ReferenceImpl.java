@@ -14,13 +14,21 @@ public class ReferenceImpl extends Reference {
 		this.driver = driver;
 		
 	}
-
+	
+    /*drag drop a simple reference
+     * *
+     */
 	public void referenceImpl(String source, String target, String refInfo) {
 		
 		this.gotoReferencePage();
 		this.reference(source, target, refInfo, 2, "trunk");
 	}
 	
+	/*test a cycle reference, add three refPro(A,B,C)
+	 * drag drop A to B is success
+	 * drag drop B to C is success
+	 * drag drop C to A is Failed, this drag drop is not allowed
+	 */
 	public void cycleRestrictionReferenceproImpl(String type, int commonReference, 
 			String cycleRefPro1, String cycleRefPro2, String cycleRefPro3, String cycleRefPro1Info
 			, String cycleRefPro2Info, String cycleRefPro3Info) {
@@ -31,7 +39,7 @@ public class ReferenceImpl extends Reference {
 		this.gotoReferencePage();
 		this.reference(cycleRefPro1, cycleRefPro2Info, cycleRefPro1Info, 2, "trunk");
 		this.reference(cycleRefPro2, cycleRefPro3Info, cycleRefPro2Info, 2, "trunk");
-		this.failedReference(cycleRefPro3, cycleRefPro1Info, cycleRefPro3Info, 2);
+		this.failedReference(cycleRefPro3, cycleRefPro1Info, cycleRefPro3Info, 2, 1);
 		this.removeReference(cycleRefPro2Info, cycleRefPro1Info, 2);
 		this.removeReference(cycleRefPro3Info, cycleRefPro2Info, 2);
 		projectIml.deleteProjectImpl(cycleRefPro1);
@@ -40,6 +48,10 @@ public class ReferenceImpl extends Reference {
 				
 	}
 	
+	/*test removed a reference
+	 * drag drop a referencePro to other pro
+	 * then removed the reference, the operation is success
+	 * */
 	public void removeReferenceImpl(String projectLabel, String type, int commonReference, 
 			String source, String target, String refInfo) {
 		
@@ -51,6 +63,9 @@ public class ReferenceImpl extends Reference {
 		
 	}
 	
+	/*add two referecepro(A,B), check their various info display is normal
+	 * drag drop A to other project, then drag drop B to A,  check reference display of all level
+	 * */
 	public void retrieveDisplayReferenceImpl(String projectLabel, String type, int commonReference, 
 			String branch,  String projectLabelType, String refPro, String refProBranch, 
 			 String refProType, String spaceproTarget, String refproLabelInfo1, 
@@ -69,7 +84,10 @@ public class ReferenceImpl extends Reference {
 		projectIml.deleteProjectImpl(projectLabel);
 		
 	}
-
+    
+	/*
+	 * delete project of Reference project 
+	 * */
 	public void deleteRefproDispalyReferenceImpl(String projectLabel, String type, 
 			int commonReference, String source, String target, String refInfo
 			, int nodeLevel) {
@@ -84,7 +102,9 @@ public class ReferenceImpl extends Reference {
 		
 	}
 	
-
+    /*
+     * References pro branch to other pro trunk
+     * */
 	public void referenceBranchToTrunkReferenceImpl(String sourePro, String branchName, String targetPro, 
 			String refInfo) {		
 		
@@ -94,7 +114,10 @@ public class ReferenceImpl extends Reference {
 		this.removeReference(targetPro, refInfo, 2);
 		
 	}
-
+    
+	/*
+	 * References pro branch to other pro branch
+	 * */
 	public void referenceBranchToBranchReferenceImpl(String sourePro, String branchName, String targetPro, 
 			String refInfo) {		
 			
@@ -103,7 +126,10 @@ public class ReferenceImpl extends Reference {
 		this.removeReference(targetPro, refInfo, 2);
 		
 	}	
-
+    
+	/*
+	 * references pro trunk to other pro branch
+	 * */
 	public void referenceTrunkToBranchReferenceImpl(String sourePro, String branchName, String targetPro, 
 			String refInfo) {		
 			
@@ -111,6 +137,85 @@ public class ReferenceImpl extends Reference {
 		this.reference(sourePro, targetPro, refInfo, 2, branchName);
 		this.removeReference(targetPro, refInfo, 2);
 		projectIml.deleteBranchProjectImpl(sourePro, "branch");
+		
+	}
+	
+	/*
+	 * Add several ref projects at the same time
+	 * */
+	public void multipleSameTimeReferenceToOtherProReferenceImpl(String refPro1, String type, String refPro2, String targetPro) {
+		
+//		projectIml.addProjectImpl(refPro1, type, 1);
+//		projectIml.addProjectImpl(refPro2, type, 1);
+		this.gotoReferencePage();
+		this.multipleSameTimeReference(refPro1, "trunk", refPro2, targetPro);		
+		
+	}
+	
+	/*Drap n' drop is enabled only on project at level 1 (directly under type node)
+	 * */
+	public void levelRestrictionReferenceImpl(String refProLevel1, String type, String refProLevel2, String targetPro, 
+			String refProLevel1Info, String refProLevel2Info) {
+		
+		projectIml.addProjectImpl(refProLevel1, type, 1);
+		projectIml.addProjectImpl(refProLevel2, type, 1);
+		this.gotoReferencePage();
+		this.reference(refProLevel1, targetPro, refProLevel1Info, 2, "trunk");
+		this.failedReference(refProLevel2, refProLevel1Info, refProLevel2Info, 3, 2);
+		this.reference(refProLevel2, targetPro, refProLevel2Info, 2, "trunk");		
+		this.removeReference(targetPro, refProLevel1Info, 2);
+		this.removeReference(targetPro, refProLevel2Info, 2);
+		projectIml.deleteProjectImpl(refProLevel1);
+		projectIml.deleteProjectImpl(refProLevel2);
+		
+	}
+	
+	/*
+	 * darg and drop a DI'pro to DQ'pro
+	 * */
+	public void referenceDIProToDQPro(String DIPro, String DQPro, String typeDI
+			, String typeDQ, String DIProInfo, String DQProInfo) {
+		
+		projectIml.addProjectImpl(DIPro, typeDI, 1);
+		projectIml.addProjectImpl(DQPro, typeDQ, 1);
+		this.gotoReferencePage();
+		this.reference(DIPro, DQProInfo, DIProInfo, 2, "trunk");
+		this.removeReference(DQProInfo, DIProInfo, 2);
+//		projectIml.deleteProjectImpl(DIPro);
+//		projectIml.deleteProjectImpl(DQPro);
+		
+	}
+
+	/*
+	 * darg and drop a DQ'pro to DI'pro
+	 * */
+	public void referenceDQProToDIPro(String DIPro, String DQPro, String DIProInfo, String DQProInfo) {
+				
+		this.gotoReferencePage();
+		this.failedReference(DQPro, DIProInfo, DQProInfo, 2, 1);
+		
+	}
+
+	/*
+	 * darg and drop a MDM'pro to DQ'pro
+	 * */
+	public void referenceMDMProToDQPro(String MDMPro, String typeMDM, String DQPro, String MDMProInfo, String DQProInfo) {
+				
+		projectIml.addProjectImpl(MDMPro, typeMDM, 1);
+		this.gotoReferencePage();
+		this.reference(DQPro, MDMProInfo, DQProInfo, 2, "trunk");
+		this.removeReference(MDMProInfo, DQProInfo, 2);
+		
+	}
+
+	/*
+	 * darg and drop a MDM'pro to DI'pro
+	 * */
+	public void referenceMDMProToDIPro(String MDMPro, String DIPro, String MDMProInfo, String DIProInfo) {
+		
+		this.gotoReferencePage();
+		this.reference(DIPro, MDMProInfo, DIProInfo, 2, "trunk");
+		this.removeReference(MDMProInfo, DIProInfo, 2);
 		
 	}
 	
