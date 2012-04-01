@@ -412,10 +412,19 @@ public class Base {
 				String methodName = tr.getMethod().getMethodName();
 				
 				String parameter = "";
-				for(Object param : tr.getParameters()) {
-					String par = (String)param;
-					parameter = parameter + ",'" + par.replaceAll("/", "|")+"'"; 
+				
+				try {
+					for(Object param : tr.getParameters()) {
+						String par = (String)param;
+						parameter = parameter + ",'" + par.replaceAll("/", "|")+"'"; 
+					}
+				} catch (Exception ex) {
+					for(Object param : tr.getParameters()) {
+						logger.info("Couldn't cast to String = " + param);
+					}
+					ex.printStackTrace();
 				}
+				
 				if(parameter!=null && !"".equals(parameter.trim())){
 					parameter = parameter.substring(1);
 				}
