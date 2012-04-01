@@ -163,6 +163,6 @@ public class RedefineContext extends WebDriverBase {
     	   this.getElementById("idESBConductorTaskGridDeleteButton").click();        	   
     	   this.clickElementById(other.getString("ESBConductor.DeleteButtonId"));
     	   this.acceptAlert(); 	   
-           Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MIN));//need to check because of waiting to long.
+           Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='" + label + "']"), 20));
        }
     }

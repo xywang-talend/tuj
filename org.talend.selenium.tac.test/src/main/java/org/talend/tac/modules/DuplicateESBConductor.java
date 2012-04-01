@@ -1,6 +1,5 @@
 package org.talend.tac.modules;
 
-import junit.framework.Assert;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.HasInputDevices;

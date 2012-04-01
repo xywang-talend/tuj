@@ -17,40 +17,35 @@
     <parameter name ='deleteWithUndeployConductor' value='deleteWithUndeployConductor'/>
     <parameter name ='artifactRepositoryUrl' value='http://192.168.0.169:8082/archiva'/>
     <parameter name ='artifactRepositoryUserName' value='tadmin'/>
-    <parameter name ='artifactRepositoryPassWord' value='tadmin1'/>
+    <parameter name ='artifactRepositoryPassWord' value='tadmin'/>
     <parameter name ='mavenProtocolExpected' value='Reachable'/>
-    <parameter name ='artifactRepositoryPassWordWithWrong' value='tadmin1Wrong'/>
-    <parameter name ='warning_Num' value='4'/><!--
-
+    <parameter name ='artifactRepositoryPassWordWithWrong' value='tadminWrong'/>
+    <parameter name ='warning_Num' value='4'/>
+    
  
+ <!-- Implement by selenium2  -->
  
     <test name="ESBConductor01_testConfigurationESBConductor"
-        preserve-order="true">
-        <classes>
-            <class
-                name="com.talend.tac.cases.esbconductor.TestConfigurationESBConductor">
-                <methods>
-                    <include name='testConfigurationESBConductorIsWrong' />
-                    <include name='testConfigurationESBConductorIsOK' />
-                </methods>
-            </class>
-        </classes>
+	  preserve-order="true">
+	  <classes>
+		 <class
+			 name="org.talend.tac.cases.esbconductor.TestConfigurationESBConductor">
+			 <methods>
+				 <include name='testConfigurationESBConductorIsWrong' />
+				 <include name='testConfigurationESBConductorIsOK' />
+			 </methods>
+		 </class>
+	  </classes>
     </test>
-
--->
-
-  
-    
-    
-    
-   
-
-  
-
-
-    
  
- <!-- Implement by selenium2  -->   
+ 
+  <test name="ESBConductor02_ClearService">
+
+		<classes>
+			<class name="org.talend.tac.cases.esbconductor.TestClearService" />
+		</classes>
+	</test>
+    
    
     <test name="ESBConductor03_testAddESBConductor" preserve-order="true">
 	    <classes>
@@ -173,11 +168,5 @@
 		</classes>
 	</test>
 	
-	<test name="ESBConductor02_ClearService">
-
-		<classes>
-			<class name="org.talend.tac.cases.esbconductor.TestClearService" />
-		</classes>
-	</test>
-    
+	
  </suite>

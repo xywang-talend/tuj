@@ -97,9 +97,9 @@ public class GroupByESBConductor extends WebDriverBase {
 		
 	}
 	
-	public void groupESBConductor() {
+	public void groupESBConductor() {//need to modify this mothed
 
-		//the element that I want to click (hidden)		
+		
 		
 		WebElement tag = driver.findElement(By.xpath("//span[text()='Tag']"));
 		this.moveToElement(tag);
