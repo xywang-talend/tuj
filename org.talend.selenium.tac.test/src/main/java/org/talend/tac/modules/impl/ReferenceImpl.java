@@ -173,7 +173,7 @@ public class ReferenceImpl extends Reference {
 	/*
 	 * darg and drop a DI'pro to DQ'pro
 	 * */
-	public void referenceDIProToDQPro(String DIPro, String DQPro, String typeDI
+	public void referenceDIProToDQProReferenceImpl(String DIPro, String DQPro, String typeDI
 			, String typeDQ, String DIProInfo, String DQProInfo) {
 		
 		projectIml.addProjectImpl(DIPro, typeDI, 1);
@@ -189,7 +189,7 @@ public class ReferenceImpl extends Reference {
 	/*
 	 * darg and drop a DQ'pro to DI'pro
 	 * */
-	public void referenceDQProToDIPro(String DIPro, String DQPro, String DIProInfo, String DQProInfo) {
+	public void referenceDQProToDIProReferenceImpl(String DIPro, String DQPro, String DIProInfo, String DQProInfo) {
 				
 		this.gotoReferencePage();
 		this.failedReference(DQPro, DIProInfo, DQProInfo, 2, 1);
@@ -197,9 +197,9 @@ public class ReferenceImpl extends Reference {
 	}
 
 	/*
-	 * darg and drop a MDM'pro to DQ'pro
+	 * darg and drop a DQ'pro to MDM'pro
 	 * */
-	public void referenceMDMProToDQPro(String MDMPro, String typeMDM, String DQPro, String MDMProInfo, String DQProInfo) {
+	public void referenceDQProToMDMProReferenceImpl(String MDMPro, String typeMDM, String DQPro, String MDMProInfo, String DQProInfo) {
 				
 		projectIml.addProjectImpl(MDMPro, typeMDM, 1);
 		this.gotoReferencePage();
@@ -209,13 +209,81 @@ public class ReferenceImpl extends Reference {
 	}
 
 	/*
-	 * darg and drop a MDM'pro to DI'pro
+	 * darg and drop a DI'pro to MDM'pro
 	 * */
-	public void referenceMDMProToDIPro(String MDMPro, String DIPro, String MDMProInfo, String DIProInfo) {
+	public void referenceDIProToMDMProReferenceImpl(String MDMPro, String DIPro, String MDMProInfo, String DIProInfo) {
 		
 		this.gotoReferencePage();
 		this.reference(DIPro, MDMProInfo, DIProInfo, 2, "trunk");
 		this.removeReference(MDMProInfo, DIProInfo, 2);
+		
+	}
+	
+	/*
+	 * darg and drop a MDM'pro to DI'pro
+	 * */
+	public void referenceMDMProToDIProReferenceImpl(String MDMPro, String DIPro, String MDMProInfo, String DIProInfo) {
+		
+		this.gotoReferencePage();
+		this.failedReference(MDMPro, DIProInfo, MDMProInfo, 2, 1);
+		
+	}
+
+	/*
+	 * darg and drop a MDM'pro to DQ'pro
+	 * */
+	public void referenceMDMProToDQProReferenceImpl(String MDMPro, String DQPro, String MDMProInfo, String DQProInfo, String DIPro) {
+		
+		this.gotoReferencePage();
+		this.failedReference(MDMPro, DQProInfo, MDMProInfo, 2, 1);
+		projectIml.deleteProjectImpl(DQPro);
+		projectIml.deleteProjectImpl(MDMPro);
+		projectIml.deleteProjectImpl(DIPro);
+		
+	}	
+
+	/*
+	 * darg and drop a MDM'pro to MDM'pro
+	 * */
+	public void referenceMDMProToMDMProReferenceImpl(String MDMPro1, String MDMPro2, String MDMPro1Info, String MDMPro2Info, String typeMDM) {
+		
+		projectIml.addProjectImpl(MDMPro1, typeMDM, 1);
+		projectIml.addProjectImpl(MDMPro2, typeMDM, 1);
+		this.gotoReferencePage();
+		this.reference(MDMPro1, MDMPro2Info, MDMPro1Info, 2, "trunk");
+		this.removeReference(MDMPro2Info, MDMPro1Info, 2);
+		projectIml.deleteProjectImpl(MDMPro1);
+		projectIml.deleteProjectImpl(MDMPro2);
+		
+	}
+
+	/*
+	 * darg and drop a DQ'pro to DQ'pro
+	 * */
+	public void referenceDQProToDQProReferenceImpl(String DQPro1, String DQPro2, String DQPro1Info, String DQPro2Info, String typeDQ) {
+		
+		projectIml.addProjectImpl(DQPro1, typeDQ, 1);
+		projectIml.addProjectImpl(DQPro2, typeDQ, 1);
+		this.gotoReferencePage();
+		this.reference(DQPro1, DQPro2Info, DQPro1Info, 2, "trunk");
+		this.removeReference(DQPro2Info, DQPro1Info, 2);
+		projectIml.deleteProjectImpl(DQPro1);
+		projectIml.deleteProjectImpl(DQPro2);
+		
+	}
+
+	/*
+	 * darg and drop a DI'pro to DI'pro
+	 * */
+	public void referenceDIProToDIProReferenceImpl(String DIPro1, String DIPro2, String DIPro1Info, String DIPro2Info, String typeDI) {
+		
+		projectIml.addProjectImpl(DIPro1, typeDI, 1);
+		projectIml.addProjectImpl(DIPro2, typeDI, 1);
+		this.gotoReferencePage();
+		this.reference(DIPro1, DIPro2Info, DIPro1Info, 2, "trunk");
+		this.removeReference(DIPro2Info, DIPro1Info, 2);
+		projectIml.deleteProjectImpl(DIPro1);
+		projectIml.deleteProjectImpl(DIPro2);
 		
 	}
 	

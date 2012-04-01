@@ -122,7 +122,7 @@ public class TestProjectReference extends WebdriverLogin {
 	public void testReferenceDIProTODQPro(String DIPro, String DQPro, String DIProInfo
 			, String DQProInfo, String typeDI, String typeDQ) {
 		
-		refernceImpl.referenceDIProToDQPro(DIPro, DQPro, typeDI, typeDQ, DIProInfo,
+		refernceImpl.referenceDIProToDQProReferenceImpl(DIPro, DQPro, typeDI, typeDQ, DIProInfo,
 				DQProInfo);
 		
 	}
@@ -132,25 +132,74 @@ public class TestProjectReference extends WebdriverLogin {
 	public void testReferenceDQProToDIPro(String DIPro, String DQPro,
 			String DIProInfo, String DQProInfo) {
 		
-		refernceImpl.referenceDQProToDIPro(DIPro, DQPro, DIProInfo, DQProInfo);
+		refernceImpl.referenceDQProToDIProReferenceImpl(DIPro, DQPro, DIProInfo, DQProInfo);
 		
 	}
 	
 	@Test
 	@Parameters({"MDMPro", "DQPro", "MDMPro.info", "DQPro.info", "type.MDM"})
-	public void testReferenceMDMProToDQPro(String MDMPro, String DQPro,
-			String MDMProInfo, String DQProInfo, String typeDQ) {
+	public void testReferenceDQProToMDMPro(String MDMPro, String DQPro,
+			String MDMProInfo, String DQProInfo, String typeMDM) {
 		
-		refernceImpl.referenceMDMProToDQPro(MDMPro, typeDQ, DQPro, MDMProInfo, DQProInfo);
-		
+		refernceImpl.referenceDQProToMDMProReferenceImpl(MDMPro, typeMDM, DQPro, MDMProInfo, DQProInfo);
 	}
 	
+	@Test
+	@Parameters({"MDMPro", "DIPro", "MDMPro.info", "DIPro.info"})
+	public void testReferenceDIProToMDMPro(String MDMPro, String DIPro,
+			String MDMProInfo, String DIProInfo) {
+		
+		refernceImpl.referenceDIProToMDMProReferenceImpl(MDMPro, DIPro, MDMProInfo, DIProInfo);
+		
+	}	
+
 	@Test
 	@Parameters({"MDMPro", "DIPro", "MDMPro.info", "DIPro.info"})
 	public void testReferenceMDMProToDIPro(String MDMPro, String DIPro,
 			String MDMProInfo, String DIProInfo) {
 		
-		refernceImpl.referenceMDMProToDIPro(MDMPro, DIPro, MDMProInfo, DIProInfo);
+		refernceImpl.referenceMDMProToDIProReferenceImpl(MDMPro, DIPro, MDMProInfo, DIProInfo);
 		
 	}
+
+	@Test
+	@Parameters({"MDMPro", "DQPro", "MDMPro.info", "DQPro.info", "DIPro"})
+	public void testReferenceMDMProToDQPro(String MDMPro, String DQPro,
+			String MDMProInfo, String DQProInfo, String DIPro) {
+		
+		refernceImpl.referenceMDMProToDQProReferenceImpl(MDMPro, DQPro, MDMProInfo, DQProInfo, DIPro);
+		
+	}
+	
+	@Test
+	@Parameters({"MDM.Pro1", "MDM.Pro2", "MDMPro1.Info", "MDMPro2.Info", "type.MDM"})
+	public void testReferenceMDMProToMDMPro(String MDMPro1, String MDMPro2
+			, String MDMPro1Info, String MDMPro2Info, String typeMDM) {
+		
+		refernceImpl.referenceMDMProToMDMProReferenceImpl(MDMPro1, MDMPro2,
+				MDMPro1Info, MDMPro2Info, typeMDM);
+		
+	}
+	
+
+	@Test
+	@Parameters({"DQ.Pro1", "DQ.Pro2", "DQPro1.Info", "DQPro2.Info", "type.DQ"})
+	public void testReferenceDQProToDQPro(String DQPro1, String DQPro2
+			, String DQPro1Info, String DQPro2Info, String typeDQ) {
+		
+		refernceImpl.referenceMDMProToMDMProReferenceImpl(DQPro1, DQPro2,
+				DQPro1Info, DQPro2Info, typeDQ);
+		
+	}
+	
+	@Test
+	@Parameters({"DI.Pro1", "DI.Pro2", "DIPro1.Info", "DIPro2.Info", "type.DI"})
+	public void testReferenceDIProToDIPro(String DIPro1, String DIPro2
+			, String DIPro1Info, String DIPro2Info, String typeDI) {
+		
+		refernceImpl.referenceMDMProToMDMProReferenceImpl(DIPro1, DIPro2,
+				DIPro1Info, DIPro2Info, typeDI);
+		
+	}
+	
 }

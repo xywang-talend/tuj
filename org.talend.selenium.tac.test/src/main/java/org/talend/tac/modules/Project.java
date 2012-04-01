@@ -110,6 +110,7 @@ public class Project extends WebDriverBase {
 	protected void deleteProject(String projectLabel) {
 		
 		logger.info("wait project appear");
+		this.waitElemet(2000);
 		this.waitforElementDisplayed(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 						+ projectLabel + "')]"), WAIT_TIME_MID);
 		this.waitElemet(2000);
