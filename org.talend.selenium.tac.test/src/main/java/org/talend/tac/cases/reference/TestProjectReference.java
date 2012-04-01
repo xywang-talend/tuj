@@ -99,4 +99,58 @@ public class TestProjectReference extends WebdriverLogin {
 		
 		
 	}
+	
+	@Test
+	public void testMultipleSameTimeReference() {		
+		
+		refernceImpl.multipleSameTimeReferenceToOtherProReferenceImpl("aa", "Data Integration", "bb", "project space - trunk");
+		
+	}
+	
+	@Test
+	@Parameters({"refPro.level1", "refPro.level2", "type.DI", "spacepro.info", 
+		"refPro.level1.info", "refPro.level2.info"})
+	public void testLevelRestriction(String refProLevel1, String refProLevel2, String type, String targetPro
+			, String refProLevel1Info, String refProLevel2Info) {
+		
+		refernceImpl.levelRestrictionReferenceImpl(refProLevel1, type, refProLevel2, targetPro, refProLevel1Info, refProLevel2Info);
+		
+	}
+	
+	@Test
+	@Parameters({"DIPro", "DQPro", "DIPro.info", "DQPro.info", "type.DI", "type.DQ"})
+	public void testReferenceDIProTODQPro(String DIPro, String DQPro, String DIProInfo
+			, String DQProInfo, String typeDI, String typeDQ) {
+		
+		refernceImpl.referenceDIProToDQPro(DIPro, DQPro, typeDI, typeDQ, DIProInfo,
+				DQProInfo);
+		
+	}
+	
+	@Test
+	@Parameters({"DIPro", "DQPro", "DIPro.info", "DQPro.info",})
+	public void testReferenceDQProToDIPro(String DIPro, String DQPro,
+			String DIProInfo, String DQProInfo) {
+		
+		refernceImpl.referenceDQProToDIPro(DIPro, DQPro, DIProInfo, DQProInfo);
+		
+	}
+	
+	@Test
+	@Parameters({"MDMPro", "DQPro", "MDMPro.info", "DQPro.info", "type.MDM"})
+	public void testReferenceMDMProToDQPro(String MDMPro, String DQPro,
+			String MDMProInfo, String DQProInfo, String typeDQ) {
+		
+		refernceImpl.referenceMDMProToDQPro(MDMPro, typeDQ, DQPro, MDMProInfo, DQProInfo);
+		
+	}
+	
+	@Test
+	@Parameters({"MDMPro", "DIPro", "MDMPro.info", "DIPro.info"})
+	public void testReferenceMDMProToDIPro(String MDMPro, String DIPro,
+			String MDMProInfo, String DIProInfo) {
+		
+		refernceImpl.referenceMDMProToDIPro(MDMPro, DIPro, MDMProInfo, DIProInfo);
+		
+	}
 }
