@@ -12,6 +12,9 @@
 // ============================================================================
 package tosstudio.projectmanagement.performance;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,11 +37,16 @@ public class CreateFolderForJobTest extends TalendSwtBotForTos {
     @Before
     public void initialisePrivateFields() {
         repositories.add(ERepositoryObjectType.PROCESS);
+        List<String> folders = new ArrayList<String>();
+        folders.add(FOLDERNAME);
+        repositoriesFolders.put(ERepositoryObjectType.PROCESS, folders);
+
+        folderItem = new TalendFolderItem(FOLDERNAME);
     }
 
     @Test
     public void createFolderForJob() {
-        folderItem = Utilities.createFolder(FOLDERNAME, Utilities.TalendItemType.JOB_DESIGNS);
+        folderItem.createUnder(Utilities.TalendItemType.JOB_DESIGNS);
     }
 
 }

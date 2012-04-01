@@ -12,6 +12,9 @@
 // ============================================================================
 package tosstudio.metadata.databaseoperation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,11 +36,16 @@ public class CreateFolderForDbConnTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
+        List<String> folders = new ArrayList<String>();
+        folders.add(FOLDERNAME);
         repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
+        repositoriesFolders.put(ERepositoryObjectType.METADATA_CONNECTIONS, folders);
+
+        folderItem = new TalendFolderItem(FOLDERNAME);
     }
 
     @Test
     public void createFolderForDbConn() {
-        folderItem = Utilities.createFolder(FOLDERNAME, Utilities.TalendItemType.DB_CONNECTIONS);
+        folderItem.createUnder(Utilities.TalendItemType.DB_CONNECTIONS);
     }
 }

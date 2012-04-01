@@ -12,6 +12,9 @@
 // ============================================================================
 package tosstudio.businessmodels;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
@@ -41,9 +44,14 @@ public class NotCreateNewItemInRecycleBinTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
+        List<String> folders = new ArrayList<String>();
+        folders.add(FOLDERNAME);
         repositories.add(ERepositoryObjectType.BUSINESS_PROCESS);
+        repositoriesFolders.put(ERepositoryObjectType.BUSINESS_PROCESS, folders);
+
         businessModelItem = new TalendBusinessModelItem(BUSINESS_MODEL_NAME);
-        folder = Utilities.createFolder(FOLDERNAME, businessModelItem.getItemType());
+        folder = new TalendFolderItem(FOLDERNAME);
+        folder = folder.createUnder(businessModelItem.getItemType());
         businessModelItem.setFolderPath(folder.getFolderPath());
         businessModelItem.create();
         businessModelItem.getEditor().saveAndClose();

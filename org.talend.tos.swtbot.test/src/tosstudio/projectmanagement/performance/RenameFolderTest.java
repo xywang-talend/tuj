@@ -12,6 +12,9 @@
 // ============================================================================
 package tosstudio.projectmanagement.performance;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +44,12 @@ public class RenameFolderTest extends TalendSwtBotForTos {
     @Before
     public void initialisePrivateField() {
         repositories.add(ERepositoryObjectType.PROCESS);
-        folderItem = Utilities.createFolder(FOLDERNAME, Utilities.TalendItemType.JOB_DESIGNS);
+        List<String> folders = new ArrayList<String>();
+        folders.add(FOLDERNAME);
+        repositoriesFolders.put(ERepositoryObjectType.PROCESS, folders);
+
+        folderItem = new TalendFolderItem(FOLDERNAME);
+        folderItem = folderItem.createUnder(Utilities.TalendItemType.JOB_DESIGNS);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.setFolderPath(folderItem.getFolderPath());
         jobItem.create();

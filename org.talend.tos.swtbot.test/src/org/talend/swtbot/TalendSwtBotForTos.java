@@ -2,7 +2,7 @@
 //
 // Talend Community Edition
 //
-// Copyright (C) 2006 Talend 锟� www.talend.com
+// Copyright (C) 2006 Talend 閿燂拷锟� www.talend.com
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -32,8 +32,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.gef.EditPart;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
@@ -60,12 +64,6 @@ import org.talend.designer.core.ui.editor.connections.ConnLabelEditPart;
 import org.talend.designer.core.ui.editor.connections.ConnectionLabel;
 import org.talend.designer.core.ui.editor.nodes.NodePart;
 
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
-
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
  * 
@@ -88,12 +86,13 @@ public class TalendSwtBotForTos {
     private static String buildTitle;
 
     public static List<ERepositoryObjectType> repositories = new ArrayList<ERepositoryObjectType>();
-	
-    public static Map<ERepositoryObjectType, List<String>> reporsitoriesFolders = new Hashtable<ERepositoryObjectType, List<String>>();
-    
+
+    public static Map<ERepositoryObjectType, List<String>> repositoriesFolders = new Hashtable<ERepositoryObjectType, List<String>>();
+
     static IWorkspace workspace = ResourcesPlugin.getWorkspace();
+
     static IProject project = workspace.getRoot().getProject("TEST_NOLOGIN");
-    
+
     /**
      * wait for the Generation engine to be intialised, and this is done only once during the lifetime of the
      * application.
@@ -201,35 +200,35 @@ public class TalendSwtBotForTos {
         gefBot.closeAllShells();
         gefBot.saveAllEditors();
         gefBot.closeAllEditors();
-	   	 for(ERepositoryObjectType epot : repositories ) {
-	   		 System.out.print("ERepositoryObjectType --------"+ epot.getAlias() + ", " + epot.getType());
-	            List<IRepositoryViewObject> ivos = ProxyRepositoryFactory.getInstance().getAll(epot);
-	            for (IRepositoryViewObject ivo : ivos) {
-	   			ProxyRepositoryFactory.getInstance().deleteObjectPhysical(ivo);
-	            }
-	            RepositoryManager.refresh(epot);
-	            RepositoryManager.refresh(ERepositoryObjectType.RECYCLE_BIN);
-	            gefBot.resetActivePerspective();
-	            Utilities.emptyRecycleBin();
-	   	 }
-	        
-	   	Iterator<ERepositoryObjectType> it = reporsitoriesFolders.keySet().iterator();
-	   	List<String> folderPaths;
-	   	while(it.hasNext()) {
-	   		ERepositoryObjectType key = it.next();
-	   		folderPaths = reporsitoriesFolders.get(key);
+        for (ERepositoryObjectType epot : repositories) {
+            System.out.print("ERepositoryObjectType --------" + epot.getAlias() + ", " + epot.getType());
+            List<IRepositoryViewObject> ivos = ProxyRepositoryFactory.getInstance().getAll(epot);
+            for (IRepositoryViewObject ivo : ivos) {
+                ProxyRepositoryFactory.getInstance().deleteObjectPhysical(ivo);
+            }
+            RepositoryManager.refresh(epot);
+            RepositoryManager.refresh(ERepositoryObjectType.RECYCLE_BIN);
+            gefBot.resetActivePerspective();
+            Utilities.emptyRecycleBin();
+        }
 
-	   		for(String path : folderPaths) {
-	   		    IFolder folder = project.getFolder(key.getFolder()+ "/"+ path);
-	   		    if(folder.exists()) {
-	   		    	System.out.println("Folder exist - : " + folder.exists());
-	   		    	folder.delete(true, false, null);
-	   		    }
-	   		 project.refreshLocal(IResource.DEPTH_INFINITE, null);
-	   		}
-	   	}
-	   	gefBot.resetActivePerspective();
-	   	repositories.clear();
+        Iterator<ERepositoryObjectType> it = repositoriesFolders.keySet().iterator();
+        List<String> folderPaths;
+        while (it.hasNext()) {
+            ERepositoryObjectType key = it.next();
+            folderPaths = repositoriesFolders.get(key);
+
+            for (String path : folderPaths) {
+                IFolder folder = project.getFolder(key.getFolder() + "/" + path);
+                if (folder.exists()) {
+                    System.out.println("Folder exist - : " + folder.exists());
+                    folder.delete(true, false, null);
+                }
+                project.refreshLocal(IResource.DEPTH_INFINITE, null);
+            }
+        }
+        gefBot.resetActivePerspective();
+        repositories.clear();
     }
 
     /**

@@ -21,7 +21,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendBusinessModelItem;
 import org.talend.swtbot.items.TalendFolderItem;
 
@@ -41,14 +40,14 @@ public class CreateBusinessModelInFolderTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
-    	List<String> folders = new ArrayList<String>();
-    	folders.add(FOLDERNAME);
-    	
-    	
+        List<String> folders = new ArrayList<String>();
+        folders.add(FOLDERNAME);
         repositories.add(ERepositoryObjectType.BUSINESS_PROCESS);
-        reporsitoriesFolders.put(ERepositoryObjectType.BUSINESS_PROCESS, folders);
+        repositoriesFolders.put(ERepositoryObjectType.BUSINESS_PROCESS, folders);
+
         businessModelItem = new TalendBusinessModelItem(BUSINESS_MODEL_NAME);
-        folder = Utilities.createFolder(FOLDERNAME, businessModelItem.getItemType());
+        folder = new TalendFolderItem(FOLDERNAME);
+        folder = folder.createUnder(businessModelItem.getItemType());
         businessModelItem.setFolderPath(folder.getFolderPath());
     }
 

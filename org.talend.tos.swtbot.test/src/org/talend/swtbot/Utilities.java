@@ -54,7 +54,6 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.talend.swtbot.items.TalendDBItem;
-import org.talend.swtbot.items.TalendFolderItem;
 import org.talend.swtbot.items.TalendJobItem;
 
 /**
@@ -573,57 +572,6 @@ public class Utilities {
 
     public static SWTBotTree getRepositoryTree() {
         return new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-    }
-
-    private static SWTBotTreeItem createFolder(String folderName, SWTBotTreeItem treeNode) {
-        treeNode.contextMenu("Create folder").click();
-        gefBot.waitUntil(Conditions.shellIsActive("New folder"));
-        shell = gefBot.shell("New folder");
-        shell.activate();
-
-        gefBot.textWithLabel("Label").setText(folderName);
-
-        boolean finishButtonIsEnabled = gefBot.button("Finish").isEnabled();
-        if (finishButtonIsEnabled) {
-            gefBot.button("Finish").click();
-        } else {
-            shell.close();
-            Assert.assertTrue("finish button is not enabled, folder created fail, maybe the item is exist", finishButtonIsEnabled);
-        }
-        gefBot.waitUntil(Conditions.shellCloses(shell));
-
-        SWTBotTreeItem newFolderItem = null;
-        try {
-            newFolderItem = treeNode.expand().select(folderName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("folder is not created", newFolderItem);
-        }
-
-        return newFolderItem;
-    }
-
-    public static TalendFolderItem createFolder(String folderName, TalendItemType itemType) {
-        SWTBotTreeItem folder = createFolder(folderName, Utilities.getTalendItemNode(itemType));
-        TalendFolderItem folderItem = new TalendFolderItem();
-        folderItem.setItem(folder);
-        folderItem.setItemName(folderName);
-        folderItem.setItemPath("");
-        folderItem.setFolderPath(folderName);
-        folderItem.setParentNode(Utilities.getTalendItemNode(itemType));
-        return folderItem;
-    }
-
-    public static TalendFolderItem createFolder(String folderName, TalendFolderItem parentFolder) {
-        SWTBotTreeItem folder = createFolder(folderName, parentFolder.getItem());
-        TalendFolderItem folderItem = new TalendFolderItem();
-        folderItem.setItem(folder);
-        folderItem.setItemName(folderName);
-        folderItem.setItemPath(parentFolder.getFolderPath());
-        folderItem.setFolderPath(parentFolder.getFolderPath() + "/" + folderName);
-        folderItem.setParentNode(parentFolder.getItem());
-        return folderItem;
     }
 
     /**
