@@ -34,9 +34,9 @@ public class Reference extends WebDriverBase {
 		
 		this.waitElement(2000);
 		logger.info("get source");
-		logger.info("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+branchName+"']//parent::td//preceding-sibling::td//div[text()='"+sourcePro1+"']");
-		WebElement sourceProject1 = getElementByXpath("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+branchName+"']//parent::td//preceding-sibling::td//div[text()='"+sourcePro1+"']");
-		WebElement sourceProject2 = getElementByXpath("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+branchName+"']//parent::td//preceding-sibling::td//div[text()='"+sourcePro2+"']");
+		logger.info("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[contains(text(),'"+branchName+"')]//parent::td//preceding-sibling::td//div[text()='"+sourcePro1+"']");
+		WebElement sourceProject1 = getElementByXpath("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[contains(text(),'"+branchName+"')]//parent::td//preceding-sibling::td//div[text()='"+sourcePro1+"']");
+		WebElement sourceProject2 = getElementByXpath("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[contains(text(),'"+branchName+"')]//parent::td//preceding-sibling::td//div[text()='"+sourcePro2+"']");
 		
 //		String sourceProject1 = "//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+branchName+"']//parent::td//preceding-sibling::td//div[text()='"+sourcePro1+"']";
 		logger.info("sourceProject1"+sourceProject1);
@@ -65,8 +65,8 @@ public class Reference extends WebDriverBase {
 	protected void reference(String source, String target, String refInfo, int nodeLevel, String branchName){
 		this.waitElement(2000);
 		logger.info("get source");
-		logger.info("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+branchName+"']//parent::td//preceding-sibling::td//div[text()='"+source+"']");
-		WebElement sourceProject = getElementByXpath("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[text()='"+branchName+"']//parent::td//preceding-sibling::td//div[text()='"+source+"']");
+		logger.info("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[contains(text(),'"+branchName+"')]//parent::td//preceding-sibling::td//div[text()='"+source+"']");
+		WebElement sourceProject = getElementByXpath("//span[contains(text(),'Projects available as reference')]//ancestor::div[contains(@class,'x-sma')]//following-sibling::div//div[contains(text(),'"+branchName+"')]//parent::td//preceding-sibling::td//div[text()='"+source+"']");
 //		this.waitforElementDisplayed(sourceProject, WAIT_TIME_MID);
 		logger.info("get target");
 		logger.info(target);

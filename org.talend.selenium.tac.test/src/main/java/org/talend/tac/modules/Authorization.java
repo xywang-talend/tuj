@@ -1,84 +1,91 @@
 package org.talend.tac.modules;
 
 import java.util.List;
-
-import junit.framework.Assert;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 import org.talend.tac.base.WebDriverBase;
-
-import com.talend.tac.base.Base;
+import org.testng.Assert;
 
 public class Authorization extends WebDriverBase {
 //	@FindBy(how = How.ID, using = "!!!menu.projectsauthorizations.element!!!")
 	
 	
-	public Authorization(WebDriver driver) {
+	protected Authorization(WebDriver driver) {
 		super.setDriver(driver);
 		this.driver = driver;
 	}
-	public void gotoAuthorzationPage(){
-//		WebElement authorization = driver.findElement(By.id("!!!menu.projectsauthorizations.element!!!"));
-//		
-//		authorization.click();
-		
+	protected void gotoAuthorzationPage(){
+		logger.info("click 'project authoraizations' button");
 		getElementById("!!!menu.projectsauthorizations.element!!!").click();
-		this.waitforTextDisplayed("PROJECTS AUTHORIZATIONS", this.WAIT_TIME_MAX);
+		logger.info("check whether into page");
+		this.waitforTextDisplayed("PROJECTS AUTHORIZATIONS", WAIT_TIME_MIN);
 		logger.info("Go to authorization page");
 		
 	}
 	
-	public void authorization(String userName, String project, String userInfo){
-		WebElement user = getElementByXpath("//div[text()='"+userName+"']");
+	protected void authorization(String userName, String project, String userInfo){
+		logger.info("get user+"+"//span[text()='Users']//ancestor::div[contains(@class,'x-small-editor x-panel-header x-component x-unselectable')]//following-sibling::div//div[text()='"+userName+"']");
+		WebElement user = getElementByXpath("//span[text()='Users']//ancestor::div[contains(@class,'x-small-editor x-panel-header x-component x-unselectable')]//following-sibling::div//div[text()='"+userName+"']");
+		logger.info("get project+"+"//span[text()='Projects']//ancestor::div[contains(@class,'x-small-editor x-panel-head')]//following-sibling::div//span[text()='"+project+"']");
 		WebElement projectUser = getElementByXpath("//span[text()='Projects']//ancestor::div[contains(@class,'x-small-editor x-panel-head')]//following-sibling::div//span[text()='"+project+"']");
+		logger.info("drap in progress");
 		dragAndDrop(user, projectUser);
-		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='"+project+"']//ancestor::div[contains(@class,'x-tree3-node')]//following-sibling::div//span[contains(text(),'"+userInfo+"')]"), 10));
+		logger.info("check authorization result");
+		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='"+project+"']//ancestor::div[contains(@class,'x-tree3-node')]//following-sibling::div//span[contains(text(),'"+userInfo+"')]"), WAIT_TIME_MIN));
 		logger.info("Authorization project - '" + project + "'  to user '"+ userName +"'");
 	}
 
 	
-	public void reAuthorization(String userName, String project, String user_info){
-		WebElement user = getElementByXpath("//div[text()='"+userName+"']");
+	protected void reAuthorization(String userName, String project, String userInfo){
+		logger.info("get user");
+		WebElement user = getElementByXpath("//span[text()='Users']//ancestor::div[contains(@class,'x-small-editor x-panel-header x-component x-unselectable')]//following-sibling::div//div[text()='"+userName+"']");
+		logger.info("get project");
 		WebElement projectUser = getElementByXpath("//span[text()='"+project+"']");
-		dragAndDrop(user, projectUser);		
-		List l = this.getElementsByXpath("//span[text()='"+project+"']//ancestor::div[contains(@class,'x-tree3-el x-tree3-node-joint')]//following-sibling::div//span[contains(text(),'"+user_info+"')]");
+		logger.info("drap in progress");
+		dragAndDrop(user, projectUser);	
+		logger.info("check authorization result");
+		List l = this.getElementsByXpath("//span[text()='"+project+"']//ancestor::div[contains(@class,'x-tree3-el x-tree3-node-joint')]//following-sibling::div//span[contains(text(),'"+userInfo+"')]");
 		Assert.assertEquals(1, l.size());
 		logger.info("Reauthorization project - '" + project + "'  to user '"+ userName +"'");
 	}
 	
 	
-	public void deleteAuthorization(String project, String lastName, String firstName){
-		this.gotoAuthorzationPage();
+	protected void deleteAuthorization(String project, String lastName, String firstName, String userInfo){
+		logger.info("get authorization user");
 		WebElement authorization = getElementByXpath("//span[contains(text(), '"+project+"')]//parent::div//parent::div//span[contains(text(), '"+lastName+", "+firstName+"')]");
+		logger.info("rigth click");
 		this.rightClick(authorization);
+		logger.info("click delete author");
 		getElementById("delete-item-author").click();
-		logger.info("Authorization project - '" + project + "'  to lastName '"+ lastName +"', fisrtName '"+ firstName +"'");
+		logger.info("check result of delete author");
+		Assert.assertFalse(this.isElementPresent(By.xpath("//span[text()='"+project+"']//ancestor::div[contains(@class,'x-tree3-node')]//following-sibling::div//span[contains(text(),'"+userInfo+"')]"), 5));
 	}
 	
-	public void setAuthorizationReadOnly(String project, String lastName, String firstName){
-		this.gotoAuthorzationPage();
+	protected void setAuthorizationReadOnly(String project, String lastName, String firstName, String userInfo){
+		logger.info("get authorization user");
 		WebElement authorization = getElementByXpath("//span[contains(text(), '"+project+"')]//parent::div//parent::div//span[contains(text(), '"+lastName+", "+firstName+"')]");
+		logger.info("rigth click");
 		this.rightClick(authorization);
+		logger.info("click 'readonly' button");
 		getElementById("tog-readonly-item").click();
 		logger.info("Set project Authorization Read Only");
+		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='"+project+"']//ancestor::div[contains(@class,'x-tree3-node')]//following-sibling::div//font[contains(text(),'"+userInfo+"')]"), WAIT_TIME_MIN));
 	}
 	
-	public void setAuthorizationReadAndWrite(String project, String lastName, String firstName){
+	protected void setAuthorizationReadAndWrite(String project, String lastName, String firstName, String userReadwriteInfo){
 		this.gotoAuthorzationPage();
 		WebElement authorization = getElementByXpath("//span[contains(text(), '"+project+"')]//parent::div//parent::div//span/font[contains(text(), '"+lastName+", "+firstName+"')]");
 		this.rightClick(authorization);
 		getElementById("tog-readwrite-item").click();
 		logger.info("Set project Authorization Read and Write");
+		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='"+project+"']//ancestor::div[contains(@class,'x-tree3-node')]//following-sibling::div//span[contains(text(),'"+userReadwriteInfo+"')]"), WAIT_TIME_MIN));
 	}
 	
 	
-	public void resetColumn(){
+	protected void resetColumn(){
 		this.waitforElementDisplayed(getElementByXpath("//div[text()='admin@company.com']"), 2000);
 		WebElement item = getElementByXpath("//div[text()='admin@company.com']");
 		Point p = item.getLocation();
