@@ -104,10 +104,10 @@ public class UserImpl extends User{
 	    Assert.assertTrue(this.getValue(this.getElementByXpath(this.getString(locator, "xpath.user.status", identifier))).equals("false"), "Inactive user "+identifier+" added failed!");
 	}
 	
-	public void addUserWithMultipleRoles(String userNameAdministrator,String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String[] roles){
+	public void addUserWithMultipleRoles(String userTest,String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String[] roles){
 		this.openMenuAdministrator();
 		this.gotoUserManagePage();
-		this.deleteAllUsersExcept(userNameAdministrator);
+		this.deleteAllUsersStartWith(userTest);
 		this.addUser(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, roles);
 		this.deleteUser(identifier);
 	}
@@ -292,5 +292,27 @@ public class UserImpl extends User{
 		logger.info("login administrator and delete the new user added just now.");
 		this.logoutThenloginAdministratorAndDeleteUser(userNameAdministrator, adminPass, locator.getString("login.administrator.forcelogin.message"), identifier);
 		logger.info("delete the new user added ok.");
+	}
+	
+	public void readOnlyAccessForViewer(String userNameAdministrator,String adminPass,String identifier, String firstName,String  lastName, String password, String confirmPassword, String email,String  company, String defaultVersion, boolean active, String roles,String container,String modle,String entity,String feild1Name,String feild2Name,String feild3Name){
+		RecordImpl rec = new RecordImpl(this.driver);
+		this.openMenuAdministrator();
+		this.gotoUserManagePage();
+		this.addUser(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, roles);
+		this.logout();
+		this.loginUserForce(identifier, password);
+		rec.chooseContainer(container);	
+		rec.chooseModle(modle);
+		rec.clickSave();
+		rec.chooseEntity(entity);
+//		rec.clickCreate();
+		String[] parametersFeild1={entity,feild1Name};
+		String[] parametersFeild2={entity,feild2Name};
+		String[] parametersFeild3={entity,feild3Name};
+        this.sleepCertainTime(5000);
+        Assert.assertFalse(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild1", parametersFeild1)).isEnabled());
+        Assert.assertFalse(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild1", parametersFeild2)).isEnabled());
+        Assert.assertFalse(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild1", parametersFeild3)).isEnabled());
+		this.logoutThenloginAdministratorAndDeleteUser(userNameAdministrator, adminPass, locator.getString("login.administrator.forcelogin.message"), identifier);
 	}
 }

@@ -67,7 +67,7 @@ public class TestUser extends Login {
 	@Test
 	@Parameters( {"user.name","identifier", "first.name", "last.name", "password", "confirm.password", "email", "company", "default.version", "active", "roles" })
 	public void testAddUserMultipleRoles(String userNameAdministrator,String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String roles) {
-		userImpl.addUserWithMultipleRoles(userNameAdministrator,identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, splitParameter(roles));
+		userImpl.addUserWithMultipleRoles("test",identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, splitParameter(roles));
 	}
 	
 	
@@ -123,5 +123,11 @@ public class TestUser extends Login {
 	public void testaddUserWithCustomizeRoles(String administrator,String administratorPass,String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String rolesCustomize,String rolesSystem) {
 		userImpl.addUserWithCustomizeRoles(administrator,administratorPass,identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, rolesCustomize,rolesSystem);
 		
+	}
+	
+	@Test
+	@Parameters( {"user.name","user.password","identifier", "first.name", "last.name", "password", "confirm.password", "email", "company", "default.version", "active", "roles","container","modle","entity","feild1Name","feild2Name","feild3Name"})
+	public void testUserViewerReadOnlyAccess(String userNameAdministrator,String adminPass,String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String roles,String container,String modle,String entity,String feild1Name,String feild2Name,String feild3Name) {
+		userImpl.readOnlyAccessForViewer(userNameAdministrator,adminPass,identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, (roles),container,modle,entity, feild1Name, feild2Name, feild3Name);
 	}
 }

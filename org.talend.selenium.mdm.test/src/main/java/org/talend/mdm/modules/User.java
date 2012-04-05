@@ -123,7 +123,7 @@ public User(WebDriver driver) {
 //		Assert.assertFalse(this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.delete", userName)), 30), "user "+userName+" delete failed!");
 	}
 	
-	protected void deleteAllUsersExcept(String userExcept){
+	protected void deleteAllUsersStartWith(String userExcept){
 		
 		
 		
@@ -132,12 +132,16 @@ public User(WebDriver driver) {
 		for(int i=0;i<a.size();i++){
 			String userName = this.getValue((WebElement)a.get(i));
 			logger.info(userName);
-			if(userName.equals(userExcept)){
+		/*	if(userName.equals(userExcept)){
 				continue;
 			}
 			else{
 				b.add(this.getValue((WebElement)a.get(i)));
 				logger.info("b+++++++++++++++++++++++++++++++++++++++++++++++++++++"+userName);
+			}*/
+			
+			if(userName.startsWith(userExcept)){
+				b.add(this.getValue((WebElement)a.get(i)));
 			}
 //			System.err.println("total user number is :"+this.getElementsByXpath(locator.getString("xpath.user.listdisplay.identiferlist")).size());
 		}
@@ -150,7 +154,7 @@ public User(WebDriver driver) {
 		}
 		this.sleepCertainTime(3000);
 		System.err.println("after delete,total user number is :"+this.getElementsByXpath(locator.getString("xpath.user.listdisplay.identiferlist")).size());
-		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.user.listdisplay.identiferlist")).size()==1);
+		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.user.listdisplay.identiferlist")).size()==4);
 		
 	}
 
