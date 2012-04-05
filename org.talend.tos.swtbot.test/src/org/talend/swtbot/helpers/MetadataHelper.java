@@ -142,7 +142,7 @@ public class MetadataHelper implements Helper {
         GEFBOT.button(0).click();
         SWTBotShell shell = GEFBOT.shell("Repository Content").activate();
         try {
-            GEFBOT.tree().getTreeItem(ruleItem.getItemFullName()).select();
+            GEFBOT.tree().expandNode("Validation Rules").select(ruleItem.getItemFullName());
         } catch (WidgetNotFoundException e) {
             shell.close();
             Assert.fail(e.getCause().getMessage());
