@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_GL04g38KEeGMm4a1IpMYog" defaultContext="Default">
+  <context xmi:id="_GL04hH8KEeGMm4a1IpMYog" confirmationNeeded="false" name="Default">
+    <contextParameter xmi:id="_GL04hX8KEeGMm4a1IpMYog" comment="" name="data_dir" prompt="data_dir?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter xmi:id="_GL04hn8KEeGMm4a1IpMYog" comment="" name="data_output_dir" prompt="data_output_dir?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter xmi:id="_GL04h38KEeGMm4a1IpMYog" comment="" name="mysql_database" prompt="mysql_database?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter xmi:id="_GL04iH8KEeGMm4a1IpMYog" comment="" name="mysql_host" prompt="mysql_host?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter xmi:id="_GL04iX8KEeGMm4a1IpMYog" comment="" name="mysql_password" prompt="mysql_password?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter xmi:id="_GL04in8KEeGMm4a1IpMYog" comment="" name="mysql_port" prompt="mysql_port?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter xmi:id="_GL04i38KEeGMm4a1IpMYog" comment="" name="mysql_username" prompt="mysql_username?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter xmi:id="_GL04jH8KEeGMm4a1IpMYog" comment="" name="param_file_path" prompt="param_file_path?" promptNeeded="false" type="id_String" value="E:\tuj\tuj_context\full_context.csv"/>
+    <contextParameter xmi:id="_GL04jX8KEeGMm4a1IpMYog" comment="" name="result_database" prompt="result_database?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter xmi:id="_GL04jn8KEeGMm4a1IpMYog" comment="" name="result_host" prompt="result_host?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter xmi:id="_GL04j38KEeGMm4a1IpMYog" comment="" name="result_password" prompt="result_password?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter xmi:id="_GL04kH8KEeGMm4a1IpMYog" comment="" name="result_port" prompt="result_port?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter xmi:id="_GL04kX8KEeGMm4a1IpMYog" comment="" name="result_table" prompt="result_table?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter xmi:id="_GL04kn8KEeGMm4a1IpMYog" comment="" name="result_username" prompt="result_username?" promptNeeded="false" type="id_String" value="null"/>
+  </context>
+  <parameters xmi:id="_GL04k38KEeGMm4a1IpMYog">
+    <elementParameter xmi:id="_GL04lH8KEeGMm4a1IpMYog" field="TEXT" name="JOB_RUN_VM_ARGUMENTS" value=" -Xms256M -Xmx1024M"/>
+    <elementParameter xmi:id="_GL04lX8KEeGMm4a1IpMYog" field="CHECK" name="JOB_RUN_VM_ARGUMENTS_OPTION" value="false"/>
+    <elementParameter xmi:id="_GL04ln8KEeGMm4a1IpMYog" field="TEXT" name="SCREEN_OFFSET_X" value="0"/>
+    <elementParameter xmi:id="_GL04l38KEeGMm4a1IpMYog" field="TEXT" name="SCREEN_OFFSET_Y" value="0"/>
+    <elementParameter xmi:id="_GL04mH8KEeGMm4a1IpMYog" field="TEXT" name="SCHEMA_OPTIONS" value="none"/>
+    <elementParameter xmi:id="_GL04mX8KEeGMm4a1IpMYog" field="TEXT" name="OEM_CUSTOM_ATTRIBUTE" value=""/>
+    <elementParameter xmi:id="_GL04mn8KEeGMm4a1IpMYog" field="CHECK" name="IMPLICITCONTEXT_USE_PROJECT_SETTINGS" value="true"/>
+    <elementParameter xmi:id="_GL04m38KEeGMm4a1IpMYog" field="CHECK" name="STATANDLOG_USE_PROJECT_SETTINGS" value="true"/>
+    <elementParameter xmi:id="_GL04nH8KEeGMm4a1IpMYog" field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_GL04nX8KEeGMm4a1IpMYog" field="TEXT" name="FIELDSEPARATOR" value="&quot;&quot;"/>
+    <elementParameter xmi:id="_GL04nn8KEeGMm4a1IpMYog" field="CLOSED_LIST" name="DB_VERSION_IMPLICIT_CONTEXT" value=""/>
+    <elementParameter xmi:id="_GL04n38KEeGMm4a1IpMYog" field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value=""/>
+    <elementParameter xmi:id="_GL04oH8KEeGMm4a1IpMYog" field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value=""/>
+    <elementParameter xmi:id="_GL04oX8KEeGMm4a1IpMYog" field="CHECK" name="DISABLE_WARNINGS" value="false"/>
+    <elementParameter xmi:id="_GL04on8KEeGMm4a1IpMYog" field="CHECK" name="DISABLE_INFO" value="false"/>
+    <elementParameter xmi:id="_GL04o38KEeGMm4a1IpMYog" field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter xmi:id="_GL04pH8KEeGMm4a1IpMYog" field="CLOSED_LIST" name="DB_VERSION" value="ojdbc14-10g.jar"/>
+    <routinesParameter xmi:id="_GL04pX8KEeGMm4a1IpMYog" id="_vuaRkDHsEeGW9_q6JV9NJA" name="DataOperation"/>
+    <routinesParameter xmi:id="_GL04pn8KEeGMm4a1IpMYog" id="_vutMgDHsEeGW9_q6JV9NJA" name="Mathematical"/>
+    <routinesParameter xmi:id="_GL04p38KEeGMm4a1IpMYog" id="_vutMhDHsEeGW9_q6JV9NJA" name="Numeric"/>
+    <routinesParameter xmi:id="_GL04qH8KEeGMm4a1IpMYog" id="_vu29gDHsEeGW9_q6JV9NJA" name="Relational"/>
+    <routinesParameter xmi:id="_GL04qX8KEeGMm4a1IpMYog" id="_vu29hDHsEeGW9_q6JV9NJA" name="StringHandling"/>
+    <routinesParameter xmi:id="_GL04qn8KEeGMm4a1IpMYog" id="_vu29iDHsEeGW9_q6JV9NJA" name="TalendDataGenerator"/>
+    <routinesParameter xmi:id="_GL04q38KEeGMm4a1IpMYog" id="_vu29jDHsEeGW9_q6JV9NJA" name="TalendDate"/>
+    <routinesParameter xmi:id="_GL04rH8KEeGMm4a1IpMYog" id="_vu29kDHsEeGW9_q6JV9NJA" name="TalendString"/>
+    <routinesParameter xmi:id="_GL04rX8KEeGMm4a1IpMYog" id="_rtlS4MQvEeC7-8Cslm6B_w" name="LectureFichierBinaire"/>
+    <routinesParameter xmi:id="_GL04rn8KEeGMm4a1IpMYog" id="_V56MwHk9EeGXts1HpNGhuQ" name="DQTechnical"/>
+    <routinesParameter xmi:id="_GL04r38KEeGMm4a1IpMYog" id="_V5dg0nk9EeGXts1HpNGhuQ" name="DataQuality"/>
+    <routinesParameter xmi:id="_GL04sH8KEeGMm4a1IpMYog" id="_V5wbwHk9EeGXts1HpNGhuQ" name="DqStringHandling"/>
+    <routinesParameter xmi:id="_GL04sX8KEeGMm4a1IpMYog" id="_V56MxHk9EeGXts1HpNGhuQ" name="SQLike"/>
+  </parameters>
+  <node xmi:id="_GL04sn8KEeGMm4a1IpMYog" componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="160" posY="64">
+    <elementParameter xmi:id="_GL04s38KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1"/>
+    <elementParameter xmi:id="_GL04tH8KEeGMm4a1IpMYog" field="CHECK" name="START" value="true"/>
+    <elementParameter xmi:id="_GL04tX8KEeGMm4a1IpMYog" field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
+    <elementParameter xmi:id="_GL04tn8KEeGMm4a1IpMYog" field="FILE" name="FILENAME" value="context.param_file_path"/>
+    <elementParameter xmi:id="_GL04t38KEeGMm4a1IpMYog" field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter xmi:id="_GL04uH8KEeGMm4a1IpMYog" field="OPENED_LIST" name="CSVROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter xmi:id="_GL04uX8KEeGMm4a1IpMYog" field="TEXT" name="FIELDSEPARATOR" value="&quot;,&quot;"/>
+    <elementParameter xmi:id="_GL04un8KEeGMm4a1IpMYog" field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter xmi:id="_GL04u38KEeGMm4a1IpMYog" field="TEXT" name="ESCAPE_CHAR" value="&quot;&quot;&quot;"/>
+    <elementParameter xmi:id="_GL04vH8KEeGMm4a1IpMYog" field="TEXT" name="TEXT_ENCLOSURE" value="&quot;&quot;&quot;"/>
+    <elementParameter xmi:id="_GL04vX8KEeGMm4a1IpMYog" field="TEXT" name="HEADER" value="0"/>
+    <elementParameter xmi:id="_GL04vn8KEeGMm4a1IpMYog" field="TEXT" name="FOOTER" value="0"/>
+    <elementParameter xmi:id="_GL04v38KEeGMm4a1IpMYog" field="TEXT" name="LIMIT" value=""/>
+    <elementParameter xmi:id="_GL04wH8KEeGMm4a1IpMYog" field="CHECK" name="REMOVE_EMPTY_ROW" value="true"/>
+    <elementParameter xmi:id="_GL04wX8KEeGMm4a1IpMYog" field="CHECK" name="UNCOMPRESS" value="false"/>
+    <elementParameter xmi:id="_GL04wn8KEeGMm4a1IpMYog" field="CHECK" name="DIE_ON_ERROR" value="true"/>
+    <elementParameter xmi:id="_GL04w38KEeGMm4a1IpMYog" field="DIRECTORY" name="TEMP_DIR" value="&quot;D:/software/eclipse3.6/workspace17&quot;"/>
+    <elementParameter xmi:id="_GL04xH8KEeGMm4a1IpMYog" field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter xmi:id="_GL04xX8KEeGMm4a1IpMYog" field="TEXT" name="THOUSANDS_SEPARATOR" value="','"/>
+    <elementParameter xmi:id="_GL04xn8KEeGMm4a1IpMYog" field="TEXT" name="DECIMAL_SEPARATOR" value="'.'"/>
+    <elementParameter xmi:id="_GL04x38KEeGMm4a1IpMYog" field="CHECK" name="RANDOM" value="false"/>
+    <elementParameter xmi:id="_GL04yH8KEeGMm4a1IpMYog" field="TEXT" name="NB_RANDOM" value="10"/>
+    <elementParameter xmi:id="_GL04yX8KEeGMm4a1IpMYog" field="CHECK" name="TRIMALL" value="true"/>
+    <elementParameter xmi:id="_GL04yn8KEeGMm4a1IpMYog" field="TABLE" name="TRIMSELECT">
+      <elementValue xmi:id="_GL04y38KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="key"/>
+      <elementValue xmi:id="_GL04zH8KEeGMm4a1IpMYog" elementRef="TRIM" value="false"/>
+      <elementValue xmi:id="_GL04zX8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="value"/>
+      <elementValue xmi:id="_GL04zn8KEeGMm4a1IpMYog" elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter xmi:id="_GL04z38KEeGMm4a1IpMYog" field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
+    <elementParameter xmi:id="_GL040H8KEeGMm4a1IpMYog" field="CHECK" name="CHECK_DATE" value="false"/>
+    <elementParameter xmi:id="_GL040X8KEeGMm4a1IpMYog" field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter xmi:id="_GL040n8KEeGMm4a1IpMYog" field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter xmi:id="_GL04038KEeGMm4a1IpMYog" field="CHECK" name="SPLITRECORD" value="false"/>
+    <elementParameter xmi:id="_GL041H8KEeGMm4a1IpMYog" field="TEXT" name="DESTINATION" value=""/>
+    <elementParameter xmi:id="_GL041X8KEeGMm4a1IpMYog" field="TEXT" name="LABEL" value="loadContext"/>
+    <elementParameter xmi:id="_GL041n8KEeGMm4a1IpMYog" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_GL04138KEeGMm4a1IpMYog" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_GL042H8KEeGMm4a1IpMYog" field="MEMO" name="COMMENT" value=""/>
+    <elementParameter xmi:id="_GL042X8KEeGMm4a1IpMYog" field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata xmi:id="_GL042n8KEeGMm4a1IpMYog" connector="FLOW" name="tFileInputDelimited_1">
+      <column xmi:id="_GL04238KEeGMm4a1IpMYog" key="false" length="255" name="key" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL043H8KEeGMm4a1IpMYog" key="false" length="255" name="value" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+    <metadata xmi:id="_GL043X8KEeGMm4a1IpMYog" connector="REJECT" name="REJECT">
+      <column xmi:id="_GL043n8KEeGMm4a1IpMYog" defaultValue="" key="false" length="255" name="key" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL04338KEeGMm4a1IpMYog" defaultValue="" key="false" length="255" name="value" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL044H8KEeGMm4a1IpMYog" defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL044X8KEeGMm4a1IpMYog" defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <node xmi:id="_GL044n8KEeGMm4a1IpMYog" componentName="tContextLoad" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="320" posY="64">
+    <elementParameter xmi:id="_GL04438KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tContextLoad_1"/>
+    <elementParameter xmi:id="_GL045H8KEeGMm4a1IpMYog" field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning"/>
+    <elementParameter xmi:id="_GL045X8KEeGMm4a1IpMYog" field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning"/>
+    <elementParameter xmi:id="_GL045n8KEeGMm4a1IpMYog" field="CHECK" name="PRINT_OPERATIONS" value="false"/>
+    <elementParameter xmi:id="_GL04538KEeGMm4a1IpMYog" field="CHECK" name="DISABLE_ERROR" value="true"/>
+    <elementParameter xmi:id="_GL046H8KEeGMm4a1IpMYog" field="CHECK" name="DISABLE_WARNINGS" value="true"/>
+    <elementParameter xmi:id="_GL046X8KEeGMm4a1IpMYog" field="CHECK" name="DISABLE_INFO" value="true"/>
+    <elementParameter xmi:id="_GL046n8KEeGMm4a1IpMYog" field="CHECK" name="DIEONERROR" value="false"/>
+    <elementParameter xmi:id="_GL04638KEeGMm4a1IpMYog" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_GL047H8KEeGMm4a1IpMYog" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_GL047X8KEeGMm4a1IpMYog" field="MEMO" name="COMMENT" value=""/>
+    <elementParameter xmi:id="_GL047n8KEeGMm4a1IpMYog" field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata xmi:id="_GL04738KEeGMm4a1IpMYog" connector="FLOW" name="tContextLoad_1">
+      <column xmi:id="_GL048H8KEeGMm4a1IpMYog" defaultValue="" key="false" length="255" name="key" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL048X8KEeGMm4a1IpMYog" defaultValue="" key="false" length="255" name="value" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+    <metadata xmi:id="_GL048n8KEeGMm4a1IpMYog" connector="NOTINCONTEXT" name="NOTINCONTEXT">
+      <column xmi:id="_GL04838KEeGMm4a1IpMYog" defaultValue="" key="false" length="255" name="key" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL049H8KEeGMm4a1IpMYog" defaultValue="" key="false" length="255" name="value" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <node xmi:id="_GL049X8KEeGMm4a1IpMYog" componentName="tAssertCatcher" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="576" posY="64">
+    <elementParameter xmi:id="_GL049n8KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tAssertCatcher_1"/>
+    <elementParameter xmi:id="_GL04938KEeGMm4a1IpMYog" field="CHECK" name="START" value="true"/>
+    <elementParameter xmi:id="_GL04-H8KEeGMm4a1IpMYog" field="CHECK" name="CATCH_JAVA_EXCEPTION" value="true"/>
+    <elementParameter xmi:id="_GL04-X8KEeGMm4a1IpMYog" field="CHECK" name="CATCH_TASSERT" value="true"/>
+    <elementParameter xmi:id="_GL04-n8KEeGMm4a1IpMYog" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_GL04-38KEeGMm4a1IpMYog" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_GL04_H8KEeGMm4a1IpMYog" field="MEMO" name="COMMENT" value=""/>
+    <elementParameter xmi:id="_GL04_X8KEeGMm4a1IpMYog" field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata xmi:id="_GL04_n8KEeGMm4a1IpMYog" connector="FLOW" name="tAssertCatcher_1">
+      <column xmi:id="_GL04_38KEeGMm4a1IpMYog" key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date"/>
+      <column xmi:id="_GL05AH8KEeGMm4a1IpMYog" key="false" length="20" name="pid" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05AX8KEeGMm4a1IpMYog" key="false" length="50" name="project" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05An8KEeGMm4a1IpMYog" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05A38KEeGMm4a1IpMYog" key="false" length="5" name="language" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05BH8KEeGMm4a1IpMYog" key="false" length="50" name="origin" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05BX8KEeGMm4a1IpMYog" key="false" length="10" name="status" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05Bn8KEeGMm4a1IpMYog" key="false" length="255" name="substatus" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05B38KEeGMm4a1IpMYog" key="false" length="255" name="description" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <node xmi:id="_GL05CH8KEeGMm4a1IpMYog" componentName="tReplicate" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="640" posY="128">
+    <elementParameter xmi:id="_GL05CX8KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tReplicate_1"/>
+    <elementParameter xmi:id="_GL05Cn8KEeGMm4a1IpMYog" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_GL05C38KEeGMm4a1IpMYog" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_GL05DH8KEeGMm4a1IpMYog" field="MEMO" name="COMMENT" value=""/>
+    <elementParameter xmi:id="_GL05DX8KEeGMm4a1IpMYog" field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata xmi:id="_GL05Dn8KEeGMm4a1IpMYog" connector="FLOW" name="tReplicate_1">
+      <column xmi:id="_GL05D38KEeGMm4a1IpMYog" key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date"/>
+      <column xmi:id="_GL05EH8KEeGMm4a1IpMYog" key="false" length="20" name="pid" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05EX8KEeGMm4a1IpMYog" key="false" length="50" name="project" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05En8KEeGMm4a1IpMYog" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05E38KEeGMm4a1IpMYog" key="false" length="5" name="language" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05FH8KEeGMm4a1IpMYog" key="false" length="50" name="origin" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05FX8KEeGMm4a1IpMYog" key="false" length="10" name="status" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05Fn8KEeGMm4a1IpMYog" key="false" length="255" name="substatus" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05F38KEeGMm4a1IpMYog" key="false" length="255" name="description" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <node xmi:id="_GL05GH8KEeGMm4a1IpMYog" componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="704" posY="224">
+    <elementParameter xmi:id="_GL05GX8KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tLogRow_1"/>
+    <elementParameter xmi:id="_GL05Gn8KEeGMm4a1IpMYog" field="RADIO" name="BASIC_MODE" value="false"/>
+    <elementParameter xmi:id="_GL05G38KEeGMm4a1IpMYog" field="RADIO" name="TABLE_PRINT" value="true"/>
+    <elementParameter xmi:id="_GL05HH8KEeGMm4a1IpMYog" field="RADIO" name="VERTICAL" value="false"/>
+    <elementParameter xmi:id="_GL05HX8KEeGMm4a1IpMYog" field="RADIO" name="PRINT_UNIQUE" value="true"/>
+    <elementParameter xmi:id="_GL05Hn8KEeGMm4a1IpMYog" field="RADIO" name="PRINT_LABEL" value="false"/>
+    <elementParameter xmi:id="_GL05H38KEeGMm4a1IpMYog" field="RADIO" name="PRINT_UNIQUE_LABEL" value="false"/>
+    <elementParameter xmi:id="_GL05IH8KEeGMm4a1IpMYog" field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;"/>
+    <elementParameter xmi:id="_GL05IX8KEeGMm4a1IpMYog" field="CHECK" name="PRINT_HEADER" value="false"/>
+    <elementParameter xmi:id="_GL05In8KEeGMm4a1IpMYog" field="CHECK" name="PRINT_UNIQUE_NAME" value="false"/>
+    <elementParameter xmi:id="_GL05I38KEeGMm4a1IpMYog" field="CHECK" name="PRINT_COLNAMES" value="false"/>
+    <elementParameter xmi:id="_GL05JH8KEeGMm4a1IpMYog" field="CHECK" name="USE_FIXED_LENGTH" value="false"/>
+    <elementParameter xmi:id="_GL05JX8KEeGMm4a1IpMYog" field="TABLE" name="LENGTHS">
+      <elementValue xmi:id="_GL05Jn8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="moment"/>
+      <elementValue xmi:id="_GL05J38KEeGMm4a1IpMYog" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_GL05KH8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="pid"/>
+      <elementValue xmi:id="_GL05KX8KEeGMm4a1IpMYog" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_GL05Kn8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="project"/>
+      <elementValue xmi:id="_GL05K38KEeGMm4a1IpMYog" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_GL05LH8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="job"/>
+      <elementValue xmi:id="_GL05LX8KEeGMm4a1IpMYog" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_GL05Ln8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="language"/>
+      <elementValue xmi:id="_GL05L38KEeGMm4a1IpMYog" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_GL05MH8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="origin"/>
+      <elementValue xmi:id="_GL05MX8KEeGMm4a1IpMYog" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_GL05Mn8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="status"/>
+      <elementValue xmi:id="_GL05M38KEeGMm4a1IpMYog" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_GL05NH8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="substatus"/>
+      <elementValue xmi:id="_GL05NX8KEeGMm4a1IpMYog" elementRef="LENGTH" value="10"/>
+      <elementValue xmi:id="_GL05Nn8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="description"/>
+      <elementValue xmi:id="_GL05N38KEeGMm4a1IpMYog" elementRef="LENGTH" value="10"/>
+    </elementParameter>
+    <elementParameter xmi:id="_GL05OH8KEeGMm4a1IpMYog" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_GL05OX8KEeGMm4a1IpMYog" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_GL05On8KEeGMm4a1IpMYog" field="MEMO" name="COMMENT" value=""/>
+    <elementParameter xmi:id="_GL05O38KEeGMm4a1IpMYog" field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata xmi:id="_GL05PH8KEeGMm4a1IpMYog" connector="FLOW" name="tLogRow_1">
+      <column xmi:id="_GL05PX8KEeGMm4a1IpMYog" key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date"/>
+      <column xmi:id="_GL05Pn8KEeGMm4a1IpMYog" key="false" length="20" name="pid" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05P38KEeGMm4a1IpMYog" key="false" length="50" name="project" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05QH8KEeGMm4a1IpMYog" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05QX8KEeGMm4a1IpMYog" key="false" length="5" name="language" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05Qn8KEeGMm4a1IpMYog" key="false" length="50" name="origin" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05Q38KEeGMm4a1IpMYog" key="false" length="10" name="status" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05RH8KEeGMm4a1IpMYog" key="false" length="255" name="substatus" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05RX8KEeGMm4a1IpMYog" key="false" length="255" name="description" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <node xmi:id="_GL05Rn8KEeGMm4a1IpMYog" componentName="tMysqlOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="768" posY="64">
+    <elementParameter xmi:id="_GL05R38KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tMysqlOutput_1"/>
+    <elementParameter xmi:id="_GL05SH8KEeGMm4a1IpMYog" field="CLOSED_LIST" name="DB_VERSION" value="mysql-connector-java-5.1.0-bin.jar"/>
+    <elementParameter xmi:id="_GL05SX8KEeGMm4a1IpMYog" field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
+    <elementParameter xmi:id="_GL05Sn8KEeGMm4a1IpMYog" field="COMPONENT_LIST" name="CONNECTION" value=""/>
+    <elementParameter xmi:id="_GL05S38KEeGMm4a1IpMYog" field="TEXT" name="TYPE" value="MySQL"/>
+    <elementParameter xmi:id="_GL05TH8KEeGMm4a1IpMYog" field="TEXT" name="HOST" value="context.result_host"/>
+    <elementParameter xmi:id="_GL05TX8KEeGMm4a1IpMYog" field="TEXT" name="PORT" value="context.result_port"/>
+    <elementParameter xmi:id="_GL05Tn8KEeGMm4a1IpMYog" field="TEXT" name="DBNAME" value="context.result_database"/>
+    <elementParameter xmi:id="_GL05T38KEeGMm4a1IpMYog" field="TEXT" name="USER" value="context.result_username"/>
+    <elementParameter xmi:id="_GL05UH8KEeGMm4a1IpMYog" field="TEXT" name="PASS" value="context.result_password"/>
+    <elementParameter xmi:id="_GL05UX8KEeGMm4a1IpMYog" field="DBTABLE" name="TABLE" value="context.result_table"/>
+    <elementParameter xmi:id="_GL05Un8KEeGMm4a1IpMYog" field="CLOSED_LIST" name="TABLE_ACTION" value="NONE"/>
+    <elementParameter xmi:id="_GL05U38KEeGMm4a1IpMYog" field="CLOSED_LIST" name="DATA_ACTION" value="INSERT"/>
+    <elementParameter xmi:id="_GL05VH8KEeGMm4a1IpMYog" field="CHECK" name="DIE_ON_ERROR" value="true"/>
+    <elementParameter xmi:id="_GL05VX8KEeGMm4a1IpMYog" field="MAPPING_TYPE" name="MAPPING" value="mysql_id"/>
+    <elementParameter xmi:id="_GL05Vn8KEeGMm4a1IpMYog" field="TEXT" name="PROPERTIES" value="&quot;noDatetimeStringSync=true&quot;"/>
+    <elementParameter xmi:id="_GL05V38KEeGMm4a1IpMYog" field="CHECK" name="EXTENDINSERT" value="false"/>
+    <elementParameter xmi:id="_GL05WH8KEeGMm4a1IpMYog" field="LABEL" name="NOTE" value="(Not compatible with reject links)"/>
+    <elementParameter xmi:id="_GL05WX8KEeGMm4a1IpMYog" field="TEXT" name="NB_ROWS_PER_INSERT" value="100"/>
+    <elementParameter xmi:id="_GL05Wn8KEeGMm4a1IpMYog" field="CHECK" name="USE_BATCH_SIZE" value="true"/>
+    <elementParameter xmi:id="_GL05W38KEeGMm4a1IpMYog" field="TEXT" name="BATCH_SIZE" value="10000"/>
+    <elementParameter xmi:id="_GL05XH8KEeGMm4a1IpMYog" field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter xmi:id="_GL05XX8KEeGMm4a1IpMYog" field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter xmi:id="_GL05Xn8KEeGMm4a1IpMYog" field="TEXT" name="COMMIT_EVERY" value="10000"/>
+    <elementParameter xmi:id="_GL05X38KEeGMm4a1IpMYog" field="TABLE" name="ADD_COLS"/>
+    <elementParameter xmi:id="_GL05YH8KEeGMm4a1IpMYog" field="CHECK" name="USE_FIELD_OPTIONS" value="false"/>
+    <elementParameter xmi:id="_GL05YX8KEeGMm4a1IpMYog" field="TABLE" name="FIELD_OPTIONS">
+      <elementValue xmi:id="_GL05Yn8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="moment"/>
+      <elementValue xmi:id="_GL05Y38KEeGMm4a1IpMYog" elementRef="UPDATE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05ZH8KEeGMm4a1IpMYog" elementRef="DELETE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05ZX8KEeGMm4a1IpMYog" elementRef="UPDATABLE" value="true"/>
+      <elementValue xmi:id="_GL05Zn8KEeGMm4a1IpMYog" elementRef="INSERTABLE" value="true"/>
+      <elementValue xmi:id="_GL05Z38KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="pid"/>
+      <elementValue xmi:id="_GL05aH8KEeGMm4a1IpMYog" elementRef="UPDATE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05aX8KEeGMm4a1IpMYog" elementRef="DELETE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05an8KEeGMm4a1IpMYog" elementRef="UPDATABLE" value="true"/>
+      <elementValue xmi:id="_GL05a38KEeGMm4a1IpMYog" elementRef="INSERTABLE" value="true"/>
+      <elementValue xmi:id="_GL05bH8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="project"/>
+      <elementValue xmi:id="_GL05bX8KEeGMm4a1IpMYog" elementRef="UPDATE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05bn8KEeGMm4a1IpMYog" elementRef="DELETE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05b38KEeGMm4a1IpMYog" elementRef="UPDATABLE" value="true"/>
+      <elementValue xmi:id="_GL05cH8KEeGMm4a1IpMYog" elementRef="INSERTABLE" value="true"/>
+      <elementValue xmi:id="_GL05cX8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="job"/>
+      <elementValue xmi:id="_GL05cn8KEeGMm4a1IpMYog" elementRef="UPDATE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05c38KEeGMm4a1IpMYog" elementRef="DELETE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05dH8KEeGMm4a1IpMYog" elementRef="UPDATABLE" value="true"/>
+      <elementValue xmi:id="_GL05dX8KEeGMm4a1IpMYog" elementRef="INSERTABLE" value="true"/>
+      <elementValue xmi:id="_GL05dn8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="language"/>
+      <elementValue xmi:id="_GL05d38KEeGMm4a1IpMYog" elementRef="UPDATE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05eH8KEeGMm4a1IpMYog" elementRef="DELETE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05eX8KEeGMm4a1IpMYog" elementRef="UPDATABLE" value="true"/>
+      <elementValue xmi:id="_GL05en8KEeGMm4a1IpMYog" elementRef="INSERTABLE" value="true"/>
+      <elementValue xmi:id="_GL05e38KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="origin"/>
+      <elementValue xmi:id="_GL05fH8KEeGMm4a1IpMYog" elementRef="UPDATE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05fX8KEeGMm4a1IpMYog" elementRef="DELETE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05fn8KEeGMm4a1IpMYog" elementRef="UPDATABLE" value="true"/>
+      <elementValue xmi:id="_GL05f38KEeGMm4a1IpMYog" elementRef="INSERTABLE" value="true"/>
+      <elementValue xmi:id="_GL05gH8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="status"/>
+      <elementValue xmi:id="_GL05gX8KEeGMm4a1IpMYog" elementRef="UPDATE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05gn8KEeGMm4a1IpMYog" elementRef="DELETE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05g38KEeGMm4a1IpMYog" elementRef="UPDATABLE" value="true"/>
+      <elementValue xmi:id="_GL05hH8KEeGMm4a1IpMYog" elementRef="INSERTABLE" value="true"/>
+      <elementValue xmi:id="_GL05hX8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="substatus"/>
+      <elementValue xmi:id="_GL05hn8KEeGMm4a1IpMYog" elementRef="UPDATE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05h38KEeGMm4a1IpMYog" elementRef="DELETE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05iH8KEeGMm4a1IpMYog" elementRef="UPDATABLE" value="true"/>
+      <elementValue xmi:id="_GL05iX8KEeGMm4a1IpMYog" elementRef="INSERTABLE" value="true"/>
+      <elementValue xmi:id="_GL05in8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="description"/>
+      <elementValue xmi:id="_GL05i38KEeGMm4a1IpMYog" elementRef="UPDATE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05jH8KEeGMm4a1IpMYog" elementRef="DELETE_KEY" value="false"/>
+      <elementValue xmi:id="_GL05jX8KEeGMm4a1IpMYog" elementRef="UPDATABLE" value="true"/>
+      <elementValue xmi:id="_GL05jn8KEeGMm4a1IpMYog" elementRef="INSERTABLE" value="true"/>
+    </elementParameter>
+    <elementParameter xmi:id="_GL05j38KEeGMm4a1IpMYog" field="CHECK" name="USE_HINT_OPTIONS" value="false"/>
+    <elementParameter xmi:id="_GL05kH8KEeGMm4a1IpMYog" field="TABLE" name="HINT_OPTIONS"/>
+    <elementParameter xmi:id="_GL05kX8KEeGMm4a1IpMYog" field="CHECK" name="ENABLE_DEBUG_MODE" value="false"/>
+    <elementParameter xmi:id="_GL05kn8KEeGMm4a1IpMYog" field="CHECK" name="ON_DUPLICATE_KEY_UPDATE" value="false"/>
+    <elementParameter xmi:id="_GL05k38KEeGMm4a1IpMYog" field="TABLE" name="DUPLICATED_KEYS"/>
+    <elementParameter xmi:id="_GL05lH8KEeGMm4a1IpMYog" field="CHECK" name="SUPPORT_NULL_WHERE" value="false"/>
+    <elementParameter xmi:id="_GL05lX8KEeGMm4a1IpMYog" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_GL05ln8KEeGMm4a1IpMYog" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_GL05l38KEeGMm4a1IpMYog" field="MEMO" name="COMMENT" value=""/>
+    <elementParameter xmi:id="_GL05mH8KEeGMm4a1IpMYog" field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata xmi:id="_GL05mX8KEeGMm4a1IpMYog" connector="FLOW" name="tMysqlOutput_1">
+      <column xmi:id="_GL05mn8KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date"/>
+      <column xmi:id="_GL05m38KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="20" name="pid" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05nH8KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="50" name="project" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05nX8KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05nn8KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="5" name="language" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05n38KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="50" name="origin" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05oH8KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="10" name="status" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05oX8KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="255" name="substatus" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05on8KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="255" name="description" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+    <metadata xmi:id="_GL05o38KEeGMm4a1IpMYog" connector="REJECT" name="REJECT">
+      <column xmi:id="_GL05pH8KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date"/>
+      <column xmi:id="_GL05pX8KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="20" name="pid" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05pn8KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="50" name="project" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05p38KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05qH8KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="5" name="language" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05qX8KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="50" name="origin" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05qn8KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="10" name="status" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05q38KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="255" name="substatus" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05rH8KEeGMm4a1IpMYog" comment="" defaultValue="" key="false" length="255" name="description" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05rX8KEeGMm4a1IpMYog" defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05rn8KEeGMm4a1IpMYog" defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <node xmi:id="_GL05r38KEeGMm4a1IpMYog" componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="160" posY="160">
+    <elementParameter xmi:id="_GL05sH8KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tJava_1"/>
+    <elementParameter xmi:id="_GL05sX8KEeGMm4a1IpMYog" field="MEMO_JAVA" name="CODE" value="java.io.File file = new java.io.File(context.data_output_dir + &quot;/&quot; + jobName + &quot;/&quot; + pid + &quot;output.data.file&quot;);&#xA;java.io.File parentFile = file.getParentFile();&#xA;if (parentFile != null &amp;&amp; !parentFile.exists()) {&#xA;       parentFile.mkdirs();&#xA;}"/>
+    <elementParameter xmi:id="_GL05sn8KEeGMm4a1IpMYog" field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+    <elementParameter xmi:id="_GL05s38KEeGMm4a1IpMYog" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_GL05tH8KEeGMm4a1IpMYog" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_GL05tX8KEeGMm4a1IpMYog" field="MEMO" name="COMMENT" value=""/>
+    <elementParameter xmi:id="_GL05tn8KEeGMm4a1IpMYog" field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata xmi:id="_GL05t38KEeGMm4a1IpMYog" connector="FLOW" name="tJava_1"/>
+  </node>
+  <node xmi:id="_GL05uH8KEeGMm4a1IpMYog" componentName="tFileCompare" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="160" posY="352">
+    <elementParameter xmi:id="_GL05uX8KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tFileCompare_1"/>
+    <elementParameter xmi:id="_GL05un8KEeGMm4a1IpMYog" field="CLOSED_LIST" name="COMPARISON_MODE" value="TEXT_CMP"/>
+    <elementParameter xmi:id="_GL05u38KEeGMm4a1IpMYog" field="FILE" name="FILE" value="context.data_output_dir + &quot;/&quot; + jobName + &quot;/&quot; +pid + &quot;_out.csv&quot;"/>
+    <elementParameter xmi:id="_GL05vH8KEeGMm4a1IpMYog" field="FILE" name="FILE_REF" value="context.data_dir + &quot;/&quot; + jobName + &quot;/ref.csv&quot;"/>
+    <elementParameter xmi:id="_GL05vX8KEeGMm4a1IpMYog" field="TEXT" name="DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files differ&quot;"/>
+    <elementParameter xmi:id="_GL05vn8KEeGMm4a1IpMYog" field="TEXT" name="NO_DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files are identical&quot;&#xD;&#xA;&#x9;&#x9;&#x9;"/>
+    <elementParameter xmi:id="_GL05v38KEeGMm4a1IpMYog" field="CHECK" name="PRINT" value="true"/>
+    <elementParameter xmi:id="_GL05wH8KEeGMm4a1IpMYog" field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter xmi:id="_GL05wX8KEeGMm4a1IpMYog" field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter xmi:id="_GL05wn8KEeGMm4a1IpMYog" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_GL05w38KEeGMm4a1IpMYog" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_GL05xH8KEeGMm4a1IpMYog" field="MEMO" name="COMMENT" value=""/>
+    <elementParameter xmi:id="_GL05xX8KEeGMm4a1IpMYog" field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata xmi:id="_GL05xn8KEeGMm4a1IpMYog" connector="FLOW" name="tFileCompare_1">
+      <column xmi:id="_GL05x38KEeGMm4a1IpMYog" key="false" length="255" name="file" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05yH8KEeGMm4a1IpMYog" key="false" length="255" name="file_ref" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05yX8KEeGMm4a1IpMYog" key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date"/>
+      <column xmi:id="_GL05yn8KEeGMm4a1IpMYog" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05y38KEeGMm4a1IpMYog" key="false" length="255" name="component" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05zH8KEeGMm4a1IpMYog" defaultValue="" key="false" length="1" name="differ" nullable="true" precision="0" sourceType="" type="id_Integer"/>
+      <column xmi:id="_GL05zX8KEeGMm4a1IpMYog" key="false" length="255" name="message" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <node xmi:id="_GL05zn8KEeGMm4a1IpMYog" componentName="tAssert" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="320" posY="352">
+    <elementParameter xmi:id="_GL05z38KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tAssert_1"/>
+    <elementParameter xmi:id="_GL050H8KEeGMm4a1IpMYog" field="TEXT" name="DESCRIPTION" value="jobName"/>
+    <elementParameter xmi:id="_GL050X8KEeGMm4a1IpMYog" field="MEMO_JAVA" name="EXPRESSION" value="((Boolean)globalMap.get(&quot;tFileCompare_1_DIFFERENCE&quot;))"/>
+    <elementParameter xmi:id="_GL050n8KEeGMm4a1IpMYog" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_GL05038KEeGMm4a1IpMYog" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_GL051H8KEeGMm4a1IpMYog" field="MEMO" name="COMMENT" value=""/>
+    <elementParameter xmi:id="_GL051X8KEeGMm4a1IpMYog" field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata xmi:id="_GL051n8KEeGMm4a1IpMYog" connector="FLOW" name="tAssert_1">
+      <column xmi:id="_GL05138KEeGMm4a1IpMYog" defaultValue="" key="false" length="255" name="file" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL052H8KEeGMm4a1IpMYog" defaultValue="" key="false" length="255" name="file_ref" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL052X8KEeGMm4a1IpMYog" defaultValue="" key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date"/>
+      <column xmi:id="_GL052n8KEeGMm4a1IpMYog" defaultValue="" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL05238KEeGMm4a1IpMYog" defaultValue="" key="false" length="255" name="component" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column xmi:id="_GL053H8KEeGMm4a1IpMYog" defaultValue="" key="false" length="1" name="differ" nullable="true" precision="0" sourceType="" type="id_Integer"/>
+      <column xmi:id="_GL053X8KEeGMm4a1IpMYog" defaultValue="" key="false" length="255" name="message" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <node xmi:id="_GL053n8KEeGMm4a1IpMYog" componentName="tFileDelete" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="160" posY="448">
+    <elementParameter xmi:id="_GL05338KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tFileDelete_1"/>
+    <elementParameter xmi:id="_GL054H8KEeGMm4a1IpMYog" field="CHECK" name="ACTIVATE" value="false"/>
+    <elementParameter xmi:id="_GL054X8KEeGMm4a1IpMYog" field="FILE" name="FILENAME" value="context.data_output_dir + &quot;/&quot; + jobName"/>
+    <elementParameter xmi:id="_GL054n8KEeGMm4a1IpMYog" field="DIRECTORY" name="DIRECTORY" value="&quot;F:/Talend/5.1/TOS_DI-r75528-V5.1.0NB/workspace/delete_folder&quot;"/>
+    <elementParameter xmi:id="_GL05438KEeGMm4a1IpMYog" field="TEXT" name="PATH" value="context.data_output_dir + &quot;/&quot; + jobName"/>
+    <elementParameter xmi:id="_GL055H8KEeGMm4a1IpMYog" field="CHECK" name="FAILON" value="true"/>
+    <elementParameter xmi:id="_GL055X8KEeGMm4a1IpMYog" field="CHECK" name="FOLDER" value="false"/>
+    <elementParameter xmi:id="_GL055n8KEeGMm4a1IpMYog" field="CHECK" name="FOLDER_FILE" value="true"/>
+    <elementParameter xmi:id="_GL05538KEeGMm4a1IpMYog" field="LABEL" name="NOTE" value="*Note &quot;CURRENT_STATUS&quot; including:&#xA;&quot;File (or path) deleted.&quot;&#xA;&quot;No file (or path) deleted.&quot;&#xA;&quot;File (or path) does not exists or is invalid.&quot;"/>
+    <elementParameter xmi:id="_GL056H8KEeGMm4a1IpMYog" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_GL056X8KEeGMm4a1IpMYog" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_GL056n8KEeGMm4a1IpMYog" field="MEMO" name="COMMENT" value=""/>
+    <elementParameter xmi:id="_GL05638KEeGMm4a1IpMYog" field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata xmi:id="_GL057H8KEeGMm4a1IpMYog" connector="FLOW" name="tFileDelete_1"/>
+  </node>
+  <node xmi:id="_GL057X8KEeGMm4a1IpMYog" componentName="tFileInputEBCDIC" componentVersion="0.3" offsetLabelX="0" offsetLabelY="0" posX="160" posY="256">
+    <elementParameter xmi:id="_GL057n8KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tFileInputEBCDIC_2"/>
+    <elementParameter xmi:id="_GL05738KEeGMm4a1IpMYog" field="TABLE" name="SCHEMAS"/>
+    <elementParameter xmi:id="_GL058H8KEeGMm4a1IpMYog" field="FILE" name="FILENAME" value="context.data_dir + &quot;/&quot;+jobName+&quot;/DW02-SATZ_ML.data&quot;"/>
+    <elementParameter xmi:id="_GL058X8KEeGMm4a1IpMYog" field="FILE" name="COPYBOOK" value="&quot;D:/toswork/space21/copybook.xc2j&quot;&#xA;&#x9;&#x9;&#x9;"/>
+    <elementParameter xmi:id="_GL058n8KEeGMm4a1IpMYog" field="MAPPING_TYPE" name="MAPPING" value="ebcdic_id"/>
+    <elementParameter xmi:id="_GL05838KEeGMm4a1IpMYog" field="CHECK" name="NO_X2CJ_FILE" value="true"/>
+    <elementParameter xmi:id="_GL059H8KEeGMm4a1IpMYog" field="ENCODING_TYPE" name="ENCODING" value="&quot;Cp037&quot;"/>
+    <elementParameter xmi:id="_GL059X8KEeGMm4a1IpMYog" field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="CUSTOM"/>
+    <elementParameter xmi:id="_GL059n8KEeGMm4a1IpMYog" field="CHECK" name="TRIMALL" value="false"/>
+    <elementParameter xmi:id="_GL05938KEeGMm4a1IpMYog" field="TABLE" name="TRIMSELECT">
+      <elementValue xmi:id="_GL05-H8KEeGMm4a1IpMYog" elementRef="SCHEMA_COLUMN" value="newColumn"/>
+      <elementValue xmi:id="_GL05-X8KEeGMm4a1IpMYog" elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter xmi:id="_GL05-n8KEeGMm4a1IpMYog" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_GL05-38KEeGMm4a1IpMYog" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_GL05_H8KEeGMm4a1IpMYog" field="MEMO" name="COMMENT" value=""/>
+    <elementParameter xmi:id="_GL05_X8KEeGMm4a1IpMYog" field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata xmi:id="_GL05_n8KEeGMm4a1IpMYog" connector="FLOW" name="tFileInputEBCDIC_1">
+      <column xmi:id="_GL05_38KEeGMm4a1IpMYog" comment="" key="false" length="26" name="newColumn" nullable="true" pattern="" sourceType="X" type="id_String" originalLength="26"/>
+    </metadata>
+  </node>
+  <node xmi:id="_GL06AH8KEeGMm4a1IpMYog" componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="384" posY="256">
+    <elementParameter xmi:id="_GL06AX8KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tFileOutputDelimited_1"/>
+    <elementParameter xmi:id="_GL06An8KEeGMm4a1IpMYog" field="CHECK" name="USESTREAM" value="false"/>
+    <elementParameter xmi:id="_GL06A38KEeGMm4a1IpMYog" field="TEXT" name="STREAMNAME" value="outputStream"/>
+    <elementParameter xmi:id="_GL06BH8KEeGMm4a1IpMYog" field="FILE" name="FILENAME" value="context.data_output_dir + &quot;/&quot; + jobName + &quot;/&quot; +pid + &quot;_out.csv&quot;"/>
+    <elementParameter xmi:id="_GL06BX8KEeGMm4a1IpMYog" field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter xmi:id="_GL06Bn8KEeGMm4a1IpMYog" field="CHECK" name="OS_LINE_SEPARATOR_AS_ROW_SEPARATOR" value="true"/>
+    <elementParameter xmi:id="_GL06B38KEeGMm4a1IpMYog" field="OPENED_LIST" name="CSVROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter xmi:id="_GL06CH8KEeGMm4a1IpMYog" field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter xmi:id="_GL06CX8KEeGMm4a1IpMYog" field="CHECK" name="APPEND" value="false"/>
+    <elementParameter xmi:id="_GL06Cn8KEeGMm4a1IpMYog" field="CHECK" name="INCLUDEHEADER" value="false"/>
+    <elementParameter xmi:id="_GL06C38KEeGMm4a1IpMYog" field="CHECK" name="COMPRESS" value="false"/>
+    <elementParameter xmi:id="_GL06DH8KEeGMm4a1IpMYog" field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter xmi:id="_GL06DX8KEeGMm4a1IpMYog" field="TEXT" name="THOUSANDS_SEPARATOR" value="&quot;,&quot;"/>
+    <elementParameter xmi:id="_GL06Dn8KEeGMm4a1IpMYog" field="TEXT" name="DECIMAL_SEPARATOR" value="&quot;.&quot;"/>
+    <elementParameter xmi:id="_GL06D38KEeGMm4a1IpMYog" field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter xmi:id="_GL06EH8KEeGMm4a1IpMYog" field="TEXT" name="ESCAPE_CHAR" value="&quot;&quot;&quot;"/>
+    <elementParameter xmi:id="_GL06EX8KEeGMm4a1IpMYog" field="TEXT" name="TEXT_ENCLOSURE" value="&quot;&quot;&quot;"/>
+    <elementParameter xmi:id="_GL06En8KEeGMm4a1IpMYog" field="CHECK" name="CREATE" value="true"/>
+    <elementParameter xmi:id="_GL06E38KEeGMm4a1IpMYog" field="CHECK" name="SPLIT" value="false"/>
+    <elementParameter xmi:id="_GL06FH8KEeGMm4a1IpMYog" field="TEXT" name="SPLIT_EVERY" value="1000"/>
+    <elementParameter xmi:id="_GL06FX8KEeGMm4a1IpMYog" field="CHECK" name="FLUSHONROW" value="false"/>
+    <elementParameter xmi:id="_GL06Fn8KEeGMm4a1IpMYog" field="TEXT" name="FLUSHONROW_NUM" value="1"/>
+    <elementParameter xmi:id="_GL06F38KEeGMm4a1IpMYog" field="CHECK" name="ROW_MODE" value="false"/>
+    <elementParameter xmi:id="_GL06GH8KEeGMm4a1IpMYog" field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter xmi:id="_GL06GX8KEeGMm4a1IpMYog" field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter xmi:id="_GL06Gn8KEeGMm4a1IpMYog" field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
+    <elementParameter xmi:id="_GL06G38KEeGMm4a1IpMYog" field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter xmi:id="_GL06HH8KEeGMm4a1IpMYog" field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter xmi:id="_GL06HX8KEeGMm4a1IpMYog" field="MEMO" name="COMMENT" value=""/>
+    <elementParameter xmi:id="_GL06Hn8KEeGMm4a1IpMYog" field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata xmi:id="_GL06H38KEeGMm4a1IpMYog" connector="FLOW" name="tFileOutputDelimited_1">
+      <column xmi:id="_GL06IH8KEeGMm4a1IpMYog" comment="" key="false" length="26" name="newColumn" nullable="true" pattern="" sourceType="X" type="id_String" originalLength="26"/>
+    </metadata>
+  </node>
+  <connection xmi:id="_GL06IX8KEeGMm4a1IpMYog" connectorName="FLOW" label="row2" lineStyle="0" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tContextLoad_1">
+    <elementParameter xmi:id="_GL06In8KEeGMm4a1IpMYog" field="CHECK" name="TRACES_CONNECTION_ENABLE" value="false"/>
+    <elementParameter xmi:id="_GL06I38KEeGMm4a1IpMYog" field="TABLE" name="TRACES_CONNECTION_FILTER">
+      <elementValue xmi:id="_GL06JH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="key"/>
+      <elementValue xmi:id="_GL06JX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06Jn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06J38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="value"/>
+      <elementValue xmi:id="_GL06KH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06KX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter xmi:id="_GL06Kn8KEeGMm4a1IpMYog" field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter xmi:id="_GL06K38KEeGMm4a1IpMYog" field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter xmi:id="_GL06LH8KEeGMm4a1IpMYog" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter xmi:id="_GL06LX8KEeGMm4a1IpMYog" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter xmi:id="_GL06Ln8KEeGMm4a1IpMYog" field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter xmi:id="_GL06L38KEeGMm4a1IpMYog" field="TABLE" name="THRESHLODS"/>
+    <elementParameter xmi:id="_GL06MH8KEeGMm4a1IpMYog" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter xmi:id="_GL06MX8KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="row2"/>
+  </connection>
+  <connection xmi:id="_GL06Mn8KEeGMm4a1IpMYog" connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tJava_1">
+    <elementParameter xmi:id="_GL06M38KEeGMm4a1IpMYog" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter xmi:id="_GL06NH8KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk1"/>
+  </connection>
+  <connection xmi:id="_GL06NX8KEeGMm4a1IpMYog" connectorName="FLOW" label="row3" lineStyle="0" metaname="tAssertCatcher_1" offsetLabelX="0" offsetLabelY="0" source="tAssertCatcher_1" target="tReplicate_1">
+    <elementParameter xmi:id="_GL06Nn8KEeGMm4a1IpMYog" field="CHECK" name="TRACES_CONNECTION_ENABLE" value="false"/>
+    <elementParameter xmi:id="_GL06N38KEeGMm4a1IpMYog" field="TABLE" name="TRACES_CONNECTION_FILTER">
+      <elementValue xmi:id="_GL06OH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="moment"/>
+      <elementValue xmi:id="_GL06OX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06On8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06O38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="pid"/>
+      <elementValue xmi:id="_GL06PH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06PX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06Pn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="project"/>
+      <elementValue xmi:id="_GL06P38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06QH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06QX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="job"/>
+      <elementValue xmi:id="_GL06Qn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06Q38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06RH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="language"/>
+      <elementValue xmi:id="_GL06RX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06Rn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06R38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="origin"/>
+      <elementValue xmi:id="_GL06SH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06SX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06Sn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="status"/>
+      <elementValue xmi:id="_GL06S38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06TH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06TX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="substatus"/>
+      <elementValue xmi:id="_GL06Tn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06T38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06UH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="description"/>
+      <elementValue xmi:id="_GL06UX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06Un8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter xmi:id="_GL06U38KEeGMm4a1IpMYog" field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter xmi:id="_GL06VH8KEeGMm4a1IpMYog" field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter xmi:id="_GL06VX8KEeGMm4a1IpMYog" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter xmi:id="_GL06Vn8KEeGMm4a1IpMYog" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter xmi:id="_GL06V38KEeGMm4a1IpMYog" field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter xmi:id="_GL06WH8KEeGMm4a1IpMYog" field="TABLE" name="THRESHLODS"/>
+    <elementParameter xmi:id="_GL06WX8KEeGMm4a1IpMYog" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter xmi:id="_GL06Wn8KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="row3"/>
+  </connection>
+  <connection xmi:id="_GL06W38KEeGMm4a1IpMYog" connectorName="FLOW" label="row5" lineStyle="0" metaname="tReplicate_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tReplicate_1" target="tLogRow_1">
+    <elementParameter xmi:id="_GL06XH8KEeGMm4a1IpMYog" field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true"/>
+    <elementParameter xmi:id="_GL06XX8KEeGMm4a1IpMYog" field="TABLE" name="TRACES_CONNECTION_FILTER">
+      <elementValue xmi:id="_GL06Xn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="moment"/>
+      <elementValue xmi:id="_GL06X38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06YH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06YX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="pid"/>
+      <elementValue xmi:id="_GL06Yn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06Y38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06ZH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="project"/>
+      <elementValue xmi:id="_GL06ZX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06Zn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06Z38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="job"/>
+      <elementValue xmi:id="_GL06aH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06aX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06an8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="language"/>
+      <elementValue xmi:id="_GL06a38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06bH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06bX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="origin"/>
+      <elementValue xmi:id="_GL06bn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06b38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06cH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="status"/>
+      <elementValue xmi:id="_GL06cX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06cn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06c38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="substatus"/>
+      <elementValue xmi:id="_GL06dH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06dX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06dn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="description"/>
+      <elementValue xmi:id="_GL06d38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06eH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter xmi:id="_GL06eX8KEeGMm4a1IpMYog" field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter xmi:id="_GL06en8KEeGMm4a1IpMYog" field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter xmi:id="_GL06e38KEeGMm4a1IpMYog" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter xmi:id="_GL06fH8KEeGMm4a1IpMYog" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter xmi:id="_GL06fX8KEeGMm4a1IpMYog" field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter xmi:id="_GL06fn8KEeGMm4a1IpMYog" field="TABLE" name="THRESHLODS"/>
+    <elementParameter xmi:id="_GL06f38KEeGMm4a1IpMYog" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter xmi:id="_GL06gH8KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="row5"/>
+  </connection>
+  <connection xmi:id="_GL06gX8KEeGMm4a1IpMYog" connectorName="FLOW" label="row4" lineStyle="0" metaname="tReplicate_1" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tReplicate_1" target="tMysqlOutput_1">
+    <elementParameter xmi:id="_GL06gn8KEeGMm4a1IpMYog" field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true"/>
+    <elementParameter xmi:id="_GL06g38KEeGMm4a1IpMYog" field="TABLE" name="TRACES_CONNECTION_FILTER">
+      <elementValue xmi:id="_GL06hH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="moment"/>
+      <elementValue xmi:id="_GL06hX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06hn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06h38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="pid"/>
+      <elementValue xmi:id="_GL06iH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06iX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06in8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="project"/>
+      <elementValue xmi:id="_GL06i38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06jH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06jX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="job"/>
+      <elementValue xmi:id="_GL06jn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06j38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06kH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="language"/>
+      <elementValue xmi:id="_GL06kX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06kn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06k38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="origin"/>
+      <elementValue xmi:id="_GL06lH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06lX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06ln8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="status"/>
+      <elementValue xmi:id="_GL06l38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06mH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06mX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="substatus"/>
+      <elementValue xmi:id="_GL06mn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06m38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06nH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="description"/>
+      <elementValue xmi:id="_GL06nX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06nn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter xmi:id="_GL06n38KEeGMm4a1IpMYog" field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter xmi:id="_GL06oH8KEeGMm4a1IpMYog" field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter xmi:id="_GL06oX8KEeGMm4a1IpMYog" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter xmi:id="_GL06on8KEeGMm4a1IpMYog" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter xmi:id="_GL06o38KEeGMm4a1IpMYog" field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter xmi:id="_GL06pH8KEeGMm4a1IpMYog" field="TABLE" name="THRESHLODS"/>
+    <elementParameter xmi:id="_GL06pX8KEeGMm4a1IpMYog" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter xmi:id="_GL06pn8KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="row4"/>
+  </connection>
+  <connection xmi:id="_GL06p38KEeGMm4a1IpMYog" connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tJava_1" offsetLabelX="0" offsetLabelY="0" source="tJava_1" target="tFileInputEBCDIC_2">
+    <elementParameter xmi:id="_GL06qH8KEeGMm4a1IpMYog" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter xmi:id="_GL06qX8KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk2"/>
+  </connection>
+  <connection xmi:id="_GL06qn8KEeGMm4a1IpMYog" connectorName="FLOW" label="row7" lineStyle="0" metaname="tFileCompare_1" offsetLabelX="0" offsetLabelY="0" source="tFileCompare_1" target="tAssert_1">
+    <elementParameter xmi:id="_GL06q38KEeGMm4a1IpMYog" field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true"/>
+    <elementParameter xmi:id="_GL06rH8KEeGMm4a1IpMYog" field="TABLE" name="TRACES_CONNECTION_FILTER">
+      <elementValue xmi:id="_GL06rX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="file"/>
+      <elementValue xmi:id="_GL06rn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06r38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06sH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="file_ref"/>
+      <elementValue xmi:id="_GL06sX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06sn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06s38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="moment"/>
+      <elementValue xmi:id="_GL06tH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06tX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06tn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="job"/>
+      <elementValue xmi:id="_GL06t38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06uH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06uX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="component"/>
+      <elementValue xmi:id="_GL06un8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06u38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06vH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="differ"/>
+      <elementValue xmi:id="_GL06vX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06vn8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue xmi:id="_GL06v38KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="message"/>
+      <elementValue xmi:id="_GL06wH8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL06wX8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter xmi:id="_GL06wn8KEeGMm4a1IpMYog" field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter xmi:id="_GL06w38KEeGMm4a1IpMYog" field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter xmi:id="_GL06xH8KEeGMm4a1IpMYog" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter xmi:id="_GL06xX8KEeGMm4a1IpMYog" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter xmi:id="_GL06xn8KEeGMm4a1IpMYog" field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter xmi:id="_GL06x38KEeGMm4a1IpMYog" field="TABLE" name="THRESHLODS"/>
+    <elementParameter xmi:id="_GL06yH8KEeGMm4a1IpMYog" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter xmi:id="_GL06yX8KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="row7"/>
+  </connection>
+  <connection xmi:id="_GL06yn8KEeGMm4a1IpMYog" connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileCompare_1" offsetLabelX="0" offsetLabelY="0" source="tFileCompare_1" target="tFileDelete_1">
+    <elementParameter xmi:id="_GL06y38KEeGMm4a1IpMYog" field="CHECK" name="ACTIVATE" value="false"/>
+    <elementParameter xmi:id="_GL06zH8KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk4"/>
+  </connection>
+  <connection xmi:id="_GL06zX8KEeGMm4a1IpMYog" connectorName="FLOW" label="tFileInputEBCDIC_1" lineStyle="0" metaname="tFileInputEBCDIC_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputEBCDIC_2" target="tFileOutputDelimited_1">
+    <elementParameter xmi:id="_GL06zn8KEeGMm4a1IpMYog" field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true"/>
+    <elementParameter xmi:id="_GL06z38KEeGMm4a1IpMYog" field="TABLE" name="TRACES_CONNECTION_FILTER">
+      <elementValue xmi:id="_GL060H8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN" value="newColumn"/>
+      <elementValue xmi:id="_GL060X8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue xmi:id="_GL060n8KEeGMm4a1IpMYog" elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter xmi:id="_GL06038KEeGMm4a1IpMYog" field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter xmi:id="_GL061H8KEeGMm4a1IpMYog" field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter xmi:id="_GL061X8KEeGMm4a1IpMYog" field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter xmi:id="_GL061n8KEeGMm4a1IpMYog" field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter xmi:id="_GL06138KEeGMm4a1IpMYog" field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter xmi:id="_GL062H8KEeGMm4a1IpMYog" field="TABLE" name="THRESHLODS"/>
+    <elementParameter xmi:id="_GL062X8KEeGMm4a1IpMYog" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter xmi:id="_GL062n8KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tFileInputEBCDIC_1"/>
+  </connection>
+  <connection xmi:id="_GL06238KEeGMm4a1IpMYog" connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputEBCDIC_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputEBCDIC_2" target="tFileCompare_1">
+    <elementParameter xmi:id="_GL063H8KEeGMm4a1IpMYog" field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter xmi:id="_GL063X8KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk4"/>
+  </connection>
+  <subjob xmi:id="_GL063n8KEeGMm4a1IpMYog">
+    <elementParameter xmi:id="_GL06338KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1"/>
+    <elementParameter xmi:id="_GL064H8KEeGMm4a1IpMYog" field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
+    <elementParameter xmi:id="_GL064X8KEeGMm4a1IpMYog" field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+  <subjob xmi:id="_GL064n8KEeGMm4a1IpMYog">
+    <elementParameter xmi:id="_GL06438KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tAssertCatcher_1"/>
+    <elementParameter xmi:id="_GL065H8KEeGMm4a1IpMYog" field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
+    <elementParameter xmi:id="_GL065X8KEeGMm4a1IpMYog" field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+  <subjob xmi:id="_GL065n8KEeGMm4a1IpMYog">
+    <elementParameter xmi:id="_GL06538KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tJava_1"/>
+    <elementParameter xmi:id="_GL066H8KEeGMm4a1IpMYog" field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
+    <elementParameter xmi:id="_GL066X8KEeGMm4a1IpMYog" field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+  <subjob xmi:id="_GL066n8KEeGMm4a1IpMYog">
+    <elementParameter xmi:id="_GL06638KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tFileCompare_1"/>
+    <elementParameter xmi:id="_GL067H8KEeGMm4a1IpMYog" field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
+    <elementParameter xmi:id="_GL067X8KEeGMm4a1IpMYog" field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+  <subjob xmi:id="_GL067n8KEeGMm4a1IpMYog">
+    <elementParameter xmi:id="_GL06738KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tFileDelete_1"/>
+    <elementParameter xmi:id="_GL068H8KEeGMm4a1IpMYog" field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
+    <elementParameter xmi:id="_GL068X8KEeGMm4a1IpMYog" field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+  <subjob xmi:id="_GL068n8KEeGMm4a1IpMYog">
+    <elementParameter xmi:id="_GL06838KEeGMm4a1IpMYog" field="TEXT" name="UNIQUE_NAME" value="tFileInputEBCDIC_2"/>
+    <elementParameter xmi:id="_GL069H8KEeGMm4a1IpMYog" field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
+    <elementParameter xmi:id="_GL069X8KEeGMm4a1IpMYog" field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+</talendfile:ProcessType>
