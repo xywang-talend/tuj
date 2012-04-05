@@ -213,4 +213,9 @@ public class HortonBrandingConfiguration extends DefaultBrandingConfiguration {
         return nodes;
     }
 
+    @Override
+    public boolean isAllowChengeVersion() {
+        return false;
+    }
+
 }
