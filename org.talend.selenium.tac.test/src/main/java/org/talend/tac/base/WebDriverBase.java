@@ -420,7 +420,14 @@ public class WebDriverBase {
 	 * @return
 	 */
 	public String getAbsolutePath(String filePath) {
-		return this.getfileURL(filePath).getPath();
+		String path = this.getfileURL(filePath).getPath();
+		if(System.getProperty("os.name").startsWith("Windows")) {
+			if(path.startsWith("/")) {
+				path = path.substring(1);
+			}
+			path = path.replace("/", "\\");
+		}
+		return path;
 	}
 	
 	/**

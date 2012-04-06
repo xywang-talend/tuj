@@ -30,7 +30,7 @@ public class WebdriverLogin extends WebDriverBase{
 	    firefoxProfile.setPreference("browser.download.folderList",2);
 	    firefoxProfile.setPreference("browser.download.manager.showWhenStarting",false);
 	    firefoxProfile.setPreference("browser.download.dir",getAbsolutePath("org/talend/tac/folder/downloads"));
-	    firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk","text/csv");
+	    firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk","text/csv, application/vnd.ms-excel, application/zip, application/pdf");
 
 	    driver = new FirefoxDriver(firefoxProfile);
 	    logger.info("Set Firefox Driver with Profile");
