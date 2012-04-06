@@ -20,12 +20,23 @@ public class TestRecord extends Login {
 		recordImpl.deleteRecordImpl(container,modle,entity,feild1Value,feild1Name);
 	}
 	
+	/*@Test
+	@Parameters( { "container","modle","entity","feild1Value","feild1Name" })
+	public void testExportRecord(String container,String modle,String entity,String feild1Value,String feild1Name ) {
+		recordImpl.ExportRecordImpl(container,modle,entity);
+	}*/
+	
 	@Test
+	@Parameters( { "container","modle","entity" })
+	public void testExportRecord(String container,String modle,String entity ) {
+		recordImpl.ExportRecordImpl(container,modle,entity);
+	}
+	/*@Test
 	@Parameters( { "container","modle","entity","feild1Value","feild1Name" })
 	public void testJournalOpenRecord(String container,String modle,String entity,String feild1Value,String feild1Name ) {
 		recordImpl.JournalOpenRecordImpl(container,modle,entity,feild1Value,feild1Name);
 	}
-	
+	*/
 	
 	@Test
 	@Parameters( { "container","modle","entity","feild1Value","feild1Name" })
@@ -40,19 +51,19 @@ public class TestRecord extends Login {
 	}		
 	
 	@Test
-	@Parameters( { "container","modle","entity","feild1Value", "feild2Value", "feild3Value","feild1Name","feild2Name","feild3Name" })
-	public void testCreateRecord(String container,String modle,String entity,String feild1Value,String feild2Value,String feild3Value,String feild1Name,String feild2Name,String feild3Name) {
-		recordImpl.createRecordImpl(container, modle, entity, feild1Value, feild2Value, feild3Value,feild1Name,feild2Name,feild3Name);
+	@Parameters( { "container","modle","entity", "feild2Value","feild2Name" })
+	public void testCreateRecord(String container,String modle,String entity,String feild2Value,String feild2Name) {
+		recordImpl.createRecordImpl(container, modle, entity, feild2Value, feild2Name);
 	}
 	@Test
-	@Parameters( { "container","modle","entity","feild1Value", "feild2Value", "feild3Value","feild1Name","feild2Name","feild3Name","feild1UpdateValue" })
-	public void testDuplicateRecord(String container,String modle,String entity,String feild1Value,String feild2Value,String feild3Value,String feild1Name,String feild2Name,String feild3Name,String feild1UpdateValue) {
-		recordImpl.duplicateRecordImpl(container, modle, entity, feild1Value, feild2Value, feild3Value,feild1Name,feild2Name,feild3Name,feild1UpdateValue);
+	@Parameters( { "container","modle","entity","feild2Value_old", "feild2Value","feild2Name" })
+	public void testDuplicateRecord(String container,String modle,String entity,String feild2Value_old,String feild2Value,String feild2Name) {
+		recordImpl.duplicateRecordImpl(container, modle, entity, feild2Value_old, feild2Value, feild2Name);
 	}
 	@Test
-	@Parameters( { "container","modle","entity","feild1Value", "feild2Value", "feild3Value","feild1Name","feild2Name","feild3Name"})
-	public void testUpdateRecord(String container,String modle,String entity,String feild1Value,String feild2Value,String feild3Value,String feild1Name,String feild2Name,String feild3Name) {
-		recordImpl.updateRecordImpl(container, modle, entity, feild1Value, feild2Value, feild3Value,feild1Name,feild2Name,feild3Name);
+	@Parameters( { "container","modle","entity","feild2Value_old", "feild2Value","feild2Name"})
+	public void testUpdateRecord(String container,String modle,String entity,String feild2Value_old,String feild2Value,String feild2Name) {
+		recordImpl.updateRecordImpl(container, modle, entity,feild2Value_old, feild2Value, feild2Name);
 	}
 	@Test
 	@Parameters( { "container","modle","entity","searchFeild", "opeartion", "value" })

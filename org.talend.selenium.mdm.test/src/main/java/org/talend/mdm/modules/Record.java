@@ -13,7 +13,7 @@ public Record(WebDriver driver) {
 		this.driver = driver;
 	}
 public void deleteTheRecord(String  entity){ 
-this.clickElementByXpath(this.getString(locator, "xpath.record.delete.record",entity)); 
+this.clickElementByXpath(locator.getString("xpath.record.delete.record")); 
 this.clickElementByXpath(locator.getString("xpath.record.delete.record.choose")); 	 
 this.clickElementByXpath(locator.getString("xpath.record.delete.record.choose.yes")); 	
 		if (this.isElementPresent(By.xpath(locator.getString("xpath.record.delete.record.warn")),WAIT_TIME_MIN)){
@@ -100,9 +100,9 @@ public void searchDateAssert(String searchFeild,String opeartion,String value,St
 
 
 public void searchStringAssert(String searchFeild,String opeartion,String value,String entity){
-	String[] parametersSearch={entity,searchFeild};
 	int recordCount;
 	String[] names;
+	logger.info(value+"****************************");
 	boolean result = false;	
 	String recordSearchResult;
 	logger.info(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText());
@@ -120,9 +120,9 @@ public void searchStringAssert(String searchFeild,String opeartion,String value,
 	names = new String[recordCount];
 	for (int i=0; i<=recordCount-1; i++)
   {                                              
-		String names_text=this.getElementsByXpath(this.getString(locator, "xpath.record.search.record.value",parametersSearch)).get(i).getText();
+		String names_text=this.getElementsByXpath(this.getString(locator, "xpath.record.search.record.value",searchFeild)).get(i).getText();
 	 if( !names_text.equals(" ")){          
-		 names[i]=this.getElementsByXpath(this.getString(locator, "xpath.record.search.record.value",parametersSearch)).get(i).getText();
+		 names[i]=this.getElementsByXpath(this.getString(locator, "xpath.record.search.record.value",searchFeild)).get(i).getText();
 	  // logger.info("$$$$$$$4"+names[i]);
 	    //logger.info("$$$$$$$4"+value);
 		 if (opeartion.contains("contains the word(s)"))
@@ -149,6 +149,7 @@ public void searchStringAssert(String searchFeild,String opeartion,String value,
 
 	if (opeartion.contains("contains the sentence"))
 	{
+	//	value = value.replace(" ", "/ ");
 	   if (names[i].contains(value))
 	     {
 		    result=true;
@@ -165,10 +166,10 @@ public void searchStringAssert(String searchFeild,String opeartion,String value,
 	
 }
 public void searchValueAssert(String searchFeild,String opeartion,String value,String entity){
-	String[] parametersSearch={entity,searchFeild};
+	//String[] parametersSearch={entity,searchFeild};
 	int recordCount;
 	String recordSearchResult;
-	int[] ages;
+	double[] ages;
 	boolean result = false;
 	logger.info(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText());
 	recordSearchResult=this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText();
@@ -182,18 +183,19 @@ public void searchValueAssert(String searchFeild,String opeartion,String value,S
 	{
 	recordCount=Integer.parseInt(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText().split("of")[1].trim());
 	logger.info(recordCount);
-	ages = new int[recordCount];
+	ages = new double[recordCount];
 	for (int i=0; i<=recordCount-1; i++)
   {     logger.info(entity);
         logger.info(searchFeild);
-		logger.info("________"+this.getString(locator, "xpath.record.search.record.value",parametersSearch)+"%%%%%%%");         
+		logger.info("________"+this.getString(locator, "xpath.record.search.record.value",searchFeild)+"%%%%%%%");         
 		
-		String age_text=this.getElementsByXpath(this.getString(locator, "xpath.record.search.record.value",parametersSearch)).get(i).getText();
+		String age_text=this.getElementsByXpath(this.getString(locator, "xpath.record.search.record.value",searchFeild)).get(i).getText();
 	 if( !age_text.equals(" ")){ 
-		ages[i]=Integer.parseInt(this.getElementsByXpath(this.getString(locator, "xpath.record.search.record.value",parametersSearch)).get(i).getText());
+		ages[i]=Double.parseDouble(this.getElementsByXpath(this.getString(locator, "xpath.record.search.record.value",searchFeild)).get(i).getText());
+		logger.info(ages[i]);
 	   if (opeartion.contains("is greater than"))
 	    {
-	      if (Integer.parseInt(value) < ages[i])
+	      if (Double.parseDouble(value) < ages[i])
 	       {
 		    result=true;
 	       	}
@@ -204,7 +206,7 @@ public void searchValueAssert(String searchFeild,String opeartion,String value,S
 
 	if (opeartion.contains("is equal to"))
 	{
-	   if (Integer.parseInt(value) == ages[i])
+	   if (Double.parseDouble(value) == ages[i])
 	     {
 		    result=true;
 	      }
@@ -215,7 +217,7 @@ public void searchValueAssert(String searchFeild,String opeartion,String value,S
 
 	if (opeartion.contains("is greater or equals"))
 	{
-	   if (Integer.parseInt(value) <= ages[i])
+	   if (Double.parseDouble(value) <= ages[i])
 	     {
 		    result=true;
 	      }
@@ -226,7 +228,7 @@ public void searchValueAssert(String searchFeild,String opeartion,String value,S
 
 	if (opeartion.contains("is lower than"))
 	{
-	   if (Integer.parseInt(value) > ages[i])
+	   if (Double.parseDouble(value) > ages[i])
 	     {
 		    result=true;
 	      }
@@ -237,7 +239,7 @@ public void searchValueAssert(String searchFeild,String opeartion,String value,S
 
 	if (opeartion.contains("is lower or equals"))
 	{
-	   if ( ages[i] <= Integer.parseInt(value))
+	   if ( ages[i] <= Double.parseDouble(value))
 	     {
 		    result=true;
 	      }
@@ -248,7 +250,7 @@ public void searchValueAssert(String searchFeild,String opeartion,String value,S
 
 		if (opeartion.contains("is not equal to"))
 		{
-		   if ( ages[i] != Integer.parseInt(value))
+		   if ( ages[i] !=Double.parseDouble(value))
 		     {
 			    result=true;
 		      }
@@ -328,5 +330,9 @@ public void clickRecycle() {
 public void clickJournal() {	
 	this.clickElementByXpath(locator.getString("xpath.record.recycle.click.brower")); 	
 	this.clickElementByXpath(locator.getString("xpath.record.choose.journal")); 
+  }
+public void clickExport() {	
+	this.clickElementByXpath(locator.getString("xpath.record.click.importAndExport")); 	
+	this.clickElementByXpath(locator.getString("xpath.record.choose.export"));
   }
 }
