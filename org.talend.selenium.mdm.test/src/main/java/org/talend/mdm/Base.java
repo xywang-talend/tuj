@@ -484,4 +484,15 @@ public class Base {
 			return this.getString(locator, key, new String[] { param });
 		}
 	}
+	
+	public String getAbsoluteFolderPath(String folder) {
+		String path = Base.class.getClassLoader().getResource(folder).getPath();
+		if(System.getProperty("os.name").startsWith("Windows")) {
+			if(path.startsWith("/")){
+				path = path.substring(1);
+			}
+			path = path.replace("/", "\\");
+		}
+		return path;
+	}
 }

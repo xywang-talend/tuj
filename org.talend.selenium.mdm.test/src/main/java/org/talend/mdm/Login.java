@@ -30,8 +30,8 @@ public class Login extends Base{
 	    FirefoxProfile firefoxProfile = new FirefoxProfile();
 	    firefoxProfile.setPreference("browser.download.folderList",2);
 	    firefoxProfile.setPreference("browser.download.manager.showWhenStarting",false);
-	    firefoxProfile.setPreference("browser.download.dir",Login.class.getClassLoader().getResource("org/talend/mdm/download").getPath());
-	    firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk","text/csv");
+	    firefoxProfile.setPreference("browser.download.dir", this.getAbsoluteFolderPath("org/talend/mdm/download"));
+	    firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk","text/csv, application/vnd.ms-excel, application/zip, application/pdf");
 
 	    driver = new FirefoxDriver(firefoxProfile);
 	    logger.info("Set Firefox Driver with Profile");
