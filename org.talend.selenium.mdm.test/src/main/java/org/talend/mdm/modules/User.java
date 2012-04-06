@@ -7,14 +7,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.talend.mdm.Base;
-import org.talend.mdm.impl.LogonImpl;
 import org.testng.Assert;
 
 
-public class User extends LogonImpl{
+public class User extends Base{
 	
 public User(WebDriver driver) {
-		super(driver);
+	super.setDriver(driver);
+	this.driver = driver;
 		// TODO Auto-generated constructor stub
 	}
 

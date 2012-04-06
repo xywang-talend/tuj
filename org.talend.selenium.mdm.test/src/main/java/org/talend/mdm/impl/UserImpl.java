@@ -8,16 +8,17 @@ import org.testng.Assert;
 
 
 public class UserImpl extends User{
-
+    public LogonImpl log;
 	public UserImpl(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
+		log = new LogonImpl(this.driver);
 	}
 	
 	
 	public void logoutThenloginAdministratorAndDeleteUser(String userName,String userPassword,String message,String userDelete){
-		this.logout();
-		this.loginAdministrator(userName, userPassword, message);
+		log.logout();
+		log.loginAdministrator(userName, userPassword, message);
 		this.openMenuAdministrator();
 		this.gotoUserManagePage();
 		this.deleteUser(userDelete);
@@ -200,16 +201,16 @@ public class UserImpl extends User{
 		this.addUserInactive(administrator, adminPass, identifier,
 				firstName, lastName, password, confirmPassword, email, company,
 				defaultVersion, active, splitParameter(roles));
-		this.logout();
-		this.loginWithExistInactiveUserImpl(identifier, password, locator
+		log.logout();
+		log.loginWithExistInactiveUserImpl(identifier, password, locator
 				.getString("login.exist.user.inactive.allert.message"));
-		this.loginAdministrator(administrator, adminPass, locator
+		log.loginAdministrator(administrator, adminPass, locator
 				.getString("login.administrator.forcelogin.message"));
 		this.activeAnUserInactive(identifier, firstName, lastName,
 				password, confirmPassword, email, company, defaultVersion,
 				active, splitParameter(roles));
-		this.logout();
-		this.loginAdministrator(identifier, password, locator
+		log.logout();
+		log.loginAdministrator(identifier, password, locator
 				.getString("login.administrator.forcelogin.message"));
 		this.logoutThenloginAdministratorAndDeleteUser(administrator, adminPass, locator.getString("login.administrator.forcelogin.message"), identifier);
 	}
@@ -269,8 +270,8 @@ public class UserImpl extends User{
 		logger.info("click ok button and select a system role for user");
 		this.clickSaveAndCheckExpectedTrue(identifier);
 		logger.info("after select a system role for user and click save user button ,checked new user added ok.");
-		this.logout();
-		this.loginUserForce(identifier, password);
+		log.logout();
+		log.loginUserForce(identifier, password);
 		this.logoutThenloginAdministratorAndDeleteUser(administrator, administratorPass, locator.getString("login.administrator.forcelogin.message"), identifier);
 		
 	}
@@ -286,8 +287,8 @@ public class UserImpl extends User{
 		logger.info("configure a new user and saved ok.");
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.user.selecteduser.row", identifier)), WAIT_TIME_MAX));
 		logger.info("new user added ok,ready to check new user login.");
-		this.logout();
-		this.loginUserForce(identifier, password);
+		log.logout();
+		log.loginUserForce(identifier, password);
 		logger.info("test login with new user ok.");
 		logger.info("login administrator and delete the new user added just now.");
 		this.logoutThenloginAdministratorAndDeleteUser(userNameAdministrator, adminPass, locator.getString("login.administrator.forcelogin.message"), identifier);
@@ -299,8 +300,8 @@ public class UserImpl extends User{
 		this.openMenuAdministrator();
 		this.gotoUserManagePage();
 		this.addUser(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, roles);
-		this.logout();
-		this.loginUserForce(identifier, password);
+		log.logout();
+		log.loginUserForce(identifier, password);
 		rec.chooseContainer(container);	
 		rec.chooseModle(modle);
 		rec.clickSave();
