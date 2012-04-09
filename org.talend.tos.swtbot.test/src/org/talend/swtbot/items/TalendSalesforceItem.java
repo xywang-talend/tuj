@@ -67,11 +67,12 @@ public class TalendSalesforceItem extends TalendMetadataItem {
             for (String module : modules) {
                 gefBot.table(0).getTableItem(module).check();
             }
-            gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 60000);
+            // gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 60000);
             gefBot.button("Finish").click();
 
             for (String module : modules) {
                 TalendSalesforceItem tempItem = new TalendSalesforceItem();
+                tempItem.setParentNode(getItem());
                 tempItem.setItem(getItem().getNode(module).select());
                 moduleItems.put(module, tempItem);
             }

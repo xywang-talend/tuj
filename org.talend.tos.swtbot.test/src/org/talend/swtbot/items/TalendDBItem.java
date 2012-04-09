@@ -492,4 +492,26 @@ public class TalendDBItem extends TalendMetadataItem {
         gefBot.button("OK").click();
     }
 
+    public void deleteSubscribersFor(String schemaName, String... subscribers) {
+        getSchema(schemaName).getItem().contextMenu("Edit CDC Subscribers").click();
+        gefBot.shell("Edit CDC").activate();
+        gefBot.list().select(subscribers);
+        gefBot.button("Delete").click();
+        gefBot.shell("Create Subscriber and Execute SQL Script").activate();
+        gefBot.button("Execute").click();
+        gefBot.shell("Execute SQL Statement").activate();
+        gefBot.button("OK").click();
+        gefBot.button("Close").click();
+        gefBot.button("OK").click();
+    }
+
+    public void deactivateCDCFor(String schemaName) {
+        getSchema(schemaName).getItem().contextMenu("Deactivate CDC").click();
+        gefBot.shell("Create Subscriber and Execute SQL Script").activate();
+        gefBot.button("Execute").click();
+        gefBot.shell("Execute SQL Statement").activate();
+        gefBot.button("OK").click();
+        gefBot.button("Close").click();
+    }
+
 }
