@@ -1,4 +1,7 @@
 package org.talend.mdm.modules;
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,6 +22,49 @@ this.clickElementByXpath(locator.getString("xpath.record.delete.record.choose.ye
 		if (this.isElementPresent(By.xpath(locator.getString("xpath.record.delete.record.warn")),WAIT_TIME_MIN)){
 			this.clickElementByXpath("//button[text()='No']");		
 		}
+}
+public void JournalOpenRecordImpl(String entity,String key,String OperationType){
+	 int recordCount;
+	 boolean result;
+	//click the journal
+	clickJournal();
+	//input the search condition
+	this.modifyText(this.getElementByXpath(locator.getString("xpath.record.choose.journal.entity")),entity);
+	this.modifyText(this.getElementByXpath(locator.getString("xpath.record.choose.journal.key")),key);
+	this.clickElementByXpath(locator.getString("xpath.record.choose.journal.operation.arrows")); 
+	this.clickElementByXpath(this.getString(locator,"xpath.record.choose.journal.operation.choose",OperationType)); 		
+	this.sleepCertainTime(2000);
+	try {
+		Robot bot = new Robot();
+		bot.keyPress(KeyEvent.VK_TAB);
+		bot.keyRelease(KeyEvent.VK_TAB);
+		bot.keyPress(KeyEvent.VK_TAB);
+		bot.keyRelease(KeyEvent.VK_TAB);
+		bot.keyPress(KeyEvent.VK_TAB);
+		bot.keyRelease(KeyEvent.VK_TAB);
+		bot.keyPress(KeyEvent.VK_ENTER);
+	} catch (AWTException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}		
+	recordCount=Integer.parseInt(this.getElementByXpath(locator.getString("xpath.record.journal.count")).getText().split("of")[1].trim());
+	if (recordCount>0)
+	{result=true;}
+	else
+	{	result=false;}
+	Assert.assertTrue(result);	
+}
+public void JournalCheckResult(String key,String OperationType){
+	
+	String[] parameters={key,OperationType};
+	logger.info("String[]   "+parameters[0]);
+	logger.info("String[]   "+parameters[1]);
+	
+	this.doubleClick(this.getElementByXpath(this.getString(locator, "xpath.record.choose.journal.choose.record", parameters)));
+	this.clickElementByXpath(locator.getString("xpath.record.journal.click.info"));	
+	Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='Availability:true']"), WAIT_TIME_MIN));
+	this.isElementPresent(By.xpath("//button[text()='Open Record']"), WAIT_TIME_MIN);
+	this.clickElementByXpath("//button[text()='Open Record']");	
 }
 public void searchDateAssert(String searchFeild,String opeartion,String value,String entity){
 	String[] parametersSearch={entity,searchFeild};
@@ -327,8 +373,7 @@ public void clickRecycle() {
 	this.clickElementByXpath(locator.getString("xpath.record.recycle.click.brower")); 	
 	this.clickElementByXpath(locator.getString("xpath.record.recycle.click.recycle")); 
   }
-public void clickJournal() {	
-	this.clickElementByXpath(locator.getString("xpath.record.recycle.click.brower")); 	
+public void clickJournal() {
 	this.clickElementByXpath(locator.getString("xpath.record.choose.journal")); 
   }
 public void clickExport() {	
