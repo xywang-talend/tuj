@@ -23,7 +23,7 @@ this.clickElementByXpath(locator.getString("xpath.record.delete.record.choose.ye
 			this.clickElementByXpath("//button[text()='No']");		
 		}
 }
-public void JournalOpenRecordImpl(String entity,String key,String OperationType){
+public void JournalOpenRecord(String entity,String key,String OperationType){
 	 int recordCount;
 	 boolean result;
 	//click the journal
@@ -42,6 +42,7 @@ public void JournalOpenRecordImpl(String entity,String key,String OperationType)
 		bot.keyRelease(KeyEvent.VK_TAB);
 		bot.keyPress(KeyEvent.VK_TAB);
 		bot.keyRelease(KeyEvent.VK_TAB);
+
 		bot.keyPress(KeyEvent.VK_ENTER);
 	} catch (AWTException e) {
 		// TODO Auto-generated catch block
@@ -55,16 +56,21 @@ public void JournalOpenRecordImpl(String entity,String key,String OperationType)
 	Assert.assertTrue(result);	
 }
 public void JournalCheckResult(String key,String OperationType){
-	
 	String[] parameters={key,OperationType};
-	logger.info("String[]   "+parameters[0]);
-	logger.info("String[]   "+parameters[1]);
-	
+	this.sleepCertainTime(3000);
+	//desc depend the time
+	this.sleepCertainTime(3000);
+	this.moveToElement(driver.findElement(By.xpath("//div[text()='Operation Time']")));
+	this.clickElementByXpath("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-6')]//a[@class='x-grid3-hd-btn']");
+	this.sleepCertainTime(2000);
+	this.clickElementByXpath("//a[text()='Sort Descending']");
+	this.sleepCertainTime(3000);
+	this.clickElementByXpath(this.getString(locator, "xpath.record.choose.journal.choose.record", parameters));
 	this.doubleClick(this.getElementByXpath(this.getString(locator, "xpath.record.choose.journal.choose.record", parameters)));
-	this.clickElementByXpath(locator.getString("xpath.record.journal.click.info"));	
-	Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='Availability:true']"), WAIT_TIME_MIN));
-	this.isElementPresent(By.xpath("//button[text()='Open Record']"), WAIT_TIME_MIN);
-	this.clickElementByXpath("//button[text()='Open Record']");	
+	this.clickElementByXpath(locator.getString("xpath.record.journal.click.info"));		
+//	this.sleepCertainTime(3000);
+	/*this.isElementPresent(By.xpath("//button[text()='Open Record']"), WAIT_TIME_MIN);
+	this.clickElementByXpath("//button[text()='Open Record']");	*/
 }
 public void searchDateAssert(String searchFeild,String opeartion,String value,String entity){
 	String[] parametersSearch={entity,searchFeild};

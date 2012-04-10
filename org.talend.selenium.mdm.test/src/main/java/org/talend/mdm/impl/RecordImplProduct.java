@@ -65,9 +65,9 @@ public class RecordImplProduct extends Record{
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersDescriptionAssert)), WAIT_TIME_MAX),"createARecord");
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersPriceAssert)), WAIT_TIME_MAX),"createARecord");
 			this.sleepCertainTime(3000);		    
-			JournalOpenRecordImpl(entity,UniqueIdValue,OperationType);
+			JournalOpenRecord(entity,UniqueIdValue,OperationType);
 }
-	public void updateRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue){
+	public void testUpdateCheckAvailabilityRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue){
 		String availability;
 		boolean availabilityRsulte=false;
 		OperationType="UPDATE";
@@ -100,9 +100,41 @@ public class RecordImplProduct extends Record{
 		}
 		this.sleepCertainTime(3000); 
 				
-		JournalOpenRecordImpl(entity,UniqueIdValue,OperationType);
+				
+		JournalOpenRecord(entity,UniqueIdValue,OperationType);
 		JournalCheckResult(UniqueIdValue,OperationType);
+		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='Availability:true']"), WAIT_TIME_MIN));
 		}
+	}
+  
+	
+	public void testUpdateCompleteStoreUrlRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String name,String url){
+		OperationType="UPDATE";
+	
+		String[] parameters={name,url};
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);			
+		chooseRcord(entity,UniqueId,UniqueIdValue);		
+		this.sleepCertainTime(3000);
+		this.clickElementByXpath(locator.getString("xpath.record.update.url"));
+		this.sleepCertainTime(3000);
+		this.typeTextByXpath(locator.getString("xpath.record.update.url.input.name"),name);
+		this.modifyText(this.getElementByXpath(locator.getString("xpath.record.update.url.input.url")),url);
+		this.sleepCertainTime(3000);
+		this.clickElementByXpath(locator.getString("xpath.record.update.url.input.save"));
+		
+		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
+		if (this.isTextPresent("No change since last save")){
+			this.clickElementByXpath("//button[text()='Ok']");}
+		else{
+		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));			
+		this.sleepCertainTime(3000); 				
+		JournalOpenRecord(entity,UniqueIdValue,OperationType);
+		JournalCheckResult(UniqueIdValue,OperationType);		
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.url.update.assert", parameters)), WAIT_TIME_MIN));
+		}	
 	}
 	public void SearchRecordByValueImpl(String container,String modle,String entity,String searchFeild,String opeartion,String value){
 		
