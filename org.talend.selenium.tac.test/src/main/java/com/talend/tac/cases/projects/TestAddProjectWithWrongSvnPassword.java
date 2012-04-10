@@ -58,7 +58,7 @@ public class TestAddProjectWithWrongSvnPassword extends Projects {
 //				+ KeyEvent.VK_ENTER);
 //		selenium.click("idSvnUserLogInput");
 		this.typeString("idDescriptionInput", "adf");
-		selenium.click("idFormSaveButton");
+		selenium.click("idFormSaveButton");		              
 		String text = "Save failed: Authentication failed while connecting to "+svnurl+"/"+namecommon+" -- For more information see your log file";
 		Assert.assertTrue(this.waitForTextPresent(text, WAIT_TIME));
 		Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
