@@ -11,9 +11,11 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 	//add a task of project contains space and run it, check it running whether normal
 	@Test
 	@Parameters({"taskProjectWithContainsSpaceChar","labelDescription","ProjectWithSpaceChar","branchNameTrunk",
-		"jobNameTJava","version0.1","context","ServerForUseAvailable","statisticEnabled"})
+		"jobNameTJava","version0.1","context","ServerForUseAvailable","statisticEnabled","localhostAddress"})
 	public void testRunTaskOfItsProjectWithContainsSpaceChar(String label,String description,String projectName,String branchName,
-			String jobName,String version,String context,String serverName,String statisticName) {
+			String jobName,String version,String context,String serverName,String statisticName, String localhostAddress) {
+		
+			changeCommandLineConfig(localhostAddress);
 		
 		this.addTask(label, description, projectName,
 				branchName, jobName, version, context, serverName, statisticName);

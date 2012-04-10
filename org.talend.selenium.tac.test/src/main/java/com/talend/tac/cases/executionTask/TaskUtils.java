@@ -1,5 +1,7 @@
 package com.talend.tac.cases.executionTask;
 
+import static org.testng.Assert.assertEquals;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -235,12 +237,15 @@ public class TaskUtils extends Login {
 		
 		selenium.refresh();
 		this.clickWaitForElementPresent("idMenuConfigElement");//into Configuration page
-		this.waitForElementPresent("//div[contains(text(),'Command line/primary')]", WAIT_TIME);
-		selenium.mouseDown("//div[contains(text(),'Command line/primary')]");
+		this.waitForElementPresent("//div[contains(text(),'CommandLine/primary')]", WAIT_TIME);
+		selenium.mouseDown("//div[contains(text(),'CommandLine/primary')]");
 		this.clickWaitForElementPresent(other.getString("commandline.conf.primary.host.editButton"));
 		this.waitForElementPresent(other.getString("commandline.conf.primary.host.input"), WAIT_TIME); 
 		System.out.println("*--------------*");
 		this.typeString(other.getString("commandline.conf.primary.host.input"),hostAddress);
+		selenium.setSpeed("2000");
+//		assertEquals(selenium.getText(other.getString("commandline.conf.primary.host.value")), hostAddress);
+		selenium.setSpeed("0");
 			
 	}
 	

@@ -21,7 +21,7 @@ public class TestAddTwoPlansCheckInformations extends Plan {
 		selenium.mouseDown("//span[text()='"
 				+ label + "']");
 		this.sleep(3000);
-		selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[@class='x-tab-strip-text  ' and text()='Informations']");
+		selenium.click("//div[text()='Execution Plan']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//span[contains(@class,'x-tab-strip-text') and text()='Information']");
         this.sleep(3000);
         System.out.println(selenium.getText("//span[@class='x-fieldset-header-text' and text()='Execution plan']//ancestor::fieldset[@class=' x-fieldset x-component']//label[text()='Label:']//ancestor::div[@class='x-form-item ']//div[@class=' x-form-label x-component']"));
         System.out.println(selenium.getText("//span[@class='x-fieldset-header-text' and text()='Execution plan']//ancestor::fieldset[@class=' x-fieldset x-component']//label[text()='Description:']//ancestor::div[@class='x-form-item ']//div[@class=' x-form-label x-component']"));
