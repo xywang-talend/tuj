@@ -10,7 +10,10 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tisstudio.dataviewer.component;
+package tisstudio.dataviewer.metadata;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 import junit.framework.Assert;
 
@@ -23,46 +26,48 @@ import org.junit.runner.RunWith;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendExcelFileItem;
 import org.talend.swtbot.items.TalendJobItem;
-import org.talend.swtbot.items.TalendXmlFileItem;
 
 /**
  * DOC vivian class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DataViewerOnXMLTest extends TalendSwtBotForTos {
+public class DataViewerOnExcelTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 
-    private TalendXmlFileItem fileItem;
+    private TalendExcelFileItem fileItem;
 
     private static final String JOBNAME = "job1"; //$NON-NLS-1$
 
-    private static final String FILENAME = "xml"; //$NON-NLS-1$
+    private static final String FILENAME = "excel"; //$NON-NLS-1$
+
+    private static final String CONTENT = "LondonEngland"; //$NON-NLS-1$
 
     @Before
     public void createJob() {
         repositories.add(ERepositoryObjectType.PROCESS);
-        repositories.add(ERepositoryObjectType.METADATA_FILE_XML);
+        repositories.add(ERepositoryObjectType.METADATA_FILE_EXCEL);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
-        fileItem = new TalendXmlFileItem(FILENAME);
+        fileItem = new TalendExcelFileItem(FILENAME);
         fileItem.create();
     }
 
     @Test
-    public void testDataViewer() {
+    public void testDataViewer() throws IOException, URISyntaxException {
+
         // drag metadataItem to job
-        fileItem.setComponentType("tFileInputXML");
-        Utilities.dndMetadataOntoJob(jobItem.getEditor(), fileItem.getItem(), fileItem.getComponentType(), new Point(100, 100));
-        SWTBotGefEditPart xml = getTalendComponentPart(jobItem.getEditor(), FILENAME);
-        Assert.assertNotNull("cann't get component " + fileItem.getComponentType() + "", xml);
+        Utilities.dndMetadataOntoJob(jobItem.getEditor(), fileItem.getItem(), "", new Point(100, 100));
+        SWTBotGefEditPart excel = getTalendComponentPart(jobItem.getEditor(), FILENAME);
+        Assert.assertNotNull("cann't get component tFileInputExcel", excel);
 
         // data Viewer
-        Utilities.dataView(jobItem, xml, fileItem.getComponentType());
+        Utilities.dataView(jobItem, excel, "tFileInputExcel");
         int number = gefBot.tree().rowCount();
-        Assert.assertEquals("the result is not the expected result", 12, number);
-
+        Assert.assertEquals("the result is not the expected result", 10, number);
+        gefBot.activeShell().close();
     }
 
 }

@@ -51,10 +51,12 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.talend.swtbot.items.TalendDBItem;
 import org.talend.swtbot.items.TalendJobItem;
+import org.talend.swtbot.items.TalendSchemaItem;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
@@ -825,69 +827,22 @@ public class Utilities {
      * @param dbItem the DB item
      * @param jobItem the job Item
      * @param expected the expected result
-     * @param dbName the db name
+     * @param tableName the table name
      * @param componentType the db component type
      */
-    public static void dataViewerOnDBComponent(TalendDBItem dbItem, TalendJobItem jobItem, String expected, String dbName,
+    public static void dataViewerOnDBComponent(TalendDBItem dbItem, TalendJobItem jobItem, String expected, String tableName,
             String componentType) {
+        // retrive schema
+        dbItem.retrieveDbSchema(tableName);
+        TalendSchemaItem schema = dbItem.getSchema(tableName);
+        Assert.assertNotNull("did not retrieve schema", schema.getItem());
+
         TalendSwtBotForTos swtbot = new TalendSwtBotForTos();
         // test drag db2 input component to workspace
-        dbItem.setComponentType(componentType);
-        Utilities.dndMetadataOntoJob(jobItem.getEditor(), dbItem.getItem(), dbItem.getComponentType(), new Point(100, 100));
-        SWTBotGefEditPart gefEdiPart = swtbot.getTalendComponentPart(jobItem.getEditor(), dbItem.getItemName());
-        Assert.assertNotNull("cann't get component " + dbItem.getComponentType() + "", gefEdiPart);
-
-        gefEdiPart.click();
-        gefBot.viewByTitle("Component").setFocus();
-        SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
-        // the id for text,default is 7
-        int id = 7;
-        // set the table name
-        if (componentType.equals("tMysqlInput") || componentType.equals("tMysqlSCD")) {
-            id = 6;
-        } else if (componentType.equals("tAS400Input") || componentType.equals("tTeradataInput")) {
-            id = 5;
-        } else if (componentType.equals("tInformixInput")) {
-            id = 8;
-        }
-
-        if (componentType.equals("tTeradataInput")) {
-            gefBot.text(id).selectAll().typeText("\"myTable\"");
-        } else {
-            gefBot.text(id).selectAll().typeText("\"dataviwer\"");
-
-        }
-
-        // edit schema
-        if (componentType.contains("SCD")) {
-            gefBot.button(5).click();
-        } else {
-            gefBot.button(3).click();
-        }
-
-        gefBot.shell("Schema of " + dbName).activate();
-        gefBot.buttonWithTooltip("Add").click();
-        gefBot.table(0).click(0, 3);
-
-        if (componentType.equals("tTeradataInput")) {
-            gefBot.text("newColumn").setText("id");
-        } else {
-            gefBot.text("newColumn").setText("age");
-        }
-
-        gefBot.table(0).click(0, 5);
-        gefBot.ccomboBox("String").setSelection("int | Integer");
-        gefBot.table(0).select(0);
-        gefBot.buttonWithTooltip("Add").click();
-        gefBot.table(0).click(1, 3);
-        gefBot.text("newColumn1").setText("name");
-        gefBot.table(0).select(1);
-        gefBot.button("OK").click();
-
-        if (componentType.contains("Input")) {
-            // guess query
-            gefBot.button("Guess Query").click();
-        }
+        schema.setComponentType(componentType);
+        Utilities.dndMetadataOntoJob(jobItem.getEditor(), schema.getItem(), schema.getComponentType(), new Point(100, 100));
+        SWTBotGefEditPart gefEdiPart = swtbot.getTalendComponentPart(jobItem.getEditor(), schema.getItemName());
+        Assert.assertNotNull("cann't get component " + schema.getComponentType() + "", gefEdiPart);
 
         // dataviewer
         dataView(jobItem, gefEdiPart, componentType);
@@ -900,6 +855,7 @@ public class Utilities {
             String result2 = gefBot.tree().cell(0, 2);
             Assert.assertEquals("the result is not the expected result", expected, result1 + result2);
         }
+        gefBot.button("Close").click();
 
     }
 
@@ -915,8 +871,126 @@ public class Utilities {
         jobItem.getEditor().select(gefEditPart).setFocus();
         gefEditPart.click();
         jobItem.getEditor().clickContextMenu("Data viewer");
-        gefBot.waitUntil(Conditions.shellIsActive("Data Preview: " + componentType + "_1"), 20000);
+        gefBot.waitUntil(Conditions.shellIsActive("Data Preview: " + componentType + "_1"), 10000);
         gefBot.shell("Data Preview: " + componentType + "_1").activate();
+    }
+
+    /**
+     * data viewer on SCD Component
+     * 
+     * @param jobItem the job Item
+     * @param componentType the type of component
+     * @param dbName the name of db
+     * @param gefEdiPart
+     */
+    public static void dataViewOnSCDComponent(TalendJobItem jobItem, String componentType, String dbName,
+            SWTBotGefEditPart gefEdiPart) {
+        String sql = "create table dataviwer(age int, name varchar(12));\n " + "insert into dataviwer values(1, 'a');\n";
+
+        // create table
+        createTable(sql, jobItem, componentType);
+
+        // select table
+        selectTable(componentType, dbName);
+
+        // edit schema
+        gefBot.button(4).click();
+        editSchema(componentType);
+
+        Utilities.dataView(jobItem, gefEdiPart, componentType);
+
+        String result1 = gefBot.tree().cell(0, 1);
+        String result2 = gefBot.tree().cell(0, 2);
+        Assert.assertEquals("the result is not the expected result", "1a", result1 + result2);
+        gefBot.button("Close").click();
+
+        // Drop table
+        dropTable(sql, gefEdiPart, jobItem, componentType);
+    }
+
+    private static void dropTable(String sql, SWTBotGefEditPart gefEdiPart, TalendJobItem jobItem, String componentType) {
+        sql = "drop table dataviwer;";
+        gefEdiPart.click();
+        gefBot.viewByTitle("Component").setFocus();
+        gefBot.button(3).click();
+        gefBot.waitUntil(
+                Conditions.shellIsActive("SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:"
+                        + componentType + "_1"), 30000);
+        gefBot.shell("SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:" + componentType + "_1");
+        gefBot.styledText().setText(sql);
+        gefBot.toolbarButtonWithTooltip("Execute SQL (Ctrl+Enter)").click();
+        gefBot.button("OK").click();
+    }
+
+    private static void editSchema(String componentType) {
+        gefBot.shell("Schema of " + componentType + "_1").activate();
+        gefBot.buttonWithTooltip("Add").click();
+        gefBot.table(0).click(0, 3);
+        gefBot.text("newColumn").setText("age");
+        gefBot.table(0).click(0, 5);
+        gefBot.ccomboBox("String").setSelection("int | Integer");
+        gefBot.table(0).select(0);
+        gefBot.buttonWithTooltip("Add").click();
+        gefBot.table(0).click(1, 3);
+        gefBot.text("newColumn1").setText("name");
+        gefBot.table(0).select(1);
+        gefBot.button("OK").click();
+    }
+
+    private static void selectTable(String componentType, String dbName) {
+        gefBot.buttonWithTooltip("Show the table list for the current conection").click();
+        try {
+            gefBot.waitUntil(Conditions.shellIsActive("Select Table Name"));
+        } catch (TimeoutException e1) {
+            gefBot.buttonWithTooltip("Show the table list for the current conection").click();
+        }
+        gefBot.waitUntil(Conditions.shellIsActive("Select Table Name"));
+        gefBot.shell("Select Table Name").activate();
+        if (componentType.equals("tOracleSCD")) {
+            gefBot.tree().expandNode(System.getProperty(dbName + ".sid")).select("DATAVIWER");
+        } else {
+            gefBot.tree().expandNode(System.getProperty(dbName + ".dataBase")).select("dataviwer");
+        }
+        gefBot.button("OK").click();
+    }
+
+    private static void createTable(String sql, TalendJobItem jobItem, String componentType) {
+        gefBot.waitUntil(
+                Conditions.shellIsActive("SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:"
+                        + componentType + "_1"), 30000);
+        gefBot.shell("SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:" + componentType + "_1")
+                .activate();
+        gefBot.styledText().setText(sql);
+        gefBot.toolbarButtonWithTooltip("Execute SQL (Ctrl+Enter)").click();
+
+        // if table has exist,drop the table ,then create table gain
+        long defaultTimeout = SWTBotPreferences.TIMEOUT;
+        SWTBotPreferences.TIMEOUT = 100;
+        try {
+            gefBot.waitUntil(Conditions.shellIsActive("Error Executing SQL"));
+            String errorLog = gefBot.label(1).getText();
+            if (errorLog.contains("name") && errorLog.contains("existing object")) {
+                String table = errorLog.split("'")[1];
+                sql = "drop table " + table + ";\n" + sql;
+            }
+
+            if (errorLog.contains("Unknown table") && errorLog.contains("database doesn't exist")) {
+                gefBot.button("OK").click();
+            } else {
+                gefBot.button("OK").click();
+                gefBot.shell(
+                        "SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:" + componentType + "_1")
+                        .activate();
+                gefBot.styledText(0).setText(sql);
+                gefBot.toolbarButtonWithTooltip("Execute SQL (Ctrl+Enter)").click();
+            }
+        } catch (TimeoutException e) {
+            // ignor this, means execute sql successfully, did not pop up error dialog
+        } finally {
+            SWTBotPreferences.TIMEOUT = defaultTimeout;
+        }
+
+        gefBot.button("OK").click();
     }
 
 }

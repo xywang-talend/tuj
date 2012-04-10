@@ -10,10 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tisstudio.dataviewer.component;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
+package tisstudio.dataviewer.metadata;
 
 import junit.framework.Assert;
 
@@ -27,48 +24,45 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobItem;
-import org.talend.swtbot.items.TalendPositionalFileItem;
+import org.talend.swtbot.items.TalendXmlFileItem;
 
 /**
  * DOC vivian class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DataViewerOnInputPositionalTest extends TalendSwtBotForTos {
+public class DataViewerOnXMLTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 
-    private TalendPositionalFileItem fileItem;
+    private TalendXmlFileItem fileItem;
 
     private static final String JOBNAME = "job1"; //$NON-NLS-1$
 
-    private static final String FILENAME = "positonal"; //$NON-NLS-1$
-
-    private static final String CONTENT = "LondonEngland"; //$NON-NLS-1$
+    private static final String FILENAME = "xml"; //$NON-NLS-1$
 
     @Before
     public void createJob() {
         repositories.add(ERepositoryObjectType.PROCESS);
-        repositories.add(ERepositoryObjectType.METADATA_FILE_POSITIONAL);
+        repositories.add(ERepositoryObjectType.METADATA_FILE_XML);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
-        fileItem = new TalendPositionalFileItem(FILENAME);
+        fileItem = new TalendXmlFileItem(FILENAME);
         fileItem.create();
     }
 
     @Test
-    public void testDataViewer() throws IOException, URISyntaxException {
-
+    public void testDataViewer() {
         // drag metadataItem to job
-        fileItem.setComponentType("tFileInputPositional");
+        fileItem.setComponentType("tFileInputXML");
         Utilities.dndMetadataOntoJob(jobItem.getEditor(), fileItem.getItem(), fileItem.getComponentType(), new Point(100, 100));
-        SWTBotGefEditPart positonal = getTalendComponentPart(jobItem.getEditor(), FILENAME);
-        Assert.assertNotNull("cann't get component " + fileItem.getComponentType() + "", positonal);
+        SWTBotGefEditPart xml = getTalendComponentPart(jobItem.getEditor(), FILENAME);
+        Assert.assertNotNull("cann't get component " + fileItem.getComponentType() + "", xml);
 
         // data Viewer
-        Utilities.dataView(jobItem, positonal, fileItem.getComponentType());
+        Utilities.dataView(jobItem, xml, fileItem.getComponentType());
         int number = gefBot.tree().rowCount();
-        Assert.assertEquals("the result is not the expected result", 3, number);
-
+        Assert.assertEquals("the result is not the expected result", 12, number);
+        gefBot.activeShell().close();
     }
 
 }

@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tisstudio.dataviewer.component;
+package tisstudio.dataviewer.metadata;
 
 import junit.framework.Assert;
 
@@ -63,7 +63,7 @@ public class DataViewerOnFileDelimitedTest extends TalendSwtBotForTos {
         Utilities.dataView(jobItem, delimtedFile, delimitedFileItem.getComponentType());
         int number = gefBot.tree().rowCount();
         Assert.assertEquals("the result is not the expected result", 12, number);
-
+        gefBot.activeShell().close();
     }
 
 }

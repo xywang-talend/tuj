@@ -310,6 +310,8 @@ public class TalendDBItem extends TalendMetadataItem {
     private String getCatalog() {
         if (dbType == Utilities.DbConnectionType.TERADATA || dbType == Utilities.DbConnectionType.DB2)
             return null;
+        if (dbType == Utilities.DbConnectionType.AS400)
+            return "S6581FBD";
         String databaseProp = dbType.toString().toLowerCase();
         databaseProp += ".dataBase";
         return convertString(System.getProperty(databaseProp));

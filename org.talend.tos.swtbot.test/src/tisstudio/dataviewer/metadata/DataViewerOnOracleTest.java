@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tisstudio.dataviewer.component;
+package tisstudio.dataviewer.metadata;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.After;
@@ -37,13 +37,16 @@ public class DataViewerOnOracleTest extends TalendSwtBotForTos {
 
     private static final String DBNAME = "oracle"; //$NON-NLS-1$
 
+    private static final String TABELNAME = "dataviwer"; //$NON-NLS-1$
+
     @Before
     public void createJob() {
         repositories.add(ERepositoryObjectType.PROCESS);
         repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
         dbItem = new TalendDBItem(DBNAME, Utilities.DbConnectionType.ORACLE);
         dbItem.create();
-        String sql = "create table dataviwer(age int, name varchar(12));\n " + "insert into dataviwer values(1, 'a');\n";
+        String sql = "create table " + TABELNAME + "(age int, name varchar(12));\n " + "insert into " + TABELNAME
+                + " values(1, 'a');\n";
         dbItem.executeSQL(sql);
 
         jobItem = new TalendJobItem(JOBNMAE);
@@ -54,7 +57,7 @@ public class DataViewerOnOracleTest extends TalendSwtBotForTos {
     @Test
     public void testDataViewer() {
         // test data viwer
-        Utilities.dataViewerOnDBComponent(dbItem, jobItem, "1a", DBNAME, "tOracleInput");
+        Utilities.dataViewerOnDBComponent(dbItem, jobItem, "1a", TABELNAME, "tOracleInput");
 
     }
 

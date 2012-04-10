@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tisstudio.dataviewer.component;
+package tisstudio.dataviewer.metadata;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.After;
@@ -27,7 +27,7 @@ import org.talend.swtbot.items.TalendJobItem;
  * DOC vivian class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DataViewerOnMSSQLTest extends TalendSwtBotForTos {
+public class DataViewerOnDB2Test extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 
@@ -35,15 +35,18 @@ public class DataViewerOnMSSQLTest extends TalendSwtBotForTos {
 
     private static final String JOBNMAE = "job1"; //$NON-NLS-1$
 
-    private static final String DBNAME = "mssql"; //$NON-NLS-1$
+    private static final String DBNAME = "db2"; //$NON-NLS-1$
+
+    private static final String TABELNAME = "dataviwer"; //$NON-NLS-1$
 
     @Before
     public void createJob() {
         repositories.add(ERepositoryObjectType.PROCESS);
         repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
-        dbItem = new TalendDBItem(DBNAME, Utilities.DbConnectionType.MSSQL);
+        dbItem = new TalendDBItem(DBNAME, Utilities.DbConnectionType.DB2);
         dbItem.create();
-        String sql = "create table dataviwer(age int, name varchar(12));\n " + "insert into dataviwer values(1, 'a');\n";
+        String sql = "create table " + TABELNAME + "(age int, name varchar(12));\n " + "insert into " + TABELNAME
+                + " values(1, 'a');\n";
         dbItem.executeSQL(sql);
 
         jobItem = new TalendJobItem(JOBNMAE);
@@ -54,8 +57,7 @@ public class DataViewerOnMSSQLTest extends TalendSwtBotForTos {
     @Test
     public void testDataViewer() {
         // test data viwer
-        Utilities.dataViewerOnDBComponent(dbItem, jobItem, "1a", DBNAME, "tMSSqlInput");
-
+        Utilities.dataViewerOnDBComponent(dbItem, jobItem, "1a", TABELNAME, "tDB2Input");
     }
 
     @After

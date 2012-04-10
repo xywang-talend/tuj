@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tisstudio.dataviewer.component;
+package tisstudio.dataviewer.metadata;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -18,7 +18,6 @@ import java.net.URISyntaxException;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,46 +26,42 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobItem;
-import org.talend.swtbot.items.TalendLdapItem;
+import org.talend.swtbot.items.TalendWebServiceItem;
 
 /**
  * DOC vivian class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DataViewOnLadpTest extends TalendSwtBotForTos {
+public class DataViewOnWSDLTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 
-    private TalendLdapItem ldapItem;
+    private TalendWebServiceItem webServiceItem;
 
     private static final String JOBNAME = "jobTest"; // $NON-NLS-1$
 
-    private static final String METADATA_NAME = "ldapTest"; // $NON-NLS-1$
+    private static final String METADATA_NAME = "webService"; // $NON-NLS-1$
 
     @Before
     public void createJobAndMetadata() throws IOException, URISyntaxException {
         repositories.add(ERepositoryObjectType.PROCESS);
-        repositories.add(ERepositoryObjectType.METADATA_LDAP_SCHEMA);
+        repositories.add(ERepositoryObjectType.METADATA_WSDL_SCHEMA);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
-        ldapItem = new TalendLdapItem(METADATA_NAME);
-        ldapItem.create();
+        webServiceItem = new TalendWebServiceItem(METADATA_NAME);
+        webServiceItem.setTypeAsSimple();
+        webServiceItem.create();
     }
 
     @Test
     public void testDataView() {
-        ldapItem.setComponentType("tLDAPInput");
-        Utilities.dndMetadataOntoJob(jobItem.getEditor(), ldapItem.getItem(), ldapItem.getComponentType(), new Point(100, 100));
-        SWTBotGefEditPart ldap = getTalendComponentPart(jobItem.getEditor(), METADATA_NAME);
-        Assert.assertNotNull("cann't get component " + ldapItem.getComponentType() + "", ldap);
-        jobItem.getEditor().select(ldap).setFocus();
-        ldap.click();
-        jobItem.getEditor().clickContextMenu("Data viewer");
-        gefBot.waitUntil(Conditions.shellIsActive("Data Preview: " + ldapItem.getComponentType() + "_1"), 20000);
-        gefBot.shell("Data Preview: " + ldapItem.getComponentType() + "_1").activate();
+        Utilities.dndMetadataOntoJob(jobItem.getEditor(), webServiceItem.getItem(), "", new Point(100, 100));
+        SWTBotGefEditPart webServiceItem = getTalendComponentPart(jobItem.getEditor(), METADATA_NAME);
+        Assert.assertNotNull("cann't get component webServiceItem", webServiceItem);
+        Utilities.dataView(jobItem, webServiceItem, "tWebServiceInput");
         int rows = gefBot.tree(0).rowCount();
-        Assert.assertEquals("the result is not the expected result", 8, rows);
-
+        Assert.assertEquals("the result is not the expected result", 1, rows);
+        gefBot.activeShell().close();
     }
 
 }

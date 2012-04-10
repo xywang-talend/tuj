@@ -10,10 +10,9 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tisstudio.dataviewer.component;
+package tisstudio.dataviewer.metadata;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +26,7 @@ import org.talend.swtbot.items.TalendJobItem;
  * DOC vivian class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DataViwerOnAS400Test extends TalendSwtBotForTos {
+public class DataViewerOnTeradataTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 
@@ -35,16 +34,16 @@ public class DataViwerOnAS400Test extends TalendSwtBotForTos {
 
     private static final String JOBNMAE = "job1"; //$NON-NLS-1$
 
-    private static final String DBNAME = "AS400"; //$NON-NLS-1$
+    private static final String DBNAME = "teradata"; //$NON-NLS-1$
+
+    private static final String TABELNAME = "myTable"; //$NON-NLS-1$
 
     @Before
     public void createJob() {
         repositories.add(ERepositoryObjectType.PROCESS);
         repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
-        dbItem = new TalendDBItem(DBNAME, Utilities.DbConnectionType.AS400);
+        dbItem = new TalendDBItem(DBNAME, Utilities.DbConnectionType.TERADATA);
         dbItem.create();
-        String sql = "create table dataviwer(age int, name varchar(12));\n " + "insert into dataviwer values(1, 'a');\n";
-        dbItem.executeSQL(sql);
 
         jobItem = new TalendJobItem(JOBNMAE);
         jobItem.create();
@@ -54,14 +53,7 @@ public class DataViwerOnAS400Test extends TalendSwtBotForTos {
     @Test
     public void testDataViewer() {
         // test data viwer
-        Utilities.dataViewerOnDBComponent(dbItem, jobItem, "1a", DBNAME, "tAS400Input");
-
-    }
-
-    @After
-    public void removePreviousCreateItems() {
-        String sql = "drop table dataviwer;\n";
-        dbItem.executeSQL(sql);
+        Utilities.dataViewerOnDBComponent(dbItem, jobItem, "22", TABELNAME, "tTeradataInput");
 
     }
 
