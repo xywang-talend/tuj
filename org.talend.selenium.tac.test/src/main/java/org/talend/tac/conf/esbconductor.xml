@@ -39,7 +39,7 @@
     </test>
  
  
-  <test name="ESBConductor02_ClearService">
+    <test name="ESBConductor03_ClearService">
 
 		<classes>
 			<class name="org.talend.tac.cases.esbconductor.TestClearService" />
@@ -47,7 +47,7 @@
 	</test>
     
    
-    <test name="ESBConductor03_testAddESBConductor" preserve-order="true">
+    <test name="ESBConductor04_testAddESBConductor" preserve-order="true">
 	    <classes>
 		    <class name="org.talend.tac.cases.esbconductor.TestAddESBConductor">
 			   <methods>
@@ -58,7 +58,7 @@
 	    </classes>
     </test>
 
-	<test name="ESBConductor04_testAddESBConductorWithInactiveServer"
+	<test name="ESBConductor05_testAddESBConductorWithInactiveServer"
 		preserve-order="true">
 		<parameter name='labelOfService' value='addConductorForTestInactiveServer' />
 		<classes>
@@ -82,7 +82,7 @@
 		</classes>
 	</test>
 
-	<test name="ESBConductor05_testSelectFeatureFromArchiva"
+	<test name="ESBConductor07_testSelectFeatureFromArchiva"
 		preserve-order="true">
 		<classes>
 			<class
@@ -117,7 +117,7 @@
 			</methods>
 		</classes>
 	</test>
-
+ 
 	<test name="ESBConductor010_testStopESBConductor">
 		<parameter name='labelOfService' value='addConductorForTestStop' />
 		<classes>
@@ -141,7 +141,7 @@
 			</methods>
 		</classes>
 	</test>
-
+	
 	<test name="ESBConductor12_testContext">
 		<parameter name='labelOfServiceWithDifferentContext' value='testDifferentContext' />
 		<parameter name='repositoryForContext' value='repo-snapshot' />
@@ -161,7 +161,27 @@
 		</classes>
 	</test>
 
-	<test name="ESBConductor07_testDuplicateESBConductor"
+	<test name="ESBConductor13_testContext">
+		<parameter name='labelOfServiceWithDifferentContext' value='testDeleteConfigProperty1' />
+		<parameter name='repositoryForContext' value='repo-snapshot' />
+		<parameter name='groupForContext' value='example' />
+		<parameter name='artifactForContext' value='Context-feature' />
+		<parameter name='versionForContext' value='0.1.0-SNAPSHOT' />
+		<parameter name='typeForContext' value='Route'></parameter>
+		<parameter name='addedContext' value='Production' />
+		<parameter name='featureName' value='Context-feature'></parameter>
+		<parameter name='contextVariableName' value='Message' />
+		<parameter name='contextVariableValue' value='newContext' />
+		<classes>
+			<class name="org.talend.tac.cases.esbconductor.TestDeleteConfigProperties" />
+			<methods>
+				<include name="testDeleteConfigPropertyCancel" />
+				<include name="testDeleteConfigPropertyOk" />
+			</methods>
+		</classes>
+	</test>
+
+	<test name="ESBConductor14_testDuplicateESBConductor"
 		preserve-order="true">
 		<classes>
 			<class name="org.talend.tac.cases.esbconductor.TestDuplicateESBConductor" />

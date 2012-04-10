@@ -82,10 +82,7 @@ public class RedefineContext extends WebDriverBase {
    		   this.getElementByXpath("//div[text()='" + artifact + "']")
    			   .click();
    		   this.getElementByXpath("//div[text()='" + version + "']").click();
-   		   this.getElementByXpath(
-   			   "//span[text()='Select Feature from Talend repository']"
-   					+ "//ancestor::div[@class=' x-window x-component']"
-   					+ "//button[text()='OK']").click();
+   		   this.getElementByXpath("//button[text()='OK']").click();
            this.selectDropDownList("Name:","idTaskProjectListBox", name);
            this.selectDropDownList("Type:","idJobConductorExecutionServerListBox", type);
            this.selectDropDownList("Context:","idESBConductorTaskContextListBox", context);
@@ -136,11 +133,14 @@ public class RedefineContext extends WebDriverBase {
        }
        
        public void deleteContextPropertiesOk(String label) {
+    	   this.waitforElementDisplayed(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MIN);
     	   this.mouseDown("//div[text()='" + label + "']");
-    	   this.mouseDown("//span[text()='Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input");
+    	   this.waitforElementDisplayed(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-property']"),WAIT_TIME_MIN);
+    	   this.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-property']");
+    	   this.getElementByXpath("//div[@class='x-grid3-cell-inner x-grid3-col-property']").click();
+    	   this.getElementByXpath(other.getString("ESBConductor.ConfigProperties.Name")).click();
            this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertyDeleteButton']"), WAIT_TIME_MIN);
     	   this.getElementById("idESBConductorPropertyDeleteButton").click();
-    	   this.clickElementById(other.getString("ESBConductor.ConfigProperties.DeleteButtonId"));
            this.acceptAlert(); 
        }
        
@@ -164,5 +164,15 @@ public class RedefineContext extends WebDriverBase {
     	   this.clickElementById(other.getString("ESBConductor.DeleteButtonId"));
     	   this.acceptAlert(); 	   
            Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='" + label + "']"), 20));
+       }
+       
+       public void deleteContextPropertyCancel(String label) {
+    	   this.waitforElementDisplayed(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MIN);
+    	   this.mouseDown("//div[text()='" + label + "']");
+    	   this.mouseDown("//span[text()='Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input");
+           this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertyDeleteButton']"), WAIT_TIME_MIN);
+    	   this.getElementById("idESBConductorPropertyDeleteButton").click();
+    	   this.clickElementById(other.getString("ESBConductor.ConfigProperties.DeleteButtonId"));
+           this.dismissAlert(); 
        }
     }

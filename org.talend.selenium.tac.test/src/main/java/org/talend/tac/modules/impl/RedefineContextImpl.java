@@ -36,12 +36,20 @@ public class RedefineContextImpl extends RedefineContext {
                String context, String server,String variableName,String variableValue) {
            this.intoESBConductorPage();
            this.addESBConductor(label, des, repository, group, artifact, version, name, type, context, server); 
-           this.defineContext(label,variableName,variableValue);
-           this.deployEsbConductor(label, name);   
+           this.defineContext(label,variableName,variableValue);         
+       }
+       
+       public void deployConductor(String label,String name) {
+    	   this.deployEsbConductor(label, name);   
        }
        
        public void deleteContextProperties(String label) {
+    	   this.intoESBConductorPage();
     	   this.deleteContextPropertiesOk(label);
+       }
+       
+       public void deleteContextPropertiesCancel(String label) {
+    	   this.deleteContextPropertyCancel(label);
        }
        
        public void undeployConductor(String label) {

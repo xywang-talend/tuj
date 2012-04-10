@@ -27,7 +27,7 @@ import org.testng.annotations.Test;
 /**
  * 
  */
-public class TestRedefineContext extends WebdriverLogin {
+public class TestDeleteConfigProperties extends WebdriverLogin {
        RedefineContextImpl redefineContextImpl;
        @BeforeMethod
        public void beforeMethod(){
@@ -37,14 +37,16 @@ public class TestRedefineContext extends WebdriverLogin {
        @Test
        @Parameters({"labelOfServiceWithDifferentContext", "desOfService", "repositoryForContext", "groupForContext", "artifactForContext",
    		"versionForContext", "featureName", "typeForContext", "addedContext", "serverOfRuntime","contextVariableName","contextVariableValue"})
-       public void testRedefineContext(String label, String des, String repository,
+       public void testDeleteConfigPropertyCancel(String label, String des, String repository,
            String group, String artifact, String version, String name, String type, 
            String context, String server,String variableName,String variableValue) {
-           redefineContextImpl.redefineContext(label, des, repository, group, artifact, version, name, type, context, server,variableName,variableValue);
-           redefineContextImpl.deployConductor(label, variableName);
-           redefineContextImpl.deleteContextProperties(label);
-           redefineContextImpl.undeployConductor(label);
-           redefineContextImpl.deleteUndeployedConductor(label, name);
+    	   redefineContextImpl.redefineContext(label, des, repository, group, artifact, version, name, type, context, server, variableName, variableValue);
+    	   redefineContextImpl.deleteContextPropertiesCancel(label);
+       }
+       @Test
+       @Parameters({"labelOfServiceWithDifferentContext"})
+       public void testDeleteConfigPropertyOk(String label) {
+    	   redefineContextImpl.deleteContextProperties(label);
        }
        
 }

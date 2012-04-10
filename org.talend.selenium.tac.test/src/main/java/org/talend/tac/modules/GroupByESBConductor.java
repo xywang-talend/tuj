@@ -77,10 +77,7 @@ public class GroupByESBConductor extends WebDriverBase {
 		this.getElementByXpath("//div[text()='" + artifact + "']")
 			.click();
 		this.getElementByXpath("//div[text()='" + version + "']").click();
-		this.getElementByXpath(
-			"//span[text()='Select Feature from Talend repository']"
-					+ "//ancestor::div[@class=' x-window x-component']"
-					+ "//button[text()='OK']").click();
+		this.getElementByXpath("//button[text()='OK']").click();
         this.selectDropDownList("Name:","idTaskProjectListBox", name);
         this.selectDropDownList("Type:","idJobConductorExecutionServerListBox", type);
         this.selectDropDownList("Context:","idESBConductorTaskContextListBox", context);

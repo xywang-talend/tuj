@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<suite name="Suite" parallel="false">
+	
+	<test name="server01_InvalidHostServer">
+	<parameter name='InvalidHostServer' value='InvalidHostOfRuntime'/>
+	<parameter name='InvalidHost' value='192.168.0.200'/>
+	<classes>
+		<class name="org.talend.tac.cases.runtimeserver.TestAddRuntimeServerWithInvalidHost" />
+		<method>
+		<include name='addServerInvalid'/>
+		</method>
+	</classes>
+    </test>
+      
+     <test name="server02_WithUnavaiableJobServer">
+	<parameter name='RuntimeWithJobserverUnavaiable' value='RuntimeWithUnavaiableJobServer'/>
+	<parameter name='ServerHost' value='localhost'/>
+	<parameter name='ServiceName' value='tesb-job-server'/>
+	<classes>
+		<class name="org.talend.tac.cases.runtimeserver.TestAddRuntimeServerWithInactiveJobServer" />
+		<method>
+		<include name='addServerWithJobServerUnavaiable'/>
+		</method>
+	</classes>
+    </test> 
+</suite>
