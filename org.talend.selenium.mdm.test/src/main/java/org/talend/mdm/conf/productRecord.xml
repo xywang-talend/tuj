@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name=" Product Record" parallel="false">
+            <parameter name="entity" value="Product" /> 	        
+  		    <parameter name="UniqueId" value="Id" />
+  		    <parameter name="Name" value="Name" />  
+  		    <parameter name="Description" value="Description" /> 
+  		     <parameter name="Price" value="Price" />  
+     <test name="Product create a record"  preserve-order="true">
+	    <classes>
+	         <parameter name="UniqueIdValue" value="231035997" /> 	
+  		 	 <parameter name="NameValue" value="Talend Large Mug_test" />
+   			 <parameter name="DescriptionValue" value="this is a test Talend Large Mug_test" />
+  			 <parameter name="PriceValue" value="16.91" />				
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testCreateRecord"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test>    
+  
+ <test name="Product update a record">
+	    <classes>	
+	        <parameter name="UniqueIdValue" value="231035997" /> 
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 
+		           <include name="testUpdateRecord"/> 		           
+		        </methods>
+		    </class>
+	    </classes>
+  </test>    
+
+</suite>
