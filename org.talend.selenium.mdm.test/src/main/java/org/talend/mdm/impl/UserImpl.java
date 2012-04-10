@@ -296,7 +296,7 @@ public class UserImpl extends User{
 	}
 	
 	public void readOnlyAccessForViewer(String userNameAdministrator,String adminPass,String identifier, String firstName,String  lastName, String password, String confirmPassword, String email,String  company, String defaultVersion, boolean active, String roles,String container,String modle,String entity,String feild1Name,String feild2Name,String feild3Name){
-		RecordImpl rec = new RecordImpl(this.driver);
+		RecordImplProductFamily rec = new  RecordImplProductFamily(this.driver);
 		this.openMenuAdministrator();
 		this.gotoUserManagePage();
 		this.addUser(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, roles);
