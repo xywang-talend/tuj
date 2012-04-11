@@ -39,14 +39,27 @@
     </test>
  
  
-    <test name="ESBConductor03_ClearService">
+    <test name="ESBConductor02_ClearService">
 
 		<classes>
 			<class name="org.talend.tac.cases.esbconductor.TestClearService" />
 		</classes>
 	</test>
     
-   
+   <test name="ESBConductor03_testSortESBConductor">
+		<parameter name='labelOfService_1' value='a' />
+		<parameter name='labelOfService_2' value='b' />
+		<parameter name='labelOfService_3' value='c' />
+		<parameter name='tag_1' value='tagA' />
+		<parameter name='tag_2' value='tagB' />
+		<classes>
+			<class name="org.talend.tac.cases.esbconductor.TestSortAsendAndDescenESBConductor" />
+			<methods>
+				<include name="testSortESBConductor" />
+			</methods>
+		</classes>
+	</test>
+    
     <test name="ESBConductor04_testAddESBConductor" preserve-order="true">
 	    <classes>
 		    <class name="org.talend.tac.cases.esbconductor.TestAddESBConductor">
@@ -93,8 +106,21 @@
 			</class>
 		</classes>
 	</test>
+	
+	<test name="ESBConductor08_testSelectFeatureWithUnavaiableArtifact"
+		preserve-order="true">
+		<parameter name='artifactRepositoryWrongUrl' value='http://192.168.0.200:8082/archiva'></parameter>
+		<classes>
+			<class
+				name="org.talend.tac.cases.esbconductor.TestSelectFeatureWithArtifactUnavailable">
+				<methods>
+					<include name='testSelectFeatureWithUnavaiableArtifact' />
+				</methods>
+			</class>
+		</classes>
+	</test>
 
-	<test name="ESBConductor08_testDeleteESBConductor_cancel"
+	<test name="ESBConductor09_testDeleteESBConductor_cancel"
 		preserve-order="true">
 		<classes>
 			<class name="org.talend.tac.cases.esbconductor.TestDeleteESBConductor" />
@@ -108,7 +134,7 @@
 
 
 
-	<test name="ESBConductor09_testStartESBConductor">
+	<test name="ESBConductor10_testStartESBConductor">
 		<parameter name='labelOfService' value='addConductorForTestStart' />
 		<classes>
 			<class name="org.talend.tac.cases.esbconductor.TestStartESBConductor" />
@@ -118,7 +144,7 @@
 		</classes>
 	</test>
  
-	<test name="ESBConductor010_testStopESBConductor">
+	<test name="ESBConductor011_testStopESBConductor">
 		<parameter name='labelOfService' value='addConductorForTestStop' />
 		<classes>
 			<class name="org.talend.tac.cases.esbconductor.TestStopConductor" />
@@ -128,7 +154,7 @@
 		</classes>
 	</test>
 
-	<test name="ESBConductor011_testGroupESBConductor">
+	<test name="ESBConductor012_testGroupESBConductor">
 		<parameter name='labelOfService_1' value='service_1' />
 		<parameter name='labelOfService_2' value='service_2' />
 		<parameter name='labelOfService_3' value='service_3' />
@@ -142,7 +168,7 @@
 		</classes>
 	</test>
 	
-	<test name="ESBConductor12_testContext">
+	<test name="ESBConductor13_testContext">
 		<parameter name='labelOfServiceWithDifferentContext' value='testDifferentContext' />
 		<parameter name='repositoryForContext' value='repo-snapshot' />
 		<parameter name='groupForContext' value='example' />
@@ -160,9 +186,9 @@
 			</methods>
 		</classes>
 	</test>
-
-	<test name="ESBConductor13_testContext">
-		<parameter name='labelOfServiceWithDifferentContext' value='testDeleteConfigProperty1' />
+ 
+	<test name="ESBConductor14_testContext">
+		<parameter name='labelOfServiceWithDifferentContext' value='testDeleteConfigProperty' />
 		<parameter name='repositoryForContext' value='repo-snapshot' />
 		<parameter name='groupForContext' value='example' />
 		<parameter name='artifactForContext' value='Context-feature' />
@@ -181,12 +207,14 @@
 		</classes>
 	</test>
 
-	<test name="ESBConductor14_testDuplicateESBConductor"
+	<test name="ESBConductor15_testDuplicateESBConductor"
 		preserve-order="true">
 		<classes>
 			<class name="org.talend.tac.cases.esbconductor.TestDuplicateESBConductor" />
 		</classes>
 	</test>
+ 	
 	
 	
- </suite>
+	
+</suite>

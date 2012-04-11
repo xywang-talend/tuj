@@ -21,4 +21,8 @@ public class GroupByESBConductorImpl extends GroupByESBConductor{
 		// this.groupESBConductor();//this method has not implemented well,need to investigate and  research 
 
 	}
+	
+	public void SortESBConductor(String value,String value1) {
+		this.checkSortAscendingSortDescending(value, value1);
+	}
 }

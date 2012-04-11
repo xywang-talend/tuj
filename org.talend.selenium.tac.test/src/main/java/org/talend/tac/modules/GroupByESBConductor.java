@@ -97,12 +97,9 @@ public class GroupByESBConductor extends WebDriverBase {
 	public void groupESBConductor() {//need to modify this mothed
 
 		
-		
 		WebElement tag = driver.findElement(By.xpath("//span[text()='Tag']"));
 		this.moveToElement(tag);
 		WebElement jjj = driver.findElement(By.xpath("//span[text()='Tag']//parent::div[contains(@class,'x-grid3-hd-inner x-grid3-hd-applicationGroup x-component')]//a"));
-		//build and perform the mouseOver with Advanced User Interactions API
-		//then click when menu option is visible
 		jjj.click();
 		this.waitforElementDisplayed(By.xpath("//a[text()='Columns']"), WAIT_TIME_MIN);
 		WebElement columns = driver.findElement(By.xpath("//a[text()='Columns']"));
@@ -181,5 +178,32 @@ public class GroupByESBConductor extends WebDriverBase {
 //			e.printStackTrace();
 //		}	
 //	}
+	
+	public void checkSortAscendingSortDescending(String value, String value1) {
+		WebElement element = driver.findElement(By.xpath("//span[text()='Tag']"));
+		this.moveToElement(element);
+		WebElement drop = driver.findElement(By.xpath("//span[text()='Tag']//parent::div[contains(@class,'x-grid3-hd-inner x-grid3-hd-applicationGroup x-component')]//a"));
+		drop.click();
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		this.clickElementByXpath("//a[text()='Sort Descending']");
+		Assert.assertEquals(this.getElementByXpath("//div[@class='x-grid3-cell-inner x-grid3-col-label']").getText(), value);       
+       
+		WebElement elementagain = driver.findElement(By.xpath("//span[text()='Tag']"));
+		this.moveToElement(elementagain);
+		WebElement dropagain = driver.findElement(By.xpath("//span[text()='Tag']//parent::div[contains(@class,'x-grid3-hd-inner x-grid3-hd-applicationGroup x-component')]//a"));
+		dropagain.click();
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+        this.clickElementByXpath("//a[text()='Sort Ascending']");
+		Assert.assertEquals(this.getElementByXpath("//div[@class='x-grid3-cell-inner x-grid3-col-label']").getText(), value1);
+		
+	}
 	
 }
