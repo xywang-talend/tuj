@@ -12,14 +12,10 @@
 // ============================================================================
 package tisstudio.metadata.db.cdc.mysql;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import junit.framework.Assert;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +29,7 @@ import org.talend.swtbot.items.TalendDBItem;
  * DOC fzhong class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DeleteSubscriberTest extends TalendSwtBotForTos {
+public class ViewAllChangesTest extends TalendSwtBotForTos {
 
     private TalendDBItem dbItem, copy_of_dbItem;
 
@@ -54,21 +50,20 @@ public class DeleteSubscriberTest extends TalendSwtBotForTos {
     }
 
     @Test
-    public void deleteSubscriberTest() {
+    public void viewAllChangesTest() {
         dbItem.createCDCWith(copy_of_dbItem);
         dbItem.addCDCFor(TABLE_NAME);
 
-        dbItem.deleteSubscribersFor(TABLE_NAME, "APP1");
+        String sql_i = "insert into " + TABLE_NAME + " values(1, 'a');\n";
+        String sql_u = "update " + TABLE_NAME + " set name='b' where id=1;\n";
+        String sql_d = "delete from " + TABLE_NAME + " where id=1;\n";
+        dbItem.executeSQL(sql_i + sql_u + sql_d);
 
-        copy_of_dbItem.retrieveDbSchema("tsubscribers");
-        SWTBotShell shell = copy_of_dbItem.getSchema("tsubscribers").dataViewer();
-
-        SWTBotTree tree = gefBot.tree();
-        List<String> subscriberList = new ArrayList<String>();
-        for (int i = 0; i < tree.rowCount(); i++)
-            subscriberList.add(tree.cell(i, "TALEND_CDC_SUBSCRIBER_NAME"));
+        SWTBotShell shell = dbItem.viewAllChangesFor(TABLE_NAME);
+        int rowCount = gefBot.table().rowCount();
         shell.close();
-        Assert.assertFalse("did not delete subscriber", subscriberList.contains("APP1"));
+
+        Assert.assertEquals("could not view all changed rows", 3, rowCount);
     }
 
     @After

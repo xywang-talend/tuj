@@ -20,7 +20,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.Utilities.DbConnectionType;
 import org.talend.swtbot.items.TalendDBItem;
 
@@ -51,6 +50,5 @@ public class WizardOfCDCFoundationTest extends TalendSwtBotForTos {
     @After
     public void cleanUp() {
         gefBot.button("Cancel").click();
-        Utilities.resetActivePerspective();
     }
 }
