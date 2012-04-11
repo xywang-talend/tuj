@@ -1,5 +1,7 @@
 package com.talend.tac.cases.executePlan;
 
+import java.awt.event.KeyEvent;
+
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -30,14 +32,14 @@ public class TestChangeRootTaskNameOfPlan extends Plan {
 				"enabled");
         selenium.click("//span[@class='x-fieldset-header-text' and text()='Execution task']/ancestor::div[@class=' x-panel x-component']//button[@id='idFormSaveButton']");
         this.waitForElementPresent("//span[@title='testPlanChangeTaskNew' and text()='testPlanChangeTaskNew']", WAIT_TIME);
-        this.openExecutionPlanMenu();
-        this.waitForElementPresent("//span[text()='" + planlabel + "']",
+        this.openExecutionPlanMenu();         
+        selenium.refresh();
+        this.waitForElementPresent("//span[text()='" + planlabel + "']", WAIT_TIME);        
+        selenium.mouseDown("//span[text()='" + planlabel + "']");        
+        this.waitForTextPresent("Task: \""+taskLabel+"\"",
 				WAIT_TIME);
-        selenium.mouseDown("//span[text()='" + planlabel + "']");
-        this.sleep(3000);
-        selenium.click("idSubModuleRefreshButton");
-        this.waitForElementPresent("//span[text()='RootTask']//ancestor::div[@class='x-grid3-viewport']//span[@title='testPlanChangeTaskNew' and text()='testPlanChangeTaskNew']",
-				WAIT_TIME);
+        Assert.assertEquals(selenium.getValue("String idExecutionPlanPlanFormTaskComboBox"), taskLabel);
+        
 	}
 
 }

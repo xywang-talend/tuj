@@ -74,6 +74,9 @@ public class TestPlanPauseAndResume extends Plan {
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+planLabel+"']//ancestor::table[@class='x-grid3-row-table']//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-triggersStatus')]" +
 				"//img[@title='All triggers paused']"), "//span[text()='"+planLabel+"']//ancestor::table[@class='x-grid3-row-table']//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-triggersStatus')]" +
 						"//img[@title='All triggers paused'] is without appear");
+		this.clickWaitForElementPresent("//div[text()='Execution Plan']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//following-sibling::div//button[@id='idTriggerRefresh']");
+		this.waitForElementPresent("//span[text()='"+triggerLabel+"']//ancestor::table[@class='x-grid3-row-table']" +
+				"//img[@title='Paused']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+triggerLabel+"']//ancestor::table[@class='x-grid3-row-table']" +
 				"//img[@title='Paused']"), "//span[text()='"+triggerLabel+"']//ancestor::table[@class='x-grid3-row-table']//img[@title='Paused'] is without appear");
 		
@@ -125,21 +128,13 @@ public class TestPlanPauseAndResume extends Plan {
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+planLabel+"']//ancestor::table[@class='x-grid3-row-table']//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-triggersStatus')]" +
 				"//img[@title='At least one Trigger is running' ]"), "//span[text()='"+planLabel+"']//ancestor::table[@class='x-grid3-row-table']//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-triggersStatus')]" +
 						"//img[@title='At least one Trigger is running' ] is without appear");
+		this.clickWaitForElementPresent("//div[text()='Execution Plan']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//following-sibling::div//button[@id='idTriggerRefresh']");
 		this.waitForElementPresent("//span[text()='"+triggerLabel+"']//ancestor::table[@class='x-grid3-row-table']" +
 		"//img[@title='Normal']", WAIT_TIME);
         Assert.assertTrue(selenium.isElementPresent("//span[text()='"+triggerLabel+"']//ancestor::table[@class='x-grid3-row-table']" +
 		"//img[@title='Normal']"), "//span[text()='"+triggerLabel+"']//ancestor::table[@class='x-grid3-row-table']//img[@title='Normal'] is without appear");
         Assert.assertTrue(this.waitForTextPresent("[RUNNING]", 100));
-//        this.waitForElementPresent("//span[text()='"+planLabel+"']//ancestor::tr" +
-//				"//span[text()='Running...']", WAIT_TIME);
-//        Assert.assertTrue(selenium.isElementPresent("//span[text()='"+planLabel+"']//ancestor::tr" +
-//				"//span[text()='Running...']"));
         Assert.assertTrue(this.waitForTextPresent("[OK]", MAX_WAIT_TIME));
-//        this.waitForElementPresent("//span[text()='planPauseAndResumeLabel']//ancestor::tr//span" +
-//        		"[text()='Ready to run']", WAIT_TIME);
-//        Assert.assertTrue(selenium.isElementPresent("//span[text()='planPauseAndResumeLabel']//ancestor::tr" +
-//        		"//span[text()='Ready to run']")); 
-      
 		this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
     	Assert.assertTrue(selenium.isElementPresent("//div[text()='"+rb.getString("menu.jobConductor")+"']"));
