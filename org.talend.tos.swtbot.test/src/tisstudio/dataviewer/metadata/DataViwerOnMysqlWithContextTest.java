@@ -18,6 +18,7 @@ import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -95,6 +96,12 @@ public class DataViwerOnMysqlWithContextTest extends TalendSwtBotForTos {
         int number = gefBot.tree().rowCount();
         Assert.assertEquals("the result is not the expected result", 1, number);
         gefBot.activeShell().close();
+    }
+
+    @After
+    public void dropTable() {
+        String sql = "drop table " + TABLENAME + ";";
+        dbItem.executeSQL(sql);
     }
 
 }
