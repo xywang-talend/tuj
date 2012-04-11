@@ -23,14 +23,17 @@ this.clickElementByXpath(locator.getString("xpath.record.delete.record.choose.ye
 			this.clickElementByXpath("//button[text()='No']");		
 		}
 }
-public void JournalOpenRecord(String entity,String key,String OperationType){
-	 int recordCount;
-	 boolean result;
-	//click the journal
+public void openJournal(String entity,String key,String OperationType){
+	enterJournal(entity,key,OperationType);	
+	JournalResultCount();		
+}
+
+
+public void enterJournal(String entity,String key,String OperationType){
 	clickJournal();
 	//input the search condition
-	this.modifyText(this.getElementByXpath(locator.getString("xpath.record.choose.journal.entity")),entity);
-	this.modifyText(this.getElementByXpath(locator.getString("xpath.record.choose.journal.key")),key);
+	this.modifyText(this.getElementByXpath(locator.getString("xpath.record.choose.journal.entity")),entity);	
+	this.modifyText(this.getElementByXpath(locator.getString("xpath.record.choose.journal.key")),key);	
 	this.clickElementByXpath(locator.getString("xpath.record.choose.journal.operation.arrows")); 
 	this.clickElementByXpath(this.getString(locator,"xpath.record.choose.journal.operation.choose",OperationType)); 		
 	this.sleepCertainTime(2000);
@@ -47,14 +50,27 @@ public void JournalOpenRecord(String entity,String key,String OperationType){
 	} catch (AWTException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-	}		
-	recordCount=Integer.parseInt(this.getElementByXpath(locator.getString("xpath.record.journal.count")).getText().split("of")[1].trim());
+	}	
+	
+}
+public void JournalResultCount(){
+	 int recordCount;
+	 boolean result;
+	 String recordSearchResult;	
+		recordSearchResult=this.getElementByXpath(locator.getString("xpath.record.update.journal.price")).getText();
+		if (recordSearchResult.contains("No data to display"))
+		{	recordCount=0;				
+		}
+		else
+		{
+	recordCount=Integer.parseInt(this.getElementByXpath(locator.getString("xpath.record.journal.count")).getText().split("of")[1].trim());}
 	if (recordCount>0)
 	{result=true;}
 	else
 	{	result=false;}
 	Assert.assertTrue(result);	
 }
+
 public void JournalCheckResult(String key,String OperationType){
 	String[] parameters={key,OperationType};
 	this.sleepCertainTime(3000);
@@ -68,17 +84,16 @@ public void JournalCheckResult(String key,String OperationType){
 	this.clickElementByXpath(this.getString(locator, "xpath.record.choose.journal.choose.record", parameters));
 	this.doubleClick(this.getElementByXpath(this.getString(locator, "xpath.record.choose.journal.choose.record", parameters)));
 	this.clickElementByXpath(locator.getString("xpath.record.journal.click.info"));		
-//	this.sleepCertainTime(3000);
-	/*this.isElementPresent(By.xpath("//button[text()='Open Record']"), WAIT_TIME_MIN);
-	this.clickElementByXpath("//button[text()='Open Record']");	*/
+
 }
 public void searchDateAssert(String searchFeild,String opeartion,String value,String entity){
-	String[] parametersSearch={entity,searchFeild};
 	int recordCount;
 	Date[] dates;
 	Date searchDate = null;
 	boolean result = false;	
-	String recordSearchResult;
+	String recordSearchResult;	
+	entity=entity.replaceAll(" ","");
+	String[] parametersSearch={entity,searchFeild};
 	logger.info(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText());
 	recordSearchResult=this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText();
 	if (recordSearchResult.contains("No data to display"))
@@ -107,9 +122,7 @@ public void searchDateAssert(String searchFeild,String opeartion,String value,St
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-	   logger.info("$$$$$$$"+dates[i]);
-	   logger.info("$$$$$$$"+value);
+
 	    if (opeartion.contains("equals"))
 	    {
 	      if (dates[i].equals(searchDate))
@@ -143,8 +156,7 @@ public void searchDateAssert(String searchFeild,String opeartion,String value,St
 		
 	  }
 	}
-}
-	
+   }	
 	}
 	Assert.assertTrue(result); 	
 	
@@ -154,29 +166,27 @@ public void searchDateAssert(String searchFeild,String opeartion,String value,St
 public void searchStringAssert(String searchFeild,String opeartion,String value,String entity){
 	int recordCount;
 	String[] names;
-	logger.info(value+"****************************");
+	entity=entity.replaceAll(" ","");
+	String[] parameters={entity,searchFeild};
 	boolean result = false;	
 	String recordSearchResult;
+	
 	logger.info(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText());
 	recordSearchResult=this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText();
 	if (recordSearchResult.contains("No data to display"))
-	{
-		recordCount=0;	
+	{	recordCount=0;	
 		logger.info("No data to display");
 		result = true;
 	}
 	else
 	{
-	recordCount=Integer.parseInt(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText().split("of")[1].trim());
-	logger.info(recordCount);
+	recordCount=Integer.parseInt(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText().split("of")[1].trim());	
 	names = new String[recordCount];
 	for (int i=0; i<=recordCount-1; i++)
   {                                              
-		String names_text=this.getElementsByXpath(this.getString(locator, "xpath.record.search.record.value",searchFeild)).get(i).getText();
+		String names_text=this.getElementsByXpath(this.getString(locator, "xpath.record.search.record.value",parameters)).get(i).getText();
 	 if( !names_text.equals(" ")){          
-		 names[i]=this.getElementsByXpath(this.getString(locator, "xpath.record.search.record.value",searchFeild)).get(i).getText();
-	  // logger.info("$$$$$$$4"+names[i]);
-	    //logger.info("$$$$$$$4"+value);
+		 names[i]=this.getElementsByXpath(this.getString(locator, "xpath.record.search.record.value",parameters)).get(i).getText();
 		 if (opeartion.contains("contains the word(s)"))
 	    {
 	      if (names[i].contains(value) )
@@ -223,6 +233,8 @@ public void searchValueAssert(String searchFeild,String opeartion,String value,S
 	String recordSearchResult;
 	double[] ages;
 	boolean result = false;
+	entity=entity.replaceAll(" ","");
+	String[] parameters={entity,searchFeild};
 	logger.info(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText());
 	recordSearchResult=this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText();
 	if (recordSearchResult.contains("No data to display"))
@@ -237,13 +249,10 @@ public void searchValueAssert(String searchFeild,String opeartion,String value,S
 	logger.info(recordCount);
 	ages = new double[recordCount];
 	for (int i=0; i<=recordCount-1; i++)
-  {     logger.info(entity);
-        logger.info(searchFeild);
-		logger.info("________"+this.getString(locator, "xpath.record.search.record.value",searchFeild)+"%%%%%%%");         
-		
-		String age_text=this.getElementsByXpath(this.getString(locator, "xpath.record.search.record.value",searchFeild)).get(i).getText();
+  {   		
+		String age_text=this.getElementsByXpath(this.getString(locator, "xpath.record.search.record.value",parameters)).get(i).getText();
 	 if( !age_text.equals(" ")){ 
-		ages[i]=Double.parseDouble(this.getElementsByXpath(this.getString(locator, "xpath.record.search.record.value",searchFeild)).get(i).getText());
+		ages[i]=Double.parseDouble(this.getElementsByXpath(this.getString(locator, "xpath.record.search.record.value",parameters)).get(i).getText());
 		logger.info(ages[i]);
 	   if (opeartion.contains("is greater than"))
 	    {
@@ -321,7 +330,8 @@ public void searchCondition(String searchFeild,String opeartion,String value) {
 	searchOpeartion(opeartion);
 	searchValue(value);	
 	//click the search button	
-	this.clickElementByXpath(locator.getString("xpath.record.search.click"));	 
+	this.clickElementByXpath(locator.getString("xpath.record.search.click"));	
+	this.sleepCertainTime(3000);
    }
 
 public void searchFeild(String searchFeild){

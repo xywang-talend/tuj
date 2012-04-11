@@ -28,18 +28,45 @@ public class RecordImplProduct extends Record{
 		chooseEntity(entity);
 		clickExport();
 		this.sleepCertainTime(8000);
-	    
-			}
-	
+		}	
 	
 	public void restoreFromRecycleImpl(String container,String modle,String entity,String feild2Value,String feild2Name){
 		
 	}
-	public void deleteRecordImpl(String container,String modle,String entity,String feild2Value,String feild2Name,String feild1Name){
-			}	
+	public void deleteRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue){
+		OperationType="PHYSICAL_DELETE";
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);			
+		chooseRcord(entity,UniqueId,UniqueIdValue);			
+	    this.sleepCertainTime(5000);
+	    deleteTheRecord(entity);
+	    this.sleepCertainTime(5000);
+	    openJournal(entity,UniqueIdValue,OperationType);
+	}	
 	public void deleteRecordToRecycleImpl(String container,String modle,String entity,String feild2Value,String feild2Name,String feild1Name){
 		}
-	public void duplicateRecordImpl(String container,String modle,String entity,String feild2Value_old,String feild2Value,String feild2Name,String feild1Name){
+	public void testDuplicateRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String UniqueIdValueDup) {
+		String[] parametersUniqueId={entity,UniqueId};	
+		String[] parametersUniqueIdAssert={entity,UniqueId,UniqueIdValueDup};	
+		String[] parametersUniqueIdValue={entity,UniqueIdValue};
+		    OperationType="CREATE";
+			chooseContainer(container);	
+			chooseModle(modle);
+			clickSave();
+			chooseEntity(entity);
+			chooseRcord(entity,UniqueId,UniqueIdValue);		
+			this.sleepCertainTime(3000);
+			this.clickElementByXpath(locator.getString("xpath.record.Duplicate.click"));			
+			this.sleepCertainTime(3000);			
+			this.clickElementByXpath(this.getString(locator,"xpath.record.Duplicate.close.origin",parametersUniqueIdValue));	
+			this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.Duplicate.input",parametersUniqueId)), UniqueIdValueDup);
+			this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
+			this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
+			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersUniqueIdAssert)), WAIT_TIME_MAX),"createARecord");
+			this.sleepCertainTime(3000); 			
+			openJournal(entity,UniqueIdValueDup,OperationType);
 		}	
    public void createRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String Name,String NameValue,String Description,String DescriptionValue,String Price,String PriceValue) {
 	        OperationType="CREATE";
@@ -67,7 +94,7 @@ public class RecordImplProduct extends Record{
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersDescriptionAssert)), WAIT_TIME_MAX),"createARecord");
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersPriceAssert)), WAIT_TIME_MAX),"createARecord");
 			this.sleepCertainTime(3000);		    
-			JournalOpenRecord(entity,UniqueIdValue,OperationType);
+			openJournal(entity,UniqueIdValue,OperationType);
 }
 	public void testUpdateCheckAvailabilityRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue){
 		String availability;
@@ -103,7 +130,7 @@ public class RecordImplProduct extends Record{
 		this.sleepCertainTime(3000); 
 				
 				
-		JournalOpenRecord(entity,UniqueIdValue,OperationType);
+		openJournal(entity,UniqueIdValue,OperationType);
 		JournalCheckResult(UniqueIdValue,OperationType);
 		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='Availability:true']"), WAIT_TIME_MIN));
 		}
@@ -111,8 +138,7 @@ public class RecordImplProduct extends Record{
   
 	
 	public void testUpdateCompleteStoreUrlRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String name,String url){
-		OperationType="UPDATE";
-	
+		OperationType="UPDATE";	
 		String[] parameters={name,url};
 		chooseContainer(container);	
 		chooseModle(modle);
@@ -121,8 +147,8 @@ public class RecordImplProduct extends Record{
 		chooseRcord(entity,UniqueId,UniqueIdValue);		
 		this.sleepCertainTime(3000);
 		this.clickElementByXpath(locator.getString("xpath.record.update.url"));
-		this.sleepCertainTime(3000);
-		this.typeTextByXpath(locator.getString("xpath.record.update.url.input.name"),name);
+		this.sleepCertainTime(3000);		
+		this.modifyText(this.getElementByXpath(locator.getString("xpath.record.update.url.input.name")),name);
 		this.modifyText(this.getElementByXpath(locator.getString("xpath.record.update.url.input.url")),url);
 		this.sleepCertainTime(3000);
 		this.clickElementByXpath(locator.getString("xpath.record.update.url.input.save"));
@@ -133,16 +159,66 @@ public class RecordImplProduct extends Record{
 		else{
 		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));			
 		this.sleepCertainTime(3000); 				
-		JournalOpenRecord(entity,UniqueIdValue,OperationType);
+		openJournal(entity,UniqueIdValue,OperationType);
 		JournalCheckResult(UniqueIdValue,OperationType);		
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.url.update.assert", parameters)), WAIT_TIME_MIN));
 		}	
 	}
+	   public void testUpdatePriceRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String Price,String PriceValue,String flag,String PriceValueOld) {
+		    
+		    OperationType="UPDATE";
+			chooseContainer(container);	
+			chooseModle(modle);
+			clickSave();
+			chooseEntity(entity);
+			chooseRcord(entity,UniqueId,UniqueIdValue);	
+			
+			String[] parametersPrice={entity,Price};
+			this.sleepCertainTime(3000);
+			this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersPrice)), PriceValue);
+			this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
+			if (flag.equals("0"))
+			{			
+			 if (this.isElementPresent(By.xpath(locator.getString("xpath.record.update.price.max")), WAIT_TIME_MAX)){
+				 this.clickElementByXpath("//button[text()='Ok']");	
+				 enterJournal(entity,UniqueIdValue,OperationType);	
+				 JournalCheckResult(UniqueIdValue,OperationType);
+				  Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.price.assert", PriceValueOld)), WAIT_TIME_MIN));
+			 }
+			}
+			if (flag.equals("1"))
+			{			
+			 if (this.isElementPresent(By.xpath(locator.getString("xpath.record.update.price.min")), WAIT_TIME_MAX)){
+				 this.clickElementByXpath("//button[text()='Ok']");	
+				 enterJournal(entity,UniqueIdValue,OperationType);	
+				 JournalCheckResult(UniqueIdValue,OperationType);
+				  Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.price.assert", PriceValueOld)), WAIT_TIME_MIN));
+			 }
+			}
+			if (flag.equals("2"))
+			{			
+			  enterJournal(entity,UniqueIdValue,OperationType);	 
+			  JournalCheckResult(UniqueIdValue,OperationType);
+			  Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.price.assert", PriceValue)), WAIT_TIME_MIN));
+			}
+			
+}
 	public void SearchRecordByValueImpl(String container,String modle,String entity,String searchFeild,String opeartion,String value){
-		
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);	
+		searchCondition(searchFeild,opeartion,value);
+		searchValueAssert(searchFeild,opeartion,value,entity);	
 	}
 	public void SearchRecordByStringImpl(String container,String modle,String entity,String searchFeild,String opeartion,String value){
 
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);	
+		searchCondition(searchFeild,opeartion,value);
+		searchStringAssert(searchFeild,opeartion,value,entity);
 		
 	}
 	

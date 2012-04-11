@@ -73,7 +73,7 @@ public class RecordImplProductFamily extends Record{
 	    this.sleepCertainTime(5000);
 	    deleteTheRecord(entity);
 	    this.sleepCertainTime(5000);
-	    JournalOpenRecord(entity,key,OperationType);
+	    openJournal(entity,key,OperationType);
 	}
 
 	public void deleteRecordToRecycleImpl(String container,String modle,String entity,String feild2Value,String feild2Name,String feild1Name){
@@ -99,7 +99,7 @@ public class RecordImplProductFamily extends Record{
 				}
 		//go to journal to check
 		this.sleepCertainTime(3000);
-	    JournalOpenRecord(entity,key,OperationType);
+	    openJournal(entity,key,OperationType);
 		// assert the record which been deleted in the recycle
 		clickRecycle();	
 		//this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.assert.clickRefresh")); 
@@ -133,7 +133,7 @@ public class RecordImplProductFamily extends Record{
 		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersFeild2Assert)), WAIT_TIME_MAX),"createARecord");
 		this.sleepCertainTime(3000); 
-		JournalOpenRecord(entity,key,OperationType);
+		openJournal(entity,key,OperationType);
 	}	
 public void createRecordImpl(String container,String modle,String entity,String feild2Value,String feild2Name,String feild1Name){
 	        OperationType="CREATE";
@@ -154,7 +154,7 @@ public void createRecordImpl(String container,String modle,String entity,String 
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersFeild2Assert)), WAIT_TIME_MAX),"createARecord");
 		    this.sleepCertainTime(3000); 
 		    key=this.getValue(this.getElementByXpath(this.getString(locator,"xpath.record.get.uuid",parametersFeild1)));
-			JournalOpenRecord(entity,key,OperationType);
+			openJournal(entity,key,OperationType);
 }
 	public void updateRecordImpl(String container,String modle,String entity,String feild2Value_old,String feild2Value,String feild2Name,String feild1Name){
 		OperationType="UPDATE";
@@ -181,7 +181,7 @@ public void createRecordImpl(String container,String modle,String entity,String 
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersFeild2Assert)), WAIT_TIME_MAX),"updateARecord");
 		this.sleepCertainTime(3000); 
 		key=this.getValue(this.getElementByXpath(this.getString(locator,"xpath.record.get.uuid",parametersFeild1)));
-		JournalOpenRecord(entity,key,OperationType);
+		openJournal(entity,key,OperationType);
 		}
 	}
 	public void SearchRecordByValueImpl(String container,String modle,String entity,String searchFeild,String opeartion,String value){
