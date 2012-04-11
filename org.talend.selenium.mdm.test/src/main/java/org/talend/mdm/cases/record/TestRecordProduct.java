@@ -78,7 +78,11 @@ public class TestRecordProduct extends Login {
 		recordImpl.SearchRecordByDateImpl(container, modle, entity, searchFeild,opeartion,value);
 	}
 	
-	
+	@Test
+//	@Parameters( { "container","modle","entity","searchFeild", "opeartion", "value" })
+	public void testPriceChangeWorkflow() {
+		recordImpl.priceChangeWorkFlowImpl();
+	}
 	
 	
 }

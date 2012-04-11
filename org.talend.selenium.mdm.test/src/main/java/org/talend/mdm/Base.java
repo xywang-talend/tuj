@@ -197,6 +197,8 @@ public class Base {
 	}
 	
 	public void typeString(WebElement ele,String value){
+		Assert.assertTrue(ele.isEnabled());
+//		ele.click();
 		ele.clear();
 		ele.sendKeys(value);
 	}
@@ -494,5 +496,17 @@ public class Base {
 			path = path.replace("/", "\\");
 		}
 		return path;
+	}
+	
+	public void seletDropDownList(By by,String option){
+		
+		Assert.assertTrue(this.isElementPresent(by, 3000));
+		Assert.assertTrue(this.waitfor(by, 50)!=null);
+//		this.clickElementByXpath(locator.getString("xpath.datatewardship.administration.createtask.panel.taskproperties.tasktype.arrow"));	
+		this.waitfor(by, WAIT_TIME_MIN).click();
+//		this.clickElementByXpath(locator.getString("xpath.datatewardship.administration.createtask.panel.taskproperties.tasktype.arrow"));		
+		this.isElementPresent(By.xpath("//div[contains(@class,'x-combo-list-item') and contains(text(),'"+option+"')]"),WAIT_TIME_MAX);
+		this.clickElementByXpath("//div[contains(@class,'x-combo-list-item') and contains(text(),'"+option+"')]");
+	
 	}
 }

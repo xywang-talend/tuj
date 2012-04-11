@@ -3,6 +3,8 @@ package org.talend.mdm.impl;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -146,4 +148,93 @@ public class RecordImplProduct extends Record{
 	
 	public void SearchRecordByDateImpl(String container,String modle,String entity,String searchFeild,String opeartion,String value){
 		
-}}
+    }
+	
+	public void priceChangeWorkFlowImpl(){
+		LogonImpl log = new LogonImpl(this.driver);
+	/*	log.logout();
+		log.loginUserForce("frank", "frank");*/
+		this.chooseContainer("Product");
+		this.chooseModle("Product");
+		this.clickSave();
+		this.clickElementByXpath("//span[contains(@class,'x-panel-header-text') and text()='Actions']//ancestor::div[contains(@class,'x-panel x-component x-border-panel')]//div[contains(@class,'x-nodrag x-tool-right x-tool x-component')]");
+		this.chooseEntity("Product");
+		
+/*		this.clickElementByXpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-Product/Id') and text()='231035933']");
+		
+		this.openJournalFromDataBrowser();
+		this.sleepCertainTime(5000);
+		int beforeProcess = this.getElementsByXpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-8') and contains(text(),'frank')]//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner x-grid3-col-5') and contains(text(),'ACTION')]").size();
+		logger.info("beforeProcess:"+beforeProcess);
+		this.closeJournal();
+			
+		this.sleepCertainTime(5000);
+		Assert.assertFalse(this.getElementByXpath("//div[text()='Price']//ancestor::tr//input").isEnabled());
+//		this.clickElementByXpath("//div[contains(@class,'x-small-editor x-toolbar ItemDetailToolBar x-component x-toolbar-layout-ct')]//table[contains(@class,'x-toolbar-right-ct')]//em[@class='x-btn-arrow']");
+		this.sleepCertainTime(5000);
+//		this.clickElementByXpath("//div[contains(@class,'x-small-editor x-toolbar ItemDetailToolBar x-component x-toolbar-layout-ct')]//table[contains(@class,'x-toolbar-right-ct')]//div[contains(@class,'x-form-field-wrap  x-component')]//img");
+		this.seletDropDownList(By.xpath("//div[contains(@class,'x-small-editor x-toolbar ItemDetailToolBar x-component x-toolbar-layout-ct')]//table[contains(@class,'x-toolbar-right-ct')]//div[contains(@class,'x-form-field-wrap  x-component')]//img"), "Request Price Change");
+		this.clickElementByXpath("//div[contains(@class,'x-small-editor x-toolbar ItemDetailToolBar x-component x-toolbar-layout-ct')]//table[contains(@class,'x-toolbar-right-ct')]//button");
+		this.sleepCertainTime(5000);
+		this.waitfor(By.xpath("//span[text()='Process done']"), WAIT_TIME_MID);
+		this.clickElementByXpath("//div[contains(@class,'x-window-plain x-window-dlg x-window x-component')]//button[contains(text(),'Ok')]");
+        this.sleepCertainTime(5000);
+        List a = new ArrayList<String>();
+        for (String handle : driver.getWindowHandles()) {
+        a.add(handle);
+        }
+        driver.switchTo().window(a.get(1).toString());
+        Assert.assertTrue(this.waitfor(By.xpath("//div[contains(@id,'welcome-container')]"), WAIT_TIME_MIN)!=null);
+        driver.switchTo().window(a.get(0).toString());
+    	this.openJournalFromDataBrowser();
+    	this.sleepCertainTime(5000);
+		int afterProcess = this.getElementsByXpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-8') and contains(text(),'frank')]//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner x-grid3-col-5') and contains(text(),'ACTION')]").size();
+		logger.info("afterProcess:"+afterProcess);
+		Assert.assertTrue(afterProcess-beforeProcess==1);
+		this.closeJournal();
+		WorkFlowTaskImpl flow = new WorkFlowTaskImpl(this.driver);
+		flow.openMenuGoven();
+		flow.openMenuWorkFlowTask();
+		flow.sortWorkFlowTaskBydate();
+	    flow.openAWorkTask();
+	    flow.changeProductPriceValidImpl(16.99, 0.05);
+	    */log.logout();
+	    log.loginUserForce("jennifer", "jennifer");
+//		this.chooseContainer("Product");
+//		this.chooseModle("Product");
+//		this.clickSave();
+//		this.clickElementByXpath("//span[contains(@class,'x-panel-header-text') and text()='Actions']//ancestor::div[contains(@class,'x-panel x-component x-border-panel')]//div[contains(@class,'x-nodrag x-tool-right x-tool x-component')]");
+//		this.chooseEntity("Product");
+	    WorkFlowTaskImpl flow = new WorkFlowTaskImpl(this.driver);
+		flow.openMenuGoven();
+		flow.openMenuWorkFlowTask();
+		flow.sortWorkFlowTaskBydate();
+	    flow.openAWorkTask();
+	    String price = this.getElementByXpath("//label[text()='Price:']//ancestor::div[contains(@class,'x-form-item')]//input").getAttribute("value");
+	    this.sleepCertainTime(10000);
+	    logger.info(this.getText());
+	    flow.approveBoxChecked();
+	    flow.clickSubmit();
+	 	this.waitfor(By.xpath("//span[contains(text(),'Successfully submitted.')]"), WAIT_TIME_MID);
+    	this.clickElementByXpath("//span[contains(text(),'Successfully submitted.')]//ancestor::div[contains(@class,'x-window-bwrap')]//button[text()='OK']");
+	    flow.openRelatedRecord();
+	    this.sleepCertainTime(5000);
+	    
+	    
+	}
+	
+	public void openJournalFromDataBrowser(){
+		
+		this.clickElementByXpath("//div[contains(@class,'x-small-editor x-toolbar ItemDetailToolBar x-component x-toolbar-layout-ct')]//button[contains(text(),'Journal')]");
+		
+	}
+	
+    public void closeJournal(){
+		
+		this.clickElementByXpath("//span[contains(@class,'x-tab-strip-text') and contains(text(),'Journal')]//ancestor::li[contains(@class,'x-tab-strip-closable  x-component')]//a[contains(@class,'x-tab-strip-close')]");
+	
+    }
+	
+
+
+}
