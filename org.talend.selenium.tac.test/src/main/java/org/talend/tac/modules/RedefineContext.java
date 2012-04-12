@@ -127,7 +127,7 @@ public class RedefineContext extends WebDriverBase {
 		   this.getElementById("idESBConductorTaskGridDeployButton").click();
            this.clickElementById(other.getString("ESBConductor.DeployButtonId"));
            try {
-			Thread.sleep(4000);
+			Thread.sleep(3000);
 			logger.info("--------PromptInfo:"+promptInfo);
 	        this.waitforTextDisplayed(promptInfo, WAIT_TIME_MIN);
 		} catch (InterruptedException e) {
@@ -177,7 +177,7 @@ public class RedefineContext extends WebDriverBase {
     	   this.mouseDown("//div[text()='" + label + "']");
     	   this.mouseDown("//span[text()='Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input");
            this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertyDeleteButton']"), WAIT_TIME_MIN);
-  //  	   this.getElementById("idESBConductorPropertyDeleteButton").click();
+    	   this.getElementById("idESBConductorPropertyDeleteButton").click();
     	   this.clickElementById("idESBConductorPropertyDeleteButton");
            this.dismissAlert(); 
        }
