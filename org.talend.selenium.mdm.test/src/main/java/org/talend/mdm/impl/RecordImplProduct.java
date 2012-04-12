@@ -62,11 +62,15 @@ public class RecordImplProduct extends Record{
 			this.sleepCertainTime(3000);
 			this.clickElementByXpath(locator.getString("xpath.record.Duplicate.click"));			
 			this.sleepCertainTime(3000);			
-			this.clickElementByXpath(this.getString(locator,"xpath.record.Duplicate.close.origin",parametersUniqueIdValue));	
+			this.clickElementByXpath(this.getString(locator,"xpath.record.Duplicate.close.origin",parametersUniqueIdValue));
+			this.sleepCertainTime(3000); 
 			this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.Duplicate.input",parametersUniqueId)), UniqueIdValueDup);
+			this.sleepCertainTime(3000); 
 			this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
+			this.sleepCertainTime(3000); 
 			this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersUniqueIdAssert)), WAIT_TIME_MAX),"createARecord");
+			this.sleepCertainTime(3000); 
+			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersUniqueIdAssert)), WAIT_TIME_MAX),"duplicateARecord");
 			this.sleepCertainTime(3000); 			
 			openJournal(entity,UniqueIdValueDup,OperationType);
 		}	
@@ -134,7 +138,9 @@ public class RecordImplProduct extends Record{
 		}
 		this.sleepCertainTime(3000); 
 		openJournal(entity,UniqueIdValue,OperationType);
+		this.sleepCertainTime(3000); 
 		JournalCheckResult(UniqueIdValue,OperationType);
+		this.sleepCertainTime(3000); 
 		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='Availability:true']"), WAIT_TIME_MIN));
 		}
 	}
@@ -163,6 +169,7 @@ public class RecordImplProduct extends Record{
 		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));			
 		this.sleepCertainTime(3000); 				
 		openJournal(entity,UniqueIdValue,OperationType);
+		this.sleepCertainTime(3000); 
 		JournalCheckResult(UniqueIdValue,OperationType);
 		this.sleepCertainTime(3000);
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.url.update.assert", parameters)), WAIT_TIME_MIN));
