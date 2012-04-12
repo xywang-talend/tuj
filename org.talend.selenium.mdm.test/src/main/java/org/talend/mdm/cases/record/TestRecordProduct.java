@@ -79,6 +79,10 @@ public class TestRecordProduct extends Login {
 		recordImpl.priceChangeWorkFlowValidNotApprovedImpl(userFrank, frankPass, userJennifer, jenniferPass, container, model, entity,productUniqID);
 	}
 	
-	
+	@Test
+	@Parameters( {"user.frank.name","user.frank.password","user.jennifer.name","user.jennifer.password", "container","modle","entity","UniqueIdValue"})
+	public void testPriceChangeInvalidWorkflow(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID) {
+		recordImpl.priceChangeWorkFlowInValidImpl(userFrank, frankPass, userJennifer, jenniferPass, container, model, entity,productUniqID);
+	}
 	
 }
