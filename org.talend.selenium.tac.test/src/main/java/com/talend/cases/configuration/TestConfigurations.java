@@ -21,34 +21,34 @@ public class TestConfigurations extends configuration {
   @Parameters({"commandline.conf.primary.host","commandline.conf.primary.port","commandline.conf.primary.archivePath"})
   public void testSetCommandlinePrimary(String commandlineHost,String commandlinePort,String commandlinePath) {
 	
-	  this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'CommandLine/primary')]");
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),other.getString("commandline.conf.primary.host.input"), commandlineHost);
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.port.editButton"),other.getString("commandline.conf.primary.port.input"), commandlinePort);
 	  this.typeWordsInConfigurationMenu(other.getString("commandLine.conf.primary.archivePath.editButton"),other.getString("commandLine.conf.primary.archivePath.input"), this.getAbsolutePath(commandlinePath));
 
-	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),other.getString("commandline.conf.primary.host.input"), commandlineHost,other.getString("commandLine.conf.primary.host.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.port.editButton"),other.getString("commandline.conf.primary.port.input"), commandlinePort,other.getString("commandline.conf.primary.port.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("commandLine.conf.primary.archivePath.editButton"),other.getString("commandLine.conf.primary.archivePath.input"), this.getAbsolutePath(commandlinePath));
+	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.host.value"), commandlineHost,other.getString("commandLine.conf.primary.host.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.port.value"), commandlinePort,other.getString("commandline.conf.primary.port.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.archivePath.value"), this.getAbsolutePath(commandlinePath));
 //	  this.waitForElementPresent(other.getString("commandline.conf.primary.genralStatusIcon"), WAIT_TIME);
 	  //->THIS IS NOT SUIT FOR AUTOMATION CURRENTLY,BECAUSE THE GENERAL ICON STATUS DID'T CHANGE IN TIME, AUTHOUGHT THE PARAMETERS ARE ALL CORRECT.
 
-	  this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'CommandLine/primary')]");
   }
   @Test
   @Parameters ({"commandline.conf.secondary.host","commandline.conf.secondary.port","commandline.conf.secondary.archivePath"})
   public void testSetCommandlineSecondary(String commandlineHost,String commandlinePort,String commandlinePath) {
 	 
-	  this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/secondary')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'CommandLine/secondary')]");
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.secondary.host.editButton"),other.getString("commandline.conf.secondary.host.input"), commandlineHost);
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.secondary.port.editButton"),other.getString("commandline.conf.secondary.port.input"), commandlinePort);
 	  this.typeWordsInConfigurationMenu(other.getString("commandLine.conf.secondary.archivePath.editButton"),other.getString("commandLine.conf.secondary.archivePath.input"), this.getAbsolutePath(commandlinePath));
 	  
-	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.secondary.host.editButton"),other.getString("commandline.conf.secondary.host.input"), commandlineHost,other.getString("commandLine.conf.secondary.host.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.secondary.port.editButton"),other.getString("commandline.conf.secondary.port.input"), commandlinePort,other.getString("commandline.conf.secondary.port.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("commandLine.conf.secondary.archivePath.editButton"),other.getString("commandLine.conf.secondary.archivePath.input"), this.getAbsolutePath(commandlinePath));
+	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.secondary.host.value"), commandlineHost,other.getString("commandLine.conf.secondary.host.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.secondary.port.value"), commandlinePort,other.getString("commandline.conf.secondary.port.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.secondary.archivePath.value"), this.getAbsolutePath(commandlinePath));
 //	  this.waitForElementPresent(other.getString("commandline.conf.secondary.generalStatusIcon"), WAIT_TIME);
 	 
-	  this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/secondary')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'CommandLine/secondary')]");
 	  
   }
   
@@ -72,12 +72,12 @@ public class TestConfigurations extends configuration {
 	  if(selenium.isElementPresent(other.getString("esb.conf.serviceActivityMonitorServer.editButton"))) {
 		  
 		  this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), other.getString("esb.conf.serviceActivityMonitorServer.input"), serviceActivityMonitorServer);
-		  this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), other.getString("esb.conf.serviceActivityMonitorServer.input"),
+		  this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.value"),
 				  serviceActivityMonitorServer, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator"));
 		  
 	  }	 
 	  
-	  this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), other.getString("esb.conf.ZookeeperServer.input"),
+	  this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.value"),
 			  zookeeperServer, other.getString("esb.conf.StopZookeeperServerStatusIconLocator"));
 	  
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]"); 
@@ -105,14 +105,14 @@ public class TestConfigurations extends configuration {
 	  if(selenium.isElementPresent(other.getString("esb.conf.serviceActivityMonitorServer.editButton"))) {
 		  
 		  this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), other.getString("esb.conf.serviceActivityMonitorServer.input"), serviceActivityMonitorServer);
-		  this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), other.getString("esb.conf.serviceActivityMonitorServer.input"),
+		  this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.value"),
 				  serviceActivityMonitorServer, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator"));
 		  
 	  }	 
 	  selenium.click(other.getString("esb.conf.ZookeeperServer.editButton"));
 	  selenium.click(other.getString("esb.conf.ZookeeperServer.input"));
 	  
-	  this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), other.getString("esb.conf.ZookeeperServer.input"),
+	  this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.value"),
 			  zookeeperServer, other.getString("esb.conf.ZookeeperServerStatusIconLocator"));
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");
 	  
@@ -122,9 +122,9 @@ public class TestConfigurations extends configuration {
   }
 
   @Test
-  @Parameters ({"LDAP.conf.useLDAPAutentication","LDAP.conf.ldapServerIp","LDAP.conf.ldapServerPort","LDAP.conf.ldapRoot","LDAP.conf.ldapPrincipalDNPrefix",
+  @Parameters ({"LDAP.conf.useLDAPAutentication", "LDAP.conf.ldapServerIp","LDAP.conf.ldapServerPort","LDAP.conf.ldapRoot","LDAP.conf.ldapPrincipalDNPrefix",
 	  "LDAP.conf.ldapAdminPassword","LDAP.conf.ldap.fields.mail","LDAP.conf.ldap.fields.firstname","LDAP.conf.ldap.fields.lastname"})
-  public void testSetLDAP(String useLDAPAutentication,String ldapServerIp,String ldapServerPort,String ldapRoot,String ldapPrincipalDNPrefix,String ldapAdminPassword,String ldapFieldsMail,String ldapFieldsFirstName,String ldapFieldsLastName ) {
+  public void testSetLDAP(String useLDAPAutentication, String ldapServerIp,String ldapServerPort,String ldapRoot,String ldapPrincipalDNPrefix,String ldapAdminPassword,String ldapFieldsMail,String ldapFieldsFirstName,String ldapFieldsLastName ) {
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),'LDAP (11 Parameters')]");
 	  this.selectDropDownListInConfigurationMenu(other.getString("LDAP.conf.useLDAPAutentication.editButton"), other.getString("LDAP.conf.useLDAPAutentication.select"), useLDAPAutentication);
 	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.ldapServerIp.editButton"), other.getString("LDAP.conf.ldapServerIp.input"), ldapServerIp);
@@ -136,15 +136,15 @@ public class TestConfigurations extends configuration {
 	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.firstname.editButton"), other.getString("LDAP.conf.ldap.fields.firstname.input"), ldapFieldsFirstName);
 	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.lastname.editButton"), other.getString("LDAP.conf.ldap.fields.lastname.input"), ldapFieldsLastName);
 	
-	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.useLDAPAutentication.editButton"), other.getString("LDAP.conf.useLDAPAutentication.input"), useLDAPAutentication);
-	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldapServerIp.editButton"), other.getString("LDAP.conf.ldapServerIp.input"), ldapServerIp);
-	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldapServerPort.editButton"), other.getString("LDAP.conf.ldapServerPort.input"), ldapServerPort);
-	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldapRoot.editButton"), other.getString("LDAP.conf.ldapRoot.input"), ldapRoot);
-	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldapPrincipalDNPrefix.editButton"), other.getString("LDAP.conf.ldapPrincipalDNPrefix.input"), ldapPrincipalDNPrefix);
-	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldapAdminPassword.editButton"), other.getString("LDAP.conf.ldapAdminPassword.input"), ldapAdminPassword);
-	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.mail.editButton"), other.getString("LDAP.conf.ldap.fields.mail.input"), ldapFieldsMail);
-	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.firstname.editButton"), other.getString("LDAP.conf.ldap.fields.firstname.input"), ldapFieldsFirstName);
-	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.lastname.editButton"), other.getString("LDAP.conf.ldap.fields.lastname.input"), ldapFieldsLastName);
+	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.useLDAPAutentication.value"), useLDAPAutentication);
+	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldapServerIp.value"), ldapServerIp);
+	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldapServerPort.value"), ldapServerPort);
+	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldapRoot.value"), ldapRoot);
+	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldapPrincipalDNPrefix.value"), ldapPrincipalDNPrefix);
+	  this.AssertEqualsInputInConfigurationMenu(other.getString("LDAP.conf.ldapAdminPassword.editButton"), other.getString("LDAP.conf.ldapAdminPassword.input"), ldapAdminPassword);
+	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.mail.value"), ldapFieldsMail);
+	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.firstname.value"), ldapFieldsFirstName);
+	  this.AssertEqualsInConfigurationMenu(other.getString("LDAP.conf.ldap.fields.lastname.value"), ldapFieldsLastName);
 	
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),'LDAP (11 Parameters')]");
   }
@@ -152,32 +152,34 @@ public class TestConfigurations extends configuration {
   @Parameters ({"log4j.conf.logsPath","log4j.conf.logsName"})
   public void testSetLog4j(String logsPath,String logsName){
 	  	  
-	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Log4j')]");
 	  this.typeWordsInConfigurationMenu(other.getString("log4j.conf.logsPath.editButton"), other.getString("log4j.conf.logsPath.input"), this.getAbsolutePath(logsPath)+logsName);
- 
-	  this.AssertEqualsInConfigurationMenu(other.getString("log4j.conf.logsPath.editButton"), other.getString("log4j.conf.logsPath.input"),
-			  this.getAbsolutePath(logsPath)+logsName, other.getString("log4j.conf.TalendAppenderStatusIconLocator"));
-	  assertTrue(selenium.isElementPresent(other.getString("log4j.conf.ThresholdStatusIconLocator")));
-	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
-	  this.clickWaitForElementPresent("//div[contains(text(),'Log4j (2 Parameters)')]");  
+	  System.err.println("11>>>>>0"+selenium.getText(other.getString("log4j.conf.logsPath.value")));
+	  System.err.println("22>>>>>0"+this.getAbsolutePath(logsPath)+logsName);
+	  this.AssertEqualsInConfigurationMenu(other.getString("log4j.conf.logsPath.value"),
+			  this.getAbsolutePath(logsPath)+logsName, other.getString("log4j.conf.TechnicalLogThreshold.StatusIcon"));
+	  
+	  assertTrue(selenium.isElementPresent(other.getString("log4j.conf.TechnicalLogThreshold.StatusIcon")));
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Log4j')]");
+	  this.clickWaitForElementPresent("//div[contains(text(),'Log4j')]");  
   }
   @Test
   @Parameters ({"smtp.conf.useSmtp","smtp.conf.mailServerHost","smtp.conf.mailServerPort","smtp.conf.mailUserName","smtp.conf.mailPassword","smtp.conf.serverRequireSSL"})
   public void testSetSMTP(String useSmtp,String mailServerHost,String mailServerPort,String mailUserName,String mailPassword,String serverRequireSSL){//String serverRequireSSL
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),'SMTP')]");
-	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.useSmtp.editButton"), other.getString("smtp.conf.useSmtp.input"), useSmtp);
+	  this.selectDropDownListInConfigurationMenu(other.getString("smtp.conf.useSmtp.editButton"), other.getString("smtp.conf.useSmtp.select"), useSmtp);
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailServerHost.editButton"), other.getString("smtp.conf.mailServerHost.input"), mailServerHost);
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailServerPort.editButton"), other.getString("smtp.conf.mailServerPort.input"), mailServerPort);
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailUserName.editButton"), other.getString("smtp.conf.mailUserName.input"), mailUserName);
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailPassword.editButton"), other.getString("smtp.conf.mailPassword.input"), mailPassword);
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.serverRequireSSL.editButton"), other.getString("smtp.conf.serverRequireSSL.input"), serverRequireSSL);
 	  
-	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.useSmtp.editButton"), other.getString("smtp.conf.useSmtp.input"), useSmtp,other.getString("smtp.conf.useSmtp.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.mailServerHost.editButton"), other.getString("smtp.conf.mailServerHost.input"), mailServerHost,other.getString("smtp.conf.mailServerHost.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.mailServerPort.editButton"), other.getString("smtp.conf.mailServerPort.input"), mailServerPort,other.getString("smtp.conf.mailServerPort.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.mailUserName.editButton"), other.getString("smtp.conf.mailUserName.input"), mailUserName,other.getString("smtp.conf.mailUserName.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.mailPassword.editButton"), other.getString("smtp.conf.mailPassword.input"), mailPassword,other.getString("smtp.conf.mailPassword.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.serverRequireSSL.editButton"), other.getString("smtp.conf.serverRequireSSL.input"), serverRequireSSL,other.getString("smtp.conf.serverRequireSSL.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.useSmtp.value"), useSmtp,other.getString("smtp.conf.useSmtp.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.mailServerHost.value"), mailServerHost,other.getString("smtp.conf.mailServerHost.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.mailServerPort.value"), mailServerPort,other.getString("smtp.conf.mailServerPort.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.mailUserName.value"), mailUserName,other.getString("smtp.conf.mailUserName.statusIcon"));
+	  this.AssertEqualsInputInConfigurationMenu(other.getString("smtp.conf.mailPassword.editButton"), other.getString("smtp.conf.mailPassword.input"), mailPassword);
+	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.serverRequireSSL.value"), serverRequireSSL,other.getString("smtp.conf.serverRequireSSL.statusIcon"));
 //	  this.waitForElementPresent(other.getString("smtp.conf.generalStatusIcon"), WAIT_TIME);
 	  
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),'SMTP')]");  
@@ -187,32 +189,32 @@ public class TestConfigurations extends configuration {
   @Test
   @Parameters ({"scheduler.conf.ArchivedPath","scheduler.conf.LogsPath"})
   public void testSetScheduler(String ArchivedPath,String logsPath){
-	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Conductor (')]"); 
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Job conductor')]"); 
 	  this.typeWordsInConfigurationMenu(other.getString("scheduler.conf.ArchivedPath.editButton"), other.getString("scheduler.conf.ArchivedPath.input"), this.getAbsolutePath(ArchivedPath));
 	  this.typeWordsInConfigurationMenu(other.getString("scheduler.conf.LogsPath.editButton"), other.getString("scheduler.conf.LogsPath.input"), this.getAbsolutePath(logsPath));
-	  this.AssertEqualsInConfigurationMenu(other.getString("scheduler.conf.ArchivedPath.editButton"), other.getString("scheduler.conf.ArchivedPath.input"), this.getAbsolutePath(ArchivedPath),other.getString("scheduler.conf.ArchivedPath.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("scheduler.conf.LogsPath.editButton"), other.getString("scheduler.conf.LogsPath.input"), this.getAbsolutePath(logsPath),other.getString("scheduler.conf.LogsPath.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("scheduler.conf.ArchivedPath.value"), this.getAbsolutePath(ArchivedPath),other.getString("scheduler.conf.ArchivedPath.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("scheduler.conf.LogsPath.value"), this.getAbsolutePath(logsPath),other.getString("scheduler.conf.LogsPath.statusIcon"));
 //	  this.waitForElementPresent(other.getString("scheduler.conf.generalStatusIcon"), WAIT_TIME);
 	 
-	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Conductor (')]"); 
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Job conductor')]"); 
 	//assertEquals
   }
-  	@Test
-  @Parameters ({"soaManager.conf.jobsDeployPath","soaManager.conf.serverAddress","soaManager.conf.serverPort"})
-  public void testSetSoaManager(String soaJobDeployedPath,String soaMangerHost,String soaMangerProt){
-	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Soa manager (')]"); 
-	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.jobsDeployPath.editButton"), other.getString("soaManager.conf.jobsDeployPath.input"), this.getAbsolutePath(soaJobDeployedPath));
-	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.serverAddress.editButton"), other.getString("soaManager.conf.serverAddress.input"), soaMangerHost);
-	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.serverPort.editButton"), other.getString("soaManager.conf.serverPort.input"), soaMangerProt);
-		
-	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.jobsDeployPath.editButton"), other.getString("soaManager.conf.jobsDeployPath.input"), this.getAbsolutePath(soaJobDeployedPath),other.getString("soaManager.conf.jobsDeployPath.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.serverAddress.editButton"), other.getString("soaManager.conf.serverAddress.input"), soaMangerHost,other.getString("soaManager.conf.serverAddress.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.serverPort.editButton"), other.getString("soaManager.conf.serverPort.input"), soaMangerProt,other.getString("soaManager.conf.serverPort.statusIcon"));
-//	  this.waitForElementPresent(other.getString("soaManager.conf.generalStatusIcon"), WAIT_TIME);
-	 
-	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Soa manager (')]"); 
-	//assertEquals
-  }
+//  	@Test
+//  @Parameters ({"soaManager.conf.jobsDeployPath","soaManager.conf.serverAddress","soaManager.conf.serverPort"})
+//  public void testSetSoaManager(String soaJobDeployedPath,String soaMangerHost,String soaMangerProt){
+//	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Soa manager (')]"); 
+//	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.jobsDeployPath.editButton"), other.getString("soaManager.conf.jobsDeployPath.input"), this.getAbsolutePath(soaJobDeployedPath));
+//	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.serverAddress.editButton"), other.getString("soaManager.conf.serverAddress.input"), soaMangerHost);
+//	  this.typeWordsInConfigurationMenu(other.getString("soaManager.conf.serverPort.editButton"), other.getString("soaManager.conf.serverPort.input"), soaMangerProt);
+//		
+//	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.jobsDeployPath.editButton"), other.getString("soaManager.conf.jobsDeployPath.input"), this.getAbsolutePath(soaJobDeployedPath),other.getString("soaManager.conf.jobsDeployPath.statusIcon"));
+//	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.serverAddress.editButton"), other.getString("soaManager.conf.serverAddress.input"), soaMangerHost,other.getString("soaManager.conf.serverAddress.statusIcon"));
+//	  this.AssertEqualsInConfigurationMenu(other.getString("soaManager.conf.serverPort.editButton"), other.getString("soaManager.conf.serverPort.input"), soaMangerProt,other.getString("soaManager.conf.serverPort.statusIcon"));
+////	  this.waitForElementPresent(other.getString("soaManager.conf.generalStatusIcon"), WAIT_TIME);
+//	 
+//	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Soa manager (')]"); 
+//	//assertEquals
+//  }
 
 
   @Test
@@ -223,9 +225,9 @@ public class TestConfigurations extends configuration {
 	  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverUser.editButton"), other.getString("svn.conf.serverUser.input"), svnServerUser);
 	  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverPassword.editButton"), other.getString("svn.conf.serverPassword.input"), svnServerPassword);
 		
-	  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverLocationURL.editButton"), other.getString("svn.conf.serverLocationURL.input"), svnServerLocationUrl,other.getString("svn.conf.serverLocationURL.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverUser.editButton"), other.getString("svn.conf.serverUser.input"), svnServerUser,other.getString("svn.conf.serverUser.statusIcon"));
-	  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverPassword.editButton"), other.getString("svn.conf.serverPassword.input"), svnServerPassword,other.getString("svn.conf.serverPassword.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverLocationURL.value"), svnServerLocationUrl,other.getString("svn.conf.serverLocationURL.statusIcon"));
+	  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverUser.value"), svnServerUser,other.getString("svn.conf.serverUser.statusIcon"));
+	  this.AssertEqualsInputInConfigurationMenu(other.getString("svn.conf.serverPassword.editButton"), other.getString("svn.conf.serverPassword.input"), svnServerPassword);
 //	  this.waitForElementPresent(other.getString("svn.conf.generalStatusIcon"), WAIT_TIME);//assertion of the general icon.It should be green if all the parameters set correctly
 	 
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Svn (')]"); 	
@@ -259,9 +261,9 @@ public class TestConfigurations extends configuration {
    */
 		  
 	@Test//(enabled=true,dependsOnMethods="testSetLog4j")
-	 @Parameters ({"firefox.download.path","log4j.conf.logsName"})
+	@Parameters ({"firefox.download.path","log4j.conf.logsName"})
 	public void testDownloadLog(String downloadPath,String logsName) {
-		this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
+		this.mouseDownWaitForElementPresent("//div[contains(text(),' CommandLine/primary')]");
 		this.clickWaitForElementPresent("//button[text()='Download Log']");
 		
 		try {
@@ -302,7 +304,7 @@ public class TestConfigurations extends configuration {
 	@Test//(enabled=false)
 	@Parameters ({"firefox.download.path"})
 	public void testExportParameters(String downloadPath) {
-		this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
+		this.mouseDownWaitForElementPresent("//div[contains(text(),' CommandLine/primary')]");
 		this.clickWaitForElementPresent("//button[text()='Export parameters']");
 		
 		try {

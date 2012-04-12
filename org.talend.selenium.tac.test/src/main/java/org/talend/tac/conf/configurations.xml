@@ -14,10 +14,10 @@
 	<parameter name="log4j.conf.logsName" value="talendappender.log" />
 	
 	<!-- SMTP wrong parameters -->	
-	<parameter name="smtp.conf.wrong.mailServerHost" value="smtp.wrong.163.com" />
+	<parameter name="smtp.conf.wrong.mailServerHost" value="smtp.wrong.126.com" />
 	<parameter name="smtp.conf.wrong.mailServerPort" value="25.wrong" />
-	<parameter name="smtp.conf.wrong.mailUserName" value="lindy512163.com.wrong" />
-	<parameter name="smtp.conf.wrong.mailPassword" value="talend.wrong" />
+	<parameter name="smtp.conf.wrong.mailUserName" value="talend@126.com.wrong" />
+	<parameter name="smtp.conf.wrong.mailPassword" value="talend123456.wrong" />
 	<parameter name="smtp.conf.wrong.serverRequireSSL" value="false.wrong" />
 	
 	<!-- Scheduler parameters -->
@@ -65,39 +65,28 @@
 		</classes>
 	</test>    
     
-    <test name="configuration04_TestConfigurations">
+    <test name="configuration04_TestConfigurations" preserve-order="true">
+		<parameter name="LDAP.conf.useLDAPAutentication" value="true" />
 		<classes>
 			<class name="com.talend.cases.configuration.TestConfigurations">
 				<methods>
-					<include name="testSetESBWithStopZKServer" />
-				</methods>
-			</class>
-		</classes>
-	</test>
-    
-	<test name="configuration05_TestConfigurations">
-		<classes>
-			<class name="com.talend.cases.configuration.TestConfigurations">
-				<methods>
-					<exclude name="testDownloadLog" />
-					<exclude name="testExportParameters" />
-					<exclude name="testSetESBWithStopZKServer" />
-				</methods>
-			</class>
-		</classes>
-	</test>
-
-	<test name="configuration06_ExportParameters_DownloadLogs">
-		<classes>
-			<class name="com.talend.cases.configuration.TestConfigurations">
-				<methods>
+				    <include name="testSetCommandlinePrimary"/>
+				    <include name="testSetCommandlineSecondary"/>
+				    <include name="testSetESBWithStopZKServer"/>
+				    <include name="testSetESBWithStartZKServer"/>
+				    <include name="testSetLDAP"/>
+				    <include name="testSetLog4j"/>
+				    <include name="testSetSMTP"/>
+				    <include name="testSetScheduler"/>
+					<include name="testSetSVN" />
+				    <include name="testLinkToTalendSuite"/>
 					<include name="testDownloadLog" />
 					<include name="testExportParameters" />
 				</methods>
 			</class>
 		</classes>
 	</test>
-
+    
 	<test name="configuration07_TestCreateLdapUser">
 		<classes>
 			<class name="com.talend.cases.configuration.TestAddLdapUser" />
