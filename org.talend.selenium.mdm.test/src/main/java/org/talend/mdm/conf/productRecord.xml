@@ -5,7 +5,7 @@
 	<parameter name="message" value="User 'jennifer' is already logged in another session!" />
     <parameter name="entity" value="Product" /> 	        
    	<parameter name="UniqueId" value="Id" />
-   	<parameter name="UniqueIdValue" value="231045177" />	   
+   	<parameter name="UniqueIdValue" value="831045178" />	   
   	
    <test name=" create a record" >
 	    <classes>
@@ -87,7 +87,7 @@
   </test>  
    <test name="duplicate a record" >
 	    <classes>
-	      	<parameter name="UniqueIdValueDup" value="231045178" />	    			
+	      	<parameter name="UniqueIdValueDup" value="881045178" />	    			
 		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
 				<methods>				 	           
 		           <include name="testDuplicateRecord"/>		        
@@ -98,7 +98,7 @@
    
   <test name=" update a  duplicate record CompleteStoreUrl">
 	    <classes> 
-	         <parameter name="UniqueIdValue" value="231045178" />	
+	         <parameter name="UniqueIdValue" value="881045178" />	
 	         <parameter name="name" value="testUrlDup" />  
   		     <parameter name="url_update" value="http://www.163.com" />   		     
 		     <class name="org.talend.mdm.cases.record.TestRecordProduct">
@@ -209,11 +209,7 @@
 		        </methods>
 		    </class>
 	    </classes>
-  </test>  
-  
-  
-  
-  
+  </test>    
   
     <test name=" delete a record" >
 	    <classes>
@@ -225,6 +221,16 @@
 	    </classes>
   </test>     
       
+         <test name=" delete the duplicator record" >
+	    <classes>
+	           <parameter name="UniqueIdValue" value="881045178" />	
+	      	    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testDeleteRecord"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test>    
       <test name="test workflow change price valid and approved">
 	    <classes>
 	<parameter name="user.frank.name" value="frank" />

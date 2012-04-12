@@ -24,8 +24,9 @@ this.clickElementByXpath(locator.getString("xpath.record.delete.record.choose.ye
 		}
 }
 public void openJournal(String entity,String key,String OperationType){
+			
 	enterJournal(entity,key,OperationType);	
-	JournalResultCount();		
+	//JournalResultCount();		
 }
 
 
