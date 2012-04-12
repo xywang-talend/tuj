@@ -38,7 +38,8 @@ public class RecordImplProduct extends Record{
 		chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();
-		chooseEntity(entity);			
+		chooseEntity(entity);	
+		this.sleepCertainTime(3000);
 		chooseRcord(entity,UniqueId,UniqueIdValue);			
 	    this.sleepCertainTime(5000);
 	    deleteTheRecord(entity);
@@ -56,6 +57,7 @@ public class RecordImplProduct extends Record{
 			chooseModle(modle);
 			clickSave();
 			chooseEntity(entity);
+			this.sleepCertainTime(3000);
 			chooseRcord(entity,UniqueId,UniqueIdValue);		
 			this.sleepCertainTime(3000);
 			this.clickElementByXpath(locator.getString("xpath.record.Duplicate.click"));			
@@ -82,13 +84,15 @@ public class RecordImplProduct extends Record{
 			String[] parametersNameAssert={entity,Name,NameValue};
 			String[] parametersDescriptionAssert={entity,Description,DescriptionValue};
 			String[] parametersPriceAssert={entity,Price,PriceValue};
+			this.sleepCertainTime(3000);
 			this.clickElementByXpath(locator.getString("xpath.record.choose.create")); 
-			
+			this.sleepCertainTime(3000);
 			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersUniqueId),UniqueIdValue);
 			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersName), NameValue);
 			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersDescription), DescriptionValue);
 			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersPrice), PriceValue);
 			this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
+			this.sleepCertainTime(3000);
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersUniqueIdAssert)), WAIT_TIME_MAX),"createARecord");
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersNameAssert)), WAIT_TIME_MAX),"createARecord");
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersDescriptionAssert)), WAIT_TIME_MAX),"createARecord");
@@ -103,7 +107,8 @@ public class RecordImplProduct extends Record{
 		chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();
-		chooseEntity(entity);			
+		chooseEntity(entity);		
+		this.sleepCertainTime(3000);
 		chooseRcord(entity,UniqueId,UniqueIdValue);		
 		this.sleepCertainTime(5000);
 	   // update the Availability
@@ -114,7 +119,7 @@ public class RecordImplProduct extends Record{
 			Assert.assertTrue(availabilityRsulte);
 		}
 		else
-		{
+		{ this.sleepCertainTime(3000);
 		this.clickElementByName("Product/Availability");		
 		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
 		if (this.isTextPresent("No change since last save")){
@@ -128,8 +133,6 @@ public class RecordImplProduct extends Record{
 		Assert.assertTrue(availabilityRsulte);
 		}
 		this.sleepCertainTime(3000); 
-				
-				
 		openJournal(entity,UniqueIdValue,OperationType);
 		JournalCheckResult(UniqueIdValue,OperationType);
 		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='Availability:true']"), WAIT_TIME_MIN));
@@ -160,7 +163,8 @@ public class RecordImplProduct extends Record{
 		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));			
 		this.sleepCertainTime(3000); 				
 		openJournal(entity,UniqueIdValue,OperationType);
-		JournalCheckResult(UniqueIdValue,OperationType);		
+		JournalCheckResult(UniqueIdValue,OperationType);
+		this.sleepCertainTime(3000);
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.url.update.assert", parameters)), WAIT_TIME_MIN));
 		}	
 	}
@@ -179,10 +183,12 @@ public class RecordImplProduct extends Record{
 			this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
 			if (flag.equals("0"))
 			{			
-			 if (this.isElementPresent(By.xpath(locator.getString("xpath.record.update.price.max")), WAIT_TIME_MAX)){
+			 if ( this.isElementPresent(By.xpath(locator.getString("xpath.record.update.price.max")), WAIT_TIME_MAX)){
+				 this.sleepCertainTime(3000);
 				 this.clickElementByXpath("//button[text()='Ok']");	
 				 enterJournal(entity,UniqueIdValue,OperationType);	
 				 JournalCheckResult(UniqueIdValue,OperationType);
+				 this.sleepCertainTime(3000);
 				  Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.price.assert", PriceValueOld)), WAIT_TIME_MIN));
 			 }
 			}
@@ -191,14 +197,18 @@ public class RecordImplProduct extends Record{
 			 if (this.isElementPresent(By.xpath(locator.getString("xpath.record.update.price.min")), WAIT_TIME_MAX)){
 				 this.clickElementByXpath("//button[text()='Ok']");	
 				 enterJournal(entity,UniqueIdValue,OperationType);	
+				 this.sleepCertainTime(3000);
 				 JournalCheckResult(UniqueIdValue,OperationType);
+				 this.sleepCertainTime(3000);
 				  Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.price.assert", PriceValueOld)), WAIT_TIME_MIN));
 			 }
 			}
 			if (flag.equals("2"))
 			{			
-			  enterJournal(entity,UniqueIdValue,OperationType);	 
+			  enterJournal(entity,UniqueIdValue,OperationType);
+			  this.sleepCertainTime(3000);
 			  JournalCheckResult(UniqueIdValue,OperationType);
+			  this.sleepCertainTime(3000);
 			  Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.price.assert", PriceValue)), WAIT_TIME_MIN));
 			}
 			
@@ -209,6 +219,7 @@ public class RecordImplProduct extends Record{
 		clickSave();
 		chooseEntity(entity);	
 		searchCondition(searchFeild,opeartion,value);
+		this.sleepCertainTime(3000);
 		searchValueAssert(searchFeild_Element,opeartion,value,entity_Element);	
 	}
 	public void SearchRecordByStringImpl(String container,String modle,String entity,String entity_Element,String searchFeild,String searchFeild_Element,String opeartion,String value){
@@ -218,6 +229,7 @@ public class RecordImplProduct extends Record{
 		clickSave();
 		chooseEntity(entity);	
 		searchCondition(searchFeild,opeartion,value);
+		this.sleepCertainTime(3000);
 		searchStringAssert(searchFeild_Element,opeartion,value,entity_Element);
 		
 	}

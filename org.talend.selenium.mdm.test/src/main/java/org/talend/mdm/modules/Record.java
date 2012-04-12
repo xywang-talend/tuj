@@ -354,12 +354,14 @@ public void searchValue(String value){
 }
 
 public void chooseContainer(String container) {	
+	 this.sleepCertainTime(3000);
 	 this.clickElementByXpath(locator.getString("xpath.record.choose.containe.arrows"));
 	 this.clickElementByXpath(this.getString(locator, "xpath.record.choose.container", container)); 	
 	 
     }
 
 public void chooseModle(String modle) {	
+	 this.sleepCertainTime(3000);
 	 this.clickElementByXpath(locator.getString("xpath.record.choose.modle.arrows"));
 	 this.clickElementByXpath(this.getString(locator, "xpath.record.choose.modle",modle));
    }
@@ -370,6 +372,7 @@ public void clickSave() {
   }
 
 public void chooseEntity(String entity) { 
+	 this.sleepCertainTime(3000);
 	this.clickElementByXpath(locator.getString("xpath.record.click.DataBrowser"));
 	
 	this.clickElementByXpath(locator.getString("xpath.record.choose.entity.arrows"));	 
@@ -379,14 +382,17 @@ public void chooseEntity(String entity) {
 
 public void chooseRcord(String entity,String feild1Name, String feild1Value) {
 	 String[] parameters={entity,feild1Name,feild1Value};
-    
+	 this.sleepCertainTime(3000);
 	 this.clickElementByXpath(this.getString(locator, "xpath.record.choose.delete.record",parameters));
 	 }
-public void clickRecycle() {	
+public void clickRecycle() {
+	
 	this.clickElementByXpath(locator.getString("xpath.record.recycle.click.brower")); 	
+	 this.sleepCertainTime(3000);
 	this.clickElementByXpath(locator.getString("xpath.record.recycle.click.recycle")); 
   }
 public void clickJournal() {
+	this.sleepCertainTime(3000);
 	this.clickElementByXpath(locator.getString("xpath.record.choose.journal")); 
   }
 public void clickExport() {	
