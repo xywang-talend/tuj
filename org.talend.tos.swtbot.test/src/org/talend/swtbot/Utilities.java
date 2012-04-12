@@ -970,8 +970,8 @@ public class Utilities {
             gefBot.waitUntil(Conditions.shellIsActive("Error Executing SQL"));
             String errorLog = gefBot.label(1).getText();
             if (errorLog.contains("name") && errorLog.contains("existing object")) {
-                String table = errorLog.split("'")[1];
-                sql = "drop table " + table + ";\n" + sql;
+                // String table = errorLog.split("'")[1];
+                sql = "drop table dataviwer;\n" + sql;
             }
 
             if (errorLog.contains("Unknown table") && errorLog.contains("database doesn't exist")) {
