@@ -94,8 +94,39 @@ public class GroupByESBConductor extends WebDriverBase {
 		
 	}
 	
-	public void groupESBConductor() {//need to modify this mothed
+	public void groupESBConductor() {
 
+		
+		this.focusElement();
+		this.checkColumn("Feature URL");
+		this.focusElement();
+		this.checkColumn("Id");
+		this.clickElementByXpath("//a[text()='Group By This Field']");
+	}
+	
+	public void checkColumn(String columnName){
+		boolean present = this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"),30);
+		if(!present){
+			logger.info("clumnName:"+columnName);
+			this.waitforElementDisplayed(By.xpath("//a[text()='"+columnName+"']"), 20);
+			this.getElementByXpath("//a[text()='"+columnName+"']").click();
+//			this.clickElementByXpath("//a[text()='"+columnName+"']");
+			this.waitforElementDisplayed(By.xpath("//span[text()='"+columnName+"']"), 30);
+//			selenium.click("//a[text()='"+columnName+"']");
+//			this.waitForElementDispear("//span[text()='"+columnName+"']", WAIT_TIME);
+		}
+		else{
+			this.waitforElementDisplayed(By.xpath("//a[contains(text(),'"+columnName+"')]"), 20);
+			this.getElementByXpath("//a[contains(text(),'"+columnName+"')]").click();
+//			this.clickElementByXpath("//a[contains(text(),'"+columnName+"')]");
+			Assert.assertFalse(this.isElementPresent(By.xpath("//a[text()='"+columnName+"']"), 30));
+//			selenium.click("//a[text()='"+columnName+"']");
+//			this.waitForElementPresent("//span[text()='"+columnName+"']", WAIT_TIME);
+		}
+		
+	}
+	
+	public void focusElement() {
 		
 		WebElement tag = driver.findElement(By.xpath("//span[text()='Tag']"));
 		this.moveToElement(tag);
@@ -103,81 +134,8 @@ public class GroupByESBConductor extends WebDriverBase {
 		jjj.click();
 		this.waitforElementDisplayed(By.xpath("//a[text()='Columns']"), WAIT_TIME_MIN);
 		WebElement columns = driver.findElement(By.xpath("//a[text()='Columns']"));
-
 		this.moveToElement(columns);
-		this.checkColumn("Feature URL");
-		this.checkColumn("Id");
-		this.clickElementByXpath("//a[text()='Group By This Field']");
 	}
-	
-//	public void checkColumn(String columnName){
-////		boolean present = this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"),WAIT_TIME_MIN);
-//		WebElement tag = driver.findElement(By.xpath("//span[text()='Tag']"));
-//		boolean present = driver.findElement(By.xpath("//span[text()='"+columnName+"']")).isDisplayed();
-//		if(!present){			
-//			this.waitElememt();
-//			driver.findElement(By.xpath("//a[text()='"+columnName+"']/img")).click();
-//			this.waitElememt();
-//			driver.findElement(By.xpath("//span[text()='"+columnName+"']")).isDisplayed();
-//		}
-//		else{
-//			
-//			this.waitElememt();
-//			logger.info("//a[text()='"+columnName+"']");
-//			WebElement tag1 = driver.findElement(By.xpath("//span[text()='Tag']"));
-//			this.moveToElement(tag1);
-//			WebElement jjj = driver.findElement(By.xpath("//span[text()='Tag']//parent::div[contains(@class,'x-grid3-hd-inner x-grid3-hd-applicationGroup x-component')]//a"));
-//			//build and perform the mouseOver with Advanced User Interactions API
-//			//then click when menu option is visible
-//			jjj.click();
-//			this.waitforElementDisplayed(By.xpath("//a[text()='Columns']"), WAIT_TIME_MIN);
-//			WebElement columns = driver.findElement(By.xpath("//a[text()='Columns']"));
-//
-//			this.moveToElement(columns);
-//			try {
-//				Thread.sleep(50000);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}	
-//			logger.info("234234234234234"+"//a[text()='"+columnName+"']/img");
-//			driver.findElement(By.xpath("//a[text()='"+columnName+"']/img")).click();
-//			try {
-//				Thread.sleep(50000);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}	
-//			Assert.assertFalse(this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"),WAIT_TIME_MIN));
-//			
-//		}
-//	}
-	public void checkColumn(String columnName){
-		boolean present = this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"),WAIT_TIME_MIN);
-		if(!present){
-			this.clickElementByXpath("//a[text()='"+columnName+"']");
-			this.waitforElementDisplayed(By.xpath("//span[text()='"+columnName+"']"), WAIT_TIME_MIN);
-//			selenium.click("//a[text()='"+columnName+"']");
-//			this.waitForElementDispear("//span[text()='"+columnName+"']", WAIT_TIME);
-		}
-		else{
-			this.clickElementByXpath("//a[text()='"+columnName+"']");
-			Assert.assertFalse(this.isElementPresent(By.xpath("//a[text()='"+columnName+"']"), WAIT_TIME_MIN));
-//			selenium.click("//a[text()='"+columnName+"']");
-//			this.waitForElementPresent("//span[text()='"+columnName+"']", WAIT_TIME);
-		}
-		
-	}
-	
-//	public void waitElememt() {
-//		
-//		try {
-//			Thread.sleep(5000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}	
-//	}
 	
 	public void checkSortAscendingSortDescending(String value, String value1) {
 		WebElement element = driver.findElement(By.xpath("//span[text()='Tag']"));
