@@ -238,88 +238,155 @@ public class RecordImplProduct extends Record{
 		
     }
 	
-	public void priceChangeWorkFlowImpl(){
+	public void priceChangeWorkFlowValidApprovedImpl(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID){
 		LogonImpl log = new LogonImpl(this.driver);
-	/*	log.logout();
-		log.loginUserForce("frank", "frank");*/
-		this.chooseContainer("Product");
-		this.chooseModle("Product");
+		log.logout();
+		log.loginUserForce(userFrank, frankPass);
+		this.chooseContainer(container);
+		this.chooseModle(model);
 		this.clickSave();
-		this.clickElementByXpath("//span[contains(@class,'x-panel-header-text') and text()='Actions']//ancestor::div[contains(@class,'x-panel x-component x-border-panel')]//div[contains(@class,'x-nodrag x-tool-right x-tool x-component')]");
-		this.chooseEntity("Product");
+		this.chooseEntity(entity);
+		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
 		
-/*		this.clickElementByXpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-Product/Id') and text()='231035933']");
+		//select a product record in data browser
+		this.clickElementByXpath(this.getString(locator, "xpath.record.chooserecord.byID", productUniqID));
 		
+		//open journal to verify number of action entry for frank ,then close journal
 		this.openJournalFromDataBrowser();
 		this.sleepCertainTime(5000);
-		int beforeProcess = this.getElementsByXpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-8') and contains(text(),'frank')]//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner x-grid3-col-5') and contains(text(),'ACTION')]").size();
+		int beforeProcess = this.getElementsByXpath(locator.getString("xpath.journal.entry.action.frank")).size();
 		logger.info("beforeProcess:"+beforeProcess);
 		this.closeJournal();
-			
+		
+		//verify frank can not change price directly
 		this.sleepCertainTime(5000);
-		Assert.assertFalse(this.getElementByXpath("//div[text()='Price']//ancestor::tr//input").isEnabled());
-//		this.clickElementByXpath("//div[contains(@class,'x-small-editor x-toolbar ItemDetailToolBar x-component x-toolbar-layout-ct')]//table[contains(@class,'x-toolbar-right-ct')]//em[@class='x-btn-arrow']");
+		Assert.assertFalse(this.getElementByXpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)).isEnabled());
+		
+		//get the initial price for the product record
+		String priceInitial = this.getValueInput(By.xpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)));
+		logger.info("for frank ,the initial price is:"+priceInitial);
+		
+		//select request price change  ,and launch process
+		this.seletDropDownList(By.xpath(locator.getString("xpath.record.launchprocess.select.img")), "Request Price Change");
 		this.sleepCertainTime(5000);
-//		this.clickElementByXpath("//div[contains(@class,'x-small-editor x-toolbar ItemDetailToolBar x-component x-toolbar-layout-ct')]//table[contains(@class,'x-toolbar-right-ct')]//div[contains(@class,'x-form-field-wrap  x-component')]//img");
-		this.seletDropDownList(By.xpath("//div[contains(@class,'x-small-editor x-toolbar ItemDetailToolBar x-component x-toolbar-layout-ct')]//table[contains(@class,'x-toolbar-right-ct')]//div[contains(@class,'x-form-field-wrap  x-component')]//img"), "Request Price Change");
-		this.clickElementByXpath("//div[contains(@class,'x-small-editor x-toolbar ItemDetailToolBar x-component x-toolbar-layout-ct')]//table[contains(@class,'x-toolbar-right-ct')]//button");
+		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.button"));
 		this.sleepCertainTime(5000);
-		this.waitfor(By.xpath("//span[text()='Process done']"), WAIT_TIME_MID);
-		this.clickElementByXpath("//div[contains(@class,'x-window-plain x-window-dlg x-window x-component')]//button[contains(text(),'Ok')]");
+		this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.status.info")), WAIT_TIME_MID);
+		
+		//click process ok button to verify can open bonita workflow console
+		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.success.ok.button"));
         this.sleepCertainTime(5000);
         List a = new ArrayList<String>();
         for (String handle : driver.getWindowHandles()) {
         a.add(handle);
         }
         driver.switchTo().window(a.get(1).toString());
-        Assert.assertTrue(this.waitfor(By.xpath("//div[contains(@id,'welcome-container')]"), WAIT_TIME_MIN)!=null);
+        Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.ok.button.click.bonita.login.welcom")), WAIT_TIME_MIN)!=null);
         driver.switchTo().window(a.get(0).toString());
-    	this.openJournalFromDataBrowser();
+    	
+        //open journal and verify number of action entry for frank +1,then close journal
+        this.openJournalFromDataBrowser();
     	this.sleepCertainTime(5000);
-		int afterProcess = this.getElementsByXpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-8') and contains(text(),'frank')]//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner x-grid3-col-5') and contains(text(),'ACTION')]").size();
+		int afterProcess = this.getElementsByXpath(locator.getString("xpath.journal.entry.action.frank")).size();
 		logger.info("afterProcess:"+afterProcess);
 		Assert.assertTrue(afterProcess-beforeProcess==1);
 		this.closeJournal();
+		
+		//for frank ,open workflow created and,type in price changed ,then submit
 		WorkFlowTaskImpl flow = new WorkFlowTaskImpl(this.driver);
 		flow.openMenuGoven();
 		flow.openMenuWorkFlowTask();
+		this.sleepCertainTime(5000);
 		flow.sortWorkFlowTaskBydate();
 	    flow.openAWorkTask();
-	    flow.changeProductPriceValidImpl(16.99, 0.05);
-	    */log.logout();
-	    log.loginUserForce("jennifer", "jennifer");
-//		this.chooseContainer("Product");
-//		this.chooseModle("Product");
-//		this.clickSave();
-//		this.clickElementByXpath("//span[contains(@class,'x-panel-header-text') and text()='Actions']//ancestor::div[contains(@class,'x-panel x-component x-border-panel')]//div[contains(@class,'x-nodrag x-tool-right x-tool x-component')]");
-//		this.chooseEntity("Product");
-	    WorkFlowTaskImpl flow = new WorkFlowTaskImpl(this.driver);
+	    String priceSubmited;
+	    priceSubmited =  (flow.changeProductPriceValidImpl(Double.parseDouble(priceInitial), 0.15)+"");
+	    logger.info("price frank submited is:"+priceSubmited);
+	    
+	    log.logout();
+	    log.loginUserForce(userJennifer, jenniferPass);
+		this.chooseContainer(container);
+		this.chooseModle(model);
+		this.clickSave();
+		this.chooseEntity(entity);
+		//check in journal for jennifer update first
+		this.sleepCertainTime(5000);
+	    this.clickElementByXpath(this.getString(locator, "xpath.record.chooserecord.byID", productUniqID));
+		
+		this.openJournalFromDataBrowser();
+		this.sleepCertainTime(5000);
+		int beforeApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.jennifer")).size();
+		logger.info("beforeApprove:"+beforeApprove);
+		this.closeJournal();
+		//open work flow task page
 		flow.openMenuGoven();
 		flow.openMenuWorkFlowTask();
+		this.sleepCertainTime(10000);
+		//sort work flow task by date and open the first work
 		flow.sortWorkFlowTaskBydate();
 	    flow.openAWorkTask();
-	    String price = this.getElementByXpath("//label[text()='Price:']//ancestor::div[contains(@class,'x-form-item')]//input").getAttribute("value");
-	    this.sleepCertainTime(10000);
-	    logger.info(this.getText());
+	    String price = this.getElementByXpath(locator.getString("xpath.workflowtask.open.product.price.input")).getAttribute("value");
+	    this.sleepCertainTime(5000);
+	    //jennifer approved and submit
 	    flow.approveBoxChecked();
 	    flow.clickSubmit();
-	 	this.waitfor(By.xpath("//span[contains(text(),'Successfully submitted.')]"), WAIT_TIME_MID);
-    	this.clickElementByXpath("//span[contains(text(),'Successfully submitted.')]//ancestor::div[contains(@class,'x-window-bwrap')]//button[text()='OK']");
-	    flow.openRelatedRecord();
-	    this.sleepCertainTime(5000);
-	    
+	 	this.waitfor(By.xpath(locator.getString("xpath.workflowtask.open.produce.submited.success.info")), WAIT_TIME_MID);
+    	this.clickElementByXpath(locator.getString("xpath.workflowtask.open.product.submited.success.ok.button"));
+		this.sleepCertainTime(5000);
+		
+		flow.uncheckHideFinishedTask();
+		flow.clickSearch();
+		flow.sortWorkFlowTaskBydate();
+		this.sleepCertainTime(3000);
+		flow.openAWorkTask();
+		flow.openRelatedRecord();
+    	this.sleepCertainTime(5000);
+        Assert.assertTrue(this.waitfor(By.xpath(this.getString(locator, "xpath.workflowtask.openrelatedrecord.open.closeTab", productUniqID)), WAIT_TIME_MIN)!=null);
+      
+        //verify price is really changed.
+        //close the data browser first ,for xpath duplicated
+        this.clickElementByXpath(locator.getString("xpath.databrowser.tab.close"));
+    	price = this.getValueInput(By.xpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)));
+        logger.info("afterapproved ,the price is:"+price);
+        Assert.assertTrue(price.equals(priceSubmited));
+        
+        //reopen data browser
+        this.clickElementByXpath("//span[contains(@class,'x-panel-header-text') and text()='Home']");
+        this.clickElementByXpath("//div[contains(@id,'menu-browserecords')]");
+        this.chooseEntity(entity);
+        this.sleepCertainTime(5000);
+       
+        //close the record opened
+    	flow.closeRelatedRecord(productUniqID);
+    
+    	//close the work task
+    	flow.closeAWorkTask();
+    	
+    	//verify in journal that an update entry for jennifer added
+    	this.clickElementByXpath(locator.getString("xpath.datavrowser.tab"));
+    	this.sleepCertainTime(3000);
+    	this.clickElementByXpath(this.getString(locator, "xpath.record.chooserecord.byID", productUniqID));
+    	this.sleepCertainTime(5000)	;
+ 		this.openJournalFromDataBrowser();
+ 		this.sleepCertainTime(5000);
+ 		int afterApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.jennifer")).size();
+ 		logger.info("afterApprove:"+afterApprove);
+ 		Assert.assertTrue(afterApprove-beforeApprove==1);
+ 		this.closeJournal();
+    	
 	    
 	}
 	
+	
 	public void openJournalFromDataBrowser(){
-		
-		this.clickElementByXpath("//div[contains(@class,'x-small-editor x-toolbar ItemDetailToolBar x-component x-toolbar-layout-ct')]//button[contains(text(),'Journal')]");
+		this.clickJournal();
+//		this.clickElementByXpath("//div[contains(@class,'x-small-editor x-toolbar ItemDetailToolBar x-component x-toolbar-layout-ct')]//button[contains(text(),'Journal')]");
 		
 	}
 	
     public void closeJournal(){
 		
-		this.clickElementByXpath("//span[contains(@class,'x-tab-strip-text') and contains(text(),'Journal')]//ancestor::li[contains(@class,'x-tab-strip-closable  x-component')]//a[contains(@class,'x-tab-strip-close')]");
+		this.clickElementByXpath(locator.getString("xpath.journal.tab.close"));
 	
     }
 	

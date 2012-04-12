@@ -509,4 +509,8 @@ public class Base {
 		this.clickElementByXpath("//div[contains(@class,'x-combo-list-item') and contains(text(),'"+option+"')]");
 	
 	}
+	
+	public String getValueInput(By by){
+		return this.waitfor(by, WAIT_TIME_MIN).getAttribute("value");
+	}
 }
