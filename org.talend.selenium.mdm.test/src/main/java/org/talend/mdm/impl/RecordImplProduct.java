@@ -377,6 +377,146 @@ public class RecordImplProduct extends Record{
 	    
 	}
 	
+	public void priceChangeWorkFlowValidNotApprovedImpl(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID){
+		LogonImpl log = new LogonImpl(this.driver);
+		log.logout();
+		log.loginUserForce(userFrank, frankPass);
+		this.chooseContainer(container);
+		this.chooseModle(model);
+		this.clickSave();
+		this.chooseEntity(entity);
+		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
+		
+		//select a product record in data browser
+		this.clickElementByXpath(this.getString(locator, "xpath.record.chooserecord.byID", productUniqID));
+		
+		//open journal to verify number of action entry for frank ,then close journal
+		this.openJournalFromDataBrowser();
+		this.sleepCertainTime(5000);
+		int beforeProcess = this.getElementsByXpath(locator.getString("xpath.journal.entry.action.frank")).size();
+		logger.info("beforeProcess:"+beforeProcess);
+		this.closeJournal();
+		
+		//verify frank can not change price directly
+		this.sleepCertainTime(5000);
+		Assert.assertFalse(this.getElementByXpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)).isEnabled());
+		
+		//get the initial price for the product record
+		String priceInitial = this.getValueInput(By.xpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)));
+		logger.info("for frank ,the initial price is:"+priceInitial);
+		
+		//select request price change  ,and launch process
+		this.seletDropDownList(By.xpath(locator.getString("xpath.record.launchprocess.select.img")), "Request Price Change");
+		this.sleepCertainTime(5000);
+		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.button"));
+		this.sleepCertainTime(5000);
+		this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.status.info")), WAIT_TIME_MID);
+		
+		//click process ok button to verify can open bonita workflow console
+		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.success.ok.button"));
+        this.sleepCertainTime(5000);
+        List a = new ArrayList<String>();
+        for (String handle : driver.getWindowHandles()) {
+        a.add(handle);
+        }
+        driver.switchTo().window(a.get(1).toString());
+        Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.ok.button.click.bonita.login.welcom")), WAIT_TIME_MIN)!=null);
+        driver.switchTo().window(a.get(0).toString());
+    	
+        //open journal and verify number of action entry for frank +1,then close journal
+        this.openJournalFromDataBrowser();
+    	this.sleepCertainTime(5000);
+		int afterProcess = this.getElementsByXpath(locator.getString("xpath.journal.entry.action.frank")).size();
+		logger.info("afterProcess:"+afterProcess);
+		Assert.assertTrue(afterProcess-beforeProcess==1);
+		this.closeJournal();
+		
+		//for frank ,open workflow created and,type in price changed ,then submit
+		WorkFlowTaskImpl flow = new WorkFlowTaskImpl(this.driver);
+		flow.openMenuGoven();
+		flow.openMenuWorkFlowTask();
+		this.sleepCertainTime(5000);
+		flow.sortWorkFlowTaskBydate();
+	    flow.openAWorkTask();
+	    String priceSubmited;
+	    priceSubmited =  (flow.changeProductPriceValidImpl(Double.parseDouble(priceInitial), 0.15)+"");
+	    logger.info("price frank submited is:"+priceSubmited);
+	    
+	    log.logout();
+	    log.loginUserForce(userJennifer, jenniferPass);
+		this.chooseContainer(container);
+		this.chooseModle(model);
+		this.clickSave();
+		this.chooseEntity(entity);
+		//check in journal for jennifer update first
+		this.sleepCertainTime(5000);
+	    this.clickElementByXpath(this.getString(locator, "xpath.record.chooserecord.byID", productUniqID));
+		
+		this.openJournalFromDataBrowser();
+		this.sleepCertainTime(5000);
+		int beforeApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.jennifer")).size();
+		logger.info("beforeApprove:"+beforeApprove);
+		this.closeJournal();
+		//open work flow task page
+		flow.openMenuGoven();
+		flow.openMenuWorkFlowTask();
+		this.sleepCertainTime(10000);
+		//sort work flow task by date and open the first work
+		flow.sortWorkFlowTaskBydate();
+	    flow.openAWorkTask();
+	    String price = this.getElementByXpath(locator.getString("xpath.workflowtask.open.product.price.input")).getAttribute("value");
+	    this.sleepCertainTime(5000);
+	    //jennifer approved and submit
+//	    flow.approveBoxChecked();
+	    flow.clickSubmit();
+	 	this.waitfor(By.xpath(locator.getString("xpath.workflowtask.open.produce.submited.success.info")), WAIT_TIME_MID);
+    	this.clickElementByXpath(locator.getString("xpath.workflowtask.open.product.submited.success.ok.button"));
+		this.sleepCertainTime(5000);
+		
+		flow.uncheckHideFinishedTask();
+		flow.clickSearch();
+		flow.sortWorkFlowTaskBydate();
+		this.sleepCertainTime(3000);
+		flow.openAWorkTask();
+		this.sleepCertainTime(5000);
+		flow.openRelatedRecord();
+    	this.sleepCertainTime(5000);
+        Assert.assertTrue(this.waitfor(By.xpath(this.getString(locator, "xpath.workflowtask.openrelatedrecord.open.closeTab", productUniqID)), WAIT_TIME_MIN)!=null);
+      
+        //verify price is not changed.
+        //close the data browser first ,for xpath duplicated
+        this.clickElementByXpath(locator.getString("xpath.databrowser.tab.close"));
+    	price = this.getValueInput(By.xpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)));
+        logger.info("afterapproved ,the price is:"+price);
+        Assert.assertTrue(price.equals(priceInitial));
+        
+        //reopen data browser
+        this.clickElementByXpath("//span[contains(@class,'x-panel-header-text') and text()='Home']");
+        this.clickElementByXpath("//div[contains(@id,'menu-browserecords')]");
+        this.chooseEntity(entity);
+        this.sleepCertainTime(5000);
+       
+        //close the record opened
+    	flow.closeRelatedRecord(productUniqID);
+    
+    	//close the work task
+    	flow.closeAWorkTask();
+    	
+    	//verify in journal that an update entry for jennifer not added
+    	this.clickElementByXpath(locator.getString("xpath.datavrowser.tab"));
+    	this.sleepCertainTime(3000);
+    	this.clickElementByXpath(this.getString(locator, "xpath.record.chooserecord.byID", productUniqID));
+    	this.sleepCertainTime(5000)	;
+ 		this.openJournalFromDataBrowser();
+ 		this.sleepCertainTime(5000);
+ 		int afterApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.jennifer")).size();
+ 		logger.info("afterApprove:"+afterApprove);
+ 		Assert.assertTrue(afterApprove-beforeApprove==0);
+ 		this.closeJournal();
+	    
+	}
+	
+	
 	
 	public void openJournalFromDataBrowser(){
 		this.clickJournal();
