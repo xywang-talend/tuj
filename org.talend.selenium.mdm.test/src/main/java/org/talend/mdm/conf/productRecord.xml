@@ -5,9 +5,9 @@
 	<parameter name="message" value="User 'jennifer' is already logged in another session!" />
     <parameter name="entity" value="Product" /> 	        
    	<parameter name="UniqueId" value="Id" />
-   	<parameter name="UniqueIdValue" value="231045971" />	   
+   	<parameter name="UniqueIdValue" value="231045177" />	   
   	
- <test name=" create a record" >
+  <test name=" create a record" >
 	    <classes>
   		     <parameter name="Name" value="Name" />  
   		     <parameter name="Description" value="Description" /> 
@@ -87,7 +87,7 @@
   </test>  
    <test name="duplicate a record" >
 	    <classes>
-	      	<parameter name="UniqueIdValueDup" value="231045972" />	    			
+	      	<parameter name="UniqueIdValueDup" value="231045178" />	    			
 		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
 				<methods>				 	           
 		           <include name="testDuplicateRecord"/>		        
@@ -98,7 +98,7 @@
    
   <test name=" update a  duplicate record CompleteStoreUrl">
 	    <classes> 
-	         <parameter name="UniqueIdValue" value="231045972" />	
+	         <parameter name="UniqueIdValue" value="231045178" />	
 	         <parameter name="name" value="testUrlDup" />  
   		     <parameter name="url_update" value="http://www.163.com" />   		     
 		     <class name="org.talend.mdm.cases.record.TestRecordProduct">
@@ -108,13 +108,14 @@
 		    </class>
 	    </classes>
   </test>   
-  
- <!--   
-   <test name="search a record by Unique Id the opeartion is lower than" >
+   
+   <test name="in Product view search a record by Unique Id the opeartion is lower than" >
 	    <classes>
+	        <parameter name="entity_Element" value="Product" />
 	        <parameter name="opeartion" value="is lower than" />	  
 	        <parameter name="value" value="16.91" />     
-	        <parameter name="searchFeild" value="Price" /> 	      	    			
+	        <parameter name="searchFeild" value="Price" />
+	        <parameter name="searchFeild_Element" value="Price" />  	      	    			
 		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
 				<methods>				 	           
 		           <include name="testSearchRecordByValue"/>		        
@@ -124,13 +125,67 @@
   </test> 
    
 
-       <test name="search a record by name the opeartion contains the word(s)" >
+       <test name="in Product Family view search a record by name the opeartion contains the word(s)" >
 	    <classes>
 	      
 	     <parameter name="entity" value="Product Family" />
+	     <parameter name="entity_Element" value="ProductFamily" />
 	        <parameter name="opeartion" value="contains the word(s)" />	  
 	        <parameter name="value" value="Pets" />     
-	        <parameter name="searchFeild" value="Name" /> 	      	    			
+	        <parameter name="searchFeild" value="Name" /> 
+	        <parameter name="searchFeild_Element" value="Name" /> 	      	    			
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testSearchRecordByString"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+   
+       <test name="in Product Stores view search a record by Price the opeartion is lower than" >
+	    <classes>
+	      
+	        <parameter name="entity" value="Product Stores" />
+	        <parameter name="entity_Element" value="Product" />
+	        <parameter name="opeartion" value="is lower than" />	        
+	        <parameter name="searchFeild" value="Price" /> 
+	        <parameter name="searchFeild_Element" value="Price" /> 
+	        <parameter name="value" value="16.91" />	      	    			
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testSearchRecordByValue"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+ 
+ <test name="in Product with Family view search a record by name the opeartion is contains the word(s)" >
+	    <classes>
+	      
+	        <parameter name="entity" value="Product with Family" />
+	        <parameter name="entity_Element" value="Product" />
+	        <parameter name="opeartion" value="contains the word(s)" />	        
+	        <parameter name="searchFeild" value="Name" />
+	        <parameter name="searchFeild_Element" value="Name" /> 
+	        <parameter name="value" value="Cap" />	      	    			
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testSearchRecordByString"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+   
+  
+   <test name="in Store view search a record by Store Id the opeartion is contains the word(s)" >
+	    <classes>
+	      
+	        <parameter name="entity" value="Store" />
+	        <parameter name="entity_Element" value="Store" />
+	        <parameter name="opeartion" value="contains the word(s)" />	        
+	        <parameter name="searchFeild" value="Store Id" /> 
+	        <parameter name="searchFeild_Element" value="Id" />
+	        <parameter name="value" value="TalendJP" />	      	    			
 		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
 				<methods>				 	           
 		           <include name="testSearchRecordByString"/>		        
@@ -139,33 +194,38 @@
 	    </classes>
   </test>  
   
-       <test name="search a record in Product Stores view by Unique Id to the opeartion is not equal to" >
+  <test name="in Unavailable Products view search a record by Name the opeartion is contains the word(s)" >
 	    <classes>
 	      
-	     <parameter name="entity" value="Product Stores" />
-	        <parameter name="opeartion" value="is not equal to" />	        
-	        <parameter name="searchFeild" value="Unique Id" /> 
-	        <parameter name="value" value="231045971" />	      	    			
+	        <parameter name="entity" value="Unavailable Products" />
+	        <parameter name="entity_Element" value="Product" />
+	        <parameter name="opeartion" value="contains the word(s)" />	        
+	        <parameter name="searchFeild" value="Name" /> 
+	        <parameter name="searchFeild_Element" value="Name" />
+	        <parameter name="value" value="Cap" />	      	    			
 		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
 				<methods>				 	           
-		           <include name="testSearchRecordByValue"/>		        
+		           <include name="testSearchRecordByString"/>		        
 		        </methods>
 		    </class>
 	    </classes>
   </test>  
-   -->
+  
+  
+  
+  
+  
     <test name=" delete a record" >
 	    <classes>
-	      	<parameter name="UniqueIdValue" value="231045971" />	    			
-		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+	      	    <class name="org.talend.mdm.cases.record.TestRecordProduct">
 				<methods>				 	           
 		           <include name="testDeleteRecord"/>		        
 		        </methods>
 		    </class>
 	    </classes>
   </test>     
+     
     
-   
   
     <!--<test name="workflow">
 	    <classes>

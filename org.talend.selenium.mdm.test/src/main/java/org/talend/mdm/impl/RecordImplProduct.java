@@ -203,26 +203,26 @@ public class RecordImplProduct extends Record{
 			}
 			
 }
-	public void SearchRecordByValueImpl(String container,String modle,String entity,String searchFeild,String opeartion,String value){
+	public void SearchRecordByValueImpl(String container,String modle,String entity,String entity_Element,String searchFeild,String searchFeild_Element,String opeartion,String value){
 		chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();
 		chooseEntity(entity);	
 		searchCondition(searchFeild,opeartion,value);
-		searchValueAssert(searchFeild,opeartion,value,entity);	
+		searchValueAssert(searchFeild_Element,opeartion,value,entity_Element);	
 	}
-	public void SearchRecordByStringImpl(String container,String modle,String entity,String searchFeild,String opeartion,String value){
+	public void SearchRecordByStringImpl(String container,String modle,String entity,String entity_Element,String searchFeild,String searchFeild_Element,String opeartion,String value){
 
 		chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();
 		chooseEntity(entity);	
 		searchCondition(searchFeild,opeartion,value);
-		searchStringAssert(searchFeild,opeartion,value,entity);
+		searchStringAssert(searchFeild_Element,opeartion,value,entity_Element);
 		
 	}
 	
-	public void SearchRecordByDateImpl(String container,String modle,String entity,String searchFeild,String opeartion,String value){
+	public void SearchRecordByDateImpl(String container,String modle,String entity,String entity_Element,String searchFeild,String searchFeild_Element,String opeartion,String value){
 		
     }
 	

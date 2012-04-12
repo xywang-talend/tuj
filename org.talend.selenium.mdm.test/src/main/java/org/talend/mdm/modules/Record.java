@@ -86,14 +86,13 @@ public void JournalCheckResult(String key,String OperationType){
 	this.clickElementByXpath(locator.getString("xpath.record.journal.click.info"));		
 
 }
-public void searchDateAssert(String searchFeild,String opeartion,String value,String entity){
+public void searchDateAssert(String searchFeild,String opeartion,String value,String entity_Element){
 	int recordCount;
 	Date[] dates;
 	Date searchDate = null;
 	boolean result = false;	
 	String recordSearchResult;	
-	entity=entity.replaceAll(" ","");
-	String[] parametersSearch={entity,searchFeild};
+	String[] parametersSearch={entity_Element,searchFeild};
 	logger.info(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText());
 	recordSearchResult=this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText();
 	if (recordSearchResult.contains("No data to display"))
@@ -163,11 +162,10 @@ public void searchDateAssert(String searchFeild,String opeartion,String value,St
 }
 
 
-public void searchStringAssert(String searchFeild,String opeartion,String value,String entity){
+public void searchStringAssert(String searchFeild,String opeartion,String value,String entity_Element){
 	int recordCount;
-	String[] names;
-	entity=entity.replaceAll(" ","");
-	String[] parameters={entity,searchFeild};
+	String[] names;	
+	String[] parameters={entity_Element,searchFeild};
 	boolean result = false;	
 	String recordSearchResult;
 	
@@ -227,14 +225,13 @@ public void searchStringAssert(String searchFeild,String opeartion,String value,
 	Assert.assertTrue(result); 	
 	
 }
-public void searchValueAssert(String searchFeild,String opeartion,String value,String entity){
+public void searchValueAssert(String searchFeild,String opeartion,String value,String entity_Element){
 	//String[] parametersSearch={entity,searchFeild};
 	int recordCount;
 	String recordSearchResult;
 	double[] ages;
-	boolean result = false;
-	entity=entity.replaceAll(" ","");
-	String[] parameters={entity,searchFeild};
+	boolean result = false;	
+	String[] parameters={entity_Element,searchFeild};
 	logger.info(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText());
 	recordSearchResult=this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText();
 	if (recordSearchResult.contains("No data to display"))

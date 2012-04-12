@@ -50,20 +50,20 @@ public class TestRecordProduct extends Login {
 	}
 	
 	@Test
-	@Parameters( { "container","modle","entity","searchFeild","opeartion", "value" })
-	public void testSearchRecordByValue(String container,String modle,String entity,String searchFeild,String opeartion,String value) {
-		recordImpl.SearchRecordByValueImpl(container, modle, entity, searchFeild,opeartion,value);
+	@Parameters( { "container","modle","entity","entity_Element","searchFeild","searchFeild_Element","opeartion", "value" })
+	public void testSearchRecordByValue(String container,String modle,String entity,String entity_Element,String searchFeild,String searchFeild_Element,String opeartion,String value) {
+		recordImpl.SearchRecordByValueImpl(container, modle, entity,entity_Element ,searchFeild,searchFeild_Element,opeartion,value);
 	}
 	@Test
-	@Parameters( { "container","modle","entity","searchFeild", "opeartion", "value" })
-	public void testSearchRecordByString(String container,String modle,String entity,String searchFeild,String opeartion,String value) {
-		recordImpl.SearchRecordByStringImpl(container, modle, entity, searchFeild,opeartion,value);
+	@Parameters( { "container","modle","entity","entity_Element","searchFeild","searchFeild_Element","opeartion", "value" })
+	public void testSearchRecordByString(String container,String modle,String entity,String entity_Element,String searchFeild,String searchFeild_Element,String opeartion,String value) {
+		recordImpl.SearchRecordByStringImpl(container, modle, entity, entity_Element ,searchFeild,searchFeild_Element,opeartion,value);
 	}
 	
 	@Test
-	@Parameters( { "container","modle","entity","searchFeild", "opeartion", "value" })
-	public void testSearchRecordByDate(String container,String modle,String entity,String searchFeild,String opeartion,String value) {
-		recordImpl.SearchRecordByDateImpl(container, modle, entity, searchFeild,opeartion,value);
+	@Parameters( { "container","modle","entity","entity_Element","searchFeild","opeartion", "value" })
+	public void testSearchRecordByDate(String container,String modle,String entity,String entity_Element,String searchFeild,String searchFeild_Element,String opeartion,String value) {
+		recordImpl.SearchRecordByDateImpl(container, modle, entity,entity_Element , searchFeild,searchFeild_Element,opeartion,value);
 	}
 	
 	@Test
