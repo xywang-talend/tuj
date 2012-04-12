@@ -98,15 +98,12 @@ public class DataViewerOnOutputPositionalTest extends TalendSwtBotForTos {
         gefBot.shell(getBuildTitle() + " - tRowGenerator - tRowGenerator_1").activate();
 
         gefBot.tableWithLabel("Schema").click(0, 11);
-        gefBot.ccomboBox("...").setFocus();
-        gefBot.cTabItem("Function parameters").setFocus();
+       
         gefBot.tableWithLabel("Set your own expression.").click(0, 2);
         gefBot.text(1).setText("\"a\"");
         gefBot.tableWithLabel("Set your own expression.").select(0);
 
         gefBot.tableWithLabel("Schema").click(1, 11);
-        gefBot.ccomboBox("...").setFocus();
-        gefBot.cTabItem("Function parameters").setFocus();
         gefBot.tableWithLabel("Set your own expression.").click(0, 2);
         gefBot.text(1).setText("\"b\"");
         gefBot.tableWithLabel("Set your own expression.").select(0);
