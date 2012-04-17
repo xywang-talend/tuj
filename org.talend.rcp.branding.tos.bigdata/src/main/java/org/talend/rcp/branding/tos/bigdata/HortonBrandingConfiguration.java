@@ -268,7 +268,7 @@ public class HortonBrandingConfiguration extends DefaultBrandingConfiguration {
         bottomLayout.addView(runProcessViewId);
         bottomLayout.addView("org.talend.oozie.scheduler.views.OozieSchedulerView");
         // bottomLayout.addView(problemsViewId);
-        // bottomLayout.addView(modulesViewId);
+        bottomLayout.addView(modulesViewId);
         // bottomLayout.addView(ecosystemViewId);
         // bottomLayout.addView(exchangeViewId);
         //
