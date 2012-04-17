@@ -96,7 +96,8 @@ public class SelectFeatureFromArchiva extends WebDriverBase {
 			this.getElementByXpath(other.getString("ESBConduction.conf.rtifactRepositoryUrl.input")).clear();
 			this.typeTextByXpath(other.getString("ESBConduction.conf.rtifactRepositoryUrl.input"), artifactRepositoryUrl);
 			this.getElementByXpath(other.getString("ESBConduction.ArtifactRepositoryUserName.editButton")).click();
-			this.getElementByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input")).clear();
+			logger.info("---------+++++++++++input:"+other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input"));
+			this.getElementByXpath("//div[contains(text(),'ESB conductor (4 Parameters')]/parent::div/following-sibling::div//table//tr/td/div[text()='Artifact repository username']//ancestor::table[@class='x-grid3-row-table']//input").clear();
 			this.typeTextByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input"), artifactRepositoryUserName);
 			this.getElementByXpath(other.getString("ESBConduction.ArtifactRepositoryPassWord.editButton")).click();
 			this.getElementByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input")).clear();
@@ -125,9 +126,12 @@ public class SelectFeatureFromArchiva extends WebDriverBase {
 			assertEquals(this.getElementByXpath(locatorOfEditButton).getText(), value);			
 		}
 	    
-		public void selectFeatureWithUnavaiableArtifact(String label, String des) {
+		public void selectFeatureWithUnavaiableArtifact(String label, String des,String repository) {
 			this.commonMethodForSelectFeature(label, des);
-			Assert.assertTrue(this.isTextPresent("Operation failed:HTTP ERROR: 404"));
+			this.waitforElementDisplayed(By.xpath("//label[text()='Repository:']//following-sibling::div//div[contains(@class,'x-form-trigger x-form-trigger-arrow')]"), 30);         
+	        getElementByXpath("//label[text()='Repository:']//following-sibling::div//div[contains(@class,'x-form-trigger x-form-trigger-arrow')]").click();
+	        this.waitforTextDisplayed("Operation failed: Software update repository cannot be reached (http://192.168.0.200:8082/archiva). -- For more information see your log file", 30);
+			Assert.assertTrue(this.isTextPresent("Operation failed: Software update repository cannot be reached (http://192.168.0.200:8082/archiva). -- For more information see your log file"));			
 		}
 	 
 

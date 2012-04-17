@@ -12,9 +12,8 @@ public class SelectFeatureFromArchivaImpl extends SelectFeatureFromArchiva {
 		this.driver=driver;
 	}
 	
-	public void selectFeatureNormally(String label, String des, String repository, String group, String artifact,
-            String version, String name) {
-		this.seletFeature(label, des, repository, group, artifact, version, name);
+	public void selectFeatureNormally(String label, String des, String repository) {
+		this.selectFeatureWithUnavaiableArtifact(label, des, repository);
 	}
 	
 	public void configurationESBConductionIsWrong(String artifactRepositoryUrl, String artifactRepositoryUserName
@@ -29,6 +28,11 @@ public class SelectFeatureFromArchivaImpl extends SelectFeatureFromArchiva {
         		"//div[text()='Artifact repository url']//ancestor::table[@class='x-grid3-row-table']" +
         		"//div[contains(text(),'Artifacts repository is unreachable')]"),WAIT_TIME_MIN));  
 		
+	}
+	
+	public void selectFeatureNormally(String label, String des, String repository, String group, String artifact,
+            String version, String name) {
+		this.seletFeature(label, des, repository, group, artifact, version, name);
 	}
 	
 	

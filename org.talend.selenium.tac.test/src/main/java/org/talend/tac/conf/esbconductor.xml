@@ -11,7 +11,7 @@
     <parameter name ='type' value='Service'/>
     <parameter name ='context' value='Default'/>
     <parameter name ='serverOfRuntime' value='testRuntimeServer'/> 
-    <parameter name ='InactiveServerOfRuntime' value='testInactiveRuntimeServer'/> 
+    <parameter name ='InactiveServerOfRuntime' value='testRuntimeServerOfUncheckActive'/> 
     <parameter name ='labelOfServiceWithInactiveServer' value='testDeployWithInactiveServer'/>
     <parameter name ='labelOfServicetodelete' value='testesbConductorDelete'/>
     <parameter name ='deleteWithUndeployConductor' value='deleteWithUndeployConductor'/>
@@ -71,14 +71,14 @@
 	    </classes>
     </test>
     
-    <test name="ESBConductor15_testDuplicateESBConductor"
+    <test name="ESBConductor5_testDuplicateESBConductor"
 		preserve-order="true">
 		<classes>
 			<class name="org.talend.tac.cases.esbconductor.TestDuplicateESBConductor" />
 		</classes>
 	</test>
  
-	<test name="ESBConductor05_testAddESBConductorWithInactiveServer"
+	<test name="ESBConductor06_testAddESBConductorWithInactiveServer"
 		preserve-order="true">
 		<parameter name='labelOfService' value='addConductorForTestInactiveServer' />
 		<classes>
@@ -91,7 +91,7 @@
 		</classes>
 	</test>
 
-	<test name="ESBConductor06_testDeployESBConductor" preserve-order="true">
+	<test name="ESBConductor07_testDeployESBConductor" preserve-order="true">
 		<classes>
 			<class name="org.talend.tac.cases.esbconductor.TestDeployESBConductor">
 				<methods>
@@ -102,7 +102,7 @@
 		</classes>
 	</test>
 
-	<test name="ESBConductor07_testSelectFeatureFromArchiva"
+	<test name="ESBConductor08_testSelectFeatureFromArchiva"
 		preserve-order="true">
 		<classes>
 			<class
@@ -114,20 +114,7 @@
 		</classes>
 	</test>
 	
-	<test name="ESBConductor08_testSelectFeatureWithUnavaiableArtifact"
-		preserve-order="true">
-		<parameter name='artifactRepositoryWrongUrl' value='http://192.168.0.200:8082/archiva'></parameter>
-		<classes>
-			<class
-				name="org.talend.tac.cases.esbconductor.TestSelectFeatureWithArtifactUnavailable">
-				<methods>
-					<include name='testSelectFeatureWithUnavaiableArtifact' />
-				</methods>
-			</class>
-		</classes>
-	</test>
-
-	<test name="ESBConductor09_testDeleteESBConductor_cancel"
+	<test name="ESBConductor9_testDeleteESBConductor_cancel"
 		preserve-order="true">
 		<classes>
 			<class name="org.talend.tac.cases.esbconductor.TestDeleteESBConductor" />
@@ -139,8 +126,6 @@
 		</classes>
 	</test>
 
-
-
 	<test name="ESBConductor10_testStartESBConductor">
 		<parameter name='labelOfService' value='addConductorForTestStart' />
 		<classes>
@@ -151,7 +136,7 @@
 		</classes>
 	</test>
  
-	<test name="ESBConductor011_testStopESBConductor">
+	<test name="ESBConductor11_testStopESBConductor">
 		<parameter name='labelOfService' value='addConductorForTestStop' />
 		<classes>
 			<class name="org.talend.tac.cases.esbconductor.TestStopConductor" />
@@ -161,7 +146,7 @@
 		</classes>
 	</test>
 
-	<test name="ESBConductor012_testGroupESBConductor">
+	<test name="ESBConductor12_testGroupESBConductor">
 		<parameter name='labelOfService_1' value='service_1' />
 		<parameter name='labelOfService_2' value='service_2' />
 		<parameter name='labelOfService_3' value='service_3' />
@@ -176,7 +161,7 @@
 	</test>
 	
 	<test name="ESBConductor13_testContext">
-		<parameter name='labelOfServiceWithDifferentContext' value='testDifferentContext' />
+		<parameter name='labelOfServiceWithDifferentContext' value='testDifferentContext1' />
 		<parameter name='repositoryForContext' value='repo-snapshot' />
 		<parameter name='groupForContext' value='example' />
 		<parameter name='artifactForContext' value='Context-feature' />
@@ -194,8 +179,8 @@
 		</classes>
 	</test>
  
-	<test name="ESBConductor14_testContext">
-		<parameter name='labelOfServiceWithDifferentContext' value='testDeleteConfigProperty' />
+	<test name="ESBConductor14_testDeleteCofigProperty">
+		<parameter name='labelOfServiceWithDifferentContext' value='testDeleteConfigProperty1' />
 		<parameter name='repositoryForContext' value='repo-snapshot' />
 		<parameter name='groupForContext' value='example' />
 		<parameter name='artifactForContext' value='Context-feature' />
@@ -211,6 +196,20 @@
 				<include name="testDeleteConfigPropertyCancel" />
 				<include name="testDeleteConfigPropertyOk" />
 			</methods>
+		</classes>
+	</test>
+ 	
+	<test name="ESBConductor15_testSelectFeatureWithUnavaiableArtifact"
+		preserve-order="true">
+		<parameter name='artifactRepositoryWrongUrl' value='http://192.168.0.200:8082/archiva'></parameter>
+		<classes>
+			<class
+				name="org.talend.tac.cases.esbconductor.TestSelectFeatureWithArtifactUnavailable">
+				<methods>
+					<include name="configArtifact" />
+					<include name="selectFeature"/>
+				</methods>
+			</class>
 		</classes>
 	</test>
 </suite>

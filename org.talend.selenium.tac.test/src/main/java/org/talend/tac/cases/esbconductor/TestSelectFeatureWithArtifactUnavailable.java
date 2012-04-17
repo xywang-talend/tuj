@@ -14,17 +14,21 @@ public class TestSelectFeatureWithArtifactUnavailable extends WebdriverLogin {
     }
     
     @Test
-    @Parameters({
-        "labelOfService", "desOfService", "repository", "group", "artifact", "version", "name","artifactRepositoryWrongUrl",
+    @Parameters({"artifactRepositoryWrongUrl",
         "artifactRepositoryUserName","artifactRepositoryPassWordWithWrong","mavenProtocolExpected"
     })
-    public void testSelectFeatureWithUnavaiableArtifact(String label, String des, String repository, String group, String artifact,
-                                  String version, String name,String artifactRepositoryUrl, String artifactRepositoryUserName
+    public void configArtifact(String artifactRepositoryUrl, String artifactRepositoryUserName
                       			, String artifactRepositoryPassWord, String mavenProtocolExpected) {
     	selectFeatureFromArchivaImpl.configurationESBConductionIsWrong(artifactRepositoryUrl, artifactRepositoryUserName, artifactRepositoryPassWord, mavenProtocolExpected, "ESBConduction.ArtifactRepositoryUrlWrong.statusIcon",
         		                    "ESBConduction.ArtifactRepositoryUserName.statusIcon", "ESBConduction.ArtifactRepositoryPassWord.statusIcon","ESBConduction.mavenProtocol.statusIcon");
-    	selectFeatureFromArchivaImpl.selectFeatureNormally(label, des, repository, group, artifact, version, name);
 
+    }
+    
+    @Test
+    @Parameters({
+        "labelOfService", "desOfService", "repository"})
+    public void selectFeature(String label, String des, String repository) {
+    	selectFeatureFromArchivaImpl.selectFeatureNormally(label, des, repository);
     }
     
 

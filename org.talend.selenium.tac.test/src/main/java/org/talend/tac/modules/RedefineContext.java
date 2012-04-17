@@ -122,6 +122,7 @@ public class RedefineContext extends WebDriverBase {
        public void deployEsbConductor(String label,String name) {
            String status = "Deployed and started";
            String promptInfo = "Feature '" + name + "' deployed.";
+           this.waitforElementDisplayed(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MIN);
            this.mouseDown("//div[text()='" + label + "']");
            this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridDeployButton']"), WAIT_TIME_MIN);
 		   this.getElementById("idESBConductorTaskGridDeployButton").click();
@@ -155,7 +156,7 @@ public class RedefineContext extends WebDriverBase {
     	   this.mouseDown("//div[text()='" + label + "']");
     	   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridUndeployButton']"), WAIT_TIME_MIN);
     	   this.getElementById("idESBConductorTaskGridUndeployButton").click();    	   
-    	   this.clickElementById(other.getString("ESBConductor.UndeployButtonId"));
+    	   this.clickElementById("idESBConductorTaskGridUndeployButton");
     	   this.acceptAlert();
     	   this.clickElementById(other.getString("ESBConductor.RefreshButtonId"));
     	   Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='" + label + "']"
@@ -169,10 +170,12 @@ public class RedefineContext extends WebDriverBase {
     	   this.getElementById("idESBConductorTaskGridDeleteButton").click();        	   
     	   this.clickElementById(other.getString("ESBConductor.DeleteButtonId"));
     	   this.acceptAlert(); 	   
-           Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='" + label + "']"), 20));
+    	   logger.info("-------label:"+label);
+           Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='" + label + "']"), 30));
        }
        
        public void deleteContextPropertyCancel(String label) {
+    	   logger.info("^^^^^^^^^^^^^Label:"+label);
     	   this.waitforElementDisplayed(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MIN);
     	   this.mouseDown("//div[text()='" + label + "']");
     	   this.mouseDown("//span[text()='Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input");
