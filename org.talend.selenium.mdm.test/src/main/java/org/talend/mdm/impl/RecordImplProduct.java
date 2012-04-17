@@ -84,6 +84,10 @@ public class RecordImplProduct extends Record{
 			String[] parametersName={entity,Name};	
 			String[] parametersDescription={entity,Description};	
 			String[] parametersPrice={entity,Price};	
+			String[] UniqueIdAssert={UniqueId,UniqueIdValue};
+			String[] NameAssert={Name,NameValue};
+			String[] DescriptionAssert={Description,DescriptionValue};
+			String[] PriceAssert={Price,PriceValue};
 			String[] parametersUniqueIdAssert={entity,UniqueId,UniqueIdValue};
 			String[] parametersNameAssert={entity,Name,NameValue};
 			String[] parametersDescriptionAssert={entity,Description,DescriptionValue};
@@ -103,6 +107,14 @@ public class RecordImplProduct extends Record{
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersPriceAssert)), WAIT_TIME_MAX),"createARecord");
 			this.sleepCertainTime(3000);		    
 			openJournal(entity,UniqueIdValue,OperationType);
+			this.sleepCertainTime(3000); 
+			JournalCheckResult(UniqueIdValue,OperationType);
+			this.sleepCertainTime(3000); 
+			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",UniqueIdAssert )), WAIT_TIME_MIN));
+			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",NameAssert )), WAIT_TIME_MIN));
+			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",DescriptionAssert )), WAIT_TIME_MIN));
+			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",PriceAssert )), WAIT_TIME_MIN));
+			
 }
 	public void testUpdateCheckAvailabilityRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue){
 		String availability;

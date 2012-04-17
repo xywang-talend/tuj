@@ -146,6 +146,7 @@ public void createRecordImpl(String container,String modle,String entity,String 
 			chooseEntity(entity);	
 			entity=entity.replaceAll(" ","");
 			String[] parametersFeild1={entity,feild2Name,feild2Value,entity,feild1Name};
+			String[] NameAssert={feild2Name,feild2Value};
 			String[] parametersFeild2={entity,feild2Name};				
 			String[] parametersFeild2Assert={entity,feild2Name,feild2Value};	
 			logger.info(feild2Name);
@@ -158,8 +159,14 @@ public void createRecordImpl(String container,String modle,String entity,String 
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersFeild2Assert)), WAIT_TIME_MAX),"createARecord");
 		    this.sleepCertainTime(3000); 
 		    key=this.getValue(this.getElementByXpath(this.getString(locator,"xpath.record.get.uuid",parametersFeild1)));
+		    String[] IdAssert={feild1Name,key};
 		    this.sleepCertainTime(3000);
 		    openJournal(entity,key,OperationType);
+		    JournalCheckResult(key,OperationType);
+			this.sleepCertainTime(5000); 
+			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",IdAssert )), WAIT_TIME_MIN));
+			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",NameAssert )), WAIT_TIME_MIN));
+	
 }
 	public void updateRecordImpl(String container,String modle,String entity,String feild2Value_old,String feild2Value,String feild2Name,String feild1Name){
 		OperationType="UPDATE";

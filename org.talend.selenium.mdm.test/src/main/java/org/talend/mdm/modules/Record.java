@@ -37,7 +37,7 @@ public void enterJournal(String entity,String key,String OperationType){
 	this.modifyText(this.getElementByXpath(locator.getString("xpath.record.choose.journal.key")),key);	
 	this.clickElementByXpath(locator.getString("xpath.record.choose.journal.operation.arrows")); 
 	this.clickElementByXpath(this.getString(locator,"xpath.record.choose.journal.operation.choose",OperationType)); 		
-	this.sleepCertainTime(2000);
+	this.sleepCertainTime(8000);
 	try {
 		Robot bot = new Robot();
 		bot.keyPress(KeyEvent.VK_TAB);
@@ -47,12 +47,13 @@ public void enterJournal(String entity,String key,String OperationType){
 		bot.keyPress(KeyEvent.VK_TAB);
 		bot.keyRelease(KeyEvent.VK_TAB);
 
+
 		bot.keyPress(KeyEvent.VK_ENTER);
 	} catch (AWTException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}	
-	
+	this.sleepCertainTime(2000);
 }
 public void JournalResultCount(){
 	 int recordCount;
@@ -78,13 +79,17 @@ public void JournalCheckResult(String key,String OperationType){
 	//desc depend the time
 	this.sleepCertainTime(3000);
 	this.moveToElement(driver.findElement(By.xpath("//div[text()='Operation Time']")));
+	//this.sleepCertainTime(3000);
 	this.clickElementByXpath("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-6')]//a[@class='x-grid3-hd-btn']");
 	this.sleepCertainTime(2000);
 	this.clickElementByXpath("//a[text()='Sort Descending']");
-	this.sleepCertainTime(3000);
+	this.sleepCertainTime(9000);
 	this.clickElementByXpath(this.getString(locator, "xpath.record.choose.journal.choose.record", parameters));
+	this.sleepCertainTime(9000);
 	this.doubleClick(this.getElementByXpath(this.getString(locator, "xpath.record.choose.journal.choose.record", parameters)));
-	this.clickElementByXpath(locator.getString("xpath.record.journal.click.info"));		
+	this.sleepCertainTime(9000);
+	this.clickElementByXpath(locator.getString("xpath.record.journal.click.info"));
+	this.sleepCertainTime(9000);
 
 }
 public void searchDateAssert(String searchFeild,String opeartion,String value,String entity_Element){
