@@ -295,8 +295,8 @@ public class UserImpl extends User{
 		logger.info("delete the new user added ok.");
 	}
 	
-	public void readOnlyAccessForViewer(String userNameAdministrator,String adminPass,String identifier, String firstName,String  lastName, String password, String confirmPassword, String email,String  company, String defaultVersion, boolean active, String roles,String container,String modle,String entity,String feild1Name,String feild2Name,String feild3Name){
-		RecordImplProductFamily rec = new  RecordImplProductFamily(this.driver);
+	public void readOnlyAccessForViewer(String userNameAdministrator,String adminPass,String identifier, String firstName,String  lastName, String password, String confirmPassword, String email,String  company, String defaultVersion, boolean active, String roles,String container,String modle,String entity,String UniqueId,String Name,String Description,String Price){
+		RecordImplProduct rec = new  RecordImplProduct(this.driver);
 		this.openMenuAdministrator();
 		this.gotoUserManagePage();
 		this.addUser(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, roles);
@@ -306,14 +306,16 @@ public class UserImpl extends User{
 		rec.chooseModle(modle);
 		rec.clickSave();
 		rec.chooseEntity(entity);
-//		rec.clickCreate();
-		String[] parametersFeild1={entity,feild1Name};
-		String[] parametersFeild2={entity,feild2Name};
-		String[] parametersFeild3={entity,feild3Name};
-        this.sleepCertainTime(5000);
-        Assert.assertFalse(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild1", parametersFeild1)).isEnabled());
-        Assert.assertFalse(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild1", parametersFeild2)).isEnabled());
-        Assert.assertFalse(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild1", parametersFeild3)).isEnabled());
+		this.sleepCertainTime(5000);
+		rec.clickCreateRecord();
+		String[] parametersUniqueId={entity,UniqueId};	
+		String[] parametersName={entity,Name};	
+		String[] parametersDescription={entity,Description};	
+		String[] parametersPrice={entity,Price};	
+		Assert.assertFalse(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersUniqueId)).isEnabled());
+		Assert.assertFalse(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersName)).isEnabled());
+		Assert.assertFalse(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersDescription)).isEnabled());
+		Assert.assertFalse(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersPrice)).isEnabled());
 		this.logoutThenloginAdministratorAndDeleteUser(userNameAdministrator, adminPass, locator.getString("login.administrator.forcelogin.message"), identifier);
 	}
 }

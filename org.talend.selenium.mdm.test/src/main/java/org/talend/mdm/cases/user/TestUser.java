@@ -126,8 +126,8 @@ public class TestUser extends Login {
 	}
 	
 	@Test
-	@Parameters( {"user.name","user.password","identifier", "first.name", "last.name", "password", "confirm.password", "email", "company", "default.version", "active", "roles","container","modle","entity","feild1Name","feild2Name","feild3Name"})
-	public void testUserViewerReadOnlyAccess(String userNameAdministrator,String adminPass,String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String roles,String container,String modle,String entity,String feild1Name,String feild2Name,String feild3Name) {
-		userImpl.readOnlyAccessForViewer(userNameAdministrator,adminPass,identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, (roles),container,modle,entity, feild1Name, feild2Name, feild3Name);
+	@Parameters( {"user.name","user.password","identifier", "first.name", "last.name", "password", "confirm.password", "email", "company", "default.version", "active", "roles","container","modle","entity","UniqueId","Name","Description","Price"})
+	public void testUserViewerReadOnlyAccess(String userNameAdministrator,String adminPass,String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String roles,String container,String modle,String entity,String UniqueId,String Name,String Description,String Price) {
+		userImpl.readOnlyAccessForViewer(userNameAdministrator,adminPass,identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, (roles),container,modle,entity, UniqueId, Name, Description, Price);
 	}
 }
