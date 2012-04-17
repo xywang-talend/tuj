@@ -680,7 +680,39 @@ public class RecordImplProduct extends Record{
 	    
 	}
 	
-	
+	public void storeShowOnMapProcessImpl(String container,String model,String entity,String productUniqID){
+		
+		this.chooseContainer(container);
+		this.chooseModle(model);
+		this.clickSave();
+		this.chooseEntity(entity);
+		this.sleepCertainTime(5000);
+		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
+		
+		//select a product record with store associated  in data browser
+		this.clickElementByXpath(this.getString(locator, "xpath.record.chooserecord.byID", productUniqID));
+		
+		
+		//select show on map option  ,and launch process
+		this.seletDropDownList(By.xpath(locator.getString("xpath.record.launchprocess.select.img")), "Show on map");
+		this.sleepCertainTime(5000);
+		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.button"));
+		this.sleepCertainTime(5000);
+		this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.status.info")), WAIT_TIME_MID);
+		
+		//click process ok button to verify can open a google map 
+		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.success.ok.button"));
+        this.sleepCertainTime(5000);
+        List a = new ArrayList<String>();
+        for (String handle : driver.getWindowHandles()) {
+        a.add(handle);
+        }
+        driver.switchTo().window(a.get(1).toString());
+        Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.ok.button.click.store.google.map")), WAIT_TIME_MIN)!=null);
+        driver.switchTo().window(a.get(0).toString());
+    	
+    
+	}
 	
 	public void openJournalFromDataBrowser(){
 		this.clickJournal();

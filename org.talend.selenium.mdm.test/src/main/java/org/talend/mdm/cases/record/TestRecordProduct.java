@@ -85,4 +85,9 @@ public class TestRecordProduct extends Login {
 		recordImpl.priceChangeWorkFlowInValidImpl(userFrank, frankPass, userJennifer, jenniferPass, container, model, entity,productUniqID);
 	}
 	
+	@Test
+	@Parameters( {"container","modle","entity","UniqueIdValue"})
+	public void testStoreShowOnMapProcess(String container,String model,String entity,String productUniqID) {
+		recordImpl.storeShowOnMapProcessImpl(container, model, entity,productUniqID);
+	}
 }
