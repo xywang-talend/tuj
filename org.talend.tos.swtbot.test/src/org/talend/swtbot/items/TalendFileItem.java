@@ -12,16 +12,24 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.allOf;
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withStyle;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 import junit.framework.Assert;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.hamcrest.Matcher;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.Utilities.TalendItemType;
 
@@ -62,36 +70,32 @@ public class TalendFileItem extends TalendMetadataItem {
         return Utilities.getFileFromCurrentPluginSampleFolder(filePath + ".result");
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public void finishCreationWizard(final SWTBotShell shell) {
         try {
             gefBot.waitUntil(new DefaultCondition() {
 
                 public boolean test() throws Exception {
-
-                    return gefBot.button("Next >").isEnabled();
+                    Matcher matcher = allOf(widgetOfType(Button.class), withStyle(SWT.PUSH, null));
+                    SWTBotButton button = new SWTBotButton((Button) gefBot.widget(matcher, gefBot.cTabItem("Preview").widget));
+                    boolean isPreviewDone = "Refresh Preview".equals(button.getText());
+                    boolean isPreviewFail = gefBot.cTabItem("Output").isActive();
+                    return (isPreviewDone || isPreviewFail);
                 }
 
                 public String getFailureMessage() {
-                    shell.close();
-                    return "next button was never enabled";
+                    return "refresh preview did not finish";
                 }
             }, 60000);
+
+            if (gefBot.cTabItem("Output").isActive()) {
+                throw new Exception("Refresh preview fail - " + gefBot.styledText().getText());
+            }
+
             if (isSetHeadingRowAsColumnName) {
                 gefBot.checkBox("Set heading row as column names").click();
             }
             gefBot.button("Next >").click();
-            gefBot.waitUntil(new DefaultCondition() {
-
-                public boolean test() throws Exception {
-
-                    return gefBot.button("Finish").isEnabled();
-                }
-
-                public String getFailureMessage() {
-                    shell.close();
-                    return "finish button was never enabled";
-                }
-            }, 10000);
             gefBot.button("Finish").click();
         } catch (WidgetNotFoundException wnfe) {
             Assert.fail(wnfe.getCause().getMessage());
