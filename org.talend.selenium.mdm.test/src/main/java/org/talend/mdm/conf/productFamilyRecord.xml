@@ -3,7 +3,8 @@
     <parameter name="user.name" value="jennifer" />
 	<parameter name="user.password" value="jennifer" />
 	<parameter name="message" value="User 'jennifer' is already logged in another session!" />
-    <test name="Product Family create a record"  preserve-order="true">
+	
+     <test name="Product Family create a record"  preserve-order="true">
 	    <classes>	  
 	        <parameter name="entity" value="Product Family" /> 	        
   		    <parameter name="feild2Name" value="Name" /> 	 			
@@ -30,15 +31,15 @@
 		        </methods>
 		    </class>
 	    </classes>
-  </test>    
+  </test>     
 
   <test name="Product Family duplicate a record">
 	    <classes>
   			<parameter name="entity" value="Product Family" /> 	        
   		    <parameter name="feild2Name" value="Name" /> 
   		     <parameter name="feild1Name" value="Id" />
-  		    <parameter name="feild2Value_old" value="Books_update" />	 			
-  			<parameter name="feild2Value" value="Books_dup" /> 	
+  		    <parameter name="feild2Value_old" value="Books_update" />	
+  		    <parameter name="feild2Value" value="Books_dup" />	 				
 		    <class name="org.talend.mdm.cases.record.TestRecordProductFamily">
 				<methods> 
 		           <include name="testDuplicateRecord"/> 
@@ -46,7 +47,7 @@
 		    </class>
 	    </classes>
   </test> 
-
+ 
     <test name="Product Family delete a record">
 	    <classes>
 	        <parameter name="entity" value="Product Family" /> 	        
@@ -59,9 +60,22 @@
 		        </methods>
 		    </class>
 	    </classes>
-  </test>       
+  </test>     
+      <test name="Product Family delete the duplicate record">
+	    <classes>
+	        <parameter name="entity" value="Product Family" /> 	        
+  		    <parameter name="feild2Name" value="Name" /> 
+  		    <parameter name="feild2Value" value="Books_dup" />	 
+  		     <parameter name="feild1Name" value="Id" />	
+	            <class name="org.talend.mdm.cases.record.TestRecordProductFamily">
+				<methods> 
+		           <include name="testDeleteRecord"/> 
+		        </methods>
+		    </class>
+	    </classes>
+  </test>   
   
-      <test name="Product Family delete a record to recycle and restore the record " preserve-order="true">
+ <!--      <test name="Product Family delete a record to recycle and restore the record " >
 	    <classes>
 	        <parameter name="entity" value="Product Family" /> 	        
   		    <parameter name="feild2Name" value="Name" /> 
@@ -74,7 +88,7 @@
 		        </methods>
 		    </class>
 	    </classes>
-  </test>   
+  </test>    -->
  
 
 </suite>
