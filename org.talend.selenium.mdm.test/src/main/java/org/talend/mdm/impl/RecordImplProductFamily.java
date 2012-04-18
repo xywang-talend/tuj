@@ -118,6 +118,7 @@ public class RecordImplProductFamily extends Record{
 		chooseEntity(entity);
 		entity=entity.replaceAll(" ","");
 		String[] parametersFeild1={entity,feild2Name,feild2Value_old,entity,feild1Name};	
+		String[] parametersFeild1_dup={entity,feild2Name,feild2Value,entity,feild1Name};
 		String[] parametersFeild2={entity,feild2Name};	
 		String[] parametersFeild2Assert={entity,feild2Name,feild2Value};
 		String[] Feild2Value={feild2Name,feild2Value};	
@@ -128,20 +129,29 @@ public class RecordImplProductFamily extends Record{
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.Duplicate.input",parametersFeild2)), WAIT_TIME_MAX),"duplicateARecord");
 		this.sleepCertainTime(5000);
 		key=this.getValue(this.getElementByXpath(this.getString(locator,"xpath.record.get.uuid",parametersFeild1)));
+		logger.info(key);
 		String[] parametersFeild2Value={entity,key};
+		String[] parametersFeild2ValueAssert={feild2Name,feild2Value};
 		this.clickElementByXpath(this.getString(locator,"xpath.record.Duplicate.close.origin",parametersFeild2Value));
 		this.sleepCertainTime(3000);
 		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.Duplicate.input",parametersFeild2)), feild2Value);
 		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
 		this.sleepCertainTime(3000);
 		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
+		this.sleepCertainTime(5000);
+		chooseRcord(entity,feild2Name,feild2Value);	
+		this.sleepCertainTime(5000);
+		key=this.getValue(this.getElementByXpath(this.getString(locator,"xpath.record.get.uuid",parametersFeild1_dup)));
+		logger.info(key);
+		this.sleepCertainTime(3000);
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersFeild2Assert)), WAIT_TIME_MAX),"createARecord");
 		this.sleepCertainTime(3000); 
 		openJournal(entity,key,OperationType);
 		this.sleepCertainTime(3000); 
 		JournalCheckResult(key,OperationType);
 		this.sleepCertainTime(5000); 
-		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",Feild2Value )), WAIT_TIME_MIN));
+		logger.info(this.getString(locator, "xpath.record.ceate.jouranl",Feild2Value ));
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",parametersFeild2ValueAssert )), WAIT_TIME_MIN));
 		
 	}	
 public void createRecordImpl(String container,String modle,String entity,String feild2Value,String feild2Name,String feild1Name){
