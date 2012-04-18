@@ -31,9 +31,7 @@ public void openJournal(String entity,String key,String OperationType){
 
 
 public void enterJournal(String entity,String key,String OperationType){
-	clickJournal();
-	//input the search condition
-				
+	clickJournal();				
 	this.sleepCertainTime(3000);
 	this.modifyText(this.getElementByXpath(locator.getString("xpath.record.choose.journal.entity")),entity);	
 	this.sleepCertainTime(3000);
@@ -43,21 +41,7 @@ public void enterJournal(String entity,String key,String OperationType){
 	this.sleepCertainTime(3000);
 	this.clickElementByXpath(this.getString(locator,"xpath.record.choose.journal.operation.choose",OperationType)); 		
 	this.sleepCertainTime(8000);
-	try {
-		Robot bot = new Robot();
-		bot.keyPress(KeyEvent.VK_TAB);
-		bot.keyRelease(KeyEvent.VK_TAB);
-		bot.keyPress(KeyEvent.VK_TAB);
-		bot.keyRelease(KeyEvent.VK_TAB);
-		bot.keyPress(KeyEvent.VK_TAB);
-		bot.keyRelease(KeyEvent.VK_TAB);
-
-
-		bot.keyPress(KeyEvent.VK_ENTER);
-	} catch (AWTException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}	
+	this.clickElementByXpath(locator.getString("xpath.record.click.journal.search"));	
 	this.sleepCertainTime(2000);
 }
 public void JournalResultCount(){
@@ -385,7 +369,7 @@ public void chooseEntity(String entity) {
 	
 	this.clickElementByXpath(locator.getString("xpath.record.choose.entity.arrows"));	 
 	this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.entity",entity)), WAIT_TIME_MAX);
-	this.sleepCertainTime(3000);
+	this.sleepCertainTime(10000);
 	this.clickElementByXpath(this.getString(locator, "xpath.record.choose.entity",entity));
 }      
 
