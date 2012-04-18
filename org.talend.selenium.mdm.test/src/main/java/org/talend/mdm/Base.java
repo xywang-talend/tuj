@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -23,6 +24,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.talend.mdm.TestCase.Result;
 import org.testng.Assert;
 import org.testng.IClass;
 import org.testng.ITestContext;
@@ -46,6 +48,12 @@ public class Base {
 	public final static int WAIT_TIME_MIN =50;
 	public final static int WAIT_TIME_MID = 300;
 	public final static int WAIT_TIME_MAX = 5000;
+	
+	public static List<TestCase> successTestCases = new ArrayList<TestCase>();
+	public static List<TestCase> failedTestCases = new ArrayList<TestCase>();
+	TestCaseRecorder testCaseRecorder = new TestCaseRecorder();
+	TestCaseScreenRecorder testCaseScreenRecorder;
+	
 	public WebDriver driver;
 	public void setDriver(WebDriver driver) {
 		this.driver = driver;
@@ -403,16 +411,86 @@ public class Base {
 		} 
 	}
 	
-	public void onTestFailure(ITestContext context, final String imgFilePath){
+	public void onTestListener(ITestContext context, final String imgFilePath){
 		TestRunner runner = (TestRunner) context;
 		runner.addListener(new TestListenerAdapter(){
 			@Override
 			public void onTestFailure(ITestResult tr) {
-				
 				Reporter.setCurrentTestResult(tr);
+				
+				String testCaseInfo = this.getTestCaseInfo(tr);
+				
+				String methodName = tr.getMethod().getMethodName();
+				int lineNumber = 0;
+				for(StackTraceElement element: tr.getThrowable().getStackTrace()) {
+					if(methodName.equals(element.getMethodName())) {
+						lineNumber = element.getLineNumber();
+					}
+				}
+				String name = testCaseInfo + "_" + lineNumber + ".png";
+				try {
+					captureScreenshot(imgFilePath + File.separator + name);
+					System.out.println(imgFilePath + File.separator + name);
+				} catch (Exception e) {
+				}
+				
+				this.setTestCaseResultInfo(failedTestCases, testCaseInfo, Result.f);
+			}
+			
+			
+			@Override
+			public void onTestSuccess(ITestResult tr) {
+				super.onTestSuccess(tr);
+				Reporter.setCurrentTestResult(tr);
+				String testCaseInfo = this.getTestCaseInfo(tr);
+				this.setTestCaseResultInfo(successTestCases, testCaseInfo, Result.p);
+			}
+			
+			@Override
+			public void onTestStart(ITestResult tr) {
+				String testCaseInfo = this.getTestCaseInfo(tr);
+				try {
+					testCaseScreenRecorder = testCaseRecorder.getScreenRecorder(getAbsoluteFolderPath("org/talend/mdm/download") + "/" + testCaseInfo);
+					
+					logger.info(getAbsoluteFolderPath("org/talend/mdm/download") + "/" + testCaseInfo);
+				} catch (Exception e) {
+					logger.info(e.getMessage());
+					e.printStackTrace();
+				}
+				
+				if(testCaseScreenRecorder ==null) {{
+					logger.info("testCaseScreenRecorder = null");
+				}
+					
+				}
+				
+				testCaseScreenRecorder.start();
+				super.onTestStart(tr);
+			}
+			
+			@Override
+			public void onFinish(ITestContext testContext) {
+				System.out.println("---------------- onFinish -----------------------");
+				try {
+					System.out.println("=============== video , stop!!!" );
+					if(testCaseScreenRecorder != null) {
+						testCaseScreenRecorder.stop();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					testCaseScreenRecorder = null;
+				}
+				
+				
+				super.onFinish(testContext);
+			}
+			
+			public String getTestCaseInfo(ITestResult tr) {
 				IClass clazz = tr.getTestClass();
 				
-				String className = clazz.getName();
+				String className = clazz.getRealClass().getSimpleName();
+				
 				String methodName = tr.getMethod().getMethodName();
 				
 				String parameter = "";
@@ -420,11 +498,10 @@ public class Base {
 				try {
 					for(Object param : tr.getParameters()) {
 						String par = (String)param;
-						parameter = parameter + ",'" + par.replaceAll("/", "|")+"'"; 
+						parameter = parameter + ",'" + par.replaceAll("/", "_")+"'"; 
 					}
 				} catch (Exception ex) {
 					for(Object param : tr.getParameters()) {
-						logger.info("Couldn't cast to String = " + param);
 					}
 					ex.printStackTrace();
 				}
@@ -433,26 +510,21 @@ public class Base {
 					parameter = parameter.substring(1);
 				}
 				
-				int lineNumber = 0;
-				for(StackTraceElement element: tr.getThrowable().getStackTrace()) {
-					if(methodName.equals(element.getMethodName())) {
-						lineNumber = element.getLineNumber();
-					}
-				}
+				return className + "." + methodName + "(" + parameter + ")";
+			}
+			
+			public void setTestCaseResultInfo(List<TestCase> testcases, String testCaseInfo, Result result) {
+				TestCase testCase = new TestCase();
 				
-				String name = className + "." + methodName + "(" + parameter + ")_" + lineNumber + ".png";
+				String testlinkProject = System.getProperty("testlink.porject");
+				String testlinkId = System.getProperty("testlink.id");
+				int id = Integer.parseInt(testlinkId.substring(testlinkProject.length()+1));
+				testCase.setId(id);
 				
-//				String url = getAbsolutePath("org/talend/tac/folder/screen");
-				
-//				String url = getAbsolutePath(imgFilePath);
-				
-				try {
-//					selenium.captureScreenshot(url + File.separator + name);
-					captureScreenshot(imgFilePath + File.separator + name);
-					System.out.println(imgFilePath + File.separator + name);
-				} catch (Exception e) {
-				}
-				
+				testCase.setResult(result);
+				testCase.setNote(testCaseInfo + " !");
+				testCase.setComment(testCaseInfo);
+				testcases.add(testCase);
 			}
 		}); 
 		

@@ -40,7 +40,7 @@ public class Logon extends Base{
 		super.setDriver(driver);
 		windowMaximize();
 		
-		onTestFailure(context, Login.class.getClassLoader().getResource("org/talend/mdm/download").getPath());
+		onTestListener(context, Login.class.getClassLoader().getResource("org/talend/mdm/download").getPath());
 	}
 	
 	

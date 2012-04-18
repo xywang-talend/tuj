@@ -1,10 +1,8 @@
 package org.talend.mdm;
 
 import java.net.URL;
-import java.util.List;
 
 import org.apache.log4j.PropertyConfigurator;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -12,6 +10,7 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
@@ -21,8 +20,10 @@ public class Login extends Base{
 	protected WebDriver driver;
 	
 	@BeforeClass
-	@Parameters({"url", "root"})
-	public void initWebdriver(String url, String root, ITestContext context){
+	@Parameters({"url", "root", "testlink.id", "testlink.porject"})
+	public void initWebdriver(String url, String root, String testlinkId, String testlinkProject , ITestContext context){
+		System.setProperty("testlink.id", testlinkId);
+		System.setProperty("testlink.porject", testlinkProject);
 		
 		URL file = Login.class.getClassLoader().getResource("org/talend/mdm/resources");
 		PropertyConfigurator.configure( file.getPath() + "/log4j.properties" );
@@ -44,7 +45,7 @@ public class Login extends Base{
 		super.setDriver(driver);
 		windowMaximize();
 		
-		onTestFailure(context, Login.class.getClassLoader().getResource("org/talend/mdm/download").getPath());
+		onTestListener(context, Login.class.getClassLoader().getResource("org/talend/mdm/download").getPath());
 	}
 	
 	@BeforeMethod
@@ -91,5 +92,13 @@ public class Login extends Base{
 	public void killBroswer() {
 		driver.quit();
 		logger.info("WebDriver Quit");
+	}
+	
+	@AfterSuite
+	public void generateXmlReport(){
+		Results result = new Results();
+		
+		result.crateXmlFile(result.getResults(failedTestCases), this.getAbsoluteFolderPath("org/talend/mdm/download")+ "/Failed.xml");
+		result.crateXmlFile(result.getResults(successTestCases), this.getAbsoluteFolderPath("org/talend/mdm/download")+ "/Succes.xml");
 	}
 }
