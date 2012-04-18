@@ -23,7 +23,6 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendDBItem;
-import org.talend.swtbot.items.TalendSchemaItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -53,16 +52,14 @@ public class UpdateTableNameTest extends TalendSwtBotForTos {
     @Test
     public void updateTableNameTest() {
         dbItem.retrieveDbSchema(TABLE_NAME);
-        TalendSchemaItem oldSchema = dbItem.getSchema(TABLE_NAME);
-        Assert.assertNotNull("schema did not retrieved", oldSchema.getItem());
+        Assert.assertNotNull("schema did not retrieved", dbItem.getSchema(TABLE_NAME).getItem());
 
         String sql = "ALTER TABLE " + TABLE_NAME + " RENAME TO " + NEW_TABLE_NAME;
         dbItem.executeSQL(sql);
         isNewTableCreated = true;
         dbItem.retrieveDbSchema(NEW_TABLE_NAME);
-        TalendSchemaItem newSchema = dbItem.getSchema(NEW_TABLE_NAME);
-        Assert.assertNotNull("schema did not retrieved", newSchema.getItem());
-        Assert.assertNull("old schema did not delete", oldSchema.getItem());
+        Assert.assertNotNull("schema did not retrieved", dbItem.getSchema(NEW_TABLE_NAME).getItem());
+        Assert.assertNull("old schema did not delete", dbItem.getSchema(TABLE_NAME).getItem());
     }
 
     @After

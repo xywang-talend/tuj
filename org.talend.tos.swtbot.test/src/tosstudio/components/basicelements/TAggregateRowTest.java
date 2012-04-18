@@ -113,10 +113,10 @@ public class TAggregateRowTest extends TalendSwtBotForTos {
         for (int i = 0; i < columnNames.length; i++) {
             int row = i;
             gefBot.buttonWithTooltip("Add", 1).click();
-            operationsTable.click(row, 1);
-            gefBot.ccomboBox("name").setSelection(columnNames[i]);
-            operationsTable.click(row, 2);
-            gefBot.ccomboBox("count").setSelection(columnNames[i]);
+            // operationsTable.click(row, 1);
+            // gefBot.ccomboBox("name").setSelection(columnNames[i]);
+            // operationsTable.click(row, 2);
+            // gefBot.ccomboBox("count").setSelection(columnNames[i]);
             operationsTable.click(row, 3);
             gefBot.ccomboBox("name").setSelection("point");
             operationsTable.click(row, 4);
