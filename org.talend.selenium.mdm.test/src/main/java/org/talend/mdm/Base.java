@@ -464,7 +464,7 @@ public class Base {
 					
 				}
 				
-				testCaseScreenRecorder.start();
+//				testCaseScreenRecorder.start();
 				super.onTestStart(tr);
 			}
 			
