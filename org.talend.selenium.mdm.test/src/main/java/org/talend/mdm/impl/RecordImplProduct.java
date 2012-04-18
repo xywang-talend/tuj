@@ -244,7 +244,7 @@ public class RecordImplProduct extends Record{
 		chooseModle(modle);
 		clickSave();
 		chooseEntity(entity);
-		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
+		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.databrowser.bigger"))), -200, 0);
 		this.sleepCertainTime(6000);
 		searchCondition(searchFeild,opeartion,value);
 		this.sleepCertainTime(3000);
@@ -256,7 +256,7 @@ public class RecordImplProduct extends Record{
 		chooseModle(modle);
 		clickSave();
 		chooseEntity(entity);	
-		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
+		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.databrowser.bigger"))), -200, 0);
 		this.sleepCertainTime(6000);
 		searchCondition(searchFeild,opeartion,value);
 		this.sleepCertainTime(3000);
