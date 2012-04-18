@@ -120,6 +120,7 @@ public class RecordImplProductFamily extends Record{
 		String[] parametersFeild1={entity,feild2Name,feild2Value_old,entity,feild1Name};	
 		String[] parametersFeild2={entity,feild2Name};	
 		String[] parametersFeild2Assert={entity,feild2Name,feild2Value};
+		String[] Feild2Value={feild2Name,feild2Value};	
 		
 		chooseRcord(entity,feild2Name,feild2Value_old);		
 		this.sleepCertainTime(5000);
@@ -137,6 +138,11 @@ public class RecordImplProductFamily extends Record{
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersFeild2Assert)), WAIT_TIME_MAX),"createARecord");
 		this.sleepCertainTime(3000); 
 		openJournal(entity,key,OperationType);
+		this.sleepCertainTime(3000); 
+		JournalCheckResult(key,OperationType);
+		this.sleepCertainTime(5000); 
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",Feild2Value )), WAIT_TIME_MIN));
+		
 	}	
 public void createRecordImpl(String container,String modle,String entity,String feild2Value,String feild2Name,String feild1Name){
 	        OperationType="CREATE";
@@ -162,6 +168,7 @@ public void createRecordImpl(String container,String modle,String entity,String 
 		    String[] IdAssert={feild1Name,key};
 		    this.sleepCertainTime(3000);
 		    openJournal(entity,key,OperationType);
+		    this.sleepCertainTime(5000);
 		    JournalCheckResult(key,OperationType);
 			this.sleepCertainTime(5000); 
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",IdAssert )), WAIT_TIME_MIN));
@@ -177,7 +184,9 @@ public void createRecordImpl(String container,String modle,String entity,String 
 		entity=entity.replaceAll(" ","");
 		String[] parametersFeild2={entity,feild2Name};
 		String[] parametersFeild2Assert={entity,feild2Name,feild2Value};
+		String[] NameAssert={feild2Name,feild2Value};
 		chooseRcord(entity,feild2Name,feild2Value_old);	
+		
 		String[] parametersFeild1={entity,feild2Name,feild2Value,entity,feild1Name};
 		this.sleepCertainTime(5000);
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersFeild2)), 3000));
@@ -196,6 +205,9 @@ public void createRecordImpl(String container,String modle,String entity,String 
 		key=this.getValue(this.getElementByXpath(this.getString(locator,"xpath.record.get.uuid",parametersFeild1)));
 		this.sleepCertainTime(3000);
 		openJournal(entity,key,OperationType);
+		JournalCheckResult(key,OperationType);
+		this.sleepCertainTime(5000); 		
+			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",NameAssert )), WAIT_TIME_MIN));
 		}
 	}
 	public void SearchRecordByValueImpl(String container,String modle,String entity,String searchFeild,String opeartion,String value){

@@ -59,13 +59,7 @@ public class TestRecordProduct extends Login {
 	public void testSearchRecordByString(String container,String modle,String entity,String entity_Element,String searchFeild,String searchFeild_Element,String opeartion,String value) {
 		recordImpl.SearchRecordByStringImpl(container, modle, entity, entity_Element ,searchFeild,searchFeild_Element,opeartion,value);
 	}
-	
-	@Test
-	@Parameters( { "container","modle","entity","entity_Element","searchFeild","opeartion", "value" })
-	public void testSearchRecordByDate(String container,String modle,String entity,String entity_Element,String searchFeild,String searchFeild_Element,String opeartion,String value) {
-		recordImpl.SearchRecordByDateImpl(container, modle, entity,entity_Element , searchFeild,searchFeild_Element,opeartion,value);
-	}
-	
+
 	@Test
 	@Parameters( {"user.frank.name","user.frank.password","user.jennifer.name","user.jennifer.password", "container","modle","entity","UniqueIdValue"})
 	public void testPriceChangeValidApprovedWorkflow(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID) {

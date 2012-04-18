@@ -5,7 +5,69 @@
 	<parameter name="message" value="User 'jennifer' is already logged in another session!" />
     <parameter name="entity" value="Product" /> 	        
    	<parameter name="UniqueId" value="Id" />
-   	<parameter name="UniqueIdValue" value="167938934" />	   
+   	<parameter name="UniqueIdValue" value="167938934" />	 
+   	
+   	
+      <test name="test workflow change price valid and approved">
+	    <classes>
+	<parameter name="user.frank.name" value="frank" />
+	<parameter name="user.frank.password" value="frank" />
+	<parameter name="user.jennifer.name" value="jennifer" />
+	<parameter name="user.jennifer.password" value="jennifer" />
+		<parameter name="UniqueIdValue" value="231035933" />
+    <parameter name="entity" value="Product" />  
+	        <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 		          
+		         <include name="testPriceChangeValidApprovedWorkflow"/>
+		        </methods>
+		    </class>
+	    </classes>
+  </test>
+  
+  
+   <test name="test workflow change price valid and not approve">
+	    <classes>
+	<parameter name="user.frank.name" value="frank" />
+	<parameter name="user.frank.password" value="frank" />
+	<parameter name="user.jennifer.name" value="jennifer" />
+	<parameter name="user.jennifer.password" value="jennifer" />
+		<parameter name="UniqueIdValue" value="231035933" />
+    <parameter name="entity" value="Product" /> 	
+	        <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 		          
+		         <include name="testPriceValidNotApproveWorkFlow"/>  
+		        </methods>
+		    </class>
+	    </classes>
+  </test>
+  
+      <test name="test workflow change price invalid">
+	    <classes>
+	<parameter name="user.frank.name" value="frank" />
+	<parameter name="user.frank.password" value="frank" />
+	<parameter name="user.jennifer.name" value="jennifer" />
+	<parameter name="user.jennifer.password" value="jennifer" />
+		<parameter name="UniqueIdValue" value="231035933" />
+    <parameter name="entity" value="Product" /> 	        
+   	        <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 		          
+		         <include name="testPriceChangeInvalidWorkflow"/>  
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
+  
+    <test name="test work flow process show on map">
+	    <classes>
+    <parameter name="entity" value="Product" /> 
+    	<parameter name="UniqueIdValue" value="231035933" />	        
+   	        <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 		          
+		         <include name="testStoreShowOnMapProcess"/>  
+		        </methods>
+		    </class>
+	    </classes>
+  </test>   
   	
     <test name=" create a record" >
 	    <classes>
@@ -145,7 +207,7 @@
        <test name="in Product Stores view search a record by Price the opeartion is lower than" >
 	    <classes>
 	      
-	        <parameter name="entity" value="Product Stores" />
+	        <parameter name="entity" value="Product with Stores" />
 	        <parameter name="entity_Element" value="Product" />
 	        <parameter name="opeartion" value="is lower than" />	        
 	        <parameter name="searchFeild" value="Price" /> 
@@ -211,62 +273,6 @@
 	    </classes>
   </test>    
  
-      <test name="test workflow change price valid and approved">
-	    <classes>
-	<parameter name="user.frank.name" value="frank" />
-	<parameter name="user.frank.password" value="frank" />
-	<parameter name="user.jennifer.name" value="jennifer" />
-	<parameter name="user.jennifer.password" value="jennifer" />
-    <parameter name="entity" value="Product" />  
-	        <class name="org.talend.mdm.cases.record.TestRecordProduct">
-				<methods> 		          
-		         <include name="testPriceChangeValidApprovedWorkflow"/>
-		        </methods>
-		    </class>
-	    </classes>
-  </test>
-  
-  
-   <test name="test workflow change price valid and not approve">
-	    <classes>
-	<parameter name="user.frank.name" value="frank" />
-	<parameter name="user.frank.password" value="frank" />
-	<parameter name="user.jennifer.name" value="jennifer" />
-	<parameter name="user.jennifer.password" value="jennifer" />
-    <parameter name="entity" value="Product" /> 	
-	        <class name="org.talend.mdm.cases.record.TestRecordProduct">
-				<methods> 		          
-		         <include name="testPriceValidNotApproveWorkFlow"/>  
-		        </methods>
-		    </class>
-	    </classes>
-  </test>
-  
-      <test name="test workflow change price invalid">
-	    <classes>
-	<parameter name="user.frank.name" value="frank" />
-	<parameter name="user.frank.password" value="frank" />
-	<parameter name="user.jennifer.name" value="jennifer" />
-	<parameter name="user.jennifer.password" value="jennifer" />
-    <parameter name="entity" value="Product" /> 	        
-   	        <class name="org.talend.mdm.cases.record.TestRecordProduct">
-				<methods> 		          
-		         <include name="testPriceChangeInvalidWorkflow"/>  
-		        </methods>
-		    </class>
-	    </classes>
-  </test> 
-  
-    <test name="test work flow process show on map">
-	    <classes>
-    <parameter name="entity" value="Product" /> 	        
-   	        <class name="org.talend.mdm.cases.record.TestRecordProduct">
-				<methods> 		          
-		         <include name="testStoreShowOnMapProcess"/>  
-		        </methods>
-		    </class>
-	    </classes>
-  </test> 
    
     <test name=" delete a record" >
 	    <classes>

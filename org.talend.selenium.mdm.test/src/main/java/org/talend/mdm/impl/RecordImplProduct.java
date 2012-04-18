@@ -52,6 +52,7 @@ public class RecordImplProduct extends Record{
 		String[] parametersUniqueId={entity,UniqueId};	
 		String[] parametersUniqueIdAssert={entity,UniqueId,UniqueIdValueDup};	
 		String[] parametersUniqueIdValue={entity,UniqueIdValue};
+		String[] UniqueIdAssert={UniqueId,UniqueIdValue};
 		    OperationType="CREATE";
 			chooseContainer(container);	
 			chooseModle(modle);
@@ -73,6 +74,12 @@ public class RecordImplProduct extends Record{
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersUniqueIdAssert)), WAIT_TIME_MAX),"duplicateARecord");
 			this.sleepCertainTime(3000); 			
 			openJournal(entity,UniqueIdValueDup,OperationType);
+			this.sleepCertainTime(3000); 
+			JournalCheckResult(UniqueIdValue,OperationType);
+			this.sleepCertainTime(3000); 
+			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",UniqueIdAssert )), WAIT_TIME_MIN));
+					
+			
 		}	
    public void createRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String Name,String NameValue,String Description,String DescriptionValue,String Price,String PriceValue) {
 	        OperationType="CREATE";
@@ -236,7 +243,9 @@ public class RecordImplProduct extends Record{
 		chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();
-		chooseEntity(entity);	
+		chooseEntity(entity);
+		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
+		this.sleepCertainTime(6000);
 		searchCondition(searchFeild,opeartion,value);
 		this.sleepCertainTime(3000);
 		searchValueAssert(searchFeild_Element,opeartion,value,entity_Element);	
@@ -247,15 +256,14 @@ public class RecordImplProduct extends Record{
 		chooseModle(modle);
 		clickSave();
 		chooseEntity(entity);	
+		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
+		this.sleepCertainTime(6000);
 		searchCondition(searchFeild,opeartion,value);
 		this.sleepCertainTime(3000);
 		searchStringAssert(searchFeild_Element,opeartion,value,entity_Element);
 		
-	}
+	}	
 	
-	public void SearchRecordByDateImpl(String container,String modle,String entity,String entity_Element,String searchFeild,String searchFeild_Element,String opeartion,String value){
-		
-    }
 	
 	public void priceChangeWorkFlowValidApprovedImpl(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID){
 		LogonImpl log = new LogonImpl(this.driver);
