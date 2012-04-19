@@ -47,14 +47,20 @@ public class Audit extends Login {
 		
 		//go to configuration page
 		this.clickWaitForElementPresent("idMenuConfigElement");
-		
+		this.waitForElementPresent("//div[text()='Configuration' and @class='header-title']", WAIT_TIME);
+		String onlineButton = "//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]/following-sibling::div//button[@aria-pressed='true']";
+//		String offlineButton = "//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]/following-sibling::div//button[@aria-pressed='false']";
+		if(selenium.isElementPresent(onlineButton)) {
+			
+			selenium.click(onlineButton);			
+			
+		}
 		//change value of 'reports stored path' to a directory exist
 		this.waitForElementPresent("//div[contains(text(),'Audit (')]", WAIT_TIME);
 		selenium.mouseDown("//div[contains(text(),'Audit (')]");
 		
-		this.clickWaitForElementPresent(other.getString("audit.conf.reportsStoredPath.editButton"));//click the edit button to make the input tag shown.
-		String defaultPath = selenium.getValue(other.getString("audit.conf.reportsStoredPath.input"));
-		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+		this.clickWaitForElementPresent(other.getString("audit.conf.reportsStoredPath.value"));
+		String defaultPath = selenium.getText(other.getString("audit.conf.reportsStoredPath.value"));		
 		System.out.println(">>>>>>>>"+defaultPath);
 		return defaultPath;
 	
@@ -189,16 +195,25 @@ public class Audit extends Login {
 		int linksNum = this.selenium.getXpathCount("//a[contains(text(),'Audit for project "+'"'+projectName.toUpperCase()+'"'+" created at')]").intValue();
 		return linksNum;
 	}
+	
+	
 	public void changeCommandLineConfig(String commandlineHost, String statusIcon) {
 		
 		System.err.println(commandlineHost);
 		this.clickWaitForElementPresent("idMenuConfigElement");
-		this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
+		this.waitForElementPresent("//div[text()='Configuration' and @class='header-title']", WAIT_TIME);
+		String onlineButton = "//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]/following-sibling::div//button[@aria-pressed='true']";
+//		String offlineButton = "//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]/following-sibling::div//button[@aria-pressed='false']";
+		if(selenium.isElementPresent(onlineButton)) {
+			
+			selenium.click(onlineButton);			
+			
+		}
+		this.mouseDownWaitForElementPresent("//div[contains(text(),'CommandLine/primary')]");
 		this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),other.getString("commandline.conf.primary.host.input"), commandlineHost);
-		this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),other.getString("commandline.conf.primary.host.input"), commandlineHost, statusIcon);
+		this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.host.value"), commandlineHost, statusIcon);
 		
 	}
-	
 	/**
 	 * type a value in configuration menu.click the edit button firstly to wait for the input to appear.
 	 * @param locatorOfEditButton
@@ -211,24 +226,21 @@ public class Audit extends Login {
 		 selenium.keyPressNative(KeyEvent.VK_ENTER+"");
 		
 	}
-	/**
-	 * assertions,check the value in input tag is as expected,and check the status icon.
-	 * @param locatorOfEditButton
-	 * @param locatorOfInput	
-	 * @param value
-	 */
-		public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value,String statusIconLocator){
-		this.AssertEqualsInConfigurationMenu(locatorOfEditButton, locatorOfInput, value);
-			this.waitForElementPresent(statusIconLocator, WAIT_TIME);//wait and check the icon status.
-	}
-	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
-		this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
-		this.waitForElementPresent(locatorOfInput, Base.WAIT_TIME);
-		assertEquals(selenium.getValue(locatorOfInput), value);
-		selenium.keyPressNative(KeyEvent.VK_ENTER+"");
+	
+	public void AssertEqualsInConfigurationMenu(String locatorOfValue,String value){
+		
+		this.waitElement(locatorOfValue, WAIT_TIME);
+		selenium.setSpeed("2000");
+		System.err.println("get value = "+selenium.getText(locatorOfValue));
+		assertEquals(selenium.getText(locatorOfValue), value);
+		selenium.setSpeed("0");
 		
 	}
 	
+	public void AssertEqualsInConfigurationMenu(String locatorOfValue,String value,String statusIconLocator){
+		this.AssertEqualsInConfigurationMenu(locatorOfValue, value);
+			this.waitForElementPresent(statusIconLocator, WAIT_TIME);//wait and check the icon status.
+	}
 	
 	
 }

@@ -78,8 +78,8 @@ public class SoaUtils extends Audit {
 		this.mouseDownWaitForElementPresent("//div[contains(text(),'Command line/primary')]");
 		this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),locatorOfAllInputTags, hostAddress);
 	
-		this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),locatorOfAllInputTags, hostAddress,statusIcon);
-		this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.port.editButton"),locatorOfAllInputTags, "8002",other.getString("commandline.conf.primary.port.statusIcon"));
+//		this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),locatorOfAllInputTags, hostAddress,statusIcon);
+//		this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.port.editButton"),locatorOfAllInputTags, "8002",other.getString("commandline.conf.primary.port.statusIcon"));
 		
 	}
 		

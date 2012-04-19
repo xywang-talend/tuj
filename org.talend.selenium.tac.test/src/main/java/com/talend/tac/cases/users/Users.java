@@ -69,15 +69,20 @@ public class Users extends Login {
 	
 	//creation method for delete a user
 	public void deleteUser(String userName,String deleteUserName){
-		this.clickWaitForElementPresent("idMenuUserElement");
-		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.isTextPresent(userName));
-		selenium.setSpeed(MIN_SPEED);
-		selenium.mouseDown("//div[text()='"+deleteUserName+"']");//Select an existing user
-		selenium.chooseOkOnNextConfirmation();
-		selenium.click("idSubModuleDeleteButton");
-	    Assert.assertTrue(selenium.getConfirmation().matches("^"+other.getString("delete.User.confirmation")+" [\\s\\S]$"));
-	  
+		
+		if(selenium.isElementPresent("//div[text()='"+deleteUserName+"']")) {
+			
+			this.clickWaitForElementPresent("idMenuUserElement");
+			selenium.setSpeed(MID_SPEED);
+			Assert.assertTrue(selenium.isTextPresent(userName));
+			selenium.setSpeed(MIN_SPEED);
+			selenium.mouseDown("//div[text()='"+deleteUserName+"']");//Select an existing user
+			selenium.chooseOkOnNextConfirmation();
+			selenium.click("idSubModuleDeleteButton");
+		    Assert.assertTrue(selenium.getConfirmation().matches("^"+other.getString("delete.User.confirmation")+" [\\s\\S]$"));
+			
+		}
+			  
 	}
 	
 }

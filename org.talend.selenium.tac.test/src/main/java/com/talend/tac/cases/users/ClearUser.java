@@ -5,12 +5,14 @@ import org.testng.annotations.Test;
 
 import com.talend.tac.cases.Login;
 
-public class ClearUser extends Login{
-  
+public class ClearUser extends Users {
 	@Test
 //	(dependsOnGroups={"ModifyUser"})
-	@Parameters({"userName","_FirstName","_LastName"})
-	public void clearUsers(String userName,String FirstName,String LastName) throws Exception {
+	@Parameters({"userName","_FirstName","_LastName", "LoginNameChooseTypeDataQuality"
+		, "ModifiyUserName", "UncheckActiveUser", "importUserName"})
+	public void clearUsers(String userName,String FirstName,String LastName, 
+			String loginNameChooseTypeDataQuality, String modifiyUserName,
+			String UncheckActiveUser, String importUserName) throws Exception {
    
 		 this.clickWaitForElementPresent("idMenuUserElement");
 			    
@@ -23,6 +25,11 @@ public class ClearUser extends Login{
 		 selenium.setSpeed(MAX_SPEED);
 		 selenium.click("idFormSaveButton");
 	     selenium.setSpeed(MIN_SPEED);
+	     
+	     this.deleteUser(userName, loginNameChooseTypeDataQuality);
+	     this.deleteUser(userName, modifiyUserName);
+	     this.deleteUser(userName, UncheckActiveUser);
+	     this.deleteUser(userName, importUserName);
 	
 	}
 	

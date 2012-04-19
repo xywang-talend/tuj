@@ -1,17 +1,15 @@
 package com.talend.tac.cases.audit;
 
-import static org.testng.Assert.assertEquals;
 import java.awt.Event;
-import java.awt.event.KeyEvent;
 import java.io.File;
 
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.base.Base;
-
 public class TestChangeAuditReportStoredPathInConfiguration extends Audit {
+	
+	String defaultPath = "";
 	
 /*	//change audit report stored path in configuration, go to audit page.select a  project
    and branch ,start audit, go to the directory to check the reports generated */
@@ -23,10 +21,10 @@ public class TestChangeAuditReportStoredPathInConfiguration extends Audit {
 			String tjava) {
 		
 		//get get incipient report path
-		String defaultPath = this.getDefaultReportPath();
+		defaultPath = this.getDefaultReportPath();
 		
 	    this.typeWordsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),other.getString("audit.conf.reportsStoredPath.input"), this.getAbsolutePath(auditStoredReportsPath));
-	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),other.getString("audit.conf.reportsStoredPath.input"), this.getAbsolutePath(auditStoredReportsPath),other.getString("audit.conf.reportsStoredPath.statusIcon"));
+	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.value"),this.getAbsolutePath(auditStoredReportsPath),other.getString("audit.conf.reportsStoredPath.statusIcon"));
 		
 	    this.openAudit();
 		   
@@ -64,26 +62,51 @@ public class TestChangeAuditReportStoredPathInConfiguration extends Audit {
 		
 		//go to configuration page
 		this.clickWaitForElementPresent("idMenuConfigElement");
-		
+		this.waitForElementPresent("//div[text()='Configuration' and @class='header-title']", WAIT_TIME);
+		String onlineButton = "//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]/following-sibling::div//button[@aria-pressed='true']";
+//		String offlineButton = "//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]/following-sibling::div//button[@aria-pressed='false']";
+		if(selenium.isElementPresent(onlineButton)) {
+			
+			selenium.click(onlineButton);			
+			
+		}
 		//change value of 'reports stored path' to a directory not exist
 		this.waitForElementPresent("//div[contains(text(),'Audit (')]", WAIT_TIME);
 		selenium.mouseDown("//div[contains(text(),'Audit (')]");
 		
-		this.clickWaitForElementPresent(other.getString("audit.conf.reportsStoredPath.editButton"));//click the edit button to make the input tag shown.
-		String defaultPath = selenium.getValue(other.getString("audit.conf.reportsStoredPath.input"));
-		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
-		System.out.println(">>>>>>>>"+defaultPath);
-		
 		/*change 'reports stored path' to a not exist path*/
 	    this.typeWordsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),other.getString("audit.conf.reportsStoredPath.input"), notExistPath);
-	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),other.getString("audit.conf.reportsStoredPath.input"), notExistPath,other.getString("audit.conf.reportsStoredPath.notExistPath.statusIcon"));
+	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.value")
+	    		, notExistPath,other.getString("audit.conf.reportsStoredPath.notExistPath.statusIcon"));
 	    
 	    this.waitForElementPresent("//div[contains(text(),'Audit (')]/parent::div/following-sibling::div//table//div[text()='Reports stored path']/parent::td/following-sibling::" +
 	    		"td//div[text()='Path does not exist']", WAIT_TIME);
 	    
+//	    /*change 'reports stored path' to incipient path*/
+//	    this.typeWordsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),other.getString("audit.conf.reportsStoredPath.input"), defaultPath);
+//	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.value"), defaultPath,other.getString("audit.conf.reportsStoredPath.statusIcon"));
+	}
+	
+	@Test
+	public void resetReportStoredPathToIncipient() {
+		
+		//go to configuration page
+		this.clickWaitForElementPresent("idMenuConfigElement");
+		this.waitForElementPresent("//div[text()='Configuration' and @class='header-title']", WAIT_TIME);
+		String onlineButton = "//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]/following-sibling::div//button[@aria-pressed='true']";
+//		String offlineButton = "//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]/following-sibling::div//button[@aria-pressed='false']";
+		if(selenium.isElementPresent(onlineButton)) {
+			
+			selenium.click(onlineButton);			
+			
+		}
+		//change value of 'reports stored path' to a directory not exist
+		this.waitForElementPresent("//div[contains(text(),'Audit (')]", WAIT_TIME);
+		selenium.mouseDown("//div[contains(text(),'Audit (')]");
 	    /*change 'reports stored path' to incipient path*/
 	    this.typeWordsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),other.getString("audit.conf.reportsStoredPath.input"), defaultPath);
-	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),other.getString("audit.conf.reportsStoredPath.input"), defaultPath,other.getString("audit.conf.reportsStoredPath.statusIcon"));
+	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.value"), defaultPath,other.getString("audit.conf.reportsStoredPath.statusIcon"));
+		
 	}
 	
 }
