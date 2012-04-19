@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 public class TestServiceLocator extends EsbUtil {	
 
-	
+		
 	//test display service of 'live services only'/'all services'	
 	@Test
 	@Parameters({"license.esb.file.path", "jobFirstProvider", "jobSecondProvider",
@@ -331,9 +331,9 @@ public class TestServiceLocator extends EsbUtil {
 		assertStopService(jobSixthProvider);
 		
 		modifyEsbConfigurationInConfigurationPage(zookeeperServerWithWrong, other.getString("esb.conf.StopZookeeperServerStatusIconLocator"));
-        
-		selenium.click("//b[text()='Refresh']");
-		this.waitForElementPresent("//div[contains(text(),'Zookeeper for this url is unavailable')]", WAIT_TIME);
+		this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");
+		selenium.click("//b[text()='Refresh']");		
+		this.waitForElementPresent("//div[contains(text(),'Can not get a list of services from Service Locator')]", WAIT_TIME);
 	  	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Zookeeper for this url is unavailable')]"));
 	  	selenium.setSpeed(MIN_SPEED);
 		
@@ -374,13 +374,16 @@ public class TestServiceLocator extends EsbUtil {
 	   
 	   this.waitForElementPresent("//div[@class='header-title' and text()='Configuration']", WAIT_TIME);
 	   if(selenium.isElementPresent("//button[@class='x-btn-text' and @aria-pressed='true']")) {
-		
-		 selenium.click("//button[@class='x-btn-text' and @aria-pressed='true']");
-		 this.waitForElementPresent("//button[@class='x-btn-text' and @aria-pressed='false']", WAIT_TIME);
-		
-	   }	  
-	   this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");	   
-	   
+			
+			 selenium.click("//div[text()='Configuration' and @class='header-title']"+
+			"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+			"//button[@class='x-btn-text' and @aria-pressed='true']");
+			 this.waitForElementPresent("//div[text()='Configuration' and @class='header-title']"+
+					"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+					"//button[@class='x-btn-text' and @aria-pressed='false']", WAIT_TIME);
+			
+		  }	  
+	   this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB (')]");	   
 	   modifySAMServer(remoteMonitorServer, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator"));
 	   
 	   modifySAMServer(localServer, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator"));
@@ -397,13 +400,17 @@ public class TestServiceLocator extends EsbUtil {
 	   
 	   this.waitForElementPresent("//div[@class='header-title' and text()='Configuration']", WAIT_TIME);
 	   if(selenium.isElementPresent("//button[@class='x-btn-text' and @aria-pressed='true']")) {
-		
-		 selenium.click("//button[@class='x-btn-text' and @aria-pressed='true']");
-		 this.waitForElementPresent("//button[@class='x-btn-text' and @aria-pressed='false']", WAIT_TIME);
-		
-	   }
+			
+			 selenium.click("//div[text()='Configuration' and @class='header-title']"+
+			"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+			"//button[@class='x-btn-text' and @aria-pressed='true']");
+			 this.waitForElementPresent("//div[text()='Configuration' and @class='header-title']"+
+					"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+					"//button[@class='x-btn-text' and @aria-pressed='false']", WAIT_TIME);
+			
+		  }
 		  
-	   this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");	   
+	   this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB (')]");
 
 	   modifySAMServer(remoteMonitorServerWithWrongUrl, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator.wrongURL"));
 	   

@@ -2,14 +2,12 @@ package com.talend.tac.cases.esb.serviceLocator;
 
 import static org.testng.Assert.assertEquals;
 
-import java.awt.Event;
 import java.awt.event.KeyEvent;
 import java.util.Hashtable;
 
 import org.testng.Assert;
 
 import com.talend.tac.base.AntAction;
-import com.talend.tac.base.Base;
 import com.talend.tac.base.Karaf;
 import com.talend.tac.cases.Login;
 
@@ -236,19 +234,23 @@ public class EsbUtil extends Login {
 		this.clickWaitForElementPresent("idMenuConfigElement");
 		
 		this.waitForElementPresent("//div[@class='header-title' and text()='Configuration']", WAIT_TIME);
-		   if(selenium.isElementPresent("//button[@class='x-btn-text' and @aria-pressed='true']")) {
+		if(selenium.isElementPresent("//button[@class='x-btn-text' and @aria-pressed='true']")) {
 			
-			 selenium.click("//button[@class='x-btn-text' and @aria-pressed='true']");
-			 this.waitForElementPresent("//button[@class='x-btn-text' and @aria-pressed='false']", WAIT_TIME);
+			 selenium.click("//div[text()='Configuration' and @class='header-title']"+
+			"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+			"//button[@class='x-btn-text' and @aria-pressed='true']");
+			 this.waitForElementPresent("//div[text()='Configuration' and @class='header-title']"+
+					"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+					"//button[@class='x-btn-text' and @aria-pressed='false']", WAIT_TIME);
 			
-		}  
-		this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");
-		this.typeWordsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), locatorOfAllInputTags, ServiceLocation);
+		  }
+		this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB (')]");
+		this.typeWordsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), other.getString("esb.conf.ZookeeperServer.input"), ServiceLocation);
 	  	
 		selenium.click("idConfigRefreshButton");
 		
-//	  	this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), locatorOfAllInputTags,
-//	  			ServiceLocation, zookeeperServerStatusIconLocator);	    
+	  	this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.value"),
+	  			ServiceLocation, zookeeperServerStatusIconLocator);	    
 		
 	}
 	
@@ -267,7 +269,8 @@ public class EsbUtil extends Login {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	   selenium.keyPressNative(KeyEvent.VK_ENTER+"");
+	  // selenium.keyPressNative(KeyEvent.VK_ENTER+"");
+	   selenium.keyPress(locatorOfInput,KeyEvent.VK_ENTER+"");
 	  
 	 }
 	  
@@ -287,7 +290,7 @@ public class EsbUtil extends Login {
 	
 	public void modifySAMServer(String MonitorServer, String MonitorServerStatusIconLocator) {					     
 		  
-		this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), locatorOfAllInputTags, MonitorServer);
+		this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), other.getString("esb.conf.serviceActivityMonitorServer.input"), MonitorServer);
 		  
 //	    this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), locatorOfAllInputTags,
 //			   MonitorServer, MonitorServerStatusIconLocator);

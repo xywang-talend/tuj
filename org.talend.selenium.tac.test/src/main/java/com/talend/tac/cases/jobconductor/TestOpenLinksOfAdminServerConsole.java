@@ -35,16 +35,15 @@ public class TestOpenLinksOfAdminServerConsole extends Server {
 		}
 		
 		//login 'Admin Server'
-		selenium.setSpeed(MID_SPEED);
-		this.genenateUserPw();
-		selenium.keyPressNative(""+KeyEvent.VK_TAB);
+		selenium.setSpeed(MID_SPEED);		
 		this.genenateUserPw();
 		selenium.keyPressNative(""+KeyEvent.VK_ENTER);
-		
+		selenium.keyPressNative("9");
+		this.genenateUserPw();
+		selenium.keyPressNative(""+KeyEvent.VK_ENTER);
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -52,14 +51,11 @@ public class TestOpenLinksOfAdminServerConsole extends Server {
 		for(String id : idss) {
 			if(id.startsWith("Apache")) {
 				selenium.windowFocus();
-			}
-			
+			}			
 			System.out.println("=" + id);
 		}
-		System.out.println(idss[1]);
-		
-		Assert.assertEquals(karafPageTitleExpected, idss[1]);
-		
+		System.out.println(idss[1]);		
+		Assert.assertEquals(karafPageTitleExpected, idss[1]);		
 	}
 	
 	public void genenateUserPw() {
@@ -77,7 +73,6 @@ public class TestOpenLinksOfAdminServerConsole extends Server {
 			r.keyPress(KeyEvent.VK_F);
 			r.keyRelease(KeyEvent.VK_F);
 		} catch (AWTException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
