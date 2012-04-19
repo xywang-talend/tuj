@@ -160,6 +160,11 @@ public class GroupByESBConductor extends WebDriverBase {
 			e.printStackTrace();
 		}
         this.clickElementByXpath("//a[text()='Sort Ascending']");
+        try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		Assert.assertEquals(this.getElementByXpath("//div[@class='x-grid3-cell-inner x-grid3-col-label']").getText(), value1);
 		
 	}

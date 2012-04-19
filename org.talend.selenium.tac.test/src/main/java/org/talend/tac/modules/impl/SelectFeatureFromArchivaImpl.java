@@ -22,7 +22,7 @@ public class SelectFeatureFromArchivaImpl extends SelectFeatureFromArchiva {
 		this.intoConfigurationPage();
 		this.configurateEsbConductor(artifactRepositoryUrl, artifactRepositoryUserName, artifactRepositoryPassWord,
         		mavenProtocolExpected, "ESBConduction.ArtifactRepositoryUrlWrong.statusIcon",
-        		"ESBConduction.ArtifactRepositoryUserName.statusIcon", "ESBConduction.ArtifactRepositoryPassWord.statusIcon",
+        		"ESBConduction.ArtifactRepositoryUserNameWrong.statusIcon", "ESBConduction.ArtifactRepositoryPassWordWrong.statusIcon",
         		"ESBConduction.mavenProtocol.statusIcon");
 		Assert.assertTrue(this.isElementPresent(By.xpath("//div[contains(text(),'ESB conductor (4 Parameters')]/parent::div/following-sibling::div//table" +
         		"//div[text()='Artifact repository url']//ancestor::table[@class='x-grid3-row-table']" +

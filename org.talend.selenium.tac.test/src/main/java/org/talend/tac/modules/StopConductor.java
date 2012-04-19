@@ -72,11 +72,11 @@ public class StopConductor extends WebDriverBase {
 	    this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']"), WAIT_TIME_MIN);
 		this.mouseDown("//div[text()='"+label+"']");			
         this.getElementById(id).click();
-		this.clickElementById(id);//button {undeploy stop}
+//		this.clickElementById(id);//button {undeploy stop}
 		this.acceptAlert();
 		this.waitforTextDisplayed(promptInfo, WAIT_TIME_MIN);
 		this.getElementById("idESBConductorTaskGridRefreshButton").click();	
-	    this.clickElementById("idESBConductorTaskGridRefreshButton");		    
+//	    this.clickElementById("idESBConductorTaskGridRefreshButton");		    
 	    Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+label+"']" +
 					"//ancestor::table[@class='x-grid3-row-table']//span[text()='"+status+"']"),WAIT_TIME_MIN));
 			
@@ -89,12 +89,18 @@ public class StopConductor extends WebDriverBase {
 		this.mouseDown("//div[text()='"+label+"']");
 		this.getElementById("idESBConductorTaskGridDeployButton").click();
 		this.clickElementById("idESBConductorTaskGridDeployButton");
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+		
+			e.printStackTrace();
+		}
 		this.waitforTextDisplayed("Feature '"+name+"' deployed.", WAIT_TIME_MIN);	
 		this.getElementById(id).click();
 		this.clickElementById(id);//button{deploy start}		
 		this.waitforTextDisplayed(promptInfo, WAIT_TIME_MIN);		
 		this.getElementById("idESBConductorTaskGridRefreshButton").click();
-		this.clickElementById("idESBConductorTaskGridRefreshButton");		
+//		this.clickElementById("idESBConductorTaskGridRefreshButton");		
 		this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']" +
 		"//ancestor::table[@class='x-grid3-row-table']//span[text()='"+status+"']"), WAIT_TIME_MIN);
 		Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+label+"']" +

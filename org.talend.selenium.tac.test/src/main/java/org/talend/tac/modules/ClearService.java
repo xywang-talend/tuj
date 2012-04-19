@@ -63,7 +63,7 @@ public class ClearService extends WebDriverBase{
            "//preceding-sibling::td//span[text()='Undeployed']"),10)) {    
         logger.info(other.getString("ESBConductor.DeleteButtonId"));
         this.getElementByXpath("//button[@id='idESBConductorTaskGridDeleteButton']").click();
-        this.clickElementById("idESBConductorTaskGridDeleteButton");
+   //     this.clickElementById("idESBConductorTaskGridDeleteButton");
         this.acceptAlert();
         } 
     }

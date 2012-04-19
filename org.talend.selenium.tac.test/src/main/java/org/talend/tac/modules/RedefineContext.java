@@ -100,11 +100,11 @@ public class RedefineContext extends WebDriverBase {
 		   this.mouseDown("//div[text()='" + label + "']");
 		   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertyAddButton']"), WAIT_TIME_MIN);
 		   this.getElementById("idESBConductorPropertyAddButton").click();
-		   this.clickElementById(other.getString("ESBConductor.ConfigProperties.AddButtonId"));
+		 //  this.clickElementById(other.getString("ESBConductor.ConfigProperties.AddButtonId"));
     	   getElementByXpath(other.getString("ESBConductor.ConfigProperties.Name")).click();
     	   this.typeString(By.xpath("//span[text()='Name']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input"), variableName, WAIT_TIME_MIN);
     	   getElementByXpath(other.getString("ESBConductor.ConfigProperties.Value")).click();
-    	   this.typeString(By.xpath("//span[text()='Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input"), variableValue, WAIT_TIME_MIN);
+    	   this.typeString(By.xpath("//span[text()='Custom Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input"), variableValue, WAIT_TIME_MIN);
     	   bot.keyPress(KeyEvent.VK_ENTER);
     	   bot.keyRelease(KeyEvent.VK_ENTER);    
 		} catch (AWTException e) {
@@ -114,7 +114,7 @@ public class RedefineContext extends WebDriverBase {
 		   this.mouseDown(other.getString("ESBConductor.ConfigProperties.Value"));
 		   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertySaveButton']"), WAIT_TIME_MIN);
 		   this.getElementById("idESBConductorPropertySaveButton").click();
-		   this.clickElementById(other.getString("ESBConductor.ConfigProperties.SaveButtonId"));
+	//	   this.clickElementById(other.getString("ESBConductor.ConfigProperties.SaveButtonId"));
 		   Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+label+"']"), WAIT_TIME_MIN));
     	   
        }
@@ -126,7 +126,7 @@ public class RedefineContext extends WebDriverBase {
            this.mouseDown("//div[text()='" + label + "']");
            this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridDeployButton']"), WAIT_TIME_MIN);
 		   this.getElementById("idESBConductorTaskGridDeployButton").click();
-           this.clickElementById(other.getString("ESBConductor.DeployButtonId"));
+    //       this.clickElementById(other.getString("ESBConductor.DeployButtonId"));
            try {
 			Thread.sleep(3000);
 			logger.info("--------PromptInfo:"+promptInfo);
@@ -156,7 +156,7 @@ public class RedefineContext extends WebDriverBase {
     	   this.mouseDown("//div[text()='" + label + "']");
     	   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridUndeployButton']"), WAIT_TIME_MIN);
     	   this.getElementById("idESBConductorTaskGridUndeployButton").click();    	   
-    	   this.clickElementById("idESBConductorTaskGridUndeployButton");
+ //   	   this.clickElementById("idESBConductorTaskGridUndeployButton");
     	   this.acceptAlert();
     	   this.clickElementById(other.getString("ESBConductor.RefreshButtonId"));
     	   Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='" + label + "']"
@@ -168,7 +168,7 @@ public class RedefineContext extends WebDriverBase {
     	   this.mouseDown("//div[text()='" + label + "']");
     	   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridDeleteButton']"), WAIT_TIME_MIN);
     	   this.getElementById("idESBConductorTaskGridDeleteButton").click();        	   
-    	   this.clickElementById(other.getString("ESBConductor.DeleteButtonId"));
+    //	   this.clickElementById(other.getString("ESBConductor.DeleteButtonId"));
     	   this.acceptAlert(); 	   
     	   logger.info("-------label:"+label);
            Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='" + label + "']"), 30));
@@ -178,10 +178,10 @@ public class RedefineContext extends WebDriverBase {
     	   logger.info("^^^^^^^^^^^^^Label:"+label);
     	   this.waitforElementDisplayed(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MIN);
     	   this.mouseDown("//div[text()='" + label + "']");
-    	   this.mouseDown("//span[text()='Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input");
-           this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertyDeleteButton']"), WAIT_TIME_MIN);
+    	   this.mouseDown("//span[text()='Custom Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input");
+    	   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertyDeleteButton']"), WAIT_TIME_MIN);
     	   this.getElementById("idESBConductorPropertyDeleteButton").click();
-    	   this.clickElementById("idESBConductorPropertyDeleteButton");
+  //  	   this.clickElementById("idESBConductorPropertyDeleteButton");
            this.dismissAlert(); 
        }
     }

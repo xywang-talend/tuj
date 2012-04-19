@@ -20,7 +20,7 @@ public class TestConfigurationESBConductor extends WebdriverLogin {
 		
 		configurationESBConductorImpl.configurationESBConductionIsWrong(artifactRepositoryUrl, artifactRepositoryUserName, artifactRepositoryPassWord,
         		mavenProtocolExpected, "ESBConduction.ArtifactRepositoryUrlWrong.statusIcon",
-        		"ESBConduction.ArtifactRepositoryUserName.statusIcon", "ESBConduction.ArtifactRepositoryPassWord.statusIcon",
+        		"ESBConduction.ArtifactRepositoryUserNameWrong.statusIcon", "ESBConduction.ArtifactRepositoryPassWordWrong.statusIcon",
         		"ESBConduction.mavenProtocol.statusIcon");	
               
 		

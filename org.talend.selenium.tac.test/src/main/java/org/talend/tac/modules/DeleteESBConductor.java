@@ -71,7 +71,7 @@ public class DeleteESBConductor extends WebDriverBase{
 		this.mouseDown("//div[text()='"+label+"']");
 		this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridDeleteButton']"), WAIT_TIME_MAX);
 		this.getElementById("idESBConductorTaskGridDeleteButton").click();
-		this.clickElementById("idESBConductorTaskGridDeleteButton");
+//		this.clickElementById("idESBConductorTaskGridDeleteButton");
 		this.dismissAlert();
 		Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+label+"']"), WAIT_TIME_MAX));
 	}
@@ -88,7 +88,7 @@ public class DeleteESBConductor extends WebDriverBase{
            "//preceding-sibling::td//span[text()='Undeployed']"),10)) {    
         logger.info(other.getString("ESBConductor.DeleteButtonId"));
         this.getElementByXpath("//button[@id='idESBConductorTaskGridDeleteButton']").click();
-        this.clickElementById("idESBConductorTaskGridDeleteButton");
+ //       this.clickElementById("idESBConductorTaskGridDeleteButton");
         this.acceptAlert();
         Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='"+label+"']"), 20));
         } 
@@ -100,7 +100,7 @@ public class DeleteESBConductor extends WebDriverBase{
 		this.mouseDown("//div[text()='"+label+"']");
 		this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridUndeployButton']"), WAIT_TIME_MIN);
 	    this.getElementById("idESBConductorTaskGridUndeployButton").click();	
-		this.clickElementById("idESBConductorTaskGridUndeployButton");
+	//	this.clickElementById("idESBConductorTaskGridUndeployButton");
 		this.acceptAlert();		
 		try {
 			Thread.sleep(2000);
