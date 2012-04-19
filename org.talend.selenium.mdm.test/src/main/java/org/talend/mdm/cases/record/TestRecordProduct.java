@@ -30,19 +30,7 @@ public class TestRecordProduct extends Login {
 	public void testDuplicateRecord(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String UniqueIdValueDup) {
 		recordImpl.testDuplicateRecordImpl(container, modle, entity, UniqueId,UniqueIdValue,UniqueIdValueDup);
 	}
-	
-	@Test
-	@Parameters( { "container","modle","entity","UniqueId", "UniqueIdValue"})
-	public void testUpdateCheckAvailabilityRecord(String container,String modle,String entity,String UniqueId,String UniqueIdValue) {
-		recordImpl.testUpdateCheckAvailabilityRecordImpl(container, modle, entity,UniqueId, UniqueIdValue);
-	}
-	
-	@Test
-	@Parameters( { "container","modle","entity","UniqueId", "UniqueIdValue","name", "url_update"})
-	public void testUpdateCompleteStoreUrlRecord(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String name,String url) {
-		recordImpl.testUpdateCompleteStoreUrlRecordImpl(container, modle, entity,UniqueId, UniqueIdValue,name,url);
-	}
-	
+		
 	@Test
 	@Parameters( { "container","modle","entity", "UniqueId","UniqueIdValue","Price","PriceValue","flag","PriceValueOld"})
 	public void testUpdatePriceRecord(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String Price,String PriceValue,String flag,String PriceValueOld) {
