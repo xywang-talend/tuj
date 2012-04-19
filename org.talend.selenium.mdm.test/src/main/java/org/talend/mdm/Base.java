@@ -451,28 +451,23 @@ public class Base {
 				String testCaseInfo = this.getTestCaseInfo(tr);
 				try {
 					testCaseScreenRecorder = testCaseRecorder.getScreenRecorder(getAbsoluteFolderPath("org/talend/mdm/download") + "/" + testCaseInfo);
-					
 					logger.info(getAbsoluteFolderPath("org/talend/mdm/download") + "/" + testCaseInfo);
+					
+					if(testCaseScreenRecorder ==null) {
+						logger.info("testCaseScreenRecorder = null");
+					}
+					testCaseScreenRecorder.start();
 				} catch (Exception e) {
 					logger.info(e.getMessage());
 					e.printStackTrace();
 				}
-				
-				if(testCaseScreenRecorder ==null) {{
-					logger.info("testCaseScreenRecorder = null");
-				}
-					
-				}
-				
-//				testCaseScreenRecorder.start();
+
 				super.onTestStart(tr);
 			}
 			
 			@Override
 			public void onFinish(ITestContext testContext) {
-				System.out.println("---------------- onFinish -----------------------");
 				try {
-					System.out.println("=============== video , stop!!!" );
 					if(testCaseScreenRecorder != null) {
 						testCaseScreenRecorder.stop();
 					}
@@ -481,8 +476,6 @@ public class Base {
 				} finally {
 					testCaseScreenRecorder = null;
 				}
-				
-				
 				super.onFinish(testContext);
 			}
 			
