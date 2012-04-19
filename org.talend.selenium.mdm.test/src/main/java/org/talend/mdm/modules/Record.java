@@ -19,9 +19,9 @@ public void deleteTheRecord(String  entity){
 this.clickElementByXpath(locator.getString("xpath.record.delete.record")); 
 this.clickElementByXpath(locator.getString("xpath.record.delete.record.choose")); 	 
 this.clickElementByXpath(locator.getString("xpath.record.delete.record.choose.yes")); 	
-		if (this.isElementPresent(By.xpath(locator.getString("xpath.record.delete.record.warn")),WAIT_TIME_MIN)){
+/*		if (this.isElementPresent(By.xpath(locator.getString("xpath.record.delete.record.warn")),WAIT_TIME_MIN)){
 			this.clickElementByXpath("//button[text()='No']");		
-		}
+		}*/
 }
 public void openJournal(String entity,String key,String OperationType,String source){
 			
@@ -66,12 +66,13 @@ public void JournalResultCount(){
 
 public void JournalCheckResult(String key,String OperationType){
 	String[] parameters={key,OperationType};
-	this.sleepCertainTime(10000);
+	this.sleepCertainTime(5000);
 	this.moveToElement(driver.findElement(By.xpath("//div[text()='Operation Time']")));
+	this.sleepCertainTime(10000);
 	this.clickElementByXpath("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-6')]//a[@class='x-grid3-hd-btn']");
 	this.sleepCertainTime(3000);
 	this.clickElementByXpath("//a[text()='Sort Descending']");
-	this.sleepCertainTime(9000);
+	this.sleepCertainTime(5000);
 	this.clickElementByXpath(this.getString(locator, "xpath.record.choose.journal.choose.record", parameters));
 	this.sleepCertainTime(2000);
 	this.doubleClick(this.getElementByXpath(this.getString(locator, "xpath.record.choose.journal.choose.record", parameters)));

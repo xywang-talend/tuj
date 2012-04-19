@@ -44,6 +44,7 @@ public class RecordImplProduct extends Record{
 	    deleteTheRecord(entity);
 	    this.sleepCertainTime(5000);
 	    openJournal(entity,UniqueIdValue,OperationType,source);
+	    JournalResultCount();
 	}	
 	public void deleteRecordToRecycleImpl(String container,String modle,String entity,String feild2Value,String feild2Name,String feild1Name){
 		}
