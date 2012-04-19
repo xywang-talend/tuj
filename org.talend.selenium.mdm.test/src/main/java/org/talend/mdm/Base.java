@@ -25,6 +25,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.talend.mdm.TestCase.Result;
+import org.talend.mdm.TestCaseScreenRecorder.State;
 import org.testng.Assert;
 import org.testng.IClass;
 import org.testng.ITestContext;
@@ -468,7 +469,7 @@ public class Base {
 			@Override
 			public void onFinish(ITestContext testContext) {
 				try {
-					if(testCaseScreenRecorder != null) {
+					if(testCaseScreenRecorder != null && testCaseScreenRecorder.getState() == State.RECORDING) {
 						testCaseScreenRecorder.stop();
 					}
 				} catch (IOException e) {
