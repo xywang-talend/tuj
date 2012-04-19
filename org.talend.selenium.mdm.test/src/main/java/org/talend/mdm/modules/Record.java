@@ -23,19 +23,21 @@ this.clickElementByXpath(locator.getString("xpath.record.delete.record.choose.ye
 			this.clickElementByXpath("//button[text()='No']");		
 		}
 }
-public void openJournal(String entity,String key,String OperationType){
+public void openJournal(String entity,String key,String OperationType,String source){
 			
-	enterJournal(entity,key,OperationType);	
+	enterJournal(entity,key,OperationType,source);	
 	//JournalResultCount();		
 }
 
 
-public void enterJournal(String entity,String key,String OperationType){
+public void enterJournal(String entity,String key,String OperationType,String source){
 	clickJournal();				
 	this.sleepCertainTime(3000);
 	this.modifyText(this.getElementByXpath(locator.getString("xpath.record.choose.journal.entity")),entity);	
 	this.sleepCertainTime(3000);
 	this.modifyText(this.getElementByXpath(locator.getString("xpath.record.choose.journal.key")),key);	
+	this.sleepCertainTime(3000);
+	this.modifyText(this.getElementByXpath(locator.getString("xpath.record.choose.journal.source")),source);	
 	this.sleepCertainTime(3000);
 	this.clickElementByXpath(locator.getString("xpath.record.choose.journal.operation.arrows")); 
 	this.sleepCertainTime(3000);

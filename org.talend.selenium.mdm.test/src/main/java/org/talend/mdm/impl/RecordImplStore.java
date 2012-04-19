@@ -13,7 +13,7 @@ import org.testng.Assert;
 
 
 public class RecordImplStore extends Record{
-	 String OperationType,key;	
+	 String OperationType,key,source;	
 
   
 	public RecordImplStore(WebDriver driver) {
@@ -32,6 +32,7 @@ public class RecordImplStore extends Record{
 
 	public void deleteRecordImpl(String container,String modle,String entity,String storeId,String storeIdValue){
 		OperationType="PHYSICAL_DELETE";
+		source="genericUI";
 		chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();
@@ -41,7 +42,7 @@ public class RecordImplStore extends Record{
 	    this.sleepCertainTime(5000);
 	    deleteTheRecord(entity);
 	    this.sleepCertainTime(5000);
-	    openJournal(entity,storeIdValue,OperationType);
+	    openJournal(entity,storeIdValue,OperationType,source);
 	}
 	
 	public void testDuplicateRecordImpl(String container,String modle,String entity,String storeId,String storeIdValue,String storeIdValueDup) {
@@ -49,6 +50,7 @@ public class RecordImplStore extends Record{
 		String[] parametersStoreIdAssert={entity,storeId,storeIdValueDup};	
 		String[] parametersStoreIdValue={entity,storeIdValue};
 		    OperationType="CREATE";
+		    source="genericUI";
 			chooseContainer(container);	
 			chooseModle(modle);
 			clickSave();
@@ -68,10 +70,11 @@ public class RecordImplStore extends Record{
 			this.sleepCertainTime(3000); 
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersStoreIdAssert)), WAIT_TIME_MAX),"duplicateARecord");
 			this.sleepCertainTime(3000); 			
-			openJournal(entity,storeIdValueDup,OperationType);
+			openJournal(entity,storeIdValueDup,OperationType,source);
 		}	
    public void createRecordImpl(String container,String modle,String entity,String storeId,String storeIdValue,String address,String addressValue) {
-	        OperationType="CREATE";	       
+	        OperationType="CREATE";	 
+	        source="genericUI";
 			chooseContainer(container);	
 			chooseModle(modle);
 			clickSave();
@@ -89,7 +92,7 @@ public class RecordImplStore extends Record{
 			this.sleepCertainTime(3000);
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersStoreIdAssert)), WAIT_TIME_MAX),"createARecord");
 			this.sleepCertainTime(3000);		    
-			openJournal(entity,storeIdValue,OperationType);
+			openJournal(entity,storeIdValue,OperationType,source);
 			this.sleepCertainTime(5000); 
 			JournalCheckResult(storeIdValue,OperationType);
 			this.sleepCertainTime(5000); 
@@ -97,8 +100,9 @@ public class RecordImplStore extends Record{
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.address",addressValue )), WAIT_TIME_MIN));
 			this.clickElementByXpath("//span[@class='x-tab-strip-inner']//span[text()='Data Browser']");
 			OperationType="UPDATE";
+			source="GoogleMap";
 			this.sleepCertainTime(5000); 
-			openJournal(entity,storeIdValue,OperationType);
+			openJournal(entity,storeIdValue,OperationType,source);
 			this.sleepCertainTime(5000); 
 			JournalCheckResult(storeIdValue,OperationType);
 			this.sleepCertainTime(5000); 
@@ -110,12 +114,15 @@ public class RecordImplStore extends Record{
 	
 	public void testUpdateAddressRecordImpl(String container,String modle,String entity,String storeId,String storeIdValue,String address,String addressValue) {
 		OperationType="UPDATE";	
+		source="GoogleMap";
+		String latOld,longOld;
 		String[] parametersAddress={entity,address};	
 		chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();
 		chooseEntity(entity);			
-		chooseRcord(entity,storeId,storeIdValue);		
+		chooseRcord(entity,storeId,storeIdValue);
+		
 		this.sleepCertainTime(8000);		
 		logger.info(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersAddress));
 		
@@ -128,13 +135,14 @@ public class RecordImplStore extends Record{
 		else{
 		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));
 		this.sleepCertainTime(5000); 
-		openJournal(entity,storeIdValue,OperationType);
+		openJournal(entity,storeIdValue,OperationType,source);
 		this.sleepCertainTime(5000); 
 		JournalCheckResult(storeIdValue,OperationType);
 		this.sleepCertainTime(5000); 
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.record.ceate.lat")), WAIT_TIME_MIN));
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.record.ceate.long")), WAIT_TIME_MIN));
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.record.ceate.googleMap")), WAIT_TIME_MIN));
+		
 		}	
 	}
 	
