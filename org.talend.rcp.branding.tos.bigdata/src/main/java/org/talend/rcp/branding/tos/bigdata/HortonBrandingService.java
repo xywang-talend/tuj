@@ -68,14 +68,14 @@ public class HortonBrandingService extends AbstractTalendBrandingService {
     }
 
     public String getAcronym() {
-        return "tos";
+        return "tos_bd";
     }
 
     @Override
     public String getJobLicenseHeader(String version) {
         return Messages.getString("TosBrandingService_job_license_header_content", this.getFullProductName(), version);
     }
-    
+
     public boolean isPoweredOnlyCamel() {
         return false;
     }
