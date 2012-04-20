@@ -25,7 +25,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.talend.mdm.TestCase.Result;
-import org.talend.mdm.TestCaseScreenRecorder.State;
 import org.testng.Assert;
 import org.testng.IClass;
 import org.testng.ITestContext;
@@ -451,13 +450,15 @@ public class Base {
 			public void onTestStart(ITestResult tr) {
 				String testCaseInfo = this.getTestCaseInfo(tr);
 				try {
-					testCaseScreenRecorder = testCaseRecorder.getScreenRecorder(getAbsoluteFolderPath("org/talend/mdm/download") + "/" + testCaseInfo);
+					// Comment the video record
+//					testCaseScreenRecorder = testCaseRecorder.getScreenRecorder(getAbsoluteFolderPath("org/talend/mdm/download") + "/" + testCaseInfo);
 					logger.info(getAbsoluteFolderPath("org/talend/mdm/download") + "/" + testCaseInfo);
 					
-					if(testCaseScreenRecorder ==null) {
+					if(testCaseScreenRecorder == null) {
 						logger.info("testCaseScreenRecorder = null");
 					}
-					testCaseScreenRecorder.start();
+					
+//					testCaseScreenRecorder.start();
 				} catch (Exception e) {
 					logger.info(e.getMessage());
 					e.printStackTrace();
@@ -469,7 +470,7 @@ public class Base {
 			@Override
 			public void onFinish(ITestContext testContext) {
 				try {
-					if(testCaseScreenRecorder != null && testCaseScreenRecorder.getState() == State.RECORDING) {
+					if(testCaseScreenRecorder != null) {
 						testCaseScreenRecorder.stop();
 					}
 				} catch (IOException e) {
@@ -495,8 +496,6 @@ public class Base {
 						parameter = parameter + ",'" + par.replaceAll("/", "_")+"'"; 
 					}
 				} catch (Exception ex) {
-					for(Object param : tr.getParameters()) {
-					}
 					ex.printStackTrace();
 				}
 				
