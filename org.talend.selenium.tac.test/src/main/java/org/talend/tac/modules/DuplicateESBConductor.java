@@ -1,6 +1,11 @@
 package org.talend.tac.modules;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import junit.framework.Assert;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.HasInputDevices;
 import org.openqa.selenium.Mouse;
@@ -67,6 +72,26 @@ public class DuplicateESBConductor extends WebDriverBase {
 		this.waitforElementDisplayed(By.xpath("//div[text()='"+labelAfterCopy+"']" +
 		   "//ancestor::td[@class='x-grid3-col x-grid3-cell x-grid3-td-label ']"+
 		   "//following-sibling::td//div[text()='mvn:org.example/jobSecondProvider-feature/0.1.0/xml']"), WAIT_TIME_MIN);
+	}
+	
+	public void openLinkOfArtifact(String PageTitleExpected) {
+		this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridAdminRepoButton']"), WAIT_TIME_MIN);
+		this.clickElementById("idESBConductorTaskGridAdminRepoButton");
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		  List a = new ArrayList<String>();
+	        for (String handle : driver.getWindowHandles()) {
+	        a.add(handle);
+	        }
+	        driver.switchTo().window(a.get(1).toString());
+		String idss =driver.getTitle() ;		
+		logger.info("--------idss:"+idss);
+		System.out.println(idss);				
+		Assert.assertTrue(idss.contains(PageTitleExpected));		
+		driver.switchTo().window(a.get(0).toString());
 	}
 
 }

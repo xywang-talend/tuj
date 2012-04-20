@@ -17,5 +17,10 @@ public class DuplicateESBConductorImpl extends DuplicateESBConductor{
 		this.duplicateEsbConductor(label, des, repository, group, artifact,
 				version, name, type, context, server);
 	}
+	
+	public void openLinkofArtifactRepository(String PageTitleExpected) {
+		this.intoESBConductorPage();
+		this.openLinkOfArtifact(PageTitleExpected);
+	}
 
 }
