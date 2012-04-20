@@ -19,7 +19,6 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.hamcrest.Matcher;
 import org.junit.Assert;
-import org.talend.swtbot.test.commons.Utilities.TalendItemType;
 
 import static org.eclipse.swtbot.swt.finder.matchers.WithText.withText;
 import static org.eclipse.swtbot.swt.finder.matchers.AllOf.allOf;
