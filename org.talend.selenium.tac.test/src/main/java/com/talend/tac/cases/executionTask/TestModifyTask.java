@@ -54,7 +54,7 @@ public class TestModifyTask extends Login {
 	
 	//test modify job of generating task and check warn info
 	@Test
-	@Parameters({"TaskBaseBranch","jobNameTRunJob","version0.1",
+	@Parameters({"TaskBaseBranch","jobNameTJava","version0.1",
 		"context"})
 	public void testModifyJobOfGeneratingTaskAndCheckWarnInfo(String label,String jobName,String version,String context) throws InterruptedException {
 		
