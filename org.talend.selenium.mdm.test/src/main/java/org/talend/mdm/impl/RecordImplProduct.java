@@ -52,7 +52,7 @@ public class RecordImplProduct extends Record{
 		String[] parametersUniqueId={entity,UniqueId};	
 		String[] parametersUniqueIdAssert={entity,UniqueId,UniqueIdValueDup};	
 		String[] parametersUniqueIdValue={entity,UniqueIdValue};
-		String[] UniqueIdAssert={UniqueId,UniqueIdValue};
+		String[] UniqueIdAssert={UniqueId,UniqueIdValueDup};
 		    OperationType="CREATE";
 		    source="genericUI";
 			chooseContainer(container);	
@@ -76,9 +76,18 @@ public class RecordImplProduct extends Record{
 			this.sleepCertainTime(3000); 			
 			openJournal(entity,UniqueIdValueDup,OperationType,source);
 			this.sleepCertainTime(3000); 
-			JournalCheckResult(UniqueIdValue,OperationType);
+			JournalCheckResult(UniqueIdValueDup,OperationType);
 			this.sleepCertainTime(3000); 
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",UniqueIdAssert )), WAIT_TIME_MIN));
+			OperationType="UPDATE";
+		    source="CompleteStoreURL";
+		    this.clickElementByXpath("//span[@class='x-tab-strip-inner']//span[text()='Data Browser']");
+		    this.sleepCertainTime(3000);		    
+			openJournal(entity,UniqueIdValueDup,OperationType,source);
+			this.sleepCertainTime(3000); 
+			JournalCheckResult(UniqueIdValueDup,OperationType);
+			this.sleepCertainTime(3000); 
+			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.url.assert", UniqueIdValueDup)), WAIT_TIME_MIN));
 					
 			
 		}	
