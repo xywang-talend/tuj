@@ -59,6 +59,8 @@ public class WorkFlowTask extends Base{
 	}
 	
 	public void openRelatedRecord(){
+		Assert.assertTrue(this.waitfor(By.xpath("//button[contains(@class,'wftask_bt_openRecord') and text()='Open Record']"), WAIT_TIME_MIN).isDisplayed());
+		this.sleepCertainTime(3000);
 		this.clickElementByXpath("//button[contains(@class,'wftask_bt_openRecord') and text()='Open Record']");
 	}
 	

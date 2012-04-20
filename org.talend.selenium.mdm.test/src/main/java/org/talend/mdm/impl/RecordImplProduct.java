@@ -389,6 +389,7 @@ public class RecordImplProduct extends Record{
 		flow.sortWorkFlowTaskBydate();
 	    flow.openAWorkTask();
 	    Assert.assertTrue(this.waitfor(By.xpath("//label[text()='Family:']//ancestor::div[contains(@class,'x-form-item ')]//input"),WAIT_TIME_MIN).isDisplayed());
+	    this.sleepCertainTime(3000);
 	    Assert.assertTrue(this.getValueInput(By.xpath("//label[text()='Family:']//ancestor::div[contains(@class,'x-form-item')]//input")).equals(frankSubmitedFamilyName), "test foreign key info display failed,as product family name shows wrong when jennifer approve !");
 	    String price = this.getElementByXpath(locator.getString("xpath.workflowtask.open.product.price.input")).getAttribute("value");
 	    
