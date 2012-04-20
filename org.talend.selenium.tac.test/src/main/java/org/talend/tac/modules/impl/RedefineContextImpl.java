@@ -59,5 +59,14 @@ public class RedefineContextImpl extends RedefineContext {
        public void deleteUndeployedConductor(String label,String name) {
     	   this.deleteUndeployedConductorOk(label, name);
        }
+       
+       public void resetContextParameters(String label, String des, String repository,
+               String group, String artifact, String version, String name, String type, 
+               String context, String server,String variableName,String variableValue) {
+    	   this.intoESBConductorPage();
+    	   this.addESBConductor(label, des, repository, group, artifact, version, variableName, type, context, server);
+    	   this.defineContext(label, variableName, variableValue);
+    	   this.resetContextPara();
+       }
 
 }

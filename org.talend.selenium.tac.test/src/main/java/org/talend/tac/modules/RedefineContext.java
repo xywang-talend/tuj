@@ -184,4 +184,10 @@ public class RedefineContext extends WebDriverBase {
   //  	   this.clickElementById("idESBConductorPropertyDeleteButton");
            this.dismissAlert(); 
        }
+       
+       public void resetContextPara() {
+    	   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertyResetButton']"), WAIT_TIME_MIN);
+    	   this.clickElementById("idESBConductorPropertyResetButton");
+    	   Assert.assertFalse(this.waitforElementDisplayed(By.xpath(other.getString("ESBConductor.ConfigProperties.Name")), 20));
+       }
     }
