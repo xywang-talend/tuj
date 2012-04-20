@@ -369,11 +369,12 @@ public void clickSave() {
 public void chooseEntity(String entity) { 
 	this.sleepCertainTime(3000);
 	this.clickElementByXpath(locator.getString("xpath.record.click.DataBrowser"));
-	
-	this.clickElementByXpath(locator.getString("xpath.record.choose.entity.arrows"));	 
-	this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.entity",entity)), WAIT_TIME_MAX);
-	this.sleepCertainTime(10000);
-	this.clickElementByXpath(this.getString(locator, "xpath.record.choose.entity",entity));
+	Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.record.choose.entity.arrows")), WAIT_TIME_MIN).isDisplayed());
+	this.seletDropDownList(By.xpath(locator.getString("xpath.record.choose.entity.arrows")), entity);
+//	this.clickElementByXpath(locator.getString("xpath.record.choose.entity.arrows"));	 
+//	this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.entity",entity)), WAIT_TIME_MAX);
+//	this.sleepCertainTime(10000);
+//	this.clickElementByXpath(this.getString(locator, "xpath.record.choose.entity",entity));
 }      
 
 public void clickCreateRecord(){

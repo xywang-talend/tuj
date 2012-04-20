@@ -72,4 +72,10 @@ public class TestRecordProduct extends Login {
 	public void testStoreShowOnMapProcess(String container,String model,String entity,String productUniqID) {
 		recordImpl.storeShowOnMapProcessImpl(container, model, entity,productUniqID);
 	}
+	
+	@Test
+	@Parameters( {"user.frank.name","user.frank.password","user.jennifer.name","user.jennifer.password", "container","modle","entity","UniqueIdValue","familyid","familyname","franksubmited.familyname"})
+	public void testForeignKeyInforDisplay(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID,String productFamilyId,String productFamilyName,String frankSubmitedFamilyName) {
+		recordImpl.foreignKeyInfoDisplay(userFrank, frankPass, userJennifer, jenniferPass, container, model, entity,productUniqID, productFamilyId, productFamilyName, frankSubmitedFamilyName);
+	}
 }

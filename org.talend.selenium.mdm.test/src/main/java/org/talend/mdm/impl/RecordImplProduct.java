@@ -293,6 +293,129 @@ public class RecordImplProduct extends Record{
 	}	
 	
 	
+	public void foreignKeyInfoDisplay(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID,String productFamilyId,String productFamilyName,String frankSubmitedFamilyName){
+		LogonImpl log = new LogonImpl(this.driver);
+		log.logout();
+		log.loginUserForce(userFrank, frankPass);
+		this.chooseContainer(container);
+		this.chooseModle(model);
+		this.clickSave();
+		this.chooseEntity(entity);
+		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
+		
+		//select a product record in data browser
+		this.clickElementByXpath(this.getString(locator, "xpath.record.chooserecord.byID", productUniqID));
+		
+		//click family panel to get the record family id and name
+		this.clickElementByXpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]");
+		String idBefore = this.getValue(this.findElementDefineDriver(this.driver,By.xpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]//ancestor::div[contains(@id,'ItemsDetailPanel-mainPanel')]//div[contains(@class,'x-grid3-body')]//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-objectValue ')][1]//div")));
+		String nameBefore = this.getValue(this.findElementDefineDriver(this.driver,By.xpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]//ancestor::div[contains(@id,'ItemsDetailPanel-mainPanel')]//div[contains(@class,'x-grid3-body')]//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-objectValue ')][2]//div")));
+		logger.info("for the selected record ,producr family: "+idBefore +" name "+nameBefore);
+		
+		//click product pannel to launch price change process
+		this.clickElementByXpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Product')]");
+		
+		//verify frank can not change price directly
+		Assert.assertFalse(this.getElementByXpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)).isEnabled());
+		
+		//get the initial price for the product record
+		String priceInitial = this.getValueInput(By.xpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)));
+		logger.info("for frank ,the initial price is:"+priceInitial);
+		
+		//select request price change  ,and launch process
+		this.seletDropDownList(By.xpath(locator.getString("xpath.record.launchprocess.select.img")), "Request Price Change");
+		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.button"));
+		this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.status.info")), WAIT_TIME_MID);
+		
+		//click process ok button to verify can open bonita workflow console
+		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.success.ok.button"));
+        this.sleepCertainTime(5000);
+        List a = new ArrayList<String>();
+        for (String handle : driver.getWindowHandles()) {
+        a.add(handle);
+        }
+        driver.switchTo().window(a.get(1).toString());
+        Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.ok.button.click.bonita.login.welcom")), WAIT_TIME_MIN)!=null);
+        driver.switchTo().window(a.get(0).toString());
+    	
+		//for frank ,open workflow created and,type in price changed ,verify the foreign key info ,change foreign key info and submit.
+		WorkFlowTaskImpl flow = new WorkFlowTaskImpl(this.driver);
+		flow.openMenuGoven();
+		flow.openMenuWorkFlowTask();
+		this.sleepCertainTime(5000);
+		flow.sortWorkFlowTaskBydate();
+	    flow.openAWorkTask();
+	    Assert.assertTrue(this.waitfor(By.xpath("//label[text()='Family:']//ancestor::div[contains(@class,'x-form-item ')]//input"),WAIT_TIME_MIN).isDisplayed());
+        Assert.assertTrue(this.getValueInput(By.xpath("//label[text()='Family:']//ancestor::div[contains(@class,'x-form-item ')]//input")).equals(nameBefore), "test foreign key info display failed,as product family name shows wrong before frank submit !");
+	    
+	    // frank change product familyname,change price ,then submit
+        this.clickElementByXpath("//label[text()='Family:']//ancestor::div[contains(@class,'x-form-item ')]//span[contains(@class,'x-form-twin-triggers')]//img[contains(@class,'x-form-trigger x-form-clear-trigger')]");
+        logger.info("+++++++++++++++++++++++++++++++++++++++++++"+this.getValueInput(By.xpath("//label[text()='Family:']//ancestor::div[contains(@class,'x-form-item ')]//input")));
+        Assert.assertTrue(this.getValueInput(By.xpath("//label[text()='Family:']//ancestor::div[contains(@class,'x-form-item ')]//input")).equals(""), "test foreign key info display failed,as product family name shows wrong before frank submit !");
+        this.clickElementByXpath("//label[text()='Family:']//ancestor::div[contains(@class,'x-form-item ')]//span[contains(@class,'x-form-twin-triggers')]//img[contains(@class,'x-form-trigger x-form-search-trigger')]");
+        Assert.assertTrue(this.waitfor(By.xpath("//div[contains(@id,'task-foreign-key-window') and contains(@class,'x-window x-window-plain x-resizable-pinned')]"), WAIT_TIME_MIN).isDisplayed());
+        this.waitfor(By.xpath("//div[contains(@class,'search-item')]//h3[contains(text(),'"+frankSubmitedFamilyName+"')]"), WAIT_TIME_MIN).click();
+        this.sleepCertainTime(2000);
+        Assert.assertTrue(this.getValueInput(By.xpath("//label[text()='Family:']//ancestor::div[contains(@class,'x-form-item ')]//input")).equals(frankSubmitedFamilyName), "test foreign key info display failed,as product family name shows wrong before frank submit !");
+        String priceSubmited;
+	    priceSubmited =  (flow.changeProductPriceValidImpl(Double.parseDouble(priceInitial), 0.15)+"");
+	    logger.info("price frank submited is:"+priceSubmited);
+
+	    log.logout();
+	    log.loginUserForce(userJennifer, jenniferPass);
+		this.chooseContainer(container);
+		this.chooseModle(model);
+		this.clickSave();
+		this.chooseEntity(entity);
+		//select the record first
+		this.sleepCertainTime(5000);
+	    this.clickElementByXpath(this.getString(locator, "xpath.record.chooserecord.byID", productUniqID));
+	
+		//open work flow task page
+		flow.openMenuGoven();
+		flow.openMenuWorkFlowTask();
+		this.sleepCertainTime(10000);
+		
+		//sort work flow task by date and open the first work
+		flow.sortWorkFlowTaskBydate();
+	    flow.openAWorkTask();
+	    Assert.assertTrue(this.waitfor(By.xpath("//label[text()='Family:']//ancestor::div[contains(@class,'x-form-item ')]//input"),WAIT_TIME_MIN).isDisplayed());
+	    Assert.assertTrue(this.getValueInput(By.xpath("//label[text()='Family:']//ancestor::div[contains(@class,'x-form-item')]//input")).equals(frankSubmitedFamilyName), "test foreign key info display failed,as product family name shows wrong when jennifer approve !");
+	    String price = this.getElementByXpath(locator.getString("xpath.workflowtask.open.product.price.input")).getAttribute("value");
+	    
+	    //jennifer approved and submit
+	    flow.approveBoxChecked();
+	    flow.clickSubmit();
+	 	this.waitfor(By.xpath(locator.getString("xpath.workflowtask.open.produce.submited.success.info")), WAIT_TIME_MID);
+    	this.clickElementByXpath(locator.getString("xpath.workflowtask.open.product.submited.success.ok.button"));
+		this.sleepCertainTime(5000);
+		
+		flow.uncheckHideFinishedTask();
+		flow.clickSearch();
+		flow.sortWorkFlowTaskBydate();
+		this.sleepCertainTime(3000);
+		flow.openAWorkTask();
+		flow.openRelatedRecord();
+        Assert.assertTrue(this.waitfor(By.xpath(this.getString(locator, "xpath.workflowtask.openrelatedrecord.open.closeTab", productUniqID)), WAIT_TIME_MIN)!=null);
+      
+        //verify price is really changed.
+        //close the data browser first ,for xpath duplicated
+        this.clickElementByXpath(locator.getString("xpath.databrowser.tab.close"));
+        this.sleepCertainTime(3000);
+    	price = this.getValueInput(By.xpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)));
+        logger.info("afterapproved ,the price is:"+price);
+//        Assert.assertTrue(price.equals(priceSubmited));
+        Assert.assertTrue(Double.parseDouble(price)>Double.parseDouble(priceInitial));
+        
+        //verify family name not changed as submitted
+      //click family panel to get the record family id and name
+      	this.clickElementByXpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]");
+      	Assert.assertTrue(this.getValue(this.findElementDefineDriver(this.driver,By.xpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]//ancestor::div[contains(@id,'ItemsDetailPanel-mainPanel')]//div[contains(@class,'x-grid3-body')]//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-objectValue ')][2]//div"))).equals(nameBefore));
+      	logger.info("for the selected record after approved ,product family: "+idBefore +" name "+this.getValue(this.findElementDefineDriver(this.driver,By.xpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]//ancestor::div[contains(@id,'ItemsDetailPanel-mainPanel')]//div[contains(@class,'x-grid3-body')]//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-objectValue ')][2]//div"))));
+	    
+	}
+	
+	
 	public void priceChangeWorkFlowValidApprovedImpl(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID){
 		LogonImpl log = new LogonImpl(this.driver);
 		log.logout();
