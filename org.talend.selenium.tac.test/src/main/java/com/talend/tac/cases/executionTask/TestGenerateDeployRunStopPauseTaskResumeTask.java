@@ -327,12 +327,9 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 		
         intoJobConductor(taskLabel);
 		
-		selenium.setSpeed(MID_SPEED);
-		selenium.click("idJobConductorTaskGenerateButton");//click generate button
+		selenium.setSpeed(MID_SPEED);		
+		Assert.assertTrue(selenium.isElementPresent("//div[@class='header-title' and text()='Job Conductor']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idJobConductorTaskGenerateButton' and @aria-disabled='true']"));
 		selenium.setSpeed(MIN_SPEED);
-		
-		this.waitForTextPresent("The execution task \"Copy_of_testTaskNotChooseActive\" is inactive, the task can't be launched!", WAIT_TIME);
-		Assert.assertTrue(selenium.isTextPresent("The execution task \"Copy_of_testTaskNotChooseActive\" is inactive, the task can't be launched!"));
 		
 	}
 	
