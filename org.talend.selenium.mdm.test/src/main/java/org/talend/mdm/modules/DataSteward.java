@@ -1,14 +1,23 @@
 package org.talend.mdm.modules;
 
+import java.awt.AWTException;
+import java.awt.RenderingHints.Key;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverBackedSelenium;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.talend.mdm.Base;
 import org.talend.mdm.impl.LogonImpl;
 import org.testng.Assert;
+
+import com.thoughtworks.selenium.Selenium;
 
 
 public class DataSteward extends Base{
@@ -92,9 +101,40 @@ public class DataSteward extends Base{
 		
 	}
 	
+    public void keyBoardTypeString(int key){
+        Robot a;
+    		try {
+    			a = new Robot();
+    			 a.keyPress(key);
+    		} catch (AWTException e1) {
+    			// TODO Auto-generated catch block
+    			e1.printStackTrace();
+    		}
+    }
 	public void typeColumFieldName(String fieldName){
+		Assert.assertTrue(this.driver.findElement(By.xpath(locator.getString("xpath.datatewardship.administration.createtask.panel.taskschemadata.fieldname.input"))).isEnabled());
 		
-		this.typeString(this.getElementByXpath(locator.getString("xpath.datatewardship.administration.createtask.panel.taskschemadata.fieldname.input")), fieldName);
+		WebElement e = this.driver.findElement(By.xpath("//span[contains(@class,'x-fieldset-header-text') and text()='Task properties']//ancestor::fieldset[contains(@class,'x-fieldset x-component')]//label[contains(text(),'Task Name:')]//ancestor::div[contains(@class,'x-window-mr')]//div[contains(@class,'x-row-editor-body x-box-layout-ct')]//div[contains(@class,'x-form-field-wrap  x-row-editor-field x-component x-box-item') and contains(@gxt-dindex,'name')]"));
+
+		(new Actions(driver)).click(e);
+	
+	   
+//		e.sendKeys("ddddddddddd");
+		
+//		selenium.type("//span[contains(@class,'x-fieldset-header-text') and text()='Task properties']//ancestor::fieldset[contains(@class,'x-fieldset x-component')]//label[contains(text(),'Task Name:')]//ancestor::div[contains(@class,'x-window-mr')]//div[contains(@class,'x-row-editor-body x-box-layout-ct')]//div[contains(@class,'x-form-field-wrap  x-row-editor-field x-component x-box-item') and contains(@gxt-dindex,'name')]", "ddddddddddddd");
+		
+		
+
+		
+		
+		
+		System.out.println(e.getTagName() + "," + e.getText() + ", " + e.getLocation() + "," + e.isDisplayed() + ", " + e.isEnabled() + "," + e.isSelected() );
+		
+		this.driver.findElement(By.xpath(locator.getString("xpath.datatewardship.administration.createtask.panel.taskschemadata.fieldname.input"))).sendKeys("testllllll");
+		
+		System.out.println(this.driver.findElement(By.xpath(locator.getString("xpath.datatewardship.administration.createtask.panel.taskschemadata.fieldname.input"))).getAttribute("value"));
+//		new Actions(this.driver).sendKeys(this.driver.findElement(By.xpath(locator.getString("xpath.datatewardship.administration.createtask.panel.taskschemadata.fieldname.input"))), "cui");
+		//		this.typeString(this.getElementByXpath(locator.getString("xpath.datatewardship.administration.createtask.panel.taskschemadata.fieldname.input")), fieldName);
 		
 	}
 }
