@@ -1,6 +1,7 @@
 package org.talend.mdm;
 
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.WebDriver;
@@ -35,6 +36,9 @@ public class Login extends Base{
 	    firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk","text/csv, application/vnd.ms-excel, application/zip, application/pdf");
 
 	    driver = new FirefoxDriver(firefoxProfile);
+	    
+	    //set driver time out with TimeUnit
+	    driver.manage().timeouts().setScriptTimeout(3, TimeUnit.SECONDS);
 	    logger.info("Set Firefox Driver with Profile");
 		
 //		driver = new FirefoxDriver();
