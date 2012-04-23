@@ -29,6 +29,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.HasInputDevices;
 import org.openqa.selenium.Mouse;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.internal.Locatable;
 import org.talend.tac.base.WebDriverBase;
 
@@ -44,7 +45,9 @@ public class RedefineContext extends WebDriverBase {
                  
        public void selectDropDownList(String name, String id, String value) {
     	   getElementByXpath("//label[text()='"+name+"']//following-sibling::div//input[@id='"+id+"']//following-sibling::div[contains(@class,'x-form-trigger x-form-trigger-arrow')]").click();
-		   getElementByXpath("//div[text()='"+value+"']").click();
+		   logger.info("---------Value:"+value);
+		   waitforElementDisplayed(By.xpath("//div[text()='"+value+"']"), 20);
+    	   getElementByXpath("//div[text()='"+value+"']").click();
        }
       
        public void mouseDown(String xpathExpression) {
@@ -185,9 +188,65 @@ public class RedefineContext extends WebDriverBase {
            this.dismissAlert(); 
        }
        
-       public void resetContextPara() {
+       public void resetContextPara(String label) {
+    	   this.waitforElementDisplayed(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MIN);
+    	   this.mouseDown("//div[text()='" + label + "']");
     	   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertyResetButton']"), WAIT_TIME_MIN);
     	   this.clickElementById("idESBConductorPropertyResetButton");
+    	   this.acceptAlert();
     	   Assert.assertFalse(this.waitforElementDisplayed(By.xpath(other.getString("ESBConductor.ConfigProperties.Name")), 20));
        }
+       
+       public void controlDisplay(String label) {
+    	   this.waitforElementDisplayed(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MIN);
+    	   this.mouseDown("//div[text()='" + label + "']");
+    	   this.focusElement();
+    	   this.checkColumn("Active");
+    	   this.checkColumnForValue("Custom Value");
+    	   this.checkColumnForValue("Original value");
+    	   Assert.assertFalse(this.isElementPresent(By.xpath("//div[@class='x-panel-body x-panel-body-noheader']//div[@class=' x-grid3-hd-inner x-grid3-hd-active x-component']//span[text()='Active']"), 20));
+       }
+       
+       public void focusElement() {
+    		
+    		WebElement tag = driver.findElement(By.xpath("//div[@class=' x-grid3-hd-inner x-grid3-hd-property x-component']//ancestor::span[text()='Name']"));
+    		this.moveToElement(tag);
+    		WebElement jjj = driver.findElement(By.xpath("//div[contains(@class,' x-grid3-hd-inner x-grid3-hd-property x-component')]//a"));
+    		jjj.click();
+    		this.waitforElementDisplayed(By.xpath("//a[text()='Columns']"), WAIT_TIME_MIN);
+    		WebElement columns = driver.findElement(By.xpath("//a[text()='Columns']"));
+    		this.moveToElement(columns);
+    	  }
+       
+       public void checkColumn(String columnName){
+   		boolean present = this.isElementPresent(By.xpath("//div[@class='x-panel-body x-panel-body-noheader']//div[@class=' x-grid3-hd-inner x-grid3-hd-active x-component']//span[text()='"+columnName+"']"),30);
+   		if(!present){
+   			logger.info("clumnName:"+columnName);
+   			this.waitforElementDisplayed(By.xpath("//a[text()='"+columnName+"']"), 20);
+   			this.getElementByXpath("//a[text()='"+columnName+"']").click();
+   			this.waitforElementDisplayed(By.xpath("//div[@class='x-panel-body x-panel-body-noheader']//div[@class=' x-grid3-hd-inner x-grid3-hd-active x-component']//span[text()='"+columnName+"']"), 20);
+   		}
+   		else{
+   			this.waitforElementDisplayed(By.xpath("//a[contains(text(),'"+columnName+"')]"), 20);
+   			this.getElementByXpath("//a[contains(text(),'"+columnName+"')]").click();
+   			Assert.assertFalse(this.isElementPresent(By.xpath("//div[@class='x-panel-body x-panel-body-noheader']//div[@class=' x-grid3-hd-inner x-grid3-hd-active x-component']//span[text()='"+columnName+"']"), 20));
+        }   		
+   	   }
+       
+       public void checkColumnForValue(String columnName){
+      		boolean present = this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"),30);
+      		if(!present){
+      			logger.info("clumnName:"+columnName);
+      			this.waitforElementDisplayed(By.xpath("//a[text()='"+columnName+"']"), 20);
+      			this.getElementByXpath("//a[text()='"+columnName+"']").click();
+      			this.waitforElementDisplayed(By.xpath("//span[text()='"+columnName+"']"), 20);
+      		}
+      		else{
+      			this.waitforElementDisplayed(By.xpath("//a[contains(text(),'"+columnName+"')]"), 20);
+      			this.getElementByXpath("//a[contains(text(),'"+columnName+"')]").click();
+      			Assert.assertFalse(this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"), 20));
+           }   		
+      	   }
     }
+
+   

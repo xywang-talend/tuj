@@ -41,20 +41,6 @@ public class ConfigurationESBConductor extends WebDriverBase {
 	public void configurateEsbConductor(String artifactRepositoryUrl, String artifactRepositoryUserName
 			, String artifactRepositoryPassWord, String mavenProtocolExpected,String urlStatus
 			, String usernameStatus, String pwStatus, String mavenStatus) {
-	       
-	//	this.waitforElementDisplayed(By.xpath("//div[@class='header-title' and text()='Configuration']"), WAIT_TIME_MIN);
-//		if(this.isElementPresent(By.xpath("//div[text()='Configuration' and @class='header-title']"+
-//			"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
-//			"//button[@class='x-btn-text' and @aria-pressed='true']"),WAIT_TIME_MIN)) {			 
-//			this.clickElementByXpath("//div[text()='Configuration' and @class='header-title']"+
-//			"//ancestor::div[conta" +
-//			"ins(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
-//			"//button[@class='x-btn-text' and @aria-pressed='true']");
-//			this.waitforElementDisplayed(By.xpath("//div[text()='Configuration' and @class='header-title']"+
-//					"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
-//					"//button[@class='x-btn-text' and @aria-pressed='false']"), WAIT_TIME_MIN);
-//			
-//		}
 		
 		this.waitforElementDisplayed(By.xpath("//div[contains(text(),'ESB conductor (4 Parameters')]"), WAIT_TIME_MIN);
 		this.mouseDown("//div[contains(text(),'ESB conductor (4 Parameters')]");

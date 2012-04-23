@@ -14,7 +14,7 @@ public class TestResetConfigProperties extends WebdriverLogin {
      }
    
      @Test
-     @Parameters({"labelOfServiceWithDifferentContext", "desOfService", "repositoryForContext", "groupForContext", "artifactForContext",
+     @Parameters({"LabelForResetContext", "desOfService", "repositoryForContext", "groupForContext", "artifactForContext",
     		"versionForContext", "featureName", "typeForContext", "addedContext", "serverOfRuntime","contextVariableName","contextVariableValue"})
      public void testResetContextParameters(String label, String des, String repository,
              String group, String artifact, String version, String name, String type, 

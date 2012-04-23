@@ -64,9 +64,14 @@ public class RedefineContextImpl extends RedefineContext {
                String group, String artifact, String version, String name, String type, 
                String context, String server,String variableName,String variableValue) {
     	   this.intoESBConductorPage();
-    	   this.addESBConductor(label, des, repository, group, artifact, version, variableName, type, context, server);
+    	   this.addESBConductor(label, des, repository, group, artifact, version, name, type, context, server);
     	   this.defineContext(label, variableName, variableValue);
-    	   this.resetContextPara();
+    	   this.resetContextPara(label);
+       }
+       
+       public void controlDisplayMenu(String label) {
+    	   this.intoESBConductorPage();
+    	   this.controlDisplay(label);
        }
 
 }
