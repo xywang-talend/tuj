@@ -57,6 +57,12 @@ public class Welcome extends Base{
 		
 	}
 	
+	public void openTasks(){
+		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.ui.window.tasks.workflow.entry")), WAIT_TIME_MIN).isDisplayed());
+		this.clickElementByXpath(locator.getString("xpath.ui.window.tasks.workflow.entry"));
+		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflowtaskspage.search.button")),WAIT_TIME_MIN).isDisplayed());
+	}
+	
 	public void checkSearchWindow(){
 		
 		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.ui.window.search")), WAIT_TIME_MIN)!=null, "element search window is not displayed right now");

@@ -78,4 +78,10 @@ public class TestRecordProduct extends Login {
 	public void testForeignKeyInforDisplay(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID,String productFamilyId,String productFamilyName,String frankSubmitedFamilyName) {
 		recordImpl.foreignKeyInfoDisplay(userFrank, frankPass, userJennifer, jenniferPass, container, model, entity,productUniqID, productFamilyId, productFamilyName, frankSubmitedFamilyName);
 	}
+	
+	@Test
+	@Parameters( {"user.frank.name","user.frank.password","user.jennifer.name","user.jennifer.password", "container","modle","entity","UniqueIdValue","familyid","familyname","franksubmited.familyname"})
+	public void testTwoWaysOpenWorkFlow(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID,String productFamilyId,String productFamilyName,String frankSubmitedFamilyName) {
+		recordImpl.openWorkflowTask(userFrank, frankPass, userJennifer, jenniferPass, container, model, entity,productUniqID, productFamilyId, productFamilyName, frankSubmitedFamilyName);
+	}
 }

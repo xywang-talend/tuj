@@ -35,6 +35,13 @@ public void launchProcess(String processOption){
 	this.clickElementByXpath(locator.getString("xpath.record.launchprocess.button"));
 }
 
+public void checkProcessDoneAndClickOK(){
+	this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.status.info")), WAIT_TIME_MID);
+	//click process ok button to verify can open bonita workflow console
+	this.clickElementByXpath(locator.getString("xpath.record.launchprocess.success.ok.button"));
+   
+}
+
 public void enterJournal(String entity,String key,String OperationType,String source){
 	clickJournal();				
 	this.sleepCertainTime(3000);

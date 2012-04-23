@@ -34,11 +34,11 @@ public class WorkFlowTask extends Base{
 		
 		this.waitfor(By.id(locator.getString("id.menu.workflowtasks")), WAIT_TIME_MIN);
 		this.clickElementById(locator.getString("id.menu.workflowtasks"));
-		Assert.assertTrue(this.waitfor(By.xpath("//span[contains(@class,'x-panel-header-text') and text()='Workflow Tasks']//ancestor::div[contains(@id,'WorkflowTasksPanel')]//button[text()='Search']"),WAIT_TIME_MIN).isDisplayed());
+		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflowtaskspage.search.button")),WAIT_TIME_MIN).isDisplayed());
 	}
 	
 	public void uncheckHideFinishedTask(){
-		this.clickElementByXpath("//label[text()='Hide Finished Tasks:']//ancestor::div[contains(@class,'x-form-item')]//div[contains(@class,'x-form-check-wrap-inner')]//img");
+		this.clickElementByXpath(locator.getString("xpath.workflowtaskspage.hidefinishedtasks.checkbox.img"));
 	}
 	
 	public void sortWorkFlowTaskBydate(){
@@ -50,18 +50,18 @@ public class WorkFlowTask extends Base{
 	}
 	
 	public void openAWorkTask(){
-		this.clickElementByXpath("//span[contains(@class,'x-panel-header-text') and text()='Workflow Tasks']//ancestor::div[contains(@id,'WorkflowTasksPanel')]//div[contains(@class,'x-grid3-body')]//div[contains(@class,'x-grid3-row ')][1]");
-	    this.doubleClick(this.getElementByXpath("//span[contains(@class,'x-panel-header-text') and text()='Workflow Tasks']//ancestor::div[contains(@id,'WorkflowTasksPanel')]//div[contains(@class,'x-grid3-body')]//div[contains(@class,'x-grid3-row ')][1]"));
+		this.clickElementByXpath(locator.getString("xpath.workflowtaskspage.tasks.firsttask"));
+	    this.doubleClick(this.getElementByXpath(locator.getString("xpath.workflowtaskspage.tasks.firsttask")));
 	}
 	
 	public void closeAWorkTask(){
-		this.clickElementByXpath("//span[contains(text(),'ApprouvePrix')]//ancestor::li//a[contains(@class,'x-tab-strip-close')]");
+		this.clickElementByXpath(locator.getString("xpath.workflow.openedworkflowtask.close"));
 	}
 	
 	public void openRelatedRecord(){
-		Assert.assertTrue(this.waitfor(By.xpath("//button[contains(@class,'wftask_bt_openRecord') and text()='Open Record']"), WAIT_TIME_MIN).isDisplayed());
+		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.openrecord.button")), WAIT_TIME_MIN).isDisplayed());
 		this.sleepCertainTime(3000);
-		this.clickElementByXpath("//button[contains(@class,'wftask_bt_openRecord') and text()='Open Record']");
+		this.clickElementByXpath(locator.getString("xpath.workflow.openedworkflowtask.openrecord.button"));
 	}
 	
 	public void closeRelatedRecord(String recordID){
@@ -69,14 +69,14 @@ public class WorkFlowTask extends Base{
 	}
 	
 	public void approveBoxChecked(){
-		Assert.assertTrue(this.waitfor(By.xpath("//label[text()='approuve:']//ancestor::div[contains(@class,'x-form-item')]//div[contains(@class,'x-form-check-wrap-inner')]//input"), WAIT_TIME_MID)!=null);
+		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.approve.checkbox.input")), WAIT_TIME_MID)!=null);
 		this.sleepCertainTime(5000);
-		this.driver.findElement(By.xpath("//label[text()='approuve:']//ancestor::div[contains(@class,'x-form-item')]//img")).click();
+		this.driver.findElement(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.approve.checkbox.img"))).click();
 	}
 	
 	public void clickSearch(){
 		
-		this.clickElementByXpath("//span[contains(@class,'x-panel-header-text') and text()='Workflow Tasks']//ancestor::div[contains(@id,'WorkflowTasksPanel')]//button[text()='Search']");
+		this.clickElementByXpath(locator.getString("xpath.workflowtaskspage.search.button"));
 		
 	}
 	
