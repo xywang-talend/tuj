@@ -30,8 +30,13 @@ public class WelcomeImpl extends Welcome{
 		this.checkProcessWindow();
 		this.reSortWindowLayout("xpath.ui.window.processes.title", -800, 500);
 		this.checkSearchWindow();
-		this.reSortWindowLayout("xpath.ui.window.search.title", -800, 500);
+		this.reSortWindowLayout("xpath.ui.window.search.title", -300, 200);
 		this.checkTasksWindow();
+	}
+	
+	public void openWorkFlowTaskFromWelcome(){
+		this.checkTasksWindow();
+		this.openTasks();
 	}
 }
 

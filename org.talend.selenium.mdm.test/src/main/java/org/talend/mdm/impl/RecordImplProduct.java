@@ -302,6 +302,93 @@ public class RecordImplProduct extends Record{
 	}	
 	
 	
+	public void openWorkflowTask(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID,String productFamilyId,String productFamilyName,String frankSubmitedFamilyName){
+		LogonImpl log = new LogonImpl(this.driver);
+		log.logout();
+		log.loginUserForce(userFrank, frankPass);
+		this.chooseContainer(container);
+		this.chooseModle(model);
+		this.clickSave();
+		this.chooseEntity(entity);
+		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
+		
+		//select a product record in data browser
+		this.clickElementByXpath(this.getString(locator, "xpath.record.chooserecord.byID", productUniqID));
+		
+		//verify frank can not change price directly
+		Assert.assertFalse(this.getElementByXpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)).isEnabled());
+		
+		//get the initial price for the product record
+		String priceInitial = this.getValueInput(By.xpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)));
+		logger.info("for frank ,the initial price is:"+priceInitial);
+		
+		//select request price change  ,and launch process
+		this.launchProcess("Request Price Change");
+        this.checkProcessDoneAndClickOK();
+		List a = new ArrayList<String>();
+        for (String handle : driver.getWindowHandles()) {
+        a.add(handle);
+        }
+        driver.switchTo().window(a.get(1).toString());
+        Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.ok.button.click.bonita.login.welcom")), WAIT_TIME_MIN)!=null);
+        driver.switchTo().window(a.get(0).toString());
+    	
+		//for frank ,open workflow created and,type in price changed ,verify the foreign key info ,change foreign key info and submit.
+		WorkFlowTaskImpl flow = new WorkFlowTaskImpl(this.driver);
+		flow.openMenuGoven();
+		flow.openMenuWorkFlowTask();
+		this.sleepCertainTime(5000);
+		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.workflowtaskspage.tasks.properties.waiting")).size()>=1);
+		
+		//resort tasks by date ,and open the first work flow task
+		flow.sortWorkFlowTaskBydate();
+	    flow.openAWorkTask();
+	    Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input")),WAIT_TIME_MIN).isDisplayed());
+	    
+	    //frank logout then login ,open work flow task from welcome page
+	    log.logout();
+	    log.loginUserForce(userFrank, frankPass);	 
+	    WelcomeImpl wel = new WelcomeImpl(this.driver);
+	    wel.openWorkFlowTaskFromWelcome();
+	    Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.workflowtaskspage.tasks.properties.waiting")).size()>=1);
+	    
+		// resort tasks by date ,and open the first work flow task
+		flow.sortWorkFlowTaskBydate();
+		flow.openAWorkTask();
+		Assert.assertTrue(this
+				.waitfor(
+						By.xpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input")),
+						WAIT_TIME_MIN).isDisplayed());
+   
+	    // frank change product familyname,change price ,then submit
+        this.clickElementByXpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input.clear"));
+        logger.info("+++++++++++++++++++++++++++++++++++++++++++"+this.getValueInput(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input"))));
+        Assert.assertTrue(this.getValueInput(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input"))).equals(""), "test foreign key info display failed,as product family name shows wrong before frank submit !");
+        this.clickElementByXpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input.search"));
+        Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input.search.searchpanel")), WAIT_TIME_MIN).isDisplayed());
+        this.waitfor(By.xpath("//div[contains(@class,'search-item')]//h3[contains(text(),'"+frankSubmitedFamilyName+"')]"), WAIT_TIME_MIN).click();
+        this.sleepCertainTime(2000);
+        Assert.assertTrue(this.getValueInput(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input"))).equals(frankSubmitedFamilyName), "test foreign key info display failed,as product family name shows wrong before frank submit !");
+        String priceSubmited;
+	    priceSubmited =  (flow.changeProductPriceValidImpl(Double.parseDouble(priceInitial), 0.15)+"");
+	    logger.info("price frank submited is:"+priceSubmited);
+
+	    log.logout();
+	    log.loginUserForce(userJennifer, jenniferPass);
+	
+		//for jennifer ,open work flow task from welcome page
+		wel.openWorkFlowTaskFromWelcome();
+		
+		//sort work flow task by date and open the first work
+		flow.sortWorkFlowTaskBydate();
+	    flow.openAWorkTask();
+	    Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input")),WAIT_TIME_MIN).isDisplayed());
+	    this.sleepCertainTime(3000);
+	    Assert.assertTrue(this.getValueInput(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input"))).equals(frankSubmitedFamilyName), "test foreign key info display failed,as product family name shows wrong when jennifer approve !");
+	    String price = this.getElementByXpath(locator.getString("xpath.workflowtask.open.product.price.input")).getAttribute("value");
+	   
+	}
+	
 	public void foreignKeyInfoDisplay(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID,String productFamilyId,String productFamilyName,String frankSubmitedFamilyName){
 		LogonImpl log = new LogonImpl(this.driver);
 		log.logout();
