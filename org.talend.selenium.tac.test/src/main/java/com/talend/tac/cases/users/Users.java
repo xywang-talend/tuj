@@ -68,11 +68,18 @@ public class Users extends Login {
 	}
 	
 	//creation method for delete a user
-	public void deleteUser(String userName,String deleteUserName){
-		
+	public void deleteUser(String userName,String deleteUserName){		
+
+		this.clickWaitForElementPresent("idMenuUserElement");
+		this.waitForElementPresent("//div[text()='"+userName+"']", WAIT_TIME);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(selenium.isElementPresent("//div[text()='"+deleteUserName+"']")) {
 			
-			this.clickWaitForElementPresent("idMenuUserElement");
 			selenium.setSpeed(MID_SPEED);
 			Assert.assertTrue(selenium.isTextPresent(userName));
 			selenium.setSpeed(MIN_SPEED);
