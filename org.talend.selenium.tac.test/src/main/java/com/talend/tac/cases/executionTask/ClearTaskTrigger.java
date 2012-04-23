@@ -46,8 +46,9 @@ public class ClearTaskTrigger extends TaskUtils {
   
     //add a method of remove all triggers
     @Test
-    @Parameters({"modifyTask","labelTRunJobByTaskRun","TaskBaseBranch"})
-    public void clearsAllTriggers(String modifyTask, String labelTRunJobByTaskRun, String TaskBaseBranch ) {
+    @Parameters({"modifyTask","labelTRunJobByTaskRun","TaskBaseBranch", "labelRefProJobByMainProTRunJobRun"})
+    public void clearsAllTriggers(String modifyTask, String labelTRunJobByTaskRun, String TaskBaseBranch
+          , String labelRefProJobByMainProTRunJobRun) {
     	
     	this.clickWaitForElementPresent("!!!menu.executionTasks.element!!!");
     	selenium.setSpeed(MID_SPEED);
@@ -57,6 +58,7 @@ public class ClearTaskTrigger extends TaskUtils {
     	clearTriggers(labelTRunJobByTaskRun);
     	clearTriggers(modifyTask);
     	clearTriggers(TaskBaseBranch);
+    	clearTriggers(labelRefProJobByMainProTRunJobRun);
     	
     }   
     
