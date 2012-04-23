@@ -12,26 +12,22 @@
 // ============================================================================
 package tisstudio.filters;
 
-import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withTooltip;
-
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotViewMenu;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotLabel;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarButton;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.swtbot.SWTBotLabelExt;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.Utilities.TalendItemType;
@@ -46,7 +42,9 @@ public class FilterItemsTest extends TalendSwtBotForTos {
 
     private SWTBotTree tree;
 
-    private SWTBotLabelExt filterLabel;
+    private SWTBotViewMenu menu;
+
+    private SWTBotToolbarButton button;
 
     private SWTBotShell tempShell;
 
@@ -63,12 +61,12 @@ public class FilterItemsTest extends TalendSwtBotForTos {
         SWTBotTreeItem tempTreeNode = null;
         int rowCount = 0;
 
-        Matcher matcher = withTooltip("Filters...\nRight click to set up");
-        SWTBotLabel label = new SWTBotLabel((Label) gefBot.widget(matcher, view.getWidget()));
-        filterLabel = new SWTBotLabelExt(label);
-        filterLabel.rightClick();
+        button = gefBot.viewByTitle("Repository").toolbarButton("Activte Filter \n(filter settings available in the view menu)");
+        button.click();
+        menu = gefBot.viewByTitle("Repository").menu("Filter Setting...");
+        menu.click();
 
-        tempShell = gefBot.shell("Repository Filter").activate();
+        tempShell = gefBot.shell("Repository Filter Setting").activate();
         try {
             for (TalendItemType itemType : TalendItemType.values()) {
                 if (TalendItemType.RECYCLE_BIN.equals(itemType))
@@ -78,7 +76,6 @@ public class FilterItemsTest extends TalendSwtBotForTos {
             }
             gefBot.button("OK").click();
 
-            filterLabel.click();
             rowCount = tree.rowCount();
         } catch (WidgetNotFoundException wnfe) {
             tempShell.close();
@@ -93,7 +90,7 @@ public class FilterItemsTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        filterLabel.rightClick();
+        menu.click();
         SWTBotTreeItem tempTreeNode = null;
         try {
             for (TalendItemType itemType : TalendItemType.values()) {
@@ -110,6 +107,6 @@ public class FilterItemsTest extends TalendSwtBotForTos {
             tempShell.close();
             Assert.fail(e.getMessage());
         }
-        filterLabel.click();
+        button.click();
     }
 }

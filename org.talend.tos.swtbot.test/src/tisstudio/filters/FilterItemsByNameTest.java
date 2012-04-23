@@ -12,23 +12,18 @@
 // ============================================================================
 package tisstudio.filters;
 
-import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withTooltip;
-
-import org.eclipse.swt.widgets.Label;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotViewMenu;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotLabel;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.hamcrest.Matcher;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarButton;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.swtbot.SWTBotLabelExt;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobItem;
 
 /**
@@ -39,7 +34,9 @@ public class FilterItemsByNameTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 
-    private SWTBotLabelExt filterLabel;
+    private SWTBotViewMenu menu;
+
+    private SWTBotToolbarButton button;
 
     private SWTBotShell tempShell;
 
@@ -61,18 +58,17 @@ public class FilterItemsByNameTest extends TalendSwtBotForTos {
         String actualJob = null;
         int rowCount = 0;
 
-        Matcher matcher = withTooltip("Filters...\nRight click to set up");
-        SWTBotLabel label = new SWTBotLabel((Label) gefBot.widget(matcher, Utilities.getRepositoryView().getWidget()));
-        filterLabel = new SWTBotLabelExt(label);
-        filterLabel.rightClick();
+        button = gefBot.viewByTitle("Repository").toolbarButton("Activte Filter \n(filter settings available in the view menu)");
+        button.click();
+        menu = gefBot.viewByTitle("Repository").menu("Filter Setting...");
+        menu.click();
 
-        tempShell = gefBot.shell("Repository Filter").activate();
+        tempShell = gefBot.shell("Repository Filter Setting").activate();
         try {
             gefBot.checkBox(0).click();
             gefBot.text(0).setText("*_b");
             gefBot.button("OK").click();
 
-            filterLabel.click();
             rowCount = jobItem.getParentNode().rowCount();
             actualJob = jobItem.getParentNode().getNode(0).getText();
         } catch (WidgetNotFoundException wnfe) {
@@ -89,7 +85,7 @@ public class FilterItemsByNameTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        filterLabel.rightClick();
+        menu.click();
         try {
             gefBot.checkBox(0).click();
             gefBot.button("OK").click();
@@ -100,7 +96,7 @@ public class FilterItemsByNameTest extends TalendSwtBotForTos {
             tempShell.close();
             Assert.fail(e.getMessage());
         }
-        filterLabel.click();
+        button.click();
 
     }
 }
