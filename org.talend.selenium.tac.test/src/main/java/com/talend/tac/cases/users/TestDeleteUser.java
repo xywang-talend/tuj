@@ -23,16 +23,25 @@ public class TestDeleteUser extends Users {
 	}
 	
 	@Test
-	@Parameters({"userName","LoginNameChooseAdministratorRole","userNameAllRoles"})
-	public void testDeleteUser(String userName,String deleteUser,String deleteUser1) throws Exception {
+	@Parameters({"userName","LoginNameChooseAdministratorRole"})
+	public void testDeleteUser(String userName,String deleteUser) throws Exception {
 		deleteUser(userName, deleteUser);
-		deleteUser(userName,deleteUser1);
 		selenium.setSpeed(MID_SPEED);
-	    Assert.assertFalse(selenium.isElementPresent("//div[text()='"+deleteUser1+"']"));
+	    Assert.assertFalse(selenium.isElementPresent("//div[text()='"+deleteUser+"']"));
         selenium.setSpeed(MIN_SPEED);  
 	    
 	}
     
+	
+	@Test
+	@Parameters({"userName","userNameAllRoles"})
+	public void testDeleteAllRoleUser(String userName,String deleteUser) throws Exception {
+		deleteUser(userName, deleteUser);
+		selenium.setSpeed(MID_SPEED);
+	    Assert.assertFalse(selenium.isElementPresent("//div[text()='"+deleteUser+"']"));
+        selenium.setSpeed(MIN_SPEED);  
+	    
+	}
 	
 	@Test
 	@Parameters({"userName"})

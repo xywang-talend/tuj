@@ -442,10 +442,8 @@ public class TaskUtils extends Login {
 		selenium.click(xpathOfTriggerOption);//select a trigger option
 		Assert.assertTrue(selenium.isChecked(xpathOfTriggerOption));
 	
-		selenium.click("idJobConductorFileTriggerFileServerListBox");//select an server	
-		this.waitForElementPresent("//div[text()='" + serverName + "']", WAIT_TIME);
-		selenium.mouseDown("//div[text()='" + serverName + "']");
-
+        this.selectDropDownList("idJobConductorFileTriggerFileServerListBox", serverName);
+		
 		selenium.click("idFileTriggerSave");
 	
 		if(!selenium.isElementPresent("//span[text()='"+triggerLabel+"']")) {
