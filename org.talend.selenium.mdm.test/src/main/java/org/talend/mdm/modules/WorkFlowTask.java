@@ -34,7 +34,7 @@ public class WorkFlowTask extends Base{
 		
 		this.waitfor(By.id(locator.getString("id.menu.workflowtasks")), WAIT_TIME_MIN);
 		this.clickElementById(locator.getString("id.menu.workflowtasks"));
-		
+		Assert.assertTrue(this.waitfor(By.xpath("//span[contains(@class,'x-panel-header-text') and text()='Workflow Tasks']//ancestor::div[contains(@id,'WorkflowTasksPanel')]//button[text()='Search']"),WAIT_TIME_MIN).isDisplayed());
 	}
 	
 	public void uncheckHideFinishedTask(){

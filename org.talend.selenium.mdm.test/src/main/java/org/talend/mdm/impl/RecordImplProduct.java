@@ -332,14 +332,13 @@ public class RecordImplProduct extends Record{
 		logger.info("for frank ,the initial price is:"+priceInitial);
 		
 		//select request price change  ,and launch process
-		this.seletDropDownList(By.xpath(locator.getString("xpath.record.launchprocess.select.img")), "Request Price Change");
-		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.button"));
+		this.launchProcess("Request Price Change");
 		this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.status.info")), WAIT_TIME_MID);
 		
 		//click process ok button to verify can open bonita workflow console
 		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.success.ok.button"));
-        this.sleepCertainTime(5000);
-        List a = new ArrayList<String>();
+       
+		List a = new ArrayList<String>();
         for (String handle : driver.getWindowHandles()) {
         a.add(handle);
         }
@@ -383,7 +382,6 @@ public class RecordImplProduct extends Record{
 		//open work flow task page
 		flow.openMenuGoven();
 		flow.openMenuWorkFlowTask();
-		this.sleepCertainTime(10000);
 		
 		//sort work flow task by date and open the first work
 		flow.sortWorkFlowTaskBydate();

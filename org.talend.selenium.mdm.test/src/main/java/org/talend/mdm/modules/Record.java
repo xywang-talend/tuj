@@ -30,6 +30,11 @@ public void openJournal(String entity,String key,String OperationType,String sou
 }
 
 
+public void launchProcess(String processOption){
+	this.seletDropDownList(By.xpath(locator.getString("xpath.record.launchprocess.select.img")), processOption);
+	this.clickElementByXpath(locator.getString("xpath.record.launchprocess.button"));
+}
+
 public void enterJournal(String entity,String key,String OperationType,String source){
 	clickJournal();				
 	this.sleepCertainTime(3000);
