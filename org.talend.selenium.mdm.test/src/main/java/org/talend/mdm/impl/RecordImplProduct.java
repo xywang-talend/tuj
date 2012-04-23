@@ -951,8 +951,7 @@ public class RecordImplProduct extends Record{
 		this.seletDropDownList(By.xpath(locator.getString("xpath.record.launchprocess.select.img")), "Show on map");
 		this.sleepCertainTime(5000);
 		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.button"));
-		this.sleepCertainTime(5000);
-		this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.status.info")), WAIT_TIME_MID);
+		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.status.info")), WAIT_TIME_MID).isDisplayed());
 		
 		//click process ok button to verify can open a google map 
 		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.success.ok.button"));
