@@ -128,12 +128,13 @@ public class TestTaskDisplay extends Login {
 	    selenium.setSpeed(MAX_SPEED);
 	    Assert.assertTrue(selenium.isElementPresent("//span[text()='Job: tjavaWithMulripleCheckPoint']"), "verify failed: '//span[text()='Job: tjavaWithMulripleCheckPoint']' is without appear");
 		selenium.setSpeed(MIN_SPEED);	
-				
-		Assert.assertTrue(selenium.isElementPresent("//span[contains(text(),'Job:')]//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//img[@title='CONNECTION:SUBJOB_OK:tJava_5:OnSubjobOk']")
-				, "verify failed: '//span[contains(text(),'Job:')]//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//img[@title='CONNECTION:SUBJOB_OK:tJava_5:OnSubjobOk'] is without appear'");
 		
-		Assert.assertTrue(selenium.isElementPresent("//span[contains(text(),'Job:')]//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//div[contains(@class,'x-panel-body x-panel-body-noborder x-abs-layout-container')]//div[1]//div[2]//img")
-				, "verify failed: '//span[contains(text(),'Job:')]//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//div[contains(@class,'x-panel-body x-panel-body-noborder x-abs-layout-container')]//div[1]//div[2]//img is without appear'");
+		this.waitForElementPresent("//span[contains(text(),'Job:')]//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//img[@title='CONNECTION:SUBJOB_OK:tJava_1:OnSubjobOk']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//span[contains(text(),'Job:')]//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//img[@title='CONNECTION:SUBJOB_OK:tJava_1:OnSubjobOk']")
+				, "verify failed: '//span[contains(text(),'Job:')]//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//img[@title='CONNECTION:SUBJOB_OK:tJava_1:OnSubjobOk'] is without appear'");
+		
+		Assert.assertTrue(selenium.isElementPresent("//span[contains(text(),'Job:')]//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//img[@title='CONNECTION:SUBJOB_OK:tJava_2:OnSubjobOk']")
+				, "verify failed: '//span[contains(text(),'Job:')]//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//img[@title='CONNECTION:SUBJOB_OK:tJava_2:OnSubjobOk'] is without appear'");
 		
 		Assert.assertTrue(selenium.isElementPresent("//span[contains(text(),'Job:')]//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//img[@title='CONNECTION:SUBJOB_OK:tJava_3:OnSubjobOk']")
 				, "verify failed: '//span[contains(text(),'Job:')]//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//img[@title='" +
