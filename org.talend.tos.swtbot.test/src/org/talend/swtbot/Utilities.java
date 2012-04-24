@@ -600,7 +600,7 @@ public class Utilities {
 
     public static List<TalendItemType> getTISItemTypes() {
         List<TalendItemType> itemList = new ArrayList<TalendItemType>();
-        // itemList.add(TalendItemType.SERVICES);
+        itemList.add(TalendItemType.SERVICES);
         itemList.add(TalendItemType.JOBLET_DESIGNS);
         itemList.add(TalendItemType.JOBSCRIPTS);
         itemList.add(TalendItemType.SAP_CONNECTIONS);
@@ -990,6 +990,25 @@ public class Utilities {
         }
 
         gefBot.button("OK").click();
+    }
+
+    /**
+     * import items
+     * 
+     * @param archiveFileName the name of the archive file need to import under folder 'sample'.
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    public static void importItems(String archiveFileName) throws IOException, URISyntaxException {
+        gefBot.toolbarButtonWithTooltip("Import Items").click();
+
+        gefBot.shell("Import items").activate();
+        gefBot.radio("Select archive file:").click();
+        gefBot.text(1).setText(Utilities.getFileFromCurrentPluginSampleFolder(archiveFileName).getAbsolutePath());
+        gefBot.tree().setFocus();
+        gefBot.button("Select All").click();
+        gefBot.button("Finish").click();
+        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")));
     }
 
 }

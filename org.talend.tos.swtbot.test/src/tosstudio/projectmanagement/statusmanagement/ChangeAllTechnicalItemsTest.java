@@ -15,14 +15,8 @@ package tosstudio.projectmanagement.statusmanagement;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Assert;
@@ -38,12 +32,6 @@ import org.talend.swtbot.Utilities.TalendItemType;
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class ChangeAllTechnicalItemsTest extends TalendSwtBotForTos {
-
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotShell shell;
 
     private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip"; //$NON-NLS-1$
 
@@ -69,19 +57,11 @@ public class ChangeAllTechnicalItemsTest extends TalendSwtBotForTos {
             "Edit an existing Excel File", "Edit an existing Ldif File", "Update LDAP schema", "Edit an exist Salesforce",
             "Update generic schema", "Update WSDL schema", "" };
 
+    // private Map<String, String> map = new HashMap<String, String>();
+
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        gefBot.toolbarButtonWithTooltip("Import Items").click();
-
-        gefBot.shell("Import items").activate();
-        gefBot.radio("Select archive file:").click();
-        gefBot.text(1).setText(Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
-        gefBot.tree().setFocus();
-        gefBot.button("Select All").click();
-        gefBot.button("Finish").click();
-        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")));
+        Utilities.importItems(SAMPLE_RELATIVE_FILEPATH);
     }
 
     @Test
@@ -131,10 +111,10 @@ public class ChangeAllTechnicalItemsTest extends TalendSwtBotForTos {
     }
 
     private void assertItemStatus(String itemName, String contextMenu, String shellTitle, String assertExpect, String... nodes) {
-        tree.expandNode(nodes).getNode(itemName + " 0.1").contextMenu("Edit " + contextMenu).click();
+        Utilities.getRepositoryTree().expandNode(nodes).getNode(itemName + " 0.1").contextMenu("Edit " + contextMenu).click();
         try {
             if (!"".equals(shellTitle))
-                shell = gefBot.shell(shellTitle).activate();
+                gefBot.shell(shellTitle).activate();
             Assert.assertEquals(itemName + " status", assertExpect, gefBot.ccomboBoxWithLabel("Status").getText());
             gefBot.button("Cancel").click();
         } catch (WidgetNotFoundException wnfe) {

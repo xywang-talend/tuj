@@ -14,14 +14,10 @@ package tosstudio.projectmanagement.versioning;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Assert;
@@ -38,40 +34,11 @@ import org.talend.swtbot.Utilities.TalendItemType;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotShell shell;
-
     private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip"; //$NON-NLS-1$
-
-    private String[] treeNodes = { "Business Models", "Job Designs", "Contexts", "Code", "SQL Templates", "Metadata" };
-
-    private String[] treeItems = { "BUSINESS_MODEL", "JOB_DESIGNS", "CONTEXTS", "ROUTINES", "SQL_TEMPLATES", "DB_CONNECTIONS",
-            "FILE_DELIMITED", "FILE_POSITIONAL", "FILE_REGEX", "FILE_XML", "FILE_EXCEL", "FILE_LDIF", "LDAP", "SALESFORCE",
-            "GENERIC_SCHEMAS", "WEB_SERVICE", "FTP" };
-
-    private String[] codeNodes = { "Routines" };
-
-    private String[] sqlTemplatePath = { "Generic", "UserDefined" };
-
-    private String[] metadataNodes = { "Db Connections", "File delimited", "File positional", "File regex", "File xml",
-            "File Excel", "File ldif", "LDAP", "Salesforce", "Generic schemas", "Web Service", "FTP" };
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        gefBot.toolbarButtonWithTooltip("Import Items").click();
-
-        shell = gefBot.shell("Import items").activate();
-        gefBot.radio("Select archive file:").click();
-        gefBot.text(1).setText(Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
-        gefBot.tree().setFocus();
-        gefBot.button("Select All").click();
-        gefBot.button("Finish").click();
-        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")));
+        Utilities.importItems(SAMPLE_RELATIVE_FILEPATH);
     }
 
     @Test
@@ -79,9 +46,26 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
         gefBot.toolbarButtonWithTooltip("Project settings").click();
         gefBot.shell("Project Settings").activate();
         gefBot.tree().expandNode("General").select("Version Management").click();
-        for (TalendItemType itemType : TalendItemType.values()) {
-            if (Utilities.getTISItemTypes().contains(itemType) || Utilities.TalendItemType.RECYCLE_BIN.equals(itemType))
-                continue;
+
+        List<TalendItemType> itemTypes = new ArrayList<TalendItemType>();
+        for (TalendItemType itemType : TalendItemType.values())
+            itemTypes.add(itemType);
+        if ("TOS".equals(System.getProperty("buildType")))
+            itemTypes.removeAll(Utilities.getTISItemTypes());
+        // undo assert for under items, cause did not import these items
+        itemTypes.remove(TalendItemType.SERVICES);
+        itemTypes.remove(TalendItemType.TALEND_MDM);
+        itemTypes.remove(TalendItemType.BRMS);
+        itemTypes.remove(TalendItemType.EMBEDDED_RULES);
+        itemTypes.remove(TalendItemType.SURVIVORSHIP_RULES);
+        itemTypes.remove(TalendItemType.COPYBOOK);
+        itemTypes.remove(TalendItemType.VALIDATION_RULES);
+        itemTypes.remove(TalendItemType.HL7);
+        itemTypes.remove(TalendItemType.EDI);
+        itemTypes.remove(TalendItemType.DOCUMENTATION);
+        itemTypes.remove(TalendItemType.RECYCLE_BIN);
+
+        for (TalendItemType itemType : itemTypes) {
             SWTBotTreeItem treeNode = Utilities.getTalendItemNode(gefBot.tree(1), itemType);
             treeNode.check();
         }
@@ -90,19 +74,12 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
         gefBot.shell("Confirm").activate();
         gefBot.button("OK").click();
 
-        for (int i = 0; i < treeNodes.length; i++) {
-            if (i >= 0 && i <= 2) {
-                assertItemVersion(treeItems[i] + " 0.2", treeNodes[i]);
-            } else if (i == 3) {
-                assertItemVersion(treeItems[i] + " 0.2", treeNodes[i], codeNodes[0]);
-            } else if (i == 4) {
-                assertItemVersion(treeItems[i] + " 0.2", treeNodes[i], sqlTemplatePath[0], sqlTemplatePath[1]);
-            } else if (i == 5) {
-                for (int j = 0; j < metadataNodes.length; j++) {
-                    assertItemVersion(treeItems[i + j] + " 0.2", treeNodes[i], metadataNodes[j]);
-                }
-            }
+        String errorMsg = "";
+        for (TalendItemType itemType : itemTypes) {
+            errorMsg += assertItemVersion(itemType);
         }
+        if (!"".equals(errorMsg))
+            Assert.fail(errorMsg);
     }
 
     @After
@@ -110,13 +87,15 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
         Utilities.resetActivePerspective();
     }
 
-    private void assertItemVersion(String itemName, String... nodes) {
-        SWTBotTreeItem newTreeItem = null;
-        try {
-            newTreeItem = tree.expandNode(nodes).select(itemName);
-        } finally {
-            Assert.assertNotNull(itemName + " does not exist", newTreeItem);
-            newTreeItem = null;
-        }
+    private String assertItemVersion(TalendItemType itemType) {
+        List<String> nodes = new ArrayList<String>();
+        if (itemType == TalendItemType.SQL_TEMPLATES)
+            nodes = Utilities.getTalendItemNode(itemType).expandNode("Generic", "UserDefined").getNodes();
+        else
+            nodes = Utilities.getTalendItemNode(itemType).getNodes();
+
+        if (!nodes.contains(itemType.toString() + " 0.2"))
+            return "item '" + itemType.toString() + " 0.1' did not change to new version\n";
+        return "";
     }
 }

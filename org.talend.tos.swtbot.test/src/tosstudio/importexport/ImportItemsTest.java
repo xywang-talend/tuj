@@ -15,7 +15,6 @@ package tosstudio.importexport;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -42,15 +41,7 @@ public class ImportItemsTest extends TalendSwtBotForTos {
 
     @Test
     public void importItems() throws IOException, URISyntaxException {
-        gefBot.toolbarButtonWithTooltip("Import Items").click();
-
-        gefBot.shell("Import items").activate();
-        gefBot.radio("Select archive file:").click();
-        gefBot.text(1).setText(Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
-        gefBot.tree().setFocus();
-        gefBot.button("Select All").click();
-        gefBot.button("Finish").click();
-        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")));
+        Utilities.importItems(SAMPLE_RELATIVE_FILEPATH);
 
         Utilities.getRepositoryTree().setFocus();
         for (TalendItemType itemType : TalendItemType.values()) {
