@@ -393,6 +393,10 @@ public void clickCreateRecord(){
 	this.clickElementByXpath(locator.getString("xpath.record.choose.create"));
 }
 
+public void closeDatachangesViewer(){
+	this.clickElementByXpath(locator.getString("xpath.datachangesviewer.tab.close"));
+}
+
 public void chooseRcord(String entity,String feild1Name, String feild1Value) {
 	 String[] parameters={entity,feild1Name,feild1Value};
 	 this.sleepCertainTime(3000);

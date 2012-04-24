@@ -45,8 +45,8 @@ public class WorkFlowTask extends Base{
 		
 		this.moveToElement(driver.findElement(By.xpath("//div[text()='Ready Date']")));
 		this.clickElementByXpath("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-3')]//a[@class='x-grid3-hd-btn']");
-		this.sleepCertainTime(2000);
-		this.clickElementByXpath("//a[text()='Sort Descending']");
+		this.sleepCertainTime(5000);
+		this.clickElementByXpath("//div[contains(@class,'x-layer x-menu')]//a[contains(text(),'Sort Descending')]");
 	}
 	
 	public void openAWorkTask(){

@@ -540,14 +540,9 @@ public class RecordImplProduct extends Record{
 		logger.info("for frank ,the initial price is:"+priceInitial);
 		
 		//select request price change  ,and launch process
-		this.seletDropDownList(By.xpath(locator.getString("xpath.record.launchprocess.select.img")), "Request Price Change");
-		this.sleepCertainTime(5000);
-		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.button"));
-		this.sleepCertainTime(5000);
-		this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.status.info")), WAIT_TIME_MID);
+		this.launchProcess("Request Price Change");
+		this.checkProcessDoneAndClickOK();
 		
-		//click process ok button to verify can open bonita workflow console
-		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.success.ok.button"));
         this.sleepCertainTime(5000);
         List a = new ArrayList<String>();
         for (String handle : driver.getWindowHandles()) {
@@ -563,6 +558,17 @@ public class RecordImplProduct extends Record{
 		int afterProcess = this.getElementsByXpath(locator.getString("xpath.journal.entry.action.frank")).size();
 		logger.info("afterProcess:"+afterProcess);
 		Assert.assertTrue(afterProcess-beforeProcess==1);
+		
+		//open the journal record ,and verify the price is not changed directly
+		 OperationType="ACTION";
+		 source="genericUI";
+		this.JournalCheckResult(productUniqID, OperationType);
+		this.checkPropertiesBeforeAfterInDatachangesViewer("Price", priceInitial, priceInitial, true);
+		
+		//close datachangesviewer page.
+		this.closeDatachangesViewer();
+		
+		//close journal
 		this.closeJournal();
 		
 		//for frank ,open workflow created and,type in price changed ,then submit
@@ -647,6 +653,14 @@ public class RecordImplProduct extends Record{
  		int afterApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.jennifer")).size();
  		logger.info("afterApprove:"+afterApprove);
  		Assert.assertTrue(afterApprove-beforeApprove==1);
+ 		
+		 OperationType="UPDATE";
+		 source="genericUI";
+		this.JournalCheckResult(productUniqID, OperationType);
+		this.checkPropertiesBeforeAfterInDatachangesViewer("Price", priceInitial, priceInitial, false);
+		
+		//close datachangesviewer page.
+		this.closeDatachangesViewer();
  		this.closeJournal();
     	
 	    
@@ -681,14 +695,9 @@ public class RecordImplProduct extends Record{
 		logger.info("for frank ,the initial price is:"+priceInitial);
 		
 		//select request price change  ,and launch process
-		this.seletDropDownList(By.xpath(locator.getString("xpath.record.launchprocess.select.img")), "Request Price Change");
-		this.sleepCertainTime(5000);
-		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.button"));
-		this.sleepCertainTime(5000);
-		this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.status.info")), WAIT_TIME_MID);
+		this.launchProcess("Request Price Change");
+		this.checkProcessDoneAndClickOK();
 		
-		//click process ok button to verify can open bonita workflow console
-		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.success.ok.button"));
         this.sleepCertainTime(5000);
         List a = new ArrayList<String>();
         for (String handle : driver.getWindowHandles()) {
@@ -820,15 +829,9 @@ public class RecordImplProduct extends Record{
 		logger.info("for frank ,the initial price is:"+priceInitial);
 		
 		//select request price change  ,and launch process
-		this.seletDropDownList(By.xpath(locator.getString("xpath.record.launchprocess.select.img")), "Request Price Change");
-		this.sleepCertainTime(5000);
-		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.button"));
-		this.sleepCertainTime(5000);
-		this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.status.info")), WAIT_TIME_MID);
-		
-		//click process ok button to verify can open bonita workflow console
-		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.success.ok.button"));
-        this.sleepCertainTime(5000);
+		this.launchProcess("Request Price Change");
+		this.checkProcessDoneAndClickOK();
+	    this.sleepCertainTime(5000);
         List a = new ArrayList<String>();
         for (String handle : driver.getWindowHandles()) {
         a.add(handle);
@@ -849,7 +852,7 @@ public class RecordImplProduct extends Record{
 		WorkFlowTaskImpl flow = new WorkFlowTaskImpl(this.driver);
 		flow.openMenuGoven();
 		flow.openMenuWorkFlowTask();
-		this.sleepCertainTime(5000);
+		this.sleepCertainTime(10000);
 		flow.sortWorkFlowTaskBydate();
 	    flow.openAWorkTask();
 	    String priceSubmited;
@@ -979,6 +982,21 @@ public class RecordImplProduct extends Record{
 	
     }
 	
-
+   public void checkPropertiesBeforeAfterInDatachangesViewer(String properties,String valueBefore,String valueAfter,boolean compareType){
+	   
+	   String before = this.getValue(this.getElementByXpath("//span[text()='Before']//ancestor::div[@id='documentHistoryPanel1']//span[contains(text(),'"+properties+"')]")).trim();
+       Assert.assertTrue(before.contains(valueBefore));
+       String after = this.getValue(this.getElementByXpath("//span[text()='After']//ancestor::div[@id='documentHistoryPanel2']//span[contains(text(),'"+properties+"')]")).trim();
+       
+       //true ,means before = after.
+       if(compareType){
+    	   Assert.assertTrue(before.equals(after));
+    	   Assert.assertTrue(after.contains(valueAfter));
+       }
+       else{
+    	   Assert.assertFalse(after.equals(before));
+       }
+       
+   }
 
 }
