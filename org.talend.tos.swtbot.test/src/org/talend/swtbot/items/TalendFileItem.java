@@ -26,6 +26,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotCTabItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.hamcrest.Matcher;
 import org.talend.swtbot.Utilities;
@@ -70,15 +71,17 @@ public class TalendFileItem extends TalendMetadataItem {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public void finishCreationWizard(final SWTBotShell shell) {
+        final SWTBotCTabItem outputTab = gefBot.cTabItem("Output");
+        Matcher matcher = allOf(widgetOfType(Button.class), withStyle(SWT.PUSH, null));
+        final SWTBotButton previewButton = new SWTBotButton((Button) gefBot.widget(matcher, gefBot.cTabItem("Preview").widget));
+
         gefBot.waitUntil(new DefaultCondition() {
 
             public boolean test() throws Exception {
                 shell.setFocus();
-                boolean isPreviewFail = gefBot.cTabItem("Output").isActive();
+                boolean isPreviewFail = outputTab.isActive();
                 if (isPreviewFail)
                     return true;
-                Matcher matcher = allOf(widgetOfType(Button.class), withStyle(SWT.PUSH, null));
-                SWTBotButton previewButton = new SWTBotButton((Button) gefBot.widget(matcher, gefBot.cTabItem("Preview").widget));
                 boolean isPreviewDone = "Refresh Preview".equals(previewButton.getText());
                 return isPreviewDone;
             }
@@ -88,13 +91,14 @@ public class TalendFileItem extends TalendMetadataItem {
             }
         }, 30000);
 
-        if (gefBot.cTabItem("Output").isActive()) {
+        if (outputTab.isActive()) {
             Assert.fail("Refresh preview fail - " + gefBot.styledText().getText());
         }
 
         if (isSetHeadingRowAsColumnName) {
             gefBot.checkBox("Set heading row as column names").click();
         }
+
         gefBot.button("Next >").click();
         gefBot.button("Finish").click();
 

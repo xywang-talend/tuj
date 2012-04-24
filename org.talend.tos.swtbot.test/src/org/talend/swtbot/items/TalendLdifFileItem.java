@@ -40,6 +40,7 @@ public class TalendLdifFileItem extends TalendFileItem {
             for (int i = 0; i < 5; i++) {
                 gefBot.tableInGroup("List Attributes of Ldif file").getTableItem(i).check();
             }
+            gefBot.button("Refresh Preview").click();
         } catch (WidgetNotFoundException wnfe) {
             shell.close();
             Assert.fail(wnfe.getCause().getMessage());
