@@ -38,7 +38,7 @@ public class Login extends Base{
 	    driver = new FirefoxDriver(firefoxProfile);
 	    
 	    //set driver time out with TimeUnit
-	    driver.manage().timeouts().setScriptTimeout(3, TimeUnit.SECONDS);
+	    driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
 	    logger.info("Set Firefox Driver with Profile");
 		
 //		driver = new FirefoxDriver();
