@@ -46,6 +46,7 @@
 		</classes>
 	</test>
     
+    
    <test name="ESBConductor03_testSortESBConductor">
 		<parameter name='labelOfService_1' value='a' />
 		<parameter name='labelOfService_2' value='b' />
@@ -128,6 +129,8 @@
 
 	<test name="ESBConductor10_testStartESBConductor">
 		<parameter name='labelOfService' value='addConductorForTestStart' />
+		<parameter name ='artifact' value='jobFirstProvider-feature'/>
+		<parameter name='name' value='jobFirstProvider-feature'/>
 		<classes>
 			<class name="org.talend.tac.cases.esbconductor.TestStartESBConductor" />
 			<methods>
@@ -198,22 +201,8 @@
 			</methods>
 		</classes>
 	</test>
- 	
-	<test name="ESBConductor15_testSelectFeatureWithUnavaiableArtifact"
-		preserve-order="true">
-		<parameter name='artifactRepositoryWrongUrl' value='http://192.168.0.200:8082/archiva'></parameter>
-		<classes>
-			<class
-				name="org.talend.tac.cases.esbconductor.TestSelectFeatureWithArtifactUnavailable">
-				<methods>
-					<include name="configArtifact" />
-					<include name="selectFeature"/>
-				</methods>
-			</class>
-		</classes>
-	</test>
 
-   <test name="ESBConductor16_testOpenLinkOfArtifact"
+   <test name="ESBConductor15_testOpenLinkOfArtifact"
 		preserve-order="true">
 		<classes>
 			<class
@@ -225,7 +214,7 @@
 		</classes>
 	</test>
 	
-	<test name="ESBConductor17_testResetContextPara"
+	<test name="ESBConductor16_testResetContextPara"
 		preserve-order="true">
 		<parameter name="LabelForResetContext" value="testServiceForResetContext"/>
 		<parameter name='repositoryForContext' value='repo-snapshot' />
@@ -247,6 +236,24 @@
 		</classes>
 	</test>
 	
+	<test name="ESBConductor17_testSortContextParas">
+	    <parameter name="LabelForResetContext" value="testServiceForResetContext"/>
+	    <parameter name="NameA" value="a"/>
+	    <parameter name="NameB" value="b"/>
+	    <parameter name="NameC" value="c"/>
+	    <parameter name="CustomValueA" value="d"/>
+	    <parameter name="CustomValueB" value="e"/>
+	    <parameter name="CustomValueC" value="f"/>
+	    <classes>
+			<class
+				name="org.talend.tac.cases.esbconductor.TestSortAscendAndDescendContextPara">
+				<methods>
+					<include name="testSortAscendAndDescendContextPara" />
+				</methods>
+			</class>
+		 </classes>
+	</test>
+	
 	<test name="ESBConductor18_testDisplayParaOfMenu">
 	    <parameter name="LabelForResetContext" value="testServiceForResetContext"/>
 	    <classes>
@@ -258,4 +265,19 @@
 			</class>
 		 </classes>
 	</test>
+	
+	<test name="ESBConductor19_testSelectFeatureWithUnavaiableArtifact"
+		preserve-order="true">
+		<parameter name='artifactRepositoryWrongUrl' value='http://192.168.0.200:8082/archiva'></parameter>
+		<classes>
+			<class
+				name="org.talend.tac.cases.esbconductor.TestSelectFeatureWithArtifactUnavailable">
+				<methods>
+					<include name="configArtifact" />
+					<include name="selectFeature"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
 </suite>

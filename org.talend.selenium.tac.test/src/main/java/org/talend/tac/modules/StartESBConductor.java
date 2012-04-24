@@ -71,9 +71,10 @@ public class StartESBConductor extends WebDriverBase {
 		
 		this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']"), WAIT_TIME_MIN);
 		this.mouseDown("//div[text()='"+label+"']");
-		this.getElementById(id).click();
-		this.clickElementById(id);//button{deploy start}		
-		this.waitforTextDisplayed(promptInfo, WAIT_TIME_MIN);		
+//		this.getElementById(id).click();
+		this.clickElementById(id);//button{deploy start}
+		logger.info("-------promptInfo:"+promptInfo);
+		this.waitforTextDisplayed(promptInfo, 30);		
 		this.getElementById("idESBConductorTaskGridRefreshButton").click();
 		this.clickElementById("idESBConductorTaskGridRefreshButton");		
 		this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']" +

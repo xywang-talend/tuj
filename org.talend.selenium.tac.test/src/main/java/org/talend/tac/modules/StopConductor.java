@@ -89,13 +89,13 @@ public class StopConductor extends WebDriverBase {
 		this.mouseDown("//div[text()='"+label+"']");
 		this.getElementById("idESBConductorTaskGridDeployButton").click();
 		this.clickElementById("idESBConductorTaskGridDeployButton");
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-		
-			e.printStackTrace();
-		}
-		this.waitforTextDisplayed("Feature '"+name+"' deployed.", WAIT_TIME_MIN);	
+//		try {
+//			Thread.sleep(3000);
+//		} catch (InterruptedException e) {
+//		
+//			e.printStackTrace();
+//		}
+		this.waitforTextDisplayed("Feature '"+name+"' deployed.", 30);	
 		this.getElementById(id).click();
 		this.clickElementById(id);//button{deploy start}		
 		this.waitforTextDisplayed(promptInfo, WAIT_TIME_MIN);		

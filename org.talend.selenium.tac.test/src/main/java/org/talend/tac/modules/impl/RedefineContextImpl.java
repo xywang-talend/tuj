@@ -73,5 +73,21 @@ public class RedefineContextImpl extends RedefineContext {
     	   this.intoESBConductorPage();
     	   this.controlDisplay(label);
        }
+       
+       public void intoEsbpage() {
+    	   this.intoESBConductorPage();
+       }
+       
+       public void addContextParas(String label,String variableName,String variableValue) {
+    	   this.defineContext(label, variableName, variableValue);
+       }
+       
+       public void addContextParasForSort(String label,String variableName,String variableValue) {
+    	   this.defineContextForSort(label, variableName, variableValue);
+       }
+       
+       public void sortConetextParas(String value,String value1) {
+    	   this.SortAscendingSortDescendingOfContextPara(value, value1);
+       }
 
 }

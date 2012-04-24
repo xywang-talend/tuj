@@ -103,10 +103,10 @@ public class RedefineContext extends WebDriverBase {
 		   this.mouseDown("//div[text()='" + label + "']");
 		   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertyAddButton']"), WAIT_TIME_MIN);
 		   this.getElementById("idESBConductorPropertyAddButton").click();
-		 //  this.clickElementById(other.getString("ESBConductor.ConfigProperties.AddButtonId"));
     	   getElementByXpath(other.getString("ESBConductor.ConfigProperties.Name")).click();
     	   this.typeString(By.xpath("//span[text()='Name']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input"), variableName, WAIT_TIME_MIN);
     	   getElementByXpath(other.getString("ESBConductor.ConfigProperties.Value")).click();
+    	   this.waitforElementDisplayed(By.xpath("//span[text()='Custom Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input"), WAIT_TIME_MIN);
     	   this.typeString(By.xpath("//span[text()='Custom Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input"), variableValue, WAIT_TIME_MIN);
     	   bot.keyPress(KeyEvent.VK_ENTER);
     	   bot.keyRelease(KeyEvent.VK_ENTER);    
@@ -117,7 +117,6 @@ public class RedefineContext extends WebDriverBase {
 		   this.mouseDown(other.getString("ESBConductor.ConfigProperties.Value"));
 		   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertySaveButton']"), WAIT_TIME_MIN);
 		   this.getElementById("idESBConductorPropertySaveButton").click();
-	//	   this.clickElementById(other.getString("ESBConductor.ConfigProperties.SaveButtonId"));
 		   Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+label+"']"), WAIT_TIME_MIN));
     	   
        }
@@ -129,7 +128,6 @@ public class RedefineContext extends WebDriverBase {
            this.mouseDown("//div[text()='" + label + "']");
            this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridDeployButton']"), WAIT_TIME_MIN);
 		   this.getElementById("idESBConductorTaskGridDeployButton").click();
-    //       this.clickElementById(other.getString("ESBConductor.DeployButtonId"));
            try {
 			Thread.sleep(3000);
 			logger.info("--------PromptInfo:"+promptInfo);
@@ -159,7 +157,6 @@ public class RedefineContext extends WebDriverBase {
     	   this.mouseDown("//div[text()='" + label + "']");
     	   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridUndeployButton']"), WAIT_TIME_MIN);
     	   this.getElementById("idESBConductorTaskGridUndeployButton").click();    	   
- //   	   this.clickElementById("idESBConductorTaskGridUndeployButton");
     	   this.acceptAlert();
     	   this.clickElementById(other.getString("ESBConductor.RefreshButtonId"));
     	   Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='" + label + "']"
@@ -171,7 +168,6 @@ public class RedefineContext extends WebDriverBase {
     	   this.mouseDown("//div[text()='" + label + "']");
     	   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridDeleteButton']"), WAIT_TIME_MIN);
     	   this.getElementById("idESBConductorTaskGridDeleteButton").click();        	   
-    //	   this.clickElementById(other.getString("ESBConductor.DeleteButtonId"));
     	   this.acceptAlert(); 	   
     	   logger.info("-------label:"+label);
            Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='" + label + "']"), 30));
@@ -184,7 +180,6 @@ public class RedefineContext extends WebDriverBase {
     	   this.mouseDown("//span[text()='Custom Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input");
     	   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertyDeleteButton']"), WAIT_TIME_MIN);
     	   this.getElementById("idESBConductorPropertyDeleteButton").click();
-  //  	   this.clickElementById("idESBConductorPropertyDeleteButton");
            this.dismissAlert(); 
        }
        
@@ -246,7 +241,66 @@ public class RedefineContext extends WebDriverBase {
       			this.getElementByXpath("//a[contains(text(),'"+columnName+"')]").click();
       			Assert.assertFalse(this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"), 20));
            }   		
-      	   }
+       }
+       
+   	public void SortAscendingSortDescendingOfContextPara(String value, String value1) {
+		WebElement element = driver.findElement(By.xpath("//div[@class=' x-grid3-hd-inner x-grid3-hd-property x-component']//ancestor::span[text()='Name']"));
+		this.moveToElement(element);
+		WebElement drop = driver.findElement(By.xpath("//div[contains(@class,' x-grid3-hd-inner x-grid3-hd-property x-component')]//a"));
+		drop.click();
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		this.clickElementByXpath("//a[text()='Sort Descending']");
+		logger.info("*********descend value:"+value);
+		Assert.assertEquals(this.getElementByXpath("//div[@class='x-grid3-cell-inner x-grid3-col-property']").getText(), value);       
+       
+		WebElement elementagain = driver.findElement(By.xpath("//div[contains(@class,' x-grid3-hd-inner x-grid3-hd-property x-component')]//ancestor::span[text()='Name']"));
+		this.moveToElement(elementagain);
+		WebElement dropagain = driver.findElement(By.xpath("//div[contains(@class,' x-grid3-hd-inner x-grid3-hd-property x-component')]//a"));
+		dropagain.click();
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+        this.clickElementByXpath("//a[text()='Sort Ascending']");
+        try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		Assert.assertEquals(this.getElementByXpath("//div[@class='x-grid3-cell-inner x-grid3-col-property']").getText(), value1);
+		
+	}
+   	
+    public void defineContextForSort(String label,String variableName,String variableValue) {
+ 	   Robot bot;
+		try {
+		   bot = new Robot();
+		   this.waitforElementDisplayed(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MIN);
+		   this.mouseDown("//div[text()='" + label + "']");
+		   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertyAddButton']"), WAIT_TIME_MIN);
+		   this.getElementById("idESBConductorPropertyAddButton").click();
+		   waitforElementDisplayed(By.xpath("//div[@class='x-grid3-check-col x-grid3-check-col x-grid3-cc-active']"+
+ 			   "//ancestor::td[@class='x-grid3-col x-grid3-cell x-grid3-td-active x-grid-cell-first x-grid3-check-col-td']//following-sibling::td[1]//img"), WAIT_TIME_MIN);
+ 	   getElementByXpath("//div[@class='x-grid3-check-col x-grid3-check-col x-grid3-cc-active']"+
+ 			   "//ancestor::td[@class='x-grid3-col x-grid3-cell x-grid3-td-active x-grid-cell-first x-grid3-check-col-td']//following-sibling::td[1]//img").click();
+ 	   this.typeString(By.xpath("//div[@class='x-grid3-check-col x-grid3-check-col x-grid3-cc-active']//ancestor::td[@class='x-grid3-col x-grid3-cell x-grid3-td-active x-grid-cell-first x-grid3-check-col-td']//following-sibling::td[2]//ancestor::div[@class='x-grid3-body']//following-sibling::div//input[contains(@class,'focus')]"), variableName, WAIT_TIME_MIN);
+ 	   getElementByXpath("//div[@class='x-grid3-check-col x-grid3-check-col x-grid3-cc-active']"+
+ 			   "//ancestor::td[@class='x-grid3-col x-grid3-cell x-grid3-td-active x-grid-cell-first x-grid3-check-col-td']//following-sibling::td[2]//img").click();
+ 	   this.typeString(By.xpath("//div[@class='x-grid3-check-col x-grid3-check-col x-grid3-cc-active']//ancestor::td[@class='x-grid3-col x-grid3-cell x-grid3-td-active x-grid-cell-first x-grid3-check-col-td']//following-sibling::td[2]//ancestor::div[@class='x-grid3-body']//following-sibling::div//input"), variableValue, WAIT_TIME_MIN);
+ 	   bot.keyPress(KeyEvent.VK_ENTER);
+ 	   bot.keyRelease(KeyEvent.VK_ENTER);    
+		} catch (AWTException e) {			
+			e.printStackTrace();	
+		   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertySaveButton']"), WAIT_TIME_MIN);
+		   this.getElementById("idESBConductorPropertySaveButton").click();
+		   Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+label+"']"), WAIT_TIME_MIN));
+ 	   
     }
-
+    }
+}
    
