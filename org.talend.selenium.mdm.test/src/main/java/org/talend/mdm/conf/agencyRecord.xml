@@ -5,15 +5,16 @@
 	<parameter name="message" value="User 'jennifer' is already logged in another session!" />
 	<parameter name="container" value="DStar" />
 	<parameter name="modle" value="DStar" />
-	<parameter name="IdentifieValue" value="t004" />	
+	<parameter name="IdentifieValue" value="h001" />
+	<parameter name="entity" value="Agency" /> 	
+	<parameter name="Identifie" value="Id" /> 
 	
-      <test name="Agency create a record">
+       <test name="Agency create a record">
 	    <classes>	  
-	        <parameter name="entity" value="Agency" /> 	        
+	        	        
   		    <parameter name="Name" value="Name" /> 	 			
-  			<parameter name="NameValue" value="test" />  
-  			 <parameter name="Identifie" value="Id" />  				
-  			 <parameter name="Zipcode" value="Zip" />	
+  			<parameter name="NameValue" value="test" /> 
+  			<parameter name="Zipcode" value="Zip" />	
   			 <parameter name="ZipcodeValue" value="11405" />					
 		    <class name="org.talend.mdm.cases.record.TestRecordAgency">
 				<methods>				 	           
@@ -24,10 +25,8 @@
   </test>   
   
        <test name="Agency update a record">
-	    <classes>	  
-	         <parameter name="entity" value="Agency" /> 
-	         <parameter name="Identifie" value="Id" />	  				
-  			 <parameter name="Zipcode" value="Zip" />	
+	    <classes>
+	    	 <parameter name="Zipcode" value="Zip" />	
   			 <parameter name="ZipcodeValue" value="60957" />					
 		    <class name="org.talend.mdm.cases.record.TestRecordAgency">
 				<methods>				 	           
@@ -37,80 +36,38 @@
 	    </classes>
   </test> 
   
-  
-  
- <!-- 
- <test name="Product Family update a record">
-	    <classes>			
-	        <parameter name="entity" value="Product Family" /> 	        
-  		    <parameter name="feild2Name" value="Name" /> 
-  		    <parameter name="feild2Value_old" value="Books" />
-  		     <parameter name="feild1Name" value="Id" />	 			
-  			<parameter name="feild2Value" value="Books_update" /> 
-		    <class name="org.talend.mdm.cases.record.TestRecordProductFamily">
-				<methods> 
-		           <include name="testUpdateRecord"/> 		           
-		        </methods>
-		    </class>
-	    </classes>
-  </test>     
-
-  <test name="Product Family duplicate a record">
+   <test name="Agency duplicate a record">
 	    <classes>
-  			<parameter name="entity" value="Product Family" /> 	        
-  		    <parameter name="feild2Name" value="Name" /> 
-  		     <parameter name="feild1Name" value="Id" />
-  		    <parameter name="feild2Value_old" value="Books_update" />	
-  		    <parameter name="feild2Value" value="Books_dup" />	 				
-		    <class name="org.talend.mdm.cases.record.TestRecordProductFamily">
-				<methods> 
-		           <include name="testDuplicateRecord"/> 
+			<parameter name="Name" value="Name" /> 	 			
+  			<parameter name="NameValue" value="testDup" />	
+  			<parameter name="IdentifieValueDup" value="dup001" />	
+		    <class name="org.talend.mdm.cases.record.TestRecordAgency">
+				<methods>				 	           
+		           <include name="testDuplicateRecord"/>		        
 		        </methods>
 		    </class>
 	    </classes>
   </test> 
  
-    <test name="Product Family delete a record">
-	    <classes>
-	        <parameter name="entity" value="Product Family" /> 	        
-  		    <parameter name="feild2Name" value="Name" /> 
-  		    <parameter name="feild2Value" value="Books_update" />	 
-  		     <parameter name="feild1Name" value="Id" />	
-	            <class name="org.talend.mdm.cases.record.TestRecordProductFamily">
-				<methods> 
-		           <include name="testDeleteRecord"/> 
-		        </methods>
-		    </class>
-	    </classes>
-  </test>     
-      <test name="Product Family delete the duplicate record">
-	    <classes>
-	        <parameter name="entity" value="Product Family" /> 	        
-  		    <parameter name="feild2Name" value="Name" /> 
-  		    <parameter name="feild2Value" value="Books_dup" />	 
-  		     <parameter name="feild1Name" value="Id" />	
-	            <class name="org.talend.mdm.cases.record.TestRecordProductFamily">
-				<methods> 
-		           <include name="testDeleteRecord"/> 
+   <test name="Agency delete record">
+	    <classes>	 
+		    <class name="org.talend.mdm.cases.record.TestRecordAgency">
+				<methods>				 	           
+		           <include name="testDeleteRecord"/>		        
 		        </methods>
 		    </class>
 	    </classes>
   </test>   
-   -->
- <!--      <test name="Product Family delete a record to recycle and restore the record " >
-	    <classes>
-	        <parameter name="entity" value="Product Family" /> 	        
-  		    <parameter name="feild2Name" value="Name" /> 
-  		    <parameter name="feild2Value" value="Books_dup" />
-  		     <parameter name="feild1Name" value="Id" />		
-	        <class name="org.talend.mdm.cases.record.TestRecordProductFamily">
-				<methods> 		          
-		         <include name="testDeleteRecordToRecycle"/>  
-		          <include name="testRestoreFromRecycle"/> 	          	                
+  
+ <test name="Agency delete the duplicate record">
+	    <classes>	
+  			<parameter name="IdentifieValue" value="dup001" />	
+		    <class name="org.talend.mdm.cases.record.TestRecordAgency">
+				<methods>				 	           
+		           <include name="testDeleteRecord"/>		        
 		        </methods>
 		    </class>
 	    </classes>
-  </test>    -->
- 
-
+  </test>   
+  
 </suite>

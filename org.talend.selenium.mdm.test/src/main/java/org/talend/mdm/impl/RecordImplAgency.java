@@ -17,67 +17,51 @@ public class RecordImplAgency extends Record{
 	}
 
 
-	public void deleteRecordImpl(String container,String modle,String entity,String feild2Value,String feild2Name,String feild1Name){
+	public void deleteRecordImpl(String container,String modle,String entity,String Identifie,String IdentifieValue){
 		OperationType="PHYSICAL_DELETE";
 		source="genericUI";
 		chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();
-		chooseEntity(entity);
-		entity=entity.replaceAll(" ","");
-		String[] parametersFeild1={entity,feild2Name,feild2Value,entity,feild1Name};
-		chooseRcord(entity,feild2Name,feild2Value);	
-		key=this.getValue(this.getElementByXpath(this.getString(locator,"xpath.record.get.uuid",parametersFeild1)));
-		logger.info(key);
+		chooseEntity(entity);	
+		this.sleepCertainTime(3000);
+		this.clickElementByXpath(locator.getString("xpath.record.click.lastpage"));
+		chooseRcord(entity,Identifie,IdentifieValue);			
 	    this.sleepCertainTime(5000);
 	    deleteTheRecord(entity);
 	    this.sleepCertainTime(5000);
-	    openJournal(entity,key,OperationType,source);
+	    openJournal(entity,IdentifieValue,OperationType,source);
 	    JournalResultCount();
 	}
-	public void duplicateRecordImpl(String container,String modle,String entity,String feild2Value_old,String feild2Value,String feild2Name,String feild1Name){
-	    OperationType="CREATE";
+public void duplicateRecordImpl(String container,String modle,String entity,String Identifie,String IdentifieValue,String IdentifieValueDup ) {
+		String[] parametersID={entity,Identifie};	
+		String[] parametersIDclose={entity,IdentifieValue};	
+		String[] parametersIDAssert={entity,Identifie,IdentifieValueDup};
+		String[] parametersIDValueAssert={Identifie,IdentifieValueDup};
+		OperationType="CREATE";
 	    source="genericUI";
 		chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();
 		chooseEntity(entity);
-		entity=entity.replaceAll(" ","");
-		String[] parametersFeild1={entity,feild2Name,feild2Value_old,entity,feild1Name};	
-		String[] parametersFeild1_dup={entity,feild2Name,feild2Value,entity,feild1Name};
-		String[] parametersFeild2={entity,feild2Name};	
-		String[] parametersFeild2Assert={entity,feild2Name,feild2Value};
-		String[] Feild2Value={feild2Name,feild2Value};	
-		
-		chooseRcord(entity,feild2Name,feild2Value_old);		
+		this.clickElementByXpath(locator.getString("xpath.record.click.lastpage"));
+		chooseRcord(entity,Identifie,IdentifieValue);
 		this.sleepCertainTime(5000);
-		this.clickElementByXpath(locator.getString("xpath.record.Duplicate.click"));
-		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.Duplicate.input",parametersFeild2)), WAIT_TIME_MAX),"duplicateARecord");
-		this.sleepCertainTime(5000);
-		key=this.getValue(this.getElementByXpath(this.getString(locator,"xpath.record.get.uuid",parametersFeild1)));
-		logger.info(key);
-		String[] parametersFeild2Value={entity,key};
-		String[] parametersFeild2ValueAssert={feild2Name,feild2Value};
-		this.clickElementByXpath(this.getString(locator,"xpath.record.Duplicate.close.origin",parametersFeild2Value));
+		this.clickElementByXpath(locator.getString("xpath.record.Duplicate.click"));	
+		this.clickElementByXpath(this.getString(locator,"xpath.record.Duplicate.close.origin",parametersIDclose));
 		this.sleepCertainTime(3000);
-		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.Duplicate.input",parametersFeild2)), feild2Value);
+		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.Duplicate.input",parametersID)), IdentifieValueDup);
 		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
 		this.sleepCertainTime(3000);
 		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
-		this.sleepCertainTime(5000);
-		chooseRcord(entity,feild2Name,feild2Value);	
-		this.sleepCertainTime(5000);
-		key=this.getValue(this.getElementByXpath(this.getString(locator,"xpath.record.get.uuid",parametersFeild1_dup)));
-		logger.info(key);
 		this.sleepCertainTime(3000);
-		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersFeild2Assert)), WAIT_TIME_MAX),"createARecord");
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersIDAssert)), WAIT_TIME_MAX),"duplicateARecord");
 		this.sleepCertainTime(3000); 
-		openJournal(entity,key,OperationType,source);
+		openJournal(entity,IdentifieValueDup,OperationType,source);
 		this.sleepCertainTime(3000); 
-		JournalCheckResult(key,OperationType);
-		this.sleepCertainTime(5000); 
-		logger.info(this.getString(locator, "xpath.record.ceate.jouranl",Feild2Value ));
-		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",parametersFeild2ValueAssert )), WAIT_TIME_MIN));
+		JournalCheckResult(IdentifieValueDup,OperationType);
+		this.sleepCertainTime(5000);		
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",parametersIDValueAssert )), WAIT_TIME_MIN));
 		
 	}	
 public void createRecordImpl(String container,String modle,String entity,String Name,String NameValue,String Identifie,String IdentifieValue ,String Zipcode,String ZipcodeValue) {
@@ -140,7 +124,7 @@ public void createRecordImpl(String container,String modle,String entity,String 
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.Region",region)), WAIT_TIME_MIN));
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.MoreInfo",moreinfo)), WAIT_TIME_MIN));
 }
-	public void updateRecordImpl(String container,String modle,String entity,String Identifie,String IdentifieValue ,String Zipcode,String ZipcodeValue) {
+public void updateRecordImpl(String container,String modle,String entity,String Identifie,String IdentifieValue ,String Zipcode,String ZipcodeValue) {
 		String city,state,region,moreinfo;
 		String cityOld,stateOld,regionOld,moreinfoOld;
 		String[] parametersZip={entity,Zipcode};	
@@ -194,33 +178,5 @@ public void createRecordImpl(String container,String modle,String entity,String 
 			
 			
 	}
-	public void SearchRecordByValueImpl(String container,String modle,String entity,String searchFeild,String opeartion,String value){
-		chooseContainer(container);	
-		chooseModle(modle);
-		clickSave();
-		chooseEntity(entity);	
-		searchCondition(searchFeild,opeartion,value);
-		this.sleepCertainTime(3000);
-		searchValueAssert(searchFeild,opeartion,value,entity);
-	}
-	public void SearchRecordByStringImpl(String container,String modle,String entity,String searchFeild,String opeartion,String value){
 
-		chooseContainer(container);	
-		chooseModle(modle);
-		clickSave();
-		chooseEntity(entity);	
-		searchCondition(searchFeild,opeartion,value);
-		this.sleepCertainTime(3000);
-		searchStringAssert(searchFeild,opeartion,value,entity);
-	}
-	
-	public void SearchRecordByDateImpl(String container,String modle,String entity,String searchFeild,String opeartion,String value){
-		chooseContainer(container);	
-		chooseModle(modle);
-		clickSave();
-		chooseEntity(entity);	
-		searchCondition(searchFeild,opeartion,value);
-		this.sleepCertainTime(3000);
-		searchDateAssert(searchFeild,opeartion,value,entity);
-	}
 }
