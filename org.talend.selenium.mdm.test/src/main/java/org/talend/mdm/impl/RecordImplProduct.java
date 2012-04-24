@@ -945,11 +945,11 @@ public class RecordImplProduct extends Record{
 		
 		//select a product record with store associated  in data browser
 		this.clickElementByXpath(this.getString(locator, "xpath.record.chooserecord.byID", productUniqID));
-		
+		this.sleepCertainTime(5000);
 		
 		//select show on map option  ,and launch process
 		this.seletDropDownList(By.xpath(locator.getString("xpath.record.launchprocess.select.img")), "Show on map");
-		this.sleepCertainTime(5000);
+		this.sleepCertainTime(2000);
 		this.clickElementByXpath(locator.getString("xpath.record.launchprocess.button"));
 		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.status.info")), WAIT_TIME_MID).isDisplayed());
 		
