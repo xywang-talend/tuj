@@ -257,7 +257,7 @@ public class TalendDBItem extends TalendMetadataItem {
         gefBot.button("Next >").click();
         List<String> schemaList = new ArrayList<String>(Arrays.asList(schemas));
 
-        gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 10000);
+        gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 50000);
         SWTBotTree root = gefBot.treeInGroup("Select Schema to create");
         SWTBotTreeItem treeNode = null;
         if (getCatalog() != null && getSchema() == null)
@@ -319,7 +319,7 @@ public class TalendDBItem extends TalendMetadataItem {
 
     private String getSchema() {
         String schemaProp = dbType.toString().toLowerCase();
-        if (dbType == Utilities.DbConnectionType.TERADATA)
+        if (dbType == Utilities.DbConnectionType.TERADATA || dbType == Utilities.DbConnectionType.AS400)
             schemaProp += ".dataBase";
         else
             schemaProp += ".schema";

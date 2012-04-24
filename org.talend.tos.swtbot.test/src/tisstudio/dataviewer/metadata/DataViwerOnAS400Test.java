@@ -57,7 +57,7 @@ public class DataViwerOnAS400Test extends TalendSwtBotForTos {
     @Test
     public void testDataViewer() {
         // test data viwer
-        Utilities.dataViewerOnDBComponent(dbItem, jobItem, "1a", TABELNAME, "tAS400Input");
+        Utilities.dataViewerOnDBComponent(dbItem, jobItem, "1a", TABELNAME.toUpperCase(), "tAS400Input");
 
     }
 

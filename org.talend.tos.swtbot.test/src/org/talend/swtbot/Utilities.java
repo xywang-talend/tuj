@@ -939,12 +939,11 @@ public class Utilities {
 
     private static void selectTable(String componentType, String dbName) {
         gefBot.buttonWithTooltip("Show the table list for the current conection").click();
-        try {
-            gefBot.waitUntil(Conditions.shellIsActive("Select Table Name"));
-        } catch (TimeoutException e1) {
-            gefBot.buttonWithTooltip("Show the table list for the current conection").click();
-        }
-        gefBot.waitUntil(Conditions.shellIsActive("Select Table Name"));
+        /*
+         * try { gefBot.waitUntil(Conditions.shellIsActive("Select Table Name")); } catch (TimeoutException e1) {
+         * gefBot.buttonWithTooltip("Show the table list for the current conection").click(); }
+         */
+        gefBot.waitUntil(Conditions.shellIsActive("Select Table Name"), 30000);
         gefBot.shell("Select Table Name").activate();
         if (componentType.equals("tOracleSCD")) {
             gefBot.tree().expandNode(System.getProperty(dbName + ".sid")).select("DATAVIWER");
