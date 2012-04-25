@@ -34,9 +34,9 @@ public class ModifyPlan extends Plan {
 	}
 
 	@Test
-	@Parameters({ "plan.modifyLabel", "plan.modifyTask" })
+	@Parameters({ "plan.modifyLabel", "plan.tasktreeviewmanage.task", "plan.modifyTask" })
 	public void testModifyPlanTask(String newlabel,
-			String task) throws InterruptedException {
+			String branchTask, String task) throws InterruptedException {
 
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");
 		this.waitForElementPresent(
@@ -50,11 +50,14 @@ public class ModifyPlan extends Plan {
 		Thread.sleep(2000);
 		selenium.mouseDown("//span[text()='" + newlabel + "']");// select a exist
 																// plan
-		this.sleep(2000);
-		selenium.setSpeed(MID_SPEED);
-		String roottask1 = selenium
-				.getValue("String idExecutionPlanPlanFormTaskComboBox");
-		this.selectDropDownList("String idExecutionPlanPlanFormTaskComboBox",
+	    this.waitForTextPresent("Task: \""+branchTask+"\"",
+					WAIT_TIME);
+	    this.clickWaitForElementPresent("//span[text()='Planned task tree view']//ancestor::div[contains(@class,'x-small-editor x-panel-header x-component x-unselectable')]//following-sibling::div//div[2]//div[@class='x-tree3-node']//div[contains(@class,'x-tree3-el') and @aria-level='1']//span[@class='x-tree3-node-text']");
+	    this.waitForElementPresent("//input[@id='idExecutionPlanTreeFormTaskComboBox']",
+				WAIT_TIME);
+	    String roottask1 = selenium
+				.getValue("idExecutionPlanTreeFormTaskComboBox");
+		this.selectDropDownList("idExecutionPlanTreeFormTaskComboBox",
 				task);
 		selenium.mouseDown("//button[@class='x-btn-text ' and @id='idFormSaveButton']");
 		selenium.click("//button[@class='x-btn-text ' and @id='idFormSaveButton']");
@@ -64,8 +67,12 @@ public class ModifyPlan extends Plan {
 		this.waitForElementPresent("//span[text()='" + newlabel + "']",	
 				WAIT_TIME);
 		selenium.mouseDown("//span[text()='" + newlabel + "']");
-		this.sleep(2000);
-		Assert.assertTrue(!roottask1.equals(selenium.getValue("String idExecutionPlanPlanFormTaskComboBox")));
+		this.waitForTextPresent("Task: \""+task+"\"",
+				WAIT_TIME);
+        this.clickWaitForElementPresent("//span[text()='Planned task tree view']//ancestor::div[contains(@class,'x-small-editor x-panel-header x-component x-unselectable')]//following-sibling::div//div[2]//div[@class='x-tree3-node']//div[contains(@class,'x-tree3-el') and @aria-level='1']//span[@class='x-tree3-node-text']");
+        this.waitForElementPresent("//input[@id='idExecutionPlanTreeFormTaskComboBox']",
+			WAIT_TIME);
+				Assert.assertTrue(!roottask1.equals(selenium.getValue("idExecutionPlanTreeFormTaskComboBox")));
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"
 				+ newlabel + "']"));
 		selenium.setSpeed(MIN_SPEED);

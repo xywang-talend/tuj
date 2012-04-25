@@ -26,19 +26,23 @@ public class TestChangeRootTaskNameOfPlan extends Plan {
 		this.waitForElementPresent("//span[text()='" + taskLabel + "']", WAIT_TIME);
         this.sleep(2000);
         selenium.mouseDown("//span[text()='" + taskLabel + "']");
-        taskLabel = "testPlanChangeTaskNew";
-        this.typeString("idJobConductorTaskLabelInput", taskLabel);
+        String taskNewLabel = "testPlanChangeTaskNew";
+        this.typeString("idJobConductorTaskLabelInput", taskNewLabel);
         this.selectDropDownList("idJobConductorTaskStatisticsListBox",
 				"enabled");
         selenium.click("//span[@class='x-fieldset-header-text' and text()='Execution task']/ancestor::div[@class=' x-panel x-component']//button[@id='idFormSaveButton']");
-        this.waitForElementPresent("//span[@title='testPlanChangeTaskNew' and text()='testPlanChangeTaskNew']", WAIT_TIME);
+       
+        this.waitForElementPresent("//span[text()='" + taskNewLabel + "']", WAIT_TIME);
         this.openExecutionPlanMenu();         
         selenium.refresh();
         this.waitForElementPresent("//span[text()='" + planlabel + "']", WAIT_TIME);        
         selenium.mouseDown("//span[text()='" + planlabel + "']");        
-        this.waitForTextPresent("Task: \""+taskLabel+"\"",
+        this.waitForTextPresent("Task: \""+taskNewLabel+"\"",
 				WAIT_TIME);
-        Assert.assertEquals(selenium.getValue("String idExecutionPlanPlanFormTaskComboBox"), taskLabel);
+	    this.clickWaitForElementPresent("//span[text()='Planned task tree view']//ancestor::div[contains(@class,'x-small-editor x-panel-header x-component x-unselectable')]//following-sibling::div//div[2]//div[@class='x-tree3-node']//div[contains(@class,'x-tree3-el') and @aria-level='1']//span[@class='x-tree3-node-text']");
+	    this.waitForElementPresent("//input[@id='idExecutionPlanTreeFormTaskComboBox']",
+			WAIT_TIME);
+        Assert.assertEquals(selenium.getValue("idExecutionPlanTreeFormTaskComboBox"), taskNewLabel);
         
 	}
 
