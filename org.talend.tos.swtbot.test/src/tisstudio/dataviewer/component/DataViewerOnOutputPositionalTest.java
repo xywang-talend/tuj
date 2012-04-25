@@ -66,6 +66,7 @@ public class DataViewerOnOutputPositionalTest extends TalendSwtBotForTos {
         SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
         String folderPath = Utilities.getFileFromCurrentPluginSampleFolder(FILEPATH).getAbsolutePath();
         folderPath = "\"" + folderPath.replace("\\", "/") + "\"";
+        gefBot.sleep(1000);
         gefBot.text(0).selectAll().typeText(folderPath);
 
         // edit schema of file

@@ -871,7 +871,7 @@ public class Utilities {
         jobItem.getEditor().select(gefEditPart).setFocus();
         gefEditPart.click();
         jobItem.getEditor().clickContextMenu("Data viewer");
-        gefBot.waitUntil(Conditions.shellIsActive("Data Preview: " + componentType + "_1"), 10000);
+        gefBot.waitUntil(Conditions.shellIsActive("Data Preview: " + componentType + "_1"), 50000);
         gefBot.shell("Data Preview: " + componentType + "_1").activate();
     }
 
