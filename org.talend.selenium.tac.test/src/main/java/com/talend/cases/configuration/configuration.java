@@ -42,7 +42,13 @@ public class configuration extends Login {
 	public void typeWordsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
 		 this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
 		 this.typeWaitForElementPresent(locatorOfInput, value);
-		 selenium.keyPressNative(KeyEvent.VK_ENTER+"");
+		 try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 selenium.keyPressNative(Event.ENTER+"");
 		
 	}
 	/**
@@ -57,6 +63,12 @@ public class configuration extends Login {
 		Assert.assertEquals(selenium.getValue(locatorOfInput), value);
 		selenium.setSpeed("0");
 		selenium.keyPressNative(KeyEvent.VK_ENTER+"");
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	public void AssertEqualsInConfigurationMenu(String locatorOfValue,String value){
@@ -88,7 +100,7 @@ public class configuration extends Login {
 		selenium.click(xpath);
 		this.waitElement("//div[contains(@class,'x-combo-list-item') and text()='"+value+"']", WAIT_TIME);
 		selenium.mouseDown("//div[contains(@class,'x-combo-list-item') and text()='"+value+"']");
-		selenium.keyPressNative(""+Event.ENTER);
+		selenium.keyPressNative(Event.ENTER+"");
 		
 	}
 	@BeforeMethod

@@ -173,6 +173,14 @@ public class TestConfigurations extends configuration {
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailUserName.editButton"), other.getString("smtp.conf.mailUserName.input"), mailUserName);
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailPassword.editButton"), other.getString("smtp.conf.mailPassword.input"), mailPassword);
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.serverRequireSSL.editButton"), other.getString("smtp.conf.serverRequireSSL.input"), serverRequireSSL);
+
+	  if(!selenium.isElementPresent(other.getString("smtp.conf.mailServerHost.statusIcon"))) {
+			  
+			  selenium.click("idConfigRefreshButton");  
+			  
+	  }
+	  
+	  this.waitElement(other.getString("smtp.conf.mailServerHost.statusIcon"), WAIT_TIME);
 	  
 	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.useSmtp.value"), useSmtp,other.getString("smtp.conf.useSmtp.statusIcon"));
 	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.mailServerHost.value"), mailServerHost,other.getString("smtp.conf.mailServerHost.statusIcon"));
@@ -224,7 +232,15 @@ public class TestConfigurations extends configuration {
 	  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverLocationURL.editButton"), other.getString("svn.conf.serverLocationURL.input"), svnServerLocationUrl);
 	  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverUser.editButton"), other.getString("svn.conf.serverUser.input"), svnServerUser);
 	  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverPassword.editButton"), other.getString("svn.conf.serverPassword.input"), svnServerPassword);
-		
+	  
+	  if(!selenium.isElementPresent(other.getString("svn.conf.serverLocationURL.statusIcon"))) {
+			  
+			  selenium.click("idConfigRefreshButton");  
+			  
+	  }
+	  
+	  this.waitElement(other.getString("svn.conf.serverLocationURL.statusIcon"), WAIT_TIME);
+	  
 	  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverLocationURL.value"), svnServerLocationUrl,other.getString("svn.conf.serverLocationURL.statusIcon"));
 	  this.AssertEqualsInConfigurationMenu(other.getString("svn.conf.serverUser.value"), svnServerUser,other.getString("svn.conf.serverUser.statusIcon"));
 	  this.AssertEqualsInputInConfigurationMenu(other.getString("svn.conf.serverPassword.editButton"), other.getString("svn.conf.serverPassword.input"), svnServerPassword);
