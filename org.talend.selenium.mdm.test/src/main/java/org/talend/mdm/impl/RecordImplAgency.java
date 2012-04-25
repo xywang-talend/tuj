@@ -159,6 +159,7 @@ public void updateRecordImpl(String container,String modle,String entity,String 
 			region=this.getValueInput(By.xpath("//input[@name='Agency/Region']"));
 			this.sleepCertainTime(3000);
 			this.clickElementByXpath("//a[text()='Map']//following-sibling::img");
+			this.sleepCertainTime(3000);
 			moreinfo=this.getValueInput(By.xpath("//label[text()='Url:']//following-sibling::div//div//input"));	
 			this.clickElementByXpath("//button[text()='Cancel']");	
 			//assert in the journal
