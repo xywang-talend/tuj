@@ -29,9 +29,9 @@ public class Server extends Login {
 	public void addServer(String serverLabel, String des, String host,
 			boolean active) {
 		this.openServerMenu();
-		waitForElementPresent("idSubModuleAddButton", 30000);
+		waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
 		selenium.click("idSubModuleAddButton");
-		this.sleep(2000);
+		this.waitForElementPresent("//input[@name='label' and contains(@class,'x-form-field x-form-text  x-form-invalid')]", WAIT_TIME);
 		// serverLabel
 		this.typeString(other.getString("inputname.id.server.add.label"),
 				serverLabel);

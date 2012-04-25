@@ -56,28 +56,30 @@ public class Plan extends TaskUtils {
 		this.clickWaitForElementPresent("//button[text()='Add plan']");
 		this.typeString("idExecutionPlanPlanFormLabelInput", planLabel);
 		this.typeString("idExecutionPlanPlanFormDescInput", description);
-		// selenium.setSpeed(MID_SPEED);
-		this.selectDropDownList("String idExecutionPlanPlanFormTaskComboBox",
-				rootTask);
-		selenium.mouseDown("//span[@class='x-fieldset-header-text' and text()='Execution Plan']/ancestor::div[@class=' x-panel x-component']//button[@id='idFormSaveButton']");
-		selenium.click("//span[@class='x-fieldset-header-text' and text()='Execution Plan']/ancestor::div[@class=' x-panel x-component']//button[@id='idFormSaveButton']");
-		selenium.mouseUp("//span[@class='x-fieldset-header-text' and text()='Execution Plan']/ancestor::div[@class=' x-panel x-component']//button[@id='idFormSaveButton']");
+		selenium.click("//span[@class='x-fieldset-header-text' and text()='Execution Plan']/ancestor::div[@class=' x-panel x-component']//button[@id='idFormSaveButton']");	
 		this.waitForElementPresent("//span[text()='" + planLabel + "']",
 				WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"
 				+ planLabel + "']"));
-		selenium.setSpeed(MIN_SPEED);
-		// selenium.refresh();
-		this.waitForElementPresent("//span[text()='" + planLabel + "']",
-				WAIT_TIME);
-		this.sleep(2000);
-		selenium.mouseDown("//span[text()='" + planLabel + "']");
-		System.out.println("++++++++++++++"+rootTask);
-		System.out.println("---------------"+selenium.getValue("String idExecutionPlanPlanFormTaskComboBox"));
 		
+		//add root task
+		selenium.mouseDown("//span[text()='" + planLabel + "']"	);
+		
+		this.clickWaitForElementPresent("//span[text()='Root:    please configure this node']");
+				
+		this.waitForElementPresent("//input[@id='idExecutionPlanTreeFormTaskComboBox']",
+				WAIT_TIME);
+		this.selectDropDownList("idExecutionPlanTreeFormTaskComboBox", rootTask);
+		selenium.setSpeed(MID_SPEED);
+		this.clickWaitForElementPresent("//span[text()='Edit planned task']//parent::legend//following-sibling::div//button[text()='Save']");
+		selenium.setSpeed(MIN_SPEED);
+		System.out.println("++++++++++++++"+rootTask);
+		System.out.println("---------------"+selenium.getValue("idExecutionPlanTreeFormTaskComboBox"));			
 		Assert.assertTrue(
-				selenium.getValue("String idExecutionPlanPlanFormTaskComboBox")
+				selenium.getValue("idExecutionPlanTreeFormTaskComboBox")
 						.equals(rootTask), "plan added failed!");
+		this.waitForElementPresent("Task: \""+rootTask+"\"", WAIT_TIME);
+		
 	}
 
 	public void deletePlan(String planLabel) {

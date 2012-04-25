@@ -47,11 +47,7 @@ public class AddPlan extends Plan {
 		this.typeString("idExecutionPlanPlanFormLabelInput", label);
 		this.waitForElementPresent("//img[@class='gwt-Image x-component ' and @role='alert']", WAIT_TIME);
 		this.typeString("idExecutionPlanPlanFormDescInput", description);
-		this.selectDropDownList("String idExecutionPlanPlanFormTaskComboBox",
-				task);
-		selenium.mouseDown("//span[@class='x-fieldset-header-text' and text()='Execution Plan']/ancestor::div[@class=' x-panel x-component']//button[@id='idFormSaveButton']");
-		selenium.click("//span[@class='x-fieldset-header-text' and text()='Execution Plan']/ancestor::div[@class=' x-panel x-component']//button[@id='idFormSaveButton']");
-		selenium.mouseUp("//span[@class='x-fieldset-header-text' and text()='Execution Plan']/ancestor::div[@class=' x-panel x-component']//button[@id='idFormSaveButton']");
+		selenium.click("//span[@class='x-fieldset-header-text' and text()='Execution Plan']/ancestor::div[@class=' x-panel x-component']//button[@id='idFormSaveButton']");	
 		this.waitForTextPresent("Fix errors in form before save", WAIT_TIME);
 		selenium.setSpeed(MIN_SPEED);
 

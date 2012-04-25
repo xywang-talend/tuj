@@ -3,6 +3,7 @@ package com.talend.tac.cases.audit;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+import java.awt.Event;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
@@ -223,7 +224,13 @@ public class Audit extends Login {
 	public void typeWordsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
 		 this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
 		 this.typeWaitForElementPresent(locatorOfInput, value);
-		 selenium.keyPressNative(KeyEvent.VK_ENTER+"");
+		 try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 selenium.keyPressNative(Event.ENTER +"");
 		
 	}
 	
