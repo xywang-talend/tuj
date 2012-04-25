@@ -44,5 +44,9 @@ public class TestRecordAgent extends Login {
 		recordImpl.createRecordWrongRuleImpl(container, modle, entity,Identifie,IdentifieValue,Firstname,FirstnameValue,Lastname,LastnameValue,CommissionCode,CommissionCodeValue,StartDate,StartDateValue );
 	}
 	
-	
+	@Test
+	@Parameters( {"user.frank.name","user.frank.password","user.jennifer.name","user.jennifer.password", "container","modle","entity","Identifie" ,"IdentifieValue", "Firstname","FirstnameValue","Lastname","LastnameValue","CommissionCode" ,"CommissionCodeValue","StartDate","StartDateValue" })
+	public void testChangeCommissionCodeApprovedWorkflow(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String modle,String entity,String Identifie,String agentID,String Firstname,String FirstnameValue,String Lastname,String LastnameValue,String CommissionCode,String CommissionCodeValue,String StartDate,String StartDateValue ) {
+		recordImpl.changeCommissionCodeApprovedWorkflow( userFrank, frankPass, userJennifer, jenniferPass,container, modle, entity,Identifie,agentID, Firstname, FirstnameValue, Lastname, LastnameValue, CommissionCode, CommissionCodeValue, StartDate, StartDateValue );
+	}
 }

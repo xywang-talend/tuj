@@ -387,7 +387,17 @@ public void chooseEntity(String entity) {
 	this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.entity",entity)), WAIT_TIME_MAX);
 	//this.sleepCertainTime(10000);
 	this.clickElementByXpath(this.getString(locator, "xpath.record.choose.entity",entity));
-}      
+}    
+
+public void chooseEntityDirectlyInDataBrowser(String entity) { 
+	this.sleepCertainTime(3000);
+	Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.record.choose.entity.arrows")), WAIT_TIME_MIN).isDisplayed());
+/*	this.seletDropDownList(By.xpath(locator.getString("xpath.record.choose.entity.arrows")), entity);*/
+	this.clickElementByXpath(locator.getString("xpath.record.choose.entity.arrows"));	 
+	this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.entity",entity)), WAIT_TIME_MAX);
+	//this.sleepCertainTime(10000);
+	this.clickElementByXpath(this.getString(locator, "xpath.record.choose.entity",entity));
+}   
 
 public void clickCreateRecord(){
 	this.clickElementByXpath(locator.getString("xpath.record.choose.create"));
@@ -395,6 +405,16 @@ public void clickCreateRecord(){
 
 public void closeDatachangesViewer(){
 	this.clickElementByXpath(locator.getString("xpath.datachangesviewer.tab.close"));
+}
+
+public void closeDataBrowser(){
+	
+	this.clickElementByXpath(locator.getString("xpath.databrowser.tab.close"));
+}
+
+public void openDataBrowserFromWelcome(){
+	this.clickElementByXpath(locator.getString("xpath.welcome.tab"));
+	this.clickElementByXpath(locator.getString("xpath.ui.window.getstarted.item.link.databrowser"));
 }
 
 public void chooseRcord(String entity,String feild1Name, String feild1Value) {
@@ -419,6 +439,34 @@ public void openJournalFromDataBrowser(){
 	
 }
 
+public void switchtoTabWelcome(){
+	
+	this.clickElementByXpath(locator.getString("xpath.welcome.tab"));
+}
+
+public void switchtoTabDataBrowser(){
+	this.clickElementByXpath(locator.getString("xpath.datavrowser.tab"));
+}
+
+public void checkPropertiesBeforeAfterInDatachangesViewer(String properties,String valueBefore,String valueAfter,boolean compareType){
+	   
+	   String before = this.getValue(this.getElementByXpath("//span[text()='Before']//ancestor::div[@id='documentHistoryPanel1']//span[contains(text(),'"+properties+"')]")).trim();
+    logger.info("in update detail panel,value before is :"+before);
+    logger.info("parameters for value before is :"+valueBefore);
+	   Assert.assertTrue(before.contains(valueBefore));
+    String after = this.getValue(this.getElementByXpath("//span[text()='After']//ancestor::div[@id='documentHistoryPanel2']//span[contains(text(),'"+properties+"')]")).trim();
+    logger.info("in update detail panel,value after is :"+after);
+    logger.info("parameters for value after is :"+valueAfter);
+    //true ,means before = after.
+    if(compareType){
+ 	   Assert.assertTrue(before.equals(after));
+ 	   Assert.assertTrue(after.contains(valueAfter));
+    }
+    else{
+ 	   Assert.assertFalse(after.equals(before));
+    }
+    
+}
 
 public void closeJournal(){
 	

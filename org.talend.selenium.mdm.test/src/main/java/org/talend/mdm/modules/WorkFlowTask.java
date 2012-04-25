@@ -71,10 +71,17 @@ public class WorkFlowTask extends Base{
 		this.clickElementByXpath(this.getString(locator, "xpath.workflowtask.openrelatedrecord.open.closeTab", recordID));
 	}
 	
+	public void closeRelatedAgentRecord(){
+		this.clickElementByXpath(locator.getString("xpath.workflowtask.agent.openrelatedrecord.open.closeTab"));
+	}
 	public void approveBoxChecked(){
 		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.approve.checkbox.input")), WAIT_TIME_MID)!=null);
 		this.sleepCertainTime(5000);
 		this.driver.findElement(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.approve.checkbox.img"))).click();
+	}
+	
+	public void approveCommissionCodeChange(String approveType){
+		this.seletDropDownList(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.agent.approve.selectdropdownlist.arrow")), approveType);
 	}
 	
 	public void clickSearch(){
