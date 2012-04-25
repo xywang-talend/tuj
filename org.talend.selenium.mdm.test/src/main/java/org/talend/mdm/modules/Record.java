@@ -81,9 +81,9 @@ public void JournalCheckResult(String key,String OperationType){
 	this.sleepCertainTime(5000);
 	this.moveToElement(driver.findElement(By.xpath("//div[text()='Operation Time']")));
 //	this.sleepCertainTime(10000);
-	this.clickElementByXpath("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-6')]//a[@class='x-grid3-hd-btn']");
+	this.clickVisibleElementByXpath("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-6')]//a[@class='x-grid3-hd-btn']");
 	this.sleepCertainTime(3000);
-	this.clickElementByXpath("//a[text()='Sort Descending']");
+	this.clickVisibleElementByXpath("//a[text()='Sort Descending']");
 	this.sleepCertainTime(5000);
 	this.clickElementByXpath(this.getString(locator, "xpath.record.choose.journal.choose.record", parameters));
 	this.sleepCertainTime(2000);

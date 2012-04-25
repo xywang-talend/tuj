@@ -284,6 +284,15 @@ public class Base {
     	
     }
     
+    public void clickVisibleElementByXpath(String xpath){
+    	List<WebElement> a = this.getElementsByXpath(xpath);
+		for(int i = 0; i < a.size(); i ++) {
+			if (a.get(i).isDisplayed()){
+				a.get(i).click();
+			}
+		}
+    }
+    
     public void clickElementByLinkText(String linkText){
     	this.getElementByLinkText(linkText).click();
     }

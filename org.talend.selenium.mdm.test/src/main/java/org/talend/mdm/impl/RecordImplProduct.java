@@ -985,9 +985,12 @@ public class RecordImplProduct extends Record{
    public void checkPropertiesBeforeAfterInDatachangesViewer(String properties,String valueBefore,String valueAfter,boolean compareType){
 	   
 	   String before = this.getValue(this.getElementByXpath("//span[text()='Before']//ancestor::div[@id='documentHistoryPanel1']//span[contains(text(),'"+properties+"')]")).trim();
-       Assert.assertTrue(before.contains(valueBefore));
+       logger.info("in update detail panel,value before is :"+before);
+       logger.info("parameters for value before is :"+valueBefore);
+	   Assert.assertTrue(before.contains(valueBefore));
        String after = this.getValue(this.getElementByXpath("//span[text()='After']//ancestor::div[@id='documentHistoryPanel2']//span[contains(text(),'"+properties+"')]")).trim();
-       
+       logger.info("in update detail panel,value after is :"+after);
+       logger.info("parameters for value after is :"+valueAfter);
        //true ,means before = after.
        if(compareType){
     	   Assert.assertTrue(before.equals(after));
