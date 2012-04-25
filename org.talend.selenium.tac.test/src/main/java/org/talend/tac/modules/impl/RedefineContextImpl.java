@@ -89,5 +89,9 @@ public class RedefineContextImpl extends RedefineContext {
        public void sortConetextParas(String value,String value1) {
     	   this.SortAscendingSortDescendingOfContextPara(value, value1);
        }
+       
+       public void refershConfigProperties(String label) {
+    	   this.refreshConfig(label);
+       }
 
 }

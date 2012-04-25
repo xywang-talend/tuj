@@ -23,7 +23,7 @@
     <parameter name ='warning_Num' value='4'/>
     
  
- <!-- Implement by selenium2  -->
+ <!-- Implement by selenium2  --><!--
  
     <test name="ESBConductor01_testConfigurationESBConductor"
 	  preserve-order="true">
@@ -60,7 +60,7 @@
 			</methods>
 		</classes>
 	</test>
-    
+--><!--    
     <test name="ESBConductor04_testAddESBConductor" preserve-order="true">
 	    <classes>
 		    <class name="org.talend.tac.cases.esbconductor.TestAddESBConductor">
@@ -76,6 +76,19 @@
 		preserve-order="true">
 		<classes>
 			<class name="org.talend.tac.cases.esbconductor.TestDuplicateESBConductor" />
+		</classes>
+	</test>
+	
+	--><test name="ESBConductor5_testEditESBConductor"
+		preserve-order="true">
+	<parameter name ='repository' value='repo-snapshot'/>
+    <parameter name ='group' value='example'/>
+    <parameter name ='artifact' value='jobFourthProvider-feature'/>
+    <parameter name ='version' value='0.1.0-SNAPSHOT'/>
+    <parameter name='name' value='jobFourthProvider-feature'/>
+    <parameter name='serverOfRuntime' value='Copy_of_testRuntimeServer'/>
+		<classes>
+			<class name="org.talend.tac.cases.esbconductor.TestEditESBConductor" />
 		</classes>
 	</test>
  
@@ -266,6 +279,18 @@
 		 </classes>
 	</test>
 	
+	<test name="ESBConductor18_testRefreshConfigProperties">
+    <parameter name="LabelForResetContext" value="testServiceForResetContext"/>
+	    <classes>
+			<class
+				name="org.talend.tac.cases.esbconductor.TestRefreshConfigProperties">
+				<methods>
+					<include name="testRefreshConfigProperties" />
+				</methods>
+			</class>
+		 </classes>
+	</test>
+	
 	<test name="ESBConductor19_testSelectFeatureWithUnavaiableArtifact"
 		preserve-order="true">
 		<parameter name='artifactRepositoryWrongUrl' value='http://192.168.0.200:8082/archiva'></parameter>
@@ -278,6 +303,6 @@
 				</methods>
 			</class>
 		</classes>
-	</test>
-	
+	</test>	
+	    	
 </suite>

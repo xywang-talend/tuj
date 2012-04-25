@@ -302,5 +302,13 @@ public class RedefineContext extends WebDriverBase {
  	   
     }
     }
+    
+    public void refreshConfig(String label) {
+    	this.waitforElementDisplayed(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MIN);
+    	this.mouseDown("//div[text()='" + label + "']");
+    	this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertyRefreshButton']"), WAIT_TIME_MIN);
+    	this.clickElementById("idESBConductorPropertyRefreshButton");
+        Assert.assertTrue(this.isTextPresent("Refresh Done"));  
+    }
 }
    

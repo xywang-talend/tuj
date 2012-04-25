@@ -26,4 +26,12 @@ public class AddESBConductorImpl extends AddESBConductor{
 				name, type, context, server);
 		this.addConductorWithExistingLabel();
 	}
+	
+	public void editExsitingConductor(String label, String des, String repository,
+			String group, String artifact, String version, String name, String type, 
+			String context, String server) {
+		this.intoESBConductorPage();
+		this.editEsbConductor(label, des, repository, group, artifact, version, name, type, context, server);
+		this.verifyEditedConductor(label, des, repository, group, artifact, version, name, type, context, server);
+	}
 }
