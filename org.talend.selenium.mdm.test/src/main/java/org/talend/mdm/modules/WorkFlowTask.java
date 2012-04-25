@@ -44,7 +44,7 @@ public class WorkFlowTask extends Base{
 	public void sortWorkFlowTaskBydate(){
 		
 		this.moveToElement(driver.findElement(By.xpath("//div[text()='Ready Date']")));
-		this.clickElementByXpath("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-3')]//a[@class='x-grid3-hd-btn']");
+		this.clickVisibleElementByXpath("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-3')]//a[@class='x-grid3-hd-btn']");
 		this.sleepCertainTime(5000);
 		logger.info("!!!!!!!!!!!!!!!!!!!!!!"+this.getElementsByXpath("//a[contains(text(),'Sort Descending')]").size());
 		this.clickVisibleElementByXpath("//a[contains(text(),'Sort Descending')]");
