@@ -412,8 +412,27 @@ public void clickJournal() {
 	this.sleepCertainTime(3000);
 	this.clickElementByXpath(locator.getString("xpath.record.choose.journal")); 
   }
+
+public void openJournalFromDataBrowser(){
+	this.clickJournal();
+//	this.clickElementByXpath("//div[contains(@class,'x-small-editor x-toolbar ItemDetailToolBar x-component x-toolbar-layout-ct')]//button[contains(text(),'Journal')]");
+	
+}
+
+
+public void closeJournal(){
+	
+		this.clickElementByXpath(locator.getString("xpath.journal.tab.close"));
+	
+ }
+
 public void clickExport() {	
 	this.clickElementByXpath(locator.getString("xpath.record.click.importAndExport")); 	
 	this.clickElementByXpath(locator.getString("xpath.record.choose.export"));
   }
+
+public void maxARecordPanel(){
+	this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
+}
+
 }

@@ -970,17 +970,7 @@ public class RecordImplProduct extends Record{
     
 	}
 	
-	public void openJournalFromDataBrowser(){
-		this.clickJournal();
-//		this.clickElementByXpath("//div[contains(@class,'x-small-editor x-toolbar ItemDetailToolBar x-component x-toolbar-layout-ct')]//button[contains(text(),'Journal')]");
-		
-	}
-	
-    public void closeJournal(){
-		
-		this.clickElementByXpath(locator.getString("xpath.journal.tab.close"));
-	
-    }
+
 	
    public void checkPropertiesBeforeAfterInDatachangesViewer(String properties,String valueBefore,String valueAfter,boolean compareType){
 	   
