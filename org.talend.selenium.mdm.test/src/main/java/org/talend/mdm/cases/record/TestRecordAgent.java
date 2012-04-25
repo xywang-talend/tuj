@@ -26,4 +26,23 @@ public class TestRecordAgent extends Login {
 		recordImpl.createRecordImpl(container, modle, entity,Identifie,IdentifieValue,Firstname,FirstnameValue,Lastname,LastnameValue,CommissionCode,CommissionCodeValue,StartDate,StartDateValue );
 	}
 	
+	@Test
+	@Parameters( { "container","modle","entity","Identifie" ,"IdentifieValue","CommissionCode" ,"CommissionCodeValue","CommissionCodeValueUpdate"})
+	public void testUpdateRecord(String container,String modle,String entity,String Identifie,String IdentifieValue,String CommissionCode,String CommissionCodeValue,String CommissionCodeValueUpdate) {
+		recordImpl.UpdateRecordImpl(container, modle, entity,Identifie,IdentifieValue,CommissionCode,CommissionCodeValue,CommissionCodeValueUpdate);
+	}
+	
+	@Test
+	@Parameters( { "container","modle","entity","Identifie" ,"IdentifieValue","IdentifieValueDup", "Firstname","FirstnameValue"})
+	public void testDuplicateRecord(String container,String modle,String entity,String Identifie,String IdentifieValue,String IdentifieValueDup,String Firstname,String FirstnameValue) {
+		recordImpl.DuplicateRecordImpl(container, modle, entity,Identifie,IdentifieValue,IdentifieValueDup,Firstname,FirstnameValue);
+	}
+	
+	@Test
+	@Parameters( { "container","modle","entity","Identifie" ,"IdentifieValue", "Firstname","FirstnameValue","Lastname","LastnameValue","CommissionCode" ,"CommissionCodeValue","StartDate","StartDateValue"})
+	public void testCreateRecordWrongRule(String container,String modle,String entity,String Identifie,String IdentifieValue,String Firstname,String FirstnameValue,String Lastname,String LastnameValue,String CommissionCode,String CommissionCodeValue,String StartDate,String StartDateValue ) {
+		recordImpl.createRecordWrongRuleImpl(container, modle, entity,Identifie,IdentifieValue,Firstname,FirstnameValue,Lastname,LastnameValue,CommissionCode,CommissionCodeValue,StartDate,StartDateValue );
+	}
+	
+	
 }
