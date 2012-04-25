@@ -46,6 +46,8 @@ public class Authorization extends WebDriverBase {
 		WebElement projectUser = getElementByXpath("//span[text()='"+project+"']");
 		logger.info("drap in progress");
 		dragAndDrop(user, projectUser);	
+		this.clickElementById("idConfigRefreshButton");
+		this.isElementPresent(By.xpath("//span[text()='"+project+"']//ancestor::div[contains(@class,'x-tree3-el x-tree3-node-joint')]//following-sibling::div//span[contains(text(),'"+userInfo+"')]"), WAIT_TIME_MIN);
 		logger.info("check authorization result");
 		List l = this.getElementsByXpath("//span[text()='"+project+"']//ancestor::div[contains(@class,'x-tree3-el x-tree3-node-joint')]//following-sibling::div//span[contains(text(),'"+userInfo+"')]");
 		Assert.assertEquals(1, l.size());
