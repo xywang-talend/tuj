@@ -271,6 +271,38 @@ public class TalendSwtbotTdqCommon {
 				.expandNode("Metadata", "FileDelimited connections").select(fileName);
 		Assert.assertNotNull(newCsvItem);
 	}
+	
+	public static void createFileDelimitedConnectionTxt(SWTWorkbenchBot bot,
+			String fileName) {
+		bot.viewByTitle("DQ Repository").setFocus();
+		tree = new SWTBotTree((Tree) bot.widget(
+				WidgetOfType.widgetOfType(Tree.class),
+				bot.viewByTitle("DQ Repository").getWidget()));
+		tree.expandNode("Metadata").select("FileDelimited connections");
+		ContextMenuHelper.clickContextMenu(tree,
+				"Create File Delimited Connection");
+		bot.waitUntil(Conditions.shellIsActive("New Delimited File"));
+		try {
+			shell = bot.shell("New Delimited File");
+			bot.textWithLabel("Name").setText(fileName);
+			bot.button("Next >").click();
+			bot.textWithLabel("File").setText(
+					System.getProperty("delimitedFile.PathTxt"));
+			bot.button("Next >").click();
+			bot.ccomboBox(1).setSelection("Tabulation");
+			bot.button("Set heading row cloumn names").click();
+			bot.button("Refresh Preview").click();
+			bot.sleep(5000);
+			bot.button("Next >").click();
+			bot.button("Finish").click();
+		} catch (Exception e) {
+			shell.close();
+			return;
+		}
+		SWTBotTreeItem newCsvItem = tree
+				.expandNode("Metadata", "FileDelimited connections").select(fileName);
+		Assert.assertNotNull(newCsvItem);
+	}
 
 	public static void createMDMConnection(SWTWorkbenchBot bot,
 			String connectionName) {
@@ -429,7 +461,7 @@ public class TalendSwtbotTdqCommon {
 					.getNode(0).select();
 			if (!bot.button("Next >").isEnabled())
 				tree.expandNode("DB connections", metadataType.toString())
-						.getNode(0).expand().getNode(0).select();
+						.getNode(0).expand().getNode(1).select();
 			break;
 		}
 		bot.button("Next >").click();
@@ -506,14 +538,20 @@ public class TalendSwtbotTdqCommon {
 			break;
 		}
 		bot.button("Apply").click();
-		bot.sleep(6000);
-		try {
+		if(bot.activeShell().getText().equals("Set database")){
 			bot.waitUntil(Conditions.shellIsActive("Set database"));
 			SWTBotShell shell = bot.shell("Set database");
 			bot.button("OK").click();
 			bot.waitUntil(Conditions.shellCloses(shell), 60000);
-			SWTBotShell shellp = bot.shell("Progress Information");
-			bot.waitUntil(Conditions.shellCloses(shellp), 60000);
+		}
+			SWTBotShell shellp;
+			try {
+				shellp = bot.shell("Progress Information");
+				bot.waitUntil(Conditions.shellCloses(shellp), 60000);
+			} catch (TimeoutException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			if(bot.activeShell().getText().equals("Confirm")){
 				System.out.println(bot.activeShell().getText()+"::::::::::::::::::");
 			bot.waitUntil(Conditions.shellIsActive("Confirm"));
@@ -521,15 +559,32 @@ public class TalendSwtbotTdqCommon {
 			bot.button("OK").click();
 			bot.waitUntil(Conditions.shellCloses(shell2),60000);
 			}
+			if(bot.activeShell().getText().equals("Information")){
+				System.out.println(bot.activeShell().getText()+"::::::::::::::::::");
+			bot.waitUntil(Conditions.shellIsActive("Information"));
+			SWTBotShell shellc = bot.shell("Information");
+			bot.button("OK").click();
+			bot.waitUntil(Conditions.shellCloses(shellc),60000);
+			}
+			if(bot.activeShell().getText().equals("Warning")){
 			bot.waitUntil(Conditions.shellIsActive("Warning"));
 			SWTBotShell shell1 = bot.shell("Warning");
 			bot.button("OK").click();
 			bot.waitUntil(Conditions.shellCloses(shell1));
+			}
 			bot.button("OK").click();
+			if(bot.activeShell().getText().equals("Set database")){
 			bot.waitUntil(Conditions.shellIsActive("Set database"));
 			bot.button("OK").click();
 			bot.waitUntil(Conditions.shellCloses(shell),60000);
-			bot.waitUntil(Conditions.shellCloses(shellp), 60000);
+			}
+			try {
+				shellp = bot.shell("Progress Information");
+				bot.waitUntil(Conditions.shellCloses(shellp), 60000);
+			} catch (TimeoutException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			if(bot.activeShell().getText().equals("Confirm")){
 			bot.waitUntil(Conditions.shellIsActive("Confirm"));
@@ -537,25 +592,21 @@ public class TalendSwtbotTdqCommon {
 			bot.button("OK").click();
 			bot.waitUntil(Conditions.shellCloses(shell2),60000);
 			}
+			if(bot.activeShell().getText().equals("Information")){
+				System.out.println(bot.activeShell().getText()+"::::::::::::::::::");
+			bot.waitUntil(Conditions.shellIsActive("Information"));
+			SWTBotShell shellc = bot.shell("Information");
+			bot.button("OK").click();
+			bot.waitUntil(Conditions.shellCloses(shellc),60000);
+			}
+			if(bot.activeShell().getText().equals("Warning")){
+				SWTBotShell shellc = bot.shell("Warning");
 			bot.waitUntil(Conditions.shellIsActive("Warning"));
 			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellCloses(shell1),60000);
-		} catch (TimeoutException e) {
-		}
-		// System.out.println("aaaaa");
-		// bot.button("Apply").click();
-		// System.out.println("bbbbbbbb");
-		// bot.sleep(50000);
-		// bot.waitUntil(Conditions.shellIsActive("Warning"));
-		// System.out.println("accccc");
-		// bot.sleep(50000);
-		// bot.button("OK").click();
-		// System.out.println("dddddddddd");
-		// bot.textWithLabel("Password").getText().toString().isEmpty();
-		// bot.sleep(100000);
-		// bot.textWithLabel("Password").setText(
-		// System.getProperty("reportdb.oracle.password"));
-		//	bot.sleep(50000);
+			bot.waitUntil(Conditions.shellCloses(shellc),60000);
+			}
+		
+		
 //		System.out.println(System.getProperty("reportdb.oracle.password")
 //				+ "qqqq" + bot.textWithLabel("Password").getText() + "bbbbb");
 	}
@@ -610,7 +661,7 @@ public class TalendSwtbotTdqCommon {
 		try {
 			bot.waitUntil(
 					Conditions.shellCloses(bot.shell("Generate Report File")),
-					360000);
+					600000);
 			// SWTBotShell shell = bot.shell("refresh");
 			// bot.waitUntil(Conditions.shellCloses(shell));
 		} catch (TimeoutException e) {

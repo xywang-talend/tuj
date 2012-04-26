@@ -78,7 +78,9 @@ public class LaunchAReportETLJobTest extends TalendSwtbotForTdq{
 		TalendSwtbotTdqCommon.generateReport(bot, formBot, REPORTLABEL, 
 				TalendReportTemplate.Basic, TalendAnalysisTypeEnum.COLUMN.toString());
 		bot.viewByTitle("DQ Repository").setFocus();
-		tree =new SWTBotTree((Tree)bot.widget(WidgetOfType.widgetOfType(Tree.class)));
+		tree = new SWTBotTree((Tree) bot.widget(
+				WidgetOfType.widgetOfType(Tree.class),
+				bot.viewByTitle("DQ Repository").getWidget()));
 		SWTBotTreeItem item = tree.expandNode("Data Profiling").getNode(1).expand().getNode(0).select();
 		SWTBotUtils.clickContextMenu(item, "Launch a report");
 		try {

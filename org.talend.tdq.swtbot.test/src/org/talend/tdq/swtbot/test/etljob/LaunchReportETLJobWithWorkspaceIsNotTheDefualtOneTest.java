@@ -1,13 +1,9 @@
 package org.talend.tdq.swtbot.test.etljob;
 
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
@@ -24,25 +20,21 @@ import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendMetadataTypeEn
 import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendReportDBType;
 import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendReportTemplate;
 
-public class AlertThresholdViolationETLJobTest extends TalendSwtbotForTdq{
+public class LaunchReportETLJobWithWorkspaceIsNotTheDefualtOneTest extends TalendSwtbotForTdq{
 	
 	private final String REPORTLABEL = "launch_report_ETLJob";
-
+	
 	@Before
-	
-		public void beforeClass(){
-			TalendSwtbotTdqCommon.setReportDB(bot, TalendReportDBType.MySQL);
-			TalendSwtbotTdqCommon.createConnection(bot,
-					TalendMetadataTypeEnum.MYSQL);
-			bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
-			TalendSwtbotTdqCommon
-					.createAnalysis(bot, TalendAnalysisTypeEnum.COLUMN);
-			
-		}
-	
+	public void beforeClass(){
+		TalendSwtbotTdqCommon.setReportDB(bot, TalendReportDBType.MySQL);
+		TalendSwtbotTdqCommon.createConnection(bot, TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
+		TalendSwtbotTdqCommon.createAnalysis(bot, TalendAnalysisTypeEnum.COLUMN);
+		
+	}
 	
 	@Test
-	public void AlertThresholdViolationETLJob(){
+	public void LaunchReportETLJobWithWorkspaceIsNotTheDefualtOne(){
 		String column = TalendSwtbotTdqCommon.getColumns(bot,
 				TalendMetadataTypeEnum.MYSQL, "tbi", "customer", "address1")[0];
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
@@ -56,7 +48,7 @@ public class AlertThresholdViolationETLJobTest extends TalendSwtbotForTdq{
 		bot.table().getTableItem(column).check();
 		bot.button("OK").click();
 		bot.waitUntil(Conditions.shellCloses(shell));
-//		formBot.ccomboBox(2).setSelection("Nominal");
+		formBot.ccomboBox(2).setSelection("Nominal");
 		if (bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
 				.isDirty())
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
@@ -74,11 +66,11 @@ public class AlertThresholdViolationETLJobTest extends TalendSwtbotForTdq{
 			bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
 			.save();
 		bot.toolbarButtonWithTooltip("Run").click();
-//		try {
-//			shell = bot.shell("Run Analysis");
-//			bot.waitUntil(Conditions.shellCloses(shell));
-//		} catch (TimeoutException e) {
-//		}
+		try {
+			shell = bot.shell("Run Analysis");
+			bot.waitUntil(Conditions.shellCloses(shell));
+		} catch (TimeoutException e) {
+		}
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon.createReport(bot, REPORTLABEL);
 		TalendSwtbotTdqCommon.generateReport(bot, formBot, REPORTLABEL, 
@@ -88,32 +80,18 @@ public class AlertThresholdViolationETLJobTest extends TalendSwtbotForTdq{
 				WidgetOfType.widgetOfType(Tree.class),
 				bot.viewByTitle("DQ Repository").getWidget()));
 		SWTBotTreeItem item = tree.expandNode("Data Profiling").getNode(1).expand().getNode(0).select();
-		SWTBotUtils.clickContextMenu(item, "Alert threshold violation (MySQL)");
-	
-			bot.waitUntil(Conditions.shellIsActive("Propagate"),180000);
-			bot.shell("Propagate").activate();
-			bot.button("Yes").click();
-		
-		
-    	bot.cTabItem("Repository").setFocus();
-		tree= new SWTBotTree((Tree)bot.widget(WidgetOfType.widgetOfType(Tree.class),bot.viewByTitle("Repository").getWidget()));
-		String jobname = tree.expandNode("Job Designs").getNode(0).getText();
-		System.out.println(jobname);
-		 SWTBotGefEditor jobEditor=gefBot.gefEditor("Job "+jobname);
-		 SWTBotGefEditPart tSendMail1 = getTalendComponentPart(jobEditor, "tSendMail_1");
-		 tSendMail1.click();
-	        gefBot.viewByTitle("Component").setFocus();
-	        SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
-	        gefBot.text(0).selectAll().typeText("\""+System.getProperty("sendMail.to")+"\"",0);
-	        gefBot.text(1).selectAll().typeText("\""+System.getProperty("sendMail.from")+"\"",0);
-	        gefBot.text(7).selectAll().typeText("\""+System.getProperty("sendMail.name")+"\"",0);
-	        gefBot.text(8).selectAll().typeText("\""+System.getProperty("sendMail.password")+"\"",0);
-	        gefBot.text(5).selectAll().typeText("\""+System.getProperty("sendMail.SMTPhost")+"\"",1);
-		 JobHelper.runJob(6000);
+		SWTBotUtils.clickContextMenu(item, "Launch a report");
+		try {
+			bot.waitUntil(Conditions.shellIsActive("Confirm"));
+			bot.button("No").click();
+		} catch (TimeoutException e) {
+			
+		}
+		JobHelper.runJob(6000);
 	    String result = JobHelper.execResultFilter(JobHelper.getExecutionResult());
 	    if(result != null &&  !"".equals(result))
 	        	Assert.fail("this job can't run correctly"+result+"**********");
-	  
+		
 		
 	}
 	
@@ -124,4 +102,5 @@ public class AlertThresholdViolationETLJobTest extends TalendSwtbotForTdq{
 			bot.sleep(2000);
 		
 	}
+
 }

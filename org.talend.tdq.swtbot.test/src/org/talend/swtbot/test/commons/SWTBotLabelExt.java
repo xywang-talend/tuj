@@ -12,12 +12,18 @@
 // ============================================================================
 package org.talend.swtbot.test.commons;
 
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.allOf;
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withMnemonic;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.results.Result;
 import org.eclipse.swtbot.swt.finder.utils.MessageFormat;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotLabel;
+import org.hamcrest.Matcher;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -98,4 +104,6 @@ public class SWTBotLabelExt extends SWTBotLabel {
         log.debug(MessageFormat.format("Clicked on {0}", this)); //$NON-NLS-1$
     }
 
+  
+	
 }

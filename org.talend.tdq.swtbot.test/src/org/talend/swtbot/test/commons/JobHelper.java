@@ -2,20 +2,25 @@ package org.talend.swtbot.test.commons;
 
 //Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 
-import java.awt.Point;
 import java.io.BufferedReader;
 
+import org.eclipse.draw2d.FigureCanvas;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefFigureCanvas;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.talend.swtbot.test.commons.DndUtil;
 
 /**
  * DOC yhbai class global comment. Detailled comment
@@ -25,6 +30,7 @@ public class JobHelper  {
     private static String executionResult;
     static public SWTWorkbenchBot bot = new SWTWorkbenchBot();
     private static SWTBotTree tree;
+    private static SWTGefBot gefBot = new SWTGefBot();
 
     /**
      * Filter all strings except the execution result.
@@ -113,8 +119,79 @@ public class JobHelper  {
 			bot.waitUntil(Conditions.shellCloses(shell));
 		} catch (Exception e) {
 		}
-		
     }
+    public static void  deletlemetadata(){
+    	
+		tree = new SWTBotTree((Tree)bot.widget(WidgetOfType.widgetOfType(Tree.class),
+				bot.viewByTitle("Repository").getWidget()));
+		tree.expandNode("Metadata").getNode(2).expand().getNode(0).select();
+		ContextMenuHelper.clickContextMenu(tree,"Delete");
+		tree.expandNode("Recycle bin").getNode(0).select();
+		ContextMenuHelper.clickContextMenu(tree,"Delete forever");
+		try {
+		bot.waitUntil(Conditions.shellIsActive("Delete forever"));
+		SWTBotShell shell = bot.shell("Delete forever");
+		bot.button("Yes").click();
+		
+			bot.waitUntil(Conditions.shellCloses(shell));
+		} catch (Exception e) {
+		}
+    }
+		
+	    public static void  CreateJob(String fileName){
+	    	bot.viewByTitle("DQ Repository").setFocus();
+	    	tree = new SWTBotTree((Tree)bot.widget(WidgetOfType.widgetOfType(Tree.class),
+					bot.viewByTitle("Repository").getWidget()));
+			tree.expandNode("Job Designs").select();
+			ContextMenuHelper.clickContextMenu(tree,"Create job");
+			bot.waitUntil(Conditions.shellIsActive("New job"));
+				SWTBotShell shell = bot.shell("New job");
+				bot.textWithLabel("Name").setText(fileName);
+				bot.button("Finish").click();
+				shell.close();	
+	    	
+	    }
+	    public static void dndPaletteToolOntoJob(SWTBotGefEditor jobEditor,String toolLable,Point point){
+	    	jobEditor.activateTool(toolLable).click(point.x,point.y);
+	    }
+	    public static void dndMetadataOntoJob(SWTBotGefEditor jobEditor,SWTBotTreeItem sourceItem,String componentLabel,
+	    		Point locationOnJob){
+	    	SWTBotGefFigureCanvas figureCanvas = new SWTBotGefFigureCanvas((FigureCanvas)gefBot.widget(
+	    			WidgetOfType.widgetOfType(FigureCanvas.class), jobEditor.getWidget()));
+	    	DndUtil dndUtil = new DndUtil(jobEditor.getWidget().getDisplay());
+	    	sourceItem.select();
+	    	dndUtil.dragAndDrop(sourceItem, figureCanvas,locationOnJob);
+	    	if(componentLabel != null && !"".equals(componentLabel)){
+	    		gefBot.shell("Components").activate();
+	    		gefBot.table(0).getTableItem(componentLabel).select();
+	    		gefBot.button("OK").click();
+	    	}
+	   
+	    	if(gefBot.activeShell().getText().equals("Added context")){
+	    		gefBot.button("OK").click();
+	    	}
+	    	if(componentLabel.equals("tFileInputPositional")){
+	    		gefBot.button("OK").click();
+	    		
+	    	}
+	    	
+	    	
+	    	
+	    }
+    /**
+     *  
+        
+            gefBot.table(0).getTableItem(componentLabel).select();
+            gefBot.button("OK").click();
+            if (componentLabel.equals("tFileInputPositional"))
+                gefBot.button("OK").click();
+        }
+        if (gefBot.activeShell().getText().equals("Added context"))
+            gefBot.button("Yes").click();
+    }
+     */
+
+
 
     /**
      * Link input component to tLogRow.
