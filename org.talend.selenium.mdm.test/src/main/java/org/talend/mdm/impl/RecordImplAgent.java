@@ -549,7 +549,7 @@ public void changeCommissionCodeNotApprovedWorkflow(String userFrank,String fran
 	this.sleepCertainTime(5000);
 	int afterApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.administrator")).size();
 	logger.info("afterApprove,the update entry for administrator is :"+afterApprove);
-	Assert.assertTrue(afterApprove-beforeApprove==1);
+	Assert.assertTrue(afterApprove-beforeApprove==0);
 		
 	 OperationType="UPDATE";
 	 source="workflow";
