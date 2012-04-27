@@ -56,7 +56,7 @@ public class GenerateAllDocTest extends TalendSwtBotForTos {
     @Test
     public void generateAllDoc() {
         docNode = Utilities.getTalendItemNode(Utilities.TalendItemType.DOCUMENTATION);
-        docNode.getNode("generated").contextMenu("Generate all projects documentation").click();
+        docNode.getNode("Generated").contextMenu("Generate all projects documentation").click();
         gefBot.waitUntil(Conditions.shellIsActive("Progress Information"));
         gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 30000);
         gefBot.waitUntil(Conditions.shellIsActive("Talend Open Studio"));
@@ -65,8 +65,8 @@ public class GenerateAllDocTest extends TalendSwtBotForTos {
         SWTBotTreeItem newDocItemForJob = null;
         SWTBotTreeItem newDocItemForJoblet = null;
         try {
-            newDocItemForJob = docNode.expandNode("generated", "jobs").select(JOBNAME + " 0.1");
-            newDocItemForJoblet = docNode.expandNode("generated", "joblets").select(JOBLETNAME + " 0.1");
+            newDocItemForJob = docNode.expandNode("Generated", "Jobs").select(JOBNAME + " 0.1");
+            newDocItemForJoblet = docNode.expandNode("Generated", "Joblets").select(JOBLETNAME + " 0.1");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
