@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.talend.mdm.Base;
 import org.testng.Assert;
@@ -480,7 +481,17 @@ public void clickExport() {
   }
 
 public void maxARecordPanel(){
-	this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
+	Point b = this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.databrowser.bigger"))).getLocation();
+	Point a = this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))).getLocation();
+	logger.info(b.x + " "+b.y);
+	logger.info(a.x + " "+a.y);
+	logger.info("move to left by:"+(a.x-b.x-50));
+	this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -a.x+b.x+50, 0);
 }
 
+public void maxDataBrowserBoard(){
+	Point b = this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.databrowser.bigger"))).getLocation();
+	logger.info("move to left by:"+(b.x-50));
+	this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.databrowser.bigger"))), -b.x+50, 0);
+}
 }

@@ -15,7 +15,12 @@ public class RecordImplAgent extends Record{
 		super(driver);
 		this.driver = driver;
 	}
-
+    
+	
+	public void selectAgentRecordBySearch(String entity,String fieldName,String agentID){
+		this.searchCondition("Identifier", "is equal to", agentID);
+		this.chooseRcord(entity, fieldName, agentID);
+	}
 
 	public void deleteRecordImpl(String container,String modle,String entity,String Identifie,String IdentifieValue){
 		OperationType="PHYSICAL_DELETE";
@@ -181,7 +186,8 @@ public void changeCommissionCodeApprovedWorkflow(String userFrank,String frankPa
 	clickSave();
 	chooseEntity(entity);
 	this.sleepCertainTime(3000);
-	this.chooseRcord(entity,Identifie,agentID);
+	this.maxDataBrowserBoard();
+	this.selectAgentRecordBySearch(entity,Identifie,agentID);
 	this.sleepCertainTime(3000);
 	
 	//verify that frank can not modify agent properties directly
@@ -189,32 +195,56 @@ public void changeCommissionCodeApprovedWorkflow(String userFrank,String frankPa
 	
 	//get the initial agent properties.commissionCode
 	String initialCode = this.getValueInput(By.xpath(locator.getString("xpath.record.agent.commissioncode.input")));
-	
+	String initialStatus = this.getValueInput(By.xpath(locator.getString("xpath.record.agent.status.input")));
+	logger.info("for agent :"+agentID+"The initial commission code is:"+initialCode+",the initial status is:"+initialStatus);
 	this.maxARecordPanel();
 	
-	//open journal to verify number of action entry for frank ,then close journal
+	//open journal to verify number of action entry for frank ,and update entry for administrator ,then close journal
 	this.openJournalFromDataBrowser();
 	this.sleepCertainTime(5000);
 	int beforeProcess = this.getElementsByXpath(locator.getString("xpath.journal.entry.action.frank")).size();
-	logger.info("beforeProcess:"+beforeProcess);
+	int beforeProcessUpdateAdministrator = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.administrator")).size();
+	logger.info("beforeProcess action entry for frank is:"+beforeProcess);
+	logger.info("beforeProcess update entry for administrator is:"+beforeProcessUpdateAdministrator);
 	this.closeJournal();
 	
-	//frank launch come code change request process
+	//frank launch com code change request process
 	this.launchProcess("Com Change Request");
 	this.checkProcessDoneAndClickOK();
 	this.sleepCertainTime(3000);
 	
-	//open journal and verify number of action entry for frank +1,then close journal
+	//click the refresh button ,and check status change to pending
+	this.clickElementByXpath(locator.getString("xpath.record.panel.refresh.button"));
+	Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.record.agent.comchange.processdone.clickrefresh.conform.info")), WAIT_TIME_MIN).isDisplayed());
+	this.clickElementByXpath(locator.getString("xpath.record.agent.comchange.processdone.clickrefresh.conform.yes.button"));
+	this.sleepCertainTime(5000);
+	String statusBeforeSubmitAfterProcess = this.getValueInput(By.xpath(locator.getString("xpath.record.agent.status.input"))).trim();
+	logger.info("after process done ,status expected is pending, infact it is :"+statusBeforeSubmitAfterProcess);
+	Assert.assertFalse(initialStatus.equals(statusBeforeSubmitAfterProcess));
+	Assert.assertTrue(statusBeforeSubmitAfterProcess.equals("pending"));
+	
+	//open journal and verify number of action entry for frank +1, update entry for administrator +1 ,then close journal
     this.openJournalFromDataBrowser();
 	this.sleepCertainTime(5000);
 	int afterProcess = this.getElementsByXpath(locator.getString("xpath.journal.entry.action.frank")).size();
-	logger.info("afterProcess:"+afterProcess);
+	int afterProcessUpdateAdministrator = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.administrator")).size();
+	logger.info("afterProcess action entry for frank is :"+afterProcess);
+	logger.info("afterProcess update entry for administrator is :"+afterProcessUpdateAdministrator);
 	Assert.assertTrue(afterProcess-beforeProcess==1);
+	Assert.assertTrue(afterProcessUpdateAdministrator-beforeProcessUpdateAdministrator==1);
 	
+	//check action entry in data changes viewer for frank
 	 OperationType="ACTION";
 	 source="genericUI";
 	this.JournalCheckResult(agentID, OperationType);
 	this.checkPropertiesBeforeAfterInDatachangesViewer("CommissionCode", initialCode, initialCode, true);
+	this.closeDatachangesViewer();
+	
+	//check update ectry in data changes viewer for administrator
+	 OperationType="UPDATE";
+	 source="workflow";
+	this.JournalCheckResult(agentID, OperationType);
+	this.checkPropertiesBeforeAfterInDatachangesViewer("Status", initialStatus, statusBeforeSubmitAfterProcess, false);
 	this.closeDatachangesViewer();
 	this.closeJournal();
 	
@@ -233,6 +263,7 @@ public void changeCommissionCodeApprovedWorkflow(String userFrank,String frankPa
 	String codeSubmitted = flow.changeAgentCommissionCodeValidImpl(Integer.parseInt(initialCode), 2);
 	this.sleepCertainTime(10000);
 	
+	//close data browser first,to check status and commission code is not changed 
 	this.closeDataBrowser();
 	flow.uncheckHideFinishedTask();
 	flow.clickSearch();
@@ -242,13 +273,16 @@ public void changeCommissionCodeApprovedWorkflow(String userFrank,String frankPa
 	
 	this.sleepCertainTime(5000);
 	Assert.assertTrue(this.getValueInput(By.xpath(locator.getString("xpath.record.agent.commissioncode.input"))).equals(initialCode), "test frank can not change commission code directly failed");
-    flow.closeRelatedAgentRecord();
+    Assert.assertTrue(this.getValueInput(By.xpath(locator.getString("xpath.record.agent.status.input"))).trim().equals("pending"));
+	flow.closeRelatedAgentRecord();
+	
+	//reopen data browser from welcome page
 	this.switchtoTabWelcome();
 	this.openDataBrowserFromWelcome();
 	this.sleepCertainTime(5000);
 	this.switchtoTabDataBrowser();
 	this.chooseEntityDirectlyInDataBrowser(entity);
-	this.chooseRcord(entity,Identifie,agentID);
+	this.selectAgentRecordBySearch(entity,Identifie,agentID);
 	this.maxARecordPanel();
 	this.openJournalFromDataBrowser();
 	this.JournalCheckResult(agentID, OperationType);
@@ -258,12 +292,12 @@ public void changeCommissionCodeApprovedWorkflow(String userFrank,String frankPa
 	log.logout();
 	log.loginUserForce( userJennifer, jenniferPass);
 	this.chooseEntity(entity);
-	this.chooseRcord(entity,Identifie,agentID);
+	this.selectAgentRecordBySearch(entity,Identifie,agentID);
 	
 	this.openJournalFromDataBrowser();
 	this.sleepCertainTime(5000);
-	int beforeApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.jennifer")).size();
-	logger.info("beforeApprove:"+beforeApprove);
+	int beforeApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.administrator")).size();
+	logger.info("beforeApprove ,the update entry for administrator is :"+beforeApprove);
 	this.closeJournal();
 	//open work flow task page
 	flow.openMenuGoven();
@@ -315,19 +349,213 @@ public void changeCommissionCodeApprovedWorkflow(String userFrank,String frankPa
 	//verify in journal that an update entry for jennifer added
 	this.switchtoTabDataBrowser();
 	this.sleepCertainTime(3000);
-	this.chooseRcord(entity,Identifie,agentID);
+	this.maxDataBrowserBoard();
+	this.selectAgentRecordBySearch(entity,Identifie,agentID);
 	this.sleepCertainTime(5000)	;
 	this.openJournalFromDataBrowser();
 	this.sleepCertainTime(5000);
-	int afterApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.jennifer")).size();
-	logger.info("afterApprove:"+afterApprove);
+	int afterApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.administrator")).size();
+	logger.info("afterApprove,the update entry for administrator is :"+afterApprove);
 	Assert.assertTrue(afterApprove-beforeApprove==1);
 		
 	 OperationType="UPDATE";
+	 source="workflow";
+	this.JournalCheckResult(agentID, OperationType);
+	this.checkPropertiesBeforeAfterInDatachangesViewer("CommissionCode", initialCode, codeSubmitted, false);
+	this.checkPropertiesBeforeAfterInDatachangesViewer("Status", statusBeforeSubmitAfterProcess, initialStatus, false);
+	//close datachangesviewer page.
+	this.closeDatachangesViewer();
+	this.closeJournal();
+	}
+
+
+public void changeCommissionCodeNotApprovedWorkflow(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String Identifie,String agentID,String Firstname,String FirstnameValue,String Lastname,String LastnameValue,String CommissionCode,String CommissionCodeValue,String StartDate,String StartDateValue){
+	LogonImpl log = new LogonImpl(this.driver);
+	log.logout();
+	log.loginUserForce(userFrank, frankPass);
+	String[] parametersID={entity,Identifie};
+	chooseContainer(container);	
+	chooseModle(model);
+	clickSave();
+	chooseEntity(entity);
+	this.sleepCertainTime(3000);
+	this.maxDataBrowserBoard();
+	this.selectAgentRecordBySearch(entity,Identifie,agentID);
+	this.sleepCertainTime(3000);
+	
+	//verify that frank can not modify agent properties directly
+	Assert.assertFalse(this.getElementByXpath(locator.getString("xpath.record.agent.commissioncode.input")).isEnabled(), "frank can not modify commission code test failed!");
+	
+	//get the initial agent properties.commissionCode
+	String initialCode = this.getValueInput(By.xpath(locator.getString("xpath.record.agent.commissioncode.input")));
+	String initialStatus = this.getValueInput(By.xpath(locator.getString("xpath.record.agent.status.input")));
+	logger.info("for agent :"+agentID+"The initial commission code is:"+initialCode+",the initial status is:"+initialStatus);
+	this.maxARecordPanel();
+	
+	//open journal to verify number of action entry for frank ,and update entry for administrator ,then close journal
+	this.openJournalFromDataBrowser();
+	this.sleepCertainTime(5000);
+	int beforeProcess = this.getElementsByXpath(locator.getString("xpath.journal.entry.action.frank")).size();
+	int beforeProcessUpdateAdministrator = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.administrator")).size();
+	logger.info("beforeProcess action entry for frank is:"+beforeProcess);
+	logger.info("beforeProcess update entry for administrator is:"+beforeProcessUpdateAdministrator);
+	this.closeJournal();
+	
+	//frank launch com code change request process
+	this.launchProcess("Com Change Request");
+	this.checkProcessDoneAndClickOK();
+	this.sleepCertainTime(3000);
+	
+	//click the refresh button ,and check status change to pending
+	this.clickElementByXpath(locator.getString("xpath.record.panel.refresh.button"));
+	Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.record.agent.comchange.processdone.clickrefresh.conform.info")), WAIT_TIME_MIN).isDisplayed());
+	this.clickElementByXpath(locator.getString("xpath.record.agent.comchange.processdone.clickrefresh.conform.yes.button"));
+	this.sleepCertainTime(5000);
+	String statusBeforeSubmitAfterProcess = this.getValueInput(By.xpath(locator.getString("xpath.record.agent.status.input"))).trim();
+	logger.info("after process done ,status expected is pending, infact it is :"+statusBeforeSubmitAfterProcess);
+	Assert.assertFalse(initialStatus.equals(statusBeforeSubmitAfterProcess));
+	Assert.assertTrue(statusBeforeSubmitAfterProcess.equals("pending"));
+	
+	//open journal and verify number of action entry for frank +1, update entry for administrator +1 ,then close journal
+    this.openJournalFromDataBrowser();
+	this.sleepCertainTime(5000);
+	int afterProcess = this.getElementsByXpath(locator.getString("xpath.journal.entry.action.frank")).size();
+	int afterProcessUpdateAdministrator = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.administrator")).size();
+	logger.info("afterProcess action entry for frank is :"+afterProcess);
+	logger.info("afterProcess update entry for administrator is :"+afterProcessUpdateAdministrator);
+	Assert.assertTrue(afterProcess-beforeProcess==1);
+	Assert.assertTrue(afterProcessUpdateAdministrator-beforeProcessUpdateAdministrator==1);
+	
+	//check action entry in data changes viewer for frank
+	 OperationType="ACTION";
 	 source="genericUI";
 	this.JournalCheckResult(agentID, OperationType);
-	this.checkPropertiesBeforeAfterInDatachangesViewer("Price", initialCode, codeSubmitted, false);
+	this.checkPropertiesBeforeAfterInDatachangesViewer("CommissionCode", initialCode, initialCode, true);
+	this.closeDatachangesViewer();
 	
+	//check update ectry in data changes viewer for administrator
+	 OperationType="UPDATE";
+	 source="workflow";
+	this.JournalCheckResult(agentID, OperationType);
+	this.checkPropertiesBeforeAfterInDatachangesViewer("Status", initialStatus, statusBeforeSubmitAfterProcess, false);
+	this.closeDatachangesViewer();
+	this.closeJournal();
+	
+	//for frank ,open workflow created and change the commission code ,then submit
+	WorkFlowTaskImpl flow = new WorkFlowTaskImpl(this.driver);
+	flow.openMenuGoven();
+	flow.openMenuWorkFlowTask();
+	this.sleepCertainTime(5000);
+	flow.sortWorkFlowTaskBydate();
+    flow.openAWorkTask();
+	this.sleepCertainTime(10000);
+	
+//	Assert.assertFalse(this.getElementByXpath(locator.getString("xpath.record.agent.comchangeworkflow.taskopened.firstname.input")).isEnabled(), "frank can not modify first name in opened task test failed!");
+//	Assert.assertFalse(this.getElementByXpath(locator.getString("xpath.record.agent.comchangeworkflow.taskopened.lastname.input")).isEnabled(), "frank can not modify last name in opened task test failed!");
+//	Assert.assertFalse(this.getElementByXpath(locator.getString("xpath.record.agent.comchangeworkflow.taskopened.identifer.input")).isEnabled(), "frank can not modify identifer in opened task test failed!");
+	String codeSubmitted = flow.changeAgentCommissionCodeValidImpl(Integer.parseInt(initialCode), 2);
+	this.sleepCertainTime(10000);
+	
+	//close data browser first,to check status and commission code is not changed 
+	this.closeDataBrowser();
+	flow.uncheckHideFinishedTask();
+	flow.clickSearch();
+	flow.sortWorkFlowTaskBydate();
+	flow.openAWorkTask();
+	flow.openRelatedRecord();
+	
+	this.sleepCertainTime(5000);
+	Assert.assertTrue(this.getValueInput(By.xpath(locator.getString("xpath.record.agent.commissioncode.input"))).equals(initialCode), "test frank can not change commission code directly failed");
+    Assert.assertTrue(this.getValueInput(By.xpath(locator.getString("xpath.record.agent.status.input"))).trim().equals("pending"));
+	flow.closeRelatedAgentRecord();
+	
+	//reopen data browser from welcome page
+	this.switchtoTabWelcome();
+	this.openDataBrowserFromWelcome();
+	this.sleepCertainTime(5000);
+	this.switchtoTabDataBrowser();
+	this.chooseEntityDirectlyInDataBrowser(entity);
+	this.selectAgentRecordBySearch(entity,Identifie,agentID);
+	this.maxARecordPanel();
+	this.openJournalFromDataBrowser();
+	this.JournalCheckResult(agentID, OperationType);
+	this.checkPropertiesBeforeAfterInDatachangesViewer("CommissionCode", initialCode, initialCode, true);
+	
+	//logout frank ,login jennifer
+	log.logout();
+	log.loginUserForce( userJennifer, jenniferPass);
+	this.chooseEntity(entity);
+	this.selectAgentRecordBySearch(entity,Identifie,agentID);
+	
+	this.openJournalFromDataBrowser();
+	this.sleepCertainTime(5000);
+	int beforeApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.administrator")).size();
+	logger.info("beforeApprove ,the update entry for administrator is :"+beforeApprove);
+	this.closeJournal();
+	//open work flow task page
+	flow.openMenuGoven();
+	flow.openMenuWorkFlowTask();
+	this.sleepCertainTime(10000);
+	//sort work flow task by date and open the first work
+	flow.sortWorkFlowTaskBydate();
+    flow.openAWorkTask();
+    
+    
+    //jennifer not approved and submit
+    flow.approveCommissionCodeChange("no");
+    flow.clickSubmit();
+ 	this.waitfor(By.xpath(locator.getString("xpath.workflowtask.open.produce.submited.success.info")), WAIT_TIME_MID);
+	this.clickElementByXpath(locator.getString("xpath.workflowtask.open.product.submited.success.ok.button"));
+	this.sleepCertainTime(5000);
+	
+	flow.uncheckHideFinishedTask();
+	flow.clickSearch();
+	flow.sortWorkFlowTaskBydate();
+	this.sleepCertainTime(3000);
+	flow.openAWorkTask();
+	flow.openRelatedRecord();
+	this.sleepCertainTime(5000);
+    Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflowtask.agent.openrelatedrecord.open.closeTab")), WAIT_TIME_MIN)!=null);
+  
+    //verify commission code is really changed.
+    //close the data browser first ,for xpath duplicated
+    this.closeDataBrowser();
+    this.sleepCertainTime(3000);
+	String codeApproved = this.getValueInput(By.xpath(locator.getString("xpath.record.agent.commissioncode.input")));
+    logger.info("afterapproved ,the commission code is:"+codeApproved);
+//    Assert.assertTrue(price.equals(priceSubmited));
+    Assert.assertTrue(codeApproved.equals(initialCode));
+    Assert.assertFalse(codeApproved.equals(codeSubmitted));
+    
+    //reopen data browser
+    this.clickElementByXpath("//span[contains(@class,'x-panel-header-text') and text()='Home']");
+    this.clickElementByXpath("//div[contains(@id,'menu-browserecords')]");
+    this.chooseEntity(entity);
+    this.sleepCertainTime(5000);
+   
+    //close the record opened
+    flow.closeRelatedAgentRecord();
+
+	//close the work task
+	flow.closeAWorkTask();
+	
+	//verify in journal that an update entry for jennifer added
+	this.switchtoTabDataBrowser();
+	this.sleepCertainTime(3000);
+	this.maxDataBrowserBoard();
+	this.selectAgentRecordBySearch(entity,Identifie,agentID);
+	this.sleepCertainTime(5000)	;
+	this.openJournalFromDataBrowser();
+	this.sleepCertainTime(5000);
+	int afterApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.administrator")).size();
+	logger.info("afterApprove,the update entry for administrator is :"+afterApprove);
+	Assert.assertTrue(afterApprove-beforeApprove==1);
+		
+	 OperationType="UPDATE";
+	 source="workflow";
+	this.JournalCheckResult(agentID, OperationType);
+	this.checkPropertiesBeforeAfterInDatachangesViewer("CommissionCode", initialCode, initialCode, true);
+	this.checkPropertiesBeforeAfterInDatachangesViewer("Status", statusBeforeSubmitAfterProcess, "rejected", false);
 	//close datachangesviewer page.
 	this.closeDatachangesViewer();
 	this.closeJournal();
