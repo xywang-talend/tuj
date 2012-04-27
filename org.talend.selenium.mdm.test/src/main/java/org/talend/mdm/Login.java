@@ -35,7 +35,7 @@ public class Login extends Base{
 	    firefoxProfile.setPreference("browser.download.dir", this.getAbsoluteFolderPath("org/talend/mdm/download"));
 	    firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk","text/csv, application/vnd.ms-excel, application/zip, application/pdf");
 	    
-	    firefoxProfile.setPreference("dom.max_script_run_time", 60);
+	    firefoxProfile.setPreference("dom.max_script_run_time", 0);
 	    
 
 	    driver = new FirefoxDriver(firefoxProfile);
