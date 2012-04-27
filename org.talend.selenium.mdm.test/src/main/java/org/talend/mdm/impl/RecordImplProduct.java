@@ -310,7 +310,8 @@ public class RecordImplProduct extends Record{
 		this.chooseModle(model);
 		this.clickSave();
 		this.chooseEntity(entity);
-		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
+		this.maxARecordPanel();
+//		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
 		
 		//select a product record in data browser
 		this.clickElementByXpath(this.getString(locator, "xpath.record.chooserecord.byID", productUniqID));
@@ -397,7 +398,8 @@ public class RecordImplProduct extends Record{
 		this.chooseModle(model);
 		this.clickSave();
 		this.chooseEntity(entity);
-		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
+		this.maxARecordPanel();
+//		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
 		
 		//select a product record in data browser
 		this.clickElementByXpath(this.getString(locator, "xpath.record.chooserecord.byID", productUniqID));
@@ -519,7 +521,8 @@ public class RecordImplProduct extends Record{
 		this.chooseModle(model);
 		this.clickSave();
 		this.chooseEntity(entity);
-		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
+		this.maxARecordPanel();
+//		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
 		
 		//select a product record in data browser
 		this.clickElementByXpath(this.getString(locator, "xpath.record.chooserecord.byID", productUniqID));
@@ -674,7 +677,8 @@ public class RecordImplProduct extends Record{
 		this.chooseModle(model);
 		this.clickSave();
 		this.chooseEntity(entity);
-		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
+		this.maxARecordPanel();
+//		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
 		
 		//select a product record in data browser
 		this.clickElementByXpath(this.getString(locator, "xpath.record.chooserecord.byID", productUniqID));
@@ -808,7 +812,8 @@ public class RecordImplProduct extends Record{
 		this.chooseModle(model);
 		this.clickSave();
 		this.chooseEntity(entity);
-		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
+		this.maxARecordPanel();
+//		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
 		
 		//select a product record in data browser
 		this.clickElementByXpath(this.getString(locator, "xpath.record.chooserecord.byID", productUniqID));
