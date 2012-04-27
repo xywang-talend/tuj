@@ -45,19 +45,14 @@ public void checkProcessDoneAndClickOK(){
 
 public void enterJournal(String entity,String key,String OperationType,String source){
 	clickJournal();				
-	this.sleepCertainTime(3000);
+	this.sleepCertainTime(5000);
 	this.modifyText(this.getElementByXpath(locator.getString("xpath.record.choose.journal.entity")),entity);	
-	this.sleepCertainTime(3000);
 	this.modifyText(this.getElementByXpath(locator.getString("xpath.record.choose.journal.key")),key);	
-	this.sleepCertainTime(3000);
 	this.modifyText(this.getElementByXpath(locator.getString("xpath.record.choose.journal.source")),source);	
-	this.sleepCertainTime(3000);
 	this.clickElementByXpath(locator.getString("xpath.record.choose.journal.operation.arrows")); 
-	this.sleepCertainTime(3000);
 	this.clickElementByXpath(this.getString(locator,"xpath.record.choose.journal.operation.choose",OperationType)); 		
-	this.sleepCertainTime(8000);
 	this.clickElementByXpath(locator.getString("xpath.record.click.journal.search"));	
-	this.sleepCertainTime(2000);
+	this.sleepCertainTime(5000);
 }
 public void JournalResultCount(){
 	 int recordCount;
@@ -79,19 +74,17 @@ public void JournalResultCount(){
 
 public void JournalCheckResult(String key,String OperationType){
 	String[] parameters={key,OperationType};
-	this.sleepCertainTime(5000);
 	this.moveToElement(driver.findElement(By.xpath("//div[text()='Operation Time']")));
-//	this.sleepCertainTime(10000);
-	this.clickVisibleElementByXpath("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-6')]//a[@class='x-grid3-hd-btn']");
-	this.sleepCertainTime(3000);
-	this.clickVisibleElementByXpath("//a[text()='Sort Descending']");
-	this.sleepCertainTime(5000);
-	this.clickElementByXpath(this.getString(locator, "xpath.record.choose.journal.choose.record", parameters));
 	this.sleepCertainTime(2000);
+    this.clickVisibleElementByXpath("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-6')]//a[@class='x-grid3-hd-btn']");
+	this.sleepCertainTime(2000);
+	this.clickVisibleElementByXpath("//a[text()='Sort Descending']");
+	this.sleepCertainTime(2000);
+	this.clickElementByXpath(this.getString(locator, "xpath.record.choose.journal.choose.record", parameters));
 	this.doubleClick(this.getElementByXpath(this.getString(locator, "xpath.record.choose.journal.choose.record", parameters)));
 	this.sleepCertainTime(5000);
 	this.clickElementByXpath(locator.getString("xpath.record.journal.click.info"));
-	this.sleepCertainTime(5000);
+	this.sleepCertainTime(3000);
 
 }
 public void searchDateAssert(String searchFeild,String opeartion,String value,String entity_Element){
