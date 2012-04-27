@@ -939,10 +939,7 @@ public class Utilities {
 
     private static void selectTable(String componentType, String dbName) {
         gefBot.buttonWithTooltip("Show the table list for the current conection").click();
-        /*
-         * try { gefBot.waitUntil(Conditions.shellIsActive("Select Table Name")); } catch (TimeoutException e1) {
-         * gefBot.buttonWithTooltip("Show the table list for the current conection").click(); }
-         */
+
         gefBot.waitUntil(Conditions.shellIsActive("Select Table Name"), 30000);
         gefBot.shell("Select Table Name").activate();
         if (componentType.equals("tOracleSCD")) {
@@ -959,6 +956,7 @@ public class Utilities {
                         + componentType + "_1"), 30000);
         gefBot.shell("SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:" + componentType + "_1")
                 .activate();
+
         gefBot.styledText().setText(sql);
         gefBot.toolbarButtonWithTooltip("Execute SQL (Ctrl+Enter)").click();
 
@@ -968,7 +966,7 @@ public class Utilities {
         try {
             gefBot.waitUntil(Conditions.shellIsActive("Error Executing SQL"));
             String errorLog = gefBot.label(1).getText();
-            if (errorLog.contains("name") && errorLog.contains("existing object")) {
+            if (errorLog.contains("name") && errorLog.contains("existing object") || errorLog.contains("dataviwer")) {
                 // String table = errorLog.split("'")[1];
                 sql = "drop table dataviwer;\n" + sql;
             }
@@ -987,9 +985,9 @@ public class Utilities {
             // ignor this, means execute sql successfully, did not pop up error dialog
         } finally {
             SWTBotPreferences.TIMEOUT = defaultTimeout;
+            gefBot.button("OK").click();
         }
 
-        gefBot.button("OK").click();
     }
 
     /**
