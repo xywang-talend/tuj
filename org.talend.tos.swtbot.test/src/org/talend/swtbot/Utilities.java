@@ -966,7 +966,8 @@ public class Utilities {
         try {
             gefBot.waitUntil(Conditions.shellIsActive("Error Executing SQL"));
             String errorLog = gefBot.label(1).getText();
-            if (errorLog.contains("name") && errorLog.contains("existing object") || errorLog.contains("dataviwer")) {
+            if (errorLog.contains("name") && errorLog.contains("existing object") || errorLog.contains("dataviwer")
+                    || errorLog.contains("already exists")) {
                 // String table = errorLog.split("'")[1];
                 sql = "drop table dataviwer;\n" + sql;
             }

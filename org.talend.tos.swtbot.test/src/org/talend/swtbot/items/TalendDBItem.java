@@ -253,6 +253,7 @@ public class TalendDBItem extends TalendMetadataItem {
 
     public void retrieveDbSchema(String... schemas) {
         getParentNode().getNode(itemName + " 0.1").contextMenu("Retrieve Schema").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Schema"), 5000);
         gefBot.shell("Schema").activate();
         gefBot.button("Next >").click();
         List<String> schemaList = new ArrayList<String>(Arrays.asList(schemas));

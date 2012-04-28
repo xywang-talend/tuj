@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tisstudio.metadata.useinjob;
+package tosstudio.metadata.useinjob;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
