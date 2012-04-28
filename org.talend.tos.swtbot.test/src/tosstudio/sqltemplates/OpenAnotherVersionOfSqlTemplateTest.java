@@ -32,7 +32,7 @@ public class OpenAnotherVersionOfSqlTemplateTest extends TalendSwtBotForTos {
 
     private static final String SQLTEMPLATE_NAME = "sqlTemplateTest"; //$NON-NLS-1$
 
-    private static final String FOLDERPATH = "Generic/UserDefined"; //$NON-NLS-1$
+    private static final String FOLDERPATH = "Hive/UserDefined"; //$NON-NLS-1$
 
     @Before
     public void createAJob() {

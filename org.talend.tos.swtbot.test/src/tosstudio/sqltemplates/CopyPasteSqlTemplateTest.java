@@ -30,7 +30,7 @@ public class CopyPasteSqlTemplateTest extends TalendSwtBotForTos {
 
     private static final String SQLTEMPLATENAME = "sqlTemplate1"; //$NON-NLS-1$
 
-    private static final String FOLDERPATH = "Generic/UserDefined"; //$NON-NLS-1$
+    private static final String FOLDERPATH = "Hive/UserDefined"; //$NON-NLS-1$
 
     @Before
     public void createSqlTemplate() {

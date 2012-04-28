@@ -15,7 +15,6 @@ package org.talend.swtbot.items;
 import junit.framework.Assert;
 
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
-import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
@@ -60,7 +59,7 @@ public class TalendXmlFileItem extends TalendFileItem {
             targetItem = gefBot.tableInGroup("Target Schema", 1);
             dndUtil.dragAndDrop(sourceTarget, targetItem);
             gefBot.button("Refresh Preview").click();
-            gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")));
+            // gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")));
         } catch (WidgetNotFoundException wnfe) {
             shell.close();
             Assert.fail(wnfe.getCause().getMessage());
