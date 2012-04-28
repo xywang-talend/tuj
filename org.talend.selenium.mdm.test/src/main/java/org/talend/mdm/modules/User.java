@@ -119,8 +119,9 @@ public User(WebDriver driver) {
 		this.clickElementByXpath(this.getString(locator, "xpath.user.delete", userName));
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.user.delete.yes")), WAIT_TIME_MAX));
 		this.clickElementByXpath(locator.getString("xpath.user.delete.yes"));
-		logger.info("########" + this.getElementByXpath(this.getString(locator, "xpath.user.delete", userName)));
-//		Assert.assertFalse(this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.delete", userName)), 30), "user "+userName+" delete failed!");
+	    this.sleepCertainTime(3000);
+		Assert.assertTrue(this.waitfor(By.xpath(this.getString(locator, "xpath.user.delete", userName)),3)==null);
+	    logger.info("user "+userName +" deleted successful!");
 	}
 	
 	protected void deleteAllUsersStartWith(String userExcept){
