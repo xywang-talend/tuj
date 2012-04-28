@@ -493,7 +493,7 @@ public class RecordImplProduct extends Record{
 		this.sleepCertainTime(3000);
 		flow.openAWorkTask();
 		flow.openRelatedRecord();
-        Assert.assertTrue(this.waitfor(By.xpath(this.getString(locator, "xpath.workflowtask.openrelatedrecord.open.closeTab", productUniqID)), WAIT_TIME_MIN)!=null);
+		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflowtask.openrelatedrecord.open.closeTab")), WAIT_TIME_MIN)!=null);
       
         //verify price is really changed.
         //close the data browser first ,for xpath duplicated
@@ -623,7 +623,7 @@ public class RecordImplProduct extends Record{
 		flow.openAWorkTask();
 		flow.openRelatedRecord();
     	this.sleepCertainTime(5000);
-        Assert.assertTrue(this.waitfor(By.xpath(this.getString(locator, "xpath.workflowtask.openrelatedrecord.open.closeTab", productUniqID)), WAIT_TIME_MIN)!=null);
+        Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflowtask.openrelatedrecord.open.closeTab")), WAIT_TIME_MIN)!=null);
       
         //verify price is really changed.
         //close the data browser first ,for xpath duplicated
@@ -769,7 +769,7 @@ public class RecordImplProduct extends Record{
 		this.sleepCertainTime(5000);
 		flow.openRelatedRecord();
     	this.sleepCertainTime(5000);
-        Assert.assertTrue(this.waitfor(By.xpath(this.getString(locator, "xpath.workflowtask.openrelatedrecord.open.closeTab", productUniqID)), WAIT_TIME_MIN)!=null);
+    	Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflowtask.openrelatedrecord.open.closeTab")), WAIT_TIME_MIN)!=null);
       
         //verify price is not changed.
         //close the data browser first ,for xpath duplicated
@@ -907,7 +907,7 @@ public class RecordImplProduct extends Record{
 		this.sleepCertainTime(5000);
 		flow.openRelatedRecord();
     	this.sleepCertainTime(5000);
-        Assert.assertTrue(this.waitfor(By.xpath(this.getString(locator, "xpath.workflowtask.openrelatedrecord.open.closeTab", productUniqID)), WAIT_TIME_MIN)!=null);
+    	Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflowtask.openrelatedrecord.open.closeTab")), WAIT_TIME_MIN)!=null);
       
         //verify price is not changed.
         //close the data browser first ,for xpath duplicated

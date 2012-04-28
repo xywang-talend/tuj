@@ -44,8 +44,9 @@ public class WorkFlowTask extends Base{
 	public void sortWorkFlowTaskBydate(){
 		
 		this.moveToElement(driver.findElement(By.xpath("//div[text()='Ready Date']")));
+		this.sleepCertainTime(2000);
 		this.clickVisibleElementByXpath("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-3')]//a[@class='x-grid3-hd-btn']");
-		this.sleepCertainTime(5000);
+		this.sleepCertainTime(2000);
 		logger.info("!!!!!!!!!!!!!!!!!!!!!!"+this.getElementsByXpath("//a[contains(text(),'Sort Descending')]").size());
 		this.clickVisibleElementByXpath("//a[contains(text(),'Sort Descending')]");
 //		this.driver.findElement(By.xpath("//div[contains(@class,'x-layer x-menu')]//a[contains(text(),'Sort Descending')]")).sendKeys("\n"); 
@@ -63,8 +64,9 @@ public class WorkFlowTask extends Base{
 	
 	public void openRelatedRecord(){
 		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.openrecord.button")), WAIT_TIME_MIN).isDisplayed());
-		this.sleepCertainTime(3000);
+		this.sleepCertainTime(5000);
 		this.clickElementByXpath(locator.getString("xpath.workflow.openedworkflowtask.openrecord.button"));
+		this.sleepCertainTime(5000);
 	}
 	
 	public void closeRelatedRecord(String recordID){
