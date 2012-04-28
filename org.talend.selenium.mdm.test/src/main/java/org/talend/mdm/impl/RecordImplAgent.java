@@ -291,6 +291,9 @@ public void changeCommissionCodeApprovedWorkflow(String userFrank,String frankPa
 	//logout frank ,login jennifer
 	log.logout();
 	log.loginUserForce( userJennifer, jenniferPass);
+	chooseContainer(container);	
+	chooseModle(model);
+	clickSave();
 	this.chooseEntity(entity);
 	this.selectAgentRecordBySearch(entity,Identifie,agentID);
 	
@@ -484,6 +487,9 @@ public void changeCommissionCodeNotApprovedWorkflow(String userFrank,String fran
 	//logout frank ,login jennifer
 	log.logout();
 	log.loginUserForce( userJennifer, jenniferPass);
+	chooseContainer(container);	
+	chooseModle(model);
+	clickSave();
 	this.chooseEntity(entity);
 	this.selectAgentRecordBySearch(entity,Identifie,agentID);
 	
