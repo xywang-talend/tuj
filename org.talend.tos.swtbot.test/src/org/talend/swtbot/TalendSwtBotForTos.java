@@ -2,7 +2,7 @@
 //
 // Talend Community Edition
 //
-// Copyright (C) 2006 Talend 锟�� www.talend.com
+// Copyright (C) 2006 Talend 閿燂拷锟�www.talend.com
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -110,7 +110,7 @@ public class TalendSwtBotForTos {
             }
             isGenerationEngineInitialised = true;
             gefBot.viewByTitle("Welcome").close();
-            gefBot.menu("Window").menu("Perspective").menu("Integration").click();
+            gefBot.perspectiveByLabel("Integration").activate();
             try {
                 gefBot.cTabItem("Cheat Sheets").close();
             } catch (WidgetNotFoundException wnfe) {
