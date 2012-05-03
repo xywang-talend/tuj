@@ -34,7 +34,7 @@ public class ViewDocumentationTest extends TalendSwtBotForTos {
 
     @Before
     public void createAJob() {
-        repositories.add(ERepositoryObjectType.JOBS);
+        repositories.add(ERepositoryObjectType.PROCESS);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
     }

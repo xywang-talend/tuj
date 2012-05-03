@@ -445,7 +445,16 @@ public class TalendDBItem extends TalendMetadataItem {
         if (!catchDelete)
             gefBot.checkBox("Delete").deselect();
         gefBot.button("Execute").click();
-        gefBot.shell("Execute SQL Statement").activate();
+        boolean ifexists = true; // the created table had exits
+        while (ifexists) {
+            gefBot.shell("Execute SQL Statement").activate();
+            String statement = gefBot.label(1).getText();
+            if (statement.contains("sucessfully")) {
+                ifexists = false;
+            } else {
+                gefBot.button("Ignore").click();
+            }
+        }
         gefBot.button("OK").click();
         isAddOK = true;
         gefBot.button("Close").click();
