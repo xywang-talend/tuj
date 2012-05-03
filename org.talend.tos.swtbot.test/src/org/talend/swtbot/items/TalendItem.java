@@ -158,6 +158,7 @@ public class TalendItem implements Cloneable {
             if (newItem == null)
                 return null;
             copyItem.setItem(newItem);
+            gefBot.sleep(6000);
             return copyItem;
         }
     }
@@ -259,6 +260,20 @@ public class TalendItem implements Cloneable {
         });
         gefBot.button("Finish").click();
 
+        
+        gefBot.waitUntil(new DefaultCondition() {
+
+            public boolean test() throws Exception {
+                return gefBot.activeShell()!=null;
+            }
+
+            public String getFailureMessage() {
+                return "Shell not active!";
+            }
+
+        }, 60000);
+        
+        
         if ("Problem Executing Operation".equals(gefBot.activeShell().getText())) {
             String errorLog = gefBot.label(1).getText();
             gefBot.button("OK").click();
@@ -284,6 +299,7 @@ public class TalendItem implements Cloneable {
             }
             parentNode.setFocus();
             newTreeItem = parentNode.expand().select(itemName + " 0.1");
+            newTreeItem.setFocus();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
