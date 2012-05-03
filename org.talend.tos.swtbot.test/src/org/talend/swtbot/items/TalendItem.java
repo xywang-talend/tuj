@@ -260,24 +260,17 @@ public class TalendItem implements Cloneable {
         });
         gefBot.button("Finish").click();
 
-        
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-                return gefBot.activeShell()!=null;
-            }
-
-            public String getFailureMessage() {
-                return "Shell not active!";
-            }
-
-        }, 60000);
-        
-        
-        if ("Problem Executing Operation".equals(gefBot.activeShell().getText())) {
+        long defaultTimeout = SWTBotPreferences.TIMEOUT;
+        SWTBotPreferences.TIMEOUT = 100;
+        try {
+            gefBot.shell("Problem Executing Operation").activate();
             String errorLog = gefBot.label(1).getText();
             gefBot.button("OK").click();
             Assert.fail(errorLog);
+        } catch (WidgetNotFoundException e) {
+            // ignore this exception, means error dialog didn't pop up, creating item successfully
+        } finally {
+            SWTBotPreferences.TIMEOUT = defaultTimeout;
         }
 
         gefBot.waitUntil(new DefaultCondition() {
