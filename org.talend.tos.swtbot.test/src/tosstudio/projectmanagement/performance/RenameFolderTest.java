@@ -46,6 +46,7 @@ public class RenameFolderTest extends TalendSwtBotForTos {
         repositories.add(ERepositoryObjectType.PROCESS);
         List<String> folders = new ArrayList<String>();
         folders.add(FOLDERNAME);
+        folders.add(NEW_FOLDERNAME);
         repositoriesFolders.put(ERepositoryObjectType.PROCESS, folders);
 
         folderItem = new TalendFolderItem(FOLDERNAME);
