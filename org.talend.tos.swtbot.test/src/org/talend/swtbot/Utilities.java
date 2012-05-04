@@ -581,16 +581,18 @@ public class Utilities {
      * 
      */
     public static void cleanUpRepository() {
-        List<TalendItemType> itemList = null;
         for (TalendItemType itemType : TalendItemType.values()) {
-            if ("TOS".equals(System.getProperty("buildType"))) {
-                itemList = getTISItemTypes(); // if TOS, get TIS items and pass next step
+            if ("TOSDI".equals(TalendSwtBotForTos.getBuildType())) {
+                if (getTISItemTypes().contains(itemType))
+                    continue; // if TOSDI, pass TIS items
             }
-            if (itemList != null && itemList.contains(itemType))
-                continue; // if TOS, pass TIS items
+            if ("TOSBD".equals(TalendSwtBotForTos.getBuildType())) {
+                if (!getTOSBDItemTypes().contains(itemType))
+                    continue; // if TOSBD, pass items except TOSBD
+            }
             SWTBotTreeItem treeNode = getTalendItemNode(itemType);
             if (TalendItemType.SQL_TEMPLATES.equals(itemType))
-                treeNode = treeNode.expandNode("Generic", "UserDefined"); // focus on specific sql template type
+                treeNode = treeNode.expandNode("Hive", "UserDefined"); // focus on specific sql template type
             if (TalendItemType.DOCUMENTATION.equals(itemType) || TalendItemType.RECYCLE_BIN.equals(itemType))
                 continue; // undo with documentation and recycle bin
             cleanUpRepository(treeNode);
@@ -604,12 +606,23 @@ public class Utilities {
         itemList.add(TalendItemType.JOBLET_DESIGNS);
         itemList.add(TalendItemType.JOBSCRIPTS);
         itemList.add(TalendItemType.SAP_CONNECTIONS);
+        itemList.add(TalendItemType.SURVIVORSHIP_RULES);
         itemList.add(TalendItemType.BRMS);
         itemList.add(TalendItemType.EMBEDDED_RULES);
-        itemList.add(TalendItemType.COPYBOOK);
         itemList.add(TalendItemType.VALIDATION_RULES);
+        itemList.add(TalendItemType.COPYBOOK);
         itemList.add(TalendItemType.HL7);
         itemList.add(TalendItemType.EDI);
+        return itemList;
+    }
+
+    public static List<TalendItemType> getTOSBDItemTypes() {
+        List<TalendItemType> itemList = new ArrayList<TalendItemType>();
+        itemList.add(TalendItemType.JOB_DESIGNS);
+        itemList.add(TalendItemType.ROUTINES);
+        itemList.add(TalendItemType.SQL_TEMPLATES);
+        itemList.add(TalendItemType.CONTEXTS);
+        itemList.add(TalendItemType.RECYCLE_BIN);
         return itemList;
     }
 
@@ -619,22 +632,35 @@ public class Utilities {
      * @param treeNode treeNode of the tree in repository
      */
     public static void cleanUpRepository(SWTBotTreeItem treeNode) {
+        List<String> items = getItemsForNode(treeNode);
+        if (items.isEmpty())
+            return;
+        SWTBotTreeItemExt treeNodeExt = new SWTBotTreeItemExt(treeNode.select(items.toArray(new String[items.size()])));
+        int count = 0;
+        boolean isDeleted = false;
+        do {
+            try {
+                treeNodeExt.contextMenu("Delete").click();
+                count++;
+                if (count > 3)
+                    throw new Exception();
+            } catch (Exception e) {
+                System.out.println("ERROR: Could not delete items under tree node '" + treeNode.getText() + "'.");
+                e.printStackTrace();
+                return;
+            }
+            if (getItemsForNode(treeNode).isEmpty())
+                isDeleted = true;
+        } while (!isDeleted);
+    }
+
+    private static List<String> getItemsForNode(SWTBotTreeItem treeNode) {
         gefBot.waitUntil(Conditions.widgetIsEnabled(treeNode));
         List<String> items = treeNode.expand().getNodes();
         String exceptItem = "system";
         if (items.contains(exceptItem))
             items.remove(exceptItem);
-        if (items.isEmpty())
-            return;
-        SWTBotTreeItemExt treeNodeExt = new SWTBotTreeItemExt(treeNode.select(items.toArray(new String[items.size()])));
-        try {
-            treeNodeExt.contextMenu("Delete").click();
-        } catch (Exception e) {
-            System.out.println("ERROR: Could not delete items under tree node '" + treeNode.getText() + "'.");
-            e.printStackTrace();
-            return;
-        }
-        cleanUpRepository(treeNode);
+        return items;
     }
 
     public static SWTBotTreeItem createFTP(String ftpName, SWTBotTreeItem treeNode) {

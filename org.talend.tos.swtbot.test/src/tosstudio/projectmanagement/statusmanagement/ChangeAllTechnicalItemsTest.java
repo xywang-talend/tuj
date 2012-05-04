@@ -33,8 +33,6 @@ import org.talend.swtbot.Utilities.TalendItemType;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class ChangeAllTechnicalItemsTest extends TalendSwtBotForTos {
 
-    private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip"; //$NON-NLS-1$
-
     private String[] treeNodes = { "Business Models", "Job Designs", "Contexts", "Code", "SQL Templates", "Metadata",
             "Documentation" };
 
@@ -61,7 +59,7 @@ public class ChangeAllTechnicalItemsTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
-        Utilities.importItems(SAMPLE_RELATIVE_FILEPATH);
+        Utilities.importItems("items_" + getBuildType() + ".zip");
     }
 
     @Test

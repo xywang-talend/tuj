@@ -65,7 +65,7 @@ public class ChangeDatabaseAndRetrieveSchemaTest extends TalendSwtBotForTos {
         gefBot.button("Next >").click();
         gefBot.textWithLabel("DataBase").setText(DATABASE_NAME);
         gefBot.button("Finish").click();
-        if ("TIS".equals(System.getProperty("buildType"))) {
+        if ("TIS".equals(TalendSwtBotForTos.getBuildType())) {
             gefBot.shell("Confirm Reload Connection").activate();
             Utilities.deselectDefaultSelection("reload");
             gefBot.radio("don't reload").click();

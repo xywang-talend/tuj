@@ -30,13 +30,11 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class ExportItemsTest extends TalendSwtBotForTos {
 
-    private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip"; // $NON-NLS-1$
-
     private static final String FILE_SEPARATOR = System.getProperties().getProperty("file.separator"); // $NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
-        Utilities.importItems(SAMPLE_RELATIVE_FILEPATH);
+        Utilities.importItems("items_" + getBuildType() + ".zip");
     }
 
     @Test
@@ -44,9 +42,7 @@ public class ExportItemsTest extends TalendSwtBotForTos {
         gefBot.toolbarButtonWithTooltip("Export Items").click();
         gefBot.shell("Export items").activate();
         gefBot.radio("Select archive file:").click();
-        gefBot.text(1).setText(
-                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getParent() + FILE_SEPARATOR
-                        + "output.zip");
+        gefBot.text(1).setText(Utilities.getFileFromCurrentPluginSampleFolder("") + FILE_SEPARATOR + "output.zip");
         gefBot.tree().setFocus();
         gefBot.button("Select All").click();
         gefBot.button("Finish").click();

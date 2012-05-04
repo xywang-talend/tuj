@@ -88,6 +88,8 @@ public class TalendSwtBotForTos {
 
     private static String buildTitle;
 
+    private static String buildType;
+
     public static List<ERepositoryObjectType> repositories = new ArrayList<ERepositoryObjectType>();
 
     public static Map<ERepositoryObjectType, List<String>> repositoriesFolders = new Hashtable<ERepositoryObjectType, List<String>>();
@@ -120,6 +122,7 @@ public class TalendSwtBotForTos {
                 // ignor this exception, this means there is not Cheat Sheet
             }
             buildTitle = gefBot.activeShell().getText().split("\\(")[0].trim();
+            setBuildType(buildTitle);
         }
     }
 
@@ -198,100 +201,116 @@ public class TalendSwtBotForTos {
         });
     }
 
-	@AfterClass
-	public static void after() throws PersistenceException, CoreException {
-		gefBot.closeAllShells();
-		gefBot.saveAllEditors();
-		gefBot.closeAllEditors();
+    @AfterClass
+    public static void after() throws PersistenceException, CoreException {
+        gefBot.closeAllShells();
+        gefBot.saveAllEditors();
+        gefBot.closeAllEditors();
 
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IWorkspaceRunnable operation = new IWorkspaceRunnable() {
+        IWorkspace workspace = ResourcesPlugin.getWorkspace();
+        IWorkspaceRunnable operation = new IWorkspaceRunnable() {
 
-			public void run(IProgressMonitor monitor){
-				for (ERepositoryObjectType epot : repositories) {
-					System.out.println("ERepositoryObjectType :"
-							+ epot.getAlias() + ", " + epot.getType());
-					final ProxyRepositoryFactory factory = ProxyRepositoryFactory
-							.getInstance();
-					List<IRepositoryViewObject> ivos = null;
-					try {
-						ivos = factory.getAll(epot);
-					} catch (PersistenceException e1) {
-						e1.printStackTrace();
-					}
-					if (ivos != null) {
-						for (final IRepositoryViewObject ivo : ivos) {
+            public void run(IProgressMonitor monitor) {
+                for (ERepositoryObjectType epot : repositories) {
+                    System.out.println("ERepositoryObjectType :" + epot.getAlias() + ", " + epot.getType());
+                    final ProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+                    List<IRepositoryViewObject> ivos = null;
+                    try {
+                        ivos = factory.getAll(epot);
+                    } catch (PersistenceException e1) {
+                        e1.printStackTrace();
+                    }
+                    if (ivos != null) {
+                        for (final IRepositoryViewObject ivo : ivos) {
 
-							try {
-								factory.deleteObjectLogical(ivo);
-								RepositoryManager.refresh(epot);
-								if(!repositoriesFolders.isEmpty()) {
-									try {
-										Thread.sleep(ONE_MINUTE_IN_MILLISEC/2);
-									} catch (InterruptedException e2) {
-										e2.printStackTrace();
-									}
-								}
-								factory.deleteObjectPhysical(ivo);
-							} catch (PersistenceException e) {
-								e.printStackTrace();
-							} catch (BusinessException e) {
-								e.printStackTrace();
-							}
-							
-							RepositoryManager.refresh(epot);
-						}
-					}
-				}
-			}
-		};
-		workspace.run(operation, null);
-		gefBot.resetActivePerspective();
-		Utilities.emptyRecycleBin();
-		
-		IWorkspaceRunnable cleanup = new IWorkspaceRunnable(){
-			public void run(IProgressMonitor monitor){
-				Iterator<ERepositoryObjectType> it = repositoriesFolders
-						.keySet().iterator();
-				List<String> folderPaths;
-				while (it.hasNext()) {
-					ERepositoryObjectType key = it.next();
-					folderPaths = repositoriesFolders.get(key);
-					for (String path : folderPaths) {
-						IFolder folder = project.getFolder(key.getFolder()
-								+ "/" + path);
-						if (folder.exists()) {
-							try {
-								folder.delete(true, false, null);
-							} catch (CoreException e) {
-								e.printStackTrace();
-							}
-						}
-					}
-				}
-				try {
-					project.refreshLocal(IResource.DEPTH_INFINITE, null);
-				} catch (CoreException e) {
-					e.printStackTrace();
-				}
-				gefBot.resetActivePerspective();
-			}
-		};
-		workspace.run(cleanup, null);
-		
-		repositories.clear();
-		repositoriesFolders.clear();
-		
-	}
+                            try {
+                                factory.deleteObjectLogical(ivo);
+                                RepositoryManager.refresh(epot);
+                                if (!repositoriesFolders.isEmpty()) {
+                                    try {
+                                        Thread.sleep(ONE_MINUTE_IN_MILLISEC / 2);
+                                    } catch (InterruptedException e2) {
+                                        e2.printStackTrace();
+                                    }
+                                }
+                                factory.deleteObjectPhysical(ivo);
+                            } catch (PersistenceException e) {
+                                e.printStackTrace();
+                            } catch (BusinessException e) {
+                                e.printStackTrace();
+                            }
 
+                            RepositoryManager.refresh(epot);
+                        }
+                    }
+                }
+            }
+        };
+        workspace.run(operation, null);
+        gefBot.resetActivePerspective();
+        Utilities.emptyRecycleBin();
+
+        IWorkspaceRunnable cleanup = new IWorkspaceRunnable() {
+
+            public void run(IProgressMonitor monitor) {
+                Iterator<ERepositoryObjectType> it = repositoriesFolders.keySet().iterator();
+                List<String> folderPaths;
+                while (it.hasNext()) {
+                    ERepositoryObjectType key = it.next();
+                    folderPaths = repositoriesFolders.get(key);
+                    for (String path : folderPaths) {
+                        IFolder folder = project.getFolder(key.getFolder() + "/" + path);
+                        if (folder.exists()) {
+                            try {
+                                folder.delete(true, false, null);
+                            } catch (CoreException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+                try {
+                    project.refreshLocal(IResource.DEPTH_INFINITE, null);
+                } catch (CoreException e) {
+                    e.printStackTrace();
+                }
+                gefBot.resetActivePerspective();
+            }
+        };
+        workspace.run(cleanup, null);
+
+        repositories.clear();
+        repositoriesFolders.clear();
+
+    }
 
     /**
      * Get the testing build title.
      * 
      * @return build title
      */
-    public String getBuildTitle() {
+    public static String getBuildTitle() {
         return buildTitle;
+    }
+
+    public static String getBuildType() {
+        return buildType;
+    }
+
+    public static void setBuildType(String buildTitle) {
+        if ("Talend Platform Big Data edition".equals(buildTitle)) {
+            buildType = "TIS";
+            return;
+        }
+        if ("Talend Open Studio for Data Integration".equals(buildTitle)) {
+            buildType = "TOSDI";
+            return;
+        }
+        if ("Talend Open Studio for Big Data".equals(buildTitle)) {
+            buildType = "TOSBD";
+            return;
+        }
+        buildType = "UNKNOWN";
     }
 
 }

@@ -32,8 +32,6 @@ import org.talend.swtbot.Utilities.TalendItemType;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class ImportItemsTest extends TalendSwtBotForTos {
 
-    private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip";
-
     @Before
     public void initialisePrivateFields() {
 
@@ -41,19 +39,27 @@ public class ImportItemsTest extends TalendSwtBotForTos {
 
     @Test
     public void importItems() throws IOException, URISyntaxException {
-        Utilities.importItems(SAMPLE_RELATIVE_FILEPATH);
+        Utilities.importItems("items_" + getBuildType() + ".zip");
 
         Utilities.getRepositoryTree().setFocus();
         for (TalendItemType itemType : TalendItemType.values()) {
-            if (Utilities.getTISItemTypes().contains(itemType))
-                continue;
+            String itemVersion = " 0.1";
+            if ("TOSDI".equals(TalendSwtBotForTos.getBuildType())) {
+                if (Utilities.getTISItemTypes().contains(itemType))
+                    continue; // if TOSDI, pass TIS items
+            }
+            if ("TOSBD".equals(TalendSwtBotForTos.getBuildType())) {
+                if (!Utilities.getTOSBDItemTypes().contains(itemType))
+                    continue; // if TOSBD, pass items except TOSBD
+                itemVersion = "";
+            }
             SWTBotTreeItem treeNode = Utilities.getTalendItemNode(itemType);
             if (TalendItemType.SQL_TEMPLATES.equals(itemType))
-                treeNode = treeNode.expandNode("Generic", "UserDefined"); // focus on specific sql template type
+                treeNode = treeNode.expandNode("Hive", "UserDefined"); // focus on specific sql template type
             if (TalendItemType.DOCUMENTATION.equals(itemType) || TalendItemType.RECYCLE_BIN.equals(itemType))
                 continue; // undo with documentation and recycle bin
             if (treeNode.rowCount() != 0) {
-                SWTBotTreeItem newTreeItem = treeNode.select(itemType.toString() + " 0.1");
+                SWTBotTreeItem newTreeItem = treeNode.select(itemType.toString() + itemVersion);
                 Assert.assertNotNull(itemType.toString() + " item not exist", newTreeItem);
             }
         }

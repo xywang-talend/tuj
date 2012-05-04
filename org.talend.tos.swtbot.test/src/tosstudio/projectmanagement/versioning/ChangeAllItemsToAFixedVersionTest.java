@@ -34,11 +34,9 @@ import org.talend.swtbot.Utilities.TalendItemType;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
 
-    private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip"; //$NON-NLS-1$
-
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
-        Utilities.importItems(SAMPLE_RELATIVE_FILEPATH);
+        Utilities.importItems("items_" + getBuildType() + ".zip");
     }
 
     @Test
@@ -50,7 +48,7 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
         List<TalendItemType> itemTypes = new ArrayList<TalendItemType>();
         for (TalendItemType itemType : TalendItemType.values())
             itemTypes.add(itemType);
-        if ("TOS".equals(System.getProperty("buildType")))
+        if ("TOSDI".equals(TalendSwtBotForTos.getBuildType()))
             itemTypes.removeAll(Utilities.getTISItemTypes());
         // undo assert for under items, cause did not import these items
         itemTypes.remove(TalendItemType.SERVICES);
