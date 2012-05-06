@@ -38,7 +38,7 @@ public class Login extends Base{
 	    firefoxProfile.setPreference("dom.max_script_run_time", 0);
 	    firefoxProfile.setPreference("dom.max_chrome_script_run_time", 0);
 
-	    firefoxProfile.setEnableNativeEvents(true);
+//	    firefoxProfile.setEnableNativeEvents(true);
 	    
 	    driver = new FirefoxDriver(firefoxProfile);
 	    
