@@ -48,7 +48,7 @@ public class RestoreItemsFromRecycleBinTest extends TalendSwtBotForTos {
     @Test
     public void restoreItemsFromRecycleBin() {
         recycleBinNode = Utilities.getTalendItemNode(Utilities.TalendItemType.RECYCLE_BIN);
-        recycleBinNode.getNode(JOBNAME + " 0.1 ()").contextMenu("Restore").click();
+        recycleBinNode.getNode(jobItem.getItemFullName() + " ()").contextMenu("Restore").click();
 
         SWTBotTreeItem parent = jobItem.getParentNode();
         SWTBotTreeItem item = parent.expand().getNode(jobItem.getItemFullName());

@@ -21,6 +21,7 @@ import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
+import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.Utilities.TalendItemType;
 
@@ -37,7 +38,7 @@ public class TalendItem implements Cloneable {
 
     protected String itemName;
 
-    protected String itemVersion = "0.1"; //$NON-NLS-1$
+    protected String itemVersion;
 
     protected String folderPath;
 
@@ -56,7 +57,12 @@ public class TalendItem implements Cloneable {
 
     public TalendItem(String itemName, TalendItemType itemType) {
         this.itemName = itemName;
-        this.itemFullName = this.itemName + " " + this.itemVersion;
+        if ("TOSBD".equals(TalendSwtBotForTos.getBuildType())) {
+            this.itemFullName = this.itemName;
+        } else {
+            this.itemVersion = "0.1";
+            this.itemFullName = this.itemName + " " + this.itemVersion;
+        }
         initialise(itemType);
     }
 
@@ -87,6 +93,11 @@ public class TalendItem implements Cloneable {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
+        if ("TOSBD".equals(TalendSwtBotForTos.getBuildType()) || this.itemVersion == null) {
+            this.itemFullName = this.itemName;
+        } else {
+            this.itemFullName = this.itemName + " " + this.itemVersion;
+        }
     }
 
     public TalendItemType getItemType() {
@@ -118,7 +129,10 @@ public class TalendItem implements Cloneable {
     }
 
     public void setItemVersion(String itemVersion) {
-        this.itemVersion = itemVersion;
+        if (!"TOSBD".equals(TalendSwtBotForTos.getBuildType())) {
+            this.itemVersion = itemVersion;
+            this.itemFullName = this.itemName + " " + this.itemVersion;
+        }
     }
 
     public String getFolderPath() {
@@ -190,7 +204,8 @@ public class TalendItem implements Cloneable {
         TalendItem duplicateItem = (TalendItem) this.clone();
         SWTBotTreeItem newItem = null;
         try {
-            newItem = parentNode.getNode(newItemName + " " + itemVersion);
+            duplicateItem.setItemName(newItemName);
+            newItem = parentNode.getNode(duplicateItem.getItemFullName());
         } catch (WidgetNotFoundException e) {
             Assert.fail("duplicate of item '" + itemFullName + "' does not exist");
         } finally {
@@ -291,7 +306,7 @@ public class TalendItem implements Cloneable {
                 gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
             }
             parentNode.setFocus();
-            newTreeItem = parentNode.expand().select(itemName + " 0.1");
+            newTreeItem = parentNode.expand().select(itemFullName);
             newTreeItem.setFocus();
         } catch (Exception e) {
             e.printStackTrace();
@@ -299,7 +314,7 @@ public class TalendItem implements Cloneable {
             Assert.assertNotNull("item is not created", newTreeItem);
         }
 
-        setItem(parentNode.getNode(itemName + " 0.1"));
+        setItem(parentNode.getNode(itemFullName));
     }
 
     protected Object clone() {

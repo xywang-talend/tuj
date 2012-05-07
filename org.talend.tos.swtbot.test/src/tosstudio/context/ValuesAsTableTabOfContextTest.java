@@ -60,7 +60,7 @@ public class ValuesAsTableTabOfContextTest extends TalendSwtBotForTos {
     public void valuesOfTableOfContext() {
         SWTBotGefEditor gefEditor = jobItem.getEditor();
         Utilities.dndMetadataOntoJob(gefEditor, contextItem.getItem(), null, new Point(20, 20));
-        gefBot.viewByTitle("Contexts(Job " + jobName + " 0.1)").setFocus();
+        gefBot.viewByTitle("Contexts(" + jobItem.getEditor().getTitle() + ")").setFocus();
 
         // test if is able to set one of context is default
         gefBot.cTabItem("Values as table").activate();

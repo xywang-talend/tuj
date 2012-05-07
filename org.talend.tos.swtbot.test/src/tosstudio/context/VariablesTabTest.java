@@ -54,7 +54,7 @@ public class VariablesTabTest extends TalendSwtBotForTos {
 
     @Test
     public void variablesTabTest() {
-        gefBot.viewByTitle("Contexts(Job " + jobItem.getItemFullName() + ")").setFocus();
+        gefBot.viewByTitle("Contexts(" + jobItem.getEditor().getTitle() + ")").setFocus();
         gefBot.cTabItem("Variables").activate();
         SWTBotTree varTree = gefBot.tree(0);
         SWTBotButton addBtn = gefBot.button(0);

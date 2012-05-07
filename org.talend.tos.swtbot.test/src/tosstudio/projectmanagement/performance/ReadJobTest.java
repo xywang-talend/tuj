@@ -13,8 +13,8 @@
 package tosstudio.projectmanagement.performance;
 
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotCTabItem;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,8 +45,8 @@ public class ReadJobTest extends TalendSwtBotForTos {
         jobItem.getEditor().saveAndClose();
         jobItem.getItem().contextMenu("Read job").click();
 
-        SWTBotCTabItem newTabItem = gefBot.cTabItem("Job " + JOBNAME + " 0.1");
-        Assert.assertNotNull("job tab is not opened", newTabItem);
+        SWTBotGefEditor jobEditor = jobItem.getEditor();
+        Assert.assertNotNull("job tab is not opened", jobEditor);
         jobItem.getEditor().activateTool("tMsgBox").click(100, 100);
         SWTBotGefEditPart msgBox = getTalendComponentPart(jobItem.getEditor(), "tMsgBox_1");
         Assert.assertNull("Job can be edit", msgBox);

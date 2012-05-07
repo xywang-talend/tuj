@@ -61,7 +61,7 @@ public class ValuesAsTreeTabOfContextTest extends TalendSwtBotForTos {
     public void valueTreeOfContext() {
         SWTBotGefEditor jobEditor = jobItem.getEditor();
         Utilities.dndMetadataOntoJob(jobEditor, contextItem.getItem(), null, new Point(20, 20));
-        gefBot.viewByTitle("Contexts(Job " + jobName + " 0.1)").setFocus();
+        gefBot.viewByTitle("Contexts(" + jobItem.getEditor().getTitle() + ")").setFocus();
         gefBot.cTabItem("Values as tree").activate();
 
         // test if order by variable

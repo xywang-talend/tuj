@@ -48,7 +48,7 @@ public class DeleteItemsFromRecycleBinTest extends TalendSwtBotForTos {
     @Test
     public void deleteItemsFromRecycleBin() {
         recycleBinNode = Utilities.getTalendItemNode(Utilities.TalendItemType.RECYCLE_BIN);
-        recycleBinNode.getNode(JOBNAME + " 0.1 ()").contextMenu("Delete forever").click();
+        recycleBinNode.getNode(jobItem.getItemFullName() + " ()").contextMenu("Delete forever").click();
         gefBot.shell("Delete forever").activate();
         gefBot.button("Yes").click();
         gefBot.waitUntil(new DefaultCondition() {
