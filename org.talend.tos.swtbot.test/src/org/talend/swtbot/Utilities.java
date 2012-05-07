@@ -173,7 +173,7 @@ public class Utilities {
      */
     public static void emptyRecycleBin() {
         try {
-        	Thread.sleep(1000);
+        	Thread.sleep(3000);
             SWTBotTreeItem recycleBin = tree.expandNode("Recycle bin").select();
             gefBot.waitUntil(Conditions.widgetIsEnabled(recycleBin));
             if (recycleBin.rowCount() != 0) {
@@ -181,7 +181,7 @@ public class Utilities {
                 recycleBin.contextMenu("Empty recycle bin").click();
                 gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
                 gefBot.button("Yes").click();
-            	Thread.sleep(1000);
+            	Thread.sleep(3000);
             }
         } catch (Exception e) {
             gefBot.closeAllShells();
