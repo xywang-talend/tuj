@@ -480,7 +480,7 @@ public void maxARecordPanel(){
 	
 	Actions builder = new Actions(driver);
 	builder.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))))
-	.moveToElement(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), 2, -2).release().build().perform();	
+	.moveToElement(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.choose.create"))), 2, -2).release().build().perform();	
 	
 //	this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -a.x+b.x+50, 0);
 }
