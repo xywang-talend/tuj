@@ -2,7 +2,9 @@ package org.talend.swtbot.test.commons;
 
 //Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 
-import java.io.BufferedReader;
+
+
+import java.io.File;
 
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.swt.graphics.Point;
@@ -11,7 +13,6 @@ import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefFigureCanvas;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
@@ -139,7 +140,7 @@ public class JobHelper  {
     }
 		
 	    public static void  CreateJob(String fileName){
-	    	bot.viewByTitle("DQ Repository").setFocus();
+	    	bot.viewByTitle("Repository").setFocus();
 	    	tree = new SWTBotTree((Tree)bot.widget(WidgetOfType.widgetOfType(Tree.class),
 					bot.viewByTitle("Repository").getWidget()));
 			tree.expandNode("Job Designs").select();
@@ -178,131 +179,32 @@ public class JobHelper  {
 	    	
 	    	
 	    }
-    /**
-     *  
-        
-            gefBot.table(0).getTableItem(componentLabel).select();
-            gefBot.button("OK").click();
-            if (componentLabel.equals("tFileInputPositional"))
-                gefBot.button("OK").click();
+	    
+	    public static String getExpectResultFromFile(String fileName){
+	    	
+	    	String result = null;
+	   // 	File resultFile = new File();
+	    	return result;
+	    }
+	    /***
+	     * public static String getExpectResultFromFile(String fileName) {
+        String result = null;
+        try {
+            File resultFile = Utilities.getFileFromCurrentPluginSampleFolder(fileName);
+            BufferedReader reader = new BufferedReader(new FileReader(resultFile));
+            String tempStr = null;
+            StringBuffer rightResult = new StringBuffer();
+            while ((tempStr = reader.readLine()) != null)
+                rightResult.append(tempStr + "\n");
+            result = rightResult.toString().trim();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        if (gefBot.activeShell().getText().equals("Added context"))
-            gefBot.button("Yes").click();
+
+        return result;
     }
-     */
-
-
-
-    /**
-     * Link input component to tLogRow.
-     * 
-     * @param jobEditor
-     * @param component The input component
-     * @param rowName The name of row in the context menu of component.
-     * @param point Where to put component 'tLogRow'
-     * @param tLogRowName Actual name of component 'tLogRow' in job.
-     */
-//    public static void connect2TLogRow(SWTBotGefEditor jobEditor, SWTBotGefEditPart component, String rowName, Point point,
-//            String tLogRowName) {
-//        Utilities.dndPaletteToolOntoJob(jobEditor, "tLogRow", point);
-//        SWTBotGefEditPart tLogRow = UTIL.getTalendComponentPart(jobEditor, tLogRowName);
-//        Assert.assertNotNull("can not get component '" + tLogRowName + "'", tLogRow);
-//        connect(jobEditor, component, tLogRow, rowName);
-//    }
-//
-//    /**
-//     * Link input component to tLogRow. "tLogRow_1" as default component name.
-//     * 
-//     * @param jobEditor
-//     * @param component The input component
-//     * @param rowName The name of row in the context menu of component.
-//     * @param point Where to put component 'tLogRow'
-//     */
-//    public static void connect2TLogRow(SWTBotGefEditor jobEditor, SWTBotGefEditPart component, String rowName, Point point) {
-//        connect2TLogRow(jobEditor, component, rowName, point, "tLogRow_1");
-//    }
-//
-//    /**
-//     * Link input component to tLogRow. "tLogRow_1" as default component name. "Main" as default row name.
-//     * 
-//     * @param jobEditor
-//     * @param component The input component
-//     * @param point Where to put component 'tLogRow'
-//     */
-//    public static void connect2TLogRow(SWTBotGefEditor jobEditor, SWTBotGefEditPart component, Point point) {
-//        connect2TLogRow(jobEditor, component, "Main", point);
-//    }
-//
-//    /**
-//     * Link input component to tLogRow. "Main" as default row name.
-//     * 
-//     * @param jobEditor
-//     * @param component The input component
-//     * @param point Where to put component 'tLogRow'
-//     * @param tLogRowName Actual name of component 'tLogRow' in job.
-//     */
-//    public static void connect2TLogRow(SWTBotGefEditor jobEditor, SWTBotGefEditPart component, Point point, String tLogRowName) {
-//        connect2TLogRow(jobEditor, component, "Main", point, tLogRowName);
-//    }
-//
-//    public static void connect(SWTBotGefEditor jobEditor, SWTBotGefEditPart sourceComponent, SWTBotGefEditPart targetComponent,
-//            String rowName) {
-//        jobEditor.select(sourceComponent).setFocus();
-//        sourceComponent.click();
-//        jobEditor.clickContextMenu("Row").clickContextMenu(rowName);
-//        jobEditor.click(targetComponent);
-//        jobEditor.save();
-//    }
-//
-//    public static void connect(SWTBotGefEditor jobEditor, SWTBotGefEditPart sourceComponent, SWTBotGefEditPart targetComponent) {
-//        connect(jobEditor, sourceComponent, targetComponent, "Main");
-//    }
-//
-//    /**
-//     * Helper method for activate components from palette to job. Same as
-//     * <code>jobEditor.activateTool(toolLabel).click(locationOnJob.x, locationOnJob.y);</code>
-//     * 
-//     * @param jobEditor
-//     * @param toolLabel
-//     * @param locationOnJob
-//     */
-//    public void activateTool(SWTBotGefEditor jobEditor, String toolLabel, Point locationOnJob) {
-//        GEFBOT.viewByTitle("Palette").setFocus();
-//        GEFBOT.textWithTooltip("Enter component prefix or template (*, ?)").setText(toolLabel);
-//        GEFBOT.toolbarButtonWithTooltip("Search").click();
-//        GEFBOT.sleep(500);
-//
-//        SWTBotGefFigureCanvas paletteFigureCanvas = new SWTBotGefFigureCanvas((FigureCanvas) GEFBOT.widget(WidgetOfType
-//                .widgetOfType(FigureCanvas.class)));
-//        SWTBotGefFigureCanvas jobFigureCanvas = new SWTBotGefFigureCanvas((FigureCanvas) GEFBOT.widget(
-//                WidgetOfType.widgetOfType(FigureCanvas.class), jobEditor.getWidget()));
-//
-//        int x = 50;
-//        int y = 50;
-//        int folderLevel = 1;
-//        if (toolLabel.contains("tFile") || toolLabel.contains("tAdvanced"))
-//            folderLevel = 2;
-//
-//        DndUtil dndUtil = new DndUtil(jobEditor.getWidget().getDisplay());
-//        dndUtil.dragAndDrop(paletteFigureCanvas, new Point(x, y + 20 * folderLevel), jobFigureCanvas, locationOnJob);
-//    }
-//
-//    public static String getExpectResultFromFile(String fileName) {
-//        String result = null;
-//        try {
-//            File resultFile = Utilities.getFileFromCurrentPluginSampleFolder(fileName);
-//            BufferedReader reader = new BufferedReader(new FileReader(resultFile));
-//            String tempStr = null;
-//            StringBuffer rightResult = new StringBuffer();
-//            while ((tempStr = reader.readLine()) != null)
-//                rightResult.append(tempStr + "\n");
-//            result = rightResult.toString().trim();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return result;
-//    }
+	     */
+   
 
 }
 

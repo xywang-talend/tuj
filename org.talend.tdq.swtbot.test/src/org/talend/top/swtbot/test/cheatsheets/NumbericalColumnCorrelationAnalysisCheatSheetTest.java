@@ -43,8 +43,8 @@ public class NumbericalColumnCorrelationAnalysisCheatSheetTest extends TalendSwt
 				.widgetOfType(Tree.class)));
 		tree.expandNode("tbi").getNode(0).expand().select("customer");
 		String[] columns = TalendSwtbotTdqCommon.getColumns(bot,
-				TalendMetadataTypeEnum.MYSQL, "tbi", "customer", "customer_id",
-				"address4");
+				TalendMetadataTypeEnum.MYSQL, "tbi", "customer", "address4",
+				"customer_region_id");
 		bot.table().getTableItem(columns[0]).check();
 		bot.table().getTableItem(columns[1]).check();
 		bot.button("OK").click();

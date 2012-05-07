@@ -40,6 +40,7 @@ public class ChangeAnaConnTest extends TalendSwtbotForTdq {
 				"address2");
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
 				.show();
+		bot.comboBox(0).setText(TalendMetadataTypeEnum.POSTGRESQL.toString());
 		bot.ccomboBox(1).setSelection(TalendMetadataTypeEnum.MYSQL.toString());
 		formBot.hyperlink("Select columns to analyze").click();
 		bot.waitUntil(Conditions.shellIsActive("Column Selection"));

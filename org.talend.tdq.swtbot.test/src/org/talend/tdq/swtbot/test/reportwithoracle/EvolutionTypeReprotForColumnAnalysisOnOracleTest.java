@@ -42,7 +42,7 @@ private final String REPORTLABEL = "report_evolution_oracle";
 		tree.expandNode("tbi").getNode(0).expand().select("customer");
 		bot.table().getTableItem(birthdate).check();
 		bot.button("OK").click();
-		formBot.ccomboBox(2).setSelection("Interval");
+		formBot.ccomboBox(1).setSelection("Interval");
 		bot.toolbarButtonWithTooltip("Save").click();
 		formBot.hyperlink("Select indicators for each column").click();
 		bot.waitUntil(Conditions.shellIsActive("Indicator Selection"));

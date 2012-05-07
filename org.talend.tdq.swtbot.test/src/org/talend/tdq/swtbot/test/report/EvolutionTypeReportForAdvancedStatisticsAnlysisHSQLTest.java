@@ -38,7 +38,7 @@ private final String REPORTLABEL = "advancedStatistics_evolution_report_HSQL";
 		tree.expandNode("tbi").getNode(0).expand().select("customer");
 		bot.table().getTableItem(customer).check();
 		bot.button("OK").click();
-		formBot.ccomboBox(2).setSelection("Interval");
+		formBot.ccomboBox(1).setSelection("Interval");
 		bot.toolbarButtonWithTooltip("Save").click();
 		formBot.hyperlink("Select indicators for each column").click();
 		bot.waitUntil(Conditions.shellIsActive("Indicator Selection"));

@@ -48,7 +48,7 @@ public class NewReportTest extends TalendSwtbotForTdq {
 		tree.expandNode("tbi").getNode(0).expand().select("customer");
 		bot.table().getTableItem(address1).check();
 		bot.button("OK").click();
-		formBot.ccomboBox(2).setSelection("Nominal");
+		formBot.ccomboBox(1).setSelection("Nominal");
 		bot.toolbarButtonWithTooltip("Save").click();
 		formBot.hyperlink("Select indicators for each column").click();
 		bot.waitUntil(Conditions.shellIsActive("Indicator Selection"));

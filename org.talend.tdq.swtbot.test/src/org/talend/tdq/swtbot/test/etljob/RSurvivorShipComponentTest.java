@@ -28,7 +28,7 @@ public class RSurvivorShipComponentTest extends TalendSwtbotForTdq{
 	@Before
 	public void beforeClass(){
 		gefBot.menu("Window").menu("Perspective").menu("Integration").click();
-		TalendSwtbotTdqCommon.createFileDelimitedConnectionTxt(bot, FILENAME);
+		TalendSwtbotTdqCommon.createJobFileDelimitedConnectionTxt(bot, FILENAME);
 		JobHelper.CreateJob(JOBNAME);
 	}
 		
@@ -39,10 +39,10 @@ public class RSurvivorShipComponentTest extends TalendSwtbotForTdq{
 		bot.viewByTitle("Repository").setFocus();
 		SWTBotTree tree = new SWTBotTree((Tree)bot.widget(WidgetOfType.widgetOfType(Tree.class),
 				bot.viewByTitle("Repository").getWidget()));
-		SWTBotTreeItem sourceItem = tree.expandNode("Metadata","File Delimited").getNode(0).select();
+		SWTBotTreeItem sourceItem = tree.expandNode("Metadata","File delimited").getNode(0).select();
 		
-		JobHelper.dndMetadataOntoJob(jobEditor, sourceItem, "metadata", new Point(100,100));
-		SWTBotGefEditPart metadata = getTalendComponentPart(jobEditor, "metadata");
+		JobHelper.dndMetadataOntoJob(jobEditor, sourceItem, "fFileInputDelimited", new Point(100,100));
+		SWTBotGefEditPart metadata = getTalendComponentPart(jobEditor, "fFileInputDelimited");
 	    Assert.assertNotNull("can not get component 'tRowGenerator'", metadata);
 		JobHelper.dndPaletteToolOntoJob(jobEditor, "tMatchGroup", new Point(250,100));
 		SWTBotGefEditPart tMatchGroup1 = getTalendComponentPart(jobEditor, "tMatchGroup_1");
@@ -113,8 +113,10 @@ public class RSurvivorShipComponentTest extends TalendSwtbotForTdq{
        /* Run the job */
        JobHelper.runJob(6000);
 	   
-	
-		
+       String result = JobHelper.execResultFilter(JobHelper.getExecutionResult());
+	    if(result != null &&  !"".equals(result))
+	        	Assert.fail("this job can't run correctly"+result+"**********");
+		/*¶ÁÎÄ¼þ*/
 	}
 	
 	@After

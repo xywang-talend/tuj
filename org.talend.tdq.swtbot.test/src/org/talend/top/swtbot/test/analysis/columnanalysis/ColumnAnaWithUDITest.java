@@ -59,7 +59,7 @@ public class ColumnAnaWithUDITest extends TalendSwtbotForTdq {
 		bot.table().getTableItem(column).check();
 		bot.button("OK").click();
 		
-		bot.ccomboBox(2).setSelection("Nominal");
+		bot.ccomboBox(1).setSelection("Nominal");
 		tree = new SWTBotTree((Tree) bot.widget(
 				WidgetOfType.widgetOfType(Tree.class),
 				bot.editorByTitle(

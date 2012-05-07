@@ -48,7 +48,7 @@ public class LaunchReportETLJobWithWorkspaceIsNotTheDefualtOneTest extends Talen
 		bot.table().getTableItem(column).check();
 		bot.button("OK").click();
 		bot.waitUntil(Conditions.shellCloses(shell));
-		formBot.ccomboBox(2).setSelection("Nominal");
+		formBot.ccomboBox(1).setSelection("Nominal");
 		if (bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
 				.isDirty())
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")

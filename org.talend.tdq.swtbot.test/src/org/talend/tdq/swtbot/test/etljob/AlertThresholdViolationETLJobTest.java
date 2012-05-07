@@ -105,7 +105,7 @@ public class AlertThresholdViolationETLJobTest extends TalendSwtbotForTdq{
 	        gefBot.viewByTitle("Component").setFocus();
 	        SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
 	        gefBot.text(0).selectAll().typeText("\""+System.getProperty("sendMail.to")+"\"",0);
-	        gefBot.text(1).selectAll().typeText("\""+System.getProperty("sendMail.from")+"\"",0);
+	        gefBot.text(1).selectAll().typeText(" \""+System.getProperty("sendMail.from")+"\"",0);
 	        gefBot.text(7).selectAll().typeText("\""+System.getProperty("sendMail.name")+"\"",0);
 	        gefBot.text(8).selectAll().typeText("\""+System.getProperty("sendMail.password")+"\"",0);
 	        gefBot.text(5).selectAll().typeText("\""+System.getProperty("sendMail.SMTPhost")+"\"",1);

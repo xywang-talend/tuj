@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.forms.finder.finders.SWTFormsBot;
@@ -12,6 +14,7 @@ import org.eclipse.swtbot.swt.finder.keyboard.Keystrokes;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCCombo;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotCombo;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
@@ -20,6 +23,7 @@ import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.hamcrest.Matcher;
 import org.junit.Assert;
 
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
 import static org.eclipse.swtbot.swt.finder.matchers.WithText.withText;
 import static org.eclipse.swtbot.swt.finder.matchers.AllOf.allOf;
 /**
@@ -287,7 +291,7 @@ public class TalendSwtbotTdqCommon {
 			bot.textWithLabel("Name").setText(fileName);
 			bot.button("Next >").click();
 			bot.textWithLabel("File").setText(
-					System.getProperty("delimitedFile.PathTxt"));
+					System.getProperty("delimitedFile.Path"));
 			bot.button("Next >").click();
 			bot.ccomboBox(1).setSelection("Tabulation");
 			bot.button("Set heading row cloumn names").click();
@@ -301,6 +305,45 @@ public class TalendSwtbotTdqCommon {
 		}
 		SWTBotTreeItem newCsvItem = tree
 				.expandNode("Metadata", "FileDelimited connections").select(fileName);
+		Assert.assertNotNull(newCsvItem);
+	}
+	
+	public static void createJobFileDelimitedConnectionTxt(SWTWorkbenchBot bot,
+			String fileName) {
+		bot.viewByTitle("Repository").setFocus();
+		tree = new SWTBotTree((Tree) bot.widget(
+				WidgetOfType.widgetOfType(Tree.class),
+				bot.viewByTitle("Repository").getWidget()));
+		tree.expandNode("Metadata").select("File delimited");
+		ContextMenuHelper.clickContextMenu(tree,
+				"Create file delimited");
+		bot.waitUntil(Conditions.shellIsActive("New Delimited File"));
+		try {
+			shell = bot.shell("New Delimited File");
+			bot.textWithLabel("Name").setText(fileName);
+			bot.button("Next >").click();
+			bot.textWithLabel("File").setText(
+					System.getProperty("delimitedFile.PathTxt"));
+			bot.button("Next >").click();
+			bot.shell("New Delimited File").activate();
+//			bot.comboBox("Semicolon").setSelection("Tabulation");
+			bot.comboBoxWithLabel("Field Separator").setSelection("Tabulation");
+			for(Combo c :bot.widgets(widgetOfType(Combo.class), bot.shell("New Delimited File").widget)){
+				System.out.println(new SWTBotCombo(c).getText());
+			}
+			System.out.println(bot.checkBox(5).getText());
+			bot.checkBox("Set heading row as column names").click();
+			bot.button("Refresh Preview").click();
+			bot.sleep(5000);
+			bot.button("Refresh Preview").click();
+			bot.button("Next >").click();
+			bot.button("Finish").click();
+		} catch (Exception e) {
+			shell.close();
+			return;
+		}
+		SWTBotTreeItem newCsvItem = tree
+				.expandNode("Metadata", "File delimited").select(fileName+" 0.1");
 		Assert.assertNotNull(newCsvItem);
 	}
 
@@ -407,6 +450,60 @@ public class TalendSwtbotTdqCommon {
 			}
 			bot.button("Next >").click();
 			bot.textWithLabel("Name").setText(analysisType.toString());
+			bot.sleep(2000);
+			bot.button("Finish").click();
+		} catch (WidgetNotFoundException e) {
+			bot.shell("Create New Analysis").close();
+			return;
+		}
+	}
+	public static void createAnalysis(SWTWorkbenchBot bot,
+			TalendAnalysisTypeEnum analysisType,String view) {
+		bot.viewByTitle("DQ Repository").setFocus();
+		tree = new SWTBotTree((Tree) bot.widget(
+				WidgetOfType.widgetOfType(Tree.class),
+				bot.viewByTitle("DQ Repository").getWidget()));
+		tree.expandNode("Data Profiling").getNode(0).select();
+		ContextMenuHelper.clickContextMenu(tree, "New Analysis");
+		bot.waitUntil(Conditions.shellIsActive("Create New Analysis"));
+
+		tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
+				.widgetOfType(Tree.class)));
+		try {
+			switch (analysisType) {
+			case DQRULE:
+				tree.expandNode("Table Analysis").select(
+						"Business Rule Analysis");
+				break;
+			case FUNCTIONAL:
+				tree.expandNode("Table Analysis").select(
+						"Functional Dependency");
+				break;
+			case COLUMNSET:
+				tree.expandNode("Table Analysis").select("Column Set Analysis");
+				break;
+			case COLUMN:
+				tree.expandNode("Column Analysis").select("Column Analysis");
+				break;
+			case REDUNDANCY:
+				tree.expandNode("Redundancy Analysis").select(
+						"Column Content Comparison");
+				break;
+			case NUMERICAL_CORRELATION:
+				tree.expandNode("Column Correlation Analysis").select(
+						"Numerical Correlation Analysis");
+				break;
+			case TIME_CORRELATION:
+				tree.expandNode("Column Correlation Analysis").select(
+						"Time Correlation Analysis");
+				break;
+			case NOMINAL_CORRELATION:
+				tree.expandNode("Column Correlation Analysis").select(
+						"Nominal Correlation Analysis");
+				break;
+			}
+			bot.button("Next >").click();
+			bot.textWithLabel("Name").setText(view);
 			bot.sleep(2000);
 			bot.button("Finish").click();
 		} catch (WidgetNotFoundException e) {
@@ -908,6 +1005,94 @@ public class TalendSwtbotTdqCommon {
 					.expandNode(table).getNode(0);
 			SWTBotTreeItem[] columnsItem = columnsNode.expand().getItems();
 			int count = Integer.parseInt(columnsNode.getText().substring(
+					columnsNode.getText().indexOf("(") + 1,
+					columnsNode.getText().indexOf(")")));
+			for (int i = 0; i < columns.length; i++) {
+				for (int j = 0; j < count - 1; j++) {
+					if (columnsItem[j].getText().startsWith(columns[i])) {
+						columns[i] = columnsItem[j].getText();
+						break;
+					}
+				}
+			}
+			break;
+		case AS400:
+			columnsNode = tree
+					.expandNode("Metadata", "DB connections",
+							metadata.toString(), structure).getNode(0).expand().getNode(0).expand()
+					.expandNode(table).getNode(0);
+		   columnsItem = columnsNode.expand().getItems();
+		   count = Integer.parseInt(columnsNode.getText().substring(
+					columnsNode.getText().indexOf("(") + 1,
+					columnsNode.getText().indexOf(")")));
+			for (int i = 0; i < columns.length; i++) {
+				for (int j = 0; j < count - 1; j++) {
+					if (columnsItem[j].getText().startsWith(columns[i])) {
+						columns[i] = columnsItem[j].getText();
+						break;
+					}
+				}
+			}
+			break;
+		case MSSQL:
+			columnsNode = tree
+			.expandNode("Metadata", "DB connections",
+					metadata.toString(), structure).getNode(1).expand().getNode(0).expand()
+			.expandNode(table).getNode(0);
+			columnsItem = columnsNode.expand().getItems();
+			count = Integer.parseInt(columnsNode.getText().substring(
+					columnsNode.getText().indexOf("(") + 1,
+					columnsNode.getText().indexOf(")")));
+			for (int i = 0; i < columns.length; i++) {
+				for (int j = 0; j < count - 1; j++) {
+					if (columnsItem[j].getText().startsWith(columns[i])) {
+						columns[i] = columnsItem[j].getText();
+						break;
+					}
+				}
+			}
+			break;
+			
+			
+		}
+
+		return columns;
+	}
+	public static String[] getViewColumns(SWTWorkbenchBot bot,
+			TalendMetadataTypeEnum metadata, String structure, String table,
+			String... column) {
+		String[] columns = column;
+		bot.viewByTitle("DQ Repository").setFocus();
+		SWTBotTree tree = new SWTBotTree((Tree) bot.widget(
+				WidgetOfType.widgetOfType(Tree.class),
+				bot.viewByTitle("DQ Repository").getWidget()));
+		SWTBotTreeItem columnsNode;
+		switch (metadata) {
+		case MYSQL:
+			columnsNode = tree
+					.expandNode("Metadata", "DB connections",
+							metadata.toString(), structure).getNode(1).expand()
+					.expandNode(table).getNode(0);
+			SWTBotTreeItem[] columnsItem = columnsNode.expand().getItems();
+			int count = Integer.parseInt(columnsNode.getText().substring(
+					columnsNode.getText().indexOf("(") + 1,
+					columnsNode.getText().indexOf(")")));
+			for (int i = 0; i < columns.length; i++) {
+				for (int j = 0; j < count - 1; j++) {
+					if (columnsItem[j].getText().startsWith(columns[i])) {
+						columns[i] = columnsItem[j].getText();
+						break;
+					}
+				}
+			}
+			break;
+		case MSSQL:
+			columnsNode = tree
+			.expandNode("Metadata", "DB connections",
+					metadata.toString(), structure).getNode(1).expand().getNode(1).expand()
+			.expandNode(table).getNode(0);
+			columnsItem = columnsNode.expand().getItems();
+			count = Integer.parseInt(columnsNode.getText().substring(
 					columnsNode.getText().indexOf("(") + 1,
 					columnsNode.getText().indexOf(")")));
 			for (int i = 0; i < columns.length; i++) {

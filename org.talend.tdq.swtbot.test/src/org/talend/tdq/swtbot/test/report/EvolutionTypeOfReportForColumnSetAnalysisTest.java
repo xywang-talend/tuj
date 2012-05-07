@@ -38,7 +38,7 @@ public class EvolutionTypeOfReportForColumnSetAnalysisTest extends TalendSwtbotF
 		tree.expandNode("tbi").getNode(0).expand().select("customer");
 		bot.table().getTableItem(birthdate).check();
 		bot.button("OK").click();
-		formBot.ccomboBox(2).setSelection("Nominal");
+		formBot.ccomboBox(1).setSelection("Nominal");
 		bot.toolbarButtonWithTooltip("Save").click();
 		bot.toolbarButtonWithTooltip("Run").click();
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMNSET.toString()+" 0.1").close();

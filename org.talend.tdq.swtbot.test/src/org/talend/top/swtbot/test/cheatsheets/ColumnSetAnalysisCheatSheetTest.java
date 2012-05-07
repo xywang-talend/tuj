@@ -48,8 +48,8 @@ public class ColumnSetAnalysisCheatSheetTest extends TalendSwtbotForTdq{
 		bot.table().getTableItem(columns[0]).check();
 		bot.table().getTableItem(columns[1]).check();
 		bot.button("OK").click();
-		formBot.ccomboBox(2).setSelection("Interval");
-		formBot.ccomboBox(3).setSelection("Nominal");
+		formBot.ccomboBox(1).setSelection("Interval");
+		formBot.ccomboBox(2).setSelection("Nominal");
 		formBot.imageHyperlink("Click when complete").click();
 		formBot.imageHyperlink("Click when complete").click();
 		formBot.imageHyperlink("Click when complete").click();

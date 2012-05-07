@@ -38,7 +38,7 @@ public class RunAReportWithManyAnalysesTest extends TalendSwtbotForTdq{
 		tree.expandNode("tbi").getNode(0).expand().select("customer");
 		bot.table().getTableItem(birthdate).check();
 		bot.button("OK").click();
-		formBot.ccomboBox(2).setSelection("Interval");
+		formBot.ccomboBox(1).setSelection("Interval");
 		bot.toolbarButtonWithTooltip("Save").click();
 		formBot.hyperlink("Select indicators for each column").click();
 		bot.waitUntil(Conditions.shellIsActive("Indicator Selection"));
@@ -59,7 +59,7 @@ public class RunAReportWithManyAnalysesTest extends TalendSwtbotForTdq{
 		tree.expandNode("tbi").getNode(0).expand().select("customer");
 		bot.table().getTableItem(birthdate).check();
 		bot.button("OK").click();
-		formBot.ccomboBox(2).setSelection("Nominal");
+		formBot.ccomboBox(1).setSelection("Nominal");
 		bot.toolbarButtonWithTooltip("Save").click();
 		bot.toolbarButtonWithTooltip("Run").click();
 //		try {

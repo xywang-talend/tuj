@@ -31,7 +31,7 @@ public class CleanRecycleBinOnTOSPerspectiveTest extends TalendSwtbotForTdq{
 		}
 		SWTBotTree tree= new SWTBotTree((Tree)bot.widget(WidgetOfType.widgetOfType(Tree.class),
 				bot.viewByTitle("Repository").getWidget()));
-		tree.expandNode("Metadata").getNode(1).select();
+		tree.expandNode("Metadata").getNode(0).select();
 		ContextMenuHelper.clickContextMenu(tree, "Create connection");
 		SWTBotShell shell=bot.shell("Database Connection");
 		bot.waitUntil(Conditions.shellIsActive("Database Connection"));
