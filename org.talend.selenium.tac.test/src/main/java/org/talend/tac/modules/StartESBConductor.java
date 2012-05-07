@@ -74,7 +74,7 @@ public class StartESBConductor extends WebDriverBase {
 //		this.getElementById(id).click();
 		this.clickElementById(id);//button{deploy start}
 		logger.info("-------promptInfo:"+promptInfo);
-		this.waitforTextDisplayed(promptInfo, 30);		
+//		this.waitforTextDisplayed(promptInfo, 30);		
 		this.getElementById("idESBConductorTaskGridRefreshButton").click();
 		this.clickElementById("idESBConductorTaskGridRefreshButton");		
 		this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']" +
@@ -82,4 +82,28 @@ public class StartESBConductor extends WebDriverBase {
 		Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+label+"']" +
 		"//ancestor::table[@class='x-grid3-row-table']//span[text()='"+status+"']"),WAIT_TIME_MIN));
 	}
+	
+	 public void undeployESBConductor(String label, String name) {
+	    	String promptInfo="Feature '"+name+"' undeployed.";
+	    	String status = "Undeployed";   	
+	    	this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']"), WAIT_TIME_MIN);
+			this.mouseDown("//div[text()='"+label+"']");
+			this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridUndeployButton']"), WAIT_TIME_MIN);
+		    this.getElementById("idESBConductorTaskGridUndeployButton").click();	
+//			this.clickElementById("idESBConductorTaskGridUndeployButton");
+			this.acceptAlert();		
+			try {
+				Thread.sleep(2000);
+				this.waitforTextDisplayed(promptInfo, 20);
+			} catch (InterruptedException e) {		
+				e.printStackTrace();
+			}			
+			this.getElementById("idESBConductorTaskGridRefreshButton").click();
+			this.clickElementById("idESBConductorTaskGridRefreshButton");	
+			this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']" +
+					"//ancestor::table[@class='x-grid3-row-table']//span[text()='"+status+"']"), WAIT_TIME_MIN);
+		    Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+label+"']" +
+					"//ancestor::table[@class='x-grid3-row-table']//span[text()='"+status+"']"),WAIT_TIME_MIN));
+	    			
+	    }
 }

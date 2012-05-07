@@ -25,11 +25,17 @@ public class AddRuntimeServerWithInvalidHostImpl extends AddRuntimeServerWithInv
 		this.addRuntimeServer(serverLabel, host);
 		this.checkServerStatus(serverLabel,server_status_jobserverDown);
 		this.checkPortStatus();
+		this.installJobServer(serviceName);
 	}
 	
 	public void editESBRuntimeServer(String serverName) {
 		this.openServerMenu();
 		this.editExistingServer(serverName);
 		this.verifyEditedServer(serverName);
+	}
+	
+	public void sortESBRuntimeServers(String value, String value1) {
+		this.openServerMenu();
+		this.checkSortAscendingSortDescending(value, value1);
 	}
 }

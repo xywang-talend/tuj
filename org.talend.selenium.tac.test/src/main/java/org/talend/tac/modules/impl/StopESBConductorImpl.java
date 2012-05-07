@@ -26,5 +26,9 @@ public class StopESBConductorImpl extends StopConductor {
 			String stopStatus, String stopPopupInfo, String StopPromptInfo) {
 		this.StopDeployedConductor(label, name, stopId, stopStatus, stopPopupInfo, StopPromptInfo);
 	}
+	
+	public void undeployStoppedConductor(String label,String name) {
+		this.undeployESBConductor(label, name);
+	}
 
 }

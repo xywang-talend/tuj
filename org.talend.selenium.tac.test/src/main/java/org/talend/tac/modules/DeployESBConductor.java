@@ -63,7 +63,7 @@ public class DeployESBConductor extends WebDriverBase{
 			this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridDeployButton']"), WAIT_TIME_MIN);
 		    this.getElementById("idESBConductorTaskGridDeployButton").click();
 			this.clickElementById("idESBConductorTaskGridDeployButton");
-			this.waitforTextDisplayed(promptInfo, WAIT_TIME_MIN);	
+			this.waitforTextDisplayed(promptInfo, 30);	
 			this.clickElementById("idESBConductorTaskGridRefreshButton");
 			this.clickElementById("idESBConductorTaskGridRefreshButton");	
 			this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']" +

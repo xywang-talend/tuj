@@ -97,9 +97,9 @@ public class GroupByESBConductor extends WebDriverBase {
 	public void groupESBConductor() {
 
 		
-		this.focusElement();
-		this.checkColumn("Feature URL");
-		this.focusElement();
+//		this.focusElement();
+//		this.checkColumn("Error status");
+//		this.focusElement();
 		this.checkColumn("Id");
 		this.clickElementByXpath("//a[text()='Group By This Field']");
 	}
@@ -108,20 +108,20 @@ public class GroupByESBConductor extends WebDriverBase {
 		boolean present = this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"),30);
 		if(!present){
 			logger.info("clumnName:"+columnName);
+			this.focusElement();
 			this.waitforElementDisplayed(By.xpath("//a[text()='"+columnName+"']"), 20);
 			this.getElementByXpath("//a[text()='"+columnName+"']").click();
-//			this.clickElementByXpath("//a[text()='"+columnName+"']");
 			this.waitforElementDisplayed(By.xpath("//span[text()='"+columnName+"']"), 30);
-//			selenium.click("//a[text()='"+columnName+"']");
-//			this.waitForElementDispear("//span[text()='"+columnName+"']", WAIT_TIME);
+			this.getElementByXpath("//a[text()='"+columnName+"']").click();
+
 		}
 		else{
+			this.focusElement();
 			this.waitforElementDisplayed(By.xpath("//a[contains(text(),'"+columnName+"')]"), 20);
-			this.getElementByXpath("//a[contains(text(),'"+columnName+"')]").click();
-//			this.clickElementByXpath("//a[contains(text(),'"+columnName+"')]");
-			Assert.assertFalse(this.isElementPresent(By.xpath("//a[text()='"+columnName+"']"), 30));
-//			selenium.click("//a[text()='"+columnName+"']");
-//			this.waitForElementPresent("//span[text()='"+columnName+"']", WAIT_TIME);
+			this.clickElementByXpath("//a[contains(text(),'"+columnName+"')]");
+			this.waitThreeSeconds();
+//			Assert.assertFalse(this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"), 10));
+			this.clickElementByXpath("//a[contains(text(),'"+columnName+"')]");
 		}
 		
 	}
@@ -133,8 +133,13 @@ public class GroupByESBConductor extends WebDriverBase {
 		WebElement jjj = driver.findElement(By.xpath("//span[text()='Tag']//parent::div[contains(@class,'x-grid3-hd-inner x-grid3-hd-applicationGroup x-component')]//a"));
 		jjj.click();
 		this.waitforElementDisplayed(By.xpath("//a[text()='Columns']"), WAIT_TIME_MIN);
-		WebElement columns = driver.findElement(By.xpath("//a[text()='Columns']"));
-		this.moveToElement(columns);
+//		WebElement columns = driver.findElement(By.xpath("//a[text()='Columns']"));
+//		this.waitThreeSeconds();
+//		this.moveToElement(columns);
+	    this.mouseDown("//a[text()='Columns']");
+//	    this.waitThreeSeconds();
+	    WebElement columns = driver.findElement(By.xpath("//a[text()='Columns']"));
+	    this.moveToElement(columns);
 	}
 	
 	public void checkSortAscendingSortDescending(String value, String value1) {
@@ -159,14 +164,23 @@ public class GroupByESBConductor extends WebDriverBase {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-        this.clickElementByXpath("//a[text()='Sort Ascending']");
+        this.clickElementByXpath("//a[text()='Sort Ascending']");      
         try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		 this.clickElementById("idESBConductorTaskGridRefreshButton");
 		Assert.assertEquals(this.getElementByXpath("//div[@class='x-grid3-cell-inner x-grid3-col-label']").getText(), value1);
 		
 	}
+	
+	public void waitThreeSeconds() {
+		  try {
+		   Thread.sleep(3000);
+		  } catch (InterruptedException e) {
+		   e.printStackTrace();
+		  }
+		 }
 	
 }

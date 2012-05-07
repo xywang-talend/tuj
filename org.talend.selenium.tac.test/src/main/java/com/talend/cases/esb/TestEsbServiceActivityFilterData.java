@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+import mx4j.log.Logger;
+
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -90,12 +92,14 @@ public class TestEsbServiceActivityFilterData extends Esb {
 						.equals(totalPage), "test go to last page failed!");
 		this.sleep(3000);
 		int eventsBefore = selenium.getXpathCount("//div[text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[@class='x-grid3-body']//div[contains(@class,'x-grid3-row')]").intValue();
+	    System.out.println("EventsBefore:"+eventsBefore);
 		this.generateEvents(karafUrl,consumerName,1);
 		this.sleep(3000);
 		selenium.click("//div[@class='header-title' and text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//b[text()='Refresh']");
 		this.sleep(3000);
 		int eventsAfter = selenium.getXpathCount("//div[text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[@class='x-grid3-body']//div[contains(@class,'x-grid3-row')]").intValue();
-	    Assert.assertTrue(eventsAfter==eventsBefore+1, "test new events receive failed!");
+		System.out.println("EventsAfter:"+eventsAfter);				
+		Assert.assertTrue(eventsAfter==eventsBefore+1, "test new events receive failed!");
 	
 	}
 	

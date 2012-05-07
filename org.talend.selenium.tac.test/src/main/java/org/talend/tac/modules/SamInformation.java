@@ -31,25 +31,27 @@ public class SamInformation extends WebDriverBase{
      
      public void installServiceAndConsumer(String karafURL,String providerName,String consumerName) { 
     	 Karaf karaf=new Karaf(karafURL);
-    	 karaf.karafAction("start"+providerName+"control-bundle", WAIT_TIME_MAX);
-    	 karaf.karafAction("install -s file://"+getAbsolutePath("org/talend/tac/folder/esb/"+consumerName+"-0.1.jar")+"", WAIT_TIME_MAX);    	 
+    	 karaf.karafAction("start "+providerName+"-control-bundle", WAIT_TIME_MAX);
+    	 logger.info("---------ConsumerJob:"+consumerName);
+    	 System.out.println(">>>"+getAbsolutePath("org/talend/tac/folder/esb/"+consumerName+"-0.1.jar"));
+		 karaf.karafAction("install -s file://"+getAbsolutePath("org/talend/tac/folder/esb/"+consumerName+"-0.1.jar")+"", 3000);
     	 logger.info("install Service and Consumer");
      }
      
      public void intoSamPage() {	 
-    	 this.waitforElementDisplayed(By.id("!!!menu.serviceactivity.element!!!"), WAIT_TIME_MAX);
+    	 this.waitforElementDisplayed(By.id("!!!menu.serviceactivity.element!!!"), 30);
     	 this.clickElementById("!!!menu.serviceactivity.element!!!");
     	 this.waitforTextDisplayed("Service Activity Monitoring",WAIT_TIME_MIN);
     	 logger.info("intoSamPage");    	 
      }
      
      public void locatorEvents() { 
-    	 this.waitforElementDisplayed(By.xpath("//div[@title='one-way']"), WAIT_TIME_MIN);
+    	 this.waitforElementDisplayed(By.xpath("//div[@title='one-way']"), 30);
     	 this.mouseDown("//div[@title='one-way']");
-    	 Assert.assertTrue(this.isElementPresent(By.xpath("//legend[text()='Consumer']//parent::fieldset[@class='samui-participant-details']"), WAIT_TIME_MAX));
-    	 Assert.assertTrue(this.isElementPresent(By.xpath("//legend[text()='Provider']//parent::fieldset[@class='samui-participant-details']"), WAIT_TIME_MAX));
-    	 Assert.assertTrue(this.isElementPresent(By.xpath("//fieldset[@class='samui-event-details-REQ_OUT']"), WAIT_TIME_MAX));
-    	 Assert.assertTrue(this.isElementPresent(By.xpath("//fieldset[@class='samui-event-details-REQ_IN']"), WAIT_TIME_MAX));
+    	 Assert.assertTrue(this.isElementPresent(By.xpath("//legend[text()='Consumer']//parent::fieldset[@class='samui-participant-details']"), WAIT_TIME_MIN));
+    	 Assert.assertTrue(this.isElementPresent(By.xpath("//legend[text()='Provider']//parent::fieldset[@class='samui-participant-details']"), WAIT_TIME_MIN));
+    	 Assert.assertTrue(this.isElementPresent(By.xpath("//fieldset[@class='samui-event-details-REQ_OUT']"), WAIT_TIME_MIN));
+    	 Assert.assertTrue(this.isElementPresent(By.xpath("//fieldset[@class='samui-event-details-REQ_IN']"), WAIT_TIME_MIN));
     	 logger.info("locator and check events");
      }
      

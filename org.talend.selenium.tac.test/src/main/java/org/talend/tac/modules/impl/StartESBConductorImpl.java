@@ -25,5 +25,10 @@ public class StartESBConductorImpl extends StartESBConductor{
 			String startId,String startStatus) {
 		this.deployStartConductor(label, name, startPromptInfo, startId, startStatus);
 	}
+	
+	public void undeployStartedConductor(String label,String name) {
+		this.undeployESBConductor(label, name);
+		
+	}
 
 }

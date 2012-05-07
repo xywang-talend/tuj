@@ -2,6 +2,7 @@ package com.talend.tac.cases.esb.serviceLocator;
 
 import static org.testng.Assert.assertEquals;
 
+import java.awt.Event;
 import java.awt.event.KeyEvent;
 import java.util.Hashtable;
 
@@ -269,8 +270,8 @@ public class EsbUtil extends Login {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	  // selenium.keyPressNative(KeyEvent.VK_ENTER+"");
-	   selenium.keyPress(locatorOfInput,KeyEvent.VK_ENTER+"");
+	   selenium.keyPressNative(Event.ENTER+"");
+	//   selenium.keyPress(locatorOfInput,Event.ENTER+"");
 	  
 	 }
 	  

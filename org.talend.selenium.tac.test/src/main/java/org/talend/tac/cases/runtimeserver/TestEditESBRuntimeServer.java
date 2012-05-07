@@ -13,7 +13,7 @@ public class TestEditESBRuntimeServer extends WebdriverLogin {
     	addRuntimeServerWithInvalidHostImpl = new AddRuntimeServerWithInvalidHostImpl(driver);
     }
     @Test
-    @Parameters({ "RuntimeWithJobserverUnavaiable"})
+    @Parameters({ "serverOfRuntime"})
     public void editRuntimeServer(String serverName) {
     	addRuntimeServerWithInvalidHostImpl.editESBRuntimeServer(serverName);
     }

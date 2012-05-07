@@ -242,23 +242,31 @@ public class ESBConductorUtils extends Login {
 			
 		}
 		this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB conductor (4 Parameters')]");
-		this.typeWordsInConfigurationMenu(other.getString("ESBConduction.ArtifactRepositoryUrl.editButton"),locatorOfAllInputTags, artifactRepositoryUrl);
-		this.typeWordsInConfigurationMenu(other.getString("ESBConduction.ArtifactRepositoryUserName.editButton"),locatorOfAllInputTags, artifactRepositoryUserName);
-		this.typeWordsInConfigurationMenu(other.getString("ESBConduction.ArtifactRepositoryPassWord.editButton"),locatorOfAllInputTags, artifactRepositoryPassWord);
-		
+		this.typeWordsInConfigurationMenu(other.getString("ESBConduction.ArtifactRepositoryUrl.editButton"),other.getString("ESBConduction.conf.rtifactRepositoryUrl.input"), artifactRepositoryUrl);
+		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+		this.typeWordsInConfigurationMenu(other.getString("ESBConduction.ArtifactRepositoryUserName.editButton"),other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input"), artifactRepositoryUserName);
+		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+		this.typeWordsInConfigurationMenu(other.getString("ESBConduction.ArtifactRepositoryPassWord.editButton"),other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input"), artifactRepositoryPassWord);
+		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
 		String mavenProtocol = selenium.getText("//div[contains(text(),'ESB conductor (4 Parameters')]/parent::div/following-sibling::div//table//div[text()='Maven protocol']" +
 				"/parent::td/following-sibling::td[1]//div[1]").trim();
 		Assert.assertEquals(mavenProtocol, mavenProtocolExpected);
 		
 		this.clickWaitForElementPresent(other.getString("ESBConduction.ArtifactRepositoryUrl.editButton"));//click the edit button to make the input tag shown.
-		this.waitForElementPresent(locatorOfAllInputTags, WAIT_TIME);
-		selenium.focus(locatorOfAllInputTags);
+		this.waitForElementPresent(other.getString("ESBConduction.conf.rtifactRepositoryUrl.input"), WAIT_TIME);
+		selenium.focus(other.getString("ESBConduction.conf.rtifactRepositoryUrl.input"));
 		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
-		this.AssertEqualsInConfigurationMenu(other.getString("ESBConduction.ArtifactRepositoryUrl.editButton"),locatorOfAllInputTags, artifactRepositoryUrl,
+        selenium.click("idConfigRefreshButton");
+//		try {
+//			Thread.sleep(10000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+		this.AssertEqualsInConfigurationMenu(other.getString("ESBConduction.ArtifactRepositoryUrl.editButton"),other.getString("ESBConduction.conf.rtifactRepositoryUrl.input"), artifactRepositoryUrl,
 				other.getString(urlStatus));
-		this.AssertEqualsInConfigurationMenu(other.getString("ESBConduction.ArtifactRepositoryUserName.editButton"),locatorOfAllInputTags, artifactRepositoryUserName,
+		this.AssertEqualsInConfigurationMenu(other.getString("ESBConduction.ArtifactRepositoryUserName.editButton"),other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input"), artifactRepositoryUserName,
 				other.getString(usernameStatus));
-		this.AssertEqualsInConfigurationMenu(other.getString("ESBConduction.ArtifactRepositoryPassWord.editButton"),locatorOfAllInputTags, artifactRepositoryPassWord,
+		this.AssertEqualsInConfigurationMenu(other.getString("ESBConduction.ArtifactRepositoryPassWord.editButton"),other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input"), artifactRepositoryPassWord,
 				other.getString(pwStatus));
 		Assert.assertTrue(selenium.isElementPresent(other.getString(mavenStatus)));	
 		

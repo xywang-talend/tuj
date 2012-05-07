@@ -90,7 +90,8 @@ public class DeleteESBConductor extends WebDriverBase{
         this.getElementByXpath("//button[@id='idESBConductorTaskGridDeleteButton']").click();
  //       this.clickElementById("idESBConductorTaskGridDeleteButton");
         this.acceptAlert();
-        Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='"+label+"']"), 20));
+        this.clickElementById("idESBConductorTaskGridRefreshButton");
+        Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='"+label+"']"), 30));
         } 
     }
     public void undeployESBConductor(String label, String name) {
