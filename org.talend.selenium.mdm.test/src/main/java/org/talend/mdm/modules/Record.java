@@ -494,7 +494,7 @@ public void maxDataBrowserBoard(){
 	
 	Actions builder = new Actions(driver);
 	builder.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.databrowser.bigger"))))
-		.moveToElement(this.findElementDefineDriver(this.driver, By.id(locator.getString("id.menu.browserecords"))), -5, 0).release().build().perform();	
+		.moveToElement(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.menuboard.menu"))), 10, 0).release().build().perform();	
 	//	this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.databrowser.bigger"))), -b.x+100, 0);
 	}
 }
