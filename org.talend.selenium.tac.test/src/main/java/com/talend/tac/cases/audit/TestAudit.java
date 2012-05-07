@@ -12,8 +12,9 @@ import org.testng.annotations.Test;
 public class TestAudit extends Audit {
 	
 	@Test
-	@Parameters({"mysqlURL", "mysqlUserName", "mysqlPassWord", "mysqlDriver"})
-	public void changeDbToMysql(String url, String userName, String userPassWd, String driver) {
+	@Parameters({"mysqlURL", "mysqlUserName", "mysqlPassWord", "mysqlDriver", "auditStoredDefaultReportsPath"})
+	public void changeDbToMysqlAndReportPath(String url, String userName, String userPassWd,
+			String driver, String defaultPath) {
 		
 		this.openAudit();
 		   
@@ -29,6 +30,24 @@ public class TestAudit extends Audit {
 	    selenium.click("//div[contains(@class,'x-nodrag x-tool-close x-tool x-component')]");
 //	    /*change db info*/
 		
+	  //go to configuration page
+		this.clickWaitForElementPresent("idMenuConfigElement");
+		this.waitForElementPresent("//div[text()='Configuration' and @class='header-title']", WAIT_TIME);
+		String onlineButton = "//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]/following-sibling::div//button[@aria-pressed='true']";
+//		String offlineButton = "//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]/following-sibling::div//button[@aria-pressed='false']";
+		if(selenium.isElementPresent(onlineButton)) {
+			
+			selenium.click(onlineButton);			
+			
+		}
+		//change value of 'reports stored path' to a directory not exist
+		this.waitForElementPresent("//div[contains(text(),'Audit (')]", WAIT_TIME);
+		selenium.mouseDown("//div[contains(text(),'Audit (')]");
+	    /*change 'reports stored path' to incipient path*/
+	    this.typeWordsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),other.getString("audit.conf.reportsStoredPath.input"), this.getAbsolutePath(defaultPath));
+	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.value"), this.getAbsolutePath(defaultPath)	
+	    		,other.getString("audit.conf.reportsStoredPath.statusIcon"));
+	    
 	}
 	
 	@Test
