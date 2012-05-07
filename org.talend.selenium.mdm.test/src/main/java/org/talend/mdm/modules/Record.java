@@ -5,9 +5,12 @@ import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.apache.felix.gogo.commands.Action;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.talend.mdm.Base;
 import org.testng.Assert;
 
@@ -463,9 +466,7 @@ public void checkPropertiesBeforeAfterInDatachangesViewer(String properties,Stri
 }
 
 public void closeJournal(){
-	
 		this.clickElementByXpath(locator.getString("xpath.journal.tab.close"));
-	
  }
 
 public void clickExport() {	
@@ -476,15 +477,28 @@ public void clickExport() {
 public void maxARecordPanel(){
 	Point b = this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.databrowser.bigger"))).getLocation();
 	Point a = this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))).getLocation();
-	logger.info(b.x + " "+b.y);
-	logger.info(a.x + " "+a.y);
+	
+	logger.info("maxARecordPanel-" + b.x + " "+b.y);
+	logger.info("maxARecordPanel-" + a.x + " "+a.y);
 	logger.info("move to left by:"+(a.x-b.x-50));
-	this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -a.x+b.x+50, 0);
+	
+	Actions builder = new Actions(driver);
+	builder.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))))
+	.moveToElement(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), 2, -2).release().build().perform();	
+	
+//	this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -a.x+b.x+50, 0);
 }
 
 public void maxDataBrowserBoard(){
 	Point b = this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.databrowser.bigger"))).getLocation();
-	logger.info("move to left by:"+(b.x-50));
-	this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.databrowser.bigger"))), -b.x+50, 0);
-}
+	
+	logger.info("maxDataBrowserBoard Point " + b.x + "," + b.y);
+	
+	logger.info("move to left by:"+(b.x-100));
+	
+	Actions builder = new Actions(driver);
+	builder.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.databrowser.bigger"))))
+		.moveToElement(this.findElementDefineDriver(this.driver, By.id(locator.getString("id.menu.browserecords"))), -5, 0).release().build().perform();	
+	//	this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.databrowser.bigger"))), -b.x+100, 0);
+	}
 }
