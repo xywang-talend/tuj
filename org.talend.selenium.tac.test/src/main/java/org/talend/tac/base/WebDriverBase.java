@@ -35,7 +35,6 @@ import org.testng.Reporter;
 import org.testng.TestListenerAdapter;
 import org.testng.TestRunner;
 
-import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.talend.tac.base.Base;
 
@@ -415,22 +414,6 @@ public class WebDriverBase {
 	
 	
 	/**
-	 * get absolute path of the filePath
-	 * @param filePath
-	 * @return
-	 */
-	public String getAbsolutePath(String filePath) {
-		String path = this.getfileURL(filePath).getPath();
-		if(System.getProperty("os.name").startsWith("Windows")) {
-			if(path.startsWith("/")) {
-				path = path.substring(1);
-			}
-			path = path.replace("/", "\\");
-		}
-		return path;
-	}
-	
-	/**
 	 * get the Uniform Resource Locator of the filePath
 	 * @param filePath
 	 * @return
@@ -449,6 +432,25 @@ public class WebDriverBase {
 		}
 		System.out.println("URL -- " + fileUrl);
 		return fileUrl;
+	}
+	
+	/**
+	 * @param filePath
+	 * @return
+	 */
+	public String parseRelativePath(String filePath){
+		System.out.println("path before:     "+filePath);
+		System.out.println("path after:     "+getfileURL(filePath).toString());
+		return this.getfileURL(filePath).toString();
+	}
+	
+	/**
+	 * get absolute path of the filePath
+	 * @param filePath
+	 * @return
+	 */
+	public String getAbsolutePath(String filePath) {
+		return this.getfileURL(filePath).getPath();
 	}
 	
 	public boolean isOnHudson(){
