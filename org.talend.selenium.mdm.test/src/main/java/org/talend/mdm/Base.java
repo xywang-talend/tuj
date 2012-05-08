@@ -589,4 +589,14 @@ public class Base {
 	public String getValueInput(By by){
 		return this.waitfor(by, WAIT_TIME_MIN).getAttribute("value");
 	}
+	
+	public Dimension getWindowSize(){
+		return driver.manage().window().getSize();
+	}
+	public int getWindowSizeHeight(){
+		return driver.manage().window().getSize().height;
+	}
+	public int getWindowSizeWidth(){
+		return driver.manage().window().getSize().width;
+	}
 }
