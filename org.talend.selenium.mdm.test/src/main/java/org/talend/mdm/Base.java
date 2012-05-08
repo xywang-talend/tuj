@@ -402,10 +402,12 @@ public class Base {
 	
 	
 	public void windowMaximize(){
-        Toolkit toolkit =  Toolkit.getDefaultToolkit ();
-        java.awt.Dimension dim = toolkit.getScreenSize();
-        Dimension dimension =  new Dimension(dim.width, dim.height);
-        driver.manage().window().setSize(dimension);
+		driver.manage().window().maximize();
+		
+//        Toolkit toolkit =  Toolkit.getDefaultToolkit ();
+//        java.awt.Dimension dim = toolkit.getScreenSize();
+//        Dimension dimension =  new Dimension(dim.width, dim.height);
+//        driver.manage().window().setSize(dimension);
 	}
 	
 	public void captureScreenshot(String filename){
