@@ -177,7 +177,8 @@ public void createRecordImpl(String container,String modle,String entity,String 
 			this.sleepCertainTime(3000);
 			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersFeild2), feild2Value);
 			this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersFeild2Assert)), WAIT_TIME_MAX),"createARecord");
+			this.sleepCertainTime(5000);
+			Assert.assertTrue(this.waitfor(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersFeild2Assert)), WAIT_TIME_MIN).isDisplayed(),"createARecord");
 		    this.sleepCertainTime(3000); 
 		    key=this.getValue(this.getElementByXpath(this.getString(locator,"xpath.record.get.uuid",parametersFeild1)));
 		    String[] IdAssert={feild1Name,key};
