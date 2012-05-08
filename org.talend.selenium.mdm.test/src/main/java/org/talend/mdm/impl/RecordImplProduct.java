@@ -628,7 +628,7 @@ public class RecordImplProduct extends Record{
         //verify price is really changed.
         //close the data browser first ,for xpath duplicated
         this.clickElementByXpath(locator.getString("xpath.databrowser.tab.close"));
-        this.sleepCertainTime(3000);
+        this.sleepCertainTime(5000);
     	price = this.getValueInput(By.xpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)));
         logger.info("afterapproved ,the price is:"+price);
 //        Assert.assertTrue(price.equals(priceSubmited));
