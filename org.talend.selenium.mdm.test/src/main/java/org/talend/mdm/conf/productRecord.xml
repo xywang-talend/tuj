@@ -5,10 +5,10 @@
 	<parameter name="message" value="User 'jennifer' is already logged in another session!" />
     <parameter name="entity" value="Product" /> 	        
    	<parameter name="UniqueId" value="Id" />
-   	<parameter name="UniqueIdValue" value="167938934" />	 
+   	<parameter name="UniqueIdValue" value="1671111134" />	 
    	
    	
-   	  <test name="test two ways to open workflow task on map">
+ 	  <test name="test two ways to open workflow task on map">
 	    <classes>
     <parameter name="entity" value="Product" /> 	
   
@@ -87,7 +87,7 @@
 		        </methods>
 		    </class>
 	    </classes>
-  </test>   
+  </test>  
   	
     <test name=" create a record" >
 	    <classes>
@@ -155,7 +155,7 @@
 		    </class>
 	    </classes>
   </test>       
-   
+    
    <test name="in Product view search a record by Unique Id the opeartion is lower than" >
 	    <classes>
 	        <parameter name="entity_Element" value="Product" />
@@ -268,15 +268,25 @@
 		    </class>
 	    </classes>
   </test>   
-      
-         <test name=" delete the duplicator record" >
+<test name=" delete the record to the recycle" >
 	    <classes>
 	           <parameter name="UniqueIdValue" value="557175934" />	
 	      	    <class name="org.talend.mdm.cases.record.TestRecordProduct">
 				<methods>				 	           
-		           <include name="testDeleteRecord"/>		        
+		           <include name="testDeleteToRecycleRecord"/>		        
 		        </methods>
 		    </class>
 	    </classes>
-  </test>     
+  </test>  
+  
+  <test name=" restore the record from the recycle" >
+	    <classes>
+	           <parameter name="UniqueIdValue" value="557175934" />	
+	      	    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testRestoreFromRecycleRecord"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
 </suite>

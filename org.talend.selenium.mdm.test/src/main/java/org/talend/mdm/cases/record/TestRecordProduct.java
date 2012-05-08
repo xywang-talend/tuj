@@ -19,7 +19,16 @@ public class TestRecordProduct extends Login {
 	public void testDeleteRecord(String container,String modle,String entity,String UniqueId,String UniqueIdValue ) {
 		recordImpl.deleteRecordImpl(container,modle,entity,UniqueId,UniqueIdValue);
 	}
-		
+	@Test
+	@Parameters( { "container","modle","entity","UniqueId","UniqueIdValue" })
+	public void testDeleteToRecycleRecord(String container,String modle,String entity,String UniqueId,String UniqueIdValue ) {
+		recordImpl.deleteRecordToRecycleImpl(container,modle,entity,UniqueId,UniqueIdValue);
+	}
+	@Test
+	@Parameters( { "container","modle","entity","UniqueId","UniqueIdValue" })
+	public void testRestoreFromRecycleRecord(String container,String modle,String entity,String UniqueId,String UniqueIdValue ) {
+		recordImpl.restoreFromRecycleImpl(container,modle,entity,UniqueId,UniqueIdValue);
+	}
 	@Test
 	@Parameters( { "container","modle","entity", "UniqueId","UniqueIdValue","Name","NameValue","Description","DescriptionValue","Price","PriceValue"})
 	public void testCreateRecord(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String Name,String NameValue,String Description,String DescriptionValue,String Price,String PriceValue) {

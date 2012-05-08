@@ -28,8 +28,31 @@ public class RecordImplProduct extends Record{
 		this.sleepCertainTime(8000);
 		}	
 	
-	public void restoreFromRecycleImpl(String container,String modle,String entity,String feild2Value,String feild2Name){
+	public void restoreFromRecycleImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue){
+		String[] parameters={entity,UniqueId,UniqueIdValue};
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		clickRecycle();
+		this.sleepCertainTime(5000);
+		this.clickElementByXpath(this.getString(locator, "xpath.record.recycle.click.record",UniqueIdValue));
+		this.clickElementByXpath(this.getString(locator,"xpath.record.recycle.click.record.restore",UniqueIdValue));
+		this.sleepCertainTime(5000);
+		this.clickElementByXpath(locator.getString("xpath.record.recycle.click.record.restore.yes"));
+		 if (this.isElementPresent(By.xpath("//span[contains(text(),'Please input all necessary search ')]"),WAIT_TIME_MIN)){
+			 this.clickElementByXpath("//button[text()='Ok']");}
+		//assert the record restore in the entity		
+		this.clickElementByXpath(locator.getString("xpath.record.click.databrowser"));	 
+		this.clickElementByXpath(locator.getString("xpath.record.choose.entity.arrows"));
 		
+		this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.entity",entity)), WAIT_TIME_MIN);
+		this.clickElementByXpath(this.getString(locator, "xpath.record.choose.entity",entity));   
+		this.sleepCertainTime(5000);			
+		//this.clickElementByXpath(this.getString(locator, "xpath.record.choose.delete.record",parameters));
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.delete.record",parameters)), WAIT_TIME_MIN),"the record restore in the entity");
+		chooseRcord(entity,UniqueId,UniqueIdValue);
+		this.sleepCertainTime(5000);
+		deleteTheRecord(entity);		
 	}
 	public void deleteRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue){
 		OperationType="PHYSICAL_DELETE";
@@ -46,8 +69,38 @@ public class RecordImplProduct extends Record{
 	    openJournal(entity,UniqueIdValue,OperationType,source);
 	    JournalResultCount();
 	}	
-	public void deleteRecordToRecycleImpl(String container,String modle,String entity,String feild2Value,String feild2Name,String feild1Name){
-		}
+	public void deleteRecordToRecycleImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue){
+		 OperationType="LOGIC_DELETE";
+		 source="genericUI";
+			chooseContainer(container);	
+			chooseModle(modle);
+			clickSave();
+			chooseEntity(entity);
+			entity=entity.replaceAll(" ","");
+		    String[] parameters_container={UniqueIdValue,container};
+			String[] parameters_modle={UniqueIdValue,modle};
+			String[] parameters_entity={UniqueIdValue,entity};
+			chooseRcord(entity,UniqueId,UniqueIdValue);				
+			this.sleepCertainTime(5000);
+			logger.info(this.getString(locator, "xpath.record.delete.record",entity));
+			this.clickElementByXpath(this.getString(locator, "xpath.record.delete.record",entity)); 
+			this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.choose")); 	 
+			this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.choose.ok")); 	
+					if (this.isElementPresent(By.xpath(locator.getString("xpath.record.delete.record.warn")),WAIT_TIME_MIN)){
+						this.clickElementByXpath("//button[text()='No']");		
+					}
+			//go to journal to check
+			this.sleepCertainTime(3000);
+			 openJournal(entity,UniqueIdValue,OperationType,source);
+			 JournalResultCount();
+			// assert the record which been deleted in the recycle
+			clickRecycle();	
+			//this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.assert.clickRefresh")); 
+			logger.info(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.container",parameters_container));
+			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.container",parameters_container)), WAIT_TIME_MIN ),"container");
+			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.modle",parameters_modle)), WAIT_TIME_MIN ),"modle");
+			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.entity",parameters_entity)), WAIT_TIME_MIN ),"entity");	
+	}
 	public void testDuplicateRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String UniqueIdValueDup) {
 		String[] parametersUniqueId={entity,UniqueId};	
 		String[] parametersUniqueIdAssert={entity,UniqueId,UniqueIdValueDup};	
