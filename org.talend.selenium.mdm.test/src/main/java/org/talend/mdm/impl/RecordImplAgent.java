@@ -324,7 +324,7 @@ public void changeCommissionCodeApprovedWorkflow(String userFrank,String frankPa
 	this.sleepCertainTime(3000);
 	flow.openAWorkTask();
 	flow.openRelatedRecord();
-	this.sleepCertainTime(5000);
+	this.sleepCertainTime(10000);
     Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflowtask.agent.openrelatedrecord.open.closeTab")), WAIT_TIME_MIN)!=null);
   
     //verify commission code is really changed.
@@ -520,7 +520,7 @@ public void changeCommissionCodeNotApprovedWorkflow(String userFrank,String fran
 	this.sleepCertainTime(3000);
 	flow.openAWorkTask();
 	flow.openRelatedRecord();
-	this.sleepCertainTime(5000);
+	this.sleepCertainTime(10000);
     Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflowtask.agent.openrelatedrecord.open.closeTab")), WAIT_TIME_MIN)!=null);
   
     //verify commission code is really changed.
