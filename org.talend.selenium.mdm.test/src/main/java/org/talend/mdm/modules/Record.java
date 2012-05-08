@@ -49,6 +49,7 @@ public void enterJournal(String entity,String key,String OperationType,String so
 	this.modifyText(this.getElementByXpath(locator.getString("xpath.record.choose.journal.key")),key);	
 	this.modifyText(this.getElementByXpath(locator.getString("xpath.record.choose.journal.source")),source);	
 	this.clickElementByXpath(locator.getString("xpath.record.choose.journal.operation.arrows")); 
+	this.sleepCertainTime(2000);
 	this.clickElementByXpath(this.getString(locator,"xpath.record.choose.journal.operation.choose",OperationType)); 		
 	this.clickElementByXpath(locator.getString("xpath.record.click.journal.search"));	
 	this.sleepCertainTime(5000);
@@ -412,7 +413,7 @@ public void openDataBrowserFromWelcome(){
 
 public void chooseRcord(String entity,String feild1Name, String feild1Value) {
 	 String[] parameters={entity,feild1Name,feild1Value};
-	 this.sleepCertainTime(3000);
+	 this.sleepCertainTime(5000);
 	 this.clickElementByXpath(this.getString(locator, "xpath.record.choose.delete.record",parameters));
 	 }
 public void clickRecycle() {
