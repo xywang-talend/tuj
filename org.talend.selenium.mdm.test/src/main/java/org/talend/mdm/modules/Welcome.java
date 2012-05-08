@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.talend.mdm.Base;
 import org.testng.Assert;
 
@@ -79,19 +80,17 @@ public class Welcome extends Base{
 		return ele.getLocation();
 	}
 	
-	
-	public void reSortWindowLayout(String xpathLocatorKey,int xP,int yP){
-		Point p1 = this.getWindowPosition(this.getElementByXpath(locator.getString(xpathLocatorKey)));
-		WebElement ele1 = (this.getElementByXpath(locator.getString(xpathLocatorKey)));
-		logger.info(this.getWindowPosition(ele1).x+"  1:  "+this.getWindowPosition(ele1).y);
-		this.dragAndDropBy(ele1, this.getWindowPosition(ele1).x+xP, this.getWindowPosition(ele1).y+yP);
+	public void reSortWindowLayout(String srcXpathLocatorKey, String destXpathLocatorKey, int xP,int yP){
+		WebElement srcElementOld = (this.getElementByXpath(locator.getString(srcXpathLocatorKey)));
+		Point pointOld = this.getWindowPosition(srcElementOld);
+		Actions builder = new Actions(driver); 
+		builder.clickAndHold(this.getElementByXpath(locator.getString(srcXpathLocatorKey))) 
+			.moveToElement(this.getElementByXpath(locator.getString(destXpathLocatorKey)), xP, yP).release().build().perform();      
+		
 		this.sleepCertainTime(5000);
-		WebElement ele2 = this.getElementByXpath(locator.getString(xpathLocatorKey));
-		Point p2 = this.getWindowPosition(this.getElementByXpath(locator.getString(xpathLocatorKey)));
-		logger.info(this.getWindowPosition(ele2).x+"  2:  "+this.getWindowPosition(ele2).y);
-		Assert.assertFalse(p1.equals(p2), "lay out resort failed");
+		WebElement srcElementNew = (this.getElementByXpath(locator.getString(srcXpathLocatorKey)));
+		Point pointNew = this.getWindowPosition(srcElementNew);
+		Assert.assertFalse(pointNew.equals(pointOld), "lay out resort failed");
 	}
-	
-
 	
 }
