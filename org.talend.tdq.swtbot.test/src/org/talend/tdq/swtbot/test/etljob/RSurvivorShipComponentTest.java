@@ -41,9 +41,9 @@ public class RSurvivorShipComponentTest extends TalendSwtbotForTdq{
 				bot.viewByTitle("Repository").getWidget()));
 		SWTBotTreeItem sourceItem = tree.expandNode("Metadata","File delimited").getNode(0).select();
 		
-		JobHelper.dndMetadataOntoJob(jobEditor, sourceItem, "fFileInputDelimited", new Point(100,100));
-		SWTBotGefEditPart metadata = getTalendComponentPart(jobEditor, "fFileInputDelimited");
-	    Assert.assertNotNull("can not get component 'tRowGenerator'", metadata);
+		JobHelper.dndMetadataOntoJob(jobEditor, sourceItem, "tFileInputDelimited", new Point(100,100));
+		SWTBotGefEditPart metadata = getTalendComponentPart(jobEditor, "delimitedFile");
+	    Assert.assertNotNull("can not get component 'tFileInputDelimited'", metadata);
 		JobHelper.dndPaletteToolOntoJob(jobEditor, "tMatchGroup", new Point(250,100));
 		SWTBotGefEditPart tMatchGroup1 = getTalendComponentPart(jobEditor, "tMatchGroup_1");
 	    Assert.assertNotNull("can not get component 'tRowGenerator'", tMatchGroup1);
@@ -67,11 +67,11 @@ public class RSurvivorShipComponentTest extends TalendSwtbotForTdq{
 	    gefBot.buttonWithTooltip("Add",0).click();
 	    gefBot.table(0).click(0, 0);
 	    gefBot.ccomboBox("id").setSelection("colour");
-	    gefBot.table(0).click(0, 1);
+	    gefBot.table(0).click(0, 2);
 	    gefBot.ccomboBox("Exact").setSelection("Jaro");
 	    gefBot.buttonWithTooltip("Add",1).click();
-	   jobEditor.select(tMatchGroup1);
-	   jobEditor.clickContextMenu("Row").clickContextMenu("main");
+	   tMatchGroup1.click();
+	   jobEditor.clickContextMenu("Row").clickContextMenu("Main");
 	   jobEditor.click(tLogRow1);
 	   SWTBotGefEditPart rowMain2 = jobEditor.getEditPart("row2 (Main)");
 	   Assert.assertNotNull("can not draw row line",rowMain2);
@@ -79,8 +79,8 @@ public class RSurvivorShipComponentTest extends TalendSwtbotForTdq{
 	   tLogRow1.doubleClick();
 	   gefBot.viewByTitle("Component").setFocus();
 	   gefBot.radio("Table (print values in cells of a table)").click();
-	   jobEditor.select(tLogRow1);
-	   jobEditor.clickContextMenu("Row").clickContextMenu("main");
+	   tLogRow1.click();
+	   jobEditor.clickContextMenu("Row").clickContextMenu("Main");
 	   jobEditor.click(tRuleSurvivorship1);
 	   SWTBotGefEditPart rowMain3 = jobEditor.getEditPart("row3 (Main)");
 	   Assert.assertNotNull("can not draw row line",rowMain3);
@@ -88,12 +88,13 @@ public class RSurvivorShipComponentTest extends TalendSwtbotForTdq{
 	   tRuleSurvivorship1.doubleClick();
 	   gefBot.ccomboBox(1).setSelection("GID");
 	   gefBot.ccomboBox(2).setSelection("GRP_SIZE");
-	   gefBot.table(0).click(0, 1);
+	   gefBot.buttonWithTooltip("Add",0).click();
+	   gefBot.table(0).click(0, 2);
 	   gefBot.text("").setText("rulename");	   
-	   gefBot.table(0).click(0, 3);
+	   gefBot.table(0).click(0, 4);
 	   gefBot.ccomboBox("").setSelection("Smalllest");
-	   jobEditor.select(tRuleSurvivorship1);
-	   jobEditor.clickContextMenu("Row").clickContextMenu("main");
+	   tRuleSurvivorship1.click();
+	   jobEditor.clickContextMenu("Row").clickContextMenu("Main");
 	   jobEditor.click(tLogRow2);
 	   SWTBotGefEditPart rowMain4 = jobEditor.getEditPart("row4 (Main)");
 	   Assert.assertNotNull("can not draw row line",rowMain4);
