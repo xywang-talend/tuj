@@ -47,6 +47,18 @@ public class DataSteward extends Base{
 		
 	}
 	
+	public void selectATaskByNameInCommonAlltasks(String taskName){
+		this.clickTaskNavigatorCommonAllTasks();
+		this.clickElementByXpath(this.getString(locator,"xpath.datatewardshipconsole.tasks.list.byname.row",taskName));
+	}
+	
+	public void taskAssignToUser(String userName){
+		this.clickTaskNavigatorAdministrationAssignTasks();
+	    this.clickElementByXpath("//div[contains(@class,'x-view x-component')]//td[contains(text(),'user')]//ancestor::tr//input[contains(@class,'x-view-item-checkbox')]");
+	    this.clickElementByXpath("//div[contains(@class,'x-view x-component')]//ancestor::div[contains(@class,'x-window-bwrap')]//button[contains(text(),'Ok')]");
+	
+	}
+	
 	public void clickTaskNavigatorAdministrationCreateTask() {
 		this.clickElementByXpath("//span[contains(text(),'Task Navigator')]//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component')]//div[contains(@class,'x-icon-btn x-nodrag icon-reload x-component')]");
 		this.waitfor(By.xpath(locator.getString("xpath.datatewardship.administration.createtask")), WAIT_TIME_MIN);

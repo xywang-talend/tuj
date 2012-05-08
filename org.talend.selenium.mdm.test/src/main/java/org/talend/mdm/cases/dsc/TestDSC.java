@@ -20,10 +20,25 @@ public class TestDSC extends Login {
 	@Parameters( {"task.name","task.type.resotion","task.default.source","task.fieldName1"})
 	public void testCreateTaskWithTypeResolution(String taskName,String taskType,String source ,String filedName1){
 		
-		dsc.createTaskWithTypeOfResolution(taskName, taskType, source,filedName1);
+		dsc.createTaskWithTypeDefined(taskName, taskType, source,filedName1);
 		
 	}
 	
+	@Test
+	@Parameters( {"task.name","task.type.data","task.default.source","task.fieldName1"})
+	public void testCreateTaskWithTypeData(String taskName,String taskType,String source ,String filedName1){
+		
+		dsc.createTaskWithTypeDefined(taskName, taskType, source,filedName1);
+		
+	}
+	
+	@Test
+	@Parameters( {"task.name","task.type.data","task.default.source","task.fieldName1"})
+	public void testTaskAssignment(String taskName,String taskType,String source ,String filedName1){
+		
+		dsc.taskAssign(taskName, taskType, source,filedName1,"user","user","administrator","administrator");
+		
+	}
 	
 	
 	
