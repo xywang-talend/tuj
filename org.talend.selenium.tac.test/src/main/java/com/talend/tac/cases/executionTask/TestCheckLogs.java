@@ -3,6 +3,7 @@ package com.talend.tac.cases.executionTask;
 import static org.testng.Assert.assertTrue;
 
 import java.awt.event.KeyEvent;
+import java.awt.Event;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -184,7 +185,7 @@ public class TestCheckLogs extends TaskUtils {
 		
 		selenium.focus("//span[text()='Logs']//ancestor::div[contains(@class," +
 				"'x-tab-panel x-component')]//td[5]//input");
-		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+		selenium.keyDownNative(""+Event.ENTER);
 		
 		Assert.assertTrue(selenium.isTextPresent("Displaying 5 - 6 of 6"));
 		selenium.setSpeed(MIN_SPEED);

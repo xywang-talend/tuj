@@ -141,6 +141,7 @@ public class TestModifyUser extends Users {
 			String loginUserPassWord,String SvnLogin,String SvnPassWord,String adminUser, String adminPassword) {
 		
 		this.waitForElementPresent("//b[text()='admin, admin']", WAIT_TIME);
+		this.waitForElementPresent("//i[text()='Administrator/Viewer/Operation manager/Designer']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//i[text()='Administrator/Viewer/Operation manager/Designer']"));
 		Assert.assertTrue(selenium.isElementPresent("//b[text()='admin, admin']"));
 		//add user(LoginNameChangeRoleAndCheckRoleDisplay@gmail.com)

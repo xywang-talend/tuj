@@ -18,7 +18,7 @@ public class TestConfigutationWithWrongSet extends configuration {
 		  if(!selenium.isElementPresent("//div[contains(text(),'Svn')]/parent::div/following-sibling::div//table//div[text()='Server location url']//ancestor::table[@class='x-grid3-row-table']//div[contains(text(),'Authentication" +
 	      		" failed while connecting to "+svnServerLocationWrongUrl+"')]")) {
 			  
-			  selenium.click("idConfigRefreshButton");  
+			  selenium.click("//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]//button[@id='idConfigRefreshButton']");  
 			  
 		  }
 		  
@@ -50,7 +50,7 @@ public class TestConfigutationWithWrongSet extends configuration {
 		  
 		  if(!selenium.isElementPresent(other.getString("smtp.conf.useSmtp.statusIcon"))) {
 			  
-			  selenium.click("idConfigRefreshButton");
+			  selenium.click("//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]//button[@id='idConfigRefreshButton']");
 			  
 		  }
 		  this.waitElement(other.getString("smtp.conf.useSmtp.statusIcon"), WAIT_TIME);

@@ -173,14 +173,20 @@ public class TestConfigurations extends configuration {
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailUserName.editButton"), other.getString("smtp.conf.mailUserName.input"), mailUserName);
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.mailPassword.editButton"), other.getString("smtp.conf.mailPassword.input"), mailPassword);
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.serverRequireSSL.editButton"), other.getString("smtp.conf.serverRequireSSL.input"), serverRequireSSL);
-
-	  if(!selenium.isElementPresent(other.getString("smtp.conf.mailServerHost.statusIcon"))) {
+       
+	  try {
+		Thread.sleep(3000);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	  if(!selenium.isElementPresent("//div[contains(text(),'SMTP (6 Parameters')]//img[@title='Ok']")) {
 			  
-			  selenium.click("idConfigRefreshButton");  
+			  selenium.click("//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]//button[@id='idConfigRefreshButton']");  
 			  
 	  }
 	  
-	  this.waitElement(other.getString("smtp.conf.mailServerHost.statusIcon"), WAIT_TIME);
+	  this.waitElement("//div[contains(text(),'SMTP (6 Parameters')]//img[@title='Ok']", WAIT_TIME);
 	  
 	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.useSmtp.value"), useSmtp,other.getString("smtp.conf.useSmtp.statusIcon"));
 	  this.AssertEqualsInConfigurationMenu(other.getString("smtp.conf.mailServerHost.value"), mailServerHost,other.getString("smtp.conf.mailServerHost.statusIcon"));
@@ -235,7 +241,7 @@ public class TestConfigurations extends configuration {
 	  
 	  if(!selenium.isElementPresent(other.getString("svn.conf.serverLocationURL.statusIcon"))) {
 			  
-			  selenium.click("idConfigRefreshButton");  
+			  selenium.click("//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]//button[@id='idConfigRefreshButton']");  
 			  
 	  }
 	  

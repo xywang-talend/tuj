@@ -229,7 +229,7 @@ public class TestLicenseAccountsCount extends Login {
 			// Thread.sleep(5000);
 			this.waitForElementPresent(
 					"//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='"
-							+ username + "']", Base.WAIT_TIME);
+							+ username + "']", Base.WAIT_TIME*2);
 			Assert.assertTrue(selenium.isTextPresent(username),
 					"testAddMaxAmountsDQUsersAllowed  failed!");
 			selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='"
@@ -600,7 +600,7 @@ public class TestLicenseAccountsCount extends Login {
 		Thread.sleep(2000);
 		this.typeString("idUserPasswordInput", "admin");
 		selenium.click("idFormSaveButton");
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		Assert.assertFalse(selenium.isTextPresent(username),
 				"test mdm users more over failed!");
 		}
@@ -747,6 +747,8 @@ public class TestLicenseAccountsCount extends Login {
 		int i = 0;
 		selenium.refresh();
 		Thread.sleep(3000);
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='"
+				+ username + "']", WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='"
 				+ username + "']");
 		Thread.sleep(2000);
@@ -1190,7 +1192,7 @@ public class TestLicenseAccountsCount extends Login {
 			selenium.click("//input[@name='active']");
 			//
 			selenium.click("idFormSaveButton");
-			Thread.sleep(5000);
+			Thread.sleep(10000);
 			Assert.assertFalse(selenium.isTextPresent(username),
 					"MDM inactive user test failed!");
 			selenium.setSpeed(MIN_SPEED);

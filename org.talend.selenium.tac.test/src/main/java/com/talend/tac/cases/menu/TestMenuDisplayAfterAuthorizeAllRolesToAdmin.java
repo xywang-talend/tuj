@@ -73,6 +73,7 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 
 	@Test
 	public void testMenuExecutionPlan() {
+		this.waitForElementPresent("!!!menu.executionPlan.element!!!", WAIT_TIME);
 		// check menu execution plan
 		selenium.click("!!!menu.executionPlan.element!!!");
 		this.waitForElementDispear("//div[@class='header-title' and text()='Execution Plan']//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader" +
@@ -243,7 +244,7 @@ public class TestMenuDisplayAfterAuthorizeAllRolesToAdmin extends Login {
 				.isVisible("!!!menu.grid_task_executions_history.element!!!"));
 		Assert.assertTrue(selenium
 				.isVisible("!!!menu.graphic_task_executions_history.element!!!"));
-		this.clickWaitForElementPresent("//div[@id='!!!menu.task_executions_history.element!!!']//img[@class=' x-tree3-node-joint']");
+		this.clickWaitForElementPresent("//div[@id='!!!menu.task_executions_history.element!!!']//div[@aria-level='2']//img[contains(@class,'x-tree3-node-joint')]");
 		this.sleep(5000);
 		Assert.assertFalse(selenium
 				.isVisible("!!!menu.grid_task_executions_history.element!!!"));
