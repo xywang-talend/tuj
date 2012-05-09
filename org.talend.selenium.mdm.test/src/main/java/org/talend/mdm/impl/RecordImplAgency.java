@@ -53,7 +53,7 @@ public void duplicateRecordImpl(String container,String modle,String entity,Stri
 		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.Duplicate.input",parametersID)), IdentifieValueDup);
 		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
 		this.sleepCertainTime(10000);
-		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
+//		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
 		this.sleepCertainTime(3000);
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersIDAssert)), WAIT_TIME_MAX),"duplicateARecord");
 		this.sleepCertainTime(3000); 
