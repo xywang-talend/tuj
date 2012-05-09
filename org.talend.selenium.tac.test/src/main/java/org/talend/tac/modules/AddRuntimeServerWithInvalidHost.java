@@ -1,8 +1,11 @@
 package org.talend.tac.modules;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.HasInputDevices;
+import org.openqa.selenium.Mouse;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.internal.Locatable;
 import org.talend.tac.base.WebDriverBase;
 import org.testng.Assert;
 import com.talend.tac.base.Karaf;
@@ -18,6 +21,17 @@ public class AddRuntimeServerWithInvalidHost extends WebDriverBase{
 		super.setDriver(driver);
 		this.driver=driver;
 	}
+	
+	public void mouseDown(String xpathExpression) {
+ 	   Locatable hoverItem = (Locatable) driver.findElement(By.xpath(xpathExpression));
+ 	   Mouse mouse = ((HasInputDevices) driver).getMouse();
+ 	   mouse.mouseDown(hoverItem.getCoordinates());
+ 	   try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+    }
 	
 	public void openServerMenu() {
 		this.getElementById("!!!menu.executionServers.element!!!").click();
@@ -122,10 +136,10 @@ public class AddRuntimeServerWithInvalidHost extends WebDriverBase{
     }
     
     public void checkSortAscendingSortDescending(String value, String value1) {
-    	this.waitforElementDisplayed(By.xpath("//span[text()='Rate']//ancestor::td[contains(@class,'x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer ')]//preceding-sibling::td//span[text()='Label']"), 30);
-		WebElement element = driver.findElement(By.xpath("//span[text()='Rate']//ancestor::td[contains(@class,'x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer ')]//preceding-sibling::td//span[text()='Label']"));
+    	this.waitforElementDisplayed(By.xpath("//span[text()='Rate']//ancestor::td[@class='x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer']//preceding-sibling::td//span[text()='Label']"), 30);
+		WebElement element = driver.findElement(By.xpath("//span[text()='Rate']//ancestor::td[@class='x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer']//preceding-sibling::td//span[text()='Label']"));
 		this.moveToElement(element);
-		WebElement drop = driver.findElement(By.xpath("//span[text()='Rate']//ancestor::td[contains(@class,'x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer ')]//preceding-sibling::td//span[text()='Label']//preceding-sibling::a"));
+		WebElement drop = driver.findElement(By.xpath("//span[text()='Rate']//ancestor::td[@class='x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer']//preceding-sibling::td//span[text()='Label']//preceding-sibling::a"));
 		drop.click();
 		try {
 			Thread.sleep(3000);
@@ -134,10 +148,12 @@ public class AddRuntimeServerWithInvalidHost extends WebDriverBase{
 		}
 		this.clickElementByXpath("//a[text()='Sort Descending']");
 		Assert.assertEquals(this.getElementByXpath("//div[@class='x-grid3-cell-inner x-grid3-col-label']").getText(), value);       
-       
-		WebElement elementagain = driver.findElement(By.xpath("//span[text()='Rate']//ancestor::td[contains(@class,'x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer ')]//preceding-sibling::td//span[text()='Label']"));
+        
+//		this.clickElementByXpath("//span[text()='Rate']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']//preceding-sibling::div[@class='x-panel-tbar x-panel-tbar-noheader x-panel-tbar-noborder']//button[@id='idSubModuleRefreshButton']");
+    	this.waitforElementDisplayed(By.xpath("//span[text()='Rate']//ancestor::td[contains(@class,'x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer')]//preceding-sibling::td//span[text()='Label']"), 30);
+		WebElement elementagain = driver.findElement(By.xpath("//span[text()='Rate']//ancestor::td[contains(@class,'x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer')]//preceding-sibling::td//span[text()='Label']"));
 		this.moveToElement(elementagain);
-		WebElement dropagain = driver.findElement(By.xpath("//span[text()='Rate']//ancestor::td[contains(@class,'x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer ')]//preceding-sibling::td//span[text()='Label']//preceding-sibling::a"));
+		WebElement dropagain = driver.findElement(By.xpath("//span[text()='Rate']//ancestor::td[contains(@class,'x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer')]//preceding-sibling::td//span[text()='Label']//preceding-sibling::a"));
 		dropagain.click();
 		try {
 			Thread.sleep(3000);
@@ -153,4 +169,85 @@ public class AddRuntimeServerWithInvalidHost extends WebDriverBase{
 		Assert.assertEquals(this.getElementByXpath("//div[@class='x-grid3-cell-inner x-grid3-col-label']").getText(), value1);
 		
 	}
+    
+    public void ActivityColumns() {
+    	this.waitforElementDisplayed(By.xpath("//span[text()='Rate']//ancestor::td[@class='x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer']//preceding-sibling::td//span[text()='Label']"), 30);
+		WebElement element = driver.findElement(By.xpath("//span[text()='Rate']//ancestor::td[@class='x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer']//preceding-sibling::td//span[text()='Label']"));
+		this.moveToElement(element);
+		WebElement drop = driver.findElement(By.xpath("//span[text()='Rate']//ancestor::td[@class='x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer']//preceding-sibling::td//span[text()='Label']//preceding-sibling::a"));
+		drop.click();
+		this.waitforElementDisplayed(By.xpath("//a[text()='Columns']"), WAIT_TIME_MIN);
+   		WebElement columns = driver.findElement(By.xpath("//a[text()='Columns']"));
+   		this.moveToElement(columns);
+   	    this.checkColumnForLabel("Label");
+   	    this.checkColumn("Rate");
+   	    this.checkColumn("Free disk(s) space");
+   	    this.checkColumn("Free physical mem.");
+   	    this.checkColumn("Free swap mem.");
+   	    this.checkColumn("Description");
+   	    this.checkColumn("Host");
+   	    this.checkColumnForActive("Active");
+   	    this.checkColumn("Server type");
+   	    this.checkColumn("Admin server");
+      }
+      
+    public void checkColumn(String columnName){
+  		boolean present = this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"),10);
+  		if(!present){
+  			logger.info("clumnName:"+columnName);
+  			this.waitforElementDisplayed(By.xpath("//a[text()='"+columnName+"']"), 5);
+  			this.getElementByXpath("//a[text()='"+columnName+"']").click();
+  			this.waitforElementDisplayed(By.xpath("//span[text()='"+columnName+"']"), 5);
+  			this.getElementByXpath("//a[text()='"+columnName+"']").click();
+  		}
+  		else{
+  			this.waitforElementDisplayed(By.xpath("//a[contains(text(),'"+columnName+"')]"), 5);
+  			this.getElementByXpath("//a[contains(text(),'"+columnName+"')]").click();
+  			Assert.assertFalse(this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"), 5));
+  			this.getElementByXpath("//a[contains(text(),'"+columnName+"')]").click();
+  		}   		
+  	   }
+    
+    public void checkColumnForLabel(String columnName){
+  		boolean present = this.isElementPresent(By.xpath("//span[text()='Rate']//ancestor::td[@class='x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer']//preceding-sibling::td//span[text()='Label']"),10);
+  		if(!present){
+  			logger.info("clumnName:"+columnName);
+  			this.waitforElementDisplayed(By.xpath("//a[text()='"+columnName+"']"), 5);
+  			this.getElementByXpath("//a[text()='"+columnName+"']").click();
+  			this.waitforElementDisplayed(By.xpath("//span[text()='Rate']//ancestor::td[@class='x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer']//preceding-sibling::td//span[text()='Label']"), 5);
+  			this.getElementByXpath("//a[text()='"+columnName+"']").click();
+  		}
+  		else{
+  			this.waitforElementDisplayed(By.xpath("//a[contains(text(),'"+columnName+"')]"), 5);
+  			this.getElementByXpath("//a[contains(text(),'"+columnName+"')]").click();
+  			Assert.assertFalse(this.isElementPresent(By.xpath("//span[text()='Rate']//ancestor::td[@class='x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer']//preceding-sibling::td//span[text()='Label']"), 5));
+  			this.getElementByXpath("//a[contains(text(),'"+columnName+"')]").click();
+  		}   		
+  	   }
+    
+    public void checkColumnForActive(String columnName){
+  		boolean present = this.isElementPresent(By.xpath("//span[text()='Free swap mem.']//ancestor::td[@class='x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-freeSwapMem']//following-sibling::td//span[text()='Active']"),10);
+  		if(!present){
+  			logger.info("clumnName:"+columnName);
+  			this.waitforElementDisplayed(By.xpath("//a[text()='"+columnName+"']"), 5);
+  			this.getElementByXpath("//a[text()='"+columnName+"']").click();
+  			this.waitforElementDisplayed(By.xpath("//span[text()='Free swap mem.']//ancestor::td[@class='x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-freeSwapMem']//following-sibling::td//span[text()='Active']"), 5);
+  			this.getElementByXpath("//a[text()='"+columnName+"']").click();
+  		}
+  		else{
+  			this.waitforElementDisplayed(By.xpath("//a[contains(text(),'"+columnName+"')]"), 5);
+  			this.getElementByXpath("//a[contains(text(),'"+columnName+"')]").click();
+  			Assert.assertFalse(this.isElementPresent(By.xpath("//span[text()='Free swap mem.']//ancestor::td[@class='x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-freeSwapMem']//following-sibling::td//span[text()='Active']"), 5));
+  			this.getElementByXpath("//a[contains(text(),'"+columnName+"')]").click();
+  		}   		
+  	   }
+      
+     public void duplicateRuntimeServer(String label) {
+    	 String labelAfterCopy = "Copy_of_"+label;
+ 		this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']"), WAIT_TIME_MIN);
+ 		this.mouseDown("//div[text()='"+label+"']");
+ 		this.clickElementByXpath("//span[text()='Rate']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']//preceding-sibling::div[@class='x-panel-tbar x-panel-tbar-noheader x-panel-tbar-noborder']//button[@id='idSubModuleDuplicateButton']");
+ 		this.clickElementById("idFormSaveButton");
+ 		Assert.assertTrue(this.getElementByXpath("//div[text()='"+label+"']").getAttribute("value").equals(labelAfterCopy));
+     }
 }

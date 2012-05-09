@@ -38,4 +38,13 @@ public class AddRuntimeServerWithInvalidHostImpl extends AddRuntimeServerWithInv
 		this.openServerMenu();
 		this.checkSortAscendingSortDescending(value, value1);
 	}
+	
+	public void activityColumns() {
+		this.openServerMenu();
+		this.ActivityColumns();
+	}
+	
+	public void duplicateServer() {
+		this.openServerMenu();
+	}
 }
