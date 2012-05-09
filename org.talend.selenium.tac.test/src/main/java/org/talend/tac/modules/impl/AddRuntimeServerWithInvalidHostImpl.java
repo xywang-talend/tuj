@@ -44,7 +44,8 @@ public class AddRuntimeServerWithInvalidHostImpl extends AddRuntimeServerWithInv
 		this.ActivityColumns();
 	}
 	
-	public void duplicateServer() {
+	public void duplicateServer(String label) {
 		this.openServerMenu();
+		this.duplicateRuntimeServer(label);
 	}
 }

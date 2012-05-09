@@ -243,11 +243,40 @@ public class AddRuntimeServerWithInvalidHost extends WebDriverBase{
   	   }
       
      public void duplicateRuntimeServer(String label) {
-    	 String labelAfterCopy = "Copy_of_"+label;
+    	String labelAfterCopy = "Copy_of_"+label;
  		this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']"), WAIT_TIME_MIN);
  		this.mouseDown("//div[text()='"+label+"']");
  		this.clickElementByXpath("//span[text()='Rate']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']//preceding-sibling::div[@class='x-panel-tbar x-panel-tbar-noheader x-panel-tbar-noborder']//button[@id='idSubModuleDuplicateButton']");
  		this.clickElementById("idFormSaveButton");
- 		Assert.assertTrue(this.getElementByXpath("//div[text()='"+label+"']").getAttribute("value").equals(labelAfterCopy));
+ 		this.clickElementByXpath("//span[text()='Rate']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']//preceding-sibling::div[@class='x-panel-tbar x-panel-tbar-noheader x-panel-tbar-noborder']//button[@id='idSubModuleRefreshButton']");
+ 		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		this.waitforElementDisplayed(By.xpath("//span[text()='Rate']//ancestor::td[contains(@class,'x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer')]//preceding-sibling::td//span[text()='Label']"), 30);
+		WebElement elementagain = driver.findElement(By.xpath("//span[text()='Rate']//ancestor::td[contains(@class,'x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer')]//preceding-sibling::td//span[text()='Label']"));
+		this.moveToElement(elementagain);
+		WebElement dropagain = driver.findElement(By.xpath("//span[text()='Rate']//ancestor::td[contains(@class,'x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer')]//preceding-sibling::td//span[text()='Label']//preceding-sibling::a"));
+		dropagain.click();
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+        this.clickElementByXpath("//a[text()='Sort Ascending']");
+ 		this.mouseDown("//div[text()='"+labelAfterCopy+"']");
+ 		Assert.assertTrue(this.getElementByXpath("//span[@class='serv-t1']").getText().equals(labelAfterCopy));
+ 		Assert.assertTrue(this.getElementByXpath("//span[text()='Hostname: ']//following-sibling::span[@class='serv-value']").getText().equals("localhost"));
+ 		logger.info("----------File transfert port:"+this.getElementByXpath("//span[text()='File transfert port: ']//following-sibling::span[@class='serv-value']//div[@class='gwt-HTML']").getText());
+ 		Assert.assertTrue(this.getElementByXpath("//span[text()='Command port:']//following-sibling::span[@class='serv-value']//div[@class='gwt-HTML']").getText().equals(" 8000"));
+ 		Assert.assertTrue(this.getElementByXpath("//span[text()='File transfert port: ']//following-sibling::span[@class='serv-value']//div[@class='gwt-HTML']").getText().equals(" 8001"));
+ 		Assert.assertTrue(this.getElementByXpath("//span[text()='Monitoring port:']//following-sibling::span[@class='serv-value']//div[@class='gwt-HTML']").getText().equals(" 8888"));
+ 		Assert.assertTrue(this.getElementByName("timeoutUnknownState").getAttribute("value").equals("120"));
+ 		Assert.assertTrue(this.getElementByXpath("//span[text()='Mgmt-Server port:']//following-sibling::span[@class='serv-value']").getText().equals("44444"));
+ 		Assert.assertTrue(this.getElementByXpath("//span[text()='Mgmt-Reg port: ']//following-sibling::span[@class='serv-value']").getText().equals("1099"));
+ 		Assert.assertTrue(this.getElementByXpath("//span[text()='Admin Console port:']//following-sibling::span[@class='serv-value']").getText().equals(" 8040"));
+ 		Assert.assertTrue(this.getElementByXpath("//span[text()='Instance:']//following-sibling::span[@class='serv-value']").getText().equals("trun"));
+ 		
      }
 }
