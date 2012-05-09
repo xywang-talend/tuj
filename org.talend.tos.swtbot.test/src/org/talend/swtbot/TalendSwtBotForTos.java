@@ -40,6 +40,7 @@ import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.gef.EditPart;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
@@ -225,28 +226,43 @@ public class TalendSwtBotForTos {
 
                             try {
                                 factory.deleteObjectLogical(ivo);
-                                RepositoryManager.refresh(epot);
-                                if (!repositoriesFolders.isEmpty()) {
-                                    try {
-                                        Thread.sleep(ONE_MINUTE_IN_MILLISEC / 2);
-                                    } catch (InterruptedException e2) {
-                                        e2.printStackTrace();
-                                    }
-                                }
-                                factory.deleteObjectPhysical(ivo);
                             } catch (PersistenceException e) {
                                 e.printStackTrace();
                             } catch (BusinessException e) {
                                 e.printStackTrace();
                             }
-
-                            RepositoryManager.refresh(epot);
                         }
                     }
                 }
             }
         };
-        workspace.run(operation, null);
+        workspace.run(operation, workspace.getRoot(), IWorkspace.AVOID_UPDATE, new NullProgressMonitor());
+        workspace = ResourcesPlugin.getWorkspace();
+        operation = new IWorkspaceRunnable() {
+
+            public void run(IProgressMonitor monitor) {
+                for (ERepositoryObjectType epot : repositories) {
+                    final ProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+                    List<IRepositoryViewObject> ivos = null;
+                    try {
+                        ivos = factory.getAll(epot);
+                    } catch (PersistenceException e1) {
+                        e1.printStackTrace();
+                    }
+                    if (ivos != null) {
+                        for (final IRepositoryViewObject ivo : ivos) {
+
+                            try {
+                                factory.deleteObjectPhysical(ivo);
+                            } catch (PersistenceException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        workspace.run(operation, workspace.getRoot(), IWorkspace.AVOID_UPDATE, new NullProgressMonitor());
         gefBot.resetActivePerspective();
         Utilities.emptyRecycleBin();
 
