@@ -79,7 +79,8 @@ public void createRecordImpl(String container,String modle,String entity,String 
 			String[] parametersIDAssert={entity,Identifie,IdentifieValue};		
 			String[] parametersZipAssert={entity,Zipcode,ZipcodeValue};	
 			this.sleepCertainTime(3000);
-			this.clickElementByXpath(locator.getString("xpath.record.choose.create")); 				
+			this.clickCreateRecord();
+//			this.clickElementByXpath(locator.getString("xpath.record.choose.create")); 				
 			this.sleepCertainTime(3000);
 			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersID), IdentifieValue);
 			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersName), NameValue);		

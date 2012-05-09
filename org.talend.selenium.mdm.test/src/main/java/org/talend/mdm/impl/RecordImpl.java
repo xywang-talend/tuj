@@ -159,7 +159,8 @@ public void createRecordImpl(String container,String modle,String entity,String 
 			String[] parametersFeild2={entity,feild2Name};				
 			String[] parametersFeild2Assert={entity,feild2Name,feild2Value};	
 			logger.info(feild2Name);
-			this.clickElementByXpath(locator.getString("xpath.record.choose.create")); 	
+			this.clickCreateRecord();
+//			this.clickElementByXpath(locator.getString("xpath.record.choose.create")); 	
 			this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersFeild2)), WAIT_TIME_MAX);
 			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersFeild2), feild2Value);
 			this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	

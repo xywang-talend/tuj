@@ -88,7 +88,8 @@ public class RecordImplStore extends Record{
 			String[] parametersAddress={entity,address};			
 			String[] parametersStoreIdAssert={entity,storeId,storeIdValue};
 			this.sleepCertainTime(8000);
-			this.clickElementByXpath(locator.getString("xpath.record.choose.create")); 
+			this.clickCreateRecord();
+//			this.clickElementByXpath(locator.getString("xpath.record.choose.create")); 
 			this.sleepCertainTime(3000);
 			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersStoreId),storeIdValue);
 			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersAddress), addressValue);	

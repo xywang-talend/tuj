@@ -164,7 +164,8 @@ public class RecordImplProduct extends Record{
 			String[] parametersDescriptionAssert={entity,Description,DescriptionValue};
 			String[] parametersPriceAssert={entity,Price,PriceValue};
 			this.sleepCertainTime(3000);
-			this.clickElementByXpath(locator.getString("xpath.record.choose.create")); 
+			this.clickCreateRecord();
+//			this.clickElementByXpath(locator.getString("xpath.record.choose.create")); 
 			this.sleepCertainTime(3000);
 			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersUniqueId),UniqueIdValue);
 			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersName), NameValue);

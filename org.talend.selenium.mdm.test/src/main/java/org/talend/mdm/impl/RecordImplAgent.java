@@ -56,7 +56,8 @@ public void createRecordImpl(String container,String modle,String entity,String 
 	clickSave();
 	chooseEntity(entity);				
 	this.sleepCertainTime(3000);
-	this.clickElementByXpath(locator.getString("xpath.record.choose.create")); 				
+	this.clickCreateRecord();
+//	this.clickElementByXpath(locator.getString("xpath.record.choose.create")); 				
 	this.sleepCertainTime(3000);
 	this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersID), IdentifieValue);
 	this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersFirstname), FirstnameValue);	
@@ -156,7 +157,8 @@ public void createRecordWrongRuleImpl(String container,String modle,String entit
 	clickSave();
 	chooseEntity(entity);				
 	this.sleepCertainTime(3000);
-	this.clickElementByXpath(locator.getString("xpath.record.choose.create")); 				
+	this.clickCreateRecord();
+//	this.clickElementByXpath(locator.getString("xpath.record.choose.create")); 				
 	this.sleepCertainTime(3000);
 	this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersID), IdentifieValue);
 	this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersFirstname), FirstnameValue);	
