@@ -48,4 +48,9 @@ public class TalendPositionalFileItem extends TalendFileItem {
         }
         finishCreationWizard(shell);
     }
+
+    @Override
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit file positional", "Edit an existing Positional File");
+    }
 }

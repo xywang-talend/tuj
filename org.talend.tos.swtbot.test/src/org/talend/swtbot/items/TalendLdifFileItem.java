@@ -50,4 +50,8 @@ public class TalendLdifFileItem extends TalendFileItem {
         }
         finishCreationWizard(shell);
     }
+
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit file ldif", "Edit an existing Ldif File");
+    }
 }

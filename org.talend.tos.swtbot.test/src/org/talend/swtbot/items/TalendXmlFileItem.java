@@ -69,4 +69,8 @@ public class TalendXmlFileItem extends TalendFileItem {
         }
         finishCreationWizard(shell);
     }
+
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit file xml", "Edit an existing Xml File");
+    }
 }

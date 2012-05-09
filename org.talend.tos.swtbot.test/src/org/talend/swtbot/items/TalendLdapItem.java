@@ -82,4 +82,8 @@ public class TalendLdapItem extends TalendMetadataItem {
         gefBot.button("Next >").click();
         finishCreationWizard(shell);
     }
+
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit LDAP schema", "Update LDAP schema");
+    }
 }

@@ -46,10 +46,10 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
         gefBot.tree().expandNode("General").select("Version Management").click();
 
         List<TalendItemType> itemTypes = new ArrayList<TalendItemType>();
-        for (TalendItemType itemType : TalendItemType.values())
-            itemTypes.add(itemType);
-        if ("TOSDI".equals(TalendSwtBotForTos.getBuildType()))
-            itemTypes.removeAll(Utilities.getTISItemTypes());
+        if ("TIS".equals(getBuildType()))
+            itemTypes = Utilities.getTISItemTypes();
+        else if ("TOSDI".equals(getBuildType()))
+            itemTypes = Utilities.getTOSDIItemTypes();
         // undo assert for under items, cause did not import these items
         itemTypes.remove(TalendItemType.SERVICES);
         itemTypes.remove(TalendItemType.TALEND_MDM);
@@ -88,7 +88,7 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
     private String assertItemVersion(TalendItemType itemType) {
         List<String> nodes = new ArrayList<String>();
         if (itemType == TalendItemType.SQL_TEMPLATES)
-            nodes = Utilities.getTalendItemNode(itemType).expandNode("Generic", "UserDefined").getNodes();
+            nodes = Utilities.getTalendItemNode(itemType).expandNode("Hive", "UserDefined").getNodes();
         else
             nodes = Utilities.getTalendItemNode(itemType).getNodes();
 

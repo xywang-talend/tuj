@@ -54,9 +54,38 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.hamcrest.Matcher;
 import org.junit.Assert;
+import org.talend.swtbot.items.TalendBrmsItem;
+import org.talend.swtbot.items.TalendBusinessModelItem;
+import org.talend.swtbot.items.TalendContextItem;
+import org.talend.swtbot.items.TalendCopybookItem;
 import org.talend.swtbot.items.TalendDBItem;
+import org.talend.swtbot.items.TalendDelimitedFileItem;
+import org.talend.swtbot.items.TalendDocumentationItem;
+import org.talend.swtbot.items.TalendEdiItem;
+import org.talend.swtbot.items.TalendEmbeddedRulesItem;
+import org.talend.swtbot.items.TalendExcelFileItem;
+import org.talend.swtbot.items.TalendFtpItem;
+import org.talend.swtbot.items.TalendGenericSchemaItem;
+import org.talend.swtbot.items.TalendHL7Item;
+import org.talend.swtbot.items.TalendItem;
 import org.talend.swtbot.items.TalendJobItem;
+import org.talend.swtbot.items.TalendJobScriptItem;
+import org.talend.swtbot.items.TalendJobletItem;
+import org.talend.swtbot.items.TalendLdapItem;
+import org.talend.swtbot.items.TalendLdifFileItem;
+import org.talend.swtbot.items.TalendMdmItem;
+import org.talend.swtbot.items.TalendPositionalFileItem;
+import org.talend.swtbot.items.TalendRecycleBinItem;
+import org.talend.swtbot.items.TalendRegexFileItem;
+import org.talend.swtbot.items.TalendRoutineItem;
+import org.talend.swtbot.items.TalendSalesforceItem;
+import org.talend.swtbot.items.TalendSapItem;
 import org.talend.swtbot.items.TalendSchemaItem;
+import org.talend.swtbot.items.TalendSqlTemplateItem;
+import org.talend.swtbot.items.TalendSurvivorshipRulesItem;
+import org.talend.swtbot.items.TalendValidationRuleItem;
+import org.talend.swtbot.items.TalendWebServiceItem;
+import org.talend.swtbot.items.TalendXmlFileItem;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
@@ -173,7 +202,7 @@ public class Utilities {
      */
     public static void emptyRecycleBin() {
         try {
-        	Thread.sleep(3000);
+            Thread.sleep(3000);
             SWTBotTreeItem recycleBin = tree.expandNode("Recycle bin").select();
             gefBot.waitUntil(Conditions.widgetIsEnabled(recycleBin));
             if (recycleBin.rowCount() != 0) {
@@ -181,7 +210,7 @@ public class Utilities {
                 recycleBin.contextMenu("Empty recycle bin").click();
                 gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
                 gefBot.button("Yes").click();
-            	Thread.sleep(3000);
+                Thread.sleep(3000);
             }
         } catch (Exception e) {
             gefBot.closeAllShells();
@@ -554,6 +583,76 @@ public class Utilities {
         return null;
     }
 
+    public static TalendItem getInstanceOfType(TalendItemType itemType) {
+        switch (itemType) {
+        case BUSINESS_MODEL:
+            return new TalendBusinessModelItem();
+        case JOB_DESIGNS:
+            return new TalendJobItem();
+        case SERVICES:
+            return null;
+        case JOBLET_DESIGNS:
+            return new TalendJobletItem();
+        case CONTEXTS:
+            return new TalendContextItem();
+        case ROUTINES:
+            return new TalendRoutineItem();
+        case JOBSCRIPTS:
+            return new TalendJobScriptItem();
+        case SQL_TEMPLATES:
+            return new TalendSqlTemplateItem();
+        case DB_CONNECTIONS:
+            return new TalendDBItem();
+        case SAP_CONNECTIONS:
+            return new TalendSapItem();
+        case FILE_DELIMITED:
+            return new TalendDelimitedFileItem();
+        case FILE_POSITIONAL:
+            return new TalendPositionalFileItem();
+        case FILE_REGEX:
+            return new TalendRegexFileItem();
+        case FILE_XML:
+            return new TalendXmlFileItem();
+        case FILE_EXCEL:
+            return new TalendExcelFileItem();
+        case FILE_LDIF:
+            return new TalendLdifFileItem();
+        case LDAP:
+            return new TalendLdapItem();
+        case SALESFORCE:
+            return new TalendSalesforceItem();
+        case GENERIC_SCHEMAS:
+            return new TalendGenericSchemaItem();
+        case TALEND_MDM:
+            return new TalendMdmItem();
+        case SURVIVORSHIP_RULES:
+            return new TalendSurvivorshipRulesItem();
+        case BRMS:
+            return new TalendBrmsItem();
+        case EMBEDDED_RULES:
+            return new TalendEmbeddedRulesItem();
+        case COPYBOOK:
+            return new TalendCopybookItem();
+        case WEB_SERVICE:
+            return new TalendWebServiceItem();
+        case VALIDATION_RULES:
+            return new TalendValidationRuleItem();
+        case FTP:
+            return new TalendFtpItem();
+        case HL7:
+            return new TalendHL7Item();
+        case EDI:
+            return new TalendEdiItem();
+        case DOCUMENTATION:
+            return new TalendDocumentationItem();
+        case RECYCLE_BIN:
+            return new TalendRecycleBinItem();
+        default:
+            break;
+        }
+        return null;
+    }
+
     /**
      * DOC fzhong Comment method "getView".
      * 
@@ -583,15 +682,14 @@ public class Utilities {
      * 
      */
     public static void cleanUpRepository() {
-        for (TalendItemType itemType : TalendItemType.values()) {
-            if ("TOSDI".equals(TalendSwtBotForTos.getBuildType())) {
-                if (getTISItemTypes().contains(itemType))
-                    continue; // if TOSDI, pass TIS items
-            }
-            if ("TOSBD".equals(TalendSwtBotForTos.getBuildType())) {
-                if (!getTOSBDItemTypes().contains(itemType))
-                    continue; // if TOSBD, pass items except TOSBD
-            }
+        List<TalendItemType> itemTypes = new ArrayList<TalendItemType>();
+        if ("TIS".equals(TalendSwtBotForTos.getBuildType()))
+            itemTypes = getTISItemTypes();
+        if ("TOSDI".equals(TalendSwtBotForTos.getBuildType()))
+            itemTypes = getTOSDIItemTypes();
+        if ("TOSBD".equals(TalendSwtBotForTos.getBuildType()))
+            itemTypes = getTOSBDItemTypes();
+        for (TalendItemType itemType : itemTypes) {
             SWTBotTreeItem treeNode = getTalendItemNode(itemType);
             if (TalendItemType.SQL_TEMPLATES.equals(itemType))
                 treeNode = treeNode.expandNode("Hive", "UserDefined"); // focus on specific sql template type
@@ -604,17 +702,33 @@ public class Utilities {
 
     public static List<TalendItemType> getTISItemTypes() {
         List<TalendItemType> itemList = new ArrayList<TalendItemType>();
-        itemList.add(TalendItemType.SERVICES);
-        itemList.add(TalendItemType.JOBLET_DESIGNS);
-        itemList.add(TalendItemType.JOBSCRIPTS);
-        itemList.add(TalendItemType.SAP_CONNECTIONS);
-        itemList.add(TalendItemType.SURVIVORSHIP_RULES);
-        itemList.add(TalendItemType.BRMS);
-        itemList.add(TalendItemType.EMBEDDED_RULES);
-        itemList.add(TalendItemType.VALIDATION_RULES);
-        itemList.add(TalendItemType.COPYBOOK);
-        itemList.add(TalendItemType.HL7);
-        itemList.add(TalendItemType.EDI);
+        for (TalendItemType itemType : TalendItemType.values())
+            itemList.add(itemType);
+        return itemList;
+    }
+
+    public static List<TalendItemType> getTOSDIItemTypes() {
+        List<TalendItemType> itemList = new ArrayList<TalendItemType>();
+        itemList.add(TalendItemType.BUSINESS_MODEL);
+        itemList.add(TalendItemType.JOB_DESIGNS);
+        itemList.add(TalendItemType.ROUTINES);
+        itemList.add(TalendItemType.SQL_TEMPLATES);
+        itemList.add(TalendItemType.DB_CONNECTIONS);
+        itemList.add(TalendItemType.FILE_DELIMITED);
+        itemList.add(TalendItemType.FILE_POSITIONAL);
+        itemList.add(TalendItemType.FILE_REGEX);
+        itemList.add(TalendItemType.FILE_XML);
+        itemList.add(TalendItemType.FILE_EXCEL);
+        itemList.add(TalendItemType.FILE_LDIF);
+        itemList.add(TalendItemType.LDAP);
+        itemList.add(TalendItemType.SALESFORCE);
+        itemList.add(TalendItemType.GENERIC_SCHEMAS);
+        itemList.add(TalendItemType.TALEND_MDM);
+        itemList.add(TalendItemType.WEB_SERVICE);
+        itemList.add(TalendItemType.FTP);
+        itemList.add(TalendItemType.CONTEXTS);
+        itemList.add(TalendItemType.DOCUMENTATION);
+        itemList.add(TalendItemType.RECYCLE_BIN);
         return itemList;
     }
 

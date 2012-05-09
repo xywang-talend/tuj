@@ -48,4 +48,7 @@ public class TalendGenericSchemaItem extends TalendMetadataItem {
         finishCreationWizard(shell);
     }
 
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit generic schema", "Update generic schema");
+    }
 }

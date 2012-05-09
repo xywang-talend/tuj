@@ -42,6 +42,8 @@ public class TalendItem implements Cloneable {
 
     protected String folderPath;
 
+    protected String status;
+
     protected TalendItemType itemType;
 
     protected SWTBotTreeItem parentNode;
@@ -149,6 +151,17 @@ public class TalendItem implements Cloneable {
         }
     }
 
+    public String getStatus() {
+        SWTBotShell shell = beginEditWizard();
+        String str = gefBot.ccomboBoxWithLabel("Status").getText();
+        shell.close();
+        return str;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     protected void initialise(TalendItemType itemType) {
         setItemType(itemType);
         setParentNode(Utilities.getTalendItemNode(itemType));
@@ -229,7 +242,11 @@ public class TalendItem implements Cloneable {
 
     public SWTBotShell beginEditWizard(String contextMenu, String shellTitle) {
         parentNode.getNode(itemFullName).contextMenu(contextMenu).click();
-        SWTBotShell shell = gefBot.shell(shellTitle).activate();
+        SWTBotShell shell = null;
+        if (shellTitle == null)
+            shell = gefBot.activeShell();
+        else
+            shell = gefBot.shell(shellTitle).activate();
         return shell;
     }
 

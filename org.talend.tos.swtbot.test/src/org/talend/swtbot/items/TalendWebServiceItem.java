@@ -137,4 +137,8 @@ public class TalendWebServiceItem extends TalendMetadataItem {
         }
         finishCreationWizard(shell);
     }
+
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit WSDL schema", "Update WSDL schema");
+    }
 }

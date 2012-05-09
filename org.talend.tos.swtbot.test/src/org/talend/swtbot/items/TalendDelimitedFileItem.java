@@ -46,4 +46,9 @@ public class TalendDelimitedFileItem extends TalendFileItem {
         }
         finishCreationWizard(shell);
     }
+
+    @Override
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit file delimited", "Edit an existing Delimited File");
+    }
 }

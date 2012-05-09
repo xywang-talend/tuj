@@ -122,4 +122,8 @@ public class TalendSalesforceItem extends TalendMetadataItem {
         gefBot.button("OK").click();
         finishCreationWizard(shell);
     }
+
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit Salesforce Connection", "Edit an exist Salesforce");
+    }
 }

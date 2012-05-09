@@ -47,4 +47,8 @@ public class TalendExcelFileItem extends TalendFileItem {
         }
         finishCreationWizard(shell);
     }
+
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit file Excel", "Edit an existing Excel File");
+    }
 }

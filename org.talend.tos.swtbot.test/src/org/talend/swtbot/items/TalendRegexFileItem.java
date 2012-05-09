@@ -46,4 +46,8 @@ public class TalendRegexFileItem extends TalendFileItem {
         }
         finishCreationWizard(shell);
     }
+
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit file regex", "Edit an existing RegEx File");
+    }
 }

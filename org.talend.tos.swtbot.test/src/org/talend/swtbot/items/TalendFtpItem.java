@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.talend.swtbot.Utilities;
 
 /**
@@ -25,5 +26,9 @@ public class TalendFtpItem extends TalendMetadataItem {
 
     public TalendFtpItem(String itemName) {
         super(itemName, Utilities.TalendItemType.FTP);
+    }
+
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit FTP", null);
     }
 }
