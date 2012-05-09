@@ -394,6 +394,7 @@ public void chooseEntityDirectlyInDataBrowser(String entity) {
 }   
 
 public void clickCreateRecord(){
+	this.sleepCertainTime(20000);
 	this.clickElementByXpath(locator.getString("xpath.record.choose.create"));
 	this.sleepCertainTime(20000);
 }
