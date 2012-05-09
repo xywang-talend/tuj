@@ -460,8 +460,9 @@ public class RecordImplProduct extends Record{
 		
 		//click family panel to get the record family id and name
 		this.clickElementByXpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]");
-		String idBefore = this.getValue(this.findElementDefineDriver(this.driver,By.xpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]//ancestor::div[contains(@id,'ItemsDetailPanel-mainPanel')]//div[contains(@class,'x-grid3-body')]//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-objectValue ')][1]//div")));
-		String nameBefore = this.getValue(this.findElementDefineDriver(this.driver,By.xpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]//ancestor::div[contains(@id,'ItemsDetailPanel-mainPanel')]//div[contains(@class,'x-grid3-body')]//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-objectValue ')][2]//div")));
+		this.sleepCertainTime(5000);
+		String idBefore = this.getValue(this.findElementDefineDriver(this.driver,By.xpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]//ancestor::div[contains(@id,'ItemsDetailPanel-mainPanel')]//div[contains(@class,'x-grid3-body')]//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-objectValue')][1]//div")));
+		String nameBefore = this.getValue(this.findElementDefineDriver(this.driver,By.xpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]//ancestor::div[contains(@id,'ItemsDetailPanel-mainPanel')]//div[contains(@class,'x-grid3-body')]//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-objectValue')][2]//div")));
 		logger.info("for the selected record ,producr family: "+idBefore +" name "+nameBefore);
 		
 		//click product pannel to launch price change process
