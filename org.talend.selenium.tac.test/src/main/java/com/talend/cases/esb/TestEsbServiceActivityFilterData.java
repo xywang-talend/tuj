@@ -1,14 +1,10 @@
 package com.talend.cases.esb;
 
-import java.awt.List;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
-
-import mx4j.log.Logger;
 
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -204,7 +200,6 @@ public class TestEsbServiceActivityFilterData extends Esb {
 	public void checkFileterDateTimeBefore(Date date){
 		boolean ok = false;
 		System.out.println(date.toGMTString());
-		DateFormat df = new SimpleDateFormat();
 		Date compare = null;
 		Date now = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",Locale.US);
@@ -244,7 +239,6 @@ public class TestEsbServiceActivityFilterData extends Esb {
  		
     		boolean ok = false;
     		System.out.println(date.toGMTString());
-    		DateFormat df = new SimpleDateFormat();
     		Date compare = null;
     		Date now = null;
     		SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",Locale.US);
