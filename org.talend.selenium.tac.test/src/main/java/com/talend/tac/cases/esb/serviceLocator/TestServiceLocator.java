@@ -1,6 +1,8 @@
 package com.talend.tac.cases.esb.serviceLocator;
 
 
+import java.awt.Event;
+
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -421,6 +423,45 @@ public class TestServiceLocator extends EsbUtil {
 	   modifySAMServer(localServer, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator"));
 	   
 	}
+    
+    @Test
+    public void testFilterServiceLocator() {
+    	this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");//into SL page
+		this.clickWaitForElementPresent("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-endpoint')]/a");
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("//a[text()='Show in Groups']");
+		selenium.setSpeed(MID_SPEED);
+		Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid-group-div']"));
+		selenium.setSpeed(MIN_SPEED);
+		this.clickWaitForElementPresent("//div[@class=' x-grid3-hd-inner x-grid3-hd-name x-component sort-asc ']/a");
+		selenium.mouseOver("//a[text()='Filters']");
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		selenium.click("//div[@class='x-menu-list-item x-menu-list-item-indent']");
+		this.waitElement("//div[contains(@class,'x-menu-list-item x-menu-list-item-indent')]//input[contains(@class,'x-form-text x-form-empty-field')] ", WAIT_TIME);
+		selenium.click("//div[contains(@class,'x-menu-list-item x-menu-list-item-indent')]//input[contains(@class,'x-form-text x-form-empty-field')] ");
+		selenium.setSpeed(MID_SPEED);
+		this.waitForElementPresent("//div[contains(@class,'x-menu-list-item x-menu-list-item-indent')]//input[contains(@class,'x-form-text x-form-focus')]", WAIT_TIME);
+        selenium.type("//div[contains(@class,'x-menu-list-item x-menu-list-item-indent')]//input[contains(@class,'x-form-text x-form-focus')]", "F");
+        selenium.keyDownNative(""+Event.ENTER);
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		String lastPage=selenium.getText("//div[text()='Page']//ancestor::td[contains(@class,'x-toolbar-cell')]//following-sibling::td[2]/div[contains(@class,'my-paging-text x-component')]");
+		String totalPage=lastPage.substring(lastPage.indexOf(" ")+1);
+		this.waitForElementPresent("//div[contains(@class,'my-paging-display x-component')]", WAIT_TIME);
+		String serviceDesc=selenium.getText("//div[contains(@class,'my-paging-display x-component')]");
+		String totalService=serviceDesc.substring(serviceDesc.indexOf("of")+2);
+		System.out.println("-----------totalPage"+totalPage);
+		System.out.println("-----------totalService"+totalService);
+		Assert.assertTrue(totalPage.equals("1"));		
+		Assert.assertTrue(totalService.trim().equals("3"));
+    }
 
     
 }
