@@ -68,8 +68,9 @@ public void createRecordImpl(String container,String modle,String entity,String 
 	this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersStartDate), StartDateValue);
 	this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
 	this.clickElementByXpath(locator.getString("xpath.record.click.lastpage"));
+	this.sleepCertainTime(10000);
 	chooseRcord(entity,Identifie,IdentifieValue);
-	this.sleepCertainTime(3000);
+	this.sleepCertainTime(5000);
 	openJournal(entity,IdentifieValue,OperationType,source);
     this.sleepCertainTime(5000);
     JournalCheckResult(IdentifieValue,OperationType);
