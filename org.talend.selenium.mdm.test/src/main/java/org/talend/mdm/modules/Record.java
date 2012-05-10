@@ -417,6 +417,7 @@ public void chooseRcord(String entity,String feild1Name, String feild1Value) {
 	 String[] parameters={entity,feild1Name,feild1Value};
 	 this.sleepCertainTime(5000);
 	 this.clickElementByXpath(this.getString(locator, "xpath.record.choose.delete.record",parameters));
+	 this.sleepCertainTime(5000);
 	 }
 public void clickRecycle() {
 	
