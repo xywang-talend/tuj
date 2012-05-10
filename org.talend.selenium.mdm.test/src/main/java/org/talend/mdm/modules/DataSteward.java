@@ -171,6 +171,7 @@ public class DataSteward extends Base{
         try {
  		Robot r = new Robot();
  		r.keyPress(b);
+ 		r.keyRelease(b);
  	} catch (AWTException e1) {
  		// TODO Auto-generated catch block
  		e1.printStackTrace();
