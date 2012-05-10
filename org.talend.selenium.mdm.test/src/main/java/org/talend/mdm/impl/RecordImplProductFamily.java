@@ -68,6 +68,7 @@ public class RecordImplProductFamily extends Record{
 		chooseEntity(entity);
 		entity=entity.replaceAll(" ","");
 		String[] parametersFeild1={entity,feild2Name,feild2Value,entity,feild1Name};
+		this.sleepCertainTime(10000);
 		chooseRcord(entity,feild2Name,feild2Value);	
 		key=this.getValue(this.getElementByXpath(this.getString(locator,"xpath.record.get.uuid",parametersFeild1)));
 		logger.info(key);
@@ -90,6 +91,7 @@ public class RecordImplProductFamily extends Record{
 		String[] parameters_modle={feild2Value,modle};
 		String[] parameters_entity={feild2Value,entity};
 		String[] parametersFeild1={entity,feild2Name,feild2Value,entity,feild1Name};
+		this.sleepCertainTime(10000);
 		chooseRcord(entity,feild2Name,feild2Value);	
 		key=this.getValue(this.getElementByXpath(this.getString(locator,"xpath.record.get.uuid",parametersFeild1)));
 		this.sleepCertainTime(5000);
@@ -126,7 +128,7 @@ public class RecordImplProductFamily extends Record{
 		String[] parametersFeild2={entity,feild2Name};	
 		String[] parametersFeild2Assert={entity,feild2Name,feild2Value};
 		String[] Feild2Value={feild2Name,feild2Value};	
-		
+		this.sleepCertainTime(10000);
 		chooseRcord(entity,feild2Name,feild2Value_old);		
 		this.sleepCertainTime(5000);
 		this.clickElementByXpath(locator.getString("xpath.record.Duplicate.click"));

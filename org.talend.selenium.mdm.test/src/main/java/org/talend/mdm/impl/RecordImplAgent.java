@@ -29,9 +29,9 @@ public class RecordImplAgent extends Record{
 		chooseModle(modle);
 		clickSave();
 		chooseEntity(entity);	
-		this.sleepCertainTime(3000);
+		this.sleepCertainTime(8000);
 		this.clickElementByXpath(locator.getString("xpath.record.click.lastpage"));
-		this.sleepCertainTime(3000);
+		this.sleepCertainTime(8000);
 		chooseRcord(entity,Identifie,IdentifieValue);			
 	    this.sleepCertainTime(5000);
 	    deleteTheRecord(entity);
@@ -103,7 +103,7 @@ public void DuplicateRecordImpl(String container,String modle,String entity,Stri
 	this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.Duplicate.input",parametersFirstname)), FirstnameValue);
 	this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
 	//this.clickElementByXpath(locator.getString("xpath.record.click.lastpage"));
-	this.sleepCertainTime(5000); 
+	this.sleepCertainTime(10000); 
 	chooseRcord(entity,Identifie,IdentifieValueDup);
 	this.sleepCertainTime(3000);
 	openJournal(entity,IdentifieValueDup,OperationType,source);

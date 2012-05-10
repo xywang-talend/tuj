@@ -45,11 +45,12 @@ public void duplicateRecordImpl(String container,String modle,String entity,Stri
 		clickSave();
 		chooseEntity(entity);
 		this.clickElementByXpath(locator.getString("xpath.record.click.lastpage"));
+		this.sleepCertainTime(10000);
 		chooseRcord(entity,Identifie,IdentifieValue);
 		this.sleepCertainTime(5000);
 		this.clickElementByXpath(locator.getString("xpath.record.Duplicate.click"));	
 		this.clickElementByXpath(this.getString(locator,"xpath.record.Duplicate.close.origin",parametersIDclose));
-		this.sleepCertainTime(3000);
+		this.sleepCertainTime(10000);
 		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.Duplicate.input",parametersID)), IdentifieValueDup);
 		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
 		this.sleepCertainTime(10000);
