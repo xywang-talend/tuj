@@ -71,7 +71,7 @@ public class MetadataHelper implements Helper {
             throws IOException, URISyntaxException {
         Utilities.dndMetadataOntoJob(jobEditor, item.getItem(), item.getComponentType(), new Point(100, 100));
 
-        SWTBotGefEditPart metadata = UTIL.getTalendComponentPart(jobEditor, item.getItemName());
+        SWTBotGefEditPart metadata = UTIL.getTalendComponentPart(jobEditor, item.getComponentLabel());
         Assert.assertNotNull("can not get component '" + item.getComponentType() + "'", metadata);
         if (item instanceof TalendEdiItem) {
             metadata.click();

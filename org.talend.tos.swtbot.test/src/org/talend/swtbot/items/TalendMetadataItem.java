@@ -31,6 +31,8 @@ public class TalendMetadataItem extends TalendItem {
 
     protected String componentType;
 
+    protected String componentLabel;
+
     public TalendMetadataItem() {
     }
 
@@ -40,6 +42,7 @@ public class TalendMetadataItem extends TalendItem {
 
     public TalendMetadataItem(String itemName, TalendItemType itemType) {
         super(itemName, itemType);
+        this.componentLabel = this.itemName;
     }
 
     public String getComponentType() {
@@ -54,6 +57,14 @@ public class TalendMetadataItem extends TalendItem {
      */
     public void setComponentType(String componentType) {
         this.componentType = componentType;
+    }
+
+    public String getComponentLabel() {
+        return componentLabel;
+    }
+
+    public void setComponentLabel(String componentLabel) {
+        this.componentLabel = componentLabel;
     }
 
     public String getExpectResult() {

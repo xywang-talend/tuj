@@ -53,7 +53,6 @@ public class TalendDBItem extends TalendMetadataItem {
         TalendSchemaItem schemaItem = new TalendSchemaItem();
         schemaItem.setItem(schema);
         schemaItem.setParentNode(schemaNode);
-        schemaItem.setItemName("\"" + schemaItem.getItemName() + "\"");
         return schemaItem;
     }
 
@@ -279,6 +278,7 @@ public class TalendDBItem extends TalendMetadataItem {
         if (checkedCount == 0)
             gefBot.button("Cancel").click();
         else {
+            gefBot.waitUntil(Conditions.widgetIsEnabled(gefBot.button("Next >")), 30000);
             gefBot.button("Next >").click();
             gefBot.button("Finish").click();
         }

@@ -983,7 +983,7 @@ public class Utilities {
         // test drag db2 input component to workspace
         schema.setComponentType(componentType);
         Utilities.dndMetadataOntoJob(jobItem.getEditor(), schema.getItem(), schema.getComponentType(), new Point(100, 100));
-        SWTBotGefEditPart gefEdiPart = swtbot.getTalendComponentPart(jobItem.getEditor(), schema.getItemName());
+        SWTBotGefEditPart gefEdiPart = swtbot.getTalendComponentPart(jobItem.getEditor(), schema.getComponentLabel());
         Assert.assertNotNull("cann't get component " + schema.getComponentType() + "", gefEdiPart);
 
         // dataviewer

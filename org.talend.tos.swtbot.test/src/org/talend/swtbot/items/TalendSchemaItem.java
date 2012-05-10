@@ -20,6 +20,12 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
  */
 public class TalendSchemaItem extends TalendMetadataItem {
 
+    public String getComponentLabel() {
+        if (this.componentLabel == null)
+            return "\"" + this.itemName + "\"";
+        return this.componentLabel;
+    }
+
     /**
      * get the actived shell after click context menu of schema
      * 
