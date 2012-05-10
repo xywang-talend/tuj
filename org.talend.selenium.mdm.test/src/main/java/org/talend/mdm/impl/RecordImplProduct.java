@@ -456,11 +456,12 @@ public class RecordImplProduct extends Record{
 //		this.dragAndDropBy(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.record.expend.record.pannel"))), -500, 0);
 		
 		//select a product record in data browser
+		this.sleepCertainTime(5000);
 		this.clickElementByXpath(this.getString(locator, "xpath.record.chooserecord.byID", productUniqID));
-		
+		this.sleepCertainTime(5000);
 		//click family panel to get the record family id and name
 		this.clickElementByXpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]");
-		this.sleepCertainTime(5000);
+		this.sleepCertainTime(10000);
 		String idBefore = this.getValue(this.findElementDefineDriver(this.driver,By.xpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]//ancestor::div[contains(@id,'ItemsDetailPanel-mainPanel')]//div[contains(@class,'x-grid3-body')]//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-objectValue')][1]//div")));
 		String nameBefore = this.getValue(this.findElementDefineDriver(this.driver,By.xpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]//ancestor::div[contains(@id,'ItemsDetailPanel-mainPanel')]//div[contains(@class,'x-grid3-body')]//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-objectValue')][2]//div")));
 		logger.info("for the selected record ,producr family: "+idBefore +" name "+nameBefore);
