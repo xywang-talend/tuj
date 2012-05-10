@@ -43,7 +43,7 @@ public class Base {
 	public static String MID_SPEED = "3000";
 	public static String MIN_SPEED = "0";
 	public static String MAX_SPEED = "5000";
-	public static int WAIT_TIME = 30;
+	public static int WAIT_TIME = 50;
 	public static int MAX_WAIT_TIME = 500;
 	
 	private static boolean onHudson = false;

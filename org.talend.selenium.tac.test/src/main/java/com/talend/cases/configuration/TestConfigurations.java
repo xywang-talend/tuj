@@ -182,7 +182,7 @@ public class TestConfigurations extends configuration {
 	}
 	  if(!selenium.isElementPresent("//div[contains(text(),'SMTP (6 Parameters')]//img[@title='Ok']")) {
 			  
-			  selenium.click("//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]//button[@id='idConfigRefreshButton']");  
+			  selenium.refresh();  
 			  
 	  }
 	  
