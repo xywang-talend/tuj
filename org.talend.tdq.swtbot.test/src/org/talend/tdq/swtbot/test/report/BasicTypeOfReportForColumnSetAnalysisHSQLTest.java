@@ -15,12 +15,17 @@ import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendMetadataTypeEn
 import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendReportDBType;
 import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendReportTemplate;
 
-public class EvolutionTypeOfReportForColumnSetAnalysisTest extends TalendSwtbotForTdq{
-	
+public class BasicTypeOfReportForColumnSetAnalysisHSQLTest extends TalendSwtbotForTdq{
 	private final String REPORTLABEL = "report";
 
 	@Before
 	public void beforeClass(){
+		bot.menu("Window").menu("Show view...").click();
+		bot.waitUntil(Conditions.shellIsActive("Show View"));
+		SWTBotTree tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
+				.widgetOfType(Tree.class)));
+		tree.expandNode("General").select("Error Log");
+		bot.button("OK").click();
 		TalendSwtbotTdqCommon.setReportDB(bot, TalendReportDBType.HSQL);
 		TalendSwtbotTdqCommon.createConnection(bot, TalendMetadataTypeEnum.MYSQL);
 		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
@@ -28,7 +33,7 @@ public class EvolutionTypeOfReportForColumnSetAnalysisTest extends TalendSwtbotF
 	}
 	@Test
 	public void createEvolutionTypeOfReportForColumnSetAnalysis(){
-		String birthdate= TalendSwtbotTdqCommon.getColumns(bot,
+		String birthday= TalendSwtbotTdqCommon.getColumns(bot,
 				TalendMetadataTypeEnum.MYSQL, "tbi", "customer", "birthdate")[0];
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMNSET.toString() + " 0.1").show();
 		formBot.hyperlink("Select columns to analyze").click();
@@ -36,7 +41,7 @@ public class EvolutionTypeOfReportForColumnSetAnalysisTest extends TalendSwtbotF
 		SWTBotTree tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
 				.widgetOfType(Tree.class)));
 		tree.expandNode("tbi").getNode(0).expand().select("customer");
-		bot.table().getTableItem(birthdate).check();
+		bot.table().getTableItem(birthday).check();
 		bot.button("OK").click();
 		formBot.ccomboBox(1).setSelection("Nominal");
 		bot.toolbarButtonWithTooltip("Save").click();
@@ -44,7 +49,7 @@ public class EvolutionTypeOfReportForColumnSetAnalysisTest extends TalendSwtbotF
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMNSET.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon.createReport(bot, REPORTLABEL);
 		TalendSwtbotTdqCommon.generateReport(bot, formBot, REPORTLABEL, 
-				TalendReportTemplate.Evolution, TalendAnalysisTypeEnum.COLUMNSET.toString());
+				TalendReportTemplate.Basic, TalendAnalysisTypeEnum.COLUMNSET.toString());
 		
 	}
 //	@After

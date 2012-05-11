@@ -17,7 +17,7 @@ import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendMetadataTypeEn
 import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendAnalysisTypeEnum;
 import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendReportTemplate;
 
-public class CreateEvolutionTypeOfReportForColumnSetAnalysisTest extends TalendSwtbotForTdq{
+public class CreateEvolutionTypeOfReportForColumnSetAnalysisTes extends TalendSwtbotForTdq{
 	
 	private final String REPORTLABEL = "report";
 

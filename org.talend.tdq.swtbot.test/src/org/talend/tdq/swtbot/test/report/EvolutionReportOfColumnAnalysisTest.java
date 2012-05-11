@@ -17,12 +17,18 @@ import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendMetadataTypeEn
 import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendReportDBType;
 import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendReportTemplate;
 
-public class ShowThresholdTest extends TalendSwtbotForTdq {
+public class EvolutionReportOfColumnAnalysisTest extends TalendSwtbotForTdq {
 
-	private final String REPORTLABEL = "REPORT";
+	private final String REPORTLABEL = "column_analysis_evolution_report";
 
 	@Before
 	public void beforeClass() {
+		bot.menu("Window").menu("Show view...").click();
+		bot.waitUntil(Conditions.shellIsActive("Show View"));
+		SWTBotTree tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
+				.widgetOfType(Tree.class)));
+		tree.expandNode("General").select("Error Log");
+		bot.button("OK").click();
 		TalendSwtbotTdqCommon.setReportDB(bot, TalendReportDBType.MySQL);
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
@@ -32,83 +38,46 @@ public class ShowThresholdTest extends TalendSwtbotForTdq {
 	}
 
 	@Test
-	public void showThrehold() {
+	public void evolutionReport() {
 		String address1= TalendSwtbotTdqCommon.getColumns(bot,
 				TalendMetadataTypeEnum.MYSQL, "tbi", "customer", "address1")[0];
-		
-		String col1 = address1.substring(0, address1.indexOf("(")) + " "
-		+ address1.substring(address1.indexOf("("));
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
-		.show();
+				.show();
 		formBot.hyperlink("Select columns to analyze").click();
 		bot.waitUntil(Conditions.shellIsActive("Column Selection"));
-		SWTBotShell shell = bot.shell("Column Selection");
 		SWTBotTree tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
 				.widgetOfType(Tree.class)));
 		tree.expandNode("tbi").getNode(0).expand().select("customer");
 		bot.table().getTableItem(address1).check();
 		bot.button("OK").click();
-		bot.waitUntil(Conditions.shellCloses(shell));
-		formBot.ccomboBox(1).setSelection("Nominal");
-		if (bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
-				.isDirty())
-		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
-			.save();
+		formBot.ccomboBox(1).setSelection("Interval");
+		bot.toolbarButtonWithTooltip("Save").click();
 		formBot.hyperlink("Select indicators for each column").click();
 		bot.waitUntil(Conditions.shellIsActive("Indicator Selection"));
-		shell = bot.shell("Indicator Selection");
+
 		tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
 				.widgetOfType(Tree.class)));
-		tree.expandNode("Simple Statistics").select("Row Count").click(1);
+		tree.getTreeItem("Simple Statistics").click(1);
 		bot.checkBox().click();
 		bot.button("OK").click();
-		if (bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
-				.isDirty())
-			bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
-			.save();
-		formBot.section("Analyzed Columns").setFocus();
-		tree = new SWTBotTree((Tree)bot.widget(
-				WidgetOfType.widgetOfType(Tree.class),
-				bot.editorByTitle(
-				TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
-				.getWidget()));
-		tree.expandNode(col1).getNode("Row Count")
-			.doubleClick();
-		bot.waitUntil(Conditions.shellIsActive("Indicator"));
-		shell = bot.shell("Indicator");
-		bot.textWithLabel("Lower threshold").setText("1");
-		bot.textWithLabel("Higher threshold").setText("2");
-		bot.button("Finish").click();
+		bot.toolbarButtonWithTooltip("Run").click();
+
 		try {
+			SWTBotShell shell = bot.shell("Run Analysis");
 			bot.waitUntil(Conditions.shellCloses(shell));
 		} catch (TimeoutException e) {
 		}
-		if (bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
-				.isDirty())
-			bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
-				.save();
-		bot.toolbarButtonWithTooltip("Run").click();
-		try {
-		    shell = bot.shell("Run Analysis");
-			bot.waitUntil(Conditions.shellCloses(shell),50000);
-		} catch (TimeoutException e) {
-		}
-		bot.cTabItem("Analysis Results").activate();
-		bot.sleep(2000);
-		bot.captureScreenshot(System
-				.getProperty("tdq.analysis.result.screenshot.path")
-				+ "column_ana_threshold.jpeg");		
-		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString()+" 0.1").close();
+		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
+				.close();
+
 		TalendSwtbotTdqCommon.createReport(bot, REPORTLABEL);
 		TalendSwtbotTdqCommon.generateReport(bot, formBot, REPORTLABEL,
 				TalendReportTemplate.Evolution,
 				TalendAnalysisTypeEnum.COLUMN.toString());
-
 	}
-	
 
 //	@After
-//	public void afterClass() {
+//	public void cleanSource() {
 //		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
 //				REPORTLABEL);
 //		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
@@ -116,5 +85,5 @@ public class ShowThresholdTest extends TalendSwtbotForTdq {
 //		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
 //				TalendMetadataTypeEnum.MYSQL.toString());
 //	}
-
+	
 }

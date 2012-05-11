@@ -1,4 +1,4 @@
-package org.talend.top.swtbot.test.dbconnections;
+package org.talend.top.swtbot.test.filedelimited;
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;

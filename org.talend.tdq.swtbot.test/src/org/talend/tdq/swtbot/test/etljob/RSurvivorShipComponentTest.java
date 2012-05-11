@@ -50,10 +50,10 @@ public class RSurvivorShipComponentTest extends TalendSwtbotForTdq{
 		JobHelper.dndPaletteToolOntoJob(jobEditor, "tLogRow", new Point(400,100));
 		SWTBotGefEditPart tLogRow1 = getTalendComponentPart(jobEditor, "tLogRow_1");
 	    Assert.assertNotNull("can not get component 'tRowGenerator'", tLogRow1);
-		JobHelper.dndPaletteToolOntoJob(jobEditor, "tRuleSurvivorship", new Point(550,100));
+		JobHelper.dndPaletteToolOntoJob(jobEditor, "tRuleSurvivorship", new Point(150,300));
 		SWTBotGefEditPart tRuleSurvivorship1 = getTalendComponentPart(jobEditor, "tRuleSurvivorship_1");
 	    Assert.assertNotNull("can not get component 'tRowGenerator'", tRuleSurvivorship1);
-		JobHelper.dndPaletteToolOntoJob(jobEditor, "tLogRow", new Point(700,100));
+		JobHelper.dndPaletteToolOntoJob(jobEditor, "tLogRow", new Point(260,300));
 		SWTBotGefEditPart tLogRow2 = getTalendComponentPart(jobEditor, "tLogRow_2");
 	    Assert.assertNotNull("can not get component 'tRowGenerator'", tLogRow2);
 	    jobEditor.select(metadata);
@@ -61,6 +61,24 @@ public class RSurvivorShipComponentTest extends TalendSwtbotForTdq{
 	    jobEditor.click(tMatchGroup1);
 	    SWTBotGefEditPart rowMain = jobEditor.getEditPart("row1 (Main)");
 	    Assert.assertNotNull("can not draw row line", rowMain);
+	    
+	    tMatchGroup1.click();
+		   jobEditor.clickContextMenu("Row").clickContextMenu("Main");
+		   jobEditor.click(tLogRow1);
+		   SWTBotGefEditPart rowMain2 = jobEditor.getEditPart("row2 (Main)");
+		   Assert.assertNotNull("can not draw row line",rowMain2);  
+		   tLogRow1.click();
+		   jobEditor.clickContextMenu("Row").clickContextMenu("Main");
+		   jobEditor.click(tRuleSurvivorship1);
+		   SWTBotGefEditPart rowMain3 = jobEditor.getEditPart("row3 (Main)");
+		   Assert.assertNotNull("can not draw row line",rowMain3);
+		   
+		   tRuleSurvivorship1.click();
+		   jobEditor.clickContextMenu("Row").clickContextMenu("Main");
+		   jobEditor.click(tLogRow2);
+		   SWTBotGefEditPart rowMain4 = jobEditor.getEditPart("row4 (Main)");
+		   Assert.assertNotNull("can not draw row line",rowMain4);
+		   
 	    /** edit the tMatchGroup1*/
 	    tMatchGroup1.doubleClick();
 	    gefBot.viewByTitle("Component").setFocus();
@@ -70,20 +88,20 @@ public class RSurvivorShipComponentTest extends TalendSwtbotForTdq{
 	    gefBot.table(0).click(0, 2);
 	    gefBot.ccomboBox("Exact").setSelection("Jaro");
 	    gefBot.buttonWithTooltip("Add",1).click();
-	   tMatchGroup1.click();
-	   jobEditor.clickContextMenu("Row").clickContextMenu("Main");
-	   jobEditor.click(tLogRow1);
-	   SWTBotGefEditPart rowMain2 = jobEditor.getEditPart("row2 (Main)");
-	   Assert.assertNotNull("can not draw row line",rowMain2);
+//	   tMatchGroup1.click();
+//	   jobEditor.clickContextMenu("Row").clickContextMenu("Main");
+//	   jobEditor.click(tLogRow1);
+//	   SWTBotGefEditPart rowMain2 = jobEditor.getEditPart("row2 (Main)");
+//	   Assert.assertNotNull("can not draw row line",rowMain2);
 	   /** edit the tLogRow1*/
 	   tLogRow1.doubleClick();
 	   gefBot.viewByTitle("Component").setFocus();
 	   gefBot.radio("Table (print values in cells of a table)").click();
-	   tLogRow1.click();
-	   jobEditor.clickContextMenu("Row").clickContextMenu("Main");
-	   jobEditor.click(tRuleSurvivorship1);
-	   SWTBotGefEditPart rowMain3 = jobEditor.getEditPart("row3 (Main)");
-	   Assert.assertNotNull("can not draw row line",rowMain3);
+//	   tLogRow1.click();
+//	   jobEditor.clickContextMenu("Row").clickContextMenu("Main");
+//	   jobEditor.click(tRuleSurvivorship1);
+//	   SWTBotGefEditPart rowMain3 = jobEditor.getEditPart("row3 (Main)");
+//	   Assert.assertNotNull("can not draw row line",rowMain3);
 	   /** edit the tRuleSurvivorship1*/
 	   tRuleSurvivorship1.doubleClick();
 	   gefBot.ccomboBox(1).setSelection("GID");
@@ -93,11 +111,11 @@ public class RSurvivorShipComponentTest extends TalendSwtbotForTdq{
 	   gefBot.text("").setText("rulename");	   
 	   gefBot.table(0).click(0, 4);
 	   gefBot.ccomboBox("").setSelection("Smalllest");
-	   tRuleSurvivorship1.click();
-	   jobEditor.clickContextMenu("Row").clickContextMenu("Main");
-	   jobEditor.click(tLogRow2);
-	   SWTBotGefEditPart rowMain4 = jobEditor.getEditPart("row4 (Main)");
-	   Assert.assertNotNull("can not draw row line",rowMain4);
+//	   tRuleSurvivorship1.click();
+//	   jobEditor.clickContextMenu("Row").clickContextMenu("Main");
+//	   jobEditor.click(tLogRow2);
+//	   SWTBotGefEditPart rowMain4 = jobEditor.getEditPart("row4 (Main)");
+//	   Assert.assertNotNull("can not draw row line",rowMain4);
 	   /** edit the tLogRow2*/
 	   tLogRow1.doubleClick();
 	   gefBot.viewByTitle("Component").setFocus();

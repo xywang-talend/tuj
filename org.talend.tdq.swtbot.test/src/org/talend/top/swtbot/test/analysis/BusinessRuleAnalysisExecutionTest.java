@@ -1,4 +1,4 @@
-package org.talend.top.swtbot.test.analysis.tableanalysis;
+package org.talend.top.swtbot.test.analysis;
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
