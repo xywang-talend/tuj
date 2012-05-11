@@ -32,7 +32,8 @@ public class User extends WebDriverBase {
 		this.getElementById("idSubModuleAddButton").click();
 		logger.info("check panel editable of add user panel ");
 	    Assert.assertTrue(this.isElementPresent(By.xpath("//img[@class='gwt-Image x-component ']"), WAIT_TIME_MIN));		
-		logger.info("enter loginname");
+		this.waitforElementDisplayed(By.id("idUserLoginInput"), WAIT_TIME_MIN);
+	    logger.info("enter loginname");
 	    this.typeTextById("idUserLoginInput", user);
 	    logger.info("enter firstname");
 		this.typeTextById("idUserFirstNameInput", firstName);

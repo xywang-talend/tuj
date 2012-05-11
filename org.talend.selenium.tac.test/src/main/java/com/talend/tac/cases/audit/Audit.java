@@ -198,7 +198,7 @@ public class Audit extends Login {
 	}
 	
 	
-	public void changeCommandLineConfig(String commandlineHost, String statusIcon) {
+	public void changeCommandLineConfig(String usedCommandline, String eidtIcon, String input, String value, String commandlineHost, String statusIcon) {
 		
 		System.err.println(commandlineHost);
 		this.clickWaitForElementPresent("idMenuConfigElement");
@@ -210,9 +210,9 @@ public class Audit extends Login {
 			selenium.click(onlineButton);			
 			
 		}
-		this.mouseDownWaitForElementPresent("//div[contains(text(),'CommandLine/primary')]");
-		this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),other.getString("commandline.conf.primary.host.input"), commandlineHost);
-		this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.host.value"), commandlineHost, statusIcon);
+		this.mouseDownWaitForElementPresent("//div[contains(text(),'CommandLine/"+usedCommandline+"')]");
+		this.typeWordsInConfigurationMenu(other.getString(eidtIcon),other.getString(input), commandlineHost);
+		this.AssertEqualsInConfigurationMenu(other.getString(value), commandlineHost, statusIcon);
 		
 	}
 	/**

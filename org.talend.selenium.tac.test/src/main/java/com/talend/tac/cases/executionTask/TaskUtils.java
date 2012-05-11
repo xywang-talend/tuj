@@ -551,12 +551,12 @@ public class TaskUtils extends Login {
 
 		if("NotWithBackslash".equals(filePathType)) {
 			
-			properties.put("file.path", FilePath+"\\testFileTrigger.txt");
-			System.out.println(">>>>>>>>>*--------"+FilePath+"\\testFileTrigger.txt");
+			properties.put("file.path", FilePath+"\\testFileTrigger.cvs");
+			System.out.println(">>>>>>>>>*--------"+FilePath+"\\testFileTrigger.cvs");
 			
 		} else if("withBackslash".equals(filePathType)){
 			
-			properties.put("file.path", FilePath+"testFileTrigger.txt");
+			properties.put("file.path", FilePath+"testFileTrigger.cvs");
 			
 		}
 		
@@ -608,11 +608,11 @@ public class TaskUtils extends Login {
 		
 		if("NotWithBackslash".equals(filePathType)) {
 			
-			properties.put("file.path", FilePath+"\\testFileTrigger.txt");
+			properties.put("file.path", FilePath+"\\testFileTrigger.log");
 			
 		} else if("withBackslash".equals(filePathType)) {
 			
-			properties.put("file.path", FilePath+"testFileTrigger.txt");
+			properties.put("file.path", FilePath+"testFileTrigger.log");
 			
 		}
 		

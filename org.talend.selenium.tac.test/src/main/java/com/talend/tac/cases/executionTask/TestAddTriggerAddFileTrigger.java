@@ -151,7 +151,7 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	@Parameters({"taskForTestFileTriggerOfCreationOption","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled", "FileTrigger1",
 		"addFileTriggerOfExistDescription","FolderPath",
-		"FileMaskOfTxt"})
+		"FileMaskOfCvs"})
 	public void testCreateFileTriggerCheckCreatedOption(String label,
 			String labelDescription,String commonpro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic, String fileTriggerLabel,
@@ -169,7 +169,7 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	@Parameters({"taskForTestFileTriggerOfModifiedOption","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled", "FileTrigger3",
 		"addFileTriggerOfExistDescription","FolderPath",
-		"FileMaskOfTxt"})
+		"FileMaskOfLog"})
 	public void testCreateFileTriggerCheckModifiedOption(String label,
 			String labelDescription,String commonpro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic, String fileTriggerLabel,
@@ -187,7 +187,7 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	@Parameters({"taskForTestFileTriggerOfCreationOptionFilePathNotWithLastBackslash","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled", "FileTrigger2",
 		"addFileTriggerOfExistDescription","FolderPathNotWithLastBackslash",
-		"FileMaskOfTxt"})
+		"FileMaskOfCvs"})
 	public void testCreateFileTriggerCheckCreatedOptionFilePathNotWithLastBackSlash(String label,
 			String labelDescription,String commonpro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic, String fileTriggerLabel,
@@ -205,7 +205,7 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	@Parameters({"taskForTestFileTriggerOfModifiedOptionFilePathNotWithLastBackslash","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled", "FileTrigger4",
 		"addFileTriggerOfExistDescription","FolderPathNotWithLastBackslash",
-		"FileMaskOfTxt"})
+		"FileMaskOfLog"})
 	public void testCreateFileTriggerCheckModifiedOptionFilePathNotWithLastBackSlash(String label,
 			String labelDescription,String commonpro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic, String fileTriggerLabel,

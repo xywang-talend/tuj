@@ -140,13 +140,15 @@ public class TestAudit extends Audit {
 	@Parameters({"AddcommonProjectname","remotehostAddress","remotehostAddressWithWrong"})
 	public void testAuditWithOutStartCommondline(String projectName,String normalCommondline,String wrongCommondline){
 		System.err.println(wrongCommondline);	
-		this.changeCommandLineConfig(wrongCommondline, other.getString("commandLine.conf.primary.wrong.host.statusIcon"));
+		this.changeCommandLineConfig("primary", "commandline.conf.primary.host.editButton", "commandline.conf.primary.host.input", "commandline.conf.primary.host.value", wrongCommondline, other.getString("commandLine.conf.primary.wrong.host.statusIcon"));	
+		selenium.refresh();
+		this.changeCommandLineConfig("secondary", "commandline.conf.secondary.host.editButton", "commandline.conf.secondary.host.input", "commandline.conf.secondary.host.value", wrongCommondline, other.getString("commandLine.conf.primary.wrong.host.statusIcon"));
 		selenium.refresh();
 		this.sleep(5000);
 		auditProcess(projectName, "branch");
 		Assert.assertTrue(this.waitForTextPresent("Cannot connect to CommandLine, please check your configuration", MAX_WAIT_TIME));
 		this.sleep(5000);
-		this.changeCommandLineConfig(normalCommondline, other.getString("commandLine.conf.primary.host.statusIcon"));
+		this.changeCommandLineConfig("primary", "commandline.conf.primary.host.editButton", "commandline.conf.primary.host.input", "commandline.conf.primary.host.value", normalCommondline, other.getString("commandLine.conf.primary.host.statusIcon"));
 		selenium.refresh();
 		this.sleep(5000);
 	}
