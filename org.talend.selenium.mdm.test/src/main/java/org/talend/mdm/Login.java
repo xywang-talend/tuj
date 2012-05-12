@@ -26,6 +26,12 @@ public class Login extends Base{
 		System.setProperty("testlink.id", testlinkId);
 		System.setProperty("testlink.porject", testlinkProject);
 		
+		if(null == System.getProperty("webdriver.firefox.bin.path") && "".equals(System.getProperty("webdriver.firefox.bin.path").trim())) {
+		} else{
+			System.setProperty("webdriver.firefox.bin", System.getProperty("webdriver.firefox.bin.path").trim());
+		}
+		
+		
 		URL file = Login.class.getClassLoader().getResource("org/talend/mdm/resources");
 		PropertyConfigurator.configure( file.getPath() + "/log4j.properties" );
 		
@@ -38,7 +44,17 @@ public class Login extends Base{
 	    firefoxProfile.setPreference("dom.max_script_run_time", 0);
 	    firefoxProfile.setPreference("dom.max_chrome_script_run_time", 0);
 
+	    
+//	    firefoxProfile.setPreference("native_events_enabled", false);
+	    firefoxProfile.setPreference("webdriver_enable_native_events", false);
+	    
+	    
 //	    firefoxProfile.setEnableNativeEvents(true);
+//	    
+	    logger.info("setEnableNativeEvents-" + firefoxProfile.areNativeEventsEnabled());
+//	    firefoxProfile.setEnableNativeEvents(false);
+//	    
+//	    logger.info("setEnableNativeEvents-" + firefoxProfile.areNativeEventsEnabled());
 	    
 	    driver = new FirefoxDriver(firefoxProfile);
 	    
