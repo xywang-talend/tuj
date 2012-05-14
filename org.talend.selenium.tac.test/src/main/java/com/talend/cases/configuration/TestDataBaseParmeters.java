@@ -23,6 +23,7 @@ public class TestDataBaseParmeters extends Login {
 	   
 	public String getDataBaseInfoInDatabaseConfigurationPage(String itemName) {
 		
+		this.waitForElementPresent("idDbConfig"+itemName+"Input", WAIT_TIME);
 		String infoExpectResults = selenium.getValue("idDbConfig"+itemName+"Input");
 		System.out.println(infoExpectResults);
 		return infoExpectResults;

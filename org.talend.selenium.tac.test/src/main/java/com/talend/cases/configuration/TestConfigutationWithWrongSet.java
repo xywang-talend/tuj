@@ -50,7 +50,7 @@ public class TestConfigutationWithWrongSet extends configuration {
 		  
 		  if(!selenium.isElementPresent(other.getString("smtp.conf.useSmtp.statusIcon"))) {
 			  
-			  selenium.click("//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]//button[@id='idConfigRefreshButton']");
+			  selenium.refresh();
 			  
 		  }
 		  this.waitElement(other.getString("smtp.conf.useSmtp.statusIcon"), WAIT_TIME);
