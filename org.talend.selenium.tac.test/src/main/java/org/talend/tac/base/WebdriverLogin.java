@@ -22,7 +22,7 @@ public class WebdriverLogin extends WebDriverBase{
 	@BeforeClass
 	@Parameters({"url", "root"})
 	public void initWebdriver(String url, String root, ITestContext context){
-		if(null == System.getProperty("webdriver.firefox.bin.path") && "".equals(System.getProperty("webdriver.firefox.bin.path").trim())) {
+		if(null == System.getProperty("webdriver.firefox.bin.path") || "".equals(System.getProperty("webdriver.firefox.bin.path").trim()) || System.getProperty("webdriver.firefox.bin.path").trim().contains("webdriver.firefox.bin.path")) {
 		} else{
 			System.setProperty("webdriver.firefox.bin", System.getProperty("webdriver.firefox.bin.path").trim());
 		}

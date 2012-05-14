@@ -77,7 +77,7 @@ public class Base {
 				+ ", browser: " + browser + ", " + url);
 		System.out.println("language: " + language + ", country: " + country);
 		
-		if(null == System.getProperty("webdriver.firefox.bin.path") && "".equals(System.getProperty("webdriver.firefox.bin.path").trim())) {
+		if(null == System.getProperty("webdriver.firefox.bin.path") || "".equals(System.getProperty("webdriver.firefox.bin.path").trim()) || System.getProperty("webdriver.firefox.bin.path").trim().contains("webdriver.firefox.bin.path")) {
 			selenium = new DefaultSelenium(server, Integer.parseInt(port), browser,
 					url); // 4444 is default server port
 		} else{
