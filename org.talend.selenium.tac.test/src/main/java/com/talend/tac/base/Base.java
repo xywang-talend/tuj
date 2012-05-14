@@ -1,5 +1,7 @@
 package com.talend.tac.base;
 
+import it.haefelinger.flaka.Break;
+
 import java.awt.Event;
 import java.io.File;
 import java.io.FileInputStream;
@@ -480,12 +482,28 @@ public class Base {
 	
 	public void selectDropDownList(String id, String itemName) {
 		
-	    try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		boolean waitInput = selenium.isElementPresent("//input[@id='"+id+"' and @disabled='']");
+		
+		int i =0;
+		while (waitInput==true && i<=WAIT_TIME) {
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			waitInput = selenium.isElementPresent("//input[@id='"+id+"' and @disabled='']");
+			
+			if(waitInput == true) {
+								
+				System.out.println("waiting input appear ...");
+				
+			}			
+			
 		}
+		
 		if(selenium.isElementPresent("//input[@id='"+id+"']"
 				+ "/following-sibling::div")) {
 			
