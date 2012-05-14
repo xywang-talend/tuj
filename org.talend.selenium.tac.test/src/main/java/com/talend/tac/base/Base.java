@@ -471,6 +471,12 @@ public class Base {
 	
 	public void selectDropDownList(String id, String itemName) {
 		
+	    try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(selenium.isElementPresent("//input[@id='"+id+"']"
 				+ "/following-sibling::div")) {
 			
