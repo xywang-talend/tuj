@@ -76,8 +76,17 @@ public class Base {
 		System.out.println("Server: " + server + ", port: " + port
 				+ ", browser: " + browser + ", " + url);
 		System.out.println("language: " + language + ", country: " + country);
-		selenium = new DefaultSelenium(server, Integer.parseInt(port), browser,
-				url); // 4444 is default server port
+		
+		if(null == System.getProperty("webdriver.firefox.bin.path") && "".equals(System.getProperty("webdriver.firefox.bin.path").trim())) {
+			selenium = new DefaultSelenium(server, Integer.parseInt(port), browser,
+					url); // 4444 is default server port
+		} else{
+			selenium = new DefaultSelenium(server, Integer.parseInt(port), browser+System.getProperty("webdriver.firefox.bin.path").trim(),
+					url); // 4444 is default server port
+			System.setProperty("webdriver.firefox.bin", System.getProperty("webdriver.firefox.bin.path").trim());
+		}
+		
+
 
 		selenium.start();
 		selenium.open(root);
