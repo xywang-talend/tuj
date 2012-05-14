@@ -26,7 +26,8 @@ public class Login extends Base{
 		System.setProperty("testlink.id", testlinkId);
 		System.setProperty("testlink.porject", testlinkProject);
 		
-		if(null == System.getProperty("webdriver.firefox.bin.path") && "".equals(System.getProperty("webdriver.firefox.bin.path").trim())) {
+		logger.info("webdriver.firefox.bin.path = " + System.getProperty("webdriver.firefox.bin.path").trim());
+		if(null == System.getProperty("webdriver.firefox.bin.path") || "".equals(System.getProperty("webdriver.firefox.bin.path").trim())) {
 		} else{
 			System.setProperty("webdriver.firefox.bin", System.getProperty("webdriver.firefox.bin.path").trim());
 		}
