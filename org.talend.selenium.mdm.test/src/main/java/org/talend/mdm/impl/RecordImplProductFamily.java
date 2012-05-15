@@ -132,6 +132,7 @@ public class RecordImplProductFamily extends Record{
 		chooseRcord(entity,feild2Name,feild2Value_old);		
 		this.sleepCertainTime(5000);
 		this.clickElementByXpath(locator.getString("xpath.record.Duplicate.click"));
+		this.sleepCertainTime(5000);
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.Duplicate.input",parametersFeild2)), WAIT_TIME_MAX),"duplicateARecord");
 		this.sleepCertainTime(5000);
 		key=this.getValue(this.getElementByXpath(this.getString(locator,"xpath.record.get.uuid",parametersFeild1)));
@@ -139,11 +140,10 @@ public class RecordImplProductFamily extends Record{
 		String[] parametersFeild2Value={entity,key};
 		String[] parametersFeild2ValueAssert={feild2Name,feild2Value};
 		this.clickElementByXpath(this.getString(locator,"xpath.record.Duplicate.close.origin",parametersFeild2Value));
-		this.sleepCertainTime(3000);
+		this.sleepCertainTime(5000);
 		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.Duplicate.input",parametersFeild2)), feild2Value);
 		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
-		this.sleepCertainTime(3000);
-		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
+//		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
 		this.sleepCertainTime(5000);
 		chooseRcord(entity,feild2Name,feild2Value);	
 		this.sleepCertainTime(5000);
