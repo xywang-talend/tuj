@@ -14,6 +14,7 @@ package tisstudio.joblets;
 
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.junit.Assert;
 import org.junit.Before;
@@ -35,13 +36,25 @@ public class OpenOldVersionTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-    	repositories.add(ERepositoryObjectType.JOBLET);
+        repositories.add(ERepositoryObjectType.JOBLET);
         jobletItem = new TalendJobletItem(JOBLET_NAME);
         jobletItem.create();
         jobletItem.getEditor().saveAndClose();
         jobletItem.getItem().contextMenu("Edit Properties").click();
         gefBot.button("m").click();
         gefBot.button("Finish").click();
+        gefBot.waitUntil(new DefaultCondition() {
+
+            @Override
+            public boolean test() throws Exception {
+                return jobletItem.getParentNode().getNode(JOBLET_NAME + " 0.2").isVisible();
+            }
+
+            @Override
+            public String getFailureMessage() {
+                return "new version of joblet is not found";
+            }
+        });
         jobletItem.setItem(jobletItem.getParentNode().getNode(JOBLET_NAME + " 0.2"));
     }
 

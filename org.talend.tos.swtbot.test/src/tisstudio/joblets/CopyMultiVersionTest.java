@@ -16,6 +16,7 @@ import junit.framework.Assert;
 
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,13 +37,25 @@ public class CopyMultiVersionTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-    	repositories.add(ERepositoryObjectType.JOBLET);
+        repositories.add(ERepositoryObjectType.JOBLET);
         jobletItem = new TalendJobletItem(JOBLET_NAME);
         jobletItem.create();
         jobletItem.getEditor().saveAndClose();
         jobletItem.getItem().contextMenu("Edit Properties").click();
         gefBot.button("m").click();
         gefBot.button("Finish").click();
+        gefBot.waitUntil(new DefaultCondition() {
+
+            @Override
+            public boolean test() throws Exception {
+                return jobletItem.getParentNode().getNode(JOBLET_NAME + " 0.2").isVisible();
+            }
+
+            @Override
+            public String getFailureMessage() {
+                return "new version of joblet is not found";
+            }
+        }, 10000);
         jobletItem.setItem(jobletItem.getParentNode().getNode(JOBLET_NAME + " 0.2"));
     }
 
@@ -58,12 +71,26 @@ public class CopyMultiVersionTest extends TalendSwtBotForTos {
             gefBot.button("Select All").click();
             gefBot.button("OK").click();
 
+            gefBot.waitUntil(new DefaultCondition() {
+
+                @Override
+                public boolean test() throws Exception {
+                    return jobletItem.getParentNode().getNode("Copy_of_" + jobletItem.getItemFullName()).isVisible();
+                }
+
+                @Override
+                public String getFailureMessage() {
+                    return "the copy joblet didn't appear";
+                }
+            });
+
             jobletItem.getParentNode().getNode("Copy_of_" + jobletItem.getItemFullName()).contextMenu("Open an other version")
                     .click();
+            tempShell = gefBot.shell("New joblet").activate();
             actualVersionCount = gefBot.table(0).rowCount();
-            gefBot.button("Cancel").click();
-            Assert.assertEquals("did not copy all the version", exceptVersionCount, actualVersionCount);
             tempShell.close();
+            Assert.assertEquals("did not copy all the version", exceptVersionCount, actualVersionCount);
+
         } catch (WidgetNotFoundException wnfe) {
             tempShell.close();
             Assert.fail(wnfe.getCause().getMessage());
@@ -71,6 +98,7 @@ public class CopyMultiVersionTest extends TalendSwtBotForTos {
             tempShell.close();
             Assert.fail(e.getMessage());
         }
+
     }
 
 }
