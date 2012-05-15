@@ -155,8 +155,9 @@ public void updateRecordImpl(String container,String modle,String entity,String 
 			this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
 			this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));			
 			//get the value after update
+			this.sleepCertainTime(5000);
 			chooseRcord(entity,Identifie,IdentifieValue);
-			this.sleepCertainTime(3000);
+			this.sleepCertainTime(5000);
 			city=this.getValueInput(By.xpath("//input[@name='Agency/City']"));
 			state=this.getValueInput(By.xpath("//input[@name='Agency/State']"));
 			region=this.getValueInput(By.xpath("//input[@name='Agency/Region']"));
