@@ -151,6 +151,7 @@ public class DataSteward extends Base{
 	}
     
     public void clickSaveOnTaskSchemaEditView(){
+    	this.sleepCertainTime(5000);
     	this.clickElementByXpath(locator.getString("xpath.datatewardship.taskschemaeditview.save.button"));
         logger.info("click save button on task schema edit view ok.");
     }
