@@ -103,7 +103,7 @@ public class TestJobAnalyses extends Login {
 		String warningmessage1 =  "Delete Faild: Cannot delete connection "+'"'+connection+'"'+" because it's active for...";
 		this.clickWaitForElementPresent("!!!menu.dashjobs.element!!!");
 		//wait and select the first "connection"
-		this.waitForElementPresent("//label[text()='Active connection:']/following-sibling::div//input",WAIT_TIME);
+		this.waitForElementPresent("//label[text()='Active connection:']/following-sibling::div//input/following-sibling::div",WAIT_TIME);
 		selenium.click("//label[text()='Active connection:']/following-sibling::div//input/following-sibling::div");
 		this.mouseDownWaitForElementPresent("//div[contains(@class,'x-combo-list-item') and text()=' "+connection+"']");
 		this.waitForElementPresent("//img[@title='Ok']", WAIT_TIME);
