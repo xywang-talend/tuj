@@ -22,7 +22,10 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.talend.mdm.TestCase.Result;
 import org.testng.Assert;
@@ -44,6 +47,10 @@ public class Base {
 	
 	public ResourceBundle other = ResourceBundle.getBundle("org.talend.mdm.resources.other",currentLocale);
 	public ResourceBundle locator = ResourceBundle.getBundle("org.talend.mdm.resources.locator",currentLocale);
+	
+	public enum Browser{
+		firefox,iexplore
+	}
 	
 	public final static int WAIT_TIME_MIN =50;
 	public final static int WAIT_TIME_MID = 300;
@@ -600,5 +607,48 @@ public class Base {
 	}
 	public int getWindowSizeWidth(){
 		return driver.manage().window().getSize().width;
+	}
+	
+	public WebDriver setWebDriver(Browser browser){
+		switch(browser) {
+			case iexplore: 
+				driver = this.setIExplore();
+			default:
+				driver = this.setFirefox();
+		}
+		return driver;
+	}
+	
+	public WebDriver setIExplore(){
+		DesiredCapabilities ieCapabilities = DesiredCapabilities.internetExplorer();
+		ieCapabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+		return new InternetExplorerDriver(ieCapabilities);
+	}
+	
+	public WebDriver setFirefox() {
+		logger.info("webdriver.firefox.bin.path = " + System.getProperty("webdriver.firefox.bin.path").trim());
+		if(null == System.getProperty("webdriver.firefox.bin.path") || "".equals(System.getProperty("webdriver.firefox.bin.path").trim()) || System.getProperty("webdriver.firefox.bin.path").trim().contains("webdriver.firefox.bin.path")) {
+		} else{
+			System.setProperty("webdriver.firefox.bin", System.getProperty("webdriver.firefox.bin.path").trim());
+		}
+		
+	    FirefoxProfile firefoxProfile = new FirefoxProfile();
+	    firefoxProfile.setPreference("browser.download.folderList",2);
+	    firefoxProfile.setPreference("browser.download.manager.showWhenStarting",false);
+	    firefoxProfile.setPreference("browser.download.dir", this.getAbsoluteFolderPath("org/talend/mdm/download"));
+	    firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk","text/csv, application/vnd.ms-excel, application/zip, application/pdf");
+	    
+	    firefoxProfile.setPreference("dom.max_script_run_time", 0);
+	    firefoxProfile.setPreference("dom.max_chrome_script_run_time", 0);
+	    
+//	    firefoxProfile.setPreference("native_events_enabled", false);
+	    firefoxProfile.setPreference("webdriver_enable_native_events", false);
+	    
+//	    firefoxProfile.setEnableNativeEvents(true);
+	    logger.info("setEnableNativeEvents-" + firefoxProfile.areNativeEventsEnabled());
+//	    firefoxProfile.setEnableNativeEvents(false);
+//	    logger.info("setEnableNativeEvents-" + firefoxProfile.areNativeEventsEnabled());
+	    
+	    return new FirefoxDriver(firefoxProfile);
 	}
 }

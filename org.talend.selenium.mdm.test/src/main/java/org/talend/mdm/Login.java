@@ -6,8 +6,6 @@ import java.util.concurrent.TimeUnit;
 import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -26,15 +24,28 @@ public class Login extends Base{
 		System.setProperty("testlink.id", testlinkId);
 		System.setProperty("testlink.porject", testlinkProject);
 		
+		URL file = Login.class.getClassLoader().getResource("org/talend/mdm/resources");
+		PropertyConfigurator.configure( file.getPath() + "/log4j.properties" );
+		
+		if(null == System.getProperty("webdriver.browser") || "".equals(System.getProperty("webdriver.browser").trim()) || System.getProperty("webdriver.browser").trim().contains("webdriver.browser")) {
+			driver = this.setFirefox();
+		} else{
+			
+			try {
+				driver = this.setWebDriver(Browser.valueOf(System.getProperty("webdriver.browser").trim()));
+			} catch (Exception e) {
+				logger.info("Doesn't not support the browser of - " + System.getProperty("webdriver.browser").trim() + ", will use firefox!");
+				driver = this.setFirefox();
+			}
+		}
+	
+		// Old code for firefox
+/**		
 		logger.info("webdriver.firefox.bin.path = " + System.getProperty("webdriver.firefox.bin.path").trim());
 		if(null == System.getProperty("webdriver.firefox.bin.path") || "".equals(System.getProperty("webdriver.firefox.bin.path").trim()) || System.getProperty("webdriver.firefox.bin.path").trim().contains("webdriver.firefox.bin.path")) {
 		} else{
 			System.setProperty("webdriver.firefox.bin", System.getProperty("webdriver.firefox.bin.path").trim());
 		}
-		
-		
-		URL file = Login.class.getClassLoader().getResource("org/talend/mdm/resources");
-		PropertyConfigurator.configure( file.getPath() + "/log4j.properties" );
 		
 	    FirefoxProfile firefoxProfile = new FirefoxProfile();
 	    firefoxProfile.setPreference("browser.download.folderList",2);
@@ -45,7 +56,6 @@ public class Login extends Base{
 	    firefoxProfile.setPreference("dom.max_script_run_time", 0);
 	    firefoxProfile.setPreference("dom.max_chrome_script_run_time", 0);
 
-	    
 //	    firefoxProfile.setPreference("native_events_enabled", false);
 	    firefoxProfile.setPreference("webdriver_enable_native_events", false);
 	    
@@ -58,7 +68,8 @@ public class Login extends Base{
 //	    logger.info("setEnableNativeEvents-" + firefoxProfile.areNativeEventsEnabled());
 	    
 	    driver = new FirefoxDriver(firefoxProfile);
-	    
+**/
+		
 	    //set driver time out with TimeUnit
 	    driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
 	    logger.info("Set Firefox Driver with Profile");
