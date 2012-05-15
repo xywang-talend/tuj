@@ -613,6 +613,7 @@ public class Base {
 		switch(browser) {
 			case iexplore: 
 				driver = this.setIExplore();
+				break;
 			default:
 				driver = this.setFirefox();
 		}
