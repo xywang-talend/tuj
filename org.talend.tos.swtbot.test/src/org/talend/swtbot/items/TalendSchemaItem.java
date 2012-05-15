@@ -14,16 +14,23 @@ package org.talend.swtbot.items;
 
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.talend.swtbot.Utilities.TalendItemType;
 
 /**
  * DOC fzhong class global comment. Detailled comment
  */
 public class TalendSchemaItem extends TalendMetadataItem {
 
+    TalendSchemaItem(TalendItemType itemType) {
+        super(itemType);
+    }
+
     public String getComponentLabel() {
-        if (this.componentLabel == null)
+        if (this.componentLabel != null)
+            return this.componentLabel;
+        if (TalendItemType.DB_CONNECTIONS.equals(this.getItemType()))
             return "\"" + this.itemName + "\"";
-        return this.componentLabel;
+        return this.itemName;
     }
 
     /**

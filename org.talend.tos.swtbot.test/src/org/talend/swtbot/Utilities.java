@@ -202,7 +202,6 @@ public class Utilities {
      */
     public static void emptyRecycleBin() {
         try {
-            Thread.sleep(3000);
             SWTBotTreeItem recycleBin = tree.expandNode("Recycle bin").select();
             gefBot.waitUntil(Conditions.widgetIsEnabled(recycleBin));
             if (recycleBin.rowCount() != 0) {
@@ -210,7 +209,6 @@ public class Utilities {
                 recycleBin.contextMenu("Empty recycle bin").click();
                 gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
                 gefBot.button("Yes").click();
-                Thread.sleep(3000);
             }
         } catch (Exception e) {
             gefBot.closeAllShells();
@@ -895,10 +893,10 @@ public class Utilities {
      * 
      * @param jobEditor job editor
      * @param sourceItem metadata item in reporitory
-     * @param componentLabel the label of specific component type
+     * @param componentType the label of specific component type
      * @param locationOnJob the specific location on job
      */
-    public static void dndMetadataOntoJob(SWTBotGefEditor jobEditor, SWTBotTreeItem sourceItem, String componentLabel,
+    public static void dndMetadataOntoJob(SWTBotGefEditor jobEditor, SWTBotTreeItem sourceItem, String componentType,
             Point locationOnJob) {
         SWTBotGefFigureCanvas figureCanvas = new SWTBotGefFigureCanvas((FigureCanvas) gefBot.widget(
                 WidgetOfType.widgetOfType(FigureCanvas.class), jobEditor.getWidget()));
@@ -906,11 +904,11 @@ public class Utilities {
 
         sourceItem.select();
         dndUtil.dragAndDrop(sourceItem, figureCanvas, locationOnJob);
-        if (componentLabel != null && !"".equals(componentLabel)) {
+        if (componentType != null && !"".equals(componentType)) {
             gefBot.shell("Components").activate();
-            gefBot.table(0).getTableItem(componentLabel).select();
+            gefBot.table(0).getTableItem(componentType).select();
             gefBot.button("OK").click();
-            if (componentLabel.equals("tFileInputPositional"))
+            if (componentType.equals("tFileInputPositional"))
                 gefBot.button("OK").click();
         }
         if (gefBot.activeShell().getText().equals("Added context"))

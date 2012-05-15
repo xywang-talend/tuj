@@ -133,7 +133,7 @@ public class TalendSapItem extends TalendMetadataItem {
     }
 
     public TalendSchemaItem getSchema(String schemaName) {
-        TalendSchemaItem schemaItem = new TalendSchemaItem();
+        TalendSchemaItem schemaItem = new TalendSchemaItem(this.getItemType());
         schemaItem.setItem(getItem().expand().getNode(schemaName));
         schemaItem.setParentNode(getItem());
         return schemaItem;

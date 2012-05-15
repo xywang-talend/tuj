@@ -60,7 +60,9 @@ public class TalendMetadataItem extends TalendItem {
     }
 
     public String getComponentLabel() {
-        return componentLabel;
+        if (this.componentLabel == null)
+            return this.itemName;
+        return this.componentLabel;
     }
 
     public void setComponentLabel(String componentLabel) {
@@ -105,7 +107,7 @@ public class TalendMetadataItem extends TalendItem {
     }
 
     public TalendSchemaItem getSchema(String name) {
-        TalendSchemaItem schemaItem = new TalendSchemaItem();
+        TalendSchemaItem schemaItem = new TalendSchemaItem(this.getItemType());
         schemaItem.setItem(item.expand().getNode(name));
         schemaItem.setParentNode(item);
         return schemaItem;

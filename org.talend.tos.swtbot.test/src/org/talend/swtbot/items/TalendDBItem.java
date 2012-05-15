@@ -50,7 +50,7 @@ public class TalendDBItem extends TalendMetadataItem {
         } catch (WidgetNotFoundException e) {
             return null;
         }
-        TalendSchemaItem schemaItem = new TalendSchemaItem();
+        TalendSchemaItem schemaItem = new TalendSchemaItem(this.getItemType());
         schemaItem.setItem(schema);
         schemaItem.setParentNode(schemaNode);
         return schemaItem;

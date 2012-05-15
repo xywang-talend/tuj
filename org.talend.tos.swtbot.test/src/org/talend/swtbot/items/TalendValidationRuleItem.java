@@ -2,7 +2,6 @@ package org.talend.swtbot.items;
 
 import junit.framework.Assert;
 
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
@@ -65,67 +64,59 @@ public class TalendValidationRuleItem extends TalendMetadataItem {
         if (ruleType == null)
             Assert.fail("please set a rule type");
         SWTBotShell shell = beginCreationWizard("Create validation rule", "New Validation Rule");
-        try {
-            SWTBotTreeItem metadataNode = Utilities.getTalendItemNode(gefBot.tree(), baseMetadata.getItemType());
-            if (TalendItemType.DB_CONNECTIONS.equals(baseMetadata.getItemType())) {
-                metadataNode.expandNode(baseMetadata.getItemFullName(), "Table schemas").select("test");
-            } else {
-                metadataNode.expandNode(baseMetadata.getItemFullName()).select("metadata");
-            }
-            gefBot.button("Select All").click();
-            gefBot.button("Next >").click();
 
-            if (REFERENCE_CHECK.equals(ruleType)) {
-                gefBot.radio(0).click();
-                gefBot.button("Next >").click();
-                metadataNode = Utilities.getTalendItemNode(gefBot.tree(), TalendItemType.DB_CONNECTIONS);
-                metadataNode.expandNode(baseMetadata.getItemFullName(), "Table schemas").select("reference");
-                gefBot.button("Next >").click();
-                DndUtil dndUtil = new DndUtil(shell.display);
-                SWTBotTableItem sourceItem = null;
-                SWTBotTableItem targetItem = null;
-                for (int i = 0; i < gefBot.table(0).rowCount(); i++) {
-                    sourceItem = gefBot.table(0).getTableItem(i);
-                    targetItem = gefBot.table(1).getTableItem(i);
-                    dndUtil.dragAndDrop(sourceItem, targetItem);
-                }
-            } else if (BASIC_VALUE_CHECK.equals(ruleType)) {
-                gefBot.radio(1).click();
-                gefBot.button("Next >").click();
-                gefBot.buttonWithTooltip("Add").click();
-                SWTBotTable table = gefBot.tableWithLabel("Conditions");
-                SWTBotTableExt tableExt = new SWTBotTableExt(table);
-                tableExt.click(0, "input column");
-                if (!tableExt.isClicked())
-                    tableExt.click(0, "input column");
-                gefBot.ccomboBox().setSelection("Column0");
-                tableExt.click(0, "function");
-                if (!tableExt.isClicked())
-                    tableExt.click(0, "function");
-                gefBot.ccomboBox().setSelection("Empty");
-                tableExt.click(0, "operator");
-                if (!tableExt.isClicked())
-                    tableExt.click(0, "operator");
-                gefBot.ccomboBox().setSelection("Greater");
-                tableExt.click(0, "value");
-                if (!tableExt.isClicked())
-                    tableExt.click(0, "value");
-                gefBot.text().setText("5");
-            } else if (CUSTOM_CHECK.equals(ruleType)) {
-                gefBot.radio(2).click();
-                gefBot.button("Next >").click();
-                gefBot.styledText().setText("after_tFileInputDelimited_1.Column0 > 5");
-            }
-            gefBot.button("Next >").click();
-        } catch (WidgetNotFoundException wnfe) {
-            shell.close();
-            wnfe.printStackTrace();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            shell.close();
-            e.printStackTrace();
-            Assert.fail(e.getMessage());
+        SWTBotTreeItem metadataNode = Utilities.getTalendItemNode(gefBot.tree(), baseMetadata.getItemType());
+        if (TalendItemType.DB_CONNECTIONS.equals(baseMetadata.getItemType())) {
+            metadataNode.expandNode(baseMetadata.getItemFullName(), "Table schemas").select("test");
+        } else {
+            metadataNode.expandNode(baseMetadata.getItemFullName()).select("metadata");
         }
+        gefBot.button("Select All").click();
+        gefBot.button("Next >").click();
+
+        if (REFERENCE_CHECK.equals(ruleType)) {
+            gefBot.radio(0).click();
+            gefBot.button("Next >").click();
+            metadataNode = Utilities.getTalendItemNode(gefBot.tree(), TalendItemType.DB_CONNECTIONS);
+            metadataNode.expandNode(baseMetadata.getItemFullName(), "Table schemas").select("reference");
+            gefBot.button("Next >").click();
+            DndUtil dndUtil = new DndUtil(shell.display);
+            SWTBotTableItem sourceItem = null;
+            SWTBotTableItem targetItem = null;
+            for (int i = 0; i < gefBot.table(0).rowCount(); i++) {
+                sourceItem = gefBot.table(0).getTableItem(i);
+                targetItem = gefBot.table(1).getTableItem(i);
+                dndUtil.dragAndDrop(sourceItem, targetItem);
+            }
+        } else if (BASIC_VALUE_CHECK.equals(ruleType)) {
+            gefBot.radio(1).click();
+            gefBot.button("Next >").click();
+            gefBot.buttonWithTooltip("Add").click();
+            SWTBotTable table = gefBot.tableWithLabel("Conditions");
+            SWTBotTableExt tableExt = new SWTBotTableExt(table);
+            tableExt.click(0, "input column");
+            if (!tableExt.isClicked())
+                tableExt.click(0, "input column");
+            gefBot.ccomboBox().setSelection("Column0");
+            tableExt.click(0, "function");
+            if (!tableExt.isClicked())
+                tableExt.click(0, "function");
+            gefBot.ccomboBox().setSelection("Empty");
+            tableExt.click(0, "operator");
+            if (!tableExt.isClicked())
+                tableExt.click(0, "operator");
+            gefBot.ccomboBox().setSelection("Greater");
+            tableExt.click(0, "value");
+            if (!tableExt.isClicked())
+                tableExt.click(0, "value");
+            gefBot.text().setText("5");
+        } else if (CUSTOM_CHECK.equals(ruleType)) {
+            gefBot.radio(2).click();
+            gefBot.button("Next >").click();
+            gefBot.styledText().setText("after_tFileInputDelimited_1.Column0 > 5");
+        }
+        gefBot.button("Next >").click();
+
         finishCreationWizard(shell);
     }
 }

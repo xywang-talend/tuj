@@ -74,7 +74,7 @@ public class TalendCopybookItem extends TalendMetadataItem {
             gefBot.button("Next >").click();
             gefBot.button("Finish").click();
             for (String schema : schemaNames) {
-                TalendSchemaItem schemaItem = new TalendSchemaItem();
+                TalendSchemaItem schemaItem = new TalendSchemaItem(this.getItemType());
                 schemaItem.setItem(getItem().getNode(schema));
                 schemaItem.setParentNode(getItem());
                 schemas.put(schema, schemaItem);
