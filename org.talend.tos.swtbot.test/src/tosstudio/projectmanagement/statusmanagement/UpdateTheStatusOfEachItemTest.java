@@ -55,6 +55,7 @@ public class UpdateTheStatusOfEachItemTest extends TalendSwtBotForTos {
             itemTypes = Utilities.getTOSBDItemTypes();
         // undo assert for under items, cause did not import these items
         itemTypes.remove(TalendItemType.SERVICES);
+        itemTypes.remove(TalendItemType.SAP_CONNECTIONS);
         itemTypes.remove(TalendItemType.TALEND_MDM);
         itemTypes.remove(TalendItemType.BRMS);
         itemTypes.remove(TalendItemType.SURVIVORSHIP_RULES);
