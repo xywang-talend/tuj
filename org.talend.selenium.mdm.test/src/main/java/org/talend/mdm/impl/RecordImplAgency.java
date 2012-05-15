@@ -87,6 +87,7 @@ public void createRecordImpl(String container,String modle,String entity,String 
 			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersName), NameValue);		
 			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersZip), ZipcodeValue);
 			this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
+			this.sleepCertainTime(5000);
 			//get the auto genatate value
 			this.clickElementByXpath(locator.getString("xpath.record.click.lastpage"));
 			this.sleepCertainTime(10000);
