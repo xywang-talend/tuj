@@ -108,4 +108,8 @@ public class TalendEdiItem extends TalendMetadataItem {
         }
         finishCreationWizard(shell);
     }
+
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit EDI", "Create new EDI schema");
+    }
 }

@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,13 +36,14 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
+        repositories = Utilities.getERepositoryObjectTypes();
         Utilities.importItems("items_" + getBuildType() + ".zip");
     }
 
     @Test
     public void changeAllItemsToAFixedVersion() {
         gefBot.toolbarButtonWithTooltip("Project settings").click();
-        gefBot.shell("Project Settings").activate();
+        SWTBotShell shell = gefBot.shell("Project Settings").activate();
         gefBot.tree().expandNode("General").select("Version Management").click();
 
         List<TalendItemType> itemTypes = new ArrayList<TalendItemType>();
@@ -52,17 +53,15 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
             itemTypes = Utilities.getTOSDIItemTypes();
         // undo assert for under items, cause did not import these items
         itemTypes.remove(TalendItemType.SERVICES);
+        itemTypes.remove(TalendItemType.SAP_CONNECTIONS);
         itemTypes.remove(TalendItemType.TALEND_MDM);
         itemTypes.remove(TalendItemType.BRMS);
-        itemTypes.remove(TalendItemType.EMBEDDED_RULES);
         itemTypes.remove(TalendItemType.SURVIVORSHIP_RULES);
-        itemTypes.remove(TalendItemType.COPYBOOK);
         itemTypes.remove(TalendItemType.VALIDATION_RULES);
-        itemTypes.remove(TalendItemType.HL7);
-        itemTypes.remove(TalendItemType.EDI);
         itemTypes.remove(TalendItemType.DOCUMENTATION);
         itemTypes.remove(TalendItemType.RECYCLE_BIN);
 
+        shell.setFocus();
         for (TalendItemType itemType : itemTypes) {
             SWTBotTreeItem treeNode = Utilities.getTalendItemNode(gefBot.tree(1), itemType);
             treeNode.check();
@@ -78,11 +77,6 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
         }
         if (!"".equals(errorMsg))
             Assert.fail(errorMsg);
-    }
-
-    @After
-    public void cleanup() {
-        Utilities.resetActivePerspective();
     }
 
     private String assertItemVersion(TalendItemType itemType) {

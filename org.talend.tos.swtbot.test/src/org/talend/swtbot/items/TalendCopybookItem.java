@@ -107,4 +107,8 @@ public class TalendCopybookItem extends TalendMetadataItem {
         finishCreationWizard(shell);
     }
 
+    @Override
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit EBCDIC", "EBCDIC Connection");
+    }
 }

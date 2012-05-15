@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.talend.swtbot.Utilities;
 
 /**
@@ -25,5 +26,9 @@ public class TalendHL7Item extends TalendFileItem {
 
     public TalendHL7Item(String itemName) {
         super(itemName, Utilities.TalendItemType.HL7, System.getProperty("hl7.filepath"));
+    }
+
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit HL7", "New HL7 File");
     }
 }

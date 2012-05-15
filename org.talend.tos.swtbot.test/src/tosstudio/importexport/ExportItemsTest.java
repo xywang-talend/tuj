@@ -34,6 +34,7 @@ public class ExportItemsTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
+        repositories = Utilities.getERepositoryObjectTypes();
         Utilities.importItems("items_" + getBuildType() + ".zip");
     }
 
@@ -66,6 +67,5 @@ public class ExportItemsTest extends TalendSwtBotForTos {
         } catch (NullPointerException e) {
             // pass this exception, means no file need to delete
         }
-        Utilities.resetActivePerspective();
     }
 }

@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,13 +38,14 @@ public class UpdateTheStatusOfEachItemTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
+        repositories = Utilities.getERepositoryObjectTypes();
         Utilities.importItems("items_" + getBuildType() + ".zip");
     }
 
     @Test
     public void updateTheStatusOfEachItem() {
         gefBot.toolbarButtonWithTooltip("Project settings").click();
-        gefBot.shell("Project Settings").activate();
+        SWTBotShell shell = gefBot.shell("Project Settings").activate();
         gefBot.tree().expandNode("General").select("Status Management").click();
         List<TalendItemType> itemTypes = new ArrayList<TalendItemType>();
         if ("TIS".equals(getBuildType()))
@@ -63,6 +64,7 @@ public class UpdateTheStatusOfEachItemTest extends TalendSwtBotForTos {
         itemTypes.remove(TalendItemType.DOCUMENTATION);
         itemTypes.remove(TalendItemType.RECYCLE_BIN);
 
+        shell.setFocus();
         for (TalendItemType itemType : itemTypes) {
             SWTBotTreeItem treeNode = Utilities.getTalendItemNode(gefBot.tree(1), itemType);
             treeNode.check();
@@ -93,11 +95,6 @@ public class UpdateTheStatusOfEachItemTest extends TalendSwtBotForTos {
         }
         if (!"".equals(errorMsg))
             Assert.fail(errorMsg);
-    }
-
-    @After
-    public void cleanup() {
-        Utilities.resetActivePerspective();
     }
 
     private String assertItemStatus(TalendItemType itemType, String assertExpect) {

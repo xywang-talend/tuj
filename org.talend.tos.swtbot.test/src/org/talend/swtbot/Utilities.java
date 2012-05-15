@@ -54,6 +54,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.hamcrest.Matcher;
 import org.junit.Assert;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.items.TalendBrmsItem;
 import org.talend.swtbot.items.TalendBusinessModelItem;
 import org.talend.swtbot.items.TalendContextItem;
@@ -1148,6 +1149,40 @@ public class Utilities {
         gefBot.button("Select All").click();
         gefBot.button("Finish").click();
         gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")));
+    }
+
+    public static List<ERepositoryObjectType> getERepositoryObjectTypes() {
+        List<ERepositoryObjectType> list = new ArrayList<ERepositoryObjectType>();
+        list.add(ERepositoryObjectType.BUSINESS_PROCESS);
+        list.add(ERepositoryObjectType.PROCESS);
+        list.add(ERepositoryObjectType.SERVICESOPERATION);
+        list.add(ERepositoryObjectType.JOBLET);
+        list.add(ERepositoryObjectType.CONTEXT);
+        list.add(ERepositoryObjectType.ROUTINES);
+        list.add(ERepositoryObjectType.JOB_SCRIPT);
+        list.add(ERepositoryObjectType.SQLPATTERNS);
+        list.add(ERepositoryObjectType.METADATA_CONNECTIONS);
+        list.add(ERepositoryObjectType.METADATA_SAPCONNECTIONS);
+        list.add(ERepositoryObjectType.METADATA_FILE_DELIMITED);
+        list.add(ERepositoryObjectType.METADATA_FILE_POSITIONAL);
+        list.add(ERepositoryObjectType.METADATA_FILE_REGEXP);
+        list.add(ERepositoryObjectType.METADATA_FILE_XML);
+        list.add(ERepositoryObjectType.METADATA_FILE_EXCEL);
+        list.add(ERepositoryObjectType.METADATA_FILE_LDIF);
+        list.add(ERepositoryObjectType.METADATA_LDAP_SCHEMA);
+        list.add(ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA);
+        list.add(ERepositoryObjectType.METADATA_GENERIC_SCHEMA);
+        list.add(ERepositoryObjectType.METADATA_MDMCONNECTION);
+        list.add(ERepositoryObjectType.METADATA_FILE_RULES);
+        list.add(ERepositoryObjectType.METADATA_FILE_EBCDIC);
+        list.add(ERepositoryObjectType.METADATA_WSDL_SCHEMA);
+        list.add(ERepositoryObjectType.METADATA_VALIDATION_RULES);
+        list.add(ERepositoryObjectType.METADATA_FILE_FTP);
+        list.add(ERepositoryObjectType.METADATA_FILE_HL7);
+        list.add(ERepositoryObjectType.METADATA_EDIFACT);
+        list.add(ERepositoryObjectType.DOCUMENTATION);
+        list.add(ERepositoryObjectType.RECYCLE_BIN);
+        return list;
     }
 
 }

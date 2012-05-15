@@ -17,7 +17,6 @@ import java.net.URISyntaxException;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +33,7 @@ public class ImportItemsTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
-
+        repositories = Utilities.getERepositoryObjectTypes();
     }
 
     @Test
@@ -65,8 +64,4 @@ public class ImportItemsTest extends TalendSwtBotForTos {
         }
     }
 
-    @After
-    public void cleanup() {
-        Utilities.resetActivePerspective();
-    }
 }
