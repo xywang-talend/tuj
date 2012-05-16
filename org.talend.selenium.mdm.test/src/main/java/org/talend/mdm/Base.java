@@ -627,7 +627,7 @@ public class Base {
 	}
 	
 	public WebDriver setFirefox() {
-		logger.info("webdriver.firefox.bin.path = " + System.getProperty("webdriver.firefox.bin.path").trim());
+		logger.info("webdriver.firefox.bin.path = " + System.getProperty("webdriver.firefox.bin.path"));
 		if(null == System.getProperty("webdriver.firefox.bin.path") || "".equals(System.getProperty("webdriver.firefox.bin.path").trim()) || System.getProperty("webdriver.firefox.bin.path").trim().contains("webdriver.firefox.bin.path")) {
 		} else{
 			System.setProperty("webdriver.firefox.bin", System.getProperty("webdriver.firefox.bin.path").trim());
