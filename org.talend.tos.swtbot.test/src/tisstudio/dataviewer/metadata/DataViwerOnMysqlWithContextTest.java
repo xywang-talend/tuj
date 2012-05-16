@@ -88,7 +88,7 @@ public class DataViwerOnMysqlWithContextTest extends TalendSwtBotForTos {
 
         schema.setComponentType("tMysqlInput");
         Utilities.dndMetadataOntoJob(jobItem.getEditor(), schema.getItem(), schema.getComponentType(), new Point(100, 100));
-        SWTBotGefEditPart mysql = getTalendComponentPart(jobItem.getEditor(), schema.getItemName());
+        SWTBotGefEditPart mysql = getTalendComponentPart(jobItem.getEditor(), "\"" + schema.getItemName() + "\"");
         Assert.assertNotNull("cann't get component " + schema.getComponentType() + "", mysql);
 
         // dataviewer

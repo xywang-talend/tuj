@@ -70,7 +70,7 @@ public class FilterDBDataByConditionTest extends TalendSwtBotForTos {
         // test drag db2 input component to workspace
         schema.setComponentType("tMysqlInput");
         Utilities.dndMetadataOntoJob(jobItem.getEditor(), schema.getItem(), schema.getComponentType(), new Point(100, 100));
-        SWTBotGefEditPart mysql = swtbot.getTalendComponentPart(jobItem.getEditor(), schema.getItemName());
+        SWTBotGefEditPart mysql = swtbot.getTalendComponentPart(jobItem.getEditor(), schema.getComponentLabel());
         Assert.assertNotNull("cann't get component " + schema.getComponentType() + "", mysql);
 
         // dataviewer

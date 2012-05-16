@@ -83,7 +83,7 @@ public class KeepDataInCDCTableTest extends TalendSwtBotForTos {
         TalendSchemaItem schema = dbItem.getSchema(TABLE_NAME);
         schema.setComponentType("tMysqlCDC");
         Utilities.dndMetadataOntoJob(jobItem.getEditor(), schema.getItem(), schema.getComponentType(), new Point(100, 100));
-        SWTBotGefEditPart tMysqlCDC = getTalendComponentPart(jobItem.getEditor(), schema.getItemName());
+        SWTBotGefEditPart tMysqlCDC = getTalendComponentPart(jobItem.getEditor(), schema.getComponentLabel());
         JobHelper.connect2TLogRow(jobItem.getEditor(), tMysqlCDC, new Point(300, 100));
 
         // setting component 'tMysqlCDC' to keep data in CDC table
