@@ -83,7 +83,7 @@ public class Base {
 			selenium = new DefaultSelenium(server, Integer.parseInt(port), browser,
 					url); // 4444 is default server port
 		} else{
-			selenium = new DefaultSelenium(server, Integer.parseInt(port), browser+System.getProperty("webdriver.firefox.bin.path").trim(),
+			selenium = new DefaultSelenium(server, Integer.parseInt(port), browser+" "+ System.getProperty("webdriver.firefox.bin.path").trim(),
 					url); // 4444 is default server port
 			System.setProperty("webdriver.firefox.bin", System.getProperty("webdriver.firefox.bin.path").trim());
 		}
