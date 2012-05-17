@@ -116,15 +116,14 @@ public class RecordImplProduct extends Record{
 			chooseRcord(entity,UniqueId,UniqueIdValue);		
 			this.sleepCertainTime(3000);
 			this.clickElementByXpath(locator.getString("xpath.record.Duplicate.click"));			
-			this.sleepCertainTime(3000);			
+			this.sleepCertainTime(5000);			
 			this.clickElementByXpath(this.getString(locator,"xpath.record.Duplicate.close.origin",parametersUniqueIdValue));
 			this.sleepCertainTime(3000); 
 			this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.Duplicate.input",parametersUniqueId)), UniqueIdValueDup);
 			this.sleepCertainTime(3000); 
 			this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
-			this.sleepCertainTime(3000); 
-			this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
-			this.sleepCertainTime(3000); 
+//			this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
+			this.sleepCertainTime(10000); 
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersUniqueIdAssert)), WAIT_TIME_MAX),"duplicateARecord");
 			this.sleepCertainTime(3000); 			
 			openJournal(entity,UniqueIdValueDup,OperationType,source);
