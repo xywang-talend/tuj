@@ -17,7 +17,7 @@ public class TestDeleteUser extends Users {
 		selenium.mouseDown("//div[text()='"+deleteUser+"']");//Select an existing user
 		selenium.chooseCancelOnNextConfirmation();
 		selenium.click("idSubModuleDeleteButton");
-	    Assert.assertTrue(selenium.getConfirmation().matches("^"+other.getString("delete.User.confirmation")+" [\\s\\S]$"));
+	    Assert.assertTrue(selenium.getConfirmation().matches("^"+other.getString("delete.User.confirmation")+"[\\s\\S]$"));
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+deleteUser+"']"));
 	    
 	}
