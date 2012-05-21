@@ -29,7 +29,7 @@ public class TestTokenINDbConfigPage extends DbConfig {
 		inputWrongTokenAndCheck("");
 		inputWrongTokenAndCheck(" ");
 		//try valid token
-		clickWaitForElementPresent("//button[@id='idGenerateButton']");
+		clickWaitForElementPresent("//button[@id='idLicenseGenerateValidButton']");
 		waitForElementPresent("link=link", 30);
 		selenium.click("link=link");
 		selenium.selectWindow(selenium.getAllWindowNames()[1]);
