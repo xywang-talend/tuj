@@ -29,7 +29,7 @@ public class TestTokenINDbConfigPage extends DbConfig {
 		inputWrongTokenAndCheck("");
 		inputWrongTokenAndCheck(" ");
 		//try valid token
-		clickWaitForElementPresent("//button[text()='Generate validation request']");
+		clickWaitForElementPresent("//button[@id='idGenerateButton']");
 		waitForElementPresent("link=link", 30);
 		selenium.click("link=link");
 		selenium.selectWindow(selenium.getAllWindowNames()[1]);
@@ -49,7 +49,7 @@ public class TestTokenINDbConfigPage extends DbConfig {
 	}
 
 	public void inputWrongTokenAndCheck(String invalidToken) {
-		clickWaitForElementPresent("//button[text()='Generate validation request']");
+		clickWaitForElementPresent("//button[@id='idLicenseGenerateValidButton']");
 		waitForElementPresent("idTokenInput", 30);
 		selenium.type("idTokenInput", invalidToken);
 		selenium.click("idEnterValidationButton");

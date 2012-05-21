@@ -48,7 +48,7 @@ public class TestAddUserWithImportUser extends Login{
   				selenium.chooseOkOnNextConfirmation();
   				selenium.click("idSubModuleDeleteButton");
   				selenium.setSpeed(MID_SPEED);
-  			    Assert.assertTrue(selenium.getConfirmation().matches("^"+other.getString("delete.User.confirmation")+" [\\s\\S]$"));
+  			    Assert.assertTrue(selenium.getConfirmation().matches("^"+other.getString("delete.User.confirmation")+"[\\s\\S]$"));
     		    selenium.setSpeed(MIN_SPEED);
     		 } 
     	 }
