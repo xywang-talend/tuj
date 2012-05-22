@@ -139,8 +139,7 @@ public class Projects extends Login {
 				+ projectLabel + "')]");
 		selenium.chooseCancelOnNextConfirmation();
 		selenium.click("idSubModuleDeleteButton");
-		assert (selenium.getConfirmation().matches(other
-				.getString("delete.project.warning")));
+		selenium.getConfirmation();
 		this.sleep(5000);
 		this.waitForElementPresent(
 				"//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
@@ -157,8 +156,7 @@ public class Projects extends Login {
 				+ projectLabel + "')]");
 		selenium.chooseOkOnNextConfirmation();
 		selenium.click("idSubModuleDeleteButton");
-		assert (selenium.getConfirmation().matches(other
-				.getString("delete.project.warning")));
+		selenium.getConfirmation();
 	}
 
 	public void deleteAllProjects() {
@@ -202,8 +200,7 @@ public class Projects extends Login {
 				selenium.chooseOkOnNextConfirmation();
 				selenium.click("//div[text()='Projects']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");
 				// selenium.setSpeed(MAX_SPEED);
-				assert (selenium.getConfirmation().matches(other
-						.getString("delete.project.warning")));
+				selenium.getConfirmation();
 				selenium.setSpeed(MIN_SPEED);
 			}
 
