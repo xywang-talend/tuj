@@ -109,7 +109,6 @@ public class TestLicenseAccountsCount extends Login {
 		// + "']"
 		// +
 		// "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-		selenium.controlKeyUp();
 		selenium.click("idValidateButton");
 
 		selenium.click("idFormSaveButton");
@@ -203,24 +202,9 @@ public class TestLicenseAccountsCount extends Login {
 			Assert.assertTrue(selenium.isTextPresent(rb
 					.getString("user.roles.title")));
 			selenium.setSpeed(MIN_SPEED);
-			selenium.controlKeyDown();
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.administrator")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.viewer")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.operationManager")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.designer")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.controlKeyUp();
+			selenium.click("//span[text()='Role']/parent::div[not(contains(@style,'display: none'))]/" +
+		    		"parent::td[not(contains(@style,'display: none'))]/preceding-sibling::td" +
+		    		"[not(contains(@style,'display: none'))]/div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
 			selenium.click("idValidateButton");
 			// selenium.setSpeed(MAX_SPEED);
 			Assert.assertEquals(selenium.getValue("idActiveInput"), roles);
@@ -410,25 +394,9 @@ public class TestLicenseAccountsCount extends Login {
 			// selenium.setSpeed(MID_SPEED);
 			Assert.assertTrue(selenium.isTextPresent(rb
 					.getString("user.roles.title")));
-			selenium.setSpeed(MIN_SPEED);
-			selenium.controlKeyDown();
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.administrator")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.viewer")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.operationManager")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.designer")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.controlKeyUp();
+			selenium.click("//span[text()='Role']/parent::div[not(contains(@style,'display: none'))]/" +
+		    		"parent::td[not(contains(@style,'display: none'))]/preceding-sibling::td" +
+		    		"[not(contains(@style,'display: none'))]/div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
 			selenium.click("idValidateButton");
 			// selenium.setSpeed(MAX_SPEED);
 			Assert.assertEquals(selenium.getValue("idActiveInput"), roles);
@@ -521,24 +489,9 @@ public class TestLicenseAccountsCount extends Login {
 			// Assert.assertTrue(selenium.isTextPresent(rb
 			// .getString("user.roles.title")));
 			// selenium.setSpeed(MIN_SPEED);
-			selenium.controlKeyDown();
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.administrator")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.viewer")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.operationManager")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.designer")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.controlKeyUp();
+			selenium.click("//span[text()='Role']/parent::div[not(contains(@style,'display: none'))]/" +
+		    		"parent::td[not(contains(@style,'display: none'))]/preceding-sibling::td" +
+		    		"[not(contains(@style,'display: none'))]/div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
 			selenium.click("idValidateButton");
 			// selenium.setSpeed(MAX_SPEED);
 			Assert.assertEquals(selenium.getValue("idActiveInput"), roles);
@@ -975,24 +928,9 @@ public class TestLicenseAccountsCount extends Login {
 			Assert.assertTrue(selenium.isTextPresent(rb
 					.getString("user.roles.title")));
 			selenium.setSpeed(MIN_SPEED);
-			selenium.controlKeyDown();
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.administrator")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.viewer")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.operationManager")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.designer")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.controlKeyUp();
+			selenium.click("//span[text()='Role']/parent::div[not(contains(@style,'display: none'))]/" +
+		    		"parent::td[not(contains(@style,'display: none'))]/preceding-sibling::td" +
+		    		"[not(contains(@style,'display: none'))]/div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
 			selenium.click("idValidateButton");
 			selenium.setSpeed(MID_SPEED);
 			Assert.assertEquals(selenium.getValue("idActiveInput"), roles);
@@ -1068,24 +1006,9 @@ public class TestLicenseAccountsCount extends Login {
 			Assert.assertTrue(selenium.isTextPresent(rb
 					.getString("user.roles.title")));
 			selenium.setSpeed(MIN_SPEED);
-			selenium.controlKeyDown();
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.administrator")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.viewer")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.operationManager")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.designer")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.controlKeyUp();
+			selenium.click("//span[text()='Role']/parent::div[not(contains(@style,'display: none'))]/" +
+		    		"parent::td[not(contains(@style,'display: none'))]/preceding-sibling::td" +
+		    		"[not(contains(@style,'display: none'))]/div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
 			selenium.click("idValidateButton");
 			selenium.setSpeed(MID_SPEED);
 			Assert.assertEquals(selenium.getValue("idActiveInput"), roles);
@@ -1168,24 +1091,9 @@ public class TestLicenseAccountsCount extends Login {
 			selenium.click("idRoleButton");
 			this.waitForElementPresent("//span[text()='Roles Selection']",
 					Base.WAIT_TIME);
-			selenium.controlKeyDown();
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.administrator")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.viewer")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.operationManager")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.designer")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.controlKeyUp();
+			selenium.click("//span[text()='Role']/parent::div[not(contains(@style,'display: none'))]/" +
+		    		"parent::td[not(contains(@style,'display: none'))]/preceding-sibling::td" +
+		    		"[not(contains(@style,'display: none'))]/div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
 			selenium.click("idValidateButton");
 			selenium.setSpeed(MID_SPEED);
 			Assert.assertEquals(selenium.getValue("idActiveInput"), roles);
@@ -1336,24 +1244,9 @@ public class TestLicenseAccountsCount extends Login {
 			selenium.click("idRoleButton");
 			this.waitForElementPresent("//span[text()='Roles Selection']",
 					Base.WAIT_TIME);
-			selenium.controlKeyDown();
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.administrator")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.viewer")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.operationManager")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.mouseDown("//td[not(contains(@style,'display: none'))]/div[text()='"
-					+ rb.getString("menu.role.designer")
-					+ "']"
-					+ "/parent::td/preceding-sibling::td//div[@class='x-grid3-row-checker']");
-			selenium.controlKeyUp();
+			selenium.click("//span[text()='Role']/parent::div[not(contains(@style,'display: none'))]/" +
+		    		"parent::td[not(contains(@style,'display: none'))]/preceding-sibling::td" +
+		    		"[not(contains(@style,'display: none'))]/div[@class=' x-grid3-hd-inner x-grid3-hd-checker x-component']");
 			selenium.click("idValidateButton");
 			selenium.setSpeed(MID_SPEED);
 			Assert.assertEquals(selenium.getValue("idActiveInput"), roles);
