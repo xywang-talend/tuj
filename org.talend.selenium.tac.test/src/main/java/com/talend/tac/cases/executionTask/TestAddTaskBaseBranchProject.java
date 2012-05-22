@@ -346,12 +346,12 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 					+ tasklabel + "']"));
 			selenium.setSpeed(MIN_SPEED);
 
-		}	
-		//add a simple trigger for task added
-		addSimpleTrigger(tasklabel,simpletrigger,"1000");
+		}
 		String filetriggerlabel = "testFileTrigger";
 		//add a file trigger for task added
-		addFileTrigger(tasklabel,filetriggerlabel ,path,"1000",mark,server);
+		addFileTrigger(tasklabel,filetriggerlabel ,path,"1000",mark,server);	
+		//add a simple trigger for task added
+		addSimpleTrigger(tasklabel,simpletrigger,"1000");
 		this.refreshTaskStatus(6000, tasklabel, "Generating...");
 		
 		this.refreshTaskStatus(100000, tasklabel, "Ready to run");

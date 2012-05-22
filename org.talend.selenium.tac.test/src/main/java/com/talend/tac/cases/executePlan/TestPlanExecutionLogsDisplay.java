@@ -14,6 +14,7 @@ public class TestPlanExecutionLogsDisplay extends Plan {
 		this.addPlan(planLabel, taskLabel, "testPlanlogsdisplay");
 		this.runPlanAndCheck(planLabel, taskLabel, 11);
 		this.clickWaitForElementPresent("//span[@class='x-tab-strip-text  ' and text()='History']");
+		this.clickWaitForElementPresent("//div[@class='header-title' and text()='Execution Plan']//ancestor::div[@class=' x-panel-noborder x-panel x-component']//span[text()='Task execution monitoring']//ancestor::div[@class=' x-panel-noborder x-panel x-component']//table[@class='x-toolbar-ct']//td[11]//button");
 		this.clickWaitForElementPresent("//div[contains(@class,'x-small-editor x-toolbar x-component x-toolbar-layout-ct')]//table[contains(@class,'x-btn x-component x-btn-icon')]");
 		this.sleep(5000);
 		int defaultCounts = Integer.parseInt(selenium.getValue("//div[@class='header-title' and text()='Execution Plan']//ancestor::div[@class=' x-panel-noborder x-panel x-component']//div[@title='Enter the number of items per page']//input"));

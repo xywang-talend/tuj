@@ -1,6 +1,8 @@
 package com.talend.tac.cases.executePlan;
 
 
+import java.awt.Event;
+
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -196,9 +198,12 @@ public class TestPlanParameters extends Plan {
 		this.sleep(2000);
 		selenium.mouseDown("//span[text()='" + planLabel + "']");
 		this.clickWaitForElementPresent("//span[@class='x-tab-strip-text  ' and text()='History']");
-		this.clickWaitForElementPresent("//div[contains(@class,'x-small-editor x-toolbar x-component x-toolbar-layout-ct')]//table[contains(@class,'x-btn x-component x-btn-icon')]");
-		selenium.click("//div[@class=' x-grid3-hd-inner x-grid3-hd-taskStartDate x-component']//a[@class='x-grid3-hd-btn']");
-		selenium.click("//a[@class=' x-menu-item x-component' and text()='Sort Descending']");
+		
+		this.clickWaitForElementPresent("//div[@class='header-title' and text()='Execution Plan']//ancestor::div[@class=' x-panel-noborder x-panel x-component']//span[text()='Task execution monitoring']//ancestor::div[@class=' x-panel-noborder x-panel x-component']//table[@class='x-toolbar-ct']//td[11]//button");		
+
+		this.clickWaitForElementPresent("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-expectedTriggeringDate x-component sort-as')]/a");
+		this.clickWaitForElementPresent("//a[contains(@class,'x-menu-item x-component') and text()='Sort Descending']");
+		this.clickWaitForElementPresent("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//td[@class='x-toolbar-left']//tr[@class='x-toolbar-left-row']//td[1]//table//button");
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-taskLabel' and text()='Plan: "+planLabel+" Task: "+rootTask+"']", WAIT_TIME);
 		this.sleep(2000);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-taskLabel' and text()='Plan: "+planLabel+" Task: "+rootTask+"']");
