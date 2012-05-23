@@ -104,12 +104,9 @@ public class Grid extends Plan {
 		this.sleep(2000);
 		selenium.mouseDown("//span[text()='" + taskLabel + "']");
 		selenium.chooseOkOnNextConfirmation();
-		selenium.chooseOkOnNextConfirmation();
 		selenium.click("idSubModuleDeleteButton");// clcik "Delete"
-		Assert.assertTrue(selenium.getConfirmation().matches(
-				other.getString("delete.plan.warning")));
-		Assert.assertEquals(selenium.getConfirmation(),
-				"Do you want to remove all of the related logs and archives");
+		selenium.getConfirmation();
+		Assert.assertTrue((selenium.getConfirmation()).equals("Do you want to remove all of the related logs and archives"));
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(selenium
 				.isElementPresent("//span[text()='testTaskNotChooseActive']"));// the

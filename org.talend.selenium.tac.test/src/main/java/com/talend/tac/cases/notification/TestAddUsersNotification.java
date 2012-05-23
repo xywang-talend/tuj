@@ -12,18 +12,22 @@ public class TestAddUsersNotification extends AddNotification {
          this.clickWaitForElementPresent("!!!menu.notification.element!!!");	
     
     	 for(int i=0;;i++) {
+    		    selenium.setSpeed("3000");
     		    if(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-category']")) {
+    		    	selenium.setSpeed("0");
     		    	selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-category']");
       				selenium.chooseOkOnNextConfirmation();
       				selenium.setSpeed(MID_SPEED);
       				selenium.click("//div[contains(text(),'Notification') and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
       						"//button[@id='idSubModuleDeleteButton']");
-      			    Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected notification [\\s\\S]$"));
+      				selenium.getConfirmation();
+      				Assert.assertTrue((selenium.getConfirmation()).equals("Are you sure you want to remove the selected notification"));
         		    selenium.setSpeed(MIN_SPEED);
         		 
     		    } else {
+    		    	selenium.setSpeed("0");
     		    	selenium.setSpeed(MID_SPEED);
-    		    	Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-category']"));
+	    		    Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-category']"));
     		    	selenium.setSpeed(MIN_SPEED);
     		    	System.out.println("element not exist");
     		    	break;

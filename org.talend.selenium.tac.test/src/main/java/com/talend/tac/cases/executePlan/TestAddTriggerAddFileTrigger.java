@@ -305,6 +305,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 //		}
 		selenium.click("idTriggerDelete");
 		selenium.getConfirmation();
+		Assert.assertTrue((selenium.getConfirmation()).equals("Are you sure you want to remove the selected trigger"));
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
@@ -328,20 +329,21 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 //		this.waitForElementPresent("//span[text()='Ended...']", Base.MAX_WAIT_TIME);
 		selenium.mouseDown("//span[text()='" + fileTriggerLabel + "']");
 		selenium.chooseOkOnNextConfirmation();
-//		try {
-//			Thread.sleep(2000);
-//		} catch (InterruptedException e) {	
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {	
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		selenium.click("idTriggerDelete");
-		selenium.getConfirmation();
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		selenium.getConfirmation();
+		Assert.assertTrue((selenium.getConfirmation()).equals("Are you sure you want to remove the selected trigger"));
 		Assert.assertFalse(
 				selenium.isElementPresent("//span[text()='" + fileTriggerLabel
 						+ "']"), "trigger delete failed!");
@@ -360,6 +362,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		}
 		selenium.click("idTriggerDelete");
 		selenium.getConfirmation();
+		Assert.assertTrue((selenium.getConfirmation()).equals("Are you sure you want to remove the selected trigger"));
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {

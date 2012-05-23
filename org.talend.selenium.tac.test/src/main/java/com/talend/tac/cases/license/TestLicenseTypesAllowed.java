@@ -174,9 +174,8 @@ public class TestLicenseTypesAllowed extends Login {
 				selenium.chooseOkOnNextConfirmation();
 				selenium.click("idSubModuleDeleteButton");
 				selenium.setSpeed(MID_SPEED);
-				Assert.assertTrue(selenium.getConfirmation().matches(
-						"^" + other.getString("delete.User.confirmation")
-								+ " [\\s\\S]$"));
+				selenium.getConfirmation();
+				Assert.assertEquals(selenium.getConfirmation(), other.getString("delete.User.confirmation"));
 				selenium.setSpeed(MIN_SPEED);
 			}
 

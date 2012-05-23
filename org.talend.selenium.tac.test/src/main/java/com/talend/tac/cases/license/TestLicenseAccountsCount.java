@@ -1494,6 +1494,7 @@ public class TestLicenseAccountsCount extends Login {
 				selenium.click("idSubModuleDeleteButton");
 				selenium.setSpeed(MID_SPEED);
 				selenium.getConfirmation();
+				Assert.assertEquals(selenium.getConfirmation(), other.getString("delete.User.confirmation"));
 				selenium.setSpeed(MIN_SPEED);
 			}
 

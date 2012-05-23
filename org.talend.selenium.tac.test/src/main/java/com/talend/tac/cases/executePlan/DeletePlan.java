@@ -24,7 +24,8 @@ public class DeletePlan extends Plan {
 		Thread.sleep(2000);
 		selenium.chooseCancelOnNextConfirmation();//choose 'Cancel'
 		selenium.click("idSubModuleDeleteButton");//click 'Delete' button
-		Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected execution plan [\\s\\S]$"));
+		this.sleep(3000);
+		selenium.getConfirmation();
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+deletelabel+"']"));
 		selenium.setSpeed(MIN_SPEED);

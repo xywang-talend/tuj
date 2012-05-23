@@ -475,8 +475,9 @@ public class TaskUtils extends Login {
 			selenium.chooseOkOnNextConfirmation();
 			selenium.chooseOkOnNextConfirmation();
 			selenium.click("idSubModuleDeleteButton");//clcik "Delete"
-			Assert.assertTrue(selenium.getConfirmation().matches(other.getString("delete.plan.warning")));
-			Assert.assertEquals(selenium.getConfirmation(), "Do you want to remove all of the related logs and archives");
+			selenium.getConfirmation();
+			Assert.assertTrue((selenium.getConfirmation()).equals("Do you want to remove all of the related logs and archives"));
+//			Assert.assertEquals(selenium.getConfirmation(), "Do you want to remove all of the related logs and archives");
 			
 		} else {
 			
@@ -511,8 +512,8 @@ public class TaskUtils extends Login {
 					selenium.chooseOkOnNextConfirmation();
 					selenium.click("idTriggerDelete");
 					
-					Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected trigger [\\s\\S]$"));
-				    								
+					selenium.getConfirmation();
+					Assert.assertTrue((selenium.getConfirmation()).equals("Are you sure you want to remove the selected trigger"));								
 			 	} else {
 			 		
 			 		System.out.println("trigger element is no exist");

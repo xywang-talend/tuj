@@ -60,7 +60,8 @@ public class TestCheckLogs extends TaskUtils {
 		selenium.keyDown("//span[text()='Logs']//ancestor::div[contains(@class,'x-tab-panel x-component')]" +
 				"//div[@title='Enter the number of items per page']/input","\\13");
 //		selenium.keyDownNative("\\13");
-		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+		selenium.keyDownNative(Event.ENTER+"");
+		selenium.keyUpNative(Event.ENTER+"");
 		selenium.setSpeed(MIN_SPEED);	
 		
 		this.waitForElementPresent("//div[text()='of "+numbersOfPerPage+"']", WAIT_TIME);
