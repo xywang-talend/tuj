@@ -26,7 +26,6 @@ public class DeletePlan extends Plan {
 		selenium.click("idSubModuleDeleteButton");//click 'Delete' button
 		this.sleep(3000);
 		selenium.getConfirmation();
-		Assert.assertTrue((selenium.getConfirmation()).contains("you want to remove all of the related logs and archives"));								
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+deletelabel+"']"));
 		selenium.setSpeed(MIN_SPEED);
