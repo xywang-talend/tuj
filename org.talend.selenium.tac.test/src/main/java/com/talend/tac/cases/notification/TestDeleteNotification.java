@@ -109,7 +109,8 @@ public class TestDeleteNotification extends AddNotification {
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("//div[contains(text(),'Conductor') and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");//clcik "Delete"
 		selenium.setSpeed(MIN_SPEED);
-	    selenium.getConfirmation();
+		selenium.getConfirmation();
+		Assert.assertTrue((selenium.getConfirmation()).contains("you want to remove all of the related logs and archives"));
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+testModifyTask+"']"));//the task cannot appear
 		selenium.setSpeed(MIN_SPEED);

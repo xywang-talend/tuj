@@ -29,8 +29,7 @@ public class TestBranchManageAdd extends Login {
 		this.typeString("idBranchManagementTargetInput", branchname);
 //		selenium.setSpeed(MID_SPEED);
 		selenium.click("idBranchManagementCreateButton");
-		this.waitForElementPresent("//span[text()='"
-				+ other.getString("project.branchmanage.add.conform") + "']", WAIT_TIME);
+		this.waitForElementPresent("//span[contains(text(),'Are you sure the branch as follows will be created')]", WAIT_TIME);
 		selenium.click("//button[text()='"
 				+ other.getString("project.branchmanage.add.conform.ok")
 				+ "']");
@@ -76,8 +75,7 @@ public class TestBranchManageAdd extends Login {
 		this.typeString("idBranchManagementTargetInput", branchname);
 //		selenium.setSpeed(MID_SPEED);
 		selenium.click("idBranchManagementCreateButton");
-		this.waitForElementPresent("//span[text()='"
-				+ other.getString("project.branchmanage.add.conform") + "']", WAIT_TIME);
+		this.waitForElementPresent("//span[contains(text(),'Are you sure the branch as follows will be created')]", WAIT_TIME);
 		selenium.click("//button[text()='"
 				+ other.getString("project.branchmanage.add.conform.ok")
 				+ "']");
@@ -111,8 +109,7 @@ public class TestBranchManageAdd extends Login {
 		this.waitForElementPresent("//input[@id='idBranchManagementTargetInput']//ancestor::div[contains(@class,'x-form-element x-form-el-x')]//img", WAIT_TIME);
 //		selenium.setSpeed(MID_SPEED);
 		selenium.click("idBranchManagementCreateButton");
-		Assert.assertFalse(this.waitElement("//span[text()='"
-				+ other.getString("project.branchmanage.add.conform") + "']", WAIT_TIME));
+		Assert.assertFalse(this.waitElement("//span[contains(text(),'Are you sure the branch as follows will be created')]", WAIT_TIME));
 		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 
 	}

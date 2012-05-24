@@ -104,7 +104,15 @@ public class TestJobAnalyses extends Login {
 		this.clickWaitForElementPresent("!!!menu.dashjobs.element!!!");
 		//wait and select the first "connection"
 		this.waitForElementPresent("//label[text()='Active connection:']/following-sibling::div//input",WAIT_TIME);
-		selenium.click("//label[text()='Active connection:']/following-sibling::div//input");
+		boolean flag = false;
+		int i = 0;
+		while(i <5 && flag == false){
+			
+			i++;
+			selenium.click("//label[text()='Active connection:']/following-sibling::div//input");
+			flag = selenium.isElementPresent("//div[contains(@class,'x-combo-list-item') and text()=' "+connection+"']");
+			
+		}
 		this.mouseDownWaitForElementPresent("//div[contains(@class,'x-combo-list-item') and text()=' "+connection+"']");
 		this.waitForElementPresent("//img[@title='Ok']", WAIT_TIME);
 		//select a connection and simulate a click
