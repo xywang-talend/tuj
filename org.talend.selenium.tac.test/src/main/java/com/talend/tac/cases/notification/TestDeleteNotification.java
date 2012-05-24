@@ -18,7 +18,6 @@ public class TestDeleteNotification extends AddNotification {
 		selenium.click("idSubModuleDeleteButton");//click 'Delete' button
 		selenium.setSpeed(MID_SPEED);
 	    selenium.getConfirmation();
-		Assert.assertTrue((selenium.getConfirmation()).equals("Are you sure you want to remove the selected notification"));
         selenium.setSpeed(MIN_SPEED);
 	    selenium.setSpeed(MID_SPEED);
         Assert.assertTrue(selenium.isElementPresent("//div[text()='"+eventNewUser+"']/" +
@@ -39,7 +38,7 @@ public class TestDeleteNotification extends AddNotification {
 		selenium.chooseOkOnNextConfirmation();
 		selenium.click("idSubModuleDeleteButton");//click 'Delete' button
 		selenium.setSpeed(MID_SPEED);
-//	    Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected notification [\\s\\S]$"));
+	    selenium.getConfirmation();
         selenium.setSpeed(MIN_SPEED);
 	 
         selenium.setSpeed(MID_SPEED);
@@ -75,7 +74,7 @@ public class TestDeleteNotification extends AddNotification {
 		selenium.click("//div[text()='Users' and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");//delete a user 
 
 		selenium.setSpeed(MID_SPEED);
-//	    Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected user [\\s\\S]$"));
+	    selenium.getConfirmation();
 	    selenium.setSpeed(MIN_SPEED);
 	    this.clickWaitForElementPresent("!!!menu.notification.element!!!");//into notification
         selenium.setSpeed(MID_SPEED);
@@ -110,8 +109,7 @@ public class TestDeleteNotification extends AddNotification {
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("//div[contains(text(),'Conductor') and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");//clcik "Delete"
 		selenium.setSpeed(MIN_SPEED);
-//		Assert.assertTrue(selenium.getConfirmation().matches(other.getString("delete.plan.warning")));
-//		Assert.assertEquals(selenium.getConfirmation(), "Do you want to remove all of the related logs and archives");
+	    selenium.getConfirmation();
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+testModifyTask+"']"));//the task cannot appear
 		selenium.setSpeed(MIN_SPEED);
@@ -147,7 +145,7 @@ public class TestDeleteNotification extends AddNotification {
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("//div[text()='Servers' and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");//clcik "Delete"
 		selenium.setSpeed(MIN_SPEED);
-//		Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected execution server [\\s\\S]$"));
+	    selenium.getConfirmation();
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(selenium.isElementPresent("//div[text()='"+jobServer+"']"));//the task cannot appear
 		selenium.setSpeed(MIN_SPEED);

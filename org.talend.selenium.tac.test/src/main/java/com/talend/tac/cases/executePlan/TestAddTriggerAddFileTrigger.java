@@ -304,8 +304,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 //			e.printStackTrace();
 //		}
 		selenium.click("idTriggerDelete");
-		selenium.getConfirmation();
-		Assert.assertTrue((selenium.getConfirmation()).equals("Are you sure you want to remove the selected trigger"));
+		Assert.assertTrue((selenium.getConfirmation()).contains("you sure you want to remove the selected trigger"));
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
@@ -343,7 +342,6 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 			e.printStackTrace();
 		}
 		selenium.getConfirmation();
-		Assert.assertTrue((selenium.getConfirmation()).equals("Are you sure you want to remove the selected trigger"));
 		Assert.assertFalse(
 				selenium.isElementPresent("//span[text()='" + fileTriggerLabel
 						+ "']"), "trigger delete failed!");
@@ -362,7 +360,6 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		}
 		selenium.click("idTriggerDelete");
 		selenium.getConfirmation();
-		Assert.assertTrue((selenium.getConfirmation()).equals("Are you sure you want to remove the selected trigger"));
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {

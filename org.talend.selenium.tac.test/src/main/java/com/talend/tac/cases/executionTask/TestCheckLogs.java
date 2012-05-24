@@ -22,6 +22,7 @@ public class TestCheckLogs extends TaskUtils {
 		selenium.click("//span[text()='Logs']");
 		selenium.setSpeed(MIN_SPEED);
 		selenium.chooseOkOnNextConfirmation();
+		selenium.chooseOkOnNextConfirmation();
 		this.waitForElementPresent("idJobConductorJobLogClearLogButton", WAIT_TIME);
 		selenium.click("idJobConductorJobLogClearLogButton");
 		

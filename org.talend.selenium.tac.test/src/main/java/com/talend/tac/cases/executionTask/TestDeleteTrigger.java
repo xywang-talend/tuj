@@ -22,10 +22,7 @@ public class TestDeleteTrigger extends Login {
     	
     	selenium.chooseOkOnNextConfirmation();
     	selenium.click("idTriggerDelete");
-		selenium.getConfirmation();
-		Assert.assertTrue((selenium.getConfirmation()).equals("Are you sure you want to remove the selected trigger"));								
-//		Assert.assertEquals(selenium.getConfirmation(), "Do you want to remove all of the related logs and archives");
-		
+		Assert.assertTrue((selenium.getConfirmation()).contains("you sure you want to remove the selected trigger"));								
 		selenium.click("idTriggerRefresh");
 		
 		selenium.setSpeed(MID_SPEED);

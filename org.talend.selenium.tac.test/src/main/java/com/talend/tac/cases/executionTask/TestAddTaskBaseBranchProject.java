@@ -18,9 +18,7 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 		selenium.chooseOkOnNextConfirmation();
 		selenium.click("idSubModuleDeleteButton");//clcik "Delete"
 		selenium.getConfirmation();
-		Assert.assertTrue((selenium.getConfirmation()).equals("Do you want to remove all of the related logs and archives"));
-//		Assert.assertEquals(selenium.getConfirmation(), "Do you want to remove all of the related logs and archives");
-		Thread.sleep(3000);
+		Assert.assertTrue((selenium.getConfirmation()).contains(("you want to remove all of the related logs and archives")));	
 		if(selenium.isElementPresent("//span[text()='" + taskLabel + "']")){
 			deleteOk = false;
 		}
@@ -302,10 +300,10 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 		Thread.sleep(3000);
 		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==2,"task run generate logs failed !");
 		selenium.chooseOkOnNextConfirmation();
-		selenium.click("idJobConductorJobLogClearLogButton");
-		selenium.getConfirmation();
-		Assert.assertTrue((selenium.getConfirmation()).equals("Are you sure you want clear the job execution logs for the current task"));
-		Thread.sleep(3000);	
+		selenium.chooseOkOnNextConfirmation();
+		selenium.click("idJobConductorJobLogClearLogButton");	
+		Assert.assertTrue((selenium.getConfirmation()).contains("you sure you want clear the job execution logs for the current task"));
+		
 		Assert.assertTrue((selenium.getXpathCount("//div[@class='x-grid3-cell-inner x-grid3-col-startDate']")).intValue()==0,"task run generate logs failed !");
 		runTask(label,2,Base.WAIT_TIME);
 		if(deleteTask(label)){
