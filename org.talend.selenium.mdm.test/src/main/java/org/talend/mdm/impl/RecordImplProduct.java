@@ -84,11 +84,7 @@ public class RecordImplProduct extends Record{
 			this.sleepCertainTime(5000);
 			logger.info(this.getString(locator, "xpath.record.delete.record",entity));
 			this.clickElementByXpath(this.getString(locator, "xpath.record.delete.record",entity)); 
-			this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.choose")); 	 
-			this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.choose.ok")); 	
-					if (this.isElementPresent(By.xpath(locator.getString("xpath.record.delete.record.warn")),WAIT_TIME_MIN)){
-						this.clickElementByXpath("//button[text()='No']");		
-					}
+			this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.choose")); 
 			//go to journal to check
 			this.sleepCertainTime(3000);
 			 openJournal(entity,UniqueIdValue,OperationType,source);
