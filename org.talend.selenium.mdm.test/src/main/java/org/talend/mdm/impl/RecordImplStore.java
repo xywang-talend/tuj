@@ -146,8 +146,8 @@ public class RecordImplStore extends Record{
 		this.clickElementByXpath("//button[text()='Cancel']");
 		this.sleepCertainTime(8000);	
 		//modify the address
-		logger.info(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersAddress));		
-		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersAddress)), addressValue);
+		logger.info(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersAddress));			
+		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.update.input.address",parametersAddress)), addressValue);
 		this.sleepCertainTime(3000);
 		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
 		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));
