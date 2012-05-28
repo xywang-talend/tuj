@@ -15,6 +15,8 @@ public class TestAddUserWithImportUser extends Login{
 	public void addUserWithImportUser(String filePath, String infoAfterUpload) {
 		
 		this.clickWaitForElementPresent("idMenuUserElement");
+
+		this.waitForElementPresent("//div[text()='admin@company.com']", WAIT_TIME);
 		Assert.assertTrue(selenium.isTextPresent("admin@company.com"));
 		
 		selenium.click("//button[text()='Import users']");//click import user button
@@ -33,12 +35,11 @@ public class TestAddUserWithImportUser extends Login{
 	
 	//clear all users
     public void clearAllUsers() {
-    	 this.clickWaitForElementPresent("idMenuUserElement");
-		 Assert.assertTrue(selenium.isTextPresent("admin@company.com"));
-		 
+	 
     	 List<String> users = new ArrayList<String>(); 
     	 this.clickWaitForElementPresent("idMenuUserElement");   
-    	
+
+ 		 this.waitForElementPresent("//div[text()='admin@company.com']", WAIT_TIME);
       	 users = this.findSpecialMachedStrings(".*@[a-zA-Z0-9]*\\.com");
 
     	 for(int i=0;i<users.size();i++) {
@@ -47,9 +48,11 @@ public class TestAddUserWithImportUser extends Login{
     			selenium.mouseDown("//div[text()='"+users.get(i)+"']");
   				selenium.chooseOkOnNextConfirmation();
   				selenium.click("idSubModuleDeleteButton");
+  				selenium.getConfirmation().contains("you sure you want to remove the selected user");
   				selenium.setSpeed(MID_SPEED);
-  			    selenium.getConfirmation();
-    		    selenium.setSpeed(MIN_SPEED);
+  				Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+  						+ users.get(i) + "')]"));
+  				selenium.setSpeed(MIN_SPEED);
     		 } 
     	 }
     	 selenium.setSpeed(MIN_SPEED);

@@ -17,8 +17,10 @@ public class TestDeleteUser extends Users {
 		selenium.mouseDown("//div[text()='"+deleteUser+"']");//Select an existing user
 		selenium.chooseCancelOnNextConfirmation();
 		selenium.click("idSubModuleDeleteButton");
-	    selenium.getConfirmation();
+		selenium.getConfirmation().contains("you sure you want to remove the selected user");
+		selenium.setSpeed(MID_SPEED);
 	    Assert.assertTrue(selenium.isElementPresent("//div[text()='"+deleteUser+"']"));
+		selenium.setSpeed(MIN_SPEED);
 	    
 	}
 	
@@ -46,10 +48,29 @@ public class TestDeleteUser extends Users {
 	@Test
 	@Parameters({"userName"})
 	public void testDeleteLoginUser(String userName) throws Exception {
-        deleteUser(userName,userName);
+		this.clickWaitForElementPresent("idMenuUserElement");
+		this.waitForElementPresent("//div[text()='"+userName+"']", WAIT_TIME);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(selenium.isElementPresent("//div[text()='"+userName+"']")) {
+			
+			selenium.setSpeed(MID_SPEED);
+			Assert.assertTrue(selenium.isTextPresent(userName));
+			selenium.setSpeed(MIN_SPEED);
+			selenium.mouseDown("//div[text()='"+userName+"']");//Select an existing user
+			selenium.chooseOkOnNextConfirmation();
+			selenium.click("idSubModuleDeleteButton");
+			selenium.getConfirmation().contains("you sure you want to remove the selected user");
+		
         selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.error.deleteCurrentLoggedUser")));
-        selenium.setSpeed(MIN_SPEED);  
+        selenium.setSpeed(MIN_SPEED);  	
+        
+		}
 		
 	}
 }

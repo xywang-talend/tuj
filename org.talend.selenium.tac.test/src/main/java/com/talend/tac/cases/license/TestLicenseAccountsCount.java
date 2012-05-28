@@ -1484,6 +1484,7 @@ public class TestLicenseAccountsCount extends Login {
 	public void cleanAllExceptAdmin() {
 		List<String> users = new ArrayList<String>();
 		this.clickWaitForElementPresent("idMenuUserElement");
+		this.waitForElementPresent("//div[text()='admin@company.com']", WAIT_TIME);	
 		users = this.findSpecialMachedStrings(".*@[a-zA-Z0-9]*\\.com");
 		// users = this.findSpecialMachedStrings(".[A-Za-z]*\\ to ");
 		for (int i = 0; i < users.size(); i++) {
@@ -1492,10 +1493,11 @@ public class TestLicenseAccountsCount extends Login {
 				selenium.mouseDown("//div[text()='" + users.get(i) + "']");
 				selenium.chooseOkOnNextConfirmation();
 				selenium.click("idSubModuleDeleteButton");
-				selenium.setSpeed(MID_SPEED);
-				selenium.getConfirmation();
-//				Assert.assertEquals(selenium.getConfirmation(), other.getString("delete.User.confirmation"));
-				selenium.setSpeed(MIN_SPEED);
+  				selenium.getConfirmation().contains("you sure you want to remove the selected user");
+  				selenium.setSpeed(MID_SPEED);
+  				Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+  						+ users.get(i) + "')]"));
+  				selenium.setSpeed(MIN_SPEED);
 			}
 
 		}

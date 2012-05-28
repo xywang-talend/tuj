@@ -15,7 +15,8 @@ public class ClearUser extends Users {
 			String UncheckActiveUser, String importUserName) throws Exception {
    
 		 this.clickWaitForElementPresent("idMenuUserElement");
-			    
+		 
+		 this.waitForElementPresent("//div[text()='"+userName+"']", WAIT_TIME);	    
 	     selenium.mouseDown("//div[text()='"+userName+"']");//Select Login user
 		 selenium.setSpeed(MAX_SPEED);
 		 selenium.type("idUserFirstNameInput", FirstName);

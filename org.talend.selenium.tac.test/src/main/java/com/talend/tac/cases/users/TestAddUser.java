@@ -17,6 +17,8 @@ public class TestAddUser extends Users {
     public void clearAllUsers(String userName) {
     	 List<String> users = new ArrayList<String>(); 
     	 this.clickWaitForElementPresent("idMenuUserElement");
+
+ 		 this.waitForElementPresent("//div[text()='"+userName+"']", WAIT_TIME);
     	 selenium.setSpeed(MID_SPEED);
     	 if(selenium.isElementPresent("//i[text()='Administrator/Viewer/Operation manager/Designer']")) {
 			 selenium.setSpeed(MIN_SPEED);
@@ -53,9 +55,12 @@ public class TestAddUser extends Users {
     			selenium.mouseDown("//div[text()='"+users.get(i)+"']");
   				selenium.chooseOkOnNextConfirmation();
   				selenium.click("idSubModuleDeleteButton");
+
+  				selenium.getConfirmation().contains("you sure you want to remove the selected user");
   				selenium.setSpeed(MID_SPEED);
-  			    selenium.getConfirmation();
-    		    selenium.setSpeed(MIN_SPEED);
+  				Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+  						+ users.get(i) + "')]"));
+  				selenium.setSpeed(MIN_SPEED);
     		 } 
     	 }
     	 selenium.setSpeed(MIN_SPEED);

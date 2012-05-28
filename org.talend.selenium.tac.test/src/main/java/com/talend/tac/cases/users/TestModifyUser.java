@@ -49,7 +49,8 @@ public class TestModifyUser extends Users {
 	}
 	
 	//modify user(admin@company.com)'role to all roles
-	@Test(dependsOnMethods={"testModifyLastAdministrationUserRole"})
+	@Test
+//	(dependsOnMethods={"testModifyLastAdministrationUserRole"})
 	@Parameters({"userName", "userPassword"})
 	public void testUserChooseAllRoles(String userName,String userPassword) throws Exception {
 		String roles = rb.getString("menu.role.administrator")+"/"+rb.getString("menu.role.viewer")+"/"

@@ -17,7 +17,8 @@ public class TestDisplayUser extends Login {
 	
 		this.clickWaitForElementPresent("idMenuUserElement");
 		
-		Assert.assertTrue(selenium.isTextPresent(userName));
+		this.waitForElementPresent("//div[text()='"+userName+"']", WAIT_TIME);
+//		Assert.assertTrue(selenium.isTextPresent(userName));
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("//div[contains(@class,'grid3-hd-inner x-grid3-hd-login')]/a");
 		selenium.setSpeed(MIN_SPEED);

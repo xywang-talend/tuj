@@ -155,8 +155,13 @@ public class Projects extends Login {
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ projectLabel + "')]");
 		selenium.chooseOkOnNextConfirmation();
-		selenium.click("idSubModuleDeleteButton");
-		selenium.getConfirmation();
+		selenium.click("//div[text()='Projects']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");
+		selenium.getConfirmation().contains("you sure you want to remove the selected project");
+		selenium.setSpeed(MID_SPEED);
+		Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				+ projectLabel + "')]"));
+		selenium.setSpeed(MIN_SPEED);
+		
 	}
 
 	public void deleteAllProjects() {
@@ -200,7 +205,10 @@ public class Projects extends Login {
 				selenium.chooseOkOnNextConfirmation();
 				selenium.click("//div[text()='Projects']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");
 				// selenium.setSpeed(MAX_SPEED);
-				selenium.getConfirmation();
+				selenium.getConfirmation().contains("you sure you want to remove the selected project");
+				selenium.setSpeed(MID_SPEED);
+				Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and text()='"
+						+ projects.get(i) + "']"));
 				selenium.setSpeed(MIN_SPEED);
 			}
 

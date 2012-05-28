@@ -16,7 +16,8 @@ public class Users extends Login {
 		
 
 		this.clickWaitForElementPresent("idMenuUserElement");
-		Assert.assertTrue(selenium.isTextPresent("admin@company.com"));
+		this.waitForElementPresent("//div[text()='admin@company.com']", WAIT_TIME);
+//		Assert.assertTrue(selenium.isTextPresent("admin@company.com"));
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idSubModuleAddButton");//add a user
 		selenium.setSpeed(MID_SPEED);
@@ -86,7 +87,12 @@ public class Users extends Login {
 			selenium.mouseDown("//div[text()='"+deleteUserName+"']");//Select an existing user
 			selenium.chooseOkOnNextConfirmation();
 			selenium.click("idSubModuleDeleteButton");
-			selenium.getConfirmation();
+			selenium.getConfirmation().contains("you sure you want to remove the selected user");
+			selenium.setSpeed(MID_SPEED);
+			Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+					+ deleteUserName + "')]"));
+			selenium.setSpeed(MIN_SPEED);
+			
 			
 		}
 			  
