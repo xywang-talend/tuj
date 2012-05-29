@@ -6,6 +6,8 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import org.talend.mdm.Base;
 import org.testng.Assert;
 
@@ -37,9 +39,12 @@ public User(WebDriver driver) {
 	
 	public void selectRoles(String[] roles){
 		for(String role: roles) {
-			this.clickElementByXpath(locator.getString("xpath.user.add.role.img"));
+			/*this.clickElementByXpath(locator.getString("xpath.user.add.role.img"));
 			this.waitfor(By.xpath(this.getString(locator, "xpath.user.add.role.select", role)), 30);
 			this.clickElementByXpath(this.getString(locator, "xpath.user.add.role.select", role));
+			*/
+			Select select = new Select(driver.findElement(By.xpath("//select[contains(@id,'usermanager')]")));
+			select.selectByVisibleText(role);
 			this.clickElementByXpath(locator.getString("xpath.user.add.role.add"));
 			this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.added.listview", roles)),WAIT_TIME_MAX);
 		}
@@ -47,12 +52,15 @@ public User(WebDriver driver) {
 	}
 	
 	public void selectRoles(String roles){
-		this.logger.info("click to open roles selection drop down list!");
+		/*this.logger.info("click to open roles selection drop down list!");
 		this.clickElementByXpath(locator.getString("xpath.user.add.role.img"));
 		this.logger.info("roles selection drop down list opened ok!");
 		this.logger.info("select role to add");
 		this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.select", roles)), WAIT_TIME_MAX);
 		this.clickElementByXpath(this.getString(locator, "xpath.user.add.role.select", roles));
+		*/
+		Select select = new Select(driver.findElement(By.xpath(locator.getString("xpath.user.roles.select"))));
+		select.selectByVisibleText(roles);
 		this.clickElementByXpath(locator.getString("xpath.user.add.role.add"));
 		this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.added.listview", roles)),WAIT_TIME_MAX);
 		this.logger.info("select role to add");
@@ -84,7 +92,7 @@ public User(WebDriver driver) {
 	
 	protected void addUser(String identifier,String firstName,String lastName,String password,String confirmPassword,
 			String email, String company, String defaultVersion, boolean active, String[] roles) {
-		this.clickElementByXpath(locator.getString("xpath.user.button.add"));
+		this.clickAddNewUser();
 		this.confBaseUserInfo(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active);
 		this.selectRoles(roles);
 		this.clickElementByXpath(locator.getString("xpath.user.add.role.save"));
@@ -98,7 +106,7 @@ public User(WebDriver driver) {
 			String email, String company, String defaultVersion, boolean active, String roles) {
 		
 		
-		this.clickElementByXpath(locator.getString("xpath.user.button.add"));
+		this.clickAddNewUser();
 		this.confBaseUserInfo(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active);
 		this.selectRoles(roles);
 		this.clickElementByXpath(locator.getString("xpath.user.add.role.save"));
@@ -116,8 +124,10 @@ public User(WebDriver driver) {
 	public void deleteUser(String userName) {
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.user.delete", userName)), WAIT_TIME_MAX), "the user to delete not present right now.");
 		this.sleepCertainTime(1000);
+		this.selectAUser("administrator");
 		this.clickElementByXpath(this.getString(locator, "xpath.user.delete", userName));
-		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.user.delete.yes")), WAIT_TIME_MAX));
+		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.user.delete.yes")),WAIT_TIME_MIN).isDisplayed());
+		this.sleepCertainTime(2000);
 		this.clickElementByXpath(locator.getString("xpath.user.delete.yes"));
 	    this.sleepCertainTime(3000);
 		Assert.assertTrue(this.waitfor(By.xpath(this.getString(locator, "xpath.user.delete", userName)),3)==null);
@@ -165,7 +175,16 @@ public User(WebDriver driver) {
 	}
 	
 	public void clickAddNewUser(){
+		this.maxUserConfigPanel();
 		this.clickElementByXpath(locator.getString("xpath.user.button.add"));
+	
+	}
+	
+	public void maxUserConfigPanel(){
+		Actions builder = new Actions(driver);
+		 builder.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.max.configure.panel.line"))))
+		 .moveToElement(this.findElementDefineDriver(this.driver, By.xpath(this.getString(locator, "xpath.user.identifier", "administrator"))), 2, -2).release().build().perform();
+		
 	}
 	public  WebElement getUserDeleteElement(String userName) {
 		return	this.getElementByXpath(this.getString(locator, "xpath.user.delete", userName));		 
