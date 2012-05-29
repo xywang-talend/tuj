@@ -43,7 +43,7 @@ public User(WebDriver driver) {
 			this.waitfor(By.xpath(this.getString(locator, "xpath.user.add.role.select", role)), 30);
 			this.clickElementByXpath(this.getString(locator, "xpath.user.add.role.select", role));
 			*/
-			Select select = new Select(driver.findElement(By.xpath("//select[contains(@id,'usermanager')]")));
+			Select select = new Select(driver.findElement(By.xpath(locator.getString("xpath.user.roles.select"))));
 			select.selectByVisibleText(role);
 			this.clickElementByXpath(locator.getString("xpath.user.add.role.add"));
 			this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.user.add.role.added.listview", roles)),WAIT_TIME_MAX);
