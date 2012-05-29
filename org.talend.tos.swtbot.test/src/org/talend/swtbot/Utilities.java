@@ -722,7 +722,6 @@ public class Utilities {
         itemList.add(TalendItemType.LDAP);
         itemList.add(TalendItemType.SALESFORCE);
         itemList.add(TalendItemType.GENERIC_SCHEMAS);
-        itemList.add(TalendItemType.TALEND_MDM);
         itemList.add(TalendItemType.WEB_SERVICE);
         itemList.add(TalendItemType.FTP);
         itemList.add(TalendItemType.CONTEXTS);

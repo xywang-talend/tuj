@@ -24,6 +24,8 @@ import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefFigureCanvas;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
 import org.talend.swtbot.DndUtil;
 import org.talend.swtbot.Utilities;
@@ -75,9 +77,30 @@ public class JobHelper implements Helper {
         GEFBOT.viewByTitle("Run (Job " + jobName + ")").setFocus();
         GEFBOT.button(" Run").click();
 
+        SWTBotShell shell = null;
         try {
-            GEFBOT.shell("Find Errors in Jobs").close();
+            shell = GEFBOT.shell("Find Errors in Jobs").activate();
         } catch (WidgetNotFoundException e) {
+            // pass exception means no error found in jobs
+        } finally {
+            if (shell != null) {
+                StringBuffer errorlog = new StringBuffer();
+                SWTBotTreeItem[] jobs = GEFBOT.tree().getAllItems();
+                for (int i = 0; i < jobs.length; i++) {
+                    SWTBotTreeItem[] components = jobs[i].getItems();
+                    for (int j = 0; j < components.length; j++) {
+                        SWTBotTreeItem[] errors = components[j].getItems();
+                        for (int k = 0; k < errors.length; k++) {
+                            errorlog.append(errors[k].cell(1) + " for component '" + components[j].cell(0) + "'" + " in job '"
+                                    + jobs[i].cell(0) + "',\n");
+                        }
+                    }
+                }
+                if (errorlog != null && !"".equals(errorlog)) {
+                    shell.close();
+                    Assert.fail("find errors in jobs:\n" + errorlog);
+                }
+            }
         }
 
         GEFBOT.waitUntil(new DefaultCondition() {

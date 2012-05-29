@@ -50,6 +50,7 @@ public class ExportAsContextForXmlTest extends TalendSwtBotForTos {
     public void createJobAndMetadata() {
         repositories.add(ERepositoryObjectType.PROCESS);
         repositories.add(ERepositoryObjectType.METADATA_FILE_XML);
+        repositories.add(ERepositoryObjectType.CONTEXT);
         jobItem = new TalendJobItem(JOB_NAME);
         jobItem.create();
         fileItem = new TalendXmlFileItem(FILE_NAME);

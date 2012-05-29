@@ -17,10 +17,11 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -80,17 +81,26 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
             Assert.fail(errorMsg);
     }
 
-    private String assertItemVersion(TalendItemType itemType) {
+    private String assertItemVersion(final TalendItemType itemType) {
         SWTBotTreeItem itemNode = Utilities.getTalendItemNode(itemType);
         if (itemType == TalendItemType.SQL_TEMPLATES)
             itemNode = Utilities.getTalendItemNode(itemType).expandNode("Hive", "UserDefined");
 
         try {
-            itemNode.expand().getNode(itemType.toString() + " 0.2");
-        } catch (WidgetNotFoundException e) {
+            final SWTBotTreeItem node = itemNode;
+            gefBot.waitUntil(new DefaultCondition() {
+
+                public boolean test() throws Exception {
+                    return node.expand().getNode(itemType.toString() + " 0.2").isVisible();
+                }
+
+                public String getFailureMessage() {
+                    return null;
+                }
+            });
+        } catch (TimeoutException e) {
             return "item '" + itemType.toString() + " 0.1' did not change to new version\n";
         }
-
         return "";
     }
 }

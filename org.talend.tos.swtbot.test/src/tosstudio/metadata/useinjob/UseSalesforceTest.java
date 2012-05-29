@@ -44,7 +44,7 @@ public class UseSalesforceTest extends TalendSwtBotForTos {
     @Before
     public void createJobAndMetadata() throws IOException, URISyntaxException {
         repositories.add(ERepositoryObjectType.PROCESS);
-        repositories.add(ERepositoryObjectType.METADATA_SAPCONNECTIONS);
+        repositories.add(ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
         metadataItem = new TalendSalesforceItem(METADATA_NAME);

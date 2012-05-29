@@ -21,6 +21,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobItem;
@@ -39,6 +40,7 @@ public class ExportJobTest extends TalendSwtBotForTos {
 
     @Before
     public void createAJob() {
+        repositories.add(ERepositoryObjectType.PROCESS);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
     }
@@ -70,6 +72,5 @@ public class ExportJobTest extends TalendSwtBotForTos {
         } catch (NullPointerException e) {
             // pass this exception, means no file need to delete.
         }
-        Utilities.resetActivePerspective();
     }
 }
