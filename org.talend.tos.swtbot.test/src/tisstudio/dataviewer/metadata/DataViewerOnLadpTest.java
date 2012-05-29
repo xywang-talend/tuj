@@ -32,7 +32,7 @@ import org.talend.swtbot.items.TalendLdapItem;
  * DOC vivian class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DataViewOnLadpTest extends TalendSwtBotForTos {
+public class DataViewerOnLadpTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 

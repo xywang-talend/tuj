@@ -30,7 +30,7 @@ import org.talend.swtbot.items.TalendJobItem;
  */
 
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DataViewerOnMysqlSDComponentsTest extends TalendSwtBotForTos {
+public class DataViewerOnMysqlSCDomponentsTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 
@@ -48,13 +48,12 @@ public class DataViewerOnMysqlSDComponentsTest extends TalendSwtBotForTos {
 
     @Test
     public void dataViewer() {
-        String sql = "create table dataviwer(age int, name varchar(12));\n " + "insert into dataviwer values(1, 'a');\n";
         // drag SCD Component to job
         Utilities.dndPaletteToolOntoJob(jobItem.getEditor(), "tMysqlSCD", new Point(100, 100));
-        SWTBotGefEditPart gefEdiPart = getTalendComponentPart(jobItem.getEditor(), "tMysqlSCD_1");
-        Assert.assertNotNull("cann't get component tMysqlSCD_1", gefEdiPart);
+        SWTBotGefEditPart gefEditPart = getTalendComponentPart(jobItem.getEditor(), "tMysqlSCD_1");
+        Assert.assertNotNull("cann't get component tMysqlSCD_1", gefEditPart);
 
-        gefEdiPart.click();
+        gefEditPart.click();
         gefBot.viewByTitle("Component").setFocus();
         SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
         // set connection parameter
@@ -64,7 +63,7 @@ public class DataViewerOnMysqlSDComponentsTest extends TalendSwtBotForTos {
         gefBot.text(3).selectAll().typeText("\"" + System.getProperty(DBNAME + ".login") + "\"", 0);
         gefBot.text(4).selectAll().typeText("\"" + System.getProperty(DBNAME + ".password") + "\"", 0);
         gefBot.button(3).click();
-        Utilities.dataViewOnSCDComponent(jobItem, "tMysqlSCD", DBNAME, gefEdiPart);
+        Utilities.dataViewOnSCDComponent(jobItem, "tMysqlSCD", DBNAME, gefEditPart);
     }
 
 }

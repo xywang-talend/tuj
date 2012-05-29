@@ -21,6 +21,10 @@ import org.talend.swtbot.Utilities.TalendItemType;
  */
 public class TalendSchemaItem extends TalendMetadataItem {
 
+    TalendSchemaItem() {
+        super();
+    }
+
     TalendSchemaItem(TalendItemType itemType) {
         super(itemType);
     }

@@ -982,11 +982,11 @@ public class Utilities {
         // test drag db2 input component to workspace
         schema.setComponentType(componentType);
         Utilities.dndMetadataOntoJob(jobItem.getEditor(), schema.getItem(), schema.getComponentType(), new Point(100, 100));
-        SWTBotGefEditPart gefEdiPart = swtbot.getTalendComponentPart(jobItem.getEditor(), schema.getComponentLabel());
-        Assert.assertNotNull("cann't get component " + schema.getComponentType() + "", gefEdiPart);
+        SWTBotGefEditPart gefEditPart = swtbot.getTalendComponentPart(jobItem.getEditor(), schema.getComponentLabel());
+        Assert.assertNotNull("cann't get component " + schema.getComponentType() + "", gefEditPart);
 
         // dataviewer
-        dataView(jobItem, gefEdiPart, componentType);
+        dataView(jobItem, gefEditPart, componentType);
 
         if (componentType.equals("tTeradataInput")) {
             int result = gefBot.tree().rowCount();
@@ -1008,11 +1008,23 @@ public class Utilities {
      * @param componentType the type of component
      */
 
-    public static void dataView(TalendJobItem jobItem, SWTBotGefEditPart gefEditPart, String componentType) {
+    public static void dataView(TalendJobItem jobItem, SWTBotGefEditPart gefEditPart, final String componentType) {
         jobItem.getEditor().select(gefEditPart).setFocus();
         gefEditPart.click();
         jobItem.getEditor().clickContextMenu("Data viewer");
-        gefBot.waitUntil(Conditions.shellIsActive("Data Preview: " + componentType + "_1"), 50000);
+        gefBot.waitUntil(new DefaultCondition() {
+
+            public boolean test() throws Exception {
+                String shellTitle = gefBot.activeShell().getText();
+                return ("Data Preview: " + componentType + "_1").equals(shellTitle) || "Select Context".equals(shellTitle);
+            }
+
+            public String getFailureMessage() {
+                return "the shell of data preview did not activate";
+            }
+        }, 20000);
+        if ("Select Context".equals(gefBot.activeShell().getText()))
+            Assert.fail("the shell 'Data Preview: " + componentType + "_1' did not activate, but shell 'Select Context' activate");
         gefBot.shell("Data Preview: " + componentType + "_1").activate();
     }
 
@@ -1022,10 +1034,10 @@ public class Utilities {
      * @param jobItem the job Item
      * @param componentType the type of component
      * @param dbName the name of db
-     * @param gefEdiPart
+     * @param gefEditPart
      */
     public static void dataViewOnSCDComponent(TalendJobItem jobItem, String componentType, String dbName,
-            SWTBotGefEditPart gefEdiPart) {
+            SWTBotGefEditPart gefEditPart) {
         String sql = "create table dataviwer(age int, name varchar(12));\n " + "insert into dataviwer values(1, 'a');\n";
 
         // create table
@@ -1038,7 +1050,7 @@ public class Utilities {
         gefBot.button(4).click();
         editSchema(componentType);
 
-        Utilities.dataView(jobItem, gefEdiPart, componentType);
+        dataView(jobItem, gefEditPart, componentType);
 
         String result1 = gefBot.tree().cell(0, 1);
         String result2 = gefBot.tree().cell(0, 2);
@@ -1046,12 +1058,12 @@ public class Utilities {
         gefBot.button("Close").click();
 
         // Drop table
-        dropTable(sql, gefEdiPart, jobItem, componentType);
+        dropTable(sql, gefEditPart, jobItem, componentType);
     }
 
-    private static void dropTable(String sql, SWTBotGefEditPart gefEdiPart, TalendJobItem jobItem, String componentType) {
+    private static void dropTable(String sql, SWTBotGefEditPart gefEditPart, TalendJobItem jobItem, String componentType) {
         sql = "drop table dataviwer;";
-        gefEdiPart.click();
+        gefEditPart.click();
         gefBot.viewByTitle("Component").setFocus();
         gefBot.button(3).click();
         gefBot.waitUntil(
@@ -1095,7 +1107,8 @@ public class Utilities {
         gefBot.waitUntil(
                 Conditions.shellIsActive("SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:"
                         + componentType + "_1"), 30000);
-        gefBot.shell("SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:" + componentType + "_1")
+        SWTBotShell shell = gefBot.shell(
+                "SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:" + componentType + "_1")
                 .activate();
 
         gefBot.styledText().setText(sql);
@@ -1128,6 +1141,7 @@ public class Utilities {
         } finally {
             SWTBotPreferences.TIMEOUT = defaultTimeout;
             gefBot.button("OK").click();
+            gefBot.waitUntil(Conditions.shellCloses(shell));
         }
 
     }

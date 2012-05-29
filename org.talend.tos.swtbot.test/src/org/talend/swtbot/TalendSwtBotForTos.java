@@ -61,7 +61,6 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.properties.tab.TalendTabbedPropertyList;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.designer.core.ui.editor.connections.ConnLabelEditPart;
@@ -237,34 +236,6 @@ public class TalendSwtBotForTos {
             }
         };
         workspace.run(operation, workspace.getRoot(), IWorkspace.AVOID_UPDATE, new NullProgressMonitor());
-        workspace = ResourcesPlugin.getWorkspace();
-        operation = new IWorkspaceRunnable() {
-
-            public void run(IProgressMonitor monitor) {
-                for (ERepositoryObjectType epot : repositories) {
-                    final ProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
-                    List<IRepositoryViewObject> ivos = null;
-                    try {
-                        ivos = factory.getAll(epot);
-                    } catch (PersistenceException e1) {
-                        e1.printStackTrace();
-                    }
-                    if (ivos != null) {
-                        for (final IRepositoryViewObject ivo : ivos) {
-
-                            try {
-                                factory.deleteObjectPhysical(ivo);
-                            } catch (PersistenceException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }
-            }
-        };
-        workspace.run(operation, workspace.getRoot(), IWorkspace.AVOID_UPDATE, new NullProgressMonitor());
-        gefBot.resetActivePerspective();
-        Utilities.emptyRecycleBin();
 
         IWorkspaceRunnable cleanup = new IWorkspaceRunnable() {
 
@@ -290,14 +261,16 @@ public class TalendSwtBotForTos {
                 } catch (CoreException e) {
                     e.printStackTrace();
                 }
-                gefBot.resetActivePerspective();
             }
         };
         workspace.run(cleanup, null);
 
+        Utilities.emptyRecycleBin();
+        Utilities.getRepositoryView().toolbarPushButton("refresh").click();
+        gefBot.resetActivePerspective();
+
         repositories.clear();
         repositoriesFolders.clear();
-
     }
 
     /**
@@ -326,7 +299,7 @@ public class TalendSwtBotForTos {
             buildType = "TOSBD";
             return;
         }
-        buildType = "UNKNOWN";
+        buildType = "TIS";
     }
 
 }

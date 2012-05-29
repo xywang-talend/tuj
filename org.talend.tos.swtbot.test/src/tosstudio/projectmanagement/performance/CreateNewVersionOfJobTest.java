@@ -13,8 +13,7 @@
 package tosstudio.projectmanagement.performance;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.Assert;
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,15 +48,18 @@ public class CreateNewVersionOfJobTest extends TalendSwtBotForTos {
         gefBot.button("m").click();
         gefBot.button("Finish").click();
 
-        SWTBotTreeItem newJobItem = null;
-        try {
-            newJobItem = jobItem.getParentNode().expand().getNode(JOBNAME + " 1.1");
-            jobItem.setItem(newJobItem);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("new version of job is not created", newJobItem);
-        }
-    }
+        gefBot.waitUntil(new DefaultCondition() {
 
+            @Override
+            public boolean test() throws Exception {
+                return jobItem.getParentNode().expand().getNode(JOBNAME + " 1.1").isVisible();
+            }
+
+            @Override
+            public String getFailureMessage() {
+                return "new version of job not found";
+            }
+        });
+        jobItem.setItem(jobItem.getParentNode().expand().getNode(JOBNAME + " 1.1"));
+    }
 }

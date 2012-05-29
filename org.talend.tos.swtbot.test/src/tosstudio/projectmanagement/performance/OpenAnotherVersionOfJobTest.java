@@ -13,8 +13,8 @@
 package tosstudio.projectmanagement.performance;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCTabItem;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,8 +54,19 @@ public class OpenAnotherVersionOfJobTest extends TalendSwtBotForTos {
         SWTBotCTabItem newJobTabItem1 = gefBot.cTabItem("Job " + JOBNAME + " 1.1");
         Assert.assertNotNull("job tab is not opened", newJobTabItem1);
 
-        SWTBotTreeItem newItem = jobItem.getParentNode().expand().getNode(JOBNAME + " 1.1");
-        jobItem.setItem(newItem);
+        gefBot.waitUntil(new DefaultCondition() {
+
+            @Override
+            public boolean test() throws Exception {
+                return jobItem.getParentNode().expand().getNode(JOBNAME + " 1.1").isVisible();
+            }
+
+            @Override
+            public String getFailureMessage() {
+                return "new version of job not found";
+            }
+        });
+        jobItem.setItem(jobItem.getParentNode().expand().getNode(JOBNAME + " 1.1"));
         jobItem.getItem().contextMenu("Open an other version").click();
         gefBot.shell("New job").activate();
         gefBot.table().select(0);

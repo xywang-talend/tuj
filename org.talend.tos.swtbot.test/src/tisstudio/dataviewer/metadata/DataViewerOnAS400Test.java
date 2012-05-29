@@ -27,7 +27,7 @@ import org.talend.swtbot.items.TalendJobItem;
  * DOC vivian class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DataViwerOnAS400Test extends TalendSwtBotForTos {
+public class DataViewerOnAS400Test extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 

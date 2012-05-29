@@ -34,7 +34,7 @@ import org.talend.swtbot.items.TalendSchemaItem;
  * DOC vivian class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DataViwerOnMysqlWithContextTest extends TalendSwtBotForTos {
+public class DataViewerOnMysqlWithContextTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 

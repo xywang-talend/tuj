@@ -52,7 +52,7 @@ public class OpenOldVersionTest extends TalendSwtBotForTos {
 
             @Override
             public String getFailureMessage() {
-                return "new version of joblet is not found";
+                return "new version of joblet not found";
             }
         });
         jobletItem.setItem(jobletItem.getParentNode().getNode(JOBLET_NAME + " 0.2"));

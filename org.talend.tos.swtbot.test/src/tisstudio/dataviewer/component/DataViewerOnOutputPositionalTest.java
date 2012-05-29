@@ -30,7 +30,6 @@ import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.JobHelper;
 import org.talend.swtbot.items.TalendJobItem;
-import org.talend.swtbot.items.TalendPositionalFileItem;
 
 /**
  * DOC vivian class global comment. Detailled comment
@@ -39,8 +38,6 @@ import org.talend.swtbot.items.TalendPositionalFileItem;
 public class DataViewerOnOutputPositionalTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
-
-    private TalendPositionalFileItem fileItem;
 
     private static final String JOBNAME = "job1"; //$NON-NLS-1$
 
@@ -99,7 +96,7 @@ public class DataViewerOnOutputPositionalTest extends TalendSwtBotForTos {
         gefBot.shell(getBuildTitle() + " - tRowGenerator - tRowGenerator_1").activate();
 
         gefBot.tableWithLabel("Schema").click(0, 11);
-       
+
         gefBot.tableWithLabel("Set your own expression.").click(0, 2);
         gefBot.text(1).setText("\"a\"");
         gefBot.tableWithLabel("Set your own expression.").select(0);

@@ -53,21 +53,23 @@ public class SpecialColumnNameTest extends TalendSwtBotForTos {
     public void createJobAndMetadata() {
         repositories.add(ERepositoryObjectType.PROCESS);
         repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
+
+        jobItem = new TalendJobItem(JOB_NAME);
+        jobItem.create();
+
         dbItem = new TalendDBItem(DB_NAME, Utilities.DbConnectionType.MYSQL);
         dbItem.create();
         String sql = "create table " + TABLE_NAME + "(id int, class varchar(20), _static varchar(20));\n" + "insert into "
                 + TABLE_NAME + " values(1, 'a', 'a');";
         dbItem.executeSQL(sql);
         dbItem.retrieveDbSchema(TABLE_NAME);
-
-        jobItem = new TalendJobItem(JOB_NAME);
-        jobItem.create();
     }
 
     @Test
     public void useMetadataInJob() throws IOException, URISyntaxException {
         TalendSchemaItem schemaItem = dbItem.getSchema(TABLE_NAME);
-
+        if (schemaItem.getItem() == null)
+            Assert.fail("schema did not retrieve");
         /*
          * Assert column name of schema
          */

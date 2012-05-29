@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
@@ -59,30 +58,28 @@ public class TalendSalesforceItem extends TalendMetadataItem {
     public Map<String, TalendSalesforceItem> retrieveModules(String... moduleName) {
         getItem().contextMenu("Retrieve Salesforce Modules").click();
         gefBot.waitUntil(Conditions.shellIsActive("Schema"), 60000);
-        SWTBotShell tempShell = gefBot.shell("Schema");
+        SWTBotShell shell = gefBot.shell("Schema").activate();
         Map<String, TalendSalesforceItem> moduleItems = new HashMap<String, TalendSalesforceItem>();
 
-        try {
-            List<String> modules = new ArrayList<String>(Arrays.asList(moduleName));
-            for (String module : modules) {
-                gefBot.table(0).getTableItem(module).check();
-            }
-            // gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 60000);
-            gefBot.button("Finish").click();
-
-            for (String module : modules) {
-                TalendSalesforceItem tempItem = new TalendSalesforceItem();
-                tempItem.setParentNode(getItem());
-                tempItem.setItem(getItem().getNode(module).select());
-                moduleItems.put(module, tempItem);
-            }
-        } catch (WidgetNotFoundException wnfe) {
-            tempShell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            tempShell.close();
-            Assert.fail(e.getMessage());
+        List<String> modules = new ArrayList<String>(Arrays.asList(moduleName));
+        for (String module : modules) {
+            gefBot.table(0).getTableItem(module).check();
         }
+        // gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 60000);
+        gefBot.button("Finish").click();
+        if ("Modification".equals(gefBot.activeShell().getText())) {
+            gefBot.closeAllShells();
+            Assert.fail("pop up a dialog 'Modification' when finish retrieving schema");
+        }
+        gefBot.waitUntil(Conditions.shellCloses(shell));
+
+        for (String module : modules) {
+            TalendSalesforceItem tempItem = new TalendSalesforceItem();
+            tempItem.setParentNode(getItem());
+            tempItem.setItem(getItem().getNode(module).select());
+            moduleItems.put(module, tempItem);
+        }
+
         return moduleItems;
     }
 
@@ -95,7 +92,6 @@ public class TalendSalesforceItem extends TalendMetadataItem {
 
         if (HTTP_PROXY.equals(proxyType)) {
             gefBot.checkBox("Enable Http proxy").click();
-            gefBot.button("OK").click();
         } else if (SOCKS_PROXY.equals(proxyType)) {
             gefBot.checkBox("Enable Socks proxy").click();
         }

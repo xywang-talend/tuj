@@ -1,15 +1,3 @@
-// ============================================================================
-//
-// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
-//
-// This source code is available under agreement available at
-// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
-//
-// You should have received a copy of the agreement
-// along with this program; if not, write to Talend SA
-// 9 rue Pages 92150 Suresnes, France
-//
-// ============================================================================
 package tisstudio.dataviewer.component;
 
 import org.eclipse.swt.graphics.Point;
@@ -30,13 +18,13 @@ import org.talend.swtbot.items.TalendJobItem;
  */
 
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DataViewerOnMssqlSDComponentsTest extends TalendSwtBotForTos {
+public class DataViewerOnOracleSCDomponentsTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 
     private static final String JOBNAME = "job1"; //$NON-NLS-1$
 
-    private static final String DBNAME = "mssql"; //$NON-NLS-1$
+    private static final String DBNAME = "oracle"; //$NON-NLS-1$
 
     @Before
     public void createJob() {
@@ -48,24 +36,23 @@ public class DataViewerOnMssqlSDComponentsTest extends TalendSwtBotForTos {
 
     @Test
     public void dataViewer() {
-        String sql = "create table dataviwer(age int, name varchar(12));\n " + "insert into dataviwer values(1, 'a');\n";
         // drag SCD Component to job
-        Utilities.dndPaletteToolOntoJob(jobItem.getEditor(), "tMSSqlSCD", new Point(100, 100));
-        SWTBotGefEditPart gefEdiPart = getTalendComponentPart(jobItem.getEditor(), "tMSSqlSCD_1");
-        Assert.assertNotNull("cann't get component tMSSqlSCD_1", gefEdiPart);
+        Utilities.dndPaletteToolOntoJob(jobItem.getEditor(), "tOracleSCD", new Point(100, 100));
+        SWTBotGefEditPart gefEditPart = getTalendComponentPart(jobItem.getEditor(), "tOracleSCD_1");
+        Assert.assertNotNull("cann't get component tOracleSCD_1", gefEditPart);
 
-        gefEdiPart.click();
+        gefEditPart.click();
         gefBot.viewByTitle("Component").setFocus();
         SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
         // set connection parameter
         gefBot.sleep(1000);
         gefBot.text(0).selectAll().typeText("\"" + System.getProperty(DBNAME + ".server") + "\"", 0);
-        gefBot.text(3).selectAll().typeText("\"" + System.getProperty(DBNAME + ".dataBase") + "\"", 0);
+        gefBot.text(2).selectAll().typeText("\"" + System.getProperty(DBNAME + ".sid") + "\"", 0);
+        gefBot.text(3).selectAll().typeText("\"" + System.getProperty(DBNAME + ".schema") + "\"", 0);
         gefBot.text(4).selectAll().typeText("\"" + System.getProperty(DBNAME + ".login") + "\"", 0);
         gefBot.text(5).selectAll().typeText("\"" + System.getProperty(DBNAME + ".password") + "\"", 0);
-
         gefBot.button(3).click();
-        Utilities.dataViewOnSCDComponent(jobItem, "tMSSqlSCD", DBNAME, gefEdiPart);
+        Utilities.dataViewOnSCDComponent(jobItem, "tOracleSCD", DBNAME, gefEditPart);
     }
 
 }

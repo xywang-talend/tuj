@@ -17,6 +17,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
@@ -80,14 +81,16 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
     }
 
     private String assertItemVersion(TalendItemType itemType) {
-        List<String> nodes = new ArrayList<String>();
+        SWTBotTreeItem itemNode = Utilities.getTalendItemNode(itemType);
         if (itemType == TalendItemType.SQL_TEMPLATES)
-            nodes = Utilities.getTalendItemNode(itemType).expandNode("Hive", "UserDefined").getNodes();
-        else
-            nodes = Utilities.getTalendItemNode(itemType).getNodes();
+            itemNode = Utilities.getTalendItemNode(itemType).expandNode("Hive", "UserDefined");
 
-        if (!nodes.contains(itemType.toString() + " 0.2"))
+        try {
+            itemNode.expand().getNode(itemType.toString() + " 0.2");
+        } catch (WidgetNotFoundException e) {
             return "item '" + itemType.toString() + " 0.1' did not change to new version\n";
+        }
+
         return "";
     }
 }

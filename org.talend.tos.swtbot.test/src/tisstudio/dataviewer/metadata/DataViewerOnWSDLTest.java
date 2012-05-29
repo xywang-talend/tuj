@@ -32,7 +32,7 @@ import org.talend.swtbot.items.TalendWebServiceItem;
  * DOC vivian class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DataViewOnWSDLTest extends TalendSwtBotForTos {
+public class DataViewerOnWSDLTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 

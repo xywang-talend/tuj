@@ -222,6 +222,7 @@ public class TalendDBItem extends TalendMetadataItem {
             SWTBotPreferences.TIMEOUT = 100;
             try {
                 gefBot.waitUntil(Conditions.shellIsActive("Error Executing SQL"));
+                gefBot.shell("Error Executing SQL").activate();
                 String errorLog = gefBot.label(1).getText();
                 if (errorLog.contains("Table") && errorLog.contains("already exists")) {
                     String table = errorLog.split("'")[1];
