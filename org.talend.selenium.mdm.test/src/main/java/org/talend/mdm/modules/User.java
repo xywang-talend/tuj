@@ -95,6 +95,7 @@ public User(WebDriver driver) {
 		this.clickAddNewUser();
 		this.confBaseUserInfo(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active);
 		this.selectRoles(roles);
+		this.minUserConfigPanel();
 		this.clickElementByXpath(locator.getString("xpath.user.add.role.save"));
 		this.getElementByXpath(locator.getString("xpath.user.add.role.flashcache.ok")).click();
 		Assert.assertTrue((this.isElementPresent(By.xpath(this.getString(locator, "xpath.user.identifier", identifier)), WAIT_TIME_MAX)));
@@ -109,6 +110,7 @@ public User(WebDriver driver) {
 		this.clickAddNewUser();
 		this.confBaseUserInfo(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active);
 		this.selectRoles(roles);
+		this.minUserConfigPanel();
 		this.clickElementByXpath(locator.getString("xpath.user.add.role.save"));
 		this.logger.info("click add user save button!");
 		this.getElementByXpath(locator.getString("xpath.user.add.role.flashcache.ok")).click();
@@ -184,6 +186,13 @@ public User(WebDriver driver) {
 		Actions builder = new Actions(driver);
 		 builder.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.max.configure.panel.line"))))
 		 .moveToElement(this.findElementDefineDriver(this.driver, By.xpath(this.getString(locator, "xpath.user.identifier", "administrator"))), 2, -2).release().build().perform();
+		
+	}
+	
+	public void minUserConfigPanel(){
+		Actions builder = new Actions(driver);
+		 builder.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.max.configure.panel.line"))))
+		 .moveToElement(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.add.role.save"))), 0, -10).release().build().perform();
 		
 	}
 	public  WebElement getUserDeleteElement(String userName) {
