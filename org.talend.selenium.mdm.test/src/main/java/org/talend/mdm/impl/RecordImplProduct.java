@@ -90,7 +90,9 @@ public class RecordImplProduct extends Record{
 			 openJournal(entity,UniqueIdValue,OperationType,source);
 			 JournalResultCount();
 			// assert the record which been deleted in the recycle
+			 this.sleepCertainTime(3000);
 			clickRecycle();	
+			this.sleepCertainTime(3000);
 			//this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.assert.clickRefresh")); 
 			logger.info(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.container",parameters_container));
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.container",parameters_container)), WAIT_TIME_MIN ),"container");
@@ -164,8 +166,8 @@ public class RecordImplProduct extends Record{
 			this.sleepCertainTime(3000);
 			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersUniqueId),UniqueIdValue);
 			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersName), NameValue);
-			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersDescription), DescriptionValue);
-			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersPrice), PriceValue);
+			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersDescription), DescriptionValue);			
+			this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersPrice)), PriceValue);			
 			this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
 			this.sleepCertainTime(3000);
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersUniqueIdAssert)), WAIT_TIME_MAX),"createARecord");
