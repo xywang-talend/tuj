@@ -13,6 +13,7 @@ public class TestModifyUser extends Users {
 	@Parameters({"userName"})
 	public void testLastLoginUserNotChooseActive(String userName) throws Exception {
 		this.clickWaitForElementPresent("idMenuUserElement");
+		this.waitForElementPresent("//div[text()='"+userName+"']", WAIT_TIME);
 		Assert.assertTrue(selenium.isTextPresent(userName));
         selenium.mouseDown("//div[text()='"+userName+"']");
         

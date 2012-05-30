@@ -34,28 +34,28 @@ public class TestBranchManageAddExistbranch extends Login {
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idBranchManagementCreateButton");
 
-		if (selenium.isElementPresent("//span[text()='"
-				+ other.getString("project.branchmanage.add.conform") + "']")) {
-
-			selenium.click("//button[text()='"
-					+ other.getString("project.branchmanage.add.conform.ok")
-					+ "']");
-			selenium.setSpeed(MAX_SPEED);
-			Assert.assertTrue(selenium
-					.isTextPresent("Failed to create branch: Project already contains a branch 'branches/branch' -- For more information see your log file"));
+		this.waitForElementPresent("//span[contains(text(),'"
+				+ other.getString("project.branchmanage.add.conform") + "')]", WAIT_TIME);
+		selenium.click("//button[text()='"
+				+ other.getString("project.branchmanage.add.conform.ok")
+				+ "']");
+		selenium.setSpeed(MAX_SPEED);
+		Assert.assertTrue(selenium
+				.isTextPresent("Failed to create branch: Project already contains a branch 'branches/branch' -- For more information see your log file"));
 		
-		}
 		// delete the exist branch
 		selenium.setSpeed(MAX_SPEED);
 		selenium.mouseDown("//span[text()='" + branchname + "']");
 		selenium.contextMenu("//span[text()='" + branchname + "']");
 		selenium.mouseOver("delete-item-branch");
 		selenium.click("delete-item-branch");
+		this.waitForElementPresent("//span[contains(text(),'Are you sure  you want to delete this branch')]", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//button[text()='Yes']"),
 				"ok button can not be seen!");
 		selenium.click("//button[text()='"
 				+ other.getString("project.branchmanage.delete.confor.ok")
 				+ "']");
+		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+branchname+"']"));
 		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");// close
 		selenium.setSpeed(MIN_SPEED);
 		// check the new close button

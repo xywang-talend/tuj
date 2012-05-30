@@ -94,7 +94,7 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 		this.waitForElementPresent("idMenuChangePasswordElement", WAIT_TIME);
 	}
 
-	@Test(dependsOnMethods = { "testMenuBeforeAuthorizeAllRolesToAdmin" })
+	@Test
 	public void testMenuUsers() {
 		// test for user page contents
 		this.clickWaitForElementPresent("idMenuUserElement");
@@ -106,7 +106,7 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 				WAIT_TIME);
 	}
 
-	@Test(dependsOnMethods = { "testMenuBeforeAuthorizeAllRolesToAdmin" })
+	@Test
 	public void testMenuConfiguration() {
 		// test for configuration page contents
 		this.clickWaitForElementPresent("idMenuConfigElement");
@@ -142,7 +142,7 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 		
 	}
 
-	@Test(dependsOnMethods = { "testMenuBeforeAuthorizeAllRolesToAdmin" })
+	@Test
 	public void testMenuLicense() {
 		// check for license page contents
 		this.clickWaitForElementPresent("idMenuLicenseElement");
@@ -152,7 +152,7 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 		this.waitForElementPresent("idLicenseUploadButton", WAIT_TIME);
 	}
 
-	@Test(dependsOnMethods = { "testMenuBeforeAuthorizeAllRolesToAdmin" })
+	@Test
 	public void testMenuProject() {
 		// check for project page contents
 		this.clickWaitForElementPresent("!!!menu.project.element!!!");
@@ -162,7 +162,7 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 
 	}
 
-	@Test(dependsOnMethods = { "testMenuBeforeAuthorizeAllRolesToAdmin" })
+	@Test
 	public void testMenuProjectAuthorization() {
 
 		// check for project authorization page contents
@@ -188,7 +188,7 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 	}
 
 
-	@Test(dependsOnMethods = { "testMenuBeforeAuthorizeAllRolesToAdmin" })
+	@Test
 	public void testMenuProjectReferences() {
 		// check for project references page contents
 		this.clickWaitForElementPresent("!!!menu.refprojects.element!!!");
@@ -200,7 +200,7 @@ public class TestMenuDisplayBeforeAuthorizeAllRolesToAdmin extends Login {
 				WAIT_TIME);
 	}
 
-	@Test(dependsOnMethods = { "testMenuBeforeAuthorizeAllRolesToAdmin" })
+	@Test
 	public void testMenuUserSetting() {
 		// check for user setting page contents
 		this.clickWaitForElementPresent("idMenuChangePasswordElement");
