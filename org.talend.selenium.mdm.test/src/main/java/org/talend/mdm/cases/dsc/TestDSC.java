@@ -7,7 +7,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-
 public class TestDSC extends Login {
 	DataStewardImpl dsc;
 	@BeforeMethod
@@ -15,21 +14,16 @@ public class TestDSC extends Login {
 		dsc = new DataStewardImpl(driver);
 	}
 	
-	
 	@Test
 	@Parameters( {"task.name","task.type.resotion","task.default.source","task.fieldName1"})
 	public void testCreateTaskWithTypeResolution(String taskName,String taskType,String source ,String filedName1){
-		
 		dsc.createTaskWithTypeDefined(taskName, taskType, source,filedName1);
-		
 	}
 	
 	@Test
 	@Parameters( {"task.name","task.type.data","task.default.source","task.fieldName1"})
 	public void testCreateTaskWithTypeData(String taskName,String taskType,String source ,String filedName1){
-		
 		dsc.createTaskWithTypeDefined(taskName, taskType, source,filedName1);
-		
 	}
 	
 	@Test
@@ -40,11 +34,8 @@ public class TestDSC extends Login {
 		
 	}
 	
-	
-	
 	@AfterMethod
 	@Override
 	public void logout() {
-		
 	}
 }

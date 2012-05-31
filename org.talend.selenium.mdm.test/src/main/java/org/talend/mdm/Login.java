@@ -36,14 +36,14 @@ public class Login extends Base{
 			try {
 				driver = this.setWebDriver(Browser.valueOf(System.getProperty("webdriver.browser").trim()));
 			} catch (Exception e) {
-				logger.info("Doesn't not support the browser of - " + System.getProperty("webdriver.browser").trim() + ", will use firefox!");
+				logger.warn("Doesn't not support the browser of - " + System.getProperty("webdriver.browser").trim() + ", will use firefox!");
 				driver = this.setFirefox();
 			}
 		}
 	
 		// Old code for firefox
 /**		
-		logger.info("webdriver.firefox.bin.path = " + System.getProperty("webdriver.firefox.bin.path").trim());
+		logger.warn("webdriver.firefox.bin.path = " + System.getProperty("webdriver.firefox.bin.path").trim());
 		if(null == System.getProperty("webdriver.firefox.bin.path") || "".equals(System.getProperty("webdriver.firefox.bin.path").trim()) || System.getProperty("webdriver.firefox.bin.path").trim().contains("webdriver.firefox.bin.path")) {
 		} else{
 			System.setProperty("webdriver.firefox.bin", System.getProperty("webdriver.firefox.bin.path").trim());
@@ -63,20 +63,20 @@ public class Login extends Base{
 	    
 //	    firefoxProfile.setEnableNativeEvents(true);
 //	    
-	    logger.info("setEnableNativeEvents-" + firefoxProfile.areNativeEventsEnabled());
+	    logger.warn("setEnableNativeEvents-" + firefoxProfile.areNativeEventsEnabled());
 //	    firefoxProfile.setEnableNativeEvents(false);
 //	    
-//	    logger.info("setEnableNativeEvents-" + firefoxProfile.areNativeEventsEnabled());
+//	    logger.warn("setEnableNativeEvents-" + firefoxProfile.areNativeEventsEnabled());
 	    
 	    driver = new FirefoxDriver(firefoxProfile);
 **/
 		
 	    //set driver time out with TimeUnit
 	    driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
-	    logger.info("Set Firefox Driver with Profile");
+	    logger.warn("Set Firefox Driver with Profile");
 		
 //		driver = new FirefoxDriver();
-		logger.info("URL - " +url + root);
+		logger.warn("URL - " +url + root);
 		
 		driver.get(url + root);
 		super.setDriver(driver);
@@ -93,14 +93,14 @@ public class Login extends Base{
 //		if (this.isTextPresent(message)) {
 //			this.getElementById("idLoginForceLogoutButton").click();
 //			this.getElementById("idLoginButton").click();
-//			logger.info("Force login TAC");
+//			logger.warn("Force login TAC");
 //		}
 		
 		if(this.isTextPresent(message)) {
 			this.getElementByLinkText("Force user to logout").click();
 			this.login(userName, userPassword);
 		} else {
-			logger.info("Force Login MDM");
+			logger.warn("Force Login MDM");
 		}
 	}
 
@@ -113,22 +113,20 @@ public class Login extends Base{
 		passwordE.clear();
 		passwordE.sendKeys(userPassword);
 		this.getElementByName("login").click();
-		logger.info("Login MDM");
-		
-		logger.info(rb.getString("menu.taskResuming.desc"));
+		logger.warn("Login MDM");
 	}
 	
 	@AfterMethod
 	public void logout() {
-		logger.info("Click MDM logout button");
+		logger.warn("Click MDM logout button");
 		this.getElementByXpath("//button[text()='Logout']").click();
-		logger.info("Logout MDM");
+		logger.warn("Logout MDM");
 	}
 
 	@AfterClass
 	public void killBroswer() {
 		driver.quit();
-		logger.info("WebDriver Quit");
+		logger.warn("WebDriver Quit");
 	}
 	
 	@AfterSuite

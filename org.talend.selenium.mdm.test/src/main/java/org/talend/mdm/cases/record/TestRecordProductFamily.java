@@ -6,14 +6,14 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-
 public class TestRecordProductFamily extends Login {
 	RecordImplProductFamily recordImpl;
 	@BeforeMethod
 	public void beforeMethod(){
 		recordImpl = new RecordImplProductFamily(driver);	
-		logger.info("Set Before Info");
-	}		
+		logger.warn("Set Before Info");
+	}	
+	
 	@Test
 	@Parameters( { "container","modle","entity","feild2Value","feild2Name","feild1Name" })
 	public void testDeleteRecord(String container,String modle,String entity,String feild2Value,String feild2Name,String feild1Name ) {
@@ -49,11 +49,13 @@ public class TestRecordProductFamily extends Login {
 	public void testCreateRecord(String container,String modle,String entity,String feild2Value,String feild2Name,String feild1Name) {
 		recordImpl.createRecordImpl(container, modle, entity, feild2Value, feild2Name,feild1Name);
 	}
+	
 	@Test
 	@Parameters( { "container","modle","entity","feild2Value_old", "feild2Value","feild2Name" ,"feild1Name" })
 	public void testDuplicateRecord(String container,String modle,String entity,String feild2Value_old,String feild2Value,String feild2Name,String feild1Name) {
 		recordImpl.duplicateRecordImpl(container, modle, entity, feild2Value_old, feild2Value, feild2Name,feild1Name);
 	}
+	
 	@Test
 	@Parameters( { "container","modle","entity","feild2Value_old", "feild2Value","feild2Name","feild1Name" })
 	public void testUpdateRecord(String container,String modle,String entity,String feild2Value_old,String feild2Value,String feild2Name,String feild1Name) {
@@ -75,8 +77,4 @@ public class TestRecordProductFamily extends Login {
 	public void testSearchRecordByDate(String container,String modle,String entity,String searchFeild,String opeartion,String value) {
 		recordImpl.SearchRecordByDateImpl(container, modle, entity, searchFeild,opeartion,value);
 	}
-	
-	
-	
-	
 }

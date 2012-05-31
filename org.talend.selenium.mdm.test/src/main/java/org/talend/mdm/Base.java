@@ -42,7 +42,7 @@ import com.google.common.base.Predicate;
 public class Base {
 	public Logger logger  =  Logger.getLogger(this.getClass());
 	public Locale currentLocale = new Locale("en", "US"); // set the locale that
-	// you want to test
+
 	public ResourceBundle rb = ResourceBundle.getBundle("org.talend.mdm.resources.messages",currentLocale);
 	
 	public ResourceBundle other = ResourceBundle.getBundle("org.talend.mdm.resources.other",currentLocale);
@@ -65,7 +65,6 @@ public class Base {
 	public void setDriver(WebDriver driver) {
 		this.driver = driver;
 	}
-
 	
 	public void sleepCertainTime(int sleepTime){
 		try {
@@ -85,9 +84,7 @@ public class Base {
 	}
 	
 	public WebDriver initNewDriver(){
-		
 		return new FirefoxDriver();
-		
 	}
 	
 	public WebElement findElementDefineDriver(WebDriver dri,By by){
@@ -123,7 +120,6 @@ public class Base {
 		}
 	}
 	
-	
 	public WebElement waitfor(final By by, int checkTimes, int timeout) {
 		int i=0;
 		WebElement element = null;
@@ -138,7 +134,6 @@ public class Base {
 		 return element;
 	}
 	
-	
 	/**
 	 */
 	public boolean waitforElementDisplayed(final By by, int timeout) {
@@ -151,7 +146,6 @@ public class Base {
 		 }));
 		return false;
 	}
-	
 	
 	/**
 	 */
@@ -195,7 +189,6 @@ public class Base {
 		 return flag;
 	}
 	
-	
 	/**
 	 *  driver.findElement(By.tagName("body")).getText().contains(what);
 	 * @param by
@@ -226,9 +219,11 @@ public class Base {
 	public WebElement getElementById(String id) {
 		 return this.waitfor(By.id(id), WAIT_TIME_MIN);
 	}
+	
 	public WebElement getElementByName(String name) {
 		return  this.waitfor(By.name(name), WAIT_TIME_MIN);
 	}
+	
 	public WebElement getElementByXpath(String xpath) {
 		return  this.waitfor(By.xpath(xpath), WAIT_TIME_MIN);
 	}
@@ -241,9 +236,11 @@ public class Base {
 		 this.getElementById(id).sendKeys(text);
 //		 System.out.println("ID - " + this.getElementById(id).getText());
 	}
+	
 	public void typeTextByName(String name, String text) {
 		 this.getElementByName(name).sendKeys(text);
 	}
+	
 	public void typeTextByXpath(String xpath, String text) {
 		 this.getElementByXpath(xpath).sendKeys(text);
 	}
@@ -252,12 +249,15 @@ public class Base {
 		element.clear();
 		element.sendKeys(text);
 	}
+	
 	public void modifyTextById(String id, String text) {
 		this.modifyText(this.getElementById(id), text);
 	}
+	
 	public void modifyTextByName(String name, String text) {
 		this.modifyText(this.getElementByName(name), text);
 	}
+	
 	public void modifyTextByXpath(String xpath, String text) {
 		this.modifyText(this.getElementByXpath(xpath), text);
 	}
@@ -281,9 +281,11 @@ public class Base {
     public void clickElementById(String id){
     	this.getElementById(id).click();
     }
+    
     public void clickElementByName(String name){
     	this.getElementByName(name).click();
     }
+    
     public void clickElementByXpath(String xpath){
     	Assert.assertTrue(this.waitfor(By.xpath(xpath), WAIT_TIME_MIN)!=null);    
     	this.driver.findElement(By.xpath(xpath)).click();
@@ -373,7 +375,6 @@ public class Base {
 		new Actions(driver).moveByOffset(xOffset, yOffset).perform();
 	}
 	
-	
 	public void acceptAlert(){
 		try {
 			Thread.sleep(2000);
@@ -384,6 +385,7 @@ public class Base {
 		System.out.println(driver.switchTo().alert().getText());
 		alert.accept();
 	}
+	
 	public void acceptAlert(String allertMessage){
 		try {
 			Thread.sleep(2000);
@@ -406,11 +408,8 @@ public class Base {
 		alert.dismiss();
 	}
 	
-	
-	
 	public void windowMaximize(){
 		driver.manage().window().maximize();
-		
 //        Toolkit toolkit =  Toolkit.getDefaultToolkit ();
 //        java.awt.Dimension dim = toolkit.getScreenSize();
 //        Dimension dimension =  new Dimension(dim.width, dim.height);
@@ -448,13 +447,12 @@ public class Base {
 				String name = testCaseInfo + "_" + lineNumber + ".png";
 				try {
 					captureScreenshot(imgFilePath + File.separator + name);
-					System.out.println(imgFilePath + File.separator + name);
+					logger.warn(imgFilePath + File.separator + name);
 				} catch (Exception e) {
 				}
 				
 				this.setTestCaseResultInfo(failedTestCases, testCaseInfo, Result.f);
 			}
-			
 			
 			@Override
 			public void onTestSuccess(ITestResult tr) {
@@ -470,15 +468,15 @@ public class Base {
 				try {
 					// Comment the video record
 //					testCaseScreenRecorder = testCaseRecorder.getScreenRecorder(getAbsoluteFolderPath("org/talend/mdm/download") + "/" + testCaseInfo);
-					logger.info(getAbsoluteFolderPath("org/talend/mdm/download") + "/" + testCaseInfo);
+					logger.warn(getAbsoluteFolderPath("org/talend/mdm/download") + "/" + testCaseInfo);
 					
 					if(testCaseScreenRecorder == null) {
-						logger.info("testCaseScreenRecorder = null");
+						logger.warn("testCaseScreenRecorder = null");
 					}
 					
 //					testCaseScreenRecorder.start();
 				} catch (Exception e) {
-					logger.info(e.getMessage());
+					logger.warn(e.getMessage());
 					e.printStackTrace();
 				}
 
@@ -520,7 +518,6 @@ public class Base {
 				if(parameter!=null && !"".equals(parameter.trim())){
 					parameter = parameter.substring(1);
 				}
-				
 				return className + "." + methodName + "(" + parameter + ")";
 			}
 			
@@ -538,7 +535,6 @@ public class Base {
 				testcases.add(testCase);
 			}
 		}); 
-		
 	}
 	
 	/**
@@ -592,7 +588,6 @@ public class Base {
 //		this.clickElementByXpath(locator.getString("xpath.datatewardship.administration.createtask.panel.taskproperties.tasktype.arrow"));		
 		this.isElementPresent(By.xpath("//div[contains(@class,'x-combo-list-item') and contains(text(),'"+option+"')]"),WAIT_TIME_MAX);
 		this.clickElementByXpath("//div[contains(@class,'x-combo-list-item') and contains(text(),'"+option+"')]");
-	
 	}
 	
 	public String getValueInput(By by){
@@ -602,9 +597,11 @@ public class Base {
 	public Dimension getWindowSize(){
 		return driver.manage().window().getSize();
 	}
+	
 	public int getWindowSizeHeight(){
 		return driver.manage().window().getSize().height;
 	}
+	
 	public int getWindowSizeWidth(){
 		return driver.manage().window().getSize().width;
 	}
@@ -627,7 +624,7 @@ public class Base {
 	}
 	
 	public WebDriver setFirefox() {
-		logger.info("webdriver.firefox.bin.path = " + System.getProperty("webdriver.firefox.bin.path"));
+		logger.warn("webdriver.firefox.bin.path = " + System.getProperty("webdriver.firefox.bin.path"));
 		if(null == System.getProperty("webdriver.firefox.bin.path") || "".equals(System.getProperty("webdriver.firefox.bin.path").trim()) || System.getProperty("webdriver.firefox.bin.path").trim().contains("webdriver.firefox.bin.path")) {
 		} else{
 			System.setProperty("webdriver.firefox.bin", System.getProperty("webdriver.firefox.bin.path").trim());
@@ -646,9 +643,9 @@ public class Base {
 	    firefoxProfile.setPreference("webdriver_enable_native_events", false);
 	    
 //	    firefoxProfile.setEnableNativeEvents(true);
-	    logger.info("setEnableNativeEvents-" + firefoxProfile.areNativeEventsEnabled());
+	    logger.warn("setEnableNativeEvents-" + firefoxProfile.areNativeEventsEnabled());
 //	    firefoxProfile.setEnableNativeEvents(false);
-//	    logger.info("setEnableNativeEvents-" + firefoxProfile.areNativeEventsEnabled());
+//	    logger.warn("setEnableNativeEvents-" + firefoxProfile.areNativeEventsEnabled());
 	    
 	    return new FirefoxDriver(firefoxProfile);
 	}

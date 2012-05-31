@@ -12,7 +12,6 @@ public class TestRecord extends Login {
 	@BeforeMethod
 	public void beforeMethod(){
 		recordImpl = new RecordImpl(driver);	
-		logger.info("Set Before Info");
 	}		
 	@Test
 	@Parameters( { "container","modle","entity","feild1Value","feild1Name" })
@@ -81,8 +80,4 @@ public class TestRecord extends Login {
 	public void testSearchRecordByDate(String container,String modle,String entity,String searchFeild,String opeartion,String value) {
 		recordImpl.SearchRecordByDateImpl(container, modle, entity, searchFeild,opeartion,value);
 	}
-	
-	
-	
-	
 }

@@ -8,7 +8,6 @@ public class WelcomeImpl extends Welcome{
 	public WelcomeImpl(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
-
 	}
 	
 	public void reSortWindows(){

@@ -3,17 +3,13 @@ package org.talend.mdm.impl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.talend.mdm.modules.Logon;
-import org.talend.mdm.modules.User;
 import org.testng.Assert;
 
-
 public class LogonImpl extends Logon{
-
 	public LogonImpl(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
 	}
-	
 	
 	public void loginAdministrator(String userName,String userPassword ,String message){
 		Assert.assertTrue(this.isTextPresent(locator.getString("mdm.suit.name")));
@@ -24,7 +20,7 @@ public class LogonImpl extends Logon{
 			this.getElementByLinkText("Force user to logout").click();
 			this.configureLogin(userName, userPassword);
 			this.clickLogin();
-			logger.info("Force Login MDM");
+			logger.warn("Force Login MDM");
 		}
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.sheet.welcome")), WAIT_TIME_MAX));
 	}
@@ -38,7 +34,7 @@ public class LogonImpl extends Logon{
 			this.getElementByLinkText("Force user to logout").click();
 			this.configureLogin(userName, userPassword);
 			this.clickLogin();
-			logger.info("Force Login MDM");
+			logger.warn("Force Login MDM");
 		} 
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.sheet.welcome")), WAIT_TIME_MAX));
 	}
@@ -52,32 +48,30 @@ public class LogonImpl extends Logon{
 			this.getElementByLinkText("Force user to logout").click();
 			this.configureLogin(userName, userPassword);
 			this.clickLogin();
-			logger.info("Force Login MDM");
+			logger.warn("Force Login MDM");
 		}
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.sheet.welcome")), WAIT_TIME_MAX));
 		this.logout();
 		this.killBroswer();
 	}
 	
-	
 	public void loginWithExistInactiveUserImpl(String inactiveName,String inactivePass,String wrongMessage){
-		logger.info("test login with wrong password .");
+		logger.warn("test login with wrong password .");
 		this.configureLogin(inactiveName, inactivePass);
 		this.clickLogin();
 		this.sleepCertainTime(5000);
-		this.logger.info(wrongMessage);
+		this.logger.warn(wrongMessage);
 	    this.acceptAlert(wrongMessage);
 	    this.sleepCertainTime(5000);
 		this.refreshBrowser();
 	}
 	
-	
 	public void loginWithWrongNamePassImpl(String wrongName,String wrongPass,String wrongMessage){
-		logger.info("test login with wrong password .");
+		logger.warn("test login with wrong password .");
 		this.configureLogin(wrongName, wrongPass);
 		this.clickLogin();
 		this.sleepCertainTime(5000);
-		this.logger.info(wrongMessage);
+		this.logger.warn(wrongMessage);
 	    Assert.assertTrue(this.isTextPresent(wrongMessage));
 	    this.configureLogin("", "");
 		this.clickLogin();
@@ -95,7 +89,7 @@ public class LogonImpl extends Logon{
 			this.getElementByLinkText("Force user to logout").click();
 			this.configureLogin(userName, userPassword);
 		} else {
-			logger.info("Force Login MDM");
+			logger.warn("Force Login MDM");
 		}
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.sheet.welcome")), WAIT_TIME_MAX));
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.login.logout")), WAIT_TIME_MAX));
@@ -111,7 +105,7 @@ public class LogonImpl extends Logon{
 			this.getElementByLinkText("Force user to logout").click();
 			this.configureLogin(userName, userPassword);
 		} else {
-			logger.info("Force Login MDM");
+			logger.warn("Force Login MDM");
 		}
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.sheet.welcome")), WAIT_TIME_MAX));
 		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.login.logout")), WAIT_TIME_MAX));
@@ -124,12 +118,6 @@ public class LogonImpl extends Logon{
 	    Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.login.username")), WAIT_TIME_MAX));
 		this.killBroswer();
 	}
-	
-	public void flushCache(WebDriver driver1 ,WebDriver driver2){
-		
-		
-	}
-	
 	
 	public void forceQuit(){
 		this.killBroswer();

@@ -12,17 +12,9 @@ import org.talend.mdm.Base;
 import org.talend.mdm.Login;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Parameters;
-
 
 public class Logon extends Base{
-	
-	
-	
 	public void initWebdriver(String url, String root, ITestContext context){
-		
 		URL file = Login.class.getClassLoader().getResource("org/talend/mdm/resources");
 		PropertyConfigurator.configure( file.getPath() + "/log4j.properties" );
 		
@@ -33,8 +25,8 @@ public class Logon extends Base{
 	    firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk","text/csv");
 	    
 	    driver = new FirefoxDriver(firefoxProfile);
-	    logger.info("Set Firefox Driver with Profile");
-		logger.info("URL - " +url + root);
+	    logger.warn("Set Firefox Driver with Profile");
+		logger.warn("URL - " +url + root);
 		
 		driver.get(url + root);
 		super.setDriver(driver);
@@ -43,14 +35,12 @@ public class Logon extends Base{
 		onTestListener(context, Login.class.getClassLoader().getResource("org/talend/mdm/download").getPath());
 	}
 	
-	
 	public Logon(WebDriver driver) {
 		super.setDriver(driver);
 		this.driver = driver;
 	}
 	
 	public void configureLogin(String userName, String userPassword) {
-
 		WebElement userE = this.getElementByName(locator.getString("id.login.username"));
 		userE.clear();
 		userE.sendKeys(userName);
@@ -58,11 +48,12 @@ public class Logon extends Base{
 		passwordE.clear();
 		passwordE.sendKeys(userPassword);
 	}
+	
     public void clickLogin(){
     	this.waitfor(By.name(locator.getString("name.login.login")), WAIT_TIME_MID);
     	Assert.assertTrue(this.isElementPresent(By.name(locator.getString("name.login.login")), WAIT_TIME_MID), "login button is not displayed right now.");
     	this.getElementByName(locator.getString("name.login.login")).click();
-		logger.info("Login MDM");
+		logger.warn("Login MDM");
     }
     
     public void clickLogout(){
@@ -70,15 +61,14 @@ public class Logon extends Base{
     }
 	
 	public void logout() {
-		logger.info("Click MDM logout button");
+		logger.warn("Click MDM logout button");
 		this.clickLogout();
-		logger.info("Logout MDM");
+		logger.warn("Logout MDM");
 		Assert.assertTrue(this.isElementPresent(By.name(locator.getString("id.login.username")), WAIT_TIME_MAX));
 	}
 	
 	public void killBroswer() {
 		driver.quit();
-		logger.info("WebDriver Quit");
+		logger.warn("WebDriver Quit");
 	}
-	
 }

@@ -6,29 +6,31 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-
 public class TestRecordProduct extends Login {
 	RecordImplProduct recordImpl;
 	@BeforeMethod
 	public void beforeMethod(){
 		recordImpl = new RecordImplProduct(driver);	
-		logger.info("Set Before Info");
+		logger.warn("Set Before Info");
 	}		
 	@Test
 	@Parameters( { "container","modle","entity","UniqueId","UniqueIdValue" })
 	public void testDeleteRecord(String container,String modle,String entity,String UniqueId,String UniqueIdValue ) {
 		recordImpl.deleteRecordImpl(container,modle,entity,UniqueId,UniqueIdValue);
 	}
+	
 	@Test
 	@Parameters( { "container","modle","entity","UniqueId","UniqueIdValue" })
 	public void testDeleteToRecycleRecord(String container,String modle,String entity,String UniqueId,String UniqueIdValue ) {
 		recordImpl.deleteRecordToRecycleImpl(container,modle,entity,UniqueId,UniqueIdValue);
 	}
+	
 	@Test
 	@Parameters( { "container","modle","entity","UniqueId","UniqueIdValue" })
 	public void testRestoreFromRecycleRecord(String container,String modle,String entity,String UniqueId,String UniqueIdValue ) {
 		recordImpl.restoreFromRecycleImpl(container,modle,entity,UniqueId,UniqueIdValue);
 	}
+	
 	@Test
 	@Parameters( { "container","modle","entity", "UniqueId","UniqueIdValue","Name","NameValue","Description","DescriptionValue","Price","PriceValue"})
 	public void testCreateRecord(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String Name,String NameValue,String Description,String DescriptionValue,String Price,String PriceValue) {
@@ -62,7 +64,6 @@ public class TestRecordProduct extends Login {
 	public void testPriceChangeValidApprovedWorkflow(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID) {
 		recordImpl.priceChangeWorkFlowValidApprovedImpl(userFrank, frankPass, userJennifer, jenniferPass, container, model, entity,productUniqID);
 	}
-	
 	
 	@Test
 	@Parameters( {"user.frank.name","user.frank.password","user.jennifer.name","user.jennifer.password", "container","modle","entity","UniqueIdValue"})

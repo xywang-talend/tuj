@@ -12,7 +12,6 @@ public class TestRecordAgency extends Login {
 	@BeforeMethod
 	public void beforeMethod(){
 		recordImpl = new RecordImplAgency(driver);	
-		logger.info("Set Before Info");
 	}		
 	@Test
 	@Parameters( { "container","modle","entity","Identifie" ,"IdentifieValue"})

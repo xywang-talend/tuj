@@ -1,8 +1,5 @@
 package org.talend.mdm.impl;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +7,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.talend.mdm.modules.Record;
 import org.testng.Assert;
-
 
 public class RecordImplProduct extends Record{
 	 String OperationType,key,source;  
@@ -26,7 +22,7 @@ public class RecordImplProduct extends Record{
 		chooseEntity(entity);
 		clickExport();
 		this.sleepCertainTime(8000);
-		}	
+	}	
 	
 	public void restoreFromRecycleImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue){
 		String[] parameters={entity,UniqueId,UniqueIdValue};
@@ -54,6 +50,7 @@ public class RecordImplProduct extends Record{
 		this.sleepCertainTime(5000);
 		deleteTheRecord(entity);		
 	}
+	
 	public void deleteRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue){
 		OperationType="PHYSICAL_DELETE";
 		source="genericUI";
@@ -69,140 +66,141 @@ public class RecordImplProduct extends Record{
 	    openJournal(entity,UniqueIdValue,OperationType,source);
 	    JournalResultCount();
 	}	
+	
 	public void deleteRecordToRecycleImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue){
-		 OperationType="LOGIC_DELETE";
-		 source="genericUI";
-			chooseContainer(container);	
-			chooseModle(modle);
-			clickSave();
-			chooseEntity(entity);
-			entity=entity.replaceAll(" ","");
-		    String[] parameters_container={UniqueIdValue,container};
-			String[] parameters_modle={UniqueIdValue,modle};
-			String[] parameters_entity={UniqueIdValue,entity};
-			chooseRcord(entity,UniqueId,UniqueIdValue);				
-			this.sleepCertainTime(5000);
-			logger.info(this.getString(locator, "xpath.record.delete.record",entity));
-			this.clickElementByXpath(this.getString(locator, "xpath.record.delete.record",entity)); 
-			this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.choose")); 
-			//go to journal to check
-			this.sleepCertainTime(3000);
-			 openJournal(entity,UniqueIdValue,OperationType,source);
-			 JournalResultCount();
-			// assert the record which been deleted in the recycle
-			 this.sleepCertainTime(3000);
-			clickRecycle();	
-			this.sleepCertainTime(3000);
-			//this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.assert.clickRefresh")); 
-			logger.info(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.container",parameters_container));
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.container",parameters_container)), WAIT_TIME_MIN ),"container");
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.modle",parameters_modle)), WAIT_TIME_MIN ),"modle");
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.entity",parameters_entity)), WAIT_TIME_MIN ),"entity");	
+		OperationType="LOGIC_DELETE";
+		source="genericUI";
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);
+		entity=entity.replaceAll(" ","");
+	    String[] parameters_container={UniqueIdValue,container};
+		String[] parameters_modle={UniqueIdValue,modle};
+		String[] parameters_entity={UniqueIdValue,entity};
+		chooseRcord(entity,UniqueId,UniqueIdValue);				
+		this.sleepCertainTime(5000);
+		logger.warn(this.getString(locator, "xpath.record.delete.record",entity));
+		this.clickElementByXpath(this.getString(locator, "xpath.record.delete.record",entity)); 
+		this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.choose")); 
+		//go to journal to check
+		this.sleepCertainTime(3000);
+		 openJournal(entity,UniqueIdValue,OperationType,source);
+		 JournalResultCount();
+		// assert the record which been deleted in the recycle
+		 this.sleepCertainTime(3000);
+		clickRecycle();	
+		this.sleepCertainTime(3000);
+		//this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.assert.clickRefresh")); 
+		logger.warn(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.container",parameters_container));
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.container",parameters_container)), WAIT_TIME_MIN ),"container");
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.modle",parameters_modle)), WAIT_TIME_MIN ),"modle");
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.entity",parameters_entity)), WAIT_TIME_MIN ),"entity");	
 	}
+	
 	public void testDuplicateRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String UniqueIdValueDup) {
 		String[] parametersUniqueId={entity,UniqueId};	
 		String[] parametersUniqueIdAssert={entity,UniqueId,UniqueIdValueDup};	
 		String[] parametersUniqueIdValue={entity,UniqueIdValue};
 		String[] UniqueIdAssert={UniqueId,UniqueIdValueDup};
-		    OperationType="CREATE";
-		    source="genericUI";
-			chooseContainer(container);	
-			chooseModle(modle);
-			clickSave();
-			chooseEntity(entity);
-			this.sleepCertainTime(3000);
-			chooseRcord(entity,UniqueId,UniqueIdValue);		
-			this.sleepCertainTime(3000);
-			this.clickElementByXpath(locator.getString("xpath.record.Duplicate.click"));			
-			this.sleepCertainTime(5000);			
-			this.clickElementByXpath(this.getString(locator,"xpath.record.Duplicate.close.origin",parametersUniqueIdValue));
-			this.sleepCertainTime(3000); 
-			this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.Duplicate.input",parametersUniqueId)), UniqueIdValueDup);
-			this.sleepCertainTime(3000); 
-			this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
+	    OperationType="CREATE";
+	    source="genericUI";
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);
+		this.sleepCertainTime(3000);
+		chooseRcord(entity,UniqueId,UniqueIdValue);		
+		this.sleepCertainTime(3000);
+		this.clickElementByXpath(locator.getString("xpath.record.Duplicate.click"));			
+		this.sleepCertainTime(5000);			
+		this.clickElementByXpath(this.getString(locator,"xpath.record.Duplicate.close.origin",parametersUniqueIdValue));
+		this.sleepCertainTime(3000); 
+		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.Duplicate.input",parametersUniqueId)), UniqueIdValueDup);
+		this.sleepCertainTime(3000); 
+		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
 //			this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
-			this.sleepCertainTime(10000); 
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersUniqueIdAssert)), WAIT_TIME_MAX),"duplicateARecord");
-			this.sleepCertainTime(3000); 			
-			openJournal(entity,UniqueIdValueDup,OperationType,source);
-			this.sleepCertainTime(3000); 
-			JournalCheckResult(UniqueIdValueDup,OperationType);
-			this.sleepCertainTime(3000); 
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",UniqueIdAssert )), WAIT_TIME_MIN));
-			OperationType="UPDATE";
-		    source="CompleteStoreURL";
-		    this.clickElementByXpath("//span[@class='x-tab-strip-inner']//span[text()='Data Browser']");
-		    this.sleepCertainTime(3000);		    
-			openJournal(entity,UniqueIdValueDup,OperationType,source);
-			this.sleepCertainTime(3000); 
-			JournalCheckResult(UniqueIdValueDup,OperationType);
-			this.sleepCertainTime(3000); 
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.url.assert", UniqueIdValueDup)), WAIT_TIME_MIN));
-					
-			
-		}	
+		this.sleepCertainTime(10000); 
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersUniqueIdAssert)), WAIT_TIME_MAX),"duplicateARecord");
+		this.sleepCertainTime(3000); 			
+		openJournal(entity,UniqueIdValueDup,OperationType,source);
+		this.sleepCertainTime(3000); 
+		JournalCheckResult(UniqueIdValueDup,OperationType);
+		this.sleepCertainTime(3000); 
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",UniqueIdAssert )), WAIT_TIME_MIN));
+		OperationType="UPDATE";
+	    source="CompleteStoreURL";
+	    this.clickElementByXpath("//span[@class='x-tab-strip-inner']//span[text()='Data Browser']");
+	    this.sleepCertainTime(3000);		    
+		openJournal(entity,UniqueIdValueDup,OperationType,source);
+		this.sleepCertainTime(3000); 
+		JournalCheckResult(UniqueIdValueDup,OperationType);
+		this.sleepCertainTime(3000); 
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.url.assert", UniqueIdValueDup)), WAIT_TIME_MIN));
+	}	
+	
    public void createRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String Name,String NameValue,String Description,String DescriptionValue,String Price,String PriceValue) {
-	        OperationType="CREATE";
-	        source="genericUI";
-			chooseContainer(container);	
-			chooseModle(modle);
-			clickSave();
-			chooseEntity(entity);
-			String[] parametersUniqueId={entity,UniqueId};	
-			String[] parametersName={entity,Name};	
-			String[] parametersDescription={entity,Description};	
-			String[] parametersPrice={entity,Price};	
-			String[] UniqueIdAssert={UniqueId,UniqueIdValue};
-			String[] NameAssert={Name,NameValue};
-			String[] DescriptionAssert={Description,DescriptionValue};
-			String[] PriceAssert={Price,PriceValue};
-			String[] parametersUniqueIdAssert={entity,UniqueId,UniqueIdValue};
-			String[] parametersNameAssert={entity,Name,NameValue};
-			String[] parametersDescriptionAssert={entity,Description,DescriptionValue};
-			String[] parametersPriceAssert={entity,Price,PriceValue};
-			this.sleepCertainTime(3000);
-			this.clickCreateRecord();
+        OperationType="CREATE";
+        source="genericUI";
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);
+		String[] parametersUniqueId={entity,UniqueId};	
+		String[] parametersName={entity,Name};	
+		String[] parametersDescription={entity,Description};	
+		String[] parametersPrice={entity,Price};	
+		String[] UniqueIdAssert={UniqueId,UniqueIdValue};
+		String[] NameAssert={Name,NameValue};
+		String[] DescriptionAssert={Description,DescriptionValue};
+		String[] PriceAssert={Price,PriceValue};
+		String[] parametersUniqueIdAssert={entity,UniqueId,UniqueIdValue};
+		String[] parametersNameAssert={entity,Name,NameValue};
+		String[] parametersDescriptionAssert={entity,Description,DescriptionValue};
+		String[] parametersPriceAssert={entity,Price,PriceValue};
+		this.sleepCertainTime(3000);
+		this.clickCreateRecord();
 //			this.clickElementByXpath(locator.getString("xpath.record.choose.create")); 
-			this.sleepCertainTime(3000);
-			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersUniqueId),UniqueIdValue);
-			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersName), NameValue);
-			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersDescription), DescriptionValue);			
-			this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersPrice)), PriceValue);			
-			this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
-			this.sleepCertainTime(3000);
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersUniqueIdAssert)), WAIT_TIME_MAX),"createARecord");
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersNameAssert)), WAIT_TIME_MAX),"createARecord");
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersDescriptionAssert)), WAIT_TIME_MAX),"createARecord");
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersPriceAssert)), WAIT_TIME_MAX),"createARecord");
-			this.sleepCertainTime(3000);		    
-			openJournal(entity,UniqueIdValue,OperationType,source);
-			this.sleepCertainTime(3000); 
-			JournalCheckResult(UniqueIdValue,OperationType);
-			this.sleepCertainTime(3000); 
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",UniqueIdAssert )), WAIT_TIME_MIN));
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",NameAssert )), WAIT_TIME_MIN));
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",DescriptionAssert )), WAIT_TIME_MIN));
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",PriceAssert )), WAIT_TIME_MIN));
-			OperationType="UPDATE";
-		    source="CheckAvailability";
-		    this.clickElementByXpath("//span[@class='x-tab-strip-inner']//span[text()='Data Browser']");
-		    this.sleepCertainTime(3000);		    
-			openJournal(entity,UniqueIdValue,OperationType,source);
-			this.sleepCertainTime(3000); 
-			JournalCheckResult(UniqueIdValue,OperationType);
-			this.sleepCertainTime(3000); 
-			Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='Availability:true']"), WAIT_TIME_MIN));
-			OperationType="UPDATE";
-		    source="CompleteStoreURL";
-		    this.clickElementByXpath("//span[@class='x-tab-strip-inner']//span[text()='Data Browser']");
-		    this.sleepCertainTime(3000);		    
-			openJournal(entity,UniqueIdValue,OperationType,source);
-			this.sleepCertainTime(3000); 
-			JournalCheckResult(UniqueIdValue,OperationType);
-			this.sleepCertainTime(3000); 
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.url.assert", UniqueIdValue)), WAIT_TIME_MIN));
-			
-}
+		this.sleepCertainTime(3000);
+		this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersUniqueId),UniqueIdValue);
+		this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersName), NameValue);
+		this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersDescription), DescriptionValue);			
+		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersPrice)), PriceValue);			
+		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
+		this.sleepCertainTime(3000);
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersUniqueIdAssert)), WAIT_TIME_MAX),"createARecord");
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersNameAssert)), WAIT_TIME_MAX),"createARecord");
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersDescriptionAssert)), WAIT_TIME_MAX),"createARecord");
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersPriceAssert)), WAIT_TIME_MAX),"createARecord");
+		this.sleepCertainTime(3000);		    
+		openJournal(entity,UniqueIdValue,OperationType,source);
+		this.sleepCertainTime(3000); 
+		JournalCheckResult(UniqueIdValue,OperationType);
+		this.sleepCertainTime(3000); 
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",UniqueIdAssert )), WAIT_TIME_MIN));
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",NameAssert )), WAIT_TIME_MIN));
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",DescriptionAssert )), WAIT_TIME_MIN));
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",PriceAssert )), WAIT_TIME_MIN));
+		OperationType="UPDATE";
+	    source="CheckAvailability";
+	    this.clickElementByXpath("//span[@class='x-tab-strip-inner']//span[text()='Data Browser']");
+	    this.sleepCertainTime(3000);		    
+		openJournal(entity,UniqueIdValue,OperationType,source);
+		this.sleepCertainTime(3000); 
+		JournalCheckResult(UniqueIdValue,OperationType);
+		this.sleepCertainTime(3000); 
+		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='Availability:true']"), WAIT_TIME_MIN));
+		OperationType="UPDATE";
+	    source="CompleteStoreURL";
+	    this.clickElementByXpath("//span[@class='x-tab-strip-inner']//span[text()='Data Browser']");
+	    this.sleepCertainTime(3000);		    
+		openJournal(entity,UniqueIdValue,OperationType,source);
+		this.sleepCertainTime(3000); 
+		JournalCheckResult(UniqueIdValue,OperationType);
+		this.sleepCertainTime(3000); 
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.url.assert", UniqueIdValue)), WAIT_TIME_MIN));
+   }
+   
 /*	public void testUpdateCheckAvailabilityRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue){
 		String availability;
 		boolean availabilityRsulte=false;
@@ -230,7 +228,7 @@ public class RecordImplProduct extends Record{
 		else{
 		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));		
 		availability=this.getValue(this.getElementByXpath(this.getString(locator, "xpath.record.update.Availability",UniqueIdValue)));
-		logger.info(availability);
+		logger.warn(availability);
 		if (availability.equals("true"))
 		{availabilityRsulte=true;}		
 		Assert.assertTrue(availabilityRsulte);
@@ -275,58 +273,55 @@ public class RecordImplProduct extends Record{
 		}	
 	}
 	*/
- public void testUpdatePriceRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String Price,String PriceValue,String flag,String PriceValueOld) {
-	        OperationType="UPDATE";
-		    source="genericUI";
-		    String recordSearchResult;	
-			chooseContainer(container);	
-			chooseModle(modle);
-			clickSave();
-			chooseEntity(entity);
-			chooseRcord(entity,UniqueId,UniqueIdValue);				
-			String[] parametersPrice={entity,Price};
+   public void testUpdatePriceRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String Price,String PriceValue,String flag,String PriceValueOld) {
+        OperationType="UPDATE";
+	    source="genericUI";
+	    String recordSearchResult;	
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);
+		chooseRcord(entity,UniqueId,UniqueIdValue);				
+		String[] parametersPrice={entity,Price};
+		this.sleepCertainTime(3000);
+		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersPrice)), PriceValue);
+		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
+		if (flag.equals("0")){			
+		 if ( this.isElementPresent(By.xpath(locator.getString("xpath.record.update.price.max")), WAIT_TIME_MAX)){
+			 this.sleepCertainTime(3000);
+			 this.clickElementByXpath("//button[text()='Ok']");	
+			 enterJournal(entity,UniqueIdValue,OperationType,source);					
+			 recordSearchResult=this.getElementByXpath(locator.getString("xpath.record.update.journal.price")).getText();
+			if (recordSearchResult.contains("No data to display")){	
+				Assert.assertTrue(true);
+			}else
+				Assert.assertTrue(false);
+			}
+		}
+		if (flag.equals("1")){			
+			if (this.isElementPresent(By.xpath(locator.getString("xpath.record.update.price.min")), WAIT_TIME_MAX)){
+				this.clickElementByXpath("//button[text()='Ok']");	
+				Assert.assertTrue(true);
+				enterJournal(entity,UniqueIdValue,OperationType,source);
+				recordSearchResult=this.getElementByXpath(locator.getString("xpath.record.update.journal.price")).getText();
+				if (recordSearchResult.contains("No data to display")){	
+					Assert.assertTrue(true);
+		         }else
+					Assert.assertTrue(false);
+			}
+		}
+		
+		if (flag.equals("2")){			
+			enterJournal(entity,UniqueIdValue,OperationType,source);
 			this.sleepCertainTime(3000);
-			this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersPrice)), PriceValue);
-			this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
-			if (flag.equals("0"))
-			{			
-			 if ( this.isElementPresent(By.xpath(locator.getString("xpath.record.update.price.max")), WAIT_TIME_MAX)){
-				 this.sleepCertainTime(3000);
-				 this.clickElementByXpath("//button[text()='Ok']");	
-				 enterJournal(entity,UniqueIdValue,OperationType,source);					
-				 recordSearchResult=this.getElementByXpath(locator.getString("xpath.record.update.journal.price")).getText();
-					if (recordSearchResult.contains("No data to display"))
-					{	Assert.assertTrue(true);
-		          	}
-					else
-						Assert.assertTrue(false);
-					}
-			}
-			if (flag.equals("1"))
-			{			
-			 if (this.isElementPresent(By.xpath(locator.getString("xpath.record.update.price.min")), WAIT_TIME_MAX)){
-				 this.clickElementByXpath("//button[text()='Ok']");	
-				 Assert.assertTrue(true);
-				 enterJournal(entity,UniqueIdValue,OperationType,source);
-				 recordSearchResult=this.getElementByXpath(locator.getString("xpath.record.update.journal.price")).getText();
-					if (recordSearchResult.contains("No data to display"))
-					{	Assert.assertTrue(true);
-			         }
-					else
-						Assert.assertTrue(false);
-					}
-			}
-			if (flag.equals("2"))
-			{			
-			  enterJournal(entity,UniqueIdValue,OperationType,source);
-			  this.sleepCertainTime(3000);
-			  JournalCheckResult(UniqueIdValue,OperationType);
-			  this.sleepCertainTime(3000);
-			  Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.price.assert", PriceValueOld)), WAIT_TIME_MIN));
-			  Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.price.assert", PriceValue)), WAIT_TIME_MIN));
-			}
+			JournalCheckResult(UniqueIdValue,OperationType);
+			this.sleepCertainTime(3000);
+			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.price.assert", PriceValueOld)), WAIT_TIME_MIN));
+			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.price.assert", PriceValue)), WAIT_TIME_MIN));
+		}
 			
-}
+   }
+   
 	public void SearchRecordByValueImpl(String container,String modle,String entity,String entity_Element,String searchFeild,String searchFeild_Element,String opeartion,String value){
 		chooseContainer(container);	
 		chooseModle(modle);
@@ -338,8 +333,8 @@ public class RecordImplProduct extends Record{
 		this.sleepCertainTime(3000);
 		searchValueAssert(searchFeild_Element,opeartion,value,entity_Element);	
 	}
+	
 	public void SearchRecordByStringImpl(String container,String modle,String entity,String entity_Element,String searchFeild,String searchFeild_Element,String opeartion,String value){
-
 		chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();
@@ -349,9 +344,7 @@ public class RecordImplProduct extends Record{
 		searchCondition(searchFeild,opeartion,value);
 		this.sleepCertainTime(3000);
 		searchStringAssert(searchFeild_Element,opeartion,value,entity_Element);
-		
 	}	
-	
 	
 	public void openWorkflowTask(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID,String productFamilyId,String productFamilyName,String frankSubmitedFamilyName){
 		LogonImpl log = new LogonImpl(this.driver);
@@ -372,7 +365,7 @@ public class RecordImplProduct extends Record{
 		
 		//get the initial price for the product record
 		String priceInitial = this.getValueInput(By.xpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)));
-		logger.info("for frank ,the initial price is:"+priceInitial);
+		logger.warn("for frank ,the initial price is:"+priceInitial);
 		
 		//select request price change  ,and launch process
 		this.launchProcess("Request Price Change");
@@ -414,7 +407,7 @@ public class RecordImplProduct extends Record{
    
 	    // frank change product familyname,change price ,then submit
         this.clickElementByXpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input.clear"));
-        logger.info("+++++++++++++++++++++++++++++++++++++++++++"+this.getValueInput(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input"))));
+        logger.warn("-----------------------------"+this.getValueInput(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input"))));
         Assert.assertTrue(this.getValueInput(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input"))).equals(""), "test foreign key info display failed,as product family name shows wrong before frank submit !");
         this.clickElementByXpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input.search"));
         Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input.search.searchpanel")), WAIT_TIME_MIN).isDisplayed());
@@ -423,7 +416,7 @@ public class RecordImplProduct extends Record{
         Assert.assertTrue(this.getValueInput(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input"))).equals(frankSubmitedFamilyName), "test foreign key info display failed,as product family name shows wrong before frank submit !");
         String priceSubmited;
 	    priceSubmited =  (flow.changeProductPriceValidImpl(Double.parseDouble(priceInitial), 0.15)+"");
-	    logger.info("price frank submited is:"+priceSubmited);
+	    logger.warn("price frank submited is:"+priceSubmited);
 
 	    log.logout();
 	    log.loginUserForce(userJennifer, jenniferPass);
@@ -437,7 +430,6 @@ public class RecordImplProduct extends Record{
 	    Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input")),WAIT_TIME_MIN).isDisplayed());
 	    this.sleepCertainTime(5000);
 	    Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.workflow.openedworkflowtask.productdemo.productfamily.input")),WAIT_TIME_MIN).isDisplayed(), "test two ways open workflow task failed!");
-	   
 	}
 	
 	public void foreignKeyInfoDisplay(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID,String productFamilyId,String productFamilyName,String frankSubmitedFamilyName){
@@ -460,7 +452,7 @@ public class RecordImplProduct extends Record{
 		this.sleepCertainTime(10000);
 		String idBefore = this.getValue(this.findElementDefineDriver(this.driver,By.xpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]//ancestor::div[contains(@id,'ItemsDetailPanel-mainPanel')]//div[contains(@class,'x-grid3-body')]//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-objectValue')][1]//div")));
 		String nameBefore = this.getValue(this.findElementDefineDriver(this.driver,By.xpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]//ancestor::div[contains(@id,'ItemsDetailPanel-mainPanel')]//div[contains(@class,'x-grid3-body')]//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-objectValue')][2]//div")));
-		logger.info("for the selected record ,producr family: "+idBefore +" name "+nameBefore);
+		logger.warn("for the selected record ,producr family: "+idBefore +" name "+nameBefore);
 		
 		//click product pannel to launch price change process
 		this.clickElementByXpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Product')]");
@@ -470,7 +462,7 @@ public class RecordImplProduct extends Record{
 		
 		//get the initial price for the product record
 		String priceInitial = this.getValueInput(By.xpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)));
-		logger.info("for frank ,the initial price is:"+priceInitial);
+		logger.warn("for frank ,the initial price is:"+priceInitial);
 		
 		//select request price change  ,and launch process
 		this.launchProcess("Request Price Change");
@@ -499,7 +491,7 @@ public class RecordImplProduct extends Record{
 	    
 	    // frank change product familyname,change price ,then submit
         this.clickElementByXpath("//label[text()='Family:']//ancestor::div[contains(@class,'x-form-item ')]//span[contains(@class,'x-form-twin-triggers')]//img[contains(@class,'x-form-trigger x-form-clear-trigger')]");
-        logger.info("+++++++++++++++++++++++++++++++++++++++++++"+this.getValueInput(By.xpath("//label[text()='Family:']//ancestor::div[contains(@class,'x-form-item ')]//input")));
+        logger.warn("+++++++++++++++++++++++++++++++++++++++++++"+this.getValueInput(By.xpath("//label[text()='Family:']//ancestor::div[contains(@class,'x-form-item ')]//input")));
         Assert.assertTrue(this.getValueInput(By.xpath("//label[text()='Family:']//ancestor::div[contains(@class,'x-form-item ')]//input")).equals(""), "test foreign key info display failed,as product family name shows wrong before frank submit !");
         this.clickElementByXpath("//label[text()='Family:']//ancestor::div[contains(@class,'x-form-item ')]//span[contains(@class,'x-form-twin-triggers')]//img[contains(@class,'x-form-trigger x-form-search-trigger')]");
         Assert.assertTrue(this.waitfor(By.xpath("//div[contains(@id,'task-foreign-key-window') and contains(@class,'x-window x-window-plain x-resizable-pinned')]"), WAIT_TIME_MIN).isDisplayed());
@@ -508,7 +500,7 @@ public class RecordImplProduct extends Record{
         Assert.assertTrue(this.getValueInput(By.xpath("//label[text()='Family:']//ancestor::div[contains(@class,'x-form-item ')]//input")).equals(frankSubmitedFamilyName), "test foreign key info display failed,as product family name shows wrong before frank submit !");
         String priceSubmited;
 	    priceSubmited =  (flow.changeProductPriceValidImpl(Double.parseDouble(priceInitial), 0.15)+"");
-	    logger.info("price frank submited is:"+priceSubmited);
+	    logger.warn("price frank submited is:"+priceSubmited);
 
 	    log.logout();
 	    log.loginUserForce(userJennifer, jenniferPass);
@@ -552,7 +544,7 @@ public class RecordImplProduct extends Record{
         this.clickElementByXpath(locator.getString("xpath.databrowser.tab.close"));
         this.sleepCertainTime(3000);
     	price = this.getValueInput(By.xpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)));
-        logger.info("afterapproved ,the price is:"+price);
+        logger.warn("afterapproved ,the price is:"+price);
 //        Assert.assertTrue(price.equals(priceSubmited));
         Assert.assertTrue(Double.parseDouble(price)>Double.parseDouble(priceInitial));
         
@@ -560,10 +552,8 @@ public class RecordImplProduct extends Record{
       //click family panel to get the record family id and name
       	this.clickElementByXpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]");
       	Assert.assertTrue(this.getValue(this.findElementDefineDriver(this.driver,By.xpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]//ancestor::div[contains(@id,'ItemsDetailPanel-mainPanel')]//div[contains(@class,'x-grid3-body')]//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-objectValue ')][2]//div"))).equals(nameBefore));
-      	logger.info("for the selected record after approved ,product family: "+idBefore +" name "+this.getValue(this.findElementDefineDriver(this.driver,By.xpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]//ancestor::div[contains(@id,'ItemsDetailPanel-mainPanel')]//div[contains(@class,'x-grid3-body')]//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-objectValue ')][2]//div"))));
-	    
+      	logger.warn("for the selected record after approved ,product family: "+idBefore +" name "+this.getValue(this.findElementDefineDriver(this.driver,By.xpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Family')]//ancestor::div[contains(@id,'ItemsDetailPanel-mainPanel')]//div[contains(@class,'x-grid3-body')]//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-objectValue ')][2]//div"))));
 	}
-	
 	
 	public void priceChangeWorkFlowValidApprovedImpl(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID){
 		LogonImpl log = new LogonImpl(this.driver);
@@ -583,7 +573,7 @@ public class RecordImplProduct extends Record{
 		this.openJournalFromDataBrowser();
 		this.sleepCertainTime(5000);
 		int beforeProcess = this.getElementsByXpath(locator.getString("xpath.journal.entry.action.frank")).size();
-		logger.info("beforeProcess:"+beforeProcess);
+		logger.warn("beforeProcess:"+beforeProcess);
 		this.closeJournal();
 		
 		//verify frank can not change price directly
@@ -592,7 +582,7 @@ public class RecordImplProduct extends Record{
 		
 		//get the initial price for the product record
 		String priceInitial = this.getValueInput(By.xpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)));
-		logger.info("for frank ,the initial price is:"+priceInitial);
+		logger.warn("for frank ,the initial price is:"+priceInitial);
 		
 		//select request price change  ,and launch process
 		this.launchProcess("Request Price Change");
@@ -611,7 +601,7 @@ public class RecordImplProduct extends Record{
         this.openJournalFromDataBrowser();
     	this.sleepCertainTime(5000);
 		int afterProcess = this.getElementsByXpath(locator.getString("xpath.journal.entry.action.frank")).size();
-		logger.info("afterProcess:"+afterProcess);
+		logger.warn("afterProcess:"+afterProcess);
 		Assert.assertTrue(afterProcess-beforeProcess==1);
 		
 		//open the journal record ,and verify the price is not changed directly
@@ -635,7 +625,7 @@ public class RecordImplProduct extends Record{
 	    flow.openAWorkTask();
 	    String priceSubmited;
 	    priceSubmited =  (flow.changeProductPriceValidImpl(Double.parseDouble(priceInitial), 0.15)+"");
-	    logger.info("price frank submited is:"+priceSubmited);
+	    logger.warn("price frank submited is:"+priceSubmited);
 	    
 	    log.logout();
 	    log.loginUserForce(userJennifer, jenniferPass);
@@ -650,7 +640,7 @@ public class RecordImplProduct extends Record{
 		this.openJournalFromDataBrowser();
 		this.sleepCertainTime(5000);
 		int beforeApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.jennifer")).size();
-		logger.info("beforeApprove:"+beforeApprove);
+		logger.warn("beforeApprove:"+beforeApprove);
 		this.closeJournal();
 		//open work flow task page
 		flow.openMenuGoven();
@@ -682,7 +672,7 @@ public class RecordImplProduct extends Record{
         this.clickElementByXpath(locator.getString("xpath.databrowser.tab.close"));
         this.sleepCertainTime(5000);
     	price = this.getValueInput(By.xpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)));
-        logger.info("afterapproved ,the price is:"+price);
+        logger.warn("afterapproved ,the price is:"+price);
 //        Assert.assertTrue(price.equals(priceSubmited));
         Assert.assertTrue(Double.parseDouble(price)>Double.parseDouble(priceInitial));
         
@@ -706,7 +696,7 @@ public class RecordImplProduct extends Record{
  		this.openJournalFromDataBrowser();
  		this.sleepCertainTime(5000);
  		int afterApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.jennifer")).size();
- 		logger.info("afterApprove:"+afterApprove);
+ 		logger.warn("afterApprove:"+afterApprove);
  		Assert.assertTrue(afterApprove-beforeApprove==1);
  		
 		 OperationType="UPDATE";
@@ -717,8 +707,6 @@ public class RecordImplProduct extends Record{
 		//close datachangesviewer page.
 		this.closeDatachangesViewer();
  		this.closeJournal();
-    	
-	    
 	}
 	
 	public void priceChangeWorkFlowValidNotApprovedImpl(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID){
@@ -739,7 +727,7 @@ public class RecordImplProduct extends Record{
 		this.openJournalFromDataBrowser();
 		this.sleepCertainTime(5000);
 		int beforeProcess = this.getElementsByXpath(locator.getString("xpath.journal.entry.action.frank")).size();
-		logger.info("beforeProcess:"+beforeProcess);
+		logger.warn("beforeProcess:"+beforeProcess);
 		this.closeJournal();
 		
 		//verify frank can not change price directly
@@ -748,7 +736,7 @@ public class RecordImplProduct extends Record{
 		
 		//get the initial price for the product record
 		String priceInitial = this.getValueInput(By.xpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)));
-		logger.info("for frank ,the initial price is:"+priceInitial);
+		logger.warn("for frank ,the initial price is:"+priceInitial);
 		
 		//select request price change  ,and launch process
 		this.launchProcess("Request Price Change");
@@ -767,7 +755,7 @@ public class RecordImplProduct extends Record{
         this.openJournalFromDataBrowser();
     	this.sleepCertainTime(5000);
 		int afterProcess = this.getElementsByXpath(locator.getString("xpath.journal.entry.action.frank")).size();
-		logger.info("afterProcess:"+afterProcess);
+		logger.warn("afterProcess:"+afterProcess);
 		Assert.assertTrue(afterProcess-beforeProcess==1);
 		this.closeJournal();
 		
@@ -780,7 +768,7 @@ public class RecordImplProduct extends Record{
 	    flow.openAWorkTask();
 	    String priceSubmited;
 	    priceSubmited =  (flow.changeProductPriceValidImpl(Double.parseDouble(priceInitial), 0.15)+"");
-	    logger.info("price frank submited is:"+priceSubmited);
+	    logger.warn("price frank submited is:"+priceSubmited);
 	    
 	    log.logout();
 	    log.loginUserForce(userJennifer, jenniferPass);
@@ -795,7 +783,7 @@ public class RecordImplProduct extends Record{
 		this.openJournalFromDataBrowser();
 		this.sleepCertainTime(5000);
 		int beforeApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.jennifer")).size();
-		logger.info("beforeApprove:"+beforeApprove);
+		logger.warn("beforeApprove:"+beforeApprove);
 		this.closeJournal();
 		//open work flow task page
 		flow.openMenuGoven();
@@ -827,7 +815,7 @@ public class RecordImplProduct extends Record{
         //close the data browser first ,for xpath duplicated
         this.clickElementByXpath(locator.getString("xpath.databrowser.tab.close"));
     	price = this.getValueInput(By.xpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)));
-        logger.info("afterapproved ,the price is:"+price);
+        logger.warn("afterapproved ,the price is:"+price);
         Assert.assertTrue(price.equals(priceInitial));
         
         //reopen data browser
@@ -850,7 +838,7 @@ public class RecordImplProduct extends Record{
  		this.openJournalFromDataBrowser();
  		this.sleepCertainTime(5000);
  		int afterApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.jennifer")).size();
- 		logger.info("afterApprove:"+afterApprove);
+ 		logger.warn("afterApprove:"+afterApprove);
  		Assert.assertTrue(afterApprove-beforeApprove==0);
  		this.closeJournal();
 	    
@@ -874,7 +862,7 @@ public class RecordImplProduct extends Record{
 		this.openJournalFromDataBrowser();
 		this.sleepCertainTime(5000);
 		int beforeProcess = this.getElementsByXpath(locator.getString("xpath.journal.entry.action.frank")).size();
-		logger.info("beforeProcess:"+beforeProcess);
+		logger.warn("beforeProcess:"+beforeProcess);
 		this.closeJournal();
 		
 		//verify frank can not change price directly
@@ -883,7 +871,7 @@ public class RecordImplProduct extends Record{
 		
 		//get the initial price for the product record
 		String priceInitial = this.getValueInput(By.xpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)));
-		logger.info("for frank ,the initial price is:"+priceInitial);
+		logger.warn("for frank ,the initial price is:"+priceInitial);
 		
 		//select request price change  ,and launch process
 		this.launchProcess("Request Price Change");
@@ -901,7 +889,7 @@ public class RecordImplProduct extends Record{
         this.openJournalFromDataBrowser();
     	this.sleepCertainTime(5000);
 		int afterProcess = this.getElementsByXpath(locator.getString("xpath.journal.entry.action.frank")).size();
-		logger.info("afterProcess:"+afterProcess);
+		logger.warn("afterProcess:"+afterProcess);
 		Assert.assertTrue(afterProcess-beforeProcess==1);
 		this.closeJournal();
 		
@@ -914,7 +902,7 @@ public class RecordImplProduct extends Record{
 	    flow.openAWorkTask();
 	    String priceSubmited;
 	    priceSubmited =  (flow.changeProductPriceInvalidImpl(Double.parseDouble(priceInitial), 0.15)+"");
-	    logger.info("price frank submited is:"+priceSubmited);
+	    logger.warn("price frank submited is:"+priceSubmited);
 	    
 	    //logout frank ,then login jennifer
 	    log.logout();
@@ -930,7 +918,7 @@ public class RecordImplProduct extends Record{
 		this.openJournalFromDataBrowser();
 		this.sleepCertainTime(5000);
 		int beforeApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.jennifer")).size();
-		logger.info("beforeApprove:"+beforeApprove);
+		logger.warn("beforeApprove:"+beforeApprove);
 		this.closeJournal();
 		
 		//open work flow task page
@@ -965,7 +953,7 @@ public class RecordImplProduct extends Record{
         //close the data browser first ,for xpath duplicated
         this.clickElementByXpath(locator.getString("xpath.databrowser.tab.close"));
     	price = this.getValueInput(By.xpath(this.getString(locator, "xpath.record.priceinput.byID", productUniqID)));
-        logger.info("afterapproved ,the price is:"+price);
+        logger.warn("afterapproved ,the price is:"+price);
         Assert.assertTrue(price.equals(priceInitial));
         
         //reopen data browser
@@ -988,10 +976,9 @@ public class RecordImplProduct extends Record{
  		this.openJournalFromDataBrowser();
  		this.sleepCertainTime(5000);
  		int afterApprove = this.getElementsByXpath(locator.getString("xpath.journal.entry.update.jennifer")).size();
- 		logger.info("afterApprove:"+afterApprove);
+ 		logger.warn("afterApprove:"+afterApprove);
  		Assert.assertTrue(afterApprove-beforeApprove==0);
  		this.closeJournal();
-	    
 	}
 	
 	public void storeShowOnMapProcessImpl(String container,String model,String entity,String productUniqID){
@@ -1024,12 +1011,5 @@ public class RecordImplProduct extends Record{
         driver.switchTo().window(a.get(1).toString());
         Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.record.launchprocess.success.ok.button.click.store.google.map")), WAIT_TIME_MIN)!=null);
         driver.switchTo().window(a.get(0).toString());
-    	
-    
 	}
-	
-
-	
-
-
 }

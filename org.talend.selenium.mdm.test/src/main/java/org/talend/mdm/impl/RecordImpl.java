@@ -9,9 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.talend.mdm.modules.Record;
 import org.testng.Assert;
 
-
 public class RecordImpl extends Record{
-  
 	public RecordImpl(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
@@ -24,12 +22,9 @@ public class RecordImpl extends Record{
 		chooseEntity(entity);
 		clickExport();
 		this.sleepCertainTime(8000);
-	    
-			}
-	
+	}
 	
 	public void restoreFromRecycleImpl(String container,String modle,String entity,String feild1Value,String feild1Name){
-		
 		chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();
@@ -56,6 +51,7 @@ public class RecordImpl extends Record{
 		this.sleepCertainTime(5000);
 		deleteTheRecord(entity);
 	}
+	
 	public void deleteRecordImpl(String container,String modle,String entity,String feild1Value,String feild1Name){
 		chooseContainer(container);	
 		chooseModle(modle);
@@ -66,6 +62,7 @@ public class RecordImpl extends Record{
 	    this.sleepCertainTime(5000);
 	    deleteTheRecord(entity);
 	}
+	
 	public void JournalOpenRecordImpl(String entity,String feild1Value){
 		String[] parameters={entity,feild1Value};
 		//click the journal
@@ -98,8 +95,8 @@ public class RecordImpl extends Record{
 		this.sleepCertainTime(5000);
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.journal.assert.open",parameters)), WAIT_TIME_MIN),"open detail");
 	}
+	
 	public void deleteRecordToRecycleImpl(String container,String modle,String entity,String feild1Value,String feild1Name){
-
 		chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();
@@ -110,23 +107,23 @@ public class RecordImpl extends Record{
 		String[] parameters_entity={feild1Value,entity};
 		chooseRcord(entity,feild1Name,feild1Value);	
 		this.sleepCertainTime(5000);
-		logger.info(this.getString(locator, "xpath.record.delete.record",entity));
+		logger.warn(this.getString(locator, "xpath.record.delete.record",entity));
 		this.clickElementByXpath(this.getString(locator, "xpath.record.delete.record",entity)); 
 		this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.choose")); 	 
 		this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.choose.ok")); 	
-				if (this.isElementPresent(By.xpath(locator.getString("xpath.record.delete.record.warn")),WAIT_TIME_MIN)){
-					this.clickElementByXpath("//button[text()='No']");		
-				}
+			if (this.isElementPresent(By.xpath(locator.getString("xpath.record.delete.record.warn")),WAIT_TIME_MIN)){
+				this.clickElementByXpath("//button[text()='No']");		
+			}
 		// assert the record which been deleted in the recycle
 		clickRecycle();	
 		//this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.assert.clickRefresh")); 
-		logger.info(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.container",parameters_container));
+		logger.warn(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.container",parameters_container));
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.container",parameters_container)), WAIT_TIME_MIN ),"container");
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.modle",parameters_modle)), WAIT_TIME_MIN ),"modle");
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.delete.record.to.recycle.assert.entity",parameters_entity)), WAIT_TIME_MIN ),"entity");
 	}
-	public void duplicateRecordImpl(String container,String modle,String entity,String feild2Value_old,String feild2Value,String feild2Name){
 	
+	public void duplicateRecordImpl(String container,String modle,String entity,String feild2Value_old,String feild2Value,String feild2Name){
 		chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();
@@ -149,28 +146,30 @@ public class RecordImpl extends Record{
 		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersFeild2Assert)), WAIT_TIME_MAX),"createARecord");
 	}	
-public void createRecordImpl(String container,String modle,String entity,String feild2Value,String feild2Name){
-	  /*     String feild1Value;*/
-			chooseContainer(container);	
-			chooseModle(modle);
-			clickSave();
-			chooseEntity(entity);	
-			entity=entity.replaceAll(" ","");
-			String[] parametersFeild2={entity,feild2Name};				
-			String[] parametersFeild2Assert={entity,feild2Name,feild2Value};	
-			logger.info(feild2Name);
-			this.clickCreateRecord();
+	
+	public void createRecordImpl(String container,String modle,String entity,String feild2Value,String feild2Name){
+  /*     String feild1Value;*/
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);	
+		entity=entity.replaceAll(" ","");
+		String[] parametersFeild2={entity,feild2Name};				
+		String[] parametersFeild2Assert={entity,feild2Name,feild2Value};	
+		logger.warn(feild2Name);
+		this.clickCreateRecord();
 //			this.clickElementByXpath(locator.getString("xpath.record.choose.create")); 	
-			this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersFeild2)), WAIT_TIME_MAX);
-			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersFeild2), feild2Value);
-			this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
-			
-			//Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild1",parametersFeild1Assert)), WAIT_TIME_MAX),"createARecord");
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersFeild2Assert)), WAIT_TIME_MAX),"createARecord");
-		    this.sleepCertainTime(3000);  		
-	/*	    feild1Value=this.getText();*/
-	//	    JournalOpenRecordImpl(entity,feild1Value);
-}
+		this.waitforElementDisplayed(By.xpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersFeild2)), WAIT_TIME_MAX);
+		this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersFeild2), feild2Value);
+		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
+		
+		//Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild1",parametersFeild1Assert)), WAIT_TIME_MAX),"createARecord");
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersFeild2Assert)), WAIT_TIME_MAX),"createARecord");
+	    this.sleepCertainTime(3000);  		
+/*	    feild1Value=this.getText();*/
+//	    JournalOpenRecordImpl(entity,feild1Value);
+	}
+	
 	public void updateRecordImpl(String container,String modle,String entity,String feild2Value_old,String feild2Value,String feild2Name){
 		chooseContainer(container);	
 		chooseModle(modle);
@@ -187,13 +186,12 @@ public void createRecordImpl(String container,String modle,String entity,String 
 		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
 		if (this.isTextPresent("No change since last save")){
 			this.clickElementByXpath("//button[text()='Ok']");		
-		}
-		else 
-		{
-		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
-		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersFeild2Assert)), WAIT_TIME_MAX),"updateARecord");
+		}else{
+			this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
+			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersFeild2Assert)), WAIT_TIME_MAX),"updateARecord");
 		}
 	}
+	
 	public void SearchRecordByValueImpl(String container,String modle,String entity,String searchFeild,String opeartion,String value){
 		chooseContainer(container);	
 		chooseModle(modle);
@@ -202,8 +200,8 @@ public void createRecordImpl(String container,String modle,String entity,String 
 		searchCondition(searchFeild,opeartion,value);
 		searchValueAssert(searchFeild,opeartion,value,entity);
 	}
+	
 	public void SearchRecordByStringImpl(String container,String modle,String entity,String searchFeild,String opeartion,String value){
-
 		chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();

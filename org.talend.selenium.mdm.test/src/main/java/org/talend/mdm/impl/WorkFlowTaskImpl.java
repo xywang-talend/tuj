@@ -2,19 +2,13 @@ package org.talend.mdm.impl;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.talend.mdm.modules.DataSteward;
-import org.talend.mdm.modules.User;
 import org.talend.mdm.modules.WorkFlowTask;
-import org.testng.Assert;
-
 
 public class WorkFlowTaskImpl extends WorkFlowTask{
 
 	public WorkFlowTaskImpl(WebDriver driver) {
 		this.driver = driver;
 	}
-	
 	
     public String changeProductPriceValidImpl(double d,double e){
     	double value = d*(1+e-0.05);

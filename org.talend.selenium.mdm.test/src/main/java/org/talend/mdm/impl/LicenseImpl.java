@@ -7,9 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.talend.mdm.Base;
 import org.talend.mdm.modules.License;
-import org.talend.mdm.modules.User;
 import org.testng.Assert;
-
 
 public class LicenseImpl extends License{
 
@@ -27,10 +25,10 @@ public class LicenseImpl extends License{
 	public void uploadValidLicense(String fileLicenseValid){
 		this.openLicense();
 		this.clickEditlicenseKey();
-		logger.info("the license file ready to upload is :"+fileLicenseValid);
-		logger.info(Base.class.getClassLoader());
-		logger.info(Base.class.getClassLoader().getResource(fileLicenseValid));
-		logger.info(Base.class.getClassLoader().getResource(fileLicenseValid));
+		logger.warn("the license file ready to upload is :"+fileLicenseValid);
+		logger.warn(Base.class.getClassLoader());
+		logger.warn(Base.class.getClassLoader().getResource(fileLicenseValid));
+		logger.warn(Base.class.getClassLoader().getResource(fileLicenseValid));
 		
 		File file = null;
 		try {
@@ -49,10 +47,10 @@ public class LicenseImpl extends License{
 	public void uploadInValidLicense(String fileLicenseInValid){
 		this.openLicense();
 		this.clickEditlicenseKey();
-		logger.info("the license file ready to upload is :"+fileLicenseInValid);
-		logger.info(Base.class.getClassLoader());
-		logger.info(Base.class.getClassLoader().getResource(fileLicenseInValid));
-		logger.info(Base.class.getClassLoader().getResource(fileLicenseInValid));
+		logger.warn("the license file ready to upload is :"+fileLicenseInValid);
+		logger.warn(Base.class.getClassLoader());
+		logger.warn(Base.class.getClassLoader().getResource(fileLicenseInValid));
+		logger.warn(Base.class.getClassLoader().getResource(fileLicenseInValid));
 		
 		File file = null;
 		try {
@@ -70,10 +68,10 @@ public class LicenseImpl extends License{
 	public void uploadExpiredLicense(String fileLicenseInValid){
 		this.openLicense();
 		this.clickEditlicenseKey();
-		logger.info("the license file ready to upload is :"+fileLicenseInValid);
-		logger.info(Base.class.getClassLoader());
-		logger.info(Base.class.getClassLoader().getResource(fileLicenseInValid));
-		logger.info(Base.class.getClassLoader().getResource(fileLicenseInValid));
+		logger.warn("the license file ready to upload is :"+fileLicenseInValid);
+		logger.warn(Base.class.getClassLoader());
+		logger.warn(Base.class.getClassLoader().getResource(fileLicenseInValid));
+		logger.warn(Base.class.getClassLoader().getResource(fileLicenseInValid));
 		
 		File file = null;
 		try {

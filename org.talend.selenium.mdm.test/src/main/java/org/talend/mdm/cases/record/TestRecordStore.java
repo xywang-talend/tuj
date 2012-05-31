@@ -6,14 +6,14 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-
 public class TestRecordStore extends Login {
 	RecordImplStore recordImpl;
 	@BeforeMethod
 	public void beforeMethod(){
 		recordImpl = new RecordImplStore(driver);	
-		logger.info("Set Before Info");
-	}		
+		logger.warn("Set Before Info");
+	}
+	
 	@Test
 	@Parameters( { "container","modle","entity","storeId","storeIdValue" })
 	public void testDeleteRecord(String container,String modle,String entity,String UniqueId,String UniqueIdValue ) {
@@ -25,6 +25,7 @@ public class TestRecordStore extends Login {
 	public void testCreateRecord(String container,String modle,String entity,String storeId,String storeIdValue,String address,String addressValue) {
 		recordImpl.createRecordImpl(container, modle, entity,storeId,storeIdValue,address,addressValue);
 	}
+	
 	@Test
 	@Parameters( { "container","modle","entity", "storeId","storeIdValue","storeIdValueDup"})
 	public void testDuplicateRecord(String container,String modle,String entity,String storeId,String storeIdValue,String storeIdValueDup) {

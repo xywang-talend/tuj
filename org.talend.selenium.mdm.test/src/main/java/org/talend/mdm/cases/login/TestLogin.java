@@ -1,11 +1,7 @@
 package org.talend.mdm.cases.login;
 
 import org.talend.mdm.Base;
-import org.talend.mdm.Login;
-import org.talend.mdm.impl.LicenseImpl;
 import org.talend.mdm.impl.LogonImpl;
-import org.talend.mdm.impl.UserImpl;
-import org.talend.mdm.modules.Logon;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
@@ -18,7 +14,6 @@ public class TestLogin extends Base {
 	public void beforeMethod(){
 		log = new LogonImpl(driver);
 	}
-		
 	
 	@Test
 	@Parameters( { "url", "root","user.name","user.password","message" })
@@ -40,14 +35,10 @@ public class TestLogin extends Base {
 		log.initWebdriver(url, root, context);
 		log.loginAdministratorSessionTimeoutImpl(userName, userPassword, message, timeout);
 	}
-	
-	
 	@Test
 	@Parameters( { "url", "root","user.name","user.password","message.wrong.username" })
 	public void testWongLogin(String url,String root,String userName,String userPassword,String message,ITestContext context) {
 		log.initWebdriver(url, root, context);
 		log.loginWithWrongNamePassImpl( userName, userPassword , message);
 	}
-	
-	
 }

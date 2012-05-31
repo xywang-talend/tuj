@@ -1,21 +1,13 @@
 package org.talend.mdm.impl;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.talend.mdm.modules.Record;
 import org.testng.Assert;
 
-
 public class RecordImplStore extends Record{
-	 String OperationType,key,source;	
-
-  
+	String OperationType,key,source;
+	
 	public RecordImplStore(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
@@ -28,7 +20,7 @@ public class RecordImplStore extends Record{
 		chooseEntity(entity);
 		clickExport();
 		this.sleepCertainTime(8000);
-		}	
+	}	
 
 	public void deleteRecordImpl(String container,String modle,String entity,String storeId,String storeIdValue){
 		OperationType="PHYSICAL_DELETE";
@@ -50,82 +42,82 @@ public class RecordImplStore extends Record{
 		String[] parametersStoreId={entity,storeId};	
 		String[] parametersStoreIdAssert={entity,storeId,storeIdValueDup};	
 		String[] parametersStoreIdValue={entity,storeIdValue};
-		    OperationType="CREATE";
-		    source="genericUI";
-			chooseContainer(container);	
-			chooseModle(modle);
-			clickSave();
-			chooseEntity(entity);
-			this.sleepCertainTime(3000);
-			chooseRcord(entity,storeId,storeIdValue);		
-			this.sleepCertainTime(3000);
-			this.clickElementByXpath(locator.getString("xpath.record.Duplicate.click"));			
-			this.sleepCertainTime(5000);			
-			this.clickElementByXpath(this.getString(locator,"xpath.record.Duplicate.close.origin",parametersStoreIdValue));
-			this.sleepCertainTime(3000); 
-			this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.Duplicate.input",parametersStoreId)), storeIdValueDup);
-			this.sleepCertainTime(3000); 
-			this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
+	    OperationType="CREATE";
+	    source="genericUI";
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);
+		this.sleepCertainTime(3000);
+		chooseRcord(entity,storeId,storeIdValue);		
+		this.sleepCertainTime(3000);
+		this.clickElementByXpath(locator.getString("xpath.record.Duplicate.click"));			
+		this.sleepCertainTime(5000);			
+		this.clickElementByXpath(this.getString(locator,"xpath.record.Duplicate.close.origin",parametersStoreIdValue));
+		this.sleepCertainTime(3000); 
+		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.Duplicate.input",parametersStoreId)), storeIdValueDup);
+		this.sleepCertainTime(3000); 
+		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
 //			this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
-			this.sleepCertainTime(10000); 
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersStoreIdAssert)), WAIT_TIME_MAX),"duplicateARecord");
-			this.sleepCertainTime(3000); 			
-			openJournal(entity,storeIdValueDup,OperationType,source);
-			JournalCheckResult(storeIdValueDup,OperationType);
-			this.sleepCertainTime(5000); 
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.storeId",storeIdValueDup )), WAIT_TIME_MIN));
-		}	
-   public void createRecordImpl(String container,String modle,String entity,String storeId,String storeIdValue,String address,String addressValue) {
-	        OperationType="CREATE";	 
-	        source="genericUI";
-	        String lat,longNew,map;
-			chooseContainer(container);	
-			chooseModle(modle);
-			clickSave();
-			chooseEntity(entity);
-			String[] parametersStoreId={entity,storeId};	
-			String[] parametersAddress={entity,address};			
-			String[] parametersStoreIdAssert={entity,storeId,storeIdValue};
-			this.sleepCertainTime(8000);
-			this.clickCreateRecord();
+		this.sleepCertainTime(10000); 
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersStoreIdAssert)), WAIT_TIME_MAX),"duplicateARecord");
+		this.sleepCertainTime(3000); 			
+		openJournal(entity,storeIdValueDup,OperationType,source);
+		JournalCheckResult(storeIdValueDup,OperationType);
+		this.sleepCertainTime(5000); 
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.storeId",storeIdValueDup )), WAIT_TIME_MIN));
+	}	
+	
+	public void createRecordImpl(String container,String modle,String entity,String storeId,String storeIdValue,String address,String addressValue) {
+        OperationType="CREATE";	 
+        source="genericUI";
+        String lat,longNew,map;
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);
+		String[] parametersStoreId={entity,storeId};	
+		String[] parametersAddress={entity,address};			
+		String[] parametersStoreIdAssert={entity,storeId,storeIdValue};
+		this.sleepCertainTime(8000);
+		this.clickCreateRecord();
 //			this.clickElementByXpath(locator.getString("xpath.record.choose.create")); 
-			this.sleepCertainTime(3000);
-			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersStoreId),storeIdValue);
-			this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersAddress), addressValue);	
-			this.sleepCertainTime(8000);
-			this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
-			this.sleepCertainTime(8000);
-			chooseRcord(entity,storeId,storeIdValue);		
-			lat=this.getValueInput(By.xpath("//input[@name='Store/Lat']"));
-			longNew=this.getValueInput(By.xpath("//input[@name='Store/Long']"));
-			this.sleepCertainTime(3000);
-			this.clickElementByXpath("//a[text()='Google Map']//following-sibling::img");
-			map=this.getValueInput(By.xpath("//label[text()='Url:']//following-sibling::div//div//input"));	
-			this.clickElementByXpath("//button[text()='Cancel']");
-			this.sleepCertainTime(8000);
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersStoreIdAssert)), WAIT_TIME_MAX),"createARecord");
-			this.sleepCertainTime(3000);		    
-			openJournal(entity,storeIdValue,OperationType,source);
-			this.sleepCertainTime(5000); 
-			JournalCheckResult(storeIdValue,OperationType);
-			this.sleepCertainTime(5000); 
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.storeId",storeIdValue )), WAIT_TIME_MIN));
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.address",addressValue )), WAIT_TIME_MIN));
-			this.clickElementByXpath("//span[@class='x-tab-strip-inner']//span[text()='Data Browser']");
-			OperationType="UPDATE";
-			source="GoogleMap";
-			this.sleepCertainTime(5000); 
-			openJournal(entity,storeIdValue,OperationType,source);
-			this.sleepCertainTime(5000); 
-			JournalCheckResult(storeIdValue,OperationType);
-			this.sleepCertainTime(5000); 
-			logger.info(this.getString(locator,"xpath.record.ceate.lat", lat));
-			
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.lat", lat)), WAIT_TIME_MIN));
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.long", longNew)), WAIT_TIME_MIN));
-			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.googleMap", map)), WAIT_TIME_MIN));
+		this.sleepCertainTime(3000);
+		this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersStoreId),storeIdValue);
+		this.typeTextByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersAddress), addressValue);	
+		this.sleepCertainTime(8000);
+		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
+		this.sleepCertainTime(8000);
+		chooseRcord(entity,storeId,storeIdValue);		
+		lat=this.getValueInput(By.xpath("//input[@name='Store/Lat']"));
+		longNew=this.getValueInput(By.xpath("//input[@name='Store/Long']"));
+		this.sleepCertainTime(3000);
+		this.clickElementByXpath("//a[text()='Google Map']//following-sibling::img");
+		map=this.getValueInput(By.xpath("//label[text()='Url:']//following-sibling::div//div//input"));	
+		this.clickElementByXpath("//button[text()='Cancel']");
+		this.sleepCertainTime(8000);
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersStoreIdAssert)), WAIT_TIME_MAX),"createARecord");
+		this.sleepCertainTime(3000);		    
+		openJournal(entity,storeIdValue,OperationType,source);
+		this.sleepCertainTime(5000); 
+		JournalCheckResult(storeIdValue,OperationType);
+		this.sleepCertainTime(5000); 
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.storeId",storeIdValue )), WAIT_TIME_MIN));
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.address",addressValue )), WAIT_TIME_MIN));
+		this.clickElementByXpath("//span[@class='x-tab-strip-inner']//span[text()='Data Browser']");
+		OperationType="UPDATE";
+		source="GoogleMap";
+		this.sleepCertainTime(5000); 
+		openJournal(entity,storeIdValue,OperationType,source);
+		this.sleepCertainTime(5000); 
+		JournalCheckResult(storeIdValue,OperationType);
+		this.sleepCertainTime(5000); 
+		logger.warn(this.getString(locator,"xpath.record.ceate.lat", lat));
 		
-}
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.lat", lat)), WAIT_TIME_MIN));
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.long", longNew)), WAIT_TIME_MIN));
+		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.googleMap", map)), WAIT_TIME_MIN));
+	}
 	
 	public void testUpdateAddressRecordImpl(String container,String modle,String entity,String storeId,String storeIdValue,String address,String addressValue) {
 		OperationType="UPDATE";	
@@ -146,7 +138,7 @@ public class RecordImplStore extends Record{
 		this.clickElementByXpath("//button[text()='Cancel']");
 		this.sleepCertainTime(8000);	
 		//modify the address
-		logger.info(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersAddress));			
+		logger.warn(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersAddress));			
 		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.update.input.address",parametersAddress)), addressValue);
 		this.sleepCertainTime(3000);
 		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
@@ -172,24 +164,13 @@ public class RecordImplStore extends Record{
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.lat", lat)), WAIT_TIME_MIN));
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.long", longNew)), WAIT_TIME_MIN));
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.googleMap", map)), WAIT_TIME_MIN));
-
-		
-	
 	}
-	
-
-	
 	
 	public void openJournalFromDataBrowser(){
 		this.clickJournal();	
 	}
 	
     public void closeJournal(){
-		
 		this.clickElementByXpath(locator.getString("xpath.journal.tab.close"));
-	
     }
-	
-
-
 }
