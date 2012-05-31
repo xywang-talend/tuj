@@ -322,7 +322,82 @@ public class RecordImplProduct extends Record{
 			
    }
    
-	public void SearchRecordByValueImpl(String container,String modle,String entity,String entity_Element,String searchFeild,String searchFeild_Element,String opeartion,String value){
+
+ 
+ 
+ 
+ 
+ public void testUpdatePriceRecordRowEditerImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String Price,String PriceValue,String flag,String PriceValueOld) {
+     OperationType="UPDATE";
+	    source="genericUI";
+	    String recordSearchResult;	
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);
+		chooseRcord(entity,UniqueId,UniqueIdValue);				
+		String[] parametersPrice={entity,Price};
+		this.sleepCertainTime(3000);
+		//ÐÂ¼Ó´úÂë£¬ÓÒ»÷±à¼­//
+		this.rightClick(this.getElementByXpath(this.getString(locator, "xpath.product.edit.row", UniqueIdValue)));
+		this.clickElementByXpath("//a[text()='Edit Item with Row Editor']");		
+		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.edit.input.price",parametersPrice)), PriceValue);		
+//		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersPrice)), PriceValue);
+		this.clickElementByXpath(locator.getString("xpath.record.choose.edit.save"));	
+		this.clickElementByXpath("//button[text()='Ok']");
+		if (flag.equals("0"))
+		{			
+		 if ( this.isElementPresent(By.xpath(locator.getString("xpath.record.update.price.max")), WAIT_TIME_MAX)){
+			 this.sleepCertainTime(3000);
+			 this.clickElementByXpath("//button[text()='Ok']");	
+			 enterJournal(entity,UniqueIdValue,OperationType,source);					
+			 recordSearchResult=this.getElementByXpath(locator.getString("xpath.record.update.journal.price")).getText();
+				if (recordSearchResult.contains("No data to display"))
+				{	Assert.assertTrue(true);
+	          	}
+				else
+					Assert.assertTrue(false);
+				}
+		}
+		if (flag.equals("1"))
+		{			
+		 if (this.isElementPresent(By.xpath(locator.getString("xpath.record.update.price.min")), WAIT_TIME_MAX)){
+			 this.clickElementByXpath("//button[text()='Ok']");	
+			 Assert.assertTrue(true);
+			 enterJournal(entity,UniqueIdValue,OperationType,source);
+			 recordSearchResult=this.getElementByXpath(locator.getString("xpath.record.update.journal.price")).getText();
+				if (recordSearchResult.contains("No data to display"))
+				{	Assert.assertTrue(true);
+		         }
+				else
+					Assert.assertTrue(false);
+				}
+		}
+		if (flag.equals("2"))
+		{			
+		  enterJournal(entity,UniqueIdValue,OperationType,source);
+		  this.sleepCertainTime(3000);
+		  JournalCheckResult(UniqueIdValue,OperationType);
+		  this.sleepCertainTime(3000);
+		  Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.price.assert", PriceValueOld)), WAIT_TIME_MIN));
+		  Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.price.assert", PriceValue)), WAIT_TIME_MIN));
+		}
+		
+}
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ public void SearchRecordByValueImpl(String container,String modle,String entity,String entity_Element,String searchFeild,String searchFeild_Element,String opeartion,String value){
 		chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();

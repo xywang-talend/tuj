@@ -49,6 +49,16 @@ public class TestRecordProduct extends Login {
 	}
 	
 	@Test
+	@Parameters( { "container","modle","entity", "UniqueId","UniqueIdValue","Price","PriceValue","flag","PriceValueOld"})
+	public void testUpdatePriceRecordRowEditer(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String Price,String PriceValue,String flag,String PriceValueOld) {
+		recordImpl.testUpdatePriceRecordRowEditerImpl(container, modle, entity, UniqueId,UniqueIdValue,Price,PriceValue,flag,PriceValueOld);
+	}
+	
+	
+	
+	
+	
+	@Test
 	@Parameters( { "container","modle","entity","entity_Element","searchFeild","searchFeild_Element","opeartion", "value" })
 	public void testSearchRecordByValue(String container,String modle,String entity,String entity_Element,String searchFeild,String searchFeild_Element,String opeartion,String value) {
 		recordImpl.SearchRecordByValueImpl(container, modle, entity,entity_Element ,searchFeild,searchFeild_Element,opeartion,value);
