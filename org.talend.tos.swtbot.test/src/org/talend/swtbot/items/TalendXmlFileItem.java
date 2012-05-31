@@ -69,7 +69,8 @@ public class TalendXmlFileItem extends TalendFileItem {
         gefBot.button("Refresh Preview").click();
         try {
             gefBot.waitUntil(Conditions.shellIsActive("Progress Information"));
-            gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 10000);
+            SWTBotShell progressShell = gefBot.shell("Progress Information").activate();
+            gefBot.waitUntil(Conditions.shellCloses(progressShell), 10000);
         } catch (TimeoutException e) {
             // did not pop up progress information, maybe it disappear too fast
         }

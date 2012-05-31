@@ -46,6 +46,7 @@ public class DataViewerOnFileMetadataWithContextTest extends TalendSwtBotForTos 
     public void createJob() {
         repositories.add(ERepositoryObjectType.PROCESS);
         repositories.add(ERepositoryObjectType.METADATA_FILE_DELIMITED);
+        repositories.add(ERepositoryObjectType.CONTEXT);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
     }

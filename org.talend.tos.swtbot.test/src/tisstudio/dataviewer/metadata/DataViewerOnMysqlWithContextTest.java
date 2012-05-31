@@ -50,6 +50,7 @@ public class DataViewerOnMysqlWithContextTest extends TalendSwtBotForTos {
     public void createJob() {
         repositories.add(ERepositoryObjectType.PROCESS);
         repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
+        repositories.add(ERepositoryObjectType.CONTEXT);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
 

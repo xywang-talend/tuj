@@ -56,7 +56,6 @@ import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -222,12 +221,9 @@ public class TalendSwtBotForTos {
                     }
                     if (ivos != null) {
                         for (final IRepositoryViewObject ivo : ivos) {
-
                             try {
-                                factory.deleteObjectLogical(ivo);
+                                factory.deleteObjectPhysical(ivo);
                             } catch (PersistenceException e) {
-                                e.printStackTrace();
-                            } catch (BusinessException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -265,8 +261,8 @@ public class TalendSwtBotForTos {
         };
         workspace.run(cleanup, null);
 
-        Utilities.emptyRecycleBin();
         Utilities.getRepositoryView().toolbarPushButton("refresh").click();
+        Utilities.emptyRecycleBin();
         gefBot.resetActivePerspective();
 
         repositories.clear();

@@ -24,6 +24,7 @@ import junit.framework.Assert;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCTabItem;
@@ -101,6 +102,7 @@ public class TalendFileItem extends TalendMetadataItem {
 
         gefBot.button("Next >").click();
         gefBot.button("Finish").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
 
         setItem(parentNode.expand().getNode(itemName + " 0.1"));
     }
