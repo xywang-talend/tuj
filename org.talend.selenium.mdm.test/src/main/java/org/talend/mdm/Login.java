@@ -1,6 +1,7 @@
 package org.talend.mdm;
-
 import java.net.URL;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.PropertyConfigurator;
@@ -14,15 +15,17 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 
-
 public class Login extends Base{
 	protected WebDriver driver;
 	
 	@BeforeClass
-	@Parameters({"url", "root", "testlink.id", "testlink.porject"})
-	public void initWebdriver(String url, String root, String testlinkId, String testlinkProject , ITestContext context){
-		System.setProperty("testlink.id", testlinkId);
+	@Parameters({"url", "root", "language", "country", "testlink.porject", "testlink.id"})
+	public void initWebdriver(String url, String root, String language, String country, String testlinkProject, String testlinkId, ITestContext context){
 		System.setProperty("testlink.porject", testlinkProject);
+		System.setProperty("testlink.id", testlinkId);
+		
+		currentLocale = new Locale(language, country);
+		rb = ResourceBundle.getBundle("org.talend.mdm.resources.messages",currentLocale);
 		
 		URL file = Login.class.getClassLoader().getResource("org/talend/mdm/resources");
 		PropertyConfigurator.configure( file.getPath() + "/log4j.properties" );
@@ -30,7 +33,6 @@ public class Login extends Base{
 		if(null == System.getProperty("webdriver.browser") || "".equals(System.getProperty("webdriver.browser").trim()) || System.getProperty("webdriver.browser").trim().contains("webdriver.browser")) {
 			driver = this.setFirefox();
 		} else{
-			
 			try {
 				driver = this.setWebDriver(Browser.valueOf(System.getProperty("webdriver.browser").trim()));
 			} catch (Exception e) {
@@ -59,7 +61,6 @@ public class Login extends Base{
 //	    firefoxProfile.setPreference("native_events_enabled", false);
 	    firefoxProfile.setPreference("webdriver_enable_native_events", false);
 	    
-	    
 //	    firefoxProfile.setEnableNativeEvents(true);
 //	    
 	    logger.info("setEnableNativeEvents-" + firefoxProfile.areNativeEventsEnabled());
@@ -76,7 +77,6 @@ public class Login extends Base{
 		
 //		driver = new FirefoxDriver();
 		logger.info("URL - " +url + root);
-		
 		
 		driver.get(url + root);
 		super.setDriver(driver);
@@ -114,12 +114,12 @@ public class Login extends Base{
 		passwordE.sendKeys(userPassword);
 		this.getElementByName("login").click();
 		logger.info("Login MDM");
+		
+		logger.info(rb.getString("menu.taskResuming.desc"));
 	}
-	
 	
 	@AfterMethod
 	public void logout() {
-		
 		logger.info("Click MDM logout button");
 		this.getElementByXpath("//button[text()='Logout']").click();
 		logger.info("Logout MDM");
