@@ -169,7 +169,7 @@ public User(WebDriver driver) {
 	public void maxUserConfigPanel(){
 		Actions builder = new Actions(driver);
 		 builder.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.max.configure.panel.line"))))
-		 .moveToElement(this.findElementDefineDriver(this.driver, By.xpath(this.getString(locator, "xpath.user.identifier", "administrator"))), 2, -2).release().build().perform();
+		 .moveToElement(this.findElementDefineDriver(this.driver, By.xpath(this.getString(locator, "xpath.user.identifier", "administrator"))), 2, 20).release().build().perform();
 	}
 	
 	public void minUserConfigPanel(){

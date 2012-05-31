@@ -16,29 +16,29 @@ public class TestLogin extends Base {
 	}
 	
 	@Test
-	@Parameters( { "url", "root","user.name","user.password","message" })
-	public void testRightLogin(String url,String root,String userName,String userPassword,String message,ITestContext context) {
-		log.initWebdriver(url, root, context);
+	@Parameters( { "url", "root", "testlink.id", "testlink.porject","user.name","user.password","message" })
+	public void testRightLogin(String url,String root, String testlinkId, String testlinkProject ,String userName,String userPassword,String message,ITestContext context) {
+		log.initWebdriver(url, root,testlinkId,testlinkProject, context);
 		log.loginAdministratorImpl( userName, userPassword , message);
 	}
 	
 	@Test
-	@Parameters( { "url", "root","user.name","user.password","message" })
-	public void testLogoutCorrectly(String url,String root,String userName,String userPassword,String message,ITestContext context) {
-		log.initWebdriver(url, root, context);
+	@Parameters( { "url", "root", "testlink.id", "testlink.porject","user.name","user.password","message" })
+	public void testLogoutCorrectly(String url,String root, String testlinkId, String testlinkProject ,String userName,String userPassword,String message,ITestContext context) {
+		log.initWebdriver(url, root,testlinkId,testlinkProject, context);
 		log.loginAdministratorLogoutImpl( userName, userPassword , message);
 	}
 	
 	@Test
-	@Parameters( { "url", "root","user.name","user.password","message" ,"session.timeout"})
-	public void testLoginAndSessionTimeout(String url,String root,String userName,String userPassword,String message,int timeout,ITestContext context) {
-		log.initWebdriver(url, root, context);
+	@Parameters( { "url", "root", "testlink.id", "testlink.porject","user.name","user.password","message" ,"session.timeout"})
+	public void testLoginAndSessionTimeout(String url,String root, String testlinkId, String testlinkProject ,String userName,String userPassword,String message,int timeout,ITestContext context) {
+		log.initWebdriver(url, root,testlinkId,testlinkProject, context);
 		log.loginAdministratorSessionTimeoutImpl(userName, userPassword, message, timeout);
 	}
 	@Test
-	@Parameters( { "url", "root","user.name","user.password","message.wrong.username" })
-	public void testWongLogin(String url,String root,String userName,String userPassword,String message,ITestContext context) {
-		log.initWebdriver(url, root, context);
+	@Parameters( { "url", "root", "testlink.id", "testlink.porject","user.name","user.password","message.wrong.username" })
+	public void testWongLogin(String url,String root, String testlinkId, String testlinkProject ,String userName,String userPassword,String message,ITestContext context) {
+		log.initWebdriver(url, root,testlinkId,testlinkProject, context);
 		log.loginWithWrongNamePassImpl( userName, userPassword , message);
 	}
 }

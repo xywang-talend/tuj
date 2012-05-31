@@ -30,6 +30,7 @@ public class LogonImpl extends Logon{
 		Assert.assertTrue(this.isTextPresent(locator.getString("mdm.edition.name")));
 		this.configureLogin(userName, userPassword);
 		this.clickLogin();
+		this.sleepCertainTime(3000);
 		if(this.isTextPresent(this.getString(locator, "login.user.forcelogin.message", userName))) {
 			this.getElementByLinkText("Force user to logout").click();
 			this.configureLogin(userName, userPassword);
