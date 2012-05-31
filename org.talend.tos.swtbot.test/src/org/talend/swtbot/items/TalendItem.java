@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
@@ -172,20 +174,32 @@ public class TalendItem implements Cloneable {
 
     @SuppressWarnings("finally")
     public TalendItem copyAndPaste() {
+        List<String> nodes = parentNode.getNodes();
+        String copiedName = "Copy_of_" + itemName + " " + itemVersion;
+        if (nodes.contains(copiedName)) {
+            for (int i = 0; i < 26; i++) {
+                char _char = (char) ('a' + i);
+                String str = "Copy_of_" + itemName + "_" + _char + " " + itemVersion;
+                if (!nodes.contains(str)) {
+                    copiedName = str;
+                    break;
+                }
+            }
+        }
+
         getItem().contextMenu("Copy").click();
         parentNode.contextMenu("Paste").click();
 
         TalendItem copyItem = (TalendItem) this.clone();
         SWTBotTreeItem newItem = null;
         try {
-            newItem = parentNode.getNode("Copy_of_" + itemFullName);
+            newItem = parentNode.getNode(copiedName);
         } catch (WidgetNotFoundException e) {
-            Assert.fail("copy of item '" + itemFullName + "' does not exist");
+            Assert.fail("copy item '" + copiedName + "' does not exist");
         } finally {
             if (newItem == null)
                 return null;
             copyItem.setItem(newItem);
-            gefBot.sleep(6000);
             return copyItem;
         }
     }
@@ -317,19 +331,20 @@ public class TalendItem implements Cloneable {
 
         }, 30000);
 
-        SWTBotTreeItem newTreeItem = null;
-        try {
-            if (gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").isEnabled()) {
-                gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
-            }
-            parentNode.setFocus();
-            newTreeItem = parentNode.expand().select(itemFullName);
-            newTreeItem.setFocus();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("item is not created", newTreeItem);
+        if (gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").isEnabled()) {
+            gefBot.toolbarButtonWithTooltip("Save (Ctrl+S)").click();
         }
+
+        gefBot.waitUntil(new DefaultCondition() {
+
+            public boolean test() throws Exception {
+                return parentNode.expand().getNode(itemFullName).isVisible();
+            }
+
+            public String getFailureMessage() {
+                return "item '" + itemFullName + "' did not create";
+            }
+        });
 
         setItem(parentNode.getNode(itemFullName));
     }

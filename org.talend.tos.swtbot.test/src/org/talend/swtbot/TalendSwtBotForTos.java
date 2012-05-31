@@ -221,6 +221,8 @@ public class TalendSwtBotForTos {
                     }
                     if (ivos != null) {
                         for (final IRepositoryViewObject ivo : ivos) {
+                            if (ivo.getPath().contains("system"))
+                                continue;
                             try {
                                 factory.deleteObjectPhysical(ivo);
                             } catch (PersistenceException e) {
