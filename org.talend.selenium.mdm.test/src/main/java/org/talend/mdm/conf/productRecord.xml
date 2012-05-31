@@ -7,6 +7,41 @@
    	<parameter name="UniqueId" value="Id" />
    	<parameter name="UniqueIdValue" value="1671111134" />	 
    	
+   	<test name=" create a record product with store" >
+	    <classes>
+	         <parameter name="UniqueIdValue" value="231035930" />
+  		     <parameter name="Name" value="Name" />  
+  		     <parameter name="Description" value="Description" /> 
+  		     <parameter name="Price" value="Price" />    	
+  		 	 <parameter name="NameValue" value="Talend Large Mug_test" />
+   			 <parameter name="DescriptionValue" value="this is a test Talend Large Mug_test" />
+  			 <parameter name="PriceValue" value="16.91" />		
+  			 <parameter name="storeId" value="Id" />
+   	         <parameter name="storeIdValue" value="TestStore" />	  
+             <parameter name="address" value="Address" />		
+             <parameter name="addressValue" value="22, Jianguomenwai Avenue, Chaoyang District, Beijing" />
+		    <class name="org.talend.mdm.cases.record.Product">
+				<methods>				 	           
+		           <include name="testCreateRecordProductWithStore"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+   
+    <test name="test add multiple stores to a product" >
+	    <classes>
+  		  	<parameter name="UniqueIdValue" value="231035930" />		
+  			 <parameter name="storeId" value="Id" />
+   	         <parameter name="storeIdValue" value="TalendBJ" />	  
+             <parameter name="address" value="Address" />		
+             <parameter name="addressValue" value="22, Jianguomenwai Avenue, Chaoyang District, Beijing" />
+		    <class name="org.talend.mdm.cases.record.Product">
+				<methods>				 	           
+		           <include name="testRecordAddMultipleStoresToProduct"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
    	
  	  <test name="test two ways to open workflow task on map">
 	    <classes>

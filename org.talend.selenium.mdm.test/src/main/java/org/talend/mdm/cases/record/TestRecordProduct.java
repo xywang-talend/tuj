@@ -104,4 +104,16 @@ public class TestRecordProduct extends Login {
 	public void testTwoWaysOpenWorkFlow(String userFrank,String frankPass,String userJennifer,String jenniferPass,String container,String model,String entity,String productUniqID,String productFamilyId,String productFamilyName,String frankSubmitedFamilyName) {
 		recordImpl.openWorkflowTask(userFrank, frankPass, userJennifer, jenniferPass, container, model, entity,productUniqID, productFamilyId, productFamilyName, frankSubmitedFamilyName);
 	}
+	
+	@Test
+	@Parameters( { "container","modle","entity", "UniqueId","UniqueIdValue","Name","NameValue","Description","DescriptionValue","Price","PriceValue","storeId","storeIdValue","address","addressValue"})
+	public void testCreateRecordProductWithStore(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String Name,String NameValue,String Description,String DescriptionValue,String Price,String PriceValue,String storeId, String storeIdValue, String address, String addressValue) {
+		recordImpl.createRecordProductWithStoreImpl(container, modle, entity, UniqueId,UniqueIdValue,Name,NameValue,Description,DescriptionValue,Price,PriceValue,storeId, storeIdValue, address, addressValue);
+	}
+	
+	@Test
+	@Parameters( { "container","modle","entity", "UniqueId","UniqueIdValue","storeId","storeIdValue","address","addressValue"})
+	public void testRecordAddMultipleStoresToProduct(String container,String model,String entity,String uniqueId,String uniqueIdValue,String storeId, String storeIdValue, String address, String addressValue) {
+		recordImpl.addMutipleStoresToAProduct(container, model, entity, uniqueId, uniqueIdValue, storeIdValue, addressValue);
+		}
 }

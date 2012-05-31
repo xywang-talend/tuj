@@ -15,6 +15,30 @@ public class RecordImplProduct extends Record{
 		this.driver = driver;
 	}
 	
+	
+	private void clickTabStoresStore(){
+		this.clickElementByXpath(locator.getString("xpath.record.product.store.tab"));
+		this.sleepCertainTime(5000);
+	}
+	
+	private void assignAStoreToProduct(String storeId,String storeAddress){
+	    this.sleepCertainTime(5000);
+        Assert.assertTrue(this.waitfor(By.xpath("//span[contains(@class,'x-window-header-text') and contains(text(),'Select the related record')]"), WAIT_TIME_MIN).isDisplayed());
+        Assert.assertTrue(this.getElementsByXpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-Address') and contains(text(),'"+storeAddress+"')]").size()>=1);
+        this.typeString(this.waitfor(By.xpath("//div[contains(@id,'DerivedTypeComboBox')]//ancestor::tr[contains(@class,'x-toolbar-left-row')]//td[contains(@class,'x-toolbar-cell')][3]//input"),WAIT_TIME_MIN), storeId);
+        this.sleepCertainTime(5000);
+        Assert.assertTrue(this.getElementsByXpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-Address') and contains(text(),'"+storeAddress+"')]").size()==1);
+        this.clickElementByXpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-Address') and contains(text(),'"+storeAddress+"')]");
+        this.doubleClick(this.getElementByXpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-Address') and contains(text(),'"+storeAddress+"')]"));
+        this.sleepCertainTime(5000);
+        this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
+        this.sleepCertainTime(5000);
+	}
+	
+	private void clickTabFamily(){
+		this.clickElementByXpath(locator.getString("xpath.record.product.family.tab"));
+		this.sleepCertainTime(5000);
+	}
 	public void ExportRecordImpl(String container,String modle,String entity){
 		chooseContainer(container);	
 		chooseModle(modle);
@@ -201,6 +225,61 @@ public class RecordImplProduct extends Record{
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.url.assert", UniqueIdValue)), WAIT_TIME_MIN));
    }
    
+   
+   public void createRecordProductWithStoreImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String Name,String NameValue,String Description,String DescriptionValue,String Price,String PriceValue,String storeId, String storeIdValue, String address, String addressValue) {
+	      //step 1,create a product
+		    this.createRecordImpl(container, modle, entity, UniqueId, UniqueIdValue, Name, NameValue, Description, DescriptionValue, Price, PriceValue);
+			this.closeDatachangesViewer();
+			this.closeJournal();
+			this.switchtoTabDataBrowser();
+			
+			//step 2,create a store
+			RecordImplStore store = new RecordImplStore(this.driver);
+			entity = "Store";
+			store.createRecordImpl(container, modle, entity, storeId, storeIdValue, address, addressValue);
+			this.closeDatachangesViewer();
+			this.closeJournal();
+			this.switchtoTabDataBrowser();
+			
+			//step 3,assign a  store create to product just created
+			entity = "Product";
+			this.chooseEntity(entity);
+			this.chooseRcord(entity,UniqueId,UniqueIdValue);
+			logger.info("the selected product id is:"+UniqueIdValue);
+			this.sleepCertainTime(5000);
+			this.clickElementByXpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(@title,'Stores/Store')]");
+			this.sleepCertainTime(5000);
+			this.clickElementByXpath("//div[contains(@class,'x-grid3-body')]//div[contains(@class,'x-grid3-row ')]//img[contains(@title,'Select the relationship')]");
+	        this.assignAStoreToProduct(storeIdValue, addressValue);
+	        this.clickTabStoresStore();
+	        this.sleepCertainTime(5000);
+	        Assert.assertTrue(this.getValue(this.getElementByXpath("//div[contains(@class,'gwt-Label ItemsDetailPanel-tabLabel') and contains(text(),'Stores/Store')]//ancestor::div[contains(@id,'ItemsDetailPanel-mainPanel')]//div[contains(@class,'x-grid3-body')]//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-objectValue')][1]//div")).equals("["+storeIdValue+"]"));
+	        
+	   }
+   
+   
+   public void addMutipleStoresToAProduct(String container,String model,String entity,String uniqueId,String uniqueIdValue,String storeId,String storeAddress){
+	   this.chooseContainer(container);
+	   this.chooseModle(model);
+	   this.clickSave();
+	   this.chooseEntity(entity);
+	   this.chooseRcord(entity, uniqueId, uniqueIdValue);
+	   this.clickTabStoresStore();
+	   int num1 = this.getElementsByXpath("//div[contains(@id,'ItemsDetailPanel-tabContent')]//div[contains(@class,'x-grid3-scroller')]//div[contains(@class,'x-grid3-body')]//div[@class='x-grid3-row ']").size();
+	   Assert.assertTrue(num1 >= 1);
+	   logger.info("store numbers before add a new store is:"+num1);
+	   
+	   this.clickElementByXpath("//button[contains(text(),'Add')]");
+	   this.sleepCertainTime(5000);
+	   int num2 = this.getElementsByXpath("//div[contains(@id,'ItemsDetailPanel-tabContent')]//div[contains(@class,'x-grid3-scroller')]//div[contains(@class,'x-grid3-body')]//div[@class='x-grid3-row ']").size();
+	   Assert.assertTrue(num2-num1==1);
+	   this.clickElementByXpath("//div[contains(@id,'ItemsDetailPanel-tabContent')]//div[contains(@class,'x-grid3-scroller')]//div[contains(@class,'x-grid3-body')]//div[@class='x-grid3-row ']["+num2+"]//img[contains(@title,'Select the relationship')]");
+	   this.assignAStoreToProduct(storeId, storeAddress);
+	   
+	   //verify stores added really saved;
+	   this.clickTabStoresStore();
+	   Assert.assertTrue(this.waitfor(By.xpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-objectValue') and contains(text(),'["+storeId+"]')]"),WAIT_TIME_MIN).isDisplayed());
+   }
 /*	public void testUpdateCheckAvailabilityRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue){
 		String availability;
 		boolean availabilityRsulte=false;
