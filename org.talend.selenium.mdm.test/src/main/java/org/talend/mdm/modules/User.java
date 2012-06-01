@@ -115,6 +115,7 @@ public User(WebDriver driver) {
 	}
 	
 	public void deleteUser(String userName) {
+		this.minUserConfigPanel();
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.user.delete", userName)), WAIT_TIME_MAX), "the user to delete not present right now.");
 		this.sleepCertainTime(1000);
 		this.selectAUser("administrator");
@@ -169,7 +170,7 @@ public User(WebDriver driver) {
 	public void maxUserConfigPanel(){
 		Actions builder = new Actions(driver);
 		 builder.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.max.configure.panel.line"))))
-		 .moveToElement(this.findElementDefineDriver(this.driver, By.xpath(this.getString(locator, "xpath.user.identifier", "administrator"))), 2, 20).release().build().perform();
+		 .moveToElement(this.findElementDefineDriver(this.driver, By.xpath(this.getString(locator, "xpath.user.identifier", "administrator"))), 0, 0).release().build().perform();
 	}
 	
 	public void minUserConfigPanel(){
