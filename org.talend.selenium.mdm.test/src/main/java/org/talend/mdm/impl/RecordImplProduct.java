@@ -10,6 +10,7 @@ import org.testng.Assert;
 
 public class RecordImplProduct extends Record{
 	 String OperationType,key,source;  
+	 boolean assertValue=false;
 	public RecordImplProduct(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
@@ -280,78 +281,7 @@ public class RecordImplProduct extends Record{
 	   this.clickTabStoresStore();
 	   Assert.assertTrue(this.waitfor(By.xpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-objectValue') and contains(text(),'["+storeId+"]')]"),WAIT_TIME_MIN).isDisplayed());
    }
-/*	public void testUpdateCheckAvailabilityRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue){
-		String availability;
-		boolean availabilityRsulte=false;
-		OperationType="UPDATE";
-		chooseContainer(container);	
-		chooseModle(modle);
-		clickSave();
-		chooseEntity(entity);		
-		this.sleepCertainTime(3000);
-		chooseRcord(entity,UniqueId,UniqueIdValue);		
-		this.sleepCertainTime(5000);
-	   // update the Availability
-		availability=this.getValue(this.getElementByXpath(this.getString(locator, "xpath.record.update.Availability",UniqueIdValue)));
-		if (availability.equals("true"))
-		{
-			availabilityRsulte=true;
-			Assert.assertTrue(availabilityRsulte);
-		}
-		else
-		{ this.sleepCertainTime(3000);
-		this.clickElementByName("Product/Availability");		
-		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
-		if (this.isTextPresent("No change since last save")){
-			this.clickElementByXpath("//button[text()='Ok']");}
-		else{
-		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));		
-		availability=this.getValue(this.getElementByXpath(this.getString(locator, "xpath.record.update.Availability",UniqueIdValue)));
-		logger.warn(availability);
-		if (availability.equals("true"))
-		{availabilityRsulte=true;}		
-		Assert.assertTrue(availabilityRsulte);
-		}
-		this.sleepCertainTime(3000); 
-		openJournal(entity,UniqueIdValue,OperationType);
-		this.sleepCertainTime(3000); 
-		JournalCheckResult(UniqueIdValue,OperationType);
-		this.sleepCertainTime(3000); 
-		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='Availability:true']"), WAIT_TIME_MIN));
-		}
-	}
-  
-	
-	public void testUpdateCompleteStoreUrlRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String name,String url){
-		OperationType="UPDATE";	
-		String[] parameters={name,url};
-		chooseContainer(container);	
-		chooseModle(modle);
-		clickSave();
-		chooseEntity(entity);			
-		chooseRcord(entity,UniqueId,UniqueIdValue);		
-		this.sleepCertainTime(3000);
-		this.clickElementByXpath(locator.getString("xpath.record.update.url"));
-		this.sleepCertainTime(3000);		
-		this.modifyText(this.getElementByXpath(locator.getString("xpath.record.update.url.input.name")),name);
-		this.modifyText(this.getElementByXpath(locator.getString("xpath.record.update.url.input.url")),url);
-		this.sleepCertainTime(3000);
-		this.clickElementByXpath(locator.getString("xpath.record.update.url.input.save"));
-		
-		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
-		if (this.isTextPresent("No change since last save")){
-			this.clickElementByXpath("//button[text()='Ok']");}
-		else{
-		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));			
-		this.sleepCertainTime(3000); 				
-		openJournal(entity,UniqueIdValue,OperationType);
-		this.sleepCertainTime(3000); 
-		JournalCheckResult(UniqueIdValue,OperationType);
-		this.sleepCertainTime(3000);
-		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.url.update.assert", parameters)), WAIT_TIME_MIN));
-		}	
-	}
-	*/
+
    public void testUpdatePriceRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String Price,String PriceValue,String flag,String PriceValueOld) {
         OperationType="UPDATE";
 	    source="genericUI";
@@ -372,10 +302,11 @@ public class RecordImplProduct extends Record{
 			 enterJournal(entity,UniqueIdValue,OperationType,source);					
 			 recordSearchResult=this.getElementByXpath(locator.getString("xpath.record.update.journal.price")).getText();
 			if (recordSearchResult.contains("No data to display")){	
-				Assert.assertTrue(true);
-			}else
-				Assert.assertTrue(false);
-			}
+				assertValue=true;
+				}
+		 }
+		 Assert.assertTrue(assertValue);
+		
 		}
 		if (flag.equals("1")){			
 			if (this.isElementPresent(By.xpath(locator.getString("xpath.record.update.price.min")), WAIT_TIME_MAX)){
@@ -384,12 +315,11 @@ public class RecordImplProduct extends Record{
 				enterJournal(entity,UniqueIdValue,OperationType,source);
 				recordSearchResult=this.getElementByXpath(locator.getString("xpath.record.update.journal.price")).getText();
 				if (recordSearchResult.contains("No data to display")){	
-					Assert.assertTrue(true);
-		         }else
-					Assert.assertTrue(false);
-			}
-		}
-		
+					assertValue=true;				
+		          	}				
+				}
+			 Assert.assertTrue(assertValue);			
+		}		
 		if (flag.equals("2")){			
 			enterJournal(entity,UniqueIdValue,OperationType,source);
 			this.sleepCertainTime(3000);
@@ -397,18 +327,13 @@ public class RecordImplProduct extends Record{
 			this.sleepCertainTime(3000);
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.price.assert", PriceValueOld)), WAIT_TIME_MIN));
 			Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.update.price.assert", PriceValue)), WAIT_TIME_MIN));
-		}
-			
+		}			
    }
    
-
- 
- 
- 
- 
  public void testUpdatePriceRecordRowEditerImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String Price,String PriceValue,String flag,String PriceValueOld) {
-     OperationType="UPDATE";
+        OperationType="UPDATE";
 	    source="genericUI";
+	    boolean assertValue=false;
 	    String recordSearchResult;	
 		chooseContainer(container);	
 		chooseModle(modle);
@@ -417,26 +342,23 @@ public class RecordImplProduct extends Record{
 		chooseRcord(entity,UniqueId,UniqueIdValue);				
 		String[] parametersPrice={entity,Price};
 		this.sleepCertainTime(3000);
-		//ÐÂ¼Ó´úÂë£¬ÓÒ»÷±à¼­//
 		this.rightClick(this.getElementByXpath(this.getString(locator, "xpath.product.edit.row", UniqueIdValue)));
 		this.clickElementByXpath("//a[text()='Edit Item with Row Editor']");		
-		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.edit.input.price",parametersPrice)), PriceValue);		
-//		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersPrice)), PriceValue);
+		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.edit.input.price",parametersPrice)), PriceValue);
 		this.clickElementByXpath(locator.getString("xpath.record.choose.edit.save"));	
-		this.clickElementByXpath("//button[text()='Ok']");
 		if (flag.equals("0"))
 		{			
 		 if ( this.isElementPresent(By.xpath(locator.getString("xpath.record.update.price.max")), WAIT_TIME_MAX)){
+		
 			 this.sleepCertainTime(3000);
 			 this.clickElementByXpath("//button[text()='Ok']");	
 			 enterJournal(entity,UniqueIdValue,OperationType,source);					
 			 recordSearchResult=this.getElementByXpath(locator.getString("xpath.record.update.journal.price")).getText();
 				if (recordSearchResult.contains("No data to display"))
-				{	Assert.assertTrue(true);
-	          	}
-				else
-					Assert.assertTrue(false);
-				}
+				{assertValue=true;				
+	          	}				
+			}
+		 Assert.assertTrue(assertValue);
 		}
 		if (flag.equals("1"))
 		{			
@@ -446,12 +368,12 @@ public class RecordImplProduct extends Record{
 			 enterJournal(entity,UniqueIdValue,OperationType,source);
 			 recordSearchResult=this.getElementByXpath(locator.getString("xpath.record.update.journal.price")).getText();
 				if (recordSearchResult.contains("No data to display"))
-				{	Assert.assertTrue(true);
-		         }
-				else
-					Assert.assertTrue(false);
-				}
-		}
+				{	
+					assertValue=true;
+		         }				
+			}
+		 Assert.assertTrue(assertValue);
+		}		
 		if (flag.equals("2"))
 		{			
 		  enterJournal(entity,UniqueIdValue,OperationType,source);
@@ -463,18 +385,6 @@ public class RecordImplProduct extends Record{
 		}
 		
 }
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
  
  public void SearchRecordByValueImpl(String container,String modle,String entity,String entity_Element,String searchFeild,String searchFeild_Element,String opeartion,String value){
 		chooseContainer(container);	
