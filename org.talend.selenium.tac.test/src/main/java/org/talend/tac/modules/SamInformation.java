@@ -51,7 +51,7 @@ public class SamInformation extends WebDriverBase{
     	 Assert.assertTrue(this.isElementPresent(By.xpath("//legend[text()='Consumer']//parent::fieldset[@class='samui-participant-details']"), WAIT_TIME_MIN));
     	 Assert.assertTrue(this.isElementPresent(By.xpath("//legend[text()='Provider']//parent::fieldset[@class='samui-participant-details']"), WAIT_TIME_MIN));
     	 Assert.assertTrue(this.isElementPresent(By.xpath("//fieldset[@class='samui-event-details-REQ_OUT']"), WAIT_TIME_MIN));
-    	 Assert.assertTrue(this.isElementPresent(By.xpath("//fieldset[@class='samui-event-details-REQ_IN']"), WAIT_TIME_MIN));
+ //   	 Assert.assertTrue(this.isElementPresent(By.xpath("//fieldset[@class='samui-event-details-REQ_IN']"), WAIT_TIME_MIN));
     	 logger.info("locator and check events");
      }
      

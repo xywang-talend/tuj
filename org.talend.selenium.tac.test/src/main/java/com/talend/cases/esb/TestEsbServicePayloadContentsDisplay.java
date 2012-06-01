@@ -62,7 +62,7 @@ public class TestEsbServicePayloadContentsDisplay extends Esb {
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-port']", WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-port']");
 		this.sleep(2000);
-		this.clickWaitForElementPresent("//legend[text()='Response IN']//parent::fieldset//img[@class='samui-event-content-popup-link']");
+		this.clickWaitForElementPresent("//legend[text()='Response IN']//parent::fieldset//img[contains(@class,'samui-event-content-popup-link')]");
 		this.waitForElementPresent("//div[contains(@class,'x-small-editor x-window-header x-window-draggable x-component')]//img[@class=' x-panel-inline-icon']", WAIT_TIME);
 		try {
 			 rob = new Robot();
@@ -72,7 +72,7 @@ public class TestEsbServicePayloadContentsDisplay extends Esb {
 		}
 		rob.keyPress(KeyEvent.VK_ESCAPE);
 		rob.keyRelease(KeyEvent.VK_ESCAPE);
-		this.waitForElementDispear("//div[contains(@class,'x-small-editor x-window-header x-window-draggable x-component')]//img[@class=' x-panel-inline-icon']", WAIT_TIME);
+		this.waitForElementDispear("//div[contains(@class,'x-small-editor x-window-header x-window-draggable x-component')]//img[contains(@class,'x-panel-inline-icon')]", WAIT_TIME);
 		
 		selenium.click("//div[text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader" +
 				" x-panel-body-noborder x-border-layout-ct']//b[text()='Refresh']");

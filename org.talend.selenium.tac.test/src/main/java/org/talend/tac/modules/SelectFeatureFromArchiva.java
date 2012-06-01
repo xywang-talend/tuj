@@ -79,17 +79,17 @@ public class SelectFeatureFromArchiva extends WebDriverBase {
 				, String usernameStatus, String pwStatus, String mavenStatus) {
 		       
 			this.waitforElementDisplayed(By.xpath("//div[@class='header-title' and text()='Configuration']"), WAIT_TIME_MIN);
-			if(this.isElementPresent(By.xpath("//div[text()='Configuration' and @class='header-title']"+
-				"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
-				"//button[@class='x-btn-text' and @aria-pressed='true']"),WAIT_TIME_MIN)) {			 
-				this.clickElementByXpath("//div[text()='Configuration' and @class='header-title']"+
-				"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
-				"//button[@class='x-btn-text' and @aria-pressed='true']");
-				this.waitforElementDisplayed(By.xpath("//div[text()='Configuration' and @class='header-title']"+
-						"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
-						"//button[@class='x-btn-text' and @aria-pressed='false']"), WAIT_TIME_MIN);
-				
-			}
+//			if(this.isElementPresent(By.xpath("//div[text()='Configuration' and @class='header-title']"+
+//				"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+//				"//button[@class='x-btn-text' and @aria-pressed='true']"),WAIT_TIME_MIN)) {			 
+//				this.clickElementByXpath("//div[text()='Configuration' and @class='header-title']"+
+//				"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+//				"//button[@class='x-btn-text' and @aria-pressed='true']");
+//				this.waitforElementDisplayed(By.xpath("//div[text()='Configuration' and @class='header-title']"+
+//						"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+//						"//button[@class='x-btn-text' and @aria-pressed='false']"), WAIT_TIME_MIN);
+//				
+//			}
 			this.waitforElementDisplayed(By.xpath("//div[contains(text(),'ESB conductor (4 Parameters')]"), WAIT_TIME_MIN);
 			this.mouseDown("//div[contains(text(),'ESB conductor (4 Parameters')]");
 			String mavenProtocol = this.getElementByXpath("//div[contains(text(),'ESB conductor (4 Parameters')]/parent::div/following-sibling::div//table//div[text()='Maven protocol']" +
@@ -110,21 +110,18 @@ public class SelectFeatureFromArchiva extends WebDriverBase {
 			
 			this.getElementById("idConfigRefreshButton").click();
 			try {
-				Thread.sleep(25000);
+				Thread.sleep(15000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
-			this.mouseDown("//div[contains(text(),'ESB conductor (4 Parameters')]");
-			
+			}			
 			this.getElementById("idConfigRefreshButton").click();
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			this.mouseDown("//div[contains(text(),'ESB conductor (4 Parameters')]");
-			this.mouseDown("//div[contains(text(),'ESB conductor (4 Parameters')]");
-			
+//			this.mouseDown("//div[contains(text(),'ESB conductor (4 Parameters')]");
+//	        this.clickElementByXpath("//div[contains(text(),'ESB conductor (4 Parameters')]");		
 			this.AssertEqualsInConfigurationMenu("//div[text()='Artifact repository url']//parent::td//following-sibling::td[1]//div[contains(@class,' x-form-label x-component')]",other.getString("ESBConduction.conf.rtifactRepositoryUrl.input"), artifactRepositoryUrl,
 					other.getString(urlStatus));
 			this.AssertEqualsInConfigurationMenu("//div[text()='Artifact repository username']//parent::td//following-sibling::td[1]//div[contains(@class,' x-form-label x-component')]",other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input"), artifactRepositoryUserName,
@@ -151,16 +148,15 @@ public class SelectFeatureFromArchiva extends WebDriverBase {
 		}
 		
 		public void AssertEqualsInConfigurationMenuForPassword(String locatorOfEditButton,String locatorOfInput,String value){
-		//	this.waitforElementDisplayed(By.xpath(locatorOfEditButton), WAIT_TIME_MIN);
-		//	this.getElementByXpath(locatorOfEditButton).click();
 			assertEquals(this.getElementByXpath(locatorOfInput).getAttribute("value"),value);		
 		}
 	    
 		public void selectFeatureWithUnavaiableArtifact(String label, String des,String repository) {
 			this.commonMethodForSelectFeature(label, des);
 			this.waitforElementDisplayed(By.xpath("//label[text()='Repository:']//following-sibling::div//div[contains(@class,'x-form-trigger x-form-trigger-arrow')]"), 30);         
-//	        this.waitforTextDisplayed("Operation failed: Software update repository cannot be reached (http://192.168.0.200:8082/archiva). -- For more information see your log file", 30);
-			Assert.assertTrue(this.isTextPresent("Operation failed: Software update repository cannot be reached (http://192.168.0.200:8082/archiva). -- For more information see your log file"));			
+			getElementByXpath("//label[text()='Repository:']//following-sibling::div//div[contains(@class,'x-form-trigger x-form-trigger-arrow')]").click();
+	        Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='"+repository+"'and @role='listitem']"), 20));
+//			Assert.assertTrue(this.isTextPresent("Operation failed: Software update repository cannot be reached (http://192.168.0.200:8082/archiva). -- For more information see your log file"));			
 		}
 	 
 

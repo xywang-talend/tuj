@@ -95,35 +95,32 @@ public class GroupByESBConductor extends WebDriverBase {
 	}
 	
 	public void groupESBConductor() {
-
-		
-//		this.focusElement();
-//		this.checkColumn("Error status");
-//		this.focusElement();
+		this.focusElement();
 		this.checkColumn("Id");
+		this.checkColumn("Error status");
+		this.checkColumn("Description");
+		this.checkColumn("Repository");
 		this.clickElementByXpath("//a[text()='Group By This Field']");
+		Assert.assertTrue(this.getElementsByXpath("//div[contains(@class,'x-grid-group-div') and contains(text(),'Tag:  (')]").size()>=2);
+
 	}
 	
 	public void checkColumn(String columnName){
-		boolean present = this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"),30);
+		boolean present = this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"),10);
 		if(!present){
-			logger.info("clumnName:"+columnName);
-			this.focusElement();
-			this.waitforElementDisplayed(By.xpath("//a[text()='"+columnName+"']"), 20);
+			logger.info("clumnName:"+columnName);			
+			this.waitforElementDisplayed(By.xpath("//a[text()='"+columnName+"']"), 10);
 			this.getElementByXpath("//a[text()='"+columnName+"']").click();
-			this.waitforElementDisplayed(By.xpath("//span[text()='"+columnName+"']"), 30);
+			this.waitforElementDisplayed(By.xpath("//span[text()='"+columnName+"']"), 10);
 			this.getElementByXpath("//a[text()='"+columnName+"']").click();
-
 		}
 		else{
-			this.focusElement();
 			this.waitforElementDisplayed(By.xpath("//a[contains(text(),'"+columnName+"')]"), 20);
 			this.clickElementByXpath("//a[contains(text(),'"+columnName+"')]");
 			this.waitThreeSeconds();
-//			Assert.assertFalse(this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"), 10));
+			Assert.assertFalse(this.isElementPresent(By.xpath("//span[text()='"+columnName+"']"), 10));
 			this.clickElementByXpath("//a[contains(text(),'"+columnName+"')]");
-		}
-		
+		}		
 	}
 	
 	public void focusElement() {
@@ -133,11 +130,6 @@ public class GroupByESBConductor extends WebDriverBase {
 		WebElement jjj = driver.findElement(By.xpath("//span[text()='Tag']//parent::div[contains(@class,'x-grid3-hd-inner x-grid3-hd-applicationGroup x-component')]//a"));
 		jjj.click();
 		this.waitforElementDisplayed(By.xpath("//a[text()='Columns']"), WAIT_TIME_MIN);
-//		WebElement columns = driver.findElement(By.xpath("//a[text()='Columns']"));
-//		this.waitThreeSeconds();
-//		this.moveToElement(columns);
-	    this.mouseDown("//a[text()='Columns']");
-//	    this.waitThreeSeconds();
 	    WebElement columns = driver.findElement(By.xpath("//a[text()='Columns']"));
 	    this.moveToElement(columns);
 	}

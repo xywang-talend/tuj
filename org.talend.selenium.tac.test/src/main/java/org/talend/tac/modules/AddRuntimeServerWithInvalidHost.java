@@ -73,7 +73,7 @@ public class AddRuntimeServerWithInvalidHost extends WebDriverBase{
 				"//div[text()='"
 						+ serverLabel
 						+ "']//ancestor::table[contains(@class,'x-grid3-row-table')]//span[contains(@class,'serv-value') and text()='"
-						+ serviceStatus + "']"), WAIT_TIME_MIN);
+						+ serviceStatus + "']"), WAIT_TIME_MIN);		
 	}
 	
     public void uninstallService(String jobName) {
@@ -93,22 +93,18 @@ public class AddRuntimeServerWithInvalidHost extends WebDriverBase{
     public void checkPortStatus() {
     	Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='Monitoring port:']//following-sibling::span//img[@title='This port is misconfigured or an other application uses it on server!']"), WAIT_TIME_MIN));
     	Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='Command port:']//following-sibling::span//img[@title='This port is misconfigured or an other application uses it on server!']"), WAIT_TIME_MIN));
-    	Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='File transfert port: ']//following-sibling::span//img[@title='This port is misconfigured or an other application uses it on server!']"), WAIT_TIME_MIN));
+    	Assert.assertTrue(this.isElementPresent(By.xpath("//span[contains(text(),'RuntimeWithUnavaiableJobServer')]//ancestor::table[@class='serv-header']//following-sibling::table[1]//span[contains(text(),'File transfer port: ')]//following-sibling::span//img[contains(@title,'This port is misconfigured or an other application uses it on server!')]"), WAIT_TIME_MIN));
     }
     
     public void editExistingServer(String serverName) {
     	String edit_part="_edit";
     	this.waitforElementDisplayed(By.xpath("//div[text()='"+serverName+"']"), WAIT_TIME_MIN);
-//    	WebElement element=driver.findElement(By.xpath("//div[text()='"+serverName+"']"));
-//    	this.moveToElement(element);
     	this.clickElementByXpath("//div[text()='"+serverName+"']");
     	this.typeTextByXpath("//span[text()='Execution server']//ancestor::legend//following-sibling::div//input[@name='label']", edit_part);
     	this.typeTextByXpath("//span[text()='Execution server']//ancestor::legend//following-sibling::div//label[text()='Description:']", edit_part);
     	this.getElementByName("host").clear();
-    	this.typeTextByName("host", "192.168.0.169");
+    	this.typeTextByName("host", "192.168.30.132");
     	this.typeTextByName("username", "tadmin");
-//    	this.waitforElementDisplayed(By.xpath("//input[@class=' x-form-field x-form-text ']"), 32);
-//    	this.typeTextByXpath("//input[@class=' x-form-field x-form-text ']", "admin");    	
     	this.clickElementById("idFormSaveButton");
     	this.clickElementByXpath("//div[text()='Servers']//ancestor::div[@class=' x-panel-noborder x-panel x-component x-border-panel']//following-sibling::div[1]//button[text()='Refresh']");
 		this.waitforElementDisplayed(By.xpath("//div[text()='" + serverName+edit_part + "']"),
@@ -119,15 +115,13 @@ public class AddRuntimeServerWithInvalidHost extends WebDriverBase{
     public void verifyEditedServer(String serverName) {
     	String edit_part="_edit";
     	Assert.assertTrue(this.getElementByXpath("//span[text()='Execution server']//ancestor::legend//following-sibling::div//input[@name='label']").getAttribute("value").equals(serverName+edit_part));
-  //  	Assert.assertTrue(this.getElementByXpath("//span[text()='Execution server']//ancestor::legend//following-sibling::div//label[text()='Description:']").getAttribute("value").equals(edit_part));
-    	Assert.assertTrue(this.getElementByName("host").getAttribute("value").equals("192.168.0.169"));
+    	Assert.assertTrue(this.getElementByName("host").getAttribute("value").equals("192.168.30.132"));
     	logger.info("---------commandPort:"+this.getElementByName("commandPort").getAttribute("value"));
     	Assert.assertTrue(this.getElementByName("commandPort").getAttribute("value").equals("8000"));
     	Assert.assertTrue(this.getElementByName("fileTransfertPort").getAttribute("value").equals("8001"));
     	Assert.assertTrue(this.getElementByName("monitoringPort").getAttribute("value").equals("8888"));
     	Assert.assertTrue(this.getElementByName("timeoutUnknownState").getAttribute("value").equals("120"));
     	Assert.assertTrue(this.getElementByName("username").getAttribute("value").equals("tadmin"));
-  //  	Assert.assertTrue(this.getElementByXpath("//input[@name='password' and @class=' x-form-field x-form-text ']").getAttribute("value").equals("admin"));
     	Assert.assertTrue(this.getElementByName("mgmtServerPort").getAttribute("value").equals("44444"));
     	Assert.assertTrue(this.getElementByName("mgmtRegPort").getAttribute("value").equals("1099"));
     	logger.info("---------adminConsolePort:"+this.getElementByName("adminConsolePort").getAttribute("value"));
@@ -146,10 +140,11 @@ public class AddRuntimeServerWithInvalidHost extends WebDriverBase{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		this.clickElementByXpath("//a[text()='Sort Descending']");
+		this.getElementByXpath("//a[text()='Sort Descending']").click();
+ 		this.clickElementByXpath("//span[text()='Rate']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']//preceding-sibling::div[@class='x-panel-tbar x-panel-tbar-noheader x-panel-tbar-noborder']//button[@id='idSubModuleRefreshButton']");
+//		this.clickElementByXpath("//a[text()='Sort Descending']");
 		Assert.assertEquals(this.getElementByXpath("//div[@class='x-grid3-cell-inner x-grid3-col-label']").getText(), value);       
         
-//		this.clickElementByXpath("//span[text()='Rate']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']//preceding-sibling::div[@class='x-panel-tbar x-panel-tbar-noheader x-panel-tbar-noborder']//button[@id='idSubModuleRefreshButton']");
     	this.waitforElementDisplayed(By.xpath("//span[text()='Rate']//ancestor::td[contains(@class,'x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer')]//preceding-sibling::td//span[text()='Label']"), 30);
 		WebElement elementagain = driver.findElement(By.xpath("//span[text()='Rate']//ancestor::td[contains(@class,'x-grid3-header x-grid3-hd x-grid3-cell x-grid3-td-ratedServer')]//preceding-sibling::td//span[text()='Label']"));
 		this.moveToElement(elementagain);
@@ -160,7 +155,9 @@ public class AddRuntimeServerWithInvalidHost extends WebDriverBase{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-        this.clickElementByXpath("//a[text()='Sort Ascending']");
+        this.getElementByXpath("//a[text()='Sort Ascending']").click();
+ 		this.clickElementByXpath("//span[text()='Rate']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']//preceding-sibling::div[@class='x-panel-tbar x-panel-tbar-noheader x-panel-tbar-noborder']//button[@id='idSubModuleRefreshButton']");
+//        this.clickElementByXpath("//a[text()='Sort Ascending']");
         try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
@@ -264,14 +261,16 @@ public class AddRuntimeServerWithInvalidHost extends WebDriverBase{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+//        this.getElementByXpath("//a[text()='Sort Ascending']").click();
         this.clickElementByXpath("//a[text()='Sort Ascending']");
  		this.mouseDown("//div[text()='"+labelAfterCopy+"']");
+ 		logger.info("expected label-------"+labelAfterCopy);
+ 		logger.info("label-----------:"+getElementByXpath("//span[@class='serv-t1']").getText());
  		Assert.assertTrue(this.getElementByXpath("//span[@class='serv-t1']").getText().equals(labelAfterCopy));
- 		Assert.assertTrue(this.getElementByXpath("//span[text()='Hostname: ']//following-sibling::span[@class='serv-value']").getText().equals("localhost"));
- 		logger.info("----------File transfert port:"+this.getElementByXpath("//span[text()='File transfert port: ']//following-sibling::span[@class='serv-value']//div[@class='gwt-HTML']").getText());
- 		Assert.assertTrue(this.getElementByXpath("//span[text()='Command port:']//following-sibling::span[@class='serv-value']//div[@class='gwt-HTML']").getText().equals(" 8000"));
- 		Assert.assertTrue(this.getElementByXpath("//span[text()='File transfert port: ']//following-sibling::span[@class='serv-value']//div[@class='gwt-HTML']").getText().equals(" 8001"));
- 		Assert.assertTrue(this.getElementByXpath("//span[text()='Monitoring port:']//following-sibling::span[@class='serv-value']//div[@class='gwt-HTML']").getText().equals(" 8888"));
+ 		Assert.assertTrue(this.getElementByXpath("//span[text()='Hostname: ']//following-sibling::span[@class='serv-value']").getText().equals("192.168.30.132"));
+ 		Assert.assertTrue(this.getElementByXpath("//span[contains(text(),'Copy_of_testRuntimeServer')]//ancestor::table[@class='serv-header']//following-sibling::table[1]//span[contains(text(),'Command port:')]//following-sibling::span//div[@class='gwt-HTML']").getText().equals(" 8000"));
+ 		Assert.assertTrue(this.getElementByXpath("//span[contains(text(),'Copy_of_testRuntimeServer')]//ancestor::table[@class='serv-header']//following-sibling::table[1]//span[contains(text(),'File transfer port: ')]//following-sibling::span//div[@class='gwt-HTML']").getText().equals(" 8001"));
+ 		Assert.assertTrue(this.getElementByXpath("//span[contains(text(),'Copy_of_testRuntimeServer')]//ancestor::table[@class='serv-header']//following-sibling::table[1]//span[contains(text(),'Monitoring port:')]//following-sibling::span//div[@class='gwt-HTML']").getText().equals(" 8888"));
  		Assert.assertTrue(this.getElementByName("timeoutUnknownState").getAttribute("value").equals("120"));
  		Assert.assertTrue(this.getElementByXpath("//span[text()='Mgmt-Server port:']//following-sibling::span[@class='serv-value']").getText().equals("44444"));
  		Assert.assertTrue(this.getElementByXpath("//span[text()='Mgmt-Reg port: ']//following-sibling::span[@class='serv-value']").getText().equals("1099"));
@@ -279,4 +278,16 @@ public class AddRuntimeServerWithInvalidHost extends WebDriverBase{
  		Assert.assertTrue(this.getElementByXpath("//span[text()='Instance:']//following-sibling::span[@class='serv-value']").getText().equals("trun"));
  		
      }
+     
+     public void deleteServer(String serverLabel) {
+ 		this.waitforElementDisplayed(By.xpath("//div[text()='" + serverLabel + "']"),
+ 				WAIT_TIME_MIN);
+ 		this.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+ 				+ serverLabel + "')]");
+ 		this.clickElementByXpath("//div[text()='Servers']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");
+ 		this.acceptAlert();
+// 		Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='" + serverLabel + "']"),
+// 				20));
+
+ 	}
 }

@@ -3,10 +3,6 @@ package org.talend.tac.modules;
 
 import static org.testng.Assert.assertEquals;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.HasInputDevices;
 import org.openqa.selenium.Mouse;
@@ -42,17 +38,17 @@ public class ConfigurationESBConductor extends WebDriverBase {
 			, String artifactRepositoryPassWord, String mavenProtocolExpected,String urlStatus
 			, String usernameStatus, String pwStatus, String mavenStatus) {
 		this.waitforElementDisplayed(By.xpath("//div[@class='header-title' and text()='Configuration']"), WAIT_TIME_MIN);
-		if(this.isElementPresent(By.xpath("//div[text()='Configuration' and @class='header-title']"+
-			"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
-			"//button[@class='x-btn-text' and @aria-pressed='true']"),WAIT_TIME_MIN)) {			 
-			this.clickElementByXpath("//div[text()='Configuration' and @class='header-title']"+
-			"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
-			"//button[@class='x-btn-text' and @aria-pressed='true']");
-			this.waitforElementDisplayed(By.xpath("//div[text()='Configuration' and @class='header-title']"+
-					"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
-					"//button[@class='x-btn-text' and @aria-pressed='false']"), WAIT_TIME_MIN);
-			
-		}
+//		if(this.isElementPresent(By.xpath("//div[text()='Configuration' and @class='header-title']"+
+//			"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+//			"//button[@class='x-btn-text' and @aria-pressed='true']"),WAIT_TIME_MIN)) {			 
+//			this.clickElementByXpath("//div[text()='Configuration' and @class='header-title']"+
+//			"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+//			"//button[@class='x-btn-text' and @aria-pressed='true']");
+//			this.waitforElementDisplayed(By.xpath("//div[text()='Configuration' and @class='header-title']"+
+//					"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+//					"//button[@class='x-btn-text' and @aria-pressed='false']"), WAIT_TIME_MIN);
+//			
+//		}
 		
 		this.waitforElementDisplayed(By.xpath("//div[contains(text(),'ESB conductor (4 Parameters')]"), WAIT_TIME_MIN);
 		this.mouseDown("//div[contains(text(),'ESB conductor (4 Parameters')]");
@@ -83,7 +79,6 @@ public class ConfigurationESBConductor extends WebDriverBase {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		this.mouseDown("//div[contains(text(),'ESB conductor (4 Parameters')]");
 		
 		this.getElementById("idConfigRefreshButton").click();
 		try {

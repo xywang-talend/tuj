@@ -5,13 +5,13 @@ import org.testng.annotations.Test;
 
 public class TestEsbServiceActivityGenerateEvents extends Esb {
 	@Test
-	@Parameters({"esb.monitor.karafurl","esb.monitor.receivenewevents.consumer","esb.monitor.generateNumForPageDisplay"})
+	@Parameters({"esbMonitorKarafUrl","esbMonitorReceiveNewEventsConsumer","esbMonitorGenerateNumForPageDisplay"})
 	public void testGenerateEventsForPageDisplay(String karafUrl,String consumerName,String intNum){
 		this.generateEvents(karafUrl, consumerName, Integer.parseInt(intNum));
 	}
 	
 	@Test
-	@Parameters({"esb.conf.serviceActivityMonitorServer","esb.monitor.karafurl","esb.monitor.receivenewevents.consumer","esb.monitor.generateNumForTest"})
+	@Parameters({"esbConfServiceActivityMonitorServer","esbMonitorKarafUrl","esbMonitorReceiveNewEventsConsumer","esbMonitorGenerateNumForTest"})
 	public void testGenerateEventsTest(String localServer, String karafUrl,String consumerName,String intNum){
 	    //go to configuration page 
 	    this.clickWaitForElementPresent("idMenuConfigElement");

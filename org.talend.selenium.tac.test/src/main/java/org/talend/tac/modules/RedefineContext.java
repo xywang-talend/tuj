@@ -105,13 +105,15 @@ public class RedefineContext extends WebDriverBase {
 		   this.getElementById("idESBConductorPropertyAddButton").click();
     	   getElementByXpath(other.getString("ESBConductor.ConfigProperties.Name")).click();
     	   this.typeString(By.xpath("//span[text()='Name']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input"), variableName, WAIT_TIME_MIN);
+    	   Thread.sleep(3000);
     	   getElementByXpath(other.getString("ESBConductor.ConfigProperties.Value")).click();
- //   	   this.waitforElementDisplayed(By.xpath("//span[text()='Custom Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input"), WAIT_TIME_MIN);
-    	   this.typeString(By.xpath("//span[text()='Custom Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input"), variableValue, WAIT_TIME_MIN);
+    	   this.typeString(By.xpath("//span[text()='Value']//ancestor::div[@class='x-grid3-header']//following-sibling::div//input"), variableValue, WAIT_TIME_MIN);
     	   bot.keyPress(KeyEvent.VK_ENTER);
     	   bot.keyRelease(KeyEvent.VK_ENTER);    
 		} catch (AWTException e) {
 			
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		   this.mouseDown(other.getString("ESBConductor.ConfigProperties.Value"));
@@ -167,7 +169,7 @@ public class RedefineContext extends WebDriverBase {
     	   this.getElementById("idESBConductorTaskGridDeleteButton").click();        	   
     	   this.acceptAlert(); 	   
     	   logger.info("-------label:"+label);
-           Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='" + label + "']"), 30));
+
        }
        
        public void deleteContextPropertyCancel(String label) {
@@ -195,7 +197,7 @@ public class RedefineContext extends WebDriverBase {
     	   this.mouseDown("//div[text()='" + label + "']");
     	   this.focusElement();
     	   this.checkColumn("Active");
-    	   this.checkColumnForValue("Custom Value");
+    	   this.checkColumnForValue("Value");
     	   this.checkColumnForValue("Original value");
   //  	   Assert.assertFalse(this.isElementPresent(By.xpath("//div[@class='x-panel-body x-panel-body-noheader']//div[@class=' x-grid3-hd-inner x-grid3-hd-active x-component']//span[text()='Active']"), 20));
        }

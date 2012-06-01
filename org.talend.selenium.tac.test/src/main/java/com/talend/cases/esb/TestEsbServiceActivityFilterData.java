@@ -69,7 +69,7 @@ public class TestEsbServiceActivityFilterData extends Esb {
 	 * 
 	 */
 	@Test
-	@Parameters({"esb.monitor.karafurl","esb.monitor.karajar","esb.monitor.receivenewevents.consumer"})
+	@Parameters({"esbMonitorKarafUrl","esbMonitorKarafJar","esbMonitorReceiveNewEventsConsumer"})
 	public void testReceiveNewEvents(String karafUrl,String jarPath,String consumerName){
 		
 		this.openServiceActivityMonitor();
@@ -80,11 +80,11 @@ public class TestEsbServiceActivityFilterData extends Esb {
 		.getText("//div[contains(@class,'x-small-editor x-toolbar x-component x-toolbar-layout-ct')]//div[contains(text(),'of') and @class='my-paging-text x-component ']");
         System.out.println(lastpage);
         String totalPage = lastpage.substring(lastpage.indexOf(" ") + 1);
-		selenium.click("//div[@class='my-paging-text x-component ' and text()='Page']//ancestor::tr[@class='x-toolbar-left-row']//td[9]//table");
+		selenium.click("//div[contains(@class,'my-paging-text x-component ') and text()='Page']//ancestor::tr[contains(@class,'x-toolbar-left-row')]//td[9]//table");
 		this.sleep(3000);
 		Assert.assertTrue(
 				selenium.getValue(
-						"//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[contains(@class,'gwt-TextBox x-component')]")
+						"//div[contains(@class,' x-small-editor x-toolbar x-component x-toolbar-layout-ct ')]//input[contains(@class,'gwt-TextBox x-component')]")
 						.equals(totalPage), "test go to last page failed!");
 		this.sleep(3000);
 		int eventsBefore = selenium.getXpathCount("//div[text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[@class='x-grid3-body']//div[contains(@class,'x-grid3-row')]").intValue();
@@ -127,7 +127,7 @@ public class TestEsbServiceActivityFilterData extends Esb {
 	 * this test case is mainly to test filter data base on port type
 	 */
 	@Test
-	@Parameters({"esb.monitor.porttype.exist","esb.monitor.porttype.notexist"})
+	@Parameters({"esbMonitorPorttypeExist","esbMonitorPorttypeNotExist"})
 	public void testFilterDataBaseOnPortType(String portTypeExist,String portTypeNotExist){
 		
 		this.openServiceActivityMonitor();

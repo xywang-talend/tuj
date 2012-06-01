@@ -17,6 +17,7 @@ public class AddRuntimeServerWithInvalidHostImpl extends AddRuntimeServerWithInv
 		this.openServerMenu();
 		this.addRuntimeServer(serverLabel,invalidhost);
 		this.checkServerStatus(serverLabel,server_status_down);
+		this.deleteServer(serverLabel);
 	}
 	
 	public void addServerWithJobServerUnavaiable(String serverLabel,String host,String serviceName) {
@@ -26,6 +27,7 @@ public class AddRuntimeServerWithInvalidHostImpl extends AddRuntimeServerWithInv
 		this.checkServerStatus(serverLabel,server_status_jobserverDown);
 		this.checkPortStatus();
 		this.installJobServer(serviceName);
+		this.deleteServer(serverLabel);
 	}
 	
 	public void editESBRuntimeServer(String serverName) {
@@ -47,5 +49,10 @@ public class AddRuntimeServerWithInvalidHostImpl extends AddRuntimeServerWithInv
 	public void duplicateServer(String label) {
 		this.openServerMenu();
 		this.duplicateRuntimeServer(label);
+	}
+	
+	public void deleteUselessServers(String server1,String server2) {
+		this.deleteServer(server1);
+		this.deleteServer(server2);
 	}
 }

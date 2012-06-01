@@ -91,7 +91,7 @@ public class TestEsbServiceActivitySelectRows extends Esb {
 		this.waitForElementPresent("//div[@class='samui-flow-details']", WAIT_TIME);
 		this.sleep(3000);
 		String testFlowDetailFirstUP = selenium.getText("//div[@class='samui-flow-details']");
-		Assert.assertTrue(testFlowDetailFirstUP.equals(testFlowDetailFirst), "test select rows with pageUP failed!");
+			Assert.assertTrue(testFlowDetailFirstUP.equals(testFlowDetailFirst), "test select rows with pageUP failed!");
 		
 		
 		rob.keyPress(KeyEvent.VK_PAGE_DOWN);

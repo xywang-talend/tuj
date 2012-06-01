@@ -119,7 +119,7 @@ public class EsbUtil extends Login {
         selenium.setSpeed(MIN_SPEED);  
 		selenium.click("//a[text()='Sort Descending']");
 		selenium.setSpeed(MID_SPEED);
-		System.out.println(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"));
+		System.out.println("---decending actually:"+selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"));
 		Assert.assertEquals(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"), value);       
         selenium.setSpeed(MIN_SPEED);
         
@@ -128,7 +128,7 @@ public class EsbUtil extends Login {
         selenium.setSpeed(MIN_SPEED);  
 		selenium.click("//a[text()='Sort Ascending']");
 		selenium.setSpeed(MID_SPEED);
-		System.out.println(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"));
+		System.out.println("---ascending actually"+selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"));
 		Assert.assertEquals(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"), value1);
 		selenium.setSpeed(MIN_SPEED);
 		
@@ -270,11 +270,10 @@ public class EsbUtil extends Login {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	   selenium.keyPressNative(Event.ENTER+"");
-	//   selenium.keyPress(locatorOfInput,Event.ENTER+"");
-	  
+       selenium.keyPressNative(Event.ENTER+"");
+	
 	 }
-	  
+	  		
 	 public void AssertEqualsInConfigurationMenu(String locatorOfValue,String value){
 	  
 	  this.waitElement(locatorOfValue, WAIT_TIME);
@@ -293,9 +292,9 @@ public class EsbUtil extends Login {
 		  
 		this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), other.getString("esb.conf.serviceActivityMonitorServer.input"), MonitorServer);
 		  
-//	    this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), locatorOfAllInputTags,
+//	    this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.value"),
 //			   MonitorServer, MonitorServerStatusIconLocator);
-		
+//		
 	}
 	
 	public void uploadLicense(String license) {

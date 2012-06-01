@@ -35,8 +35,7 @@ public class TestSamServerNotRunning extends Esb {
 	 * @param monitorStop
 	 */
 	@Test
-	@Parameters ({"esb.conf.zookeeperServer","esb.conf.serviceActivityMonitorServer.remote.available","esb.conf.serviceActivityMonitorServer.r" +
-			"emote.stop"})
+	@Parameters ({"esbConfZookeeperServer","esbConfServiceActivityMonitorServer","esbConfServiceActivityMonitorServerStop"})
 	public void testSamServerNotRunning(String zookeeperServer,String serviceActivityMonitorServer,String monitorStop){
 		  this.clickWaitForElementPresent("idMenuConfigElement");
 		  
@@ -54,13 +53,12 @@ public class TestSamServerNotRunning extends Esb {
 		  this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB (')]");
 		  selenium.setSpeed(MID_SPEED);
 		  //change sam server to remote stoped
-	      this.typeWordsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), other.getString("esb.conf.ZookeeperServer.input"), zookeeperServer);
+//	      this.typeWordsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), other.getString("esb.conf.ZookeeperServer.input"), zookeeperServer);
 	      this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), other.getString("esb.conf.serviceActivityMonitorServer.input"), monitorStop);
 	      this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.value"), monitorStop);
 		  this.waitForTextPresent("SAM Server for this url is unavailable", WAIT_TIME);
 		  //open service activity monitor page
-		  this.openServiceActivityMonitor();
-		  
+		  this.openServiceActivityMonitor();		  
 		  this.clickWaitForElementPresent("//div[@class='header-title' and text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//b[text()='Refresh']");
 		  Assert.assertTrue(this.waitForTextPresent("Can not connect to SAM Server", WAIT_TIME),"test with stop samserver failed!");
 	}

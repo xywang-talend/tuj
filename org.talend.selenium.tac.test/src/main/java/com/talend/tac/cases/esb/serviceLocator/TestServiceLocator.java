@@ -190,7 +190,7 @@ public class TestServiceLocator extends EsbUtil {
 		selenium.setSpeed(MIN_SPEED);
 		
 		checkSortAscendingSortDescending("name", jobThirdProvider, jobFirstProvider);
-		checkSortAscendingSortDescending("endpoint", "http://localhost:8040/services/jobThirdProvider",
+		checkSortAscendingSortDescending("endpoint", "http://localhost:8040/services/soap/jobSixedProvider/",
 				"http://localhost:8040/services/jobFirstProvider");
 		
 	}
@@ -273,7 +273,7 @@ public class TestServiceLocator extends EsbUtil {
 		selenium.setSpeed(MIN_SPEED);
 		
 		checkSortAscendingSortDescending("name", jobThirdProvider, jobFirstProvider);
-		checkSortAscendingSortDescending("endpoint", "http://localhost:8040/services/jobThirdProvider",
+		checkSortAscendingSortDescending("endpoint", "http://localhost:8040/services/soap/jobSixedProvider/",
 				"http://localhost:8040/services/jobFirstProvider");
 		
 	}
@@ -315,7 +315,7 @@ public class TestServiceLocator extends EsbUtil {
 	
 	//stop zkserver, check status info of configuration page and serviceLocation page  
 	@Test
-	@Parameters({"esb.conf.zookeeperServer", "esb.conf.zookeeperServerWithWrong","jobFirstProvider", "jobSecondProvider",
+	@Parameters({"esbConfZookeeperServer", "esbConfZookeeperServerStop","jobFirstProvider", "jobSecondProvider",
 		"jobThirdProvider", "jobFourthProvider", "jobFiveProvider", "jobSixProvider"})
 	public void testStopStartZkServerCheckPageStatus(String zookeeperServer, String zookeeperServerWithWrong, String jobFirstProvider, String jobSecondProvider,
 			String jobThirdProvider, String jobFourthProvider, String jobFiveProvider,String jobSixthProvider) {
@@ -346,7 +346,6 @@ public class TestServiceLocator extends EsbUtil {
 		//verify display result
 		this.waitForTextPresent("There are no services available. Please check your filter and click" +
 				" refresh button to retry.", WAIT_TIME);		
-
 		modifyEsbConfigurationInConfigurationPage(zookeeperServer, other.getString("esb.conf.ZookeeperServerStatusIconLocator"));
 		  	
 		//go to 'ServiceLocator' page
@@ -368,7 +367,7 @@ public class TestServiceLocator extends EsbUtil {
 	
 	//set sam-server url in configuration
     @Test
-    @Parameters ({"esb.conf.serviceActivityRemoteMonitorServer", "esb.conf.serviceActivityMonitorServer"})
+    @Parameters ({"esbConfServiceActivityMonitorServer", "esbConfServiceActivityMonitorServer"})
 	public void testSetESBSamServer(String remoteMonitorServer, String localServer){
     	
 	   //go to configuration page 
@@ -394,7 +393,7 @@ public class TestServiceLocator extends EsbUtil {
 	
   //set sam-server url with wrong in configuration
     @Test
-    @Parameters ({"esb.conf.serviceActivityMonitorServerWithWrong", "esb.conf.serviceActivityMonitorServer"})
+    @Parameters ({"esbConfServiceActivityMonitorServerStop", "esbConfServiceActivityMonitorServer"})
 	public void testSetESBSamServerWithWrongUrl(String remoteMonitorServerWithWrongUrl, String localServer){	   
     	
 	   //go to configuration page 
@@ -419,7 +418,7 @@ public class TestServiceLocator extends EsbUtil {
 	   this.waitForElementPresent("//div[contains(text(),'SAM Server for this url is unavailable')]", WAIT_TIME);
 	   Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'SAM Server for this url is unavailable')]"));
 	   selenium.setSpeed(MIN_SPEED);
-	   
+	   selenium.click("//button[@id='idConfigRefreshButton']");
 	   modifySAMServer(localServer, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator"));
 	   
 	}
