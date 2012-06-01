@@ -156,8 +156,12 @@ public class TalendDBItem extends TalendMetadataItem {
             gefBot.comboBoxWithLabel("Db Version").setSelection(System.getProperty(db + ".dbVersion"));
         if (System.getProperty(db + ".login") != null && !"".equals(System.getProperty(db + ".login")))
             gefBot.textWithLabel("Login").setText(System.getProperty(db + ".login"));
-        if (System.getProperty(db + ".password") != null && !"".equals(System.getProperty(db + ".password")))
-            gefBot.textWithLabel("Password").setText(System.getProperty(db + ".password"));
+        if (System.getProperty(db + ".password") != null && !"".equals(System.getProperty(db + ".password"))) {
+            if ("jdbc.mysql".equals(db))
+                gefBot.text(7).setText(System.getProperty(db + ".password"));
+            else
+                gefBot.textWithLabel("Password").setText(System.getProperty(db + ".password"));
+        }
         if (System.getProperty(db + ".server") != null && !"".equals(System.getProperty(db + ".server")))
             gefBot.textWithLabel("Server").setText(System.getProperty(db + ".server"));
         if (System.getProperty(db + ".port") != null && !"".equals(System.getProperty(db + ".port")))
