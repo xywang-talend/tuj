@@ -3,7 +3,6 @@ package org.talend.mdm;
 import org.talend.mdm.impl.LogonImpl;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -11,48 +10,28 @@ import org.testng.annotations.Parameters;
 
 
 public class Login extends Base{
-	public LogonImpl log = new LogonImpl(this.driver);
+	public LogonImpl log;
 	@BeforeClass
-	@Parameters({"url", "root", "testlink.id", "testlink.porject"})
-	public void initDriver(String url, String root, String testlinkId, String testlinkProject , ITestContext context){
-		this.driver=log.initWebdriver(url, root, testlinkId, testlinkProject, context);
-
+	@Parameters({"url", "root", "language", "country", "testlink.id", "testlink.porject"})
+	public void initDriver(String url, String root, String language, String country, String testlinkId, String testlinkProject , ITestContext context){
+		this.driver=initWebdriver(url, root, language, country, testlinkId, testlinkProject, context);
+		log = new LogonImpl(this.driver);
 	}
 	
 	@BeforeMethod
 	@Parameters( { "user.name", "user.password", "message" })
 	public void login(String userName, String userPassword, String message) {
-    log.loginUserForce(userName, userPassword);
-	}
-
-	/*public void login(String userName, String userPassword) {
-
-		WebElement userE = this.getElementByName(locator.getString("id.login.username"));
-		userE.clear();
-		userE.sendKeys(userName);
-		WebElement passwordE = this.getElementByName(locator.getString("id.login.password"));
-		passwordE.clear();
-		passwordE.sendKeys(userPassword);
-		this.getElementByName("login").click();
-		logger.info("Login MDM");
-	}
-	*/
-	
-	@AfterMethod
-	public void logout() {
-		
-//	log.logout();
+		log.loginUserForce(userName, userPassword);
 	}
 
 	@AfterClass
 	public void killBroswer() {
-		log.forceQuit();
+		super.killBroswer();
 	}
 	
 	@AfterSuite
 	public void generateXmlReport(){
 		Results result = new Results();
-		
 		result.crateXmlFile(result.getResults(failedTestCases), this.getAbsoluteFolderPath("org/talend/mdm/download")+ "/Failed.xml");
 		result.crateXmlFile(result.getResults(successTestCases), this.getAbsoluteFolderPath("org/talend/mdm/download")+ "/Succes.xml");
 	}

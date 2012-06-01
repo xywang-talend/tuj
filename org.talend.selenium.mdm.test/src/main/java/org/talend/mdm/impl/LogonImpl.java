@@ -119,9 +119,4 @@ public class LogonImpl extends Logon{
 	    Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.login.username")), WAIT_TIME_MAX));
 		this.killBroswer();
 	}
-	
-	public void forceQuit(){
-		this.killBroswer();
-	}
-	
 }

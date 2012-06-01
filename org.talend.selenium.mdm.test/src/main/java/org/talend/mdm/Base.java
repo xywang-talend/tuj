@@ -7,14 +7,17 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -468,7 +471,7 @@ public class Base {
 				try {
 					// Comment the video record
 //					testCaseScreenRecorder = testCaseRecorder.getScreenRecorder(getAbsoluteFolderPath("org/talend/mdm/download") + "/" + testCaseInfo);
-					logger.warn(getAbsoluteFolderPath("org/talend/mdm/download") + "/" + testCaseInfo);
+					logger.warn("Case Info - "+ testCaseInfo);
 					
 					if(testCaseScreenRecorder == null) {
 						logger.warn("testCaseScreenRecorder = null");
@@ -508,7 +511,7 @@ public class Base {
 				
 				try {
 					for(Object param : tr.getParameters()) {
-						String par = (String)param;
+						String par = param.toString();
 						parameter = parameter + ",'" + par.replaceAll("/", "_")+"'"; 
 					}
 				} catch (Exception ex) {
@@ -606,6 +609,42 @@ public class Base {
 		return driver.manage().window().getSize().width;
 	}
 	
+	public WebDriver initWebdriver(String url, String root, String language, String country, String testlinkId, String testlinkProject ,ITestContext context){
+		System.setProperty("testlink.id", testlinkId);
+		System.setProperty("testlink.porject", testlinkProject);
+		
+		currentLocale = new Locale(language, country); // set the locale that
+
+		rb = ResourceBundle.getBundle("org.talend.mdm.resources.messages",currentLocale);
+		
+		
+		URL file = Login.class.getClassLoader().getResource("org/talend/mdm/resources");
+		PropertyConfigurator.configure( file.getPath() + "/log4j.properties" );
+		
+		if(null == System.getProperty("webdriver.browser") || "".equals(System.getProperty("webdriver.browser").trim()) || System.getProperty("webdriver.browser").trim().contains("webdriver.browser")) {
+			driver = this.setFirefox();
+		} else{
+			try {
+				driver = this.setWebDriver(Browser.valueOf(System.getProperty("webdriver.browser").trim()));
+			} catch (Exception e) {
+				logger.warn("Doesn't not support the browser of - " + System.getProperty("webdriver.browser").trim() + ", will use firefox!");
+				driver = this.setFirefox();
+			}
+		}
+	    driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
+	    logger.warn("Set Firefox Driver with Profile");
+		
+//		driver = new FirefoxDriver();
+		logger.warn("URL - " +url + root);
+		
+		driver.get(url + root);
+		windowMaximize();
+		
+		onTestListener(context, Login.class.getClassLoader().getResource("org/talend/mdm/download").getPath());
+		return driver;
+	}
+	
+	
 	public WebDriver setWebDriver(Browser browser){
 		switch(browser) {
 			case iexplore: 
@@ -648,5 +687,10 @@ public class Base {
 //	    logger.warn("setEnableNativeEvents-" + firefoxProfile.areNativeEventsEnabled());
 	    
 	    return new FirefoxDriver(firefoxProfile);
+	}
+	
+	public void killBroswer() {
+		driver.quit();
+		logger.warn("WebDriver Quit");
 	}
 }

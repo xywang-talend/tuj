@@ -30,7 +30,7 @@ public class TestCaseRecorder {
 		 .getDefaultScreenDevice()//
 		 .getDefaultConfiguration();
 		
-		TestCaseScreenRecorder screenRecorder = new TestCaseScreenRecorder(gc,
+		screenRecorder = new TestCaseScreenRecorder(gc,
                // the file format:
                new Format(MediaTypeKey, MediaType.FILE, MimeTypeKey, "video/avi"),
                //
