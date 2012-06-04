@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 public class TestDeactiveAndReactiveServer extends Server{
 	@Test
-	@Parameters({ "DeactiveServerlable" })
+	@Parameters({ "deactiveServerlable" })
 	public void testServerDeactiveAndReactive(String deactiveServername) throws InterruptedException {
 //		Thread.sleep(5000);
 		boolean refresh= false;

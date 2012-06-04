@@ -9,10 +9,10 @@ import com.talend.tac.cases.Login;
 
 public class TestDuplicateServer extends Server {
 	@Test
-	@Parameters({ "ServerLablename", "PortInvalidServer", "ServerDescription",
-			"ServerHost", "ServerCommondport", "ServerFiletransfortport",
-			"ServerMonitorport", "ServerTimeout", "ServerUsername",
-			"ServerPassword" })
+@Parameters({ "serverLablename", "portInvalidServer", "serverDescription",
+			"serverHost", "serverCommondport", "serverFiletransfortport",
+			"serverMonitorport", "serverTimeout", "serverUsername",
+			"serverPassword" })
 	public void testDuplicateServer(String lable, String invalidLable,
 			String description, String host, String commondport,
 			String transfortport, String monitorport, String time,

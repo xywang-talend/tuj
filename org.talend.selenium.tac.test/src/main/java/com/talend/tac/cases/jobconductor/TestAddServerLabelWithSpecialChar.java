@@ -6,7 +6,7 @@ import org.testng.Assert;
 
 public class TestAddServerLabelWithSpecialChar extends Server {
 	@Test
-	@Parameters({ "NullLabelServerHost" })
+	@Parameters({ "nullLabelServerHost" })
 	public void testServerLabelSpecial(String host) throws InterruptedException {
 		this.openServerMenu();
 		this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);

@@ -85,26 +85,26 @@ public class TestModifyUser extends Users {
 	
 	//modify user(admin@company.com)'name(lastname,firstname) 
 	@Test
-	@Parameters({"userName","FirstName","LastName","SvnLogin","SvnPassWord"})
-	public void testModityAdminUserFiled(String userName, String FirstName,String LastName
-			,String SvnLogin,String SvnPassWord) throws Exception {
+	@Parameters({"userName","firstName","lastName","svnLogin","svnPassWord"})
+	public void testModityAdminUserFiled(String userName, String firstName,String lastName
+			,String svnLogin,String svnPassWord) throws Exception {
 		this.clickWaitForElementPresent("idMenuUserElement");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(selenium.isTextPresent(userName));
 		selenium.setSpeed(MIN_SPEED);
 		selenium.mouseDown("//div[text()='"+userName+"']");
-		selenium.type("idUserFirstNameInput", FirstName);
+		selenium.type("idUserFirstNameInput", firstName);
 		selenium.fireEvent("idUserFirstNameInput", "blur");
-		selenium.type("idUserLastNameInput", LastName);
+		selenium.type("idUserLastNameInput", lastName);
 		selenium.fireEvent("idUserLastNameInput", "blur");
-		selenium.type("//input[@name='authenticationLogin']", SvnLogin);
+		selenium.type("//input[@name='authenticationLogin']", svnLogin);
 		selenium.fireEvent("//input[@name='authenticationLogin']", "blur");
-		selenium.type("//input[@name='authenticationPassword']", SvnPassWord);
+		selenium.type("//input[@name='authenticationPassword']", svnPassWord);
 		selenium.fireEvent("//input[@name='authenticationPassword']", "blur");
 		
 		selenium.click("idFormSaveButton");
 		selenium.setSpeed(MID_SPEED);
-		Assert.assertEquals(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-lastName']"), LastName);
+		Assert.assertEquals(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-lastName']"), lastName);
 		selenium.setSpeed(MIN_SPEED);
 		
 		selenium.refresh();
@@ -112,24 +112,24 @@ public class TestModifyUser extends Users {
 	    Assert.assertTrue(selenium.isElementPresent("//b[text()='zhang, jack']"));
 	}
     
-	//modify user(aaa@gmail.com)'loginname to 'account@company.com'
+	//modify user(aaa@gmail.com)'loginName to 'account@company.com'
 	@Test
-	@Parameters({"userName","ModifiyUserName","DulicateUser"})
-	public void testModifyUser(String userName,String ModifiyUserName,String DulicateUser) throws Exception {
+	@Parameters({"userName","modifiyUserName","dulicateUser"})
+	public void testModifyUser(String userName,String modifiyUserName,String dulicateUser) throws Exception {
 	    
 		this.clickWaitForElementPresent("idMenuUserElement");
 		Assert.assertTrue(selenium.isTextPresent(userName));
-		if(selenium.isTextPresent(ModifiyUserName)) {
-			System.out.println(DulicateUser +  " is exist user");
+		if(selenium.isTextPresent(modifiyUserName)) {
+			System.out.println(dulicateUser +  " is exist user");
 			
 		} else {
-			selenium.mouseDown(DulicateUser);
-			selenium.type("idUserLoginInput", ModifiyUserName);
+			selenium.mouseDown(dulicateUser);
+			selenium.type("idUserLoginInput", modifiyUserName);
 			selenium.fireEvent("idUserLoginInput", "blur");
 			
 			selenium.click("idFormSaveButton");
 			selenium.setSpeed(MID_SPEED);
-			Assert.assertTrue(selenium.isElementPresent("//div[text()='"+ModifiyUserName+"']"));
+			Assert.assertTrue(selenium.isElementPresent("//div[text()='"+modifiyUserName+"']"));
 			selenium.setSpeed(MIN_SPEED);
 		}
 		
@@ -137,17 +137,17 @@ public class TestModifyUser extends Users {
 	
 	//change a user role, login again, check its role whether normal display in the Lower-Left Corner
 	@Test
-	@Parameters({"LoginNameChangeRoleAndCheckRoleDisplay","FirstName","LastName","PassWord",
-		"SvnLogin","SvnPassWord","userName", "userPassword"})
-    public void testChangeUserRoleAndCheckRoleDisplay(String loginName,String FirstName,String LastName,
-			String loginUserPassWord,String SvnLogin,String SvnPassWord,String adminUser, String adminPassword) {
+	@Parameters({"loginNameChangeRoleAndCheckRoleDisplay","firstName","lastName","passWord",
+		"svnLogin","svnPassWord","userName", "userPassword"})
+    public void testChangeUserRoleAndCheckRoleDisplay(String loginName,String firstName,String lastName,
+			String loginUserPassWord,String svnLogin,String svnPassWord,String adminUser, String adminPassword) {
 		
 		this.waitForElementPresent("//b[text()='admin, admin']", WAIT_TIME);
 		this.waitForElementPresent("//i[text()='Administrator/Viewer/Operation manager/Designer']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//i[text()='Administrator/Viewer/Operation manager/Designer']"));
 		Assert.assertTrue(selenium.isElementPresent("//b[text()='admin, admin']"));
-		//add user(LoginNameChangeRoleAndCheckRoleDisplay@gmail.com)
-		this.addUser(loginName, FirstName, LastName, loginUserPassWord, SvnLogin, SvnPassWord, "Data Quality");
+		//add user(loginNameChangeRoleAndCheckRoleDisplay@gmail.com)
+		this.addUser(loginName, firstName, lastName, loginUserPassWord, svnLogin, svnPassWord, "Data Quality");
 		selenium.click("idRoleButton");
 		Assert.assertTrue(selenium.isTextPresent(rb.getString("user.roles.title")));
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-name' and (text()='"+ rb.getString("menu.role.viewer")+"')]");
@@ -163,18 +163,18 @@ public class TestModifyUser extends Users {
 		//logout tac
 		selenium.click("idLeftMenuTreeLogoutButton");
 		this.waitForElementPresent("idLoginButton", WAIT_TIME);
-		//with LoginNameChangeRoleAndCheckRoleDisplay@gmail.com login TAC
+		//with loginNameChangeRoleAndCheckRoleDisplay@gmail.com login TAC
 		this.loginTac(loginName, loginUserPassWord);
 		//check role whether normal display in the Lower-Left Corner
 		this.waitForElementPresent("//i[text()='"+rb.getString("menu.role.viewer")+"']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//i[text()='"+rb.getString("menu.role.viewer")+"']"));
-		Assert.assertTrue(selenium.isElementPresent("//b[text()='"+LastName+", "+FirstName+"']"));
+		Assert.assertTrue(selenium.isElementPresent("//b[text()='"+lastName+", "+firstName+"']"));
 		//logout tac		
 		selenium.click("idLeftMenuTreeLogoutButton");
 		this.waitForElementPresent("idLoginButton", WAIT_TIME);
 		//with admin user login tac
 		this.loginTac(adminUser, adminPassword);
-		//change user(LoginNameChangeRoleAndCheckRoleDisplay@gmail.com)'role to "Operation manager"
+		//change user(loginNameChangeRoleAndCheckRoleDisplay@gmail.com)'role to "Operation manager"
 		this.clickWaitForElementPresent("idMenuUserElement");
 		this.waitForElementPresent("//div[text()='"+loginName+"']", WAIT_TIME);
 		selenium.mouseDown("//div[text()='"+loginName+"']");
@@ -200,19 +200,19 @@ public class TestModifyUser extends Users {
         //logout
 		selenium.click("idLeftMenuTreeLogoutButton");
 		this.waitForElementPresent("idLoginButton", WAIT_TIME);
-		//with LoginNameChangeRoleAndCheckRoleDisplay@gmail.com login TAC 
+		//with loginNameChangeRoleAndCheckRoleDisplay@gmail.com login TAC 
 		this.loginTac(loginName, loginUserPassWord);
 		//check role whether normal display in the Lower-Left Corner again
 		this.waitForElementPresent("//i[text()='"+rb.getString("menu.role.operationManager")+"']", WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//i[text()='"+rb.getString("menu.role.operationManager")+"']"));
-		Assert.assertTrue(selenium.isElementPresent("//b[text()='"+LastName+", "+FirstName+"']"));
+		Assert.assertTrue(selenium.isElementPresent("//b[text()='"+lastName+", "+firstName+"']"));
 		
 		//logout tac		
 		selenium.click("idLeftMenuTreeLogoutButton");
 		this.waitForElementPresent("idLoginButton", WAIT_TIME);
 		//with admin user login tac
 		this.loginTac(adminUser, adminPassword);
-		//delete the user ( LoginNameChangeRoleAndCheckRoleDisplay@gmail.com)
+		//delete the user ( loginNameChangeRoleAndCheckRoleDisplay@gmail.com)
 		deleteUser(adminUser, loginName);
 		
 	}

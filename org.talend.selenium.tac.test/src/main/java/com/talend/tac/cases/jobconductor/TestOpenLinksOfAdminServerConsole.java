@@ -13,7 +13,7 @@ public class TestOpenLinksOfAdminServerConsole extends Server {
    
 	//open links of admin console
 	@Test
-	@Parameters({"ServerLablename"})
+	@Parameters({"serverLablename"})
 	public void testOpenLinksOfAdminServerConsole(String esbServer) {
 		
 		String karafPageTitleExpected = "Apache Karaf Web Console - Bundles";

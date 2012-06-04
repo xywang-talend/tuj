@@ -64,8 +64,8 @@ public class TestServerFilters extends Server {
 	
 	//server filters in jobconductor, check just appear jobServer, check runtime server are not displayed
 	@Test
-	@Parameters({"ServerForUseAvailable", "ServerForUseUnavailable", "ServerLablename",
-		"RuntimeServerChangeDefaultPortLablename"})
+	@Parameters({"serverForUseAvailable", "serverForUseUnavailable", "serverLablename",
+		"runtimeServerChangeDefaultPortLablename"})
 	public void testServerFiltersInJobconductor(String jobServer1, String jobServer2, String esbServer1,
 			String esbServer2) {
 		
@@ -91,8 +91,8 @@ public class TestServerFilters extends Server {
 	
 	//server filters in esbconductor, check just appear esbServer, jobserver are not displayed
 	@Test
-	@Parameters({"ServerForUseAvailable", "ServerForUseUnavailable", "ServerLablename",
-		"RuntimeServerChangeDefaultPortLablename", "license.ESB"})
+	@Parameters({"serverForUseAvailable", "serverForUseUnavailable", "serverLablename",
+		"runtimeServerChangeDefaultPortLablename", "licenseESB"})
 	public void testServerFiltersInEsbconductor(String jobServer1, String jobServer2, String esbServer1,
 			String esbServer2, String esbLicense) {
 		
@@ -121,7 +121,7 @@ public class TestServerFilters extends Server {
 	
 	//creation the case for change license to MDM
 	@Test
-	@Parameters({"license.MDM"})
+	@Parameters({"licenseMDM"})
 	public void resetLicenseToMDM(String license) {
 		
 		uploadLicense(license);

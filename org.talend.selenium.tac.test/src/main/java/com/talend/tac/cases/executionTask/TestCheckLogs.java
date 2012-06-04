@@ -232,8 +232,8 @@ public class TestCheckLogs extends TaskUtils {
 	}
 	
 //	@Test
-	@Parameters({"modifyTask","label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"modifyTask","label","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testCheckGenerateBigLogsOfUnnormal (String taskLabel, String label, String labelDescription,String commonpro,String trunk,String jobName,
 			String version,String context,String jobServer,String statistic) {
 		
@@ -281,8 +281,8 @@ public class TestCheckLogs extends TaskUtils {
 	
 	//check generated big logs if normal
 	@Test
-	@Parameters({"TaskWithJobOfGenerateBigLogs","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameOfgenerateBigLogs","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled", "firefox.download.path"})
+	@Parameters({"TaskWithJobOfGenerateBigLogs","labelDescription","addCommonProjectName","branchNameTrunk","jobNameOfgenerateBigLogs","version0.1",
+		"context","serverForUseAvailable","statisticEnabled", "firefox.download.path"})
 	public void testDownloadBiglogsAndCheckIt (String label, String labelDescription,String commonpro,String trunk,String jobName,
 			String version,String context,String jobServer,String statistic, String downloadPath) {
 		

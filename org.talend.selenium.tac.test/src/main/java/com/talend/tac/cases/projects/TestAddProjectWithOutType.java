@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 public class TestAddProjectWithOutType extends Projects {
 
 	@Test
-	@Parameters({"SVNProjecturl","SVNuserName", "SVNuserPassword","ProjectWithOutType", "Prolanguage", "ProjectType"})
+	@Parameters({"sVNProjecturl", "sVNuserName", "sVNuserPassword","projectWithOutType", "proLanguage", "projectType"})
 	public void testAddpro(String url,String username,String password,String proname, String language, String type) throws Exception {
 
 		testAddProjectWithOutType(url,username,password,proname, language, type);

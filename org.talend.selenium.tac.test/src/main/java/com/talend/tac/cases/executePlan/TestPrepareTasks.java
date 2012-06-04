@@ -8,7 +8,7 @@ public class TestPrepareTasks extends Plan {
 
 	@Test
 	@Parameters({"task.label",
-			"labelDescription", "AddcommonProjectname", "branchName",
+			"labelDescription", "addCommonProjectName", "branchName",
 			"jobName", "version", "context", "ServerForUseAvailable",
 			"statisticEnabled" })
 	public void testPrepareTask(

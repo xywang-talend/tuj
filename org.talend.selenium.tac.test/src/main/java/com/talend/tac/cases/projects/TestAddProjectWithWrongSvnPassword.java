@@ -10,8 +10,8 @@ import com.talend.tac.cases.Login;
 public class TestAddProjectWithWrongSvnPassword extends Projects {
 
 	@Test
-	@Parameters({ "SVNurl", "SVNuserName", "SVNuserPassword",
-			"AddcommontestProjectname", "Prolanguage", "ProjectType" })
+	@Parameters({ "sVNurl", "sVNuserName", "sVNuserPassword",
+			"addCommontestProjectName", "proLanguage", "projectType" })
 	public void testAddProjectWithWrongSVNPassword(String url, String user, String password,
 			String proname, String language, String type) throws Exception {
 		proname = "test@WrongPassword";

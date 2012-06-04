@@ -7,8 +7,8 @@ import org.testng.annotations.Test;
 public class TestDbConfigReload extends DbConfig {
 
 	@Test(groups = { "initDB" })
-	@Parameters( { "db.url", "db.userName", "db.userPassWd", "db.driver",
-			"license.file.path" })
+	@Parameters( { "dbUrl", "dbUserName", "dbUserPassWd", "dbDriver",
+			"licenseFilePath" })
 	public void testDbConfigReload(String url, String userName, String userPassWd,
 			String driver, String license) {
 

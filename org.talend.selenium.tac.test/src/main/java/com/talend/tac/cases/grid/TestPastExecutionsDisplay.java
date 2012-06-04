@@ -11,8 +11,8 @@ import com.talend.tac.base.Base;
 public class TestPastExecutionsDisplay extends Grid {
 
 	@Test
-	@Parameters({"grid.task.label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"grid.task.label","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testGridPastDisplay(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName) {
 	    this.cleanTask();
 		this.addTask(label, description, projectName, branchName, jobName, version, context, serverName, statisticName);

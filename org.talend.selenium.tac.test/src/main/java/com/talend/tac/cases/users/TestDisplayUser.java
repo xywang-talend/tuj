@@ -69,8 +69,8 @@ public class TestDisplayUser extends Login {
     
     //Modify the user display order  
 	@Test
-	@Parameters({"userName","importUserName","CopyUser"})
-	public void testModifyDisplayUsersOrder(String userName,String importUserName,String CopyUser) throws Exception {
+	@Parameters({"userName","importUserName","copyUser"})
+	public void testModifyDisplayUsersOrder(String userName,String importUserName,String copyUser) throws Exception {
 		
 		this.clickWaitForElementPresent("idMenuUserElement");
 		selenium.setSpeed(MID_SPEED);
@@ -80,7 +80,7 @@ public class TestDisplayUser extends Login {
 		selenium.click("//a[text()='Show in Groups']");
 		selenium.setSpeed(MIN_SPEED);
 		   
-		modifyDisplayUsersOrder("login",importUserName,CopyUser);
+		modifyDisplayUsersOrder("login",importUserName,copyUser);
 		
 		modifyDisplayUsersOrder("role",rb.getString("menu.role.viewer")+"/"+rb.getString("menu.role.designer"),
 				rb.getString("menu.role.administrator"));
@@ -88,9 +88,9 @@ public class TestDisplayUser extends Login {
 	}
     //hidden users/display users
 	@Test
-	@Parameters({"userName","LoginName","LoginNameNotChooseActive","LoginNameChooseMulripleRoles"})
-	public void testHiddenDidplayUsers(String userName,String LoginName,
-			String LoginNameNotChooseActive,String LoginNameChooseMulripleRoles) throws Exception {
+	@Parameters({"userName","loginName","loginNameNotChooseActive","loginNameChooseMulripleRoles"})
+	public void testHiddenDidplayUsers(String userName,String loginName,
+			String loginNameNotChooseActive,String loginNameChooseMulripleRoles) throws Exception {
 		
 		this.clickWaitForElementPresent("idMenuUserElement");
 		selenium.setSpeed(MID_SPEED);
@@ -98,14 +98,14 @@ public class TestDisplayUser extends Login {
 	    selenium.setSpeed(MIN_SPEED);
 	    
 	    hiddenDisplayUsers(userName, "Role: Administrator (1 Member)");
-        hiddenDisplayUsers(LoginName, "Role: Designer (1 Member)");
-	    hiddenDisplayUsers(LoginNameNotChooseActive, "Role: Viewer (2 Members)");
-	    hiddenDisplayUsers(LoginNameChooseMulripleRoles, "Role: Viewer/Designer (1 Member)");
+        hiddenDisplayUsers(loginName, "Role: Designer (1 Member)");
+	    hiddenDisplayUsers(loginNameNotChooseActive, "Role: Viewer (2 Members)");
+	    hiddenDisplayUsers(loginNameChooseMulripleRoles, "Role: Viewer/Designer (1 Member)");
 	    
 	    hiddenDisplayUsers(userName, "Role: Administrator (1 Member)");
-	    hiddenDisplayUsers(LoginName, "Role: Designer (1 Member)");
-	    hiddenDisplayUsers(LoginNameNotChooseActive, "Role: Viewer (2 Members)");
-	    hiddenDisplayUsers(LoginNameChooseMulripleRoles, "Role: Viewer/Designer (1 Member)");
+	    hiddenDisplayUsers(loginName, "Role: Designer (1 Member)");
+	    hiddenDisplayUsers(loginNameNotChooseActive, "Role: Viewer (2 Members)");
+	    hiddenDisplayUsers(loginNameChooseMulripleRoles, "Role: Viewer/Designer (1 Member)");
 	 
 	    
 	}

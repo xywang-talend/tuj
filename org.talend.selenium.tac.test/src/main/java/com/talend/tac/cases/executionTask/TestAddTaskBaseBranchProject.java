@@ -128,8 +128,8 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 	}
 
 	@Test
-	@Parameters({"TaskBaseBranch","AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"TaskBaseBranch","addCommonProjectName","ProjectBranch","jobNameBranchJob","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testAddTaskBaseBranch(String label, String projectName, String branchName,
 			 String jobName, String version, String context, String serverName, String statisticName){
 		this.addTask(label,"",projectName,branchName, jobName, version, context, serverName, statisticName);
@@ -192,8 +192,8 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 	
 	
 	@Test
-	@Parameters({"AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"addCommonProjectName","ProjectBranch","jobNameBranchJob","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testDeactiveTaskWithSimpleTrigger(String projectName, String branchName,
 			 String jobName, String version, String context, String serverName, String statisticName) throws InterruptedException{
 		 String label = "taskwithsimpletrigger";
@@ -276,8 +276,8 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 	
 	
 	@Test
-	@Parameters({"AddcommonProjectname","ProjectBranch","jobNameBranchJob","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"addCommonProjectName","ProjectBranch","jobNameBranchJob","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testDeleteTaskExecutionLogs(String projectName,
 			String branchName, String jobName, String version, String context,
 			String serverName, String statisticName) throws InterruptedException {
@@ -328,8 +328,8 @@ public class TestAddTaskBaseBranchProject  extends TaskUtils {
 	}
 	
 	@Test
-	@Parameters({"AddcommonProjectname","ProjectBranch","jobWithContexts","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled","FolderPath","FileMask","ServerForUseAvailable"})
+	@Parameters({"addCommonProjectName","ProjectBranch","jobWithContexts","version0.1",
+		"context","serverForUseAvailable","statisticEnabled","FolderPath","FileMask","serverForUseAvailable"})
 	public void testRemoveTaskWithComplicatedItems(String projectName,
 			String branchName, String jobName, String version, String context,
 			String serverName, String statisticName,String path,String mark,String server) throws InterruptedException{

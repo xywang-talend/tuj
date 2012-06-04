@@ -8,8 +8,8 @@ public class TestGridRecoveryManagement extends Grid {
 
 	// @Test
 	@Parameters({ "grid.task.label", "labelDescription",
-			"AddcommonProjectname", "branchNameTrunk", "jobNameTJava",
-			"version0.1", "context", "ServerForUseAvailable",
+			"addCommonProjectName", "branchNameTrunk", "jobNameTJava",
+			"version0.1", "context", "serverForUseAvailable",
 			"statisticEnabled" })
 	public void testGridWaitingExecutionHasNoRecovery(String label,
 			String description, String projectName, String branchName,
@@ -40,8 +40,8 @@ public class TestGridRecoveryManagement extends Grid {
 
 	@Test
 	@Parameters({ "grid.task.label", "labelDescription",
-			"AddcommonProjectname", "branchNameTrunk", "jobNameTJava",
-			"version0.1", "context", "ServerForUseAvailable",
+			"addCommonProjectName", "branchNameTrunk", "jobNameTJava",
+			"version0.1", "context", "serverForUseAvailable",
 			"statisticEnabled" })
 	public void testGridShowStatisticView(String label, String description,
 			String projectName, String branchName, String jobName,
@@ -98,8 +98,8 @@ public class TestGridRecoveryManagement extends Grid {
 	
 	@Test
 	@Parameters({ "grid.task.label", "labelDescription",
-			"AddcommonProjectname", "branchNameTrunk", "jobNameTJava",
-			"version0.1", "context", "ServerForUseAvailable",
+			"addCommonProjectName", "branchNameTrunk", "jobNameTJava",
+			"version0.1", "context", "serverForUseAvailable",
 			"statisticEnabled" })
 	public void testGridExecutionInfo(String label, String description,
 			String projectName, String branchName, String jobName,
@@ -139,8 +139,8 @@ public class TestGridRecoveryManagement extends Grid {
 	
 	@Test
 	@Parameters({ "grid.task.label", "labelDescription",
-			"AddcommonProjectname", "branchNameTrunk", "jobNameTJava",
-			"version0.1", "context", "ServerForUseAvailable",
+			"addCommonProjectName", "branchNameTrunk", "jobNameTJava",
+			"version0.1", "context", "serverForUseAvailable",
 			"statisticEnabled" })
 	public void testGridExecutionInfoRunByTrigger(String label, String description,
 			String projectName, String branchName, String jobName,

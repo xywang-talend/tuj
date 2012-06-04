@@ -8,8 +8,8 @@ import org.testng.annotations.Parameters;
 public class TestGridExecutionsAgainGenerating extends Grid {
 
 	@Test
-	@Parameters({"grid.task.label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"grid.task.label","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testTaskRegenerating(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName) {
 		this.cleanTask();
 		this.addTask(label, description, projectName, branchName, jobName, version, context, serverName, statisticName);

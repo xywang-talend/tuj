@@ -10,7 +10,7 @@ import com.talend.tac.base.Base;
 public class TestCheckConnection extends Projects{
 
 	@Test
-	@Parameters({"SVNProjecturl", "WrongSVNProjecturl","SVNuserName", "SVNuserPassword","Prolanguage"})
+	@Parameters({"sVNProjecturl", "wrongSVNProjectUrl", "sVNuserName", "sVNuserPassword","proLanguage"})
 	public void testCheckconnection(String rightUrl,String wrongUrl,String user, String password,String language) throws Exception {
 	
 //		selenium.setSpeed("5000");

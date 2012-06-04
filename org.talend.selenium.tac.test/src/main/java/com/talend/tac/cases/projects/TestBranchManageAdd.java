@@ -8,7 +8,7 @@ import com.talend.tac.cases.Login;
 
 public class TestBranchManageAdd extends Login {
 	@Test
-	@Parameters({ "AddcommonProjectname", "BranchName" })
+	@Parameters({ "addCommonProjectName", "branchName" })
 	public void testAddProjectbranch(String project, String branchname) throws InterruptedException {
 		// first add a branch to a project
 		selenium.setSpeed(MIN_SPEED);
@@ -86,7 +86,7 @@ public class TestBranchManageAdd extends Login {
 	}
 	
 	@Test
-	@Parameters({ "AddcommonProjectname", "BranchName" })
+	@Parameters({ "addCommonProjectName", "branchName" })
 	public void testAddProjectbranchNamedTrunkToTrunk(String project, String branchname) throws InterruptedException {
 		// first add a branch to a project
 		branchname = "trunk";

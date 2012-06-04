@@ -5,10 +5,10 @@ import org.testng.annotations.Test;
 
 public class TestAddServer extends Server {
 	@Test
-	@Parameters({ "ServerLablename","ServerDescription",
-			"ServerHost", "ServerCommondport", "ServerFiletransfortport",
-			"ServerMonitorport", "ServerTimeout", "ServerUsername",
-			"ServerPassword" })
+	@Parameters({ "serverLablename","serverDescription",
+			"serverHost", "serverCommondport", "serverFiletransfortport",
+			"serverMonitorport", "serverTimeout", "serverUsername",
+			"serverPassword" })
 	public void testAddServerEvaluationsLocalHost(String lable,
 			String description, String host, String commondport,
 			String transfortport, String monitorport, String time,

@@ -8,7 +8,7 @@ public class TestRunPlan extends Plan {
 
 	@Test
 	@Parameters({ "plan.unexecuted.label", "plan.unexecuted.tasklabel",
-			"labelDescription", "AddcommonProjectname", "branchNameTrunk",
+			"labelDescription", "addCommonProjectName", "branchNameTrunk",
 			"jobNameTJava", "version0.1", "context", "ServerForUseAvailable",
 			"statisticEnabled" })
 	public void testRunPlanDirectlyByClickRunButton(String planlabel,
@@ -31,7 +31,7 @@ public class TestRunPlan extends Plan {
 
 	@Test
 	@Parameters({ "plan.unexecuted.label", "plan.unexecuted.tasklabel",
-			"labelDescription", "AddcommonProjectname", "branchNameTrunk",
+			"labelDescription", "addCommonProjectName", "branchNameTrunk",
 			"jobNameTJava", "version0.1", "context", "ServerForUseAvailable",
 			"statisticEnabled" })
 	public void testRunPlanByTrigger(String planlabel, String tasklabel,

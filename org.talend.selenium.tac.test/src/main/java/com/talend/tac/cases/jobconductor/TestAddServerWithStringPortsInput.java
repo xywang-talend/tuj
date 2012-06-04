@@ -8,7 +8,7 @@ import org.testng.Assert;
 
 public class TestAddServerWithStringPortsInput extends Server {
 	@Test
-	@Parameters({ "LabelServerStringPorts", "NullLabelServerHost" })
+	@Parameters({ "labelServerStringPorts", "nullLabelServerHost" })
 	public void testServerStringports(String label, String host) {
 		this.openServerMenu();
 		this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);

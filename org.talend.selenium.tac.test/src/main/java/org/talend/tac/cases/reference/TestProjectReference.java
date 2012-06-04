@@ -18,7 +18,7 @@ public class TestProjectReference extends WebdriverLogin {
 	}
 	
 	@Test
-	@Parameters({"AddreferenceProjectname", "comm.pro.trunk", "ref.pro.info"})
+	@Parameters({"addReferenceProjectName", "comm.pro.trunk", "ref.pro.info"})
 	public void testReference(String source, String target, String refInfo) {
 		
 		refernceImpl.referenceImpl(source, target, refInfo);
@@ -47,7 +47,7 @@ public class TestProjectReference extends WebdriverLogin {
 	}
 	
 	@Test
-	@Parameters({"retrieve.ref.pro1", "AddreferenceProjectname", "spacepro.info"
+	@Parameters({"retrieve.ref.pro1", "addReferenceProjectName", "spacepro.info"
 		, "ref.pro.info", "trunk", "retrieve.ref.pro1.info", "type.DI"})
 	public void testRetrievePeoject(String projectLabel, String refpro, 
 			String spacePro, String refProInfo, String trunk,
@@ -70,7 +70,7 @@ public class TestProjectReference extends WebdriverLogin {
 	}
 	
 	@Test
-	@Parameters({"AddreferenceProjectname", "branch", "spacepro.info", "refbranch.pro.info"})
+	@Parameters({"addReferenceProjectName", "branch", "spacepro.info", "refbranch.pro.info"})
 	public void testRefBranchToTrunk(String sourePro, String branchName, 
 			String targetPro, String refBranchProInfo) {
 		
@@ -80,7 +80,7 @@ public class TestProjectReference extends WebdriverLogin {
 	}	
 	
 	@Test
-	@Parameters({"AddreferenceProjectname", "branch", "commbranch.pro.info", "refbranch.pro.info"})
+	@Parameters({"addReferenceProjectName", "branch", "commbranch.pro.info", "refbranch.pro.info"})
 	public void testRefBranchToBranch(String sourePro, String branchName, 
 			String targetPro, String refBranchProInfo) {
 		
@@ -90,7 +90,7 @@ public class TestProjectReference extends WebdriverLogin {
 	}	
 
 	@Test
-	@Parameters({"AddreferenceProjectname", "trunk", "commbranch.pro.info", "ref.pro.info"})
+	@Parameters({"addReferenceProjectName", "trunk", "commbranch.pro.info", "ref.pro.info"})
 	public void testRefTrunkToBranch(String sourePro, String branchName, 
 			String targetPro, String refBranchProInfo) {
 		

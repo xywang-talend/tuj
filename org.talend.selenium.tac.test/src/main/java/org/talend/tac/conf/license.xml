@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="false">
 
-	<parameter name="db.userName" value="tisadmin" />
-	<parameter name="db.userPassWd" value="tisadmin" />
-	<parameter name="db.driver" value="org.h2.Driver" />
+	<parameter name="dbUserName" value="tisadmin" />
+	<parameter name="dbUserPassWd" value="tisadmin" />
+	<parameter name="dbDriver" value="org.h2.Driver" />
     
 	<test name="TestDbConfig">
 		<classes>
@@ -13,16 +13,16 @@
 		</classes>
 	</test>
 	<test name="TestDbConfigReload" preserve-order="true">
-	    <parameter name="db.url" value="wrongURL" />
-		<parameter name="db.userName" value="wrong userName" />
-		<parameter name="db.driver" value="wrong driver" />
+	    <parameter name="dbUrl" value="wrongURL" />
+		<parameter name="dbUserName" value="wrong userName" />
+		<parameter name="dbDriver" value="wrong driver" />
 		<classes>		
 			<class name="com.talend.tac.cases.dbConfig.TestDbConfigReload" />
 		</classes>
 	</test>
 	
 	<test name="TestWrongDbConfig_diver">
-	    <parameter name="db.driver" value="wrong driver" />
+	    <parameter name="dbDriver" value="wrong driver" />
 		<classes>
 			<class name="com.talend.tac.cases.dbConfig.TestWrongDbConfig">
 				<methods>
@@ -32,8 +32,9 @@
 		</classes>
 	</test>
 	<test name="TestWrongDbConfig_nameAndPassword">
-	    <parameter name="db.userName" value="wrong userName" />
-		<parameter name="db.userPassWd" value="wrong Userpasswd" />
+	    <parameter name="dbUserName" value="wrong userName" />
+		<parameter name="dbUserPassWd" value="wrong Userpasswd" />
+		
 		<classes>
 			<class name="com.talend.tac.cases.dbConfig.TestWrongDbConfig">				
 				<methods>

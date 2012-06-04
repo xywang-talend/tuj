@@ -1,5 +1,6 @@
 package org.talend.tac.base;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.apache.log4j.PropertyConfigurator;
@@ -7,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -41,6 +44,16 @@ public class WebdriverLogin extends WebDriverBase{
 	    
 	    
 	    driver = new FirefoxDriver(firefoxProfile);
+	    
+//	    DesiredCapabilities capability = DesiredCapabilities.firefox();
+//	    capability.setCapability(FirefoxDriver.PROFILE, firefoxProfile);
+//	    try {
+//	     driver = new RemoteWebDriver(new URL("http://192.168.30.184:4444/wd/hub"), capability);
+//	    } catch (MalformedURLException e) {
+//	     // TODO Auto-generated catch block
+//	     e.printStackTrace();
+//	    }
+	    
 	    logger.info("Set Firefox Driver with Profile");
 		
 //		driver = new FirefoxDriver();

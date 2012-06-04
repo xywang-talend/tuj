@@ -7,10 +7,10 @@ import org.testng.annotations.Test;
 public class TestAddServerWithTalendRuntime extends Server {
 
 	@Test
-	@Parameters({ "ServerLablename","ServerDescription",
-			"ServerHost", "ServerCommondport", "ServerFiletransfortport",
-			"ServerMonitorport", "ServerTimeout", "ServerUsername",
-			"ServerPassword" })
+	@Parameters({ "serverLablename","serverDescription",
+			"serverHost", "serverCommondport", "serverFiletransfortport",
+			"serverMonitorport", "serverTimeout", "serverUsername",
+			"serverPassword" })
 	public void testAddServerWithTalendRuntime(String lable,
 			String description, String host, String commondport,
 			String transfortport, String monitorport, String time,
@@ -30,10 +30,10 @@ public class TestAddServerWithTalendRuntime extends Server {
 	}
 
 	@Test
-	@Parameters({ "ServerLablename","ServerDescription",
-			"ServerHost", "ServerCommondport", "ServerFiletransfortport",
-			"ServerMonitorport", "ServerTimeout", "ServerUsername",
-			"ServerPassword" })
+	@Parameters({ "serverLablename","serverDescription",
+			"serverHost", "serverCommondport", "serverFiletransfortport",
+			"serverMonitorport", "serverTimeout", "serverUsername",
+			"serverPassword" })
 	public void testAddTalendRuntimeServerWithWrongFormatPort(String lable,
 			String description, String host, String commondport,
 			String transfortport, String monitorport, String time,
@@ -53,10 +53,10 @@ public class TestAddServerWithTalendRuntime extends Server {
 	}	
 
 	@Test
-	@Parameters({ "RuntimeServerChangeDefaultPortLablename","ServerDescription",
-			"ServerHost", "ServerCommondport", "ServerFiletransfortport",
-			"ServerMonitorport", "ServerTimeout", "ServerUsername",
-			"ServerPassword" })
+	@Parameters({ "runtimeServerChangeDefaultPortLablename","serverDescription",
+			"serverHost", "serverCommondport", "serverFiletransfortport",
+			"serverMonitorport", "serverTimeout", "serverUsername",
+			"serverPassword" })
 	public void testAddTalendRuntimeServerAndChangeDefaultPort(String lable,
 			String description, String host, String commondport,
 			String transfortport, String monitorport, String time,
@@ -78,10 +78,10 @@ public class TestAddServerWithTalendRuntime extends Server {
     /*/add runtime server,  set Mgmt-Server port/Mgmt-Reg port/Mgmt-Server port: are null
 	 check prompt info*/
 	@Test
-	@Parameters({ "RuntimeServerChangeDefaultPortLablename","ServerDescription",
-			"ServerHost", "ServerCommondport", "ServerFiletransfortport",
-			"ServerMonitorport", "ServerTimeout", "ServerUsername",
-			"ServerPassword" })
+	@Parameters({ "runtimeServerChangeDefaultPortLablename","serverDescription",
+			"serverHost", "serverCommondport", "serverFiletransfortport",
+			"serverMonitorport", "serverTimeout", "serverUsername",
+			"serverPassword" })
 	public void testAddTalendRuntimeServerAndSetRuntimePortsAreNull(String lable,
 			String description, String host, String commondport,
 			String transfortport, String monitorport, String time,
@@ -102,10 +102,10 @@ public class TestAddServerWithTalendRuntime extends Server {
 	
 	/*add runtime server of uncheck 'active'*/
 	@Test
-	@Parameters({ "ServerLablenameOfUncheckActive","ServerDescription",
-			"ServerHost", "ServerCommondport", "ServerFiletransfortport",
-			"ServerMonitorport", "ServerTimeout", "ServerUsername",
-			"ServerPassword" })
+	@Parameters({ "serverLablenameOfUncheckActive","serverDescription",
+			"serverHost", "serverCommondport", "serverFiletransfortport",
+			"serverMonitorport", "serverTimeout", "serverUsername",
+			"serverPassword" })
 	public void testAddRuntimeServerOfUncheckActive(String lable,
 			String description, String host, String commondport,
 			String transfortport, String monitorport, String time,

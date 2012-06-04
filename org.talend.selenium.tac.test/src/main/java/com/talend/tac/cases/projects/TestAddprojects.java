@@ -7,8 +7,8 @@ import org.testng.annotations.Test;
 public class TestAddprojects extends Projects {
 
 	@Test
-	@Parameters({ "SVNurl", "ProjectType", "SVNuserName", "SVNuserPassword",
-			"AddcommonProjectname", "AddreferenceProjectname", "Prolanguage" })
+	@Parameters({ "sVNurl","projectType", "sVNuserName", "sVNuserPassword",
+		"addCommonProjectName", "addReferenceProjectName","proLanguage" })
 	public void testAddProjectCommonAndReference(String url, String type, String user,
 			String password, String proname, String name2, String language)
 			throws Exception {
@@ -18,8 +18,8 @@ public class TestAddprojects extends Projects {
 	}
 	
 	@Test
-	@Parameters({ "SVNurl", "ProjectType", "SVNuserName", "SVNuserPassword",
-			"ProjectWithSpaceChar",  "Prolanguage" })
+	@Parameters({ "sVNurl","projectType", "sVNuserName", "sVNuserPassword",
+			"projectWithSpaceChar",  "proLanguage" })
 	public void testAddProjectLabelWithSpace(String url, String type, String user,
 			String password, String proname,String language)
 			throws Exception {
@@ -29,8 +29,8 @@ public class TestAddprojects extends Projects {
 	
 	//add a project and check it whether normal appear in project authorization page
 	@Test
-	@Parameters({ "SVNurl", "ProjectType", "SVNuserName", "SVNuserPassword",
-		"AddProjectAndCheckItAppearInProjectAuthorization",  "Prolanguage" })
+	@Parameters({ "sVNurl","projectType", "sVNuserName", "sVNuserPassword",
+		"addProjectAndCheckItAppearInProjectAuthorization",  "proLanguage" })
 	public void testAddNewCommonProjectAndCheckItAppearInProjectAuthorizationAndReferences(String url, String type, String user,
 			String password, String proname,String language) {
 		
@@ -55,8 +55,8 @@ public class TestAddprojects extends Projects {
 	
 	
 	@Test
-	@Parameters({ "SVNurl", "ProjectType", "SVNuserName", "SVNuserPassword",
-		"AddProjectAndCheckItAppearInProjectAuthorization",  "Prolanguage" })
+	@Parameters({ "sVNurl","projectType", "sVNuserName", "sVNuserPassword",
+		"addProjectAndCheckItAppearInProjectAuthorization",  "proLanguage" })
 	public void testAddNewReferenceProjectAndCheckItAppearInProjectAuthorizationAndReferences(String url, String type, String user,
 			String password, String proname,String language) {
 		

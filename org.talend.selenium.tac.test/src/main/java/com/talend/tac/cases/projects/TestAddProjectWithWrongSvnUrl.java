@@ -10,7 +10,7 @@ import com.talend.tac.base.Base;
 public class TestAddProjectWithWrongSvnUrl extends Projects {
 
 	@Test
-	@Parameters({"AddcommontestProjectWrongSvn", "Prolanguage", "ProjectType"})
+	@Parameters({"addcommontestProjectWrongSvn", "proLanguage", "projectType"})
 	public void testAddProjectWithWrongSVNUrl(String proname, String language, String type) throws Exception {
 
 		testAddexistproject(proname, language, type);

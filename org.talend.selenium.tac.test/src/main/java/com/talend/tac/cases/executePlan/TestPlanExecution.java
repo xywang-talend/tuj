@@ -7,7 +7,7 @@ public class TestPlanExecution extends Plan {
 
 	
 	@Test
-	@Parameters({"plan.unexecuted.label","plan.unexecuted.tasklabel","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
+	@Parameters({"plan.unexecuted.label","plan.unexecuted.tasklabel","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testGeneratePlan(String planlabel,String tasklabel, String labelDescription,String commonpro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic) throws InterruptedException {

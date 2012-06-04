@@ -51,7 +51,7 @@ public class TestAudit extends Audit {
 	}
 	
 	@Test
-	@Parameters({"AddcommonProjectname", "trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
+	@Parameters({"addCommonProjectName", "trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
 		"jobNameTJava"})
 	public void testAuditTrunk(String projectName, String tRunJobCheckPoint, String tjavaCheckpoint,
 			String tjava){
@@ -73,7 +73,7 @@ public class TestAudit extends Audit {
 	}
 	
 	@Test
-	@Parameters({"AddcommonProjectname"})
+	@Parameters({"addCommonProjectName"})
 	public void testAuditTrunkStop(String projectName){
 		auditProcess(projectName, "trunk");
 		Assert.assertTrue(this.waitForTextPresent("Running...", WAIT_TIME));
@@ -85,7 +85,7 @@ public class TestAudit extends Audit {
 	
 	
 	@Test
-	@Parameters({"AddcommonProjectname","trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
+	@Parameters({"addCommonProjectName","trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
 		"jobNameTJava"})
 	public void testAuditTrunkStopRelaunchAudit(String projectName, String tRunJobCheckPoint, String tjavaCheckpoint,
 			String tjava){
@@ -114,7 +114,7 @@ public class TestAudit extends Audit {
 	}
 	
 	@Test
-	@Parameters({"AddcommonProjectname", "trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
+	@Parameters({"addCommonProjectName", "trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
 		"jobNameTJava", "jobNameBranchJob"})
 	public void testAuditBranch(String projectName, String tRunJobCheckPoint, String tjavaCheckpoint,
 			String tjava, String branchJob){
@@ -137,7 +137,7 @@ public class TestAudit extends Audit {
 	}
 	
 	@Test
-	@Parameters({"AddcommonProjectname","remotehostAddress","remotehostAddressWithWrong"})
+	@Parameters({"addCommonProjectName","remotehostAddress","remotehostAddressWithWrong"})
 	public void testAuditWithOutStartCommondline(String projectName,String normalCommondline,String wrongCommondline){
 		System.err.println(wrongCommondline);	
 		this.changeCommandLineConfig("primary", "commandline.conf.primary.host.editButton", "commandline.conf.primary.host.input", "commandline.conf.primary.host.value", wrongCommondline, other.getString("commandLine.conf.primary.wrong.host.statusIcon"));	

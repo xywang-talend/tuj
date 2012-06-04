@@ -6,7 +6,7 @@ import org.testng.Assert;
 
 public class TestDefaultJobServerPorts extends Server {
 	@Test
-	@Parameters({ "ServerCommondport","ServerFiletransfortport","ServerMonitorport" })
+	@Parameters({ "serverCommondport","serverFiletransfortport","serverMonitorport" })
 	public void testServerDefaultPorts(String commondport,String filetransport,String monitorport){
 		this.waitForElementPresent("!!!menu.executionServers.element!!!",
 				WAIT_TIME);

@@ -8,8 +8,8 @@ public class TestServerDisplyInVirtualServersPage extends Server {
    
 	//check server type 'talend runtime' display in virture server page
 	@Test
-	@Parameters({"ServerForUseAvailable", "ServerForUseUnavailable", "ServerLablename",
-		"RuntimeServerChangeDefaultPortLablename", "ServerLablenameOfUncheckActive"})
+	@Parameters({"serverForUseAvailable", "serverForUseUnavailable", "serverLablename",
+		"runtimeServerChangeDefaultPortLablename", "serverLablenameOfUncheckActive"})
 	public void testServerDisplyInVirtualServersPage(String jobServer1, String jobServer2, String esbServer1,
 			String esbServer2, String esbServer3) {
 		

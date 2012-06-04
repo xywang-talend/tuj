@@ -1,4 +1,4 @@
-package com.talend.tac.cases.executionTask;
+	package com.talend.tac.cases.executionTask;
 
 import java.util.Hashtable;
 
@@ -14,7 +14,7 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	//test add a cronTrigger use wrong form value
 	@Test
 	@Parameters({"TaskBaseBranch","addFileTriggerOfExistWrongForm","addFileTriggerOfExistDescriptionWrongForm"
-		,"ServerForUseAvailable"})
+		,"serverForUseAvailable"})
     public void testAddTriggerAddFileTriggerWrongFormValue(String taskLabel,String triggerLabel,String triggerDescription,
     		String serverName) {
     	
@@ -40,7 +40,7 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	//test add a file trigger
 	@Test
 	@Parameters({"TaskBaseBranch","addFileTriggerOfExist","addFileTriggerOfExistDescription","FolderPath",
-		"FileMaskOfTxt","ServerForUseAvailable"})
+		"FileMaskOfTxt","serverForUseAvailable"})
     public void testAddTriggerAddFileTriggerAddExist(String taskLabel,String triggerLabel,String triggerDescription,
     		String folderPath,String fileMask,String serverName) {
     	
@@ -67,7 +67,7 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	//test add a	file trigger of label is exist
 	@Test
 	@Parameters({"TaskBaseBranch","addFileTriggerOfExist","addFileTriggerOfExistDescription","FolderPath",
-		"FileMaskOfTxt","ServerForUseAvailable"})
+		"FileMaskOfTxt","serverForUseAvailable"})
     public void testAddTriggerAddFileTriggerAddExistOfLabelExist(String taskLabel,String triggerLabel,String triggerDescription,
     		String folderPath,String fileMask,String serverName) {    	
 		
@@ -82,8 +82,8 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	
 	//FileTriiger with Exist option is no longer executed after deletion of the cheked file
 	@Test
-	@Parameters({"taskForTestFileTrigger","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled", "addFileTriggerOfCheckExistOption",
+	@Parameters({"taskForTestFileTrigger","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled", "addFileTriggerOfCheckExistOption",
 		"addFileTriggerOfExistDescription","FolderPath",
 		"FileMaskOfXml"})
 	public void testFileTriigerWithExistOptionIsNoLongerExecutedAfterDeletionOfTheChekedFile(String label,
@@ -148,8 +148,8 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	/**Check that the "Created" option does work, Check
 	that task is executed only one time after the creation of the file.**/
 	@Test
-	@Parameters({"taskForTestFileTriggerOfCreationOption","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled", "FileTrigger1",
+	@Parameters({"taskForTestFileTriggerOfCreationOption","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled", "FileTrigger1",
 		"addFileTriggerOfExistDescription","FolderPath",
 		"FileMaskOfCvs"})
 	public void testCreateFileTriggerCheckCreatedOption(String label,
@@ -166,8 +166,8 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	/**Check that the "Modified" option does work, Check
 	that task is executed only one time after the modification of the file.**/
 	@Test
-	@Parameters({"taskForTestFileTriggerOfModifiedOption","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled", "FileTrigger3",
+	@Parameters({"taskForTestFileTriggerOfModifiedOption","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled", "FileTrigger3",
 		"addFileTriggerOfExistDescription","FolderPath",
 		"FileMaskOfLog"})
 	public void testCreateFileTriggerCheckModifiedOption(String label,
@@ -184,8 +184,8 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	/**input the path like "c:\task" and Check that the "Created" option does work, Check
 	that task is executed only one time after the creation of the file.**/
 	@Test
-	@Parameters({"taskForTestFileTriggerOfCreationOptionFilePathNotWithLastBackslash","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled", "FileTrigger2",
+	@Parameters({"taskForTestFileTriggerOfCreationOptionFilePathNotWithLastBackslash","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled", "FileTrigger2",
 		"addFileTriggerOfExistDescription","FolderPathNotWithLastBackslash",
 		"FileMaskOfCvs"})
 	public void testCreateFileTriggerCheckCreatedOptionFilePathNotWithLastBackSlash(String label,
@@ -202,8 +202,8 @@ public class TestAddTriggerAddFileTrigger extends TaskUtils {
 	/**input the path like "c:\task" and Check that the "Modified" option does work, Check
 	that task is executed only one time after the modification of the file.**/
 	@Test
-	@Parameters({"taskForTestFileTriggerOfModifiedOptionFilePathNotWithLastBackslash","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled", "FileTrigger4",
+	@Parameters({"taskForTestFileTriggerOfModifiedOptionFilePathNotWithLastBackslash","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled", "FileTrigger4",
 		"addFileTriggerOfExistDescription","FolderPathNotWithLastBackslash",
 		"FileMaskOfLog"})
 	public void testCreateFileTriggerCheckModifiedOptionFilePathNotWithLastBackSlash(String label,

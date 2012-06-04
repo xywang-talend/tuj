@@ -7,7 +7,7 @@ import org.testng.Assert;
 
 public class TestAddServerWithNullLabel extends Server {
 	@Test
-	@Parameters({ "NullLabelServerHost" })
+	@Parameters({ "nullLabelServerHost" })
 	public void testServerNullLabel(String host) {
 		this.openServerMenu();
 		this.waitForElementPresent("idSubModuleAddButton", WAIT_TIME);

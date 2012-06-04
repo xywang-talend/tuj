@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class TestDBConfigAudit extends Audit {
 	@Test
-	@Parameters({"audit.db.url","audit.db.user","audit.db.pass","audit.db.driver"})
+	@Parameters({"auditDbUrl","auditDbUser","auditDbPass","auditDbDriver"})
 	public void testChangeAuditDBWithRightConfig(String url,String userName,String userPassWd,String driver){
 		this.openAudit();
 		this.configAuditDB(url, userName, driver, userPassWd);

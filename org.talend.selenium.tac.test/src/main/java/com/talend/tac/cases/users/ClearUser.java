@@ -8,11 +8,11 @@ import com.talend.tac.cases.Login;
 public class ClearUser extends Users {
 	@Test
 //	(dependsOnGroups={"ModifyUser"})
-	@Parameters({"userName","_FirstName","_LastName", "LoginNameChooseTypeDataQuality"
-		, "ModifiyUserName", "UncheckActiveUser", "importUserName"})
+	@Parameters({"userName","modifiyFirstName","modifiyLastName", "loginNameChooseTypeDataQuality"
+		, "modifiyUserName", "uncheckActiveUser", "importUserName"})
 	public void clearUsers(String userName,String FirstName,String LastName, 
 			String loginNameChooseTypeDataQuality, String modifiyUserName,
-			String UncheckActiveUser, String importUserName) throws Exception {
+			String uncheckActiveUser, String importUserName) throws Exception {
    
 		 this.clickWaitForElementPresent("idMenuUserElement");
 		 
@@ -29,7 +29,7 @@ public class ClearUser extends Users {
 	     
 	     this.deleteUser(userName, loginNameChooseTypeDataQuality);
 	     this.deleteUser(userName, modifiyUserName);
-	     this.deleteUser(userName, UncheckActiveUser);
+	     this.deleteUser(userName, uncheckActiveUser);
 	     this.deleteUser(userName, importUserName);
 	
 	}

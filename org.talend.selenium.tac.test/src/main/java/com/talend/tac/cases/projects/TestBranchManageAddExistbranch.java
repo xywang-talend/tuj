@@ -9,7 +9,7 @@ import com.talend.tac.cases.Login;
 
 public class TestBranchManageAddExistbranch extends Login {
 	@Test
-	@Parameters({ "AddcommonProjectname", "BranchName" })
+	@Parameters({ "addCommonProjectName", "branchName" })
 	public void testAddProjectbranchexist(String project, String branchname) throws InterruptedException {
 		// first add a branch to a project
 //		Thread.sleep(5000);
@@ -65,7 +65,7 @@ public class TestBranchManageAddExistbranch extends Login {
 	}
 	
 	@Test
-	@Parameters({ "AddcommonProjectname", "BranchName" })
+	@Parameters({ "addCommonProjectName", "branchName" })
 	public void testAddProjectbranchNamedTrunkToBranch(String project, String branchname) throws InterruptedException {
 		// first add a branch to a project
 		

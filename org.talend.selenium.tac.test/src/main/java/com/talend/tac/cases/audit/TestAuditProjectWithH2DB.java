@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 public class TestAuditProjectWithH2DB extends Audit {
     
 	@Test
-	@Parameters({"db.url", "H2UserName", "H2PassWord", "H2Driver", "AddcommonProjectname","trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
+	@Parameters({"dbUrl", "H2UserName", "H2PassWord", "H2Driver", "addCommonProjectName","trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
 		"jobNameTJava"})
 	public void testAuditProjectWithH2DB(String url, String userName, String userPassWd, String driver,
 			   String projectName, String trunjobWithCheckpoint, String tjavaWithMulripleCheckpoint, String tjava) {

@@ -8,7 +8,7 @@ public class TestPlanPauseAndResume extends Plan {
     
 	//test pause plan button and resume plan button
 	@Test
-	@Parameters({"addTaskForplanPauseAndResume","labelDescription","AddcommonProjectname","branchNameTrunk",
+	@Parameters({"addTaskForplanPauseAndResume","labelDescription","addCommonProjectName","branchNameTrunk",
 		"jobNameTJava","version0.1","context","statisticEnabled","ServerForUseAvailable",
 		"planPauseAndResumeLabel","plan.simpletrigger.label.planuseAndResume"})
 	public void testPlanPauseAndResume(String label,String taskDescription,String projectName,

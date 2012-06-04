@@ -8,7 +8,7 @@ import com.talend.tac.cases.Login;
 
 public class TestDeleteServerUsedBytask extends Login{
 	@Test
-	@Parameters({ "ServerForUseAvailable"})//add parameter of "server used by task to the configure file"
+	@Parameters({ "serverForUseAvailable"})//add parameter of "server used by task to the configure file"
 	public void deleteServerUnused(String Servername) {
 		selenium.setSpeed(MID_SPEED);
 		if (selenium.isVisible("!!!menu.executionServers.element!!!")) {

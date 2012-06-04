@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 public class TestAuditProjectContainSpace extends Audit {
    
    @Test
-   @Parameters({"mysqlURL", "mysqlUserName", "mysqlPassWord", "mysqlDriver", "ProjectWithSpaceChar","jobNameTJava"})
+   @Parameters({"mysqlURL", "mysqlUserName", "mysqlPassWord", "mysqlDriver", "projectWithSpaceChar","jobNameTJava"})
    public void testAuditProjectContainsSpace(String url, String userName, String userPassWd, String driver,
 		   String projectName, String tjava) {
 	   

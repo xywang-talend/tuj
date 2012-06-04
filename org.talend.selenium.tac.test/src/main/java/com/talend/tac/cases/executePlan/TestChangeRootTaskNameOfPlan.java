@@ -1,4 +1,4 @@
-package com.talend.tac.cases.executePlan;
+	package com.talend.tac.cases.executePlan;
 
 import java.awt.event.KeyEvent;
 
@@ -11,7 +11,7 @@ public class TestChangeRootTaskNameOfPlan extends Plan {
 	
 	@Test
 	
-	@Parameters({"plan.unexecuted.label","plan.unexecuted.tasklabel","plan.task","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
+	@Parameters({"plan.unexecuted.label","plan.unexecuted.tasklabel","plan.task","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testChangePlanRootTaskName(String planlabel,String taskLabel,String task,String des,String pro,String branch,String job,String version,String context,String server,String statistic) {
 		taskLabel = "testPlanChangeTask";

@@ -1504,7 +1504,7 @@ public class TestLicenseAccountsCount extends Login {
 	}
 
 	// @Test
-	@Parameters({ "license.file.path" })
+	@Parameters({ "licenseFilePath" })
 	public void testAllLicenses(String licensePath) throws InterruptedException {
 		System.out.println(licensePath);
 		// selenium.setSpeed(MID_SPEED);

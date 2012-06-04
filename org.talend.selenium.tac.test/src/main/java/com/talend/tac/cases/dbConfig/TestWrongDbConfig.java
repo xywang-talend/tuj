@@ -8,7 +8,7 @@ public class TestWrongDbConfig extends DbConfig {
 
 	
 	@Test
-	@Parameters( { "db.url", "db.userName", "db.userPassWd", "db.driver" })
+	@Parameters( { "dbUrl", "dbUserName", "dbUserPassWd", "dbDriver" })
 	public void testWrongDriverDbConfig(String url, String userName,
 			String userPassWd, String driver) {
 		this.DbConfigProcess(url, userName, userPassWd, driver);
@@ -19,7 +19,7 @@ public class TestWrongDbConfig extends DbConfig {
 	}
 
 	@Test
-	@Parameters( { "db.url", "db.userName", "db.userPassWd", "db.driver" })
+	@Parameters( { "dbUrl", "dbUserName", "dbUserPassWd", "dbDriver" })
 	public void testWrongAccountDbConfig(String url, String userName,
 			String userPassWd, String driver) {
 		this.DbConfigProcess(url, userName, userPassWd, driver);

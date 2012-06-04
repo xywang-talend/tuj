@@ -8,7 +8,7 @@ public class TestDeleteUser extends Users {
     
 	
 	@Test
-	@Parameters({"userName","LoginNameChooseAdministratorRole"})
+	@Parameters({"userName","loginNameChooseAdministratorRole"})
 	public void testCancleDeleteUser(String userName,String deleteUser) throws Exception {
 		this.clickWaitForElementPresent("idMenuUserElement");
 		selenium.setSpeed(MID_SPEED);
@@ -25,7 +25,7 @@ public class TestDeleteUser extends Users {
 	}
 	
 	@Test
-	@Parameters({"userName","LoginNameChooseAdministratorRole"})
+	@Parameters({"userName","loginNameChooseAdministratorRole"})
 	public void testDeleteUser(String userName,String deleteUser) throws Exception {
 		deleteUser(userName, deleteUser);
 		selenium.setSpeed(MID_SPEED);

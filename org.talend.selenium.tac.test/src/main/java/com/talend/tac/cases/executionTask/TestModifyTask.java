@@ -17,8 +17,8 @@ public class TestModifyTask extends Login {
 	}
 	
 	@Test
-	@Parameters({"label","modifyTask","AddreferenceProjectname","branchNameTrunk","jobNameReferencetjava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"label","modifyTask","addReferenceProjectName","branchNameTrunk","jobNameReferencetjava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testModifyTask(String label,String modifyLabel,String projectName,String branchName,String jobName,
 			String version,String context,String jobServer,String statistic) {
 		

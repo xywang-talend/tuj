@@ -9,7 +9,7 @@ public class TestChangeServerPort extends Server {
     
 	//change port of jobserver and check  the process without error	appear
 	@Test
-	@Parameters({"ServerUnused"})
+	@Parameters({"serverUnused"})
 	public void testChangeServerPort(String servername) {
 		
 		this.openServerMenu();

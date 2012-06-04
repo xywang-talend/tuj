@@ -8,7 +8,7 @@ import com.talend.tac.cases.Login;
 public class TestAddLdapUser extends Login {
 
 	@Test
-	@Parameters( { "ldap.user.dn","ldap.user.userName" })
+	@Parameters( { "ldapUserDn","ldapUserUserName" })
 	public void testAddLdapUser(String dn, String userName) {
 		this.clickWaitForElementPresent("idMenuUserElement");
 		this.clickWaitForElementPresent("idSubModuleAddButton");

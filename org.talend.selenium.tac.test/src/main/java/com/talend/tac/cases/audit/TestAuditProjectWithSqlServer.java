@@ -11,7 +11,7 @@ public class TestAuditProjectWithSqlServer extends Audit {
 	
 	//audit a project with sqlserver
 	@Test
-	@Parameters({"sqlserverURL", "sqlserverUserName", "sqlserverPassWord", "sqlserverDriver","AddcommonProjectname","trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
+	@Parameters({"sqlserverURL", "sqlserverUserName", "sqlserverPassWord", "sqlserverDriver","addCommonProjectName","trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
 		"jobNameTJava"})
 	public void testAuditProjectWithSqlServer(String url, String userName, String userPassWd, String driver,
 			String projectName, String trunjobWithCheckpoint, String tjavaWithMulripleCheckpoint, String tjava) {

@@ -5,10 +5,10 @@ import org.testng.annotations.Parameters;
 
 public class TestAddConnection extends Connection {
 	@Test
-	@Parameters( { "Mysql_Connectionlabel", "Mysql_Dbname", "Mysql_Dbtype",
-			"Mysql_Host", "Mysql_Serverport", "Mysql_Username",
-			"Mysql_Password", "Mysql_Datasourse", "Mysql_Additional",
-			"Mysql_Stattable", "Mysql_Logstable","Mysql_meterstable" })
+	@Parameters( { "mysqlConnectionlabel", "mysqlDbname", "mysqlDbtype",
+			"mysqlHost", "mysqlServerport", "mysqlUsername",
+			"mysqlPassword", "mysqlDatasourse", "mysqlAdditional",
+			"mysqlStattable", "mysqlLogstable","mysqlMeterstable" })
 			public void testAddConnectionMysql(String label, String dbname, String dbtype,
 					String host, String serverport, String username, String password,
 					String datasourse, String additional, String stat, String logs,String meters) {
@@ -17,10 +17,10 @@ public class TestAddConnection extends Connection {
 	}
 
 	@Test
-	@Parameters( { "MSSQL_Connectionlabel", "MSSQL_Dbname", "MSSQL_Dbtype",
-			"MSSQL_Host", "MSSQL_Serverport", "MSSQL_Username",
-			"MSSQL_Password", "MSSQL_Datasourse", "MSSQL_Additional",
-			"MSSQL_Stattable", "MSSQL_Logstable", "MSSQL_meterstable" })
+	@Parameters( { "mssqlConnectionlabel", "mssqlDbname", "mssqlDbtype",
+			"mssqlHost", "mssqlServerport", "mssqlUsername",
+			"mssqlPassword", "mssqlDatasourse", "mssqlAdditional",
+			"mssqlStattable", "mssqlLogstable", "mssqlMeterstable" })
 	public void testAddConnectionMSSQL(String label, String dbname, String dbtype,
 			String host, String serverport, String username, String password,
 			String datasourse, String additional, String stat, String logs,String meters) {
@@ -31,10 +31,10 @@ public class TestAddConnection extends Connection {
 	}
 	
 	@Test
-	@Parameters( { "Oracle_Connectionlabel", "Oracle_Dbname", "Oracle_Dbtype",
-			"Oracle_Host", "Oracle_Serverport", "Oracle_Username",
-			"Oracle_Password", "Oracle_Datasourse", "Oracle_Additional",
-			"Oracle_Stattable", "Oracle_Logstable", "Oracle_meterstable" })
+	@Parameters( { "oracleConnectionlabel", "oracleDbname", "oracleDbtype",
+			"oracleHost", "oracleServerport", "oracleUsername",
+			"oraclePassword", "oracleDatasourse", "oracleAdditional",
+			"oracleStattable", "oracleLogstable", "oracleMeterstable" })
 	public void testAddConnectionOracle(String label, String dbname, String dbtype,
 			String host, String serverport, String username, String password,
 			String datasourse, String additional, String stat, String logs,String meters) {
@@ -44,10 +44,10 @@ public class TestAddConnection extends Connection {
 
 	}
 	@Test
-	@Parameters( { "Mysql_Connectionlabel", "Mysql_Dbname", "Mysql_Dbtype",
-		"Mysql_Host", "Mysql_Serverport", "Mysql_Username",
-		"Mysql_Password", "Mysql_Datasourse", "Mysql_Additional",
-		"Mysql_Stattable", "Mysql_Logstable","Mysql_meterstable" })
+	@Parameters( { "mysqlConnectionlabel", "mysqlDbname", "mysqlDbtype",
+		"mysqlHost", "mysqlServerport", "mysqlUsername",
+		"mysqlPassword", "mysqlDatasourse", "mysqlAdditional",
+		"mysqlStattable", "mysqlLogstable","mysqlMeterstable" })
 	public void testDeleteConnection(String label, String dbname, String dbtype,
 			String host, String serverport, String username, String password,
 			String datasourse, String additional, String stat, String logs,String meters) {

@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 public class TestLinktoLinuxAndWindows extends Server {
 	@Test
-	@Parameters({ "RemoteLinuxServerIp", "RemoteWindowServerIp" })
+	@Parameters({ "remoteLinuxServerIp", "remoteWindowServerIp" })
 	public void testLinkToRemoteLinux(String linuxIp, String windowsIp)
 			throws InterruptedException {
 		this.openServerMenu();
@@ -17,7 +17,7 @@ public class TestLinktoLinuxAndWindows extends Server {
 	}
 
 	@Test
-	@Parameters({ "RemoteLinuxServerIp", "RemoteWindowServerIp" })
+	@Parameters({ "remoteLinuxServerIp", "remoteWindowServerIp" })
 	public void testLinkToRemoteWindows(String linuxIp, String windowsIp)
 			throws InterruptedException {
 		this.openServerMenu();

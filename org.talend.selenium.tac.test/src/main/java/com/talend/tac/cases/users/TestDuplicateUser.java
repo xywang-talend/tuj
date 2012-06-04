@@ -9,8 +9,8 @@ import com.talend.tac.cases.Login;
 public class TestDuplicateUser extends Login {
     
 	@Test
-	@Parameters({"userName","DulicateUser","PassWord","DulicatedUser"})
-	public void testDuplicateUser(String userName,String DulicateUser,String Password,String DulicatedUser) throws Exception {
+	@Parameters({"userName","dulicateUser","passWord","dulicatedUser"})
+	public void testDuplicateUser(String userName,String dulicateUser,String password,String dulicatedUser) throws Exception {
 	    
 		this.clickWaitForElementPresent("idMenuUserElement");
 		selenium.setSpeed(MID_SPEED);
@@ -21,17 +21,17 @@ public class TestDuplicateUser extends Login {
 			selenium.setSpeed(MIN_SPEED);
 		} else {
             
-			selenium.mouseDown(DulicateUser);//Select an existing user
+			selenium.mouseDown(dulicateUser);//Select an existing user
 			selenium.setSpeed(MIN_SPEED);
 			selenium.click("idSubModuleDuplicateButton");
-			selenium.type("idUserPasswordInput", Password);
+			selenium.type("idUserPasswordInput", password);
 			selenium.fireEvent("idUserPasswordInput", "blur");
 			selenium.click("idUserPasswordInput");
 
 			selenium.click("idFirstAdminConnInput");
 			selenium.setSpeed(MID_SPEED);
 			selenium.click("idFormSaveButton");
-			Assert.assertTrue(selenium.isElementPresent(DulicatedUser));
+			Assert.assertTrue(selenium.isElementPresent(dulicatedUser));
 			selenium.setSpeed(MIN_SPEED);
 
 		}

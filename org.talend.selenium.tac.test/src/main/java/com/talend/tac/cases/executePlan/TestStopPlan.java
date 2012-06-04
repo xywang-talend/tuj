@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class TestStopPlan extends Plan {
     
 	@Test
-	@Parameters({"plan.stop.task.label","labelDescription", "AddcommonProjectname", "branchName",
+	@Parameters({"plan.stop.task.label","labelDescription", "addCommonProjectName", "branchName",
 		"jobName", "version", "context", "ServerForUseAvailable",
 		"statisticEnabled","plan.stop.label","plan.description"})
 	public void testStopPlan(String tasklabel, String labelDescription, String commonpro,

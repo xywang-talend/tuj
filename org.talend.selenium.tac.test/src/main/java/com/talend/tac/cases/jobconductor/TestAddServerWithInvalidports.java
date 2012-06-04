@@ -7,10 +7,10 @@ import org.testng.Assert;
 
 public class TestAddServerWithInvalidports extends Server {
 	@Test
-	@Parameters({ "PortInvalidServer", "ServerDescription",
-			"ServerHost", "ServerCommondport", "ServerFiletransfortport",
-			"ServerMonitorport", "ServerTimeout", "ServerUsername",
-			"ServerPassword" })
+	@Parameters({ "portInvalidServer", "serverDescription",
+			"serverHost", "serverCommondport", "serverFiletransfortport",
+			"serverMonitorport", "serverTimeout", "serverUsername",
+			"serverPassword" })
 	public void addServerInvalid(String invalidLable,
 			String description, String host, String commondport,
 			String transfortport, String monitorport, String time,

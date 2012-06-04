@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class TestDuplicateProject extends Projects {
 	@Test
-	@Parameters({ "duplicateproname" ,"ProjectType"})
+	@Parameters({ "duplicateProName" ,"projectType"})
 	public void testDuplicateProject(String duplicateproname,String type) throws InterruptedException {
 		this.openMenuProject();
 		this.duplicateProject(duplicateproname);

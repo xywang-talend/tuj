@@ -146,7 +146,7 @@ public class TestDeleteNotification extends AddNotification {
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("//div[text()='Servers' and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");//clcik "Delete"
 		selenium.setSpeed(MIN_SPEED);
-	    selenium.getConfirmation();
+	    selenium.getConfirmation().contains("you sure you want to remove the selected execution server");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(selenium.isElementPresent("//div[text()='"+jobServer+"']"));//the task cannot appear
 		selenium.setSpeed(MIN_SPEED);
