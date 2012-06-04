@@ -126,4 +126,10 @@ public class TestRecordProduct extends Login {
 	public void testRecordAddMultipleStoresToProduct(String container,String model,String entity,String uniqueId,String uniqueIdValue,String storeId, String storeIdValue, String address, String addressValue) {
 		recordImpl.addMutipleStoresToAProduct(container, model, entity, uniqueId, uniqueIdValue, storeIdValue, addressValue);
 		}
+	
+	@Test
+	@Parameters({"container","modle","entity","entity_store", "UniqueId","UniqueIdValue","storeId","storeId1","storeId2","address","storeAddress1","storeAddress2","lat1","longi1"})
+	public void testRecordLookUpStoreInfoFromProduct(String container,String model,String entity,String entityStore,String uniqueId,String uniqueIdValue,String storeId,String storeId1,String storeId2,String address,String addressValue1,String addressValue2,String lat1,String longi1){
+		recordImpl.lookUpStoreInfoFromProduct(container, model, entity,entityStore, uniqueId, uniqueIdValue,storeId, storeId1, storeId2, address,addressValue1, addressValue2,lat1,longi1);
+	}
 }

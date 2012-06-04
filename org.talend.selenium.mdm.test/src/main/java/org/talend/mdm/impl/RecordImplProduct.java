@@ -282,7 +282,37 @@ public class RecordImplProduct extends Record{
 	   Assert.assertTrue(this.waitfor(By.xpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-objectValue') and contains(text(),'["+storeId+"]')]"),WAIT_TIME_MIN).isDisplayed());
    }
    
-   
+   public void lookUpStoreInfoFromProduct(String container,String model,String entity,String entityStore,String uniqueId,String uniqueIdValue,String storeId,String storeId1,String storeId2,String address,String addressValue1,String addressValue2,String lat,String longi){
+	   this.chooseContainer(container);
+	   this.chooseModle(model);
+	   this.clickSave();
+	   this.chooseEntity(entity);
+	   this.chooseRcord(entity, uniqueId, uniqueIdValue);
+	   this.clickTabStoresStore();
+	   int num1 = this.getElementsByXpath("//div[contains(@id,'ItemsDetailPanel-tabContent')]//div[contains(@class,'x-grid3-scroller')]//div[contains(@class,'x-grid3-body')]//div[@class='x-grid3-row ']").size();
+	   Assert.assertTrue(num1 >= 1);
+	   Assert.assertTrue(this.waitfor(By.xpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-objectValue') and contains(text(),'["+storeId1+"]')]"),WAIT_TIME_MIN).isDisplayed());
+	   Assert.assertTrue(this.waitfor(By.xpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-objectValue') and contains(text(),'["+storeId2+"]')]"),WAIT_TIME_MIN).isDisplayed());
+	   this.clickElementByXpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-objectValue') and contains(text(),'["+storeId1+"]')]//ancestor::tr//img[contains(@title,'Open the related record')]");
+	   Assert.assertTrue(this.waitfor(By.xpath("//a[contains(text(),'Store TalendBJ')]"),WAIT_TIME_MIN).isDisplayed());
+	   String[] parametersStoreId={entityStore,storeId};	
+	   String[] parametersAddress={entityStore,address};
+	   this.sleepCertainTime(5000);
+	   logger.warn(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersStoreId));
+	   logger.warn(this.getValueInput(By.xpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersStoreId))));
+	   logger.warn(this.getString(locator, "xpath.record.choose.update.input.address",parametersAddress));
+	   logger.warn(this.getValueInput(By.xpath(this.getString(locator, "xpath.record.choose.update.input.address",parametersAddress))));
+	   Assert.assertTrue(this.getValueInput(By.xpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersStoreId))).equals(storeId1));
+	   Assert.assertTrue(this.getValueInput(By.xpath(this.getString(locator, "xpath.record.choose.update.input.address",parametersAddress))).equals(addressValue1));
+		String la = this.getValueInput(By.xpath("//input[@name='Store/Lat']"));
+		String lon = this
+				.getValueInput(By.xpath("//input[@name='Store/Long']"));
+		logger.warn("lat:" + lat);
+		logger.warn("lon:" + lon);
+		Assert.assertTrue(la.equals(lat));
+		Assert.assertTrue(lon.equals(longi));
+
+   }
    
    public void testRemoveStoreRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String StoreId) {
        OperationType="UPDATE";
