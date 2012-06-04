@@ -281,7 +281,33 @@ public class RecordImplProduct extends Record{
 	   this.clickTabStoresStore();
 	   Assert.assertTrue(this.waitfor(By.xpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-objectValue') and contains(text(),'["+storeId+"]')]"),WAIT_TIME_MIN).isDisplayed());
    }
-
+   
+   
+   
+   public void testRemoveStoreRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String StoreId) {
+       OperationType="UPDATE";
+	    source="genericUI";	
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);
+		chooseRcord(entity,UniqueId,UniqueIdValue);		
+		this.sleepCertainTime(3000);
+		this.clickElementByXpath("//div[text()='Stores/Store']");
+		this.sleepCertainTime(3000);
+		this.clickElementByXpath(this.getString(locator, "xpath.record.remove.store",StoreId ));
+		this.clickElementByXpath("//button[text()='Remove']");
+		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
+		
+		enterJournal(entity,UniqueIdValue,OperationType,source);
+		this.sleepCertainTime(3000);
+		JournalCheckResult(UniqueIdValue,OperationType);
+		this.sleepCertainTime(5000);
+		this.clickElementByXpath(locator.getString("xpath.record.journal.click.info.store"));		
+		this.sleepCertainTime(3000);
+		Assert.assertTrue(this.getElementsByXpath(this.getString(locator, "xpath.record.remove.store.assert",StoreId )).size()==1);
+	  }   
+  
    public void testUpdatePriceRecordImpl(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String Price,String PriceValue,String flag,String PriceValueOld) {
         OperationType="UPDATE";
 	    source="genericUI";

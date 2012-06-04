@@ -12,7 +12,17 @@ public class TestRecordProduct extends Login {
 	public void beforeMethod(){
 		recordImpl = new RecordImplProduct(driver);	
 		logger.warn("Set Before Info");
-	}		
+	}
+	
+	
+	
+	@Test
+	@Parameters( { "container","modle","entity","UniqueId","UniqueIdValue","StoreId" })
+	public void testRemoveStoreRecord(String container,String modle,String entity,String UniqueId,String UniqueIdValue,String StoreId ) {
+		recordImpl.testRemoveStoreRecordImpl(container,modle,entity,UniqueId,UniqueIdValue,StoreId);
+	}
+	
+	
 	@Test
 	@Parameters( { "container","modle","entity","UniqueId","UniqueIdValue" })
 	public void testDeleteRecord(String container,String modle,String entity,String UniqueId,String UniqueIdValue ) {
