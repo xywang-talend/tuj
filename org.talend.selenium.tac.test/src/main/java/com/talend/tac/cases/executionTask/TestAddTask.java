@@ -203,7 +203,7 @@ public class TestAddTask  extends TaskUtils {
 	//add a task with a unactive server
 	@Test
 	@Parameters({"TaskWithInactiveServer","labelDescription","addCommonProjectName","branchNameTrunk",
-		"jobNameTJava","version0.1","context","ServerForUseUnavailable","statisticEnabled"})
+		"jobNameTJava","version0.1","context","serverForUseUnavailable","statisticEnabled"})
 	public void testAddTaskWithInactiveServer(String label,String description,String projectName,String branchName,
 			String jobName,String version,String context,String serverName,String statisticName) {
 		
