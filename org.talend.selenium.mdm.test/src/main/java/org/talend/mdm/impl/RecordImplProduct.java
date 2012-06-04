@@ -376,6 +376,7 @@ public class RecordImplProduct extends Record{
 		}		
 		if (flag.equals("2"))
 		{			
+		  this.clickElementByXpath("//button[text()='Ok']");	
 		  enterJournal(entity,UniqueIdValue,OperationType,source);
 		  this.sleepCertainTime(3000);
 		  JournalCheckResult(UniqueIdValue,OperationType);
