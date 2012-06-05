@@ -174,7 +174,7 @@ public User(WebDriver driver) {
 	*/
 			Actions builder1 = new Actions(driver);
 			 builder1.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.max.configure.panel.line"))))
-		.moveToElement(this.findElementDefineDriver(this.driver, By.xpath(this.getString(locator, "xpath.user.identifier", "administrator")))).release().build().perform();
+		.moveToElement(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.license.menu")))).release().build().perform();
 		
 	}
 	
