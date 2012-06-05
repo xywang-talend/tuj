@@ -331,7 +331,8 @@ public class RecordImplProduct extends Record{
 		
 		enterJournal(entity,UniqueIdValue,OperationType,source);
 		this.sleepCertainTime(3000);
-		JournalCheckResult(UniqueIdValue,OperationType);
+		JournalSearch(UniqueIdValue,OperationType);
+		this.clickElementByXpath(locator.getString("xpath.record.journal.click.info.removeStore"));
 		this.sleepCertainTime(5000);
 		this.clickElementByXpath(locator.getString("xpath.record.journal.click.info.store"));		
 		this.sleepCertainTime(3000);

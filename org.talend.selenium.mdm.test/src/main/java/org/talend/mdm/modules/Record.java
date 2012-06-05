@@ -94,6 +94,20 @@ public class Record extends Base {
 		this.clickElementByXpath(locator.getString("xpath.record.journal.click.info"));
 		this.sleepCertainTime(3000);
 	}
+	public void JournalSearch(String key, String OperationType) {
+		String[] parameters = { key, OperationType };
+		this.moveToElement(driver.findElement(By.xpath("//div[text()='Operation Time']")));
+		this.sleepCertainTime(2000);
+		// this.clickVisibleElementByXpath("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-6')]//a[@class='x-grid3-hd-btn']");
+		this.clickVisibleElementByXpath("//span[text()='Journal']//ancestor::div[@class='extpj']//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-6')]//a[@class='x-grid3-hd-btn']");
+
+		this.sleepCertainTime(2000);
+		this.clickVisibleElementByXpath("//a[text()='Sort Descending']");
+		this.sleepCertainTime(2000);
+		this.clickElementByXpath(this.getString(locator,"xpath.record.choose.journal.choose.record", parameters));
+		this.doubleClick(this.getElementByXpath(this.getString(locator,"xpath.record.choose.journal.choose.record", parameters)));
+		this.sleepCertainTime(5000);		
+	}
 
 	public void searchDateAssert(String searchFeild, String opeartion,
 			String value, String entity_Element) {
