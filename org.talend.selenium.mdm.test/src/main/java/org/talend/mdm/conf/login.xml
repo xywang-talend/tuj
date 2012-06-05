@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+  <parameter  name ="session.timeout"	value ="600000"/>
+  
+  
+    <test name="test user right login">
+	    <classes>
+		    <class name="org.talend.mdm.cases.login.TestLogin">
+				<methods>
+		           <include name="testRightLogin"/>
+		        </methods>
+		    </class>
+	    </classes>
+  </test>
+    
+    
+      <test name="test user right login and logout">
+	    <classes>
+		    <class name="org.talend.mdm.cases.login.TestLogin">
+				<methods>
+		           <include name="testLogoutCorrectly"/>
+		        </methods>
+		    </class>
+	    </classes>
+  </test>
+  
+    
+    <test name="test user wrong login">
+    <parameter name="message.wrong.username" value="Login failed. Please check your login and password" />
+    <parameter name="user.name" value="test" />
+	<parameter name="user.password" value="administrator" />
+	    <classes>
+		    <class name="org.talend.mdm.cases.login.TestLogin">
+				<methods>
+		           <include name="testWongLogin"/>
+		        </methods>
+		    </class>
+	    </classes>
+  </test><!--
+  
+  
+  <test name="test user login and session timeout">
+	    <classes>
+		    <class name="org.talend.mdm.cases.login.TestLogin">
+				<methods>
+		           <include name="testLoginAndSessionTimeout"/>
+		        </methods>
+		    </class>
+	    </classes>
+  </test>
+
+--></suite>

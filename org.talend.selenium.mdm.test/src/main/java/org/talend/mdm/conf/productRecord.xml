@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name=" Product entity Record" parallel="false">
+    <parameter name="user.name" value="jennifer" />
+	<parameter name="user.password" value="jennifer" />
+	<parameter name="message" value="User 'jennifer' is already logged in another session!" />
+    <parameter name="entity" value="Product" /> 	        
+   	<parameter name="UniqueId" value="Id" />
+   	<parameter name="UniqueIdValue" value="1671111134" />	 
+  
+  	   <test name="remove a store in the product entity">
+	    <classes>	        
+	      		   
+	       	<parameter name="UniqueIdValue" value="231035934" />  
+  		     <parameter name="StoreId" value="[TalendUS]" />         		     
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 
+		           <include name="testRemoveStoreRecord"/> 		           
+		        </methods>
+		    </class>
+	    </classes>
+  </test>   
+   	
+   	<test name=" create a record product with store" >
+	    <classes>
+	         <parameter name="UniqueIdValue" value="231035930" />
+  		     <parameter name="Name" value="Name" />  
+  		     <parameter name="Description" value="Description" /> 
+  		     <parameter name="Price" value="Price" />    	
+  		 	 <parameter name="NameValue" value="Talend Large Mug_test" />
+   			 <parameter name="DescriptionValue" value="this is a test Talend Large Mug_test" />
+  			 <parameter name="PriceValue" value="16.91" />		
+  			 <parameter name="storeId" value="Id" />
+   	         <parameter name="storeIdValue" value="TestStore" />	  
+             <parameter name="address" value="Address" />		
+             <parameter name="addressValue" value="22, Jianguomenwai Avenue, Chaoyang District, Beijing" />
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testCreateRecordProductWithStore"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+   
+    <test name="test add multiple stores to a product" >
+	    <classes>
+  		  	<parameter name="UniqueIdValue" value="231035930" />		
+  			 <parameter name="storeId" value="Id" />
+   	         <parameter name="storeIdValue" value="TalendBJ" />	  
+             <parameter name="address" value="Address" />		
+             <parameter name="addressValue" value="22, Jianguomenwai Avenue, Chaoyang District, Beijing" />
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testRecordAddMultipleStoresToProduct"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
+   	
+   	 <test name="test look up store infor from product" >
+	    <classes>
+  		  	<parameter name="UniqueIdValue" value="231035935" />		
+  			 <parameter name="storeId" value="Id" />
+   	         <parameter name="storeId1" value="TalendBJ" />	  
+   	         <parameter name="storeId2" value="TalendFR" />	
+             <parameter name="address" value="Address" />		
+             <parameter name="storeAddress1" value="22, Jianguomenwai Avenue, Chaoyang District, Beijing" />
+             <parameter name="storeAddress2" value="9 rue Pagès, Suresnes" />
+             <parameter name="lat1" value="39.9084407" />
+             <parameter name="longi1" value="116.4420205" />
+             <parameter name="entity_store" value="Store" /> 	        
+   	         <parameter name="storeId" value="Id" />
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testRecordLookUpStoreInfoFromProduct"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
+  
+ 	  <test name="test two ways to open workflow task on map">
+	    <classes>
+    <parameter name="entity" value="Product" /> 	
+  
+		<parameter name="UniqueIdValue" value="231035933" />      
+		<parameter name="familyid" value="3" />      
+		<parameter name="familyname" value="Pets" />      
+		<parameter name="franksubmited.familyname" value="Mugs" />      
+   	        <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 		          
+		         <include name="testTwoWaysOpenWorkFlow"/>  
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
+   	
+   	 <test name="test show foreign key info">
+	    <classes>
+   
+		<parameter name="UniqueIdValue" value="231035933" />      
+		<parameter name="familyid" value="3" />      
+		<parameter name="familyname" value="Pets" />      
+		<parameter name="franksubmited.familyname" value="Mugs" />      
+   	        <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 		          
+		         <include name="testForeignKeyInforDisplay"/>  
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
+   	
+      <test name="test workflow change price valid and approved">
+	    <classes>
+	
+		<parameter name="UniqueIdValue" value="231035934" />
+    <parameter name="entity" value="Product" />  
+	        <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 		          
+		         <include name="testPriceChangeValidApprovedWorkflow"/>
+		        </methods>
+		    </class>
+	    </classes>
+  </test>
+  
+  
+   <test name="test workflow change price valid and not approve">
+	    <classes>
+		<parameter name="UniqueIdValue" value="231035933" />
+    <parameter name="entity" value="Product" /> 	
+	        <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 		          
+		         <include name="testPriceValidNotApproveWorkFlow"/>  
+		        </methods>
+		    </class>
+	    </classes>
+  </test>
+  
+      <test name="test workflow change price invalid">
+	    <classes>
+		<parameter name="UniqueIdValue" value="231035933" />
+    <parameter name="entity" value="Product" /> 	        
+   	        <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 		          
+		         <include name="testPriceChangeInvalidWorkflow"/>  
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
+  
+    <test name="test work flow process show on map">
+	    <classes>
+    <parameter name="entity" value="Product" /> 
+    	<parameter name="UniqueIdValue" value="231035933" />	        
+   	        <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 		          
+		         <include name="testStoreShowOnMapProcess"/>  
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+  	
+    <test name=" create a record" >
+	    <classes>
+  		     <parameter name="Name" value="Name" />  
+  		     <parameter name="Description" value="Description" /> 
+  		     <parameter name="Price" value="Price" />    	
+  		 	 <parameter name="NameValue" value="Talend Large Mug_test" />
+   			 <parameter name="DescriptionValue" value="this is a test Talend Large Mug_test" />
+  			 <parameter name="PriceValue" value="16.91" />				
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testCreateRecord"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+  
+     
+   <test name="duplicate a record" >
+	    <classes>
+	      	<parameter name="UniqueIdValueDup" value="557175934" />	    			
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testDuplicateRecord"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test>      
+ 
+   <test name="update the record to set a price of +15%">
+	    <classes>	          		     
+  		     <parameter name="Price" value="Price" />  
+  		     <parameter name="PriceValue" value="19.91" />
+  		     <parameter name="PriceValueOld" value="16.91" />	
+  		     <parameter name="flag" value="0" /> 		       		     
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 
+		           <include name="testUpdatePriceRecord"/> 		           
+		        </methods>
+		    </class>
+	    </classes>
+  </test>    
+    <test name="update the record to set a price of  -15%">
+	    <classes>		       	     
+  		     <parameter name="Price" value="Price" />  
+  		     <parameter name="PriceValue" value="13.91" /> 
+  		     <parameter name="PriceValueOld" value="16.91" />
+  		     <parameter name="flag" value="1" />  		       		     
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 
+		           <include name="testUpdatePriceRecord"/> 		           
+		        </methods>
+		    </class>
+	    </classes>
+  </test>   
+    
+<test name="update the record to set a price of -15% and  +15%">
+	    <classes>		       	     
+  		     <parameter name="Price" value="Price" />  
+  		     <parameter name="PriceValue" value="15.91" /> 
+  		     <parameter name="PriceValueOld" value="16.91" />
+  		     <parameter name="flag" value="2" />  		       		     
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 
+		           <include name="testUpdatePriceRecord"/> 		           
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+   
+  
+  
+   <test name="update the record in row editer to set a price of +15%">
+	    <classes>	          		     
+	        <parameter name="UniqueIdValue" value="557175934" />	
+  		     <parameter name="Price" value="Price" />  
+  		     <parameter name="PriceValue" value="19.91" />
+  		     <parameter name="PriceValueOld" value="16.91" />	
+  		     <parameter name="flag" value="0" /> 		       		     
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 
+		           <include name="testUpdatePriceRecordRowEditer"/> 		           
+		        </methods>
+		    </class>
+	    </classes>
+  </test>    
+    <test name="update the record  in row editer to set a price of  -15%">
+	    <classes>		       
+	         <parameter name="UniqueIdValue" value="557175934" />		     
+  		     <parameter name="Price" value="Price" />  
+  		     <parameter name="PriceValue" value="13.91" /> 
+  		     <parameter name="PriceValueOld" value="16.91" />
+  		     <parameter name="flag" value="1" />  		       		     
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 
+		           <include name="testUpdatePriceRecordRowEditer"/> 		           
+		        </methods>
+		    </class>
+	    </classes>
+  </test>   
+    
+   
+     <test name="update record in row editer to set a price of -15% and  +15%">
+	    <classes>		  
+	         <parameter name="UniqueIdValue" value="557175934" />	     	     
+  		     <parameter name="Price" value="Price" />  
+  		     <parameter name="PriceValue" value="15.91" /> 
+  		     <parameter name="PriceValueOld" value="16.91" />
+  		     <parameter name="flag" value="2" />  		       		     
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods> 
+		           <include name="testUpdatePriceRecordRowEditer"/> 		           
+		        </methods>
+		    </class>
+	    </classes>
+  </test>    
+   
+    
+   <test name="in Product view search a record by Unique Id the opeartion is lower than" >
+	    <classes>
+	        <parameter name="entity_Element" value="Product" />
+	        <parameter name="opeartion" value="is lower than" />	  
+	        <parameter name="value" value="16.91" />     
+	        <parameter name="searchFeild" value="Price" />
+	        <parameter name="searchFeild_Element" value="Price" />  	      	    			
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testSearchRecordByValue"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
+   
+
+       <test name="in Product Family view search a record by name the opeartion contains the word(s)" >
+	    <classes>
+	      
+	     <parameter name="entity" value="Product Family" />
+	     <parameter name="entity_Element" value="ProductFamily" />
+	        <parameter name="opeartion" value="contains the word(s)" />	  
+	        <parameter name="value" value="Pets" />     
+	        <parameter name="searchFeild" value="Name" /> 
+	        <parameter name="searchFeild_Element" value="Name" /> 	      	    			
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testSearchRecordByString"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+   
+       <test name="in Product Stores view search a record by Price the opeartion is lower than" >
+	    <classes>
+	      
+	        <parameter name="entity" value="Product with Stores" />
+	        <parameter name="entity_Element" value="Product" />
+	        <parameter name="opeartion" value="is lower than" />	        
+	        <parameter name="searchFeild" value="Price" /> 
+	        <parameter name="searchFeild_Element" value="Price" /> 
+	        <parameter name="value" value="16.91" />	      	    			
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testSearchRecordByValue"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+ 
+ <test name="in Product with Family view search a record by name the opeartion is contains the word(s)" >
+	    <classes>
+	      
+	        <parameter name="entity" value="Product with Family" />
+	        <parameter name="entity_Element" value="Product" />
+	        <parameter name="opeartion" value="contains the word(s)" />	        
+	        <parameter name="searchFeild" value="Name" />
+	        <parameter name="searchFeild_Element" value="Name" /> 
+	        <parameter name="value" value="Cap" />	      	    			
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testSearchRecordByString"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+   
+  
+   <test name="in Store view search a record by Store Id the opeartion is contains the word(s)" >
+	    <classes>
+	      
+	        <parameter name="entity" value="Store" />
+	        <parameter name="entity_Element" value="Store" />
+	        <parameter name="opeartion" value="contains the word(s)" />	        
+	        <parameter name="searchFeild" value="Store Id" /> 
+	        <parameter name="searchFeild_Element" value="Id" />
+	        <parameter name="value" value="TalendJP" />	      	    			
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testSearchRecordByString"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+  
+  <test name="in Unavailable Products view search a record by Name the opeartion is contains the word(s)" >
+	    <classes>
+	      
+	        <parameter name="entity" value="Unavailable Products" />
+	        <parameter name="entity_Element" value="Product" />
+	        <parameter name="opeartion" value="contains the word(s)" />	        
+	        <parameter name="searchFeild" value="Name" /> 
+	        <parameter name="searchFeild_Element" value="Name" />
+	        <parameter name="value" value="Cap" />	      	    			
+		    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testSearchRecordByString"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test>    
+ 
+   
+    <test name=" delete a record" >
+	    <classes>
+	      	    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testDeleteRecord"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test>   
+<test name=" delete the record to the recycle" >
+	    <classes>
+	           <parameter name="UniqueIdValue" value="557175934" />	
+	      	    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testDeleteToRecycleRecord"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test>  
+  
+  <test name=" restore the record from the recycle" >
+	    <classes>
+	           <parameter name="UniqueIdValue" value="557175934" />	
+	      	    <class name="org.talend.mdm.cases.record.TestRecordProduct">
+				<methods>				 	           
+		           <include name="testRestoreFromRecycleRecord"/>		        
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
+</suite>
