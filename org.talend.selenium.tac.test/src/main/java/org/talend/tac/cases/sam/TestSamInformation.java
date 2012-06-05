@@ -14,7 +14,7 @@ public class TestSamInformation extends WebdriverLogin{
     	samInformationImpl = new SamInformationImpl(driver);
     }
     @Test()
-    @Parameters({"esb.monitor.karafurl","serviceName","consumerJobName"})
+    @Parameters({"esbMonitorKarafUrl","serviceName","consumerJobName"})
     public void testCheckSamInfo(String karafURL,String providerName,String consumerName) {
     	samInformationImpl.checkSamInfo(karafURL, providerName, consumerName);
     }
