@@ -69,7 +69,7 @@ public class TestEsbServiceActivityPageDisplay extends Esb {
 		String totalPage = lastpage.substring(lastpage.indexOf(" ") + 1);
 		System.out.println(totalPage);
 		this.testMonitorGoToLastPage();
-		selenium.click("//div[@class='my-paging-text x-component ' and text()='Page']//ancestor::tr[@class='x-toolbar-left-row']//td[1]//table");
+		selenium.click("//div[@class='my-paging-text x-component ' and text()='Page']//ancestor::tr[@class='x-toolbar-left-row']//td[2]//table");
 		this.sleep(3000);
 		System.out.println(selenium.getValue(
 						"//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[contains(@class,'gwt-TextBox x-component')]"));
@@ -81,7 +81,7 @@ public class TestEsbServiceActivityPageDisplay extends Esb {
 	}
 	
 	@Test
-	@Parameters({"esb.monitor.pagesize"})
+	@Parameters({"esbMonitorPagesize"})
 	public void testMonitorPageInput(String pageCounts) {
 		this.openServiceActivityMonitor();
 		this.sleep(3000);

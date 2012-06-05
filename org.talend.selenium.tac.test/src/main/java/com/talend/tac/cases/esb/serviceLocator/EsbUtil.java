@@ -3,12 +3,12 @@ package com.talend.tac.cases.esb.serviceLocator;
 import static org.testng.Assert.assertEquals;
 
 import java.awt.Event;
+import java.awt.event.KeyEvent;
 import java.util.Hashtable;
 
 import org.testng.Assert;
 
 import com.talend.tac.base.AntAction;
-import com.talend.tac.base.Base;
 import com.talend.tac.base.Karaf;
 import com.talend.tac.cases.Login;
 
@@ -119,7 +119,7 @@ public class EsbUtil extends Login {
         selenium.setSpeed(MIN_SPEED);  
 		selenium.click("//a[text()='Sort Descending']");
 		selenium.setSpeed(MID_SPEED);
-		System.out.println(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"));
+		System.out.println("---decending actually:"+selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"));
 		Assert.assertEquals(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"), value);       
         selenium.setSpeed(MIN_SPEED);
         
@@ -128,7 +128,7 @@ public class EsbUtil extends Login {
         selenium.setSpeed(MIN_SPEED);  
 		selenium.click("//a[text()='Sort Ascending']");
 		selenium.setSpeed(MID_SPEED);
-		System.out.println(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"));
+		System.out.println("---ascending actually"+selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"));
 		Assert.assertEquals(selenium.getText("//div[@class='x-grid3-cell-inner x-grid3-col-"+xpathName+"']"), value1);
 		selenium.setSpeed(MIN_SPEED);
 		
@@ -233,115 +233,68 @@ public class EsbUtil extends Login {
 		
 		//go to configuration page 
 		this.clickWaitForElementPresent("idMenuConfigElement");
-		  
-		this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");
-		this.typeWordsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), locatorOfAllInputTags, ServiceLocation);
+		
+		this.waitForElementPresent("//div[@class='header-title' and text()='Configuration']", WAIT_TIME);
+		if(selenium.isElementPresent("//button[@class='x-btn-text' and @aria-pressed='true']")) {
+			
+			 selenium.click("//div[text()='Configuration' and @class='header-title']"+
+			"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+			"//button[@class='x-btn-text' and @aria-pressed='true']");
+			 this.waitForElementPresent("//div[text()='Configuration' and @class='header-title']"+
+					"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+					"//button[@class='x-btn-text' and @aria-pressed='false']", WAIT_TIME);
+			
+		  }
+		this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB (')]");
+		this.typeWordsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), other.getString("esb.conf.ZookeeperServer.input"), ServiceLocation);
 	  	
 		selenium.click("idConfigRefreshButton");
 		
-	  	this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), locatorOfAllInputTags,
+	  	this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.value"),
 	  			ServiceLocation, zookeeperServerStatusIconLocator);	    
 		
 	}
 	
 	/**
-	 * type a value in configuration menu.click the edit button firstly to wait for the input to appear.
-	 * @param locatorOfEditButton
-	 * @param locatorOfInput
-	 * @param value
-	 */
-	public void typeWordsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
-         
-		 this.waitForElementPresent("//div[contains(text(),'Audit (') and contains(@class,'x-grid-group-div')]", WAIT_TIME);		 
-		 boolean configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
-		 System.out.println(configurationPageIsNotEdit);
-	     while (seconds<=WAIT_TIME*2 && configurationPageIsNotEdit == true) {
-			 
-	    	 seconds++;	   
-	    	 configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
-	    	 try {
-				Thread.sleep(1000);
-			 } catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			 }
-			 System.out.println("can not edit in configuration page"+seconds);
-			 
-		 }
-	     
-		 this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
-		 this.typeWaitForElementPresent(locatorOfInput, value);
-		 try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		selenium.keyDown(locatorOfInput, "\\13");
+	  * type a value in configuration menu.click the edit button firstly to wait for the input to appear.
+	  * @param locatorOfEditButton
+	  * @param locatorOfInput
+	  * @param value
+	  */
+	 public void typeWordsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
+	   this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
+	   this.typeWaitForElementPresent(locatorOfInput, value);
+	   try {
+		Thread.sleep(5000);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
-	/**
-	 * assertions,check the value in input tag is as expected,and check the status icon.
-	 * @param locatorOfEditButton
-	 * @param locatorOfInput	
-	 * @param value
-	 */
-	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value,String statusIconLocator){
-		
-		 this.waitForElementPresent("//div[contains(text(),'Audit (') and contains(@class,'x-grid-group-div')]", WAIT_TIME);
-		 
-		 boolean configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
-		 System.out.println(configurationPageIsNotEdit);
-	     while (seconds<=WAIT_TIME*2 && configurationPageIsNotEdit == true) {			 
-
-	    	 seconds++;	
-	    	 configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");   	 
-	    	 try {
-				Thread.sleep(1000);
-			 } catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			 }
-			 System.out.println("can not edit in configuration page"+seconds);
-			 
-		 }
-	     
-		this.clickWaitForElementPresent(locatorOfEditButton);
-		this.AssertEqualsInConfigurationMenu(locatorOfEditButton, locatorOfInput, value);
-		this.waitForElementPresent(statusIconLocator, WAIT_TIME);//wait and check the icon status.
-	}
-	public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){		
-
-		 this.waitForElementPresent("//div[contains(text(),'Audit (') and contains(@class,'x-grid-group-div')]", WAIT_TIME);
-		 
-		 boolean configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
-		 System.out.println(configurationPageIsNotEdit);
-	     while (seconds<=WAIT_TIME*2 && configurationPageIsNotEdit == true) {
-
-	    	 seconds++;	  
-	    	 configurationPageIsNotEdit = selenium.isElementPresent("//div[@style='display: block;' and @class='ext-el-mask']");
-	    	 try {
-				Thread.sleep(1000);
-			 } catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			 }
-			 System.out.println("can not edit in configuration page"+seconds);
-			 
-		 }
-	     
-		this.clickWaitForElementPresent(locatorOfEditButton);//click the edit button to make the input tag shown.
-		this.waitForElementPresent(locatorOfInput, Base.WAIT_TIME);
-		assertEquals(selenium.getValue(locatorOfInput), value);
-		selenium.fireEvent(locatorOfInput, "blur");
-	}
+       selenium.keyPressNative(Event.ENTER+"");
+	
+	 }
+	  		
+	 public void AssertEqualsInConfigurationMenu(String locatorOfValue,String value){
+	  
+	  this.waitElement(locatorOfValue, WAIT_TIME);
+	  selenium.setSpeed("2000");
+	  assertEquals(selenium.getText(locatorOfValue), value);
+	  selenium.setSpeed("0");
+	  
+	 }
+	 
+	 public void AssertEqualsInConfigurationMenu(String locatorOfValue,String value,String statusIconLocator){
+	  this.AssertEqualsInConfigurationMenu(locatorOfValue, value);
+	   this.waitForElementPresent(statusIconLocator, WAIT_TIME);//wait and check the icon status.
+	 }
 	
 	public void modifySAMServer(String MonitorServer, String MonitorServerStatusIconLocator) {					     
 		  
-		this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), locatorOfAllInputTags, MonitorServer);
+		this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), other.getString("esb.conf.serviceActivityMonitorServer.input"), MonitorServer);
 		  
-	    this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), locatorOfAllInputTags,
-			   MonitorServer, MonitorServerStatusIconLocator);
-		
+//	    this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.value"),
+//			   MonitorServer, MonitorServerStatusIconLocator);
+//		
 	}
 	
 	public void uploadLicense(String license) {

@@ -1,13 +1,15 @@
 package com.talend.tac.cases.esb.serviceLocator;
 
 
+import java.awt.Event;
+
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class TestServiceLocator extends EsbUtil {	
 
-	
+		
 	//test display service of 'live services only'/'all services'	
 	@Test
 	@Parameters({"license.esb.file.path", "jobFirstProvider", "jobSecondProvider",
@@ -188,7 +190,7 @@ public class TestServiceLocator extends EsbUtil {
 		selenium.setSpeed(MIN_SPEED);
 		
 		checkSortAscendingSortDescending("name", jobThirdProvider, jobFirstProvider);
-		checkSortAscendingSortDescending("endpoint", "http://localhost:8040/services/jobThirdProvider",
+		checkSortAscendingSortDescending("endpoint", "http://localhost:8040/services/soap/jobSixedProvider/",
 				"http://localhost:8040/services/jobFirstProvider");
 		
 	}
@@ -271,7 +273,7 @@ public class TestServiceLocator extends EsbUtil {
 		selenium.setSpeed(MIN_SPEED);
 		
 		checkSortAscendingSortDescending("name", jobThirdProvider, jobFirstProvider);
-		checkSortAscendingSortDescending("endpoint", "http://localhost:8040/services/jobThirdProvider",
+		checkSortAscendingSortDescending("endpoint", "http://localhost:8040/services/soap/jobSixedProvider/",
 				"http://localhost:8040/services/jobFirstProvider");
 		
 	}
@@ -313,7 +315,7 @@ public class TestServiceLocator extends EsbUtil {
 	
 	//stop zkserver, check status info of configuration page and serviceLocation page  
 	@Test
-	@Parameters({"esb.conf.zookeeperServer", "esb.conf.zookeeperServerWithWrong","jobFirstProvider", "jobSecondProvider",
+	@Parameters({"esbConfZookeeperServer", "esbConfZookeeperServerStop","jobFirstProvider", "jobSecondProvider",
 		"jobThirdProvider", "jobFourthProvider", "jobFiveProvider", "jobSixProvider"})
 	public void testStopStartZkServerCheckPageStatus(String zookeeperServer, String zookeeperServerWithWrong, String jobFirstProvider, String jobSecondProvider,
 			String jobThirdProvider, String jobFourthProvider, String jobFiveProvider,String jobSixthProvider) {
@@ -331,9 +333,9 @@ public class TestServiceLocator extends EsbUtil {
 		assertStopService(jobSixthProvider);
 		
 		modifyEsbConfigurationInConfigurationPage(zookeeperServerWithWrong, other.getString("esb.conf.StopZookeeperServerStatusIconLocator"));
-        
-		selenium.click("//b[text()='Refresh']");
-		this.waitForElementPresent("//div[contains(text(),'Zookeeper for this url is unavailable')]", WAIT_TIME);
+		this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");
+		selenium.click("//b[text()='Refresh']");		
+		this.waitForElementPresent("//div[contains(text(),'Can not get a list of services from Service Locator')]", WAIT_TIME);
 	  	Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'Zookeeper for this url is unavailable')]"));
 	  	selenium.setSpeed(MIN_SPEED);
 		
@@ -344,7 +346,6 @@ public class TestServiceLocator extends EsbUtil {
 		//verify display result
 		this.waitForTextPresent("There are no services available. Please check your filter and click" +
 				" refresh button to retry.", WAIT_TIME);		
-
 		modifyEsbConfigurationInConfigurationPage(zookeeperServer, other.getString("esb.conf.ZookeeperServerStatusIconLocator"));
 		  	
 		//go to 'ServiceLocator' page
@@ -366,14 +367,24 @@ public class TestServiceLocator extends EsbUtil {
 	
 	//set sam-server url in configuration
     @Test
-    @Parameters ({"esb.conf.serviceActivityRemoteMonitorServer", "esb.conf.serviceActivityMonitorServer"})
+    @Parameters ({"esbConfServiceActivityMonitorServer", "esbConfServiceActivityMonitorServer"})
 	public void testSetESBSamServer(String remoteMonitorServer, String localServer){
     	
 	   //go to configuration page 
 	   this.clickWaitForElementPresent("idMenuConfigElement");
-		  
-	   this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");	   
 	   
+	   this.waitForElementPresent("//div[@class='header-title' and text()='Configuration']", WAIT_TIME);
+	   if(selenium.isElementPresent("//button[@class='x-btn-text' and @aria-pressed='true']")) {
+			
+			 selenium.click("//div[text()='Configuration' and @class='header-title']"+
+			"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+			"//button[@class='x-btn-text' and @aria-pressed='true']");
+			 this.waitForElementPresent("//div[text()='Configuration' and @class='header-title']"+
+					"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+					"//button[@class='x-btn-text' and @aria-pressed='false']", WAIT_TIME);
+			
+		  }	  
+	   this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB (')]");	   
 	   modifySAMServer(remoteMonitorServer, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator"));
 	   
 	   modifySAMServer(localServer, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator"));
@@ -382,23 +393,74 @@ public class TestServiceLocator extends EsbUtil {
 	
   //set sam-server url with wrong in configuration
     @Test
-    @Parameters ({"esb.conf.serviceActivityMonitorServerWithWrong", "esb.conf.serviceActivityMonitorServer"})
+    @Parameters ({"esbConfServiceActivityMonitorServerStop", "esbConfServiceActivityMonitorServer"})
 	public void testSetESBSamServerWithWrongUrl(String remoteMonitorServerWithWrongUrl, String localServer){	   
     	
 	   //go to configuration page 
 	   this.clickWaitForElementPresent("idMenuConfigElement");
+	   
+	   this.waitForElementPresent("//div[@class='header-title' and text()='Configuration']", WAIT_TIME);
+	   if(selenium.isElementPresent("//button[@class='x-btn-text' and @aria-pressed='true']")) {
+			
+			 selenium.click("//div[text()='Configuration' and @class='header-title']"+
+			"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+			"//button[@class='x-btn-text' and @aria-pressed='true']");
+			 this.waitForElementPresent("//div[text()='Configuration' and @class='header-title']"+
+					"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
+					"//button[@class='x-btn-text' and @aria-pressed='false']", WAIT_TIME);
+			
+		  }
 		  
-	   this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB')]");	   
+	   this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB (')]");
 
 	   modifySAMServer(remoteMonitorServerWithWrongUrl, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator.wrongURL"));
 	   
 	   this.waitForElementPresent("//div[contains(text(),'SAM Server for this url is unavailable')]", WAIT_TIME);
 	   Assert.assertTrue(selenium.isElementPresent("//div[contains(text(),'SAM Server for this url is unavailable')]"));
 	   selenium.setSpeed(MIN_SPEED);
-	   
+	   selenium.click("//button[@id='idConfigRefreshButton']");
 	   modifySAMServer(localServer, other.getString("esb.conf.ServiceActivityMonitorServerStatusIconLocator"));
 	   
 	}
+    
+    @Test
+    public void testFilterServiceLocator() {
+    	this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");//into SL page
+		this.clickWaitForElementPresent("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-endpoint')]/a");
+		selenium.setSpeed(MID_SPEED);
+		selenium.click("//a[text()='Show in Groups']");
+		selenium.setSpeed(MID_SPEED);
+		Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid-group-div']"));
+		selenium.setSpeed(MIN_SPEED);
+		this.clickWaitForElementPresent("//div[@class=' x-grid3-hd-inner x-grid3-hd-name x-component sort-asc ']/a");
+		selenium.mouseOver("//a[text()='Filters']");
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		selenium.click("//div[@class='x-menu-list-item x-menu-list-item-indent']");
+		this.waitElement("//div[contains(@class,'x-menu-list-item x-menu-list-item-indent')]//input[contains(@class,'x-form-text x-form-empty-field')] ", WAIT_TIME);
+		selenium.click("//div[contains(@class,'x-menu-list-item x-menu-list-item-indent')]//input[contains(@class,'x-form-text x-form-empty-field')] ");
+		selenium.setSpeed(MID_SPEED);
+		this.waitForElementPresent("//div[contains(@class,'x-menu-list-item x-menu-list-item-indent')]//input[contains(@class,'x-form-text x-form-focus')]", WAIT_TIME);
+        selenium.type("//div[contains(@class,'x-menu-list-item x-menu-list-item-indent')]//input[contains(@class,'x-form-text x-form-focus')]", "F");
+        selenium.keyDownNative(""+Event.ENTER);
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		String lastPage=selenium.getText("//div[text()='Page']//ancestor::td[contains(@class,'x-toolbar-cell')]//following-sibling::td[2]/div[contains(@class,'my-paging-text x-component')]");
+		String totalPage=lastPage.substring(lastPage.indexOf(" ")+1);
+		this.waitForElementPresent("//div[contains(@class,'my-paging-display x-component')]", WAIT_TIME);
+		String serviceDesc=selenium.getText("//div[contains(@class,'my-paging-display x-component')]");
+		String totalService=serviceDesc.substring(serviceDesc.indexOf("of")+2);
+		System.out.println("-----------totalPage"+totalPage);
+		System.out.println("-----------totalService"+totalService);
+		Assert.assertTrue(totalPage.equals("1"));		
+		Assert.assertTrue(totalService.trim().equals("3"));
+    }
 
     
 }

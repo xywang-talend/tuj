@@ -1,7 +1,5 @@
 package com.talend.cases.esb;
 
-import java.awt.List;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -71,7 +69,7 @@ public class TestEsbServiceActivityFilterData extends Esb {
 	 * 
 	 */
 	@Test
-	@Parameters({"esb.monitor.karafurl","esb.monitor.karajar","esb.monitor.receivenewevents.consumer"})
+	@Parameters({"esbMonitorKarafUrl","esbMonitorKarafJar","esbMonitorReceiveNewEventsConsumer"})
 	public void testReceiveNewEvents(String karafUrl,String jarPath,String consumerName){
 		
 		this.openServiceActivityMonitor();
@@ -82,20 +80,22 @@ public class TestEsbServiceActivityFilterData extends Esb {
 		.getText("//div[contains(@class,'x-small-editor x-toolbar x-component x-toolbar-layout-ct')]//div[contains(text(),'of') and @class='my-paging-text x-component ']");
         System.out.println(lastpage);
         String totalPage = lastpage.substring(lastpage.indexOf(" ") + 1);
-		selenium.click("//div[@class='my-paging-text x-component ' and text()='Page']//ancestor::tr[@class='x-toolbar-left-row']//td[9]//table");
+		selenium.click("//div[contains(@class,'my-paging-text x-component ') and text()='Page']//ancestor::tr[contains(@class,'x-toolbar-left-row')]//td[9]//table");
 		this.sleep(3000);
 		Assert.assertTrue(
 				selenium.getValue(
-						"//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[contains(@class,'gwt-TextBox x-component')]")
+						"//div[contains(@class,' x-small-editor x-toolbar x-component x-toolbar-layout-ct ')]//input[contains(@class,'gwt-TextBox x-component')]")
 						.equals(totalPage), "test go to last page failed!");
 		this.sleep(3000);
 		int eventsBefore = selenium.getXpathCount("//div[text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[@class='x-grid3-body']//div[contains(@class,'x-grid3-row')]").intValue();
+	    System.out.println("EventsBefore:"+eventsBefore);
 		this.generateEvents(karafUrl,consumerName,1);
 		this.sleep(3000);
 		selenium.click("//div[@class='header-title' and text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//b[text()='Refresh']");
 		this.sleep(3000);
 		int eventsAfter = selenium.getXpathCount("//div[text()='Service Activity Monitoring']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//div[@class='x-grid3-body']//div[contains(@class,'x-grid3-row')]").intValue();
-	    Assert.assertTrue(eventsAfter==eventsBefore+1, "test new events receive failed!");
+		System.out.println("EventsAfter:"+eventsAfter);				
+		Assert.assertTrue(eventsAfter==eventsBefore+1, "test new events receive failed!");
 	
 	}
 	
@@ -127,7 +127,7 @@ public class TestEsbServiceActivityFilterData extends Esb {
 	 * this test case is mainly to test filter data base on port type
 	 */
 	@Test
-	@Parameters({"esb.monitor.porttype.exist","esb.monitor.porttype.notexist"})
+	@Parameters({"esbMonitorPorttypeExist","esbMonitorPorttypeNotExist"})
 	public void testFilterDataBaseOnPortType(String portTypeExist,String portTypeNotExist){
 		
 		this.openServiceActivityMonitor();
@@ -200,7 +200,6 @@ public class TestEsbServiceActivityFilterData extends Esb {
 	public void checkFileterDateTimeBefore(Date date){
 		boolean ok = false;
 		System.out.println(date.toGMTString());
-		DateFormat df = new SimpleDateFormat();
 		Date compare = null;
 		Date now = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",Locale.US);
@@ -240,7 +239,6 @@ public class TestEsbServiceActivityFilterData extends Esb {
  		
     		boolean ok = false;
     		System.out.println(date.toGMTString());
-    		DateFormat df = new SimpleDateFormat();
     		Date compare = null;
     		Date now = null;
     		SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",Locale.US);

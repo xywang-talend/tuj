@@ -33,7 +33,7 @@
 			        <include name='testUndeployESBConductor'/>
 			    </methods>
 			</class>
-		</classes>
+		</classes>	
 	</test>
 	
 	<test name="ESBConductor03_testDuplicateESBConductor">
@@ -81,4 +81,33 @@
 		</classes>
 	</test>
 	
-</suite>
+	<test name="ESBConductor08_testGroupESBConductor">
+	    <parameter name='labelOfService_1' value='service_1' />
+		<parameter name='labelOfService_2' value='service_2' />
+		<parameter name='labelOfService_3' value='service_3' />
+		<parameter name='tag_1' value='tagA' />
+		<parameter name='tag_2' value='tagB' />
+		<classes>
+			<class name="com.talend.tac.cases.esbconductor.TestGroupByESBConductor" />
+				<methods>
+					<include name="testGroupESBConductorOfService"/>
+				</methods>
+		</classes>
+	</test>
+	
+ 
+    <test name="ESBConductor09_testSelectFeature">
+	    <parameter name ='warning_Num' value='4'/> 
+		<classes>
+			<class name="com.talend.tac.cases.esbconductor.TestSelectFeatureFromArchiva" />
+				<methods>
+					<include name="testSelectFeature"/>
+					<include name="uncheckRepositoryFromArchiva"/>
+					<include name="uncheckGroupFromArchiva"/>
+					<include name="uncheckArtifactFromArchiva"/>
+					<include name="uncheckVersionFromArchiva"/>
+				</methods>
+		</classes>
+	</test>
+   
+   </suite>
