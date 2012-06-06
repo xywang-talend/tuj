@@ -93,7 +93,8 @@ public class RecordImplAgent extends Record{
 		chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();
-		chooseEntity(entity);	
+		chooseEntity(entity);
+		this.sleepCertainTime(10000);
 		this.clickElementByXpath(locator.getString("xpath.record.click.lastpage"));
 		chooseRcord(entity,Identifie,IdentifieValue);	
 		this.sleepCertainTime(3000);	
