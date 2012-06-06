@@ -19,6 +19,7 @@ public class BasicReportOfOverviewAnalysisTest extends TalendSwtbotForTdq {
 
 	@Before
 	public void beforeClass() {
+		bot.sleep(10000);
 		bot.menu("Window").menu("Show view...").click();
 		bot.waitUntil(Conditions.shellIsActive("Show View"));
 		SWTBotTree tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
@@ -28,9 +29,11 @@ public class BasicReportOfOverviewAnalysisTest extends TalendSwtbotForTdq {
 		TalendSwtbotTdqCommon.setReportDB(bot, TalendReportDBType.MySQL);
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon
 				.createAnalysis(bot, TalendAnalysisTypeEnum.CONNECTION,
 						TalendMetadataTypeEnum.MYSQL);
+		
 	}
 
 	@Test
@@ -48,17 +51,18 @@ public class BasicReportOfOverviewAnalysisTest extends TalendSwtbotForTdq {
 				Conditions.shellCloses(bot.shell("Generate Report File")),
 				60000);
 		bot.editorByTitle(TalendAnalysisTypeEnum.CONNECTION.toString() + " 0.1")
-				.close();
+		.close();
+		
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
-				TalendAnalysisTypeEnum.CONNECTION.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.CONNECTION.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
+//				TalendAnalysisTypeEnum.CONNECTION.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.CONNECTION.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//	}
 
 }

@@ -22,7 +22,7 @@ public class DeleteActionAboutJRXMLFileTest extends TalendSwtbotForTdq{
 		bot.viewByTitle("DQ Repository").setFocus();
 		tree = new SWTBotTree((Tree)bot.widget(WidgetOfType.widgetOfType(Tree.class),
 				bot.viewByTitle("DQ Repository").getWidget()));
-		tree.expandNode("Libraries","JRXML Template","column").expand().getNode(0).select();
+		tree.expandNode("Libraries","JRXML Template","column").getNode(0).select();
 		ContextMenuHelper.clickContextMenu(tree, "Delete");
 		try {
 			SWTBotShell shell = bot.shell("refresh");
@@ -30,10 +30,8 @@ public class DeleteActionAboutJRXMLFileTest extends TalendSwtbotForTdq{
 		} catch (Exception e) {
 		
 		}
-//		Assert.assertNotNull(tree.expandNode("Recycle Bin").select("b01_column_basic"));
-		Assert.assertNotNull(tree.expandNode("Recycle Bin").getNode(0).select());
-		tree.expandNode("Recycle Bin").getNode(0).select();
-	//	tree.expandNode("Recycle Bin").select("b01_column_basic");
+		Assert.assertNotNull(tree.expandNode("Recycle Bin").select("b01_column_basic"));
+		tree.expandNode("Recycle Bin").select("b01_column_basic");
 		ContextMenuHelper.clickContextMenu(tree, "Delete");
 		bot.waitUntil(Conditions.shellIsActive("Delete forever"));
 		SWTBotShell shell = bot.shell("Delete forever");

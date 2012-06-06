@@ -26,6 +26,7 @@ public class NewReportTextIndicatorTest extends TalendSwtbotForTdq {
 		TalendSwtbotTdqCommon.setReportDB(bot, TalendReportDBType.MySQL);
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon
 				.createAnalysis(bot, TalendAnalysisTypeEnum.COLUMN);
 		TalendSwtbotTdqCommon.createReport(bot, REPORTLABEL);
@@ -45,7 +46,7 @@ public class NewReportTextIndicatorTest extends TalendSwtbotForTdq {
 		tree.expandNode("tbi").getNode(0).expand().select("customer");
 		bot.table().getTableItem(address1).check();
 		bot.button("OK").click();
-		formBot.ccomboBox(2).setSelection("Nominal");
+		formBot.ccomboBox(1).setSelection("Nominal");
 		bot.toolbarButtonWithTooltip("Save").click();
 		formBot.hyperlink("Select indicators for each column").click();
 		bot.waitUntil(Conditions.shellIsActive("Indicator Selection"));
@@ -71,14 +72,14 @@ public class NewReportTextIndicatorTest extends TalendSwtbotForTdq {
 				TalendAnalysisTypeEnum.COLUMN.toString());
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
-				REPORTLABEL);
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.COLUMN.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendReportDBType.MySQL.toString());
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
+//				REPORTLABEL);
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.COLUMN.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendReportDBType.MySQL.toString());
+//	}
 
 }

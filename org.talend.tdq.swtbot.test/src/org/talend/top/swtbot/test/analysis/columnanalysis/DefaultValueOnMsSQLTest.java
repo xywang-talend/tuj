@@ -24,6 +24,7 @@ public class DefaultValueOnMsSQLTest extends TalendSwtbotForTdq {
 	public void beforeRunning() {
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MSSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MSSQL.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon
 				.createAnalysis(bot, TalendAnalysisTypeEnum.COLUMN);
 	}
@@ -88,8 +89,9 @@ public class DefaultValueOnMsSQLTest extends TalendSwtbotForTdq {
 		
 		System.out.println("defaultTable = " + defValTable);
 		System.out.println("defaultColumn = " + defValColumn);
+		System.out.println("defaultColumn = " + defColumn);
 		
-		tree.expandNode(System.getProperty("mssql.dbname")).expand().getNode(0).expand().getNode(0).expand()
+		tree.expandNode(System.getProperty("mssql.dbname")).expand().getNode("dbo").expand().getNode(0).expand()
 				.select(defValTable);
 //		bot.table().getTableItem(defValColumn).check();
 		bot.table().getTableItem(defColumn).check();
@@ -114,17 +116,17 @@ public class DefaultValueOnMsSQLTest extends TalendSwtbotForTdq {
 			bot.waitUntil(Conditions.shellCloses(bot.shell("Run Analysis")));
 		} catch (Exception e) {
 		}
-		
+		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString()+" 0.1").close();
 		// need assert the default value of column
 		
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.COLUMN.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MSSQL.toString());
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.COLUMN.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MSSQL.toString());
+//	}
 
 }

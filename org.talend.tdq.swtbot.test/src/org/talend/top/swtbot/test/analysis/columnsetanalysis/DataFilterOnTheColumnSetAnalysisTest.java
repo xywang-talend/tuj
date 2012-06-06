@@ -1,5 +1,8 @@
 package org.talend.top.swtbot.test.analysis.columnsetanalysis;
 
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.allOf;
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withMnemonic;
+
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
@@ -13,6 +16,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotLabel;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,8 +58,8 @@ public class DataFilterOnTheColumnSetAnalysisTest extends TalendSwtbotForTdq {
 		bot.table().getTableItem(columns[0]).check();
 		bot.table().getTableItem(columns[1]).check();
 		bot.button("OK").click();
-		formBot.ccomboBox(2).setSelection("Interval");
-		formBot.ccomboBox(3).setSelection("Nominal");
+		formBot.ccomboBox(1).setSelection("Interval");
+		formBot.ccomboBox(2).setSelection("Nominal");
 		// target
 		formBot.section("Analyzed Columns").setFocus();
 		tree = new SWTBotTree((Tree) bot.widget(
@@ -102,9 +106,9 @@ public class DataFilterOnTheColumnSetAnalysisTest extends TalendSwtbotForTdq {
 		bot.sleep(10000);
 		SWTBotEditor ed = bot.editorByTitle(TalendAnalysisTypeEnum.COLUMNSET
 				.toString() + " 0.1");
-		// Matcher matcher = withMnemonic("Data");
+		Matcher matcher = allOf(withMnemonic("Data"),WidgetOfType.widgetOfType(Label.class));
 		SWTBotLabel label = new SWTBotLabel((Label) formBot.widget(
-				WidgetOfType.widgetOfType(Label.class), ed.getWidget()));
+				matcher, ed.getWidget()));
 		SWTBotLabelExt Label1 = new SWTBotLabelExt(label);
 		Label1.click();
 		formBot.button("Filter Data").click();
@@ -155,13 +159,13 @@ public class DataFilterOnTheColumnSetAnalysisTest extends TalendSwtbotForTdq {
 
 	}
 
-	@After
-	public void afterClass() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.COLUMNSET.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-
-	}
+//	@After
+//	public void afterClass() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.COLUMNSET.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//
+//	}
 
 }

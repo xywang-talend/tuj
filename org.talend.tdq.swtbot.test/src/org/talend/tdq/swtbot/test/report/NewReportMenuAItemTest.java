@@ -22,6 +22,7 @@ public class NewReportMenuAItemTest extends TalendSwtbotForTdq {
 		TalendSwtbotTdqCommon.setReportDB(bot, TalendReportDBType.MySQL);
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon.createAnalysis(bot,
 				TalendAnalysisTypeEnum.CATALOG, TalendMetadataTypeEnum.MYSQL);
 		bot.editorByTitle(TalendAnalysisTypeEnum.CATALOG.toString() + " 0.1")
@@ -36,6 +37,9 @@ public class NewReportMenuAItemTest extends TalendSwtbotForTdq {
 		tree.expandNode("Data Profiling").getNode(0).expand()
 				.select(TalendAnalysisTypeEnum.CATALOG.toString() + " 0.1");
 		ContextMenuHelper.clickContextMenu(tree, "New Report");
+		bot.sleep(10000);
+		bot.editorByTitle(TalendAnalysisTypeEnum.CATALOG.toString() + " 0.1")
+		.close();
 		SWTBotTree tree1 = new SWTBotTree((Tree) bot.widget(WidgetOfType
 				.widgetOfType(Tree.class),bot.viewByTitle("DQ Repository").getWidget()));
 		tree1.expandNode("Data Profiling").getNode(1).expand()
@@ -44,21 +48,21 @@ public class NewReportMenuAItemTest extends TalendSwtbotForTdq {
 		bot.toolbarButtonWithTooltip("Generate Report File").click();
 		bot.waitUntil(
 				Conditions.shellCloses(bot.shell("Generate Report File")),
-				50000);
+				90000);
 		bot.waitUntil(Conditions.shellCloses(bot.shell("refresh")));
 		bot.editorByTitle(TalendAnalysisTypeEnum.CATALOG.toString() + " 0.1")
 				.close();
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
-				TalendAnalysisTypeEnum.CATALOG.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.CATALOG.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT,
+//				TalendAnalysisTypeEnum.CATALOG.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.CATALOG.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//
+//	}
 
 }

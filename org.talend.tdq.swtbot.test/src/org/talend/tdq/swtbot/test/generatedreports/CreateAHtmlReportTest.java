@@ -39,14 +39,14 @@ public class CreateAHtmlReportTest extends TalendSwtbotForTdq{
 		
 		
 	}
-	@After
-	public void afterClass(){
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT, REPORTLABEL);
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, TalendAnalysisTypeEnum.CONNECTION.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, TalendAnalysisTypeEnum.CATALOG.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, TalendMetadataTypeEnum.MYSQL.toString());
-		
-	}
+//	@After
+//	public void afterClass(){
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT, REPORTLABEL);
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, TalendAnalysisTypeEnum.CONNECTION.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, TalendAnalysisTypeEnum.CATALOG.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, TalendMetadataTypeEnum.MYSQL.toString());
+//		
+//	}
 	
 	public static void generateReport(SWTWorkbenchBot bot, SWTFormsBot formBot,
 			String label, TalendReportTemplate template, String... analyses) {
@@ -94,11 +94,10 @@ public class CreateAHtmlReportTest extends TalendSwtbotForTdq{
 		try {
 			bot.waitUntil(
 					Conditions.shellCloses(bot.shell("Generate Report File")),
-					30000);
+					60000);
 	//		bot.waitUntil(Conditions.shellCloses(bot.shell("refresh")), 10000);
 		} catch (TimeoutException e) {
 		}
-		bot.sleep(20000);
 		bot.editorByTitle(label + " 0.1").close();
 		
 

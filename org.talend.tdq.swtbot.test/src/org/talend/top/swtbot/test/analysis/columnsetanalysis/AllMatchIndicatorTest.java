@@ -31,7 +31,7 @@ public class AllMatchIndicatorTest extends TalendSwtbotForTdq {
 	public void allMatchIndicator() {
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMNSET.toString() + " 0.1")
 				.show();
-		formBot.ccomboBox(2).setSelection("Java");
+		formBot.ccomboBox(1).setSelection("Java");
 		bot.toolbarButtonWithTooltip("Save").click();
 		formBot.hyperlink("Select columns to analyze").click();
 		bot.waitUntil(Conditions.shellIsActive("Column Selection"));
@@ -44,8 +44,8 @@ public class AllMatchIndicatorTest extends TalendSwtbotForTdq {
 		bot.table().getTableItem(columns[0]).check();
 		bot.table().getTableItem(columns[1]).check();
 		bot.button("OK").click();
-		formBot.ccomboBox(2).setSelection("Interval");
-		formBot.ccomboBox(3).setSelection("Nominal");
+		formBot.ccomboBox(1).setSelection("Interval");
+		formBot.ccomboBox(2).setSelection("Nominal");
 		// target
 		formBot.section("Analyzed Columns").setFocus();
 		tree = new SWTBotTree((Tree) bot.widget(
@@ -92,13 +92,13 @@ public class AllMatchIndicatorTest extends TalendSwtbotForTdq {
 
 	}
 
-	@After
-	public void afterClass() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.COLUMNSET.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-
-	}
+//	@After
+//	public void afterClass() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.COLUMNSET.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//
+//	}
 
 }

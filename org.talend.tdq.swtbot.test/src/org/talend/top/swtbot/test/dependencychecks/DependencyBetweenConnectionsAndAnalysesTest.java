@@ -44,7 +44,7 @@ public class DependencyBetweenConnectionsAndAnalysesTest extends TalendSwtbotFor
 		tree.expandNode("tbi").getNode(0).expand().select("customer");
 		bot.table().getTableItem(column).check();
 		bot.button("OK").click();
-		formBot.ccomboBox(2).setSelection("Interval");
+		formBot.ccomboBox(1).setSelection("Interval");
 		bot.toolbarButtonWithTooltip("Save").click();
 		formBot.hyperlink("Select indicators for each column").click();
 		bot.waitUntil(Conditions.shellIsActive("Indicator Selection"));
@@ -73,8 +73,7 @@ public class DependencyBetweenConnectionsAndAnalysesTest extends TalendSwtbotFor
 		} catch (Exception e) {
 		
 		}
-		//Assert.assertNotNull(tree.expandNode("Recycle Bin").select(TalendMetadataTypeEnum.MYSQL.toString()));
-		Assert.assertNotNull(tree.expandNode("Recycle Bin").getNode(0).select());
+		Assert.assertNotNull(tree.expandNode("Recycle Bin").select(TalendMetadataTypeEnum.MYSQL.toString()));
 		tree.expandNode("Recycle Bin").getNode(0).select();
 		ContextMenuHelper.clickContextMenu(tree, "Delete");
 		bot.waitUntil(Conditions.shellIsActive("Confirm Resource Delete"));
@@ -88,8 +87,7 @@ public class DependencyBetweenConnectionsAndAnalysesTest extends TalendSwtbotFor
 			bot.waitUntil(Conditions.shellCloses(shell));
 		} catch (Exception e) {
 		}
-	//	tree.expandNode("Recycle Bin").select(TalendMetadataTypeEnum.MYSQL.toString());
-		tree.expandNode("Recycle Bin").getNode(0).select();
+		tree.expandNode("Recycle Bin").select(TalendMetadataTypeEnum.MYSQL.toString());
 		ContextMenuHelper.clickContextMenu(tree, "Restore");
 		try {
 			shell = bot.shell("refresh");
@@ -99,12 +97,12 @@ public class DependencyBetweenConnectionsAndAnalysesTest extends TalendSwtbotFor
 		
 	}
 	
-	@After
-	public void afterClass(){
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, TalendAnalysisTypeEnum.COLUMN.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, TalendMetadataTypeEnum.MYSQL.toString());
-		
-	}
+//	@After
+//	public void afterClass(){
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, TalendAnalysisTypeEnum.COLUMN.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, TalendMetadataTypeEnum.MYSQL.toString());
+//		
+//	}
 	
 	
 

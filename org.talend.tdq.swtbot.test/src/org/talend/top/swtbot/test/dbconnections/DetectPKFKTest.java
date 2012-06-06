@@ -66,10 +66,10 @@ public class DetectPKFKTest extends TalendSwtbotForTdq {
 		Assert.assertEquals("sales_fact_ibfk_2(1)", tmp);
 	}
 
-	@After
-	public void afterMethod() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-	}
+//	@After
+//	public void afterMethod() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//	}
 
 }

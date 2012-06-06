@@ -17,35 +17,45 @@ public class ImportedDQRuleDependencyTest extends TalendSwtbotForTdq{
 	
 	@Test
 	public void importedDQRuleDependency(){
-		bot.sleep(10000);
+		 bot.waitUntil(Conditions.widgetIsEnabled(bot.toolbarButtonWithTooltip("import items")), 10000);
 		 bot.toolbarButtonWithTooltip("import items").click();
 		 bot.waitUntil(Conditions.shellIsActive("Import Item"));
 		 bot.radio("Select archive file:").click();
-		 bot.text(1).setText("F:\\A.zip");
+		 bot.text(1).setText("F:\\B.zip");
 		 
 		 try {
 			 SWTBotShell  shell = bot.shell("Progress Information");
-			bot.waitUntil(Conditions.shellCloses(shell));
+			bot.waitUntil(Conditions.shellCloses(shell),180000);
 		} catch (Exception e1) {
 		
 		}
+		
 		SWTBotTree tree = new SWTBotTree(bot.widget(WidgetOfType.widgetOfType(Tree.class)));
 		tree.getTreeItem("TDQ_Libraries").getNode(0).uncheck();
 		tree.getTreeItem("TDQ_Libraries").getNode(1).uncheck();
+	//	bot.checkBox(mnemonicText)
 		 bot.button("Finish").click();
-		
 		 try {
-			 SWTBotShell shell = bot.shell("Import Item");
-			bot.waitUntil(Conditions.shellCloses(shell));
-		} catch (Exception e) {
+			 SWTBotShell  shell = bot.shell("Progress Information");
+			bot.waitUntil(Conditions.shellCloses(shell),180000);
+		} catch (Exception e1) {
 		
 		}
+		
+//		 try {
+//			 SWTBotShell shell = bot.shell("Import Item");
+//			bot.waitUntil(Conditions.shellCloses(shell));
+//		} catch (Exception e) {
+//		
+//		}
+		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.LIBRARY_DQRULE, "RuleUnDependency");
+		
+		
 		bot.viewByTitle("DQ Repository").setFocus();
 		tree = new SWTBotTree((Tree) bot.widget(
 				WidgetOfType.widgetOfType(Tree.class),
 				bot.viewByTitle("DQ Repository").getWidget()));
-		tree.expandNode("Libraries","Rules").getNode(0).expand()
-		.getNode(0).select();
+		tree.expandNode("Libraries", "Rules", "SQL").select("RuleDependency 0.1");
 		ContextMenuHelper.clickContextMenu(tree, "Delete");
 		
 		try {
@@ -57,9 +67,8 @@ public class ImportedDQRuleDependencyTest extends TalendSwtbotForTdq{
 		bot.viewByTitle("DQ Repository").setFocus();
 		
 		
-		Assert.assertNotNull(tree.expandNode("Recycle Bin").getNode(0).select());
-		tree.expandNode("Recycle Bin").getNode(0).select();
-		bot.sleep(2000);
+		Assert.assertNotNull(tree.expandNode("Recycle Bin").select("RuleDependency"));
+		tree.expandNode("Recycle Bin").select("RuleDependency");
 		ContextMenuHelper.clickContextMenu(tree, "Delete");
 		bot.waitUntil(Conditions.shellIsActive("Confirm Resource Delete"));
 		Assert.assertNotNull(bot.shell("Confirm Resource Delete"));
@@ -84,36 +93,18 @@ public class ImportedDQRuleDependencyTest extends TalendSwtbotForTdq{
 		} catch (Exception e) {
 		}
 		
-	}
-	@After
-	public void afterClass(){
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, "dqrule");
-		bot.viewByTitle("DQ Repository").setFocus();
-		SWTBotTree tree = new SWTBotTree((Tree) bot.widget(
-				WidgetOfType.widgetOfType(Tree.class),
-				bot.viewByTitle("DQ Repository").getWidget()));
-		tree.expandNode("Libraries","Rules").getNode(0).expand()
-		.getNode(0).select();
-		ContextMenuHelper.clickContextMenu(tree, "Delete");
-		
-		try {  
-			SWTBotShell shell = bot.shell("refresh");     
-			bot.waitUntil(Conditions.shellCloses(shell));
-		} catch (Exception e) {
-		
-		}
-		Assert.assertNotNull(tree.expandNode("Recycle Bin").getNode(0).select());
-		tree.expandNode("Recycle Bin").getNode(0).select();
-		ContextMenuHelper.clickContextMenu(tree, "Delete");
-		bot.waitUntil(Conditions.shellIsActive("Delete forever"));
-		SWTBotShell shell = bot.shell("Delete forever");
-		bot.button("Yes").click();
-		bot.waitUntil(Conditions.shellCloses(shell));
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, "mysql");
-		
 		
 		
 	}
+//	@After
+//	public void afterClass(){
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, "dqrule");
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.LIBRARY_DQRULE, "RuleDependency");
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, "mysql");
+//		
+//		
+//		
+//	}
 	
 
 }

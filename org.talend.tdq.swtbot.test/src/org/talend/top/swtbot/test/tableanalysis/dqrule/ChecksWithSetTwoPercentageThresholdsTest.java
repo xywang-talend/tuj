@@ -29,6 +29,8 @@ public class ChecksWithSetTwoPercentageThresholdsTest extends TalendSwtbotForTdq
 		TalendSwtbotTdqCommon
 				.createAnalysis(bot, TalendAnalysisTypeEnum.DQRULE);
 		TalendSwtbotTdqCommon.createDQRule(bot, DQRULENAME, RULEEXPRESSION);
+		
+		
 	}
 	
 	@Test
@@ -88,18 +90,18 @@ public class ChecksWithSetTwoPercentageThresholdsTest extends TalendSwtbotForTdq
 			.getProperty("tdq.analysis.result.screenshot.path")
 			+ "dqrule_threshold.jpeg");		
 		
-	bot.editorByTitle(TalendAnalysisTypeEnum.DQRULE.toString() + " 0.1").close();	
+	bot.editorByTitle(TalendAnalysisTypeEnum.DQRULE.toString() + " 0.1").close();
 	}
 	
-	@After 
-	public void afterClass(){
-		TalendSwtbotTdqCommon.deleteAndCleanCycleBin(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.DQRULE.toString());
-		TalendSwtbotTdqCommon.deleteAndCleanCycleBin(bot,
-				TalendItemTypeEnum.LIBRARY_DQRULE, DQRULENAME);
-		TalendSwtbotTdqCommon.deleteAndCleanCycleBin(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-		
-	}
+//	@After 
+//	public void afterClass(){
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.DQRULE.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot,
+//				TalendItemTypeEnum.LIBRARY_DQRULE, DQRULENAME);
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//		
+//	}
 
 }

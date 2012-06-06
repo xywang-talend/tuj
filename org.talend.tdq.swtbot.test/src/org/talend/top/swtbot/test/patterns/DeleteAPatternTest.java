@@ -25,10 +25,8 @@ public class DeleteAPatternTest extends TalendSwtbotForTdq{
 		} catch (Exception e) {
 		
 		}
-	//	Assert.assertNotNull(tree.expandNode("Recycle Bin").select("FR_Code_postal"));
-		Assert.assertNotNull(tree.expandNode("Recycle Bin").getNode(0).select());
-		tree.expandNode("Recycle Bin").getNode(0).select();
-	//	tree.expandNode("Recycle Bin").select("FR_Code_postal");
+		Assert.assertNotNull(tree.expandNode("Recycle Bin").select("FR Code postal"));
+		tree.expandNode("Recycle Bin").select("FR Code postal");
 		ContextMenuHelper.clickContextMenu(tree, "Delete");
 		bot.waitUntil(Conditions.shellIsActive("Delete forever"));
 		SWTBotShell shell = bot.shell("Delete forever");

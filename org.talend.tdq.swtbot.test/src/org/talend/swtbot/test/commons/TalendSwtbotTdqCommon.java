@@ -1,17 +1,20 @@
 package org.talend.swtbot.test.commons;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.forms.finder.finders.SWTFormsBot;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.keyboard.Keystrokes;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCCombo;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotCombo;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
@@ -20,6 +23,7 @@ import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.hamcrest.Matcher;
 import org.junit.Assert;
 
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
 import static org.eclipse.swtbot.swt.finder.matchers.WithText.withText;
 import static org.eclipse.swtbot.swt.finder.matchers.AllOf.allOf;
 /**
@@ -32,7 +36,7 @@ public class TalendSwtbotTdqCommon {
 	public static int TREEITEM_FOUND_TIME = 0;
 
 	public enum TalendItemTypeEnum {
-		METADATA, ANALYSIS, REPORT, FILE_DELIMITED, MDM, LIBRARY_DQRULE;
+		REPORT, ANALYSIS, LIBRARY_DQRULE, LIBRARY_UDI, LIBRARY_PATTERNS_SQL, LIBRARY_SourceFiles, LIBRARY_PATTERNS_REGEX, METADATA,  FILE_DELIMITED, MDM, RECYCLE_BIN;
 	}
 
 	public enum TalendMetadataTypeEnum {
@@ -197,7 +201,7 @@ public class TalendSwtbotTdqCommon {
 				bot.buttonWithTooltip("Select class name").click();
 				bot.textWithLabel("User name ").setText(
 						System.getProperty("mysqljdbc.login"));
-				bot.textWithLabel("Password").setText(
+				bot.textWithLabel("Password ").setText(
 						System.getProperty("mysqljdbc.password"));
 				break;
 			case MSACCESSODBC:
@@ -269,6 +273,77 @@ public class TalendSwtbotTdqCommon {
 		}
 		SWTBotTreeItem newCsvItem = tree
 				.expandNode("Metadata", "FileDelimited connections").select(fileName);
+		Assert.assertNotNull(newCsvItem);
+	}
+	
+	public static void createFileDelimitedConnectionTxt(SWTWorkbenchBot bot,
+			String fileName) {
+		bot.viewByTitle("DQ Repository").setFocus();
+		tree = new SWTBotTree((Tree) bot.widget(
+				WidgetOfType.widgetOfType(Tree.class),
+				bot.viewByTitle("DQ Repository").getWidget()));
+		tree.expandNode("Metadata").select("FileDelimited connections");
+		ContextMenuHelper.clickContextMenu(tree,
+				"Create File Delimited Connection");
+		bot.waitUntil(Conditions.shellIsActive("New Delimited File"));
+		try {
+			shell = bot.shell("New Delimited File");
+			bot.textWithLabel("Name").setText(fileName);
+			bot.button("Next >").click();
+			bot.textWithLabel("File").setText(
+					System.getProperty("delimitedFile.Path"));
+			bot.button("Next >").click();
+			bot.ccomboBox(1).setSelection("Tabulation");
+			bot.button("Set heading row cloumn names").click();
+			bot.button("Refresh Preview").click();
+			bot.sleep(5000);
+			bot.button("Next >").click();
+			bot.button("Finish").click();
+		} catch (Exception e) {
+			shell.close();
+			return;
+		}
+		SWTBotTreeItem newCsvItem = tree
+				.expandNode("Metadata", "FileDelimited connections").select(fileName);
+		Assert.assertNotNull(newCsvItem);
+	}
+	
+	public static void createJobFileDelimitedConnectionTxt(SWTWorkbenchBot bot,
+			String fileName) {
+		bot.viewByTitle("Repository").setFocus();
+		tree = new SWTBotTree((Tree) bot.widget(
+				WidgetOfType.widgetOfType(Tree.class),
+				bot.viewByTitle("Repository").getWidget()));
+		tree.expandNode("Metadata").select("File delimited");
+		ContextMenuHelper.clickContextMenu(tree,
+				"Create file delimited");
+		bot.waitUntil(Conditions.shellIsActive("New Delimited File"));
+		try {
+			shell = bot.shell("New Delimited File");
+			bot.textWithLabel("Name").setText(fileName);
+			bot.button("Next >").click();
+			bot.textWithLabel("File").setText(
+					System.getProperty("delimitedFile.PathTxt"));
+			bot.button("Next >").click();
+			bot.shell("New Delimited File").activate();
+//			bot.comboBox("Semicolon").setSelection("Tabulation");
+			bot.comboBoxWithLabel("Field Separator").setSelection("Tabulation");
+			for(Combo c :bot.widgets(widgetOfType(Combo.class), bot.shell("New Delimited File").widget)){
+				System.out.println(new SWTBotCombo(c).getText());
+			}
+			System.out.println(bot.checkBox(5).getText());
+			bot.checkBox("Set heading row as column names").click();
+			bot.button("Refresh Preview").click();
+			bot.sleep(5000);
+			bot.button("Refresh Preview").click();
+			bot.button("Next >").click();
+			bot.button("Finish").click();
+		} catch (Exception e) {
+			shell.close();
+			return;
+		}
+		SWTBotTreeItem newCsvItem = tree
+				.expandNode("Metadata", "File delimited").select(fileName+" 0.1");
 		Assert.assertNotNull(newCsvItem);
 	}
 
@@ -382,6 +457,60 @@ public class TalendSwtbotTdqCommon {
 			return;
 		}
 	}
+	public static void createAnalysis(SWTWorkbenchBot bot,
+			TalendAnalysisTypeEnum analysisType,String view) {
+		bot.viewByTitle("DQ Repository").setFocus();
+		tree = new SWTBotTree((Tree) bot.widget(
+				WidgetOfType.widgetOfType(Tree.class),
+				bot.viewByTitle("DQ Repository").getWidget()));
+		tree.expandNode("Data Profiling").getNode(0).select();
+		ContextMenuHelper.clickContextMenu(tree, "New Analysis");
+		bot.waitUntil(Conditions.shellIsActive("Create New Analysis"));
+
+		tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
+				.widgetOfType(Tree.class)));
+		try {
+			switch (analysisType) {
+			case DQRULE:
+				tree.expandNode("Table Analysis").select(
+						"Business Rule Analysis");
+				break;
+			case FUNCTIONAL:
+				tree.expandNode("Table Analysis").select(
+						"Functional Dependency");
+				break;
+			case COLUMNSET:
+				tree.expandNode("Table Analysis").select("Column Set Analysis");
+				break;
+			case COLUMN:
+				tree.expandNode("Column Analysis").select("Column Analysis");
+				break;
+			case REDUNDANCY:
+				tree.expandNode("Redundancy Analysis").select(
+						"Column Content Comparison");
+				break;
+			case NUMERICAL_CORRELATION:
+				tree.expandNode("Column Correlation Analysis").select(
+						"Numerical Correlation Analysis");
+				break;
+			case TIME_CORRELATION:
+				tree.expandNode("Column Correlation Analysis").select(
+						"Time Correlation Analysis");
+				break;
+			case NOMINAL_CORRELATION:
+				tree.expandNode("Column Correlation Analysis").select(
+						"Nominal Correlation Analysis");
+				break;
+			}
+			bot.button("Next >").click();
+			bot.textWithLabel("Name").setText(view);
+			bot.sleep(2000);
+			bot.button("Finish").click();
+		} catch (WidgetNotFoundException e) {
+			bot.shell("Create New Analysis").close();
+			return;
+		}
+	}
 
 	public static void createAnalysis(SWTWorkbenchBot bot,
 			TalendAnalysisTypeEnum analysisType,
@@ -429,7 +558,7 @@ public class TalendSwtbotTdqCommon {
 					.getNode(0).select();
 			if (!bot.button("Next >").isEnabled())
 				tree.expandNode("DB connections", metadataType.toString())
-						.getNode(0).expand().getNode(0).select();
+						.getNode(0).expand().getNode(1).select();
 			break;
 		}
 		bot.button("Next >").click();
@@ -445,9 +574,7 @@ public class TalendSwtbotTdqCommon {
 		ContextMenuHelper.clickContextMenu(tree, "New Report");
 		try {
 			bot.textWithLabel("Name").setText(label);
-			bot.sleep(2000);
 			bot.button("Finish").click();
-			bot.sleep(2000);
 		} catch (Exception e) {
 			bot.shell("").close();
 		}
@@ -455,7 +582,7 @@ public class TalendSwtbotTdqCommon {
 
 	public static void setReportDB(SWTWorkbenchBot bot,
 			TalendReportDBType dbType) {
-		bot.sleep(1000);
+		bot.sleep(10000);
 		try {
 			bot.menu("Window").menu("Preferences").click();
 		} catch (WidgetNotFoundException e1) {
@@ -464,7 +591,7 @@ public class TalendSwtbotTdqCommon {
 		bot.waitUntil(Conditions.shellIsActive("Preferences"));
 		tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
 				.widgetOfType(Tree.class)));
-		tree.expandNode("Talend", "Data Profiler").select("Reporting");
+		tree.expandNode("Talend", "Profiler").select("Reporting");
 		bot.textWithLabel("Default Report Folder:").setText(
 				System.getProperty("default.reportpath"));
 
@@ -508,58 +635,96 @@ public class TalendSwtbotTdqCommon {
 			break;
 		}
 		bot.button("Apply").click();
-		bot.sleep(6000);
-		try {
-			bot.waitUntil(Conditions.shellIsActive("Set database"));
-			SWTBotShell shell = bot.shell("Set database");
-			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellCloses(shell), 60000);
-			if(bot.activeShell().getText().equals("Confirm")){
+//		if(bot.activeShell().getText().equals("Set database")){
+//			bot.waitUntil(Conditions.shellIsActive("Set database"));
+//			SWTBotShell shell = bot.shell("Set database");
+//			bot.button("OK").click();
+//			bot.waitUntil(Conditions.shellCloses(shell), 60000);
+//		}
+			SWTBotShell shellp;
+			try {
+				shellp = bot.shell("Progress Information");
+				bot.waitUntil(Conditions.shellCloses(shellp), 60000);
+			} catch (TimeoutException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//			if(bot.activeShell().getText().equals("Confirm")){
+//				System.out.println(bot.activeShell().getText()+"::::::::::::::::::");
+//			bot.waitUntil(Conditions.shellIsActive("Confirm"));
+//			SWTBotShell shell2 = bot.shell("Confirm");
+//			bot.button("OK").click();
+//			bot.waitUntil(Conditions.shellCloses(shell2),60000);
+//			}
+		System.out.println(bot.activeShell().getText()+"::::::::::::::::::");
+			if(bot.activeShell().getText().equals("Information")){
 				System.out.println(bot.activeShell().getText()+"::::::::::::::::::");
-			bot.waitUntil(Conditions.shellIsActive("Confirm"));
-			SWTBotShell shell2 = bot.shell("Confirm");
+			bot.waitUntil(Conditions.shellIsActive("Information"));
+			SWTBotShell shellc = bot.shell("Information");
 			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellCloses(shell2),60000);
+			bot.waitUntil(Conditions.shellCloses(shellc),60000);
 			}
-			bot.waitUntil(Conditions.shellIsActive("Warning"));
-			SWTBotShell shell1 = bot.shell("Warning");
+//			if(bot.activeShell().getText().equals("Warning")){
+//			bot.waitUntil(Conditions.shellIsActive("Warning"));
+//			SWTBotShell shell1 = bot.shell("Warning");
+//			bot.button("OK").click();
+//			bot.waitUntil(Conditions.shellCloses(shell1));
+//			}
 			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellCloses(shell1));
-			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellIsActive("Set database"));
-			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellCloses(shell));
-			if(bot.activeShell().getText().equals("Confirm")){
-			bot.waitUntil(Conditions.shellIsActive("Confirm"));
-			SWTBotShell shell2 = bot.shell("Confirm");
-			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellCloses(shell2));
+			
+//			try {
+//				shellp = bot.shell("Progress Information");
+//				bot.waitUntil(Conditions.shellCloses(shellp), 60000);
+//			} catch (TimeoutException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			
+//			if(bot.activeShell().getText().equals("Set database")){
+//			bot.waitUntil(Conditions.shellIsActive("Set database"));
+//			bot.button("OK").click();
+//			bot.waitUntil(Conditions.shellCloses(shell),60000);
+//			}
+			try {
+				shellp = bot.shell("Progress Information");
+				bot.waitUntil(Conditions.shellCloses(shellp), 60000);
+			} catch (TimeoutException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			bot.waitUntil(Conditions.shellIsActive("Warning"));
+
+//			if(bot.activeShell().getText().equals("Confirm")){
+//			bot.waitUntil(Conditions.shellIsActive("Confirm"));
+//			SWTBotShell shell2 = bot.shell("Confirm");
+//			bot.button("OK").click();
+//			bot.waitUntil(Conditions.shellCloses(shell2),60000);
+//			}
+			if(bot.activeShell().getText().equals("Information")){
+				System.out.println(bot.activeShell().getText()+"::::::::::::::::::");
+			bot.waitUntil(Conditions.shellIsActive("Information"));
+			SWTBotShell shellc = bot.shell("Information");
 			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellCloses(shell1));
-		} catch (TimeoutException e) {
-		}
-		// System.out.println("aaaaa");
-		// bot.button("Apply").click();
-		// System.out.println("bbbbbbbb");
-		// bot.sleep(50000);
-		// bot.waitUntil(Conditions.shellIsActive("Warning"));
-		// System.out.println("accccc");
-		// bot.sleep(50000);
-		// bot.button("OK").click();
-		// System.out.println("dddddddddd");
-		// bot.textWithLabel("Password").getText().toString().isEmpty();
-		// bot.sleep(100000);
-		// bot.textWithLabel("Password").setText(
-		// System.getProperty("reportdb.oracle.password"));
-		//	bot.sleep(50000);
+			bot.waitUntil(Conditions.shellCloses(shellc),60000);
+			}
+//			if(bot.activeShell().getText().equals("Warning")){
+//				SWTBotShell shellc = bot.shell("Warning");
+//			bot.waitUntil(Conditions.shellIsActive("Warning"));
+//			bot.button("OK").click();
+//			bot.waitUntil(Conditions.shellCloses(shellc),60000);
+//			}
+		
+		
 //		System.out.println(System.getProperty("reportdb.oracle.password")
 //				+ "qqqq" + bot.textWithLabel("Password").getText() + "bbbbb");
 	}
+	
+	public static void generateReport(SWTWorkbenchBot bot, SWTFormsBot formBot,
+			String label, TalendReportTemplate template, String... analyses){
+		generateReport(bot, formBot, label, null, null, template, analyses);
+	}
 
 	public static void generateReport(SWTWorkbenchBot bot, SWTFormsBot formBot,
-			String label, TalendReportTemplate template, String... analyses) {
+			String label, String folder, String temp, TalendReportTemplate template, String... analyses) {
 		bot.viewByTitle("DQ Repository").setFocus();
 		tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
 				.widgetOfType(Tree.class)));
@@ -583,10 +748,13 @@ public class TalendSwtbotTdqCommon {
 			if (template == TalendReportTemplate.User_defined) {
 				String tmp = template.toString().replace("_", " ");
 				formBot.ccomboBox(i).setSelection(tmp);
+				formBot.button("Browse...").click();
+				bot.waitUntil(Conditions.shellIsActive("Report Template Selector"));
+				SWTBotTree tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
+						.widgetOfType(Tree.class)));
+				tree.expandNode(folder).select(temp);
+				bot.button("OK").click();
 
-				/**
-			 * 
-			 */
 			} else {
 				formBot.ccomboBox(i).setSelection(template.toString());
 			}
@@ -600,7 +768,7 @@ public class TalendSwtbotTdqCommon {
 		try {
 			bot.waitUntil(
 					Conditions.shellCloses(bot.shell("Generate Report File")),
-					80000);
+					600000);
 			// SWTBotShell shell = bot.shell("refresh");
 			// bot.waitUntil(Conditions.shellCloses(shell));
 		} catch (TimeoutException e) {
@@ -652,6 +820,7 @@ public class TalendSwtbotTdqCommon {
 		bot.textWithLabel("Where clause").setText(expression);
 		bot.button("Finish").click();
 		System.out.println("aaaaaa");
+		bot.sleep(3000);
 		bot.editorByTitle(lable + " 0.1").close();
 	}
 	public static void deleteAndCleanCycleBin(SWTWorkbenchBot bot,TalendItemTypeEnum type, String label) {
@@ -746,22 +915,6 @@ public class TalendSwtbotTdqCommon {
 	public static void deleteSource(SWTWorkbenchBot bot,
 			TalendItemTypeEnum type, String label) {
 		TREEITEM_FOUND_TIME += 1;
-		
-//		List<SWTBotView> vs = bo
-        bot.cTabItem(label + " 0.1").close();
-		
-//		List<SWTBotView> views = bot.views();
-//		for(SWTBotView view: views){
-//			System.out.print("--------------------" + view.getTitle());
-//			if(view.getTitle().startsWith(label)){
-//				view.setFocus();
-//				view.close();
-//			}
-//		}
-//		
-//		bot.viewByTitle(label + " 0.1").setFocus();
-//		bot.viewByTitle(label + " 0.1").close();
-		
 	//	bot.sleep(1000);
 		bot.viewByTitle("DQ Repository").setFocus();
 		tree = new SWTBotTree((Tree) bot.widget(
@@ -790,6 +943,12 @@ public class TalendSwtbotTdqCommon {
 				tree.expandNode("Libraries", "Rules", "SQL").select(
 						label + " 0.1");
 				break;
+			case LIBRARY_UDI:
+				tree.expandNode("Libraries","Indicators").getNode(1).expand().select(
+						label + " 0.1");
+			
+				break;
+				
 			}
 			ContextMenuHelper.clickContextMenu(tree, "Delete");
 		} catch (Exception e) {
@@ -800,13 +959,11 @@ public class TalendSwtbotTdqCommon {
 			deleteSource(bot, type, label);
 		}
 		try {
-			//Assert.assertNotNull(tree.expandNode("Recycle Bin").select(label));
-			Assert.assertNotNull(tree.expandNode("Recycle Bin").expand().getNode(0).select());
+			Assert.assertNotNull(tree.expandNode("Recycle Bin").select(label));
 			boolean b = false;
 			do {
 				try {
-				//	tree.expandNode("Recycle Bin").select(label);
-					tree.expandNode("Recycle Bin").expand().getNode(0).select();
+					tree.expandNode("Recycle Bin").select(label);
 					ContextMenuHelper.clickContextMenu(tree, "Delete");
 					b = false;
 				} catch (Exception e) {
@@ -870,6 +1027,110 @@ public class TalendSwtbotTdqCommon {
 				}
 			}
 			break;
+		case AS400:
+			columnsNode = tree
+					.expandNode("Metadata", "DB connections",
+							metadata.toString(), structure).getNode(0).expand().getNode(0).expand()
+					.expandNode(table).getNode(0);
+		   columnsItem = columnsNode.expand().getItems();
+		   count = Integer.parseInt(columnsNode.getText().substring(
+					columnsNode.getText().indexOf("(") + 1,
+					columnsNode.getText().indexOf(")")));
+			for (int i = 0; i < columns.length; i++) {
+				for (int j = 0; j < count - 1; j++) {
+					if (columnsItem[j].getText().startsWith(columns[i])) {
+						columns[i] = columnsItem[j].getText();
+						break;
+					}
+				}
+			}
+			break;
+		case MSSQL:
+			columnsNode = tree
+			.expandNode("Metadata", "DB connections",
+					metadata.toString(), structure).getNode("dbo").expand().getNode(0).expand()
+			.expandNode(table).getNode(0);
+			columnsItem = columnsNode.expand().getItems();
+			for(int i=0; i<columns.length; i++){
+				for(SWTBotTreeItem item : columnsItem){
+					if(item.getText().contains(columns[i]))
+						columns[i] = item.getText();
+				}
+			}
+			System.out.println("columnsItem");
+			count = Integer.parseInt(columnsNode.getText().substring(
+					columnsNode.getText().indexOf("(") + 1,
+					columnsNode.getText().indexOf(")")));
+			for (int i = 0; i < columns.length; i++) {
+				for (int j = 0; j < count - 1; j++) {
+					if (columnsItem[j].getText().startsWith(columns[i])) {
+						columns[i] = columnsItem[j].getText();
+						break;
+					}
+				}
+			}
+			break;
+			
+			
+		}
+
+		return columns;
+	}
+	public static String[] getViewColumns(SWTWorkbenchBot bot,
+			TalendMetadataTypeEnum metadata, String structure, String table,
+			String... column) {
+		String[] columns = column;
+		bot.viewByTitle("DQ Repository").setFocus();
+		SWTBotTree tree = new SWTBotTree((Tree) bot.widget(
+				WidgetOfType.widgetOfType(Tree.class),
+				bot.viewByTitle("DQ Repository").getWidget()));
+		SWTBotTreeItem columnsNode;
+		switch (metadata) {
+		case MYSQL:
+			columnsNode = tree
+					.expandNode("Metadata", "DB connections",
+							metadata.toString(), structure).getNode(1).expand()
+					.expandNode(table).getNode(0);
+			SWTBotTreeItem[] columnsItem = columnsNode.expand().getItems();
+			int count = Integer.parseInt(columnsNode.getText().substring(
+					columnsNode.getText().indexOf("(") + 1,
+					columnsNode.getText().indexOf(")")));
+			for (int i = 0; i < columns.length; i++) {
+				for (int j = 0; j < count - 1; j++) {
+					if (columnsItem[j].getText().startsWith(columns[i])) {
+						columns[i] = columnsItem[j].getText();
+						break;
+					}
+				}
+			}
+			break;
+		case MSSQL:
+			columnsNode = tree
+			.expandNode("Metadata", "DB connections",
+					metadata.toString(), structure).getNode("dbo").expand().getNode(1).expand()
+			.expandNode(table).getNode(0);
+			columnsItem = columnsNode.expand().getItems();
+			for(int i=0; i<columns.length; i++){
+				for(SWTBotTreeItem item : columnsItem){
+					if(item.getText().contains(columns[i]))
+						columns[i] = item.getText();
+				}
+			}
+			System.out.println("columnsItem");
+			count = Integer.parseInt(columnsNode.getText().substring(
+					columnsNode.getText().indexOf("(") + 1,
+					columnsNode.getText().indexOf(")")));
+			for (int i = 0; i < columns.length; i++) {
+				for (int j = 0; j < count - 1; j++) {
+					if (columnsItem[j].getText().startsWith(columns[i])) {
+						columns[i] = columnsItem[j].getText();
+						break;
+					}
+				}
+			}
+			break;
+			
+			
 		}
 
 		return columns;
@@ -994,8 +1255,9 @@ public class TalendSwtbotTdqCommon {
 						System.getProperty("msaccessodbc.source"));
 				break;
 			}
+			bot.sleep(10000);
 			bot.button("Check").click();
-			bot.waitUntil(Conditions.shellIsActive("Check Connection"));
+			bot.waitUntil(Conditions.shellIsActive("Check Connection "));
 			if (bot.label(1)
 					.getText()
 					.equals("\"" + metadataType.toString()
@@ -1003,11 +1265,11 @@ public class TalendSwtbotTdqCommon {
 				bot.button("OK").click();
 			bot.button("Finish").click();
 		} catch (Exception e) {
-			shell.close();
+			shell = bot.shell("Database Connection");
+			bot.waitUntil(Conditions.shellCloses(shell));
 			return;
 		}
-		shell = bot.shell("Database Connection");
-		bot.waitUntil(Conditions.shellCloses(shell));
+		
 	}
 
 	// creat cheatsheet analysis
@@ -1048,7 +1310,7 @@ public class TalendSwtbotTdqCommon {
 		bot.button("Next >").click();
 		bot.button("Finish").click();
 	}
-
+	
 	public static boolean deleteItemToCycleBin() {
 		boolean deleted = false;
 		
@@ -1117,4 +1379,188 @@ public class TalendSwtbotTdqCommon {
 		}
 		cCombo.setSelection(title);
 	}
+	public static void  ImportJRXMLTemplate(SWTWorkbenchBot bot){
+		bot.viewByTitle("DQ Repository").setFocus();
+		tree = new SWTBotTree((Tree) bot.widget(
+				WidgetOfType.widgetOfType(Tree.class),
+				bot.viewByTitle("DQ Repository").getWidget()));
+		tree.expandNode("Libraries").select("JRXML Template");
+			ContextMenuHelper.clickContextMenu(tree, "Import Built-in JRXML");
+			try {
+			bot.waitUntil(Conditions.shellIsActive("refresh"));
+			shell = bot.shell("refresh");
+		} catch (Exception e1) {
+			}
+		}
+	 /**
+     * Empty Recycle bin
+     * 
+     * @author fzhong
+     * @return void
+     */
+    public static void emptyRecycleBin() {
+    	 SWTWorkbenchBot bot = new SWTWorkbenchBot();
+    	 SWTBotTreeItem recycleBin = tree.expandNode("Recycle Bin").select();
+         bot.waitUntil(Conditions.widgetIsEnabled(recycleBin));
+         if (recycleBin.rowCount() != 0) {
+     //   	 recycleBin.click();
+    //    	 bot.viewByTitle("DQ Repository").setFocus();
+//     		tree = new SWTBotTree((Tree) bot.widget(
+//     				WidgetOfType.widgetOfType(Tree.class),
+//     				bot.viewByTitle("DQ Repository").getWidget()));
+     		ContextMenuHelper.clickContextMenu(tree, "Empty recycle bin");
+            
+   //          recycleBin.contextMenu("Empty recycle bin").click();
+         	
+             bot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
+             bot.button("Yes").click();
+         }
+        
+    }
+	/**
+     * DOC yhbai Comment method "cleanUpRepository". Delete all items under the tree node to recycle bin.
+     * 
+     * @param treeNode treeNode of the tree in repository
+     */
+	
+	public static SWTBotTreeItem  getTalendItemNode(SWTWorkbenchBot bot,
+			TalendItemTypeEnum type) {
+		
+		bot.viewByTitle("DQ Repository").setFocus();
+		tree = new SWTBotTree((Tree) bot.widget(
+				WidgetOfType.widgetOfType(Tree.class),
+				bot.viewByTitle("DQ Repository").getWidget()));
+		
+			switch (type) {
+			case METADATA:
+				return tree.expandNode("Metadata", "DB connections");
+				
+			case ANALYSIS:
+				return tree.expandNode("Data Profiling").getNode(0).expand();
+				
+			case REPORT:
+				return tree.expandNode("Data Profiling").getNode(1).expand();
+			
+			case FILE_DELIMITED:
+				return tree.expandNode("Metadata", "FileDelimited connections");
+				
+			case MDM:
+				return tree.expandNode("Metadata", "MDM connections");
+				
+			case LIBRARY_DQRULE:
+				return tree.expandNode("Libraries", "Rules", "SQL");
+				
+			case LIBRARY_UDI:
+				return tree.expandNode("Libraries","Indicators","User Defined Indicators");
+				
+			case LIBRARY_PATTERNS_SQL:
+				return tree.expandNode("Libraries","Patterns","SQL");
+				
+			case LIBRARY_SourceFiles:
+				return tree.expandNode("Libraries","Source Files");
+				
+			case LIBRARY_PATTERNS_REGEX:
+				return tree.expandNode("Libraries","Patterns","Regex");
+				
+			 case RECYCLE_BIN:
+		            return tree.expandNode("Recycle Bin");
+		        default:
+		            break;
+		        }
+		        return null;
+		}
+	 
+			
+	
+	
+	/**
+     * DOC yhbai Comment method "cleanUpRepository". Delete all items under the tree node to recycle bin.
+     * 
+     * @param treeNode treeNode of the tree in repository
+     */
+    public static void cleanUpRepository(SWTBotTreeItem treeNode,SWTWorkbenchBot bot) {
+    	bot.waitUntil(Conditions.widgetIsEnabled(treeNode));
+        List<String> items = treeNode.expand().getNodes();
+        List<String> items2 = treeNode.expand().getNodes();
+        String exceptItem = "Demo DQ Rule 0.1";
+        String exceptItem2 = "internet";
+        String exceptItem3 = "TEST_TOP";
+        String exceptItem4 = "address";
+        String exceptItem5 = "code";
+        String exceptItem6 = "color";
+        String exceptItem7 = "customer";
+        String exceptItem8 = "date";
+        String exceptItem9 = "number";
+        String exceptItem10 = "phone";
+        String exceptItem11 = "text";
+       
+        if (items.contains(exceptItem))
+            items.remove(exceptItem);
+        if (items.contains(exceptItem2))
+            items.remove(exceptItem2);
+        if (items.contains(exceptItem3))
+            items.remove(exceptItem3);
+        if (items.contains(exceptItem4))
+            items.remove(exceptItem4);
+        if (items.contains(exceptItem5))
+            items.remove(exceptItem5);
+        if (items.contains(exceptItem6))
+            items.remove(exceptItem6);
+        if (items.contains(exceptItem7))
+            items.remove(exceptItem7);
+        if (items.contains(exceptItem8))
+            items.remove(exceptItem8);
+        if (items.contains(exceptItem9))
+            items.remove(exceptItem9);
+        if (items.contains(exceptItem10))
+            items.remove(exceptItem10);
+        if (items.contains(exceptItem11))
+            items.remove(exceptItem11);
+        
+        if (items.isEmpty())
+            return;
+        bot.viewByTitle("DQ Repository").setFocus();
+        tree = new SWTBotTree((Tree) bot.widget(
+        		WidgetOfType.widgetOfType(Tree.class),
+        		bot.viewByTitle("DQ Repository").getWidget()));
+        SWTBotTreeItem treeItems = treeNode.select(items.toArray(new String[items.size()]));
+        try {
+//            treeNodeExt.contextMenu("Delete").click();
+            ContextMenuHelper.clickContextMenu(tree, "Delete");
+            
+        } catch (Exception e) {
+            System.out.println("ERROR: Could not delete items under tree node '" + treeNode.getText() + "'.");
+            e.printStackTrace();
+            return;
+        }
+        
+        
+        cleanUpRepository(treeNode,bot);
+    }
+
+
+ /**
+     * DOC yhbai Comment method "cleanUpRepository". Delete all items in repository.
+     * 
+     */
+    public static void cleanUpRepository() {
+        List<TalendItemTypeEnum> itemList = null;
+        for (TalendItemTypeEnum itemType : TalendItemTypeEnum.values()) {
+//            if ("TOS".equals(System.getProperty("buildType"))) {
+//                itemList = getTISItemTypes(); // if TOS, get TIS items and pass next step
+//            }
+//            if (itemList != null && itemList.contains(itemType))
+//                continue; // if TOS, pass TIS items
+            SWTBotTreeItem treeNode = getTalendItemNode(new SWTWorkbenchBot(),itemType);
+//           if (TalendItemTypeEnum.SQL_TEMPLATES.equals(itemType))
+//                treeNode = treeNode.expandNode("Generic", "UserDefined"); // focus on specific sql template type
+//            if (TalendItemTypeEnum.RECYCLE_BIN.equals(itemType))
+//                continue; // undo with recycle bin
+            cleanUpRepository(treeNode,new SWTWorkbenchBot());
+            emptyRecycleBin();
+        }
+    }
+  
+  
+		
 }

@@ -22,6 +22,7 @@ public class NumCorrelationAnaExecutionTest extends TalendSwtbotForTdq {
 	public void beforeRunning() {
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 	}
 
 	@Test
@@ -41,7 +42,7 @@ public class NumCorrelationAnaExecutionTest extends TalendSwtbotForTdq {
 		bot.table().getTableItem(columns[0]).check();
 		bot.table().getTableItem(columns[1]).check();
 		bot.button("OK").click();
-		formBot.ccomboBox(2).setSelection("Interval");
+		formBot.ccomboBox(1).setSelection("Interval");
 		if (bot.editorByTitle(
 				TalendAnalysisTypeEnum.NUMERICAL_CORRELATION + " 0.1")
 				.isDirty())
@@ -53,11 +54,11 @@ public class NumCorrelationAnaExecutionTest extends TalendSwtbotForTdq {
 				.close();
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.NUMERICAL_CORRELATION.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.NUMERICAL_CORRELATION.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//	}
 }

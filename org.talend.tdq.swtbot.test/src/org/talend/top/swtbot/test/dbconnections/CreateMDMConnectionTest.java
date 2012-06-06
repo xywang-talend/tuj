@@ -32,9 +32,9 @@ public class CreateMDMConnectionTest extends TalendSwtbotForTdq {
 		bot.editorByTitle(MDM_CONNECTION_NAME + " 0.1").close();
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.MDM,
-				MDM_CONNECTION_NAME);
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.MDM,
+//				MDM_CONNECTION_NAME);
+//	}
 }

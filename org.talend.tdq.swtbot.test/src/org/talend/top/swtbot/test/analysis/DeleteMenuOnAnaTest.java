@@ -20,10 +20,10 @@ public class DeleteMenuOnAnaTest extends TalendSwtbotForTdq {
 				.close();
 	}
 
-	@Test
-	public void deleteAnalysis() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.COLUMN.toString());
-	}
+//	@Test
+//	public void deleteAnalysis() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.COLUMN.toString());
+//	}
 
 }

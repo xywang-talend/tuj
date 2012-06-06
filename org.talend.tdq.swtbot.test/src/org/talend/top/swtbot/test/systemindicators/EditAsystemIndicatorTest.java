@@ -22,7 +22,7 @@ public class EditAsystemIndicatorTest extends TalendSwtbotForTdq{
 		String beforeModify = formBot.textWithLabel("Description:").getText();
 		formBot.textWithLabel("Description:").setText("counts the number of distinct rows");
 		bot.toolbarButtonWithTooltip("Save").click();
-		bot.editorByTitle("Distinct_Count 0.1").close();
+		bot.editorByTitle("Distinct Count 0.1").close();
 		bot.viewByTitle("DQ Repository").setFocus();
 		tree = new SWTBotTree((Tree) bot.widget(
 				WidgetOfType.widgetOfType(Tree.class),
@@ -36,7 +36,7 @@ public class EditAsystemIndicatorTest extends TalendSwtbotForTdq{
 		bot.captureScreenshot(System
 				.getProperty("tdq.analysis.result.screenshot.path")
 				+ "indicator_description_modify.jpeg");		
-		bot.editorByTitle("System Indicators/Simple Statistics/Distinct_Count").close();
+		bot.editorByTitle("System Indicators/Simple Statistics/Distinct Count").close();
 		
 		
 		

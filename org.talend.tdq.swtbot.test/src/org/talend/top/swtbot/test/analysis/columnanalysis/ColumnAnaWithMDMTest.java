@@ -25,6 +25,7 @@ public class ColumnAnaWithMDMTest extends TalendSwtbotForTdq {
 	@Before
 	public void beforeRunning() {
 		TalendSwtbotTdqCommon.createMDMConnection(bot, CONNECTIONNAME);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon
 				.createAnalysis(bot, TalendAnalysisTypeEnum.COLUMN);
 	}
@@ -68,14 +69,15 @@ public class ColumnAnaWithMDMTest extends TalendSwtbotForTdq {
 		bot.captureScreenshot(System
 				.getProperty("tdq.analysis.result.screenshot.path")
 				+ "MDMAnaysis.jpeg");
+		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString()+" 0.1").close();
 
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.COLUMN.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.MDM,
-				CONNECTIONNAME);
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.COLUMN.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.MDM,
+//				CONNECTIONNAME);
+//	}
 }

@@ -25,7 +25,7 @@ public class DeleteAUserDefinedIndicatorTest extends TalendSwtbotForTdq{
 		SWTBotShell shell = bot.shell("New Indicator");
 		bot.textWithLabel("Name").setText("newAUserDefinedIndicator");
 		bot.button("&Next >").click();
-		bot.textWithLabel("SQL Template:").setText("SELECT COUNT(DISTINCT <%=__COLUMN_NAMES__%>) FROM <%=__TABLE_NAME__%> <%=__WHERE_CLAUSE__%>");
+		bot.textWithLabel("SQL Template:").setText("select * from customer");
 		bot.button("Finish").click();
 		try {
 			bot.waitUntil(Conditions.shellCloses(shell));
@@ -49,11 +49,8 @@ public class DeleteAUserDefinedIndicatorTest extends TalendSwtbotForTdq{
 		} catch (Exception e) {
 		
 		}
-	//	Assert.assertNotNull(tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator"));
-	//	tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator");
-		
-		Assert.assertNotNull(tree.expandNode("Recycle Bin").getNode(0).select());
-		tree.expandNode("Recycle Bin").getNode(0).select();
+		Assert.assertNotNull(tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator"));
+		tree.expandNode("Recycle Bin").select("newAUserDefinedIndicator");
 		ContextMenuHelper.clickContextMenu(tree, "Delete");
 		bot.waitUntil(Conditions.shellIsActive("Delete forever"));
 		shell = bot.shell("Delete forever");

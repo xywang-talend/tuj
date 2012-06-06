@@ -24,6 +24,7 @@ public class ColumnAnaWithThresholdTest extends TalendSwtbotForTdq {
 	public void beforeRunning() {
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon
 				.createAnalysis(bot, TalendAnalysisTypeEnum.COLUMN);
 	}
@@ -43,7 +44,7 @@ public class ColumnAnaWithThresholdTest extends TalendSwtbotForTdq {
 		bot.table().getTableItem(columns[0]).check();
 		bot.button("OK").click();
 		bot.waitUntil(Conditions.shellCloses(shell));
-		formBot.ccomboBox(2).setSelection("Nominal");
+		formBot.ccomboBox(1).setSelection("Nominal");
 		if (bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
 				.isDirty())
 			bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
@@ -88,13 +89,14 @@ public class ColumnAnaWithThresholdTest extends TalendSwtbotForTdq {
 		bot.captureScreenshot(System
 				.getProperty("tdq.analysis.result.screenshot.path")
 				+ "column_ana_threshold.jpeg");
+		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString()+" 0.1").close();
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.COLUMN.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.COLUMN.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//	}
 }

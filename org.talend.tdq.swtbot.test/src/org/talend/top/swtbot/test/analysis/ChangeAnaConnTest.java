@@ -23,8 +23,12 @@ public class ChangeAnaConnTest extends TalendSwtbotForTdq {
 	public void beforeRunning() {
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString() + " 0.1")
+		.close();
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.POSTGRESQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.POSTGRESQL.toString() + " 0.1")
+		.close();
 		TalendSwtbotTdqCommon
 				.createAnalysis(bot, TalendAnalysisTypeEnum.COLUMN);
 	}
@@ -36,6 +40,7 @@ public class ChangeAnaConnTest extends TalendSwtbotForTdq {
 				"address2");
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
 				.show();
+		bot.comboBox(0).setText(TalendMetadataTypeEnum.POSTGRESQL.toString());
 		bot.ccomboBox(1).setSelection(TalendMetadataTypeEnum.MYSQL.toString());
 		formBot.hyperlink("Select columns to analyze").click();
 		bot.waitUntil(Conditions.shellIsActive("Column Selection"));
@@ -69,14 +74,14 @@ public class ChangeAnaConnTest extends TalendSwtbotForTdq {
 				.close();
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.COLUMN.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.POSTGRESQL.toString());
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.COLUMN.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.POSTGRESQL.toString());
+//	}
 
 }

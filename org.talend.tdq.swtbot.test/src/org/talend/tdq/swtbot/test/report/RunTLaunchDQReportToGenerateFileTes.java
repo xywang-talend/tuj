@@ -31,6 +31,7 @@ public class RunTLaunchDQReportToGenerateFileTes extends TalendSwtbotForTdq {
 		TalendSwtbotTdqCommon.setReportDB(bot, TalendReportDBType.MySQL);
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon
 				.createAnalysis(bot, TalendAnalysisTypeEnum.COLUMN);
 
@@ -52,7 +53,7 @@ public class RunTLaunchDQReportToGenerateFileTes extends TalendSwtbotForTdq {
 		bot.table().getTableItem(address1).check();
 		bot.button("OK").click();
 		bot.waitUntil(Conditions.shellCloses(shell));
-		formBot.ccomboBox(2).setSelection("Nominal");
+		formBot.ccomboBox(1).setSelection("Nominal");
 		if (bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
 				.isDirty())
 			bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
@@ -75,6 +76,7 @@ public class RunTLaunchDQReportToGenerateFileTes extends TalendSwtbotForTdq {
 //			bot.waitUntil(Conditions.shellCloses(shell));
 //		} catch (TimeoutException e) {
 //		}
+		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon.createReport(bot, REPORTLABEL);
 		generateReport(bot, formBot, REPORTLABEL,
 				TalendReportTemplate.Evolution,
@@ -82,13 +84,13 @@ public class RunTLaunchDQReportToGenerateFileTes extends TalendSwtbotForTdq {
 
 	}
 
-	@After
-	public void afterClass() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT, REPORTLABEL);
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, TalendAnalysisTypeEnum.COLUMN.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, TalendMetadataTypeEnum.MYSQL.toString());
-		
-	}
+//	@After
+//	public void afterClass() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.REPORT, REPORTLABEL);
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS, TalendAnalysisTypeEnum.COLUMN.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA, TalendMetadataTypeEnum.MYSQL.toString());
+//		
+//	}
 
 	public static void generateReport(SWTWorkbenchBot bot, SWTFormsBot formBot,
 			String label, TalendReportTemplate template, String... analyses) {

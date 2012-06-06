@@ -32,7 +32,6 @@ public class EditConnectionInfoTest extends TalendSwtbotForTdq {
 		bot.button("Next >").click();
 		bot.textWithLabel("Login").setText("wrong_login");
 		bot.textWithLabel("Password").setText("wrong_pwd");
-		bot.textWithLabel("Password").setText("wrong_pwd");
 		bot.textWithLabel("Server").setText("111111111111111");
 		bot.button("Check").click();
 		bot.sleep(2000);
@@ -40,20 +39,16 @@ public class EditConnectionInfoTest extends TalendSwtbotForTdq {
 				.getProperty("tdq.analysis.result.screenshot.path")
 				+ "editConnectionInfo.jpeg");
 		try {
-		//	bot.waitUntil(Conditions.shellIsActive("Error Message"));
-	//		SWTBotShell shell = bot.shell("Error Message");
-	//		Assert.assertNotNull(shell);
-	//		bot.button("OK").click();
-	//		bot.waitUntil(Conditions.shellCloses(bot.shell("Error Message")));
 			bot.button("Cancel").click();
 		} catch (TimeoutException e) {
 		}
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString() + " 0.1").close();
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//	}
 
 }

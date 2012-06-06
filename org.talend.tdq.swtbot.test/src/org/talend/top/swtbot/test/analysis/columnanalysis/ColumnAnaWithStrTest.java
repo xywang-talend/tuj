@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.talend.swtbot.test.commons.SWTBotUtils;
 import org.talend.swtbot.test.commons.TalendSwtbotForTdq;
 import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon;
+import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendAnalysisTypeEnum;
 import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendItemTypeEnum;
 import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendMetadataTypeEnum;
 
@@ -24,6 +25,7 @@ public class ColumnAnaWithStrTest extends TalendSwtbotForTdq {
 	public void beforeRunning() {
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 	}
 
 	@Test
@@ -47,13 +49,13 @@ public class ColumnAnaWithStrTest extends TalendSwtbotForTdq {
 		bot.editorByTitle(ANALYSISLABEL + " 0.1").close();
 	}
 
-	@After
-	public void cleanSource() {
-//		TalendSwtbotTdqCommon.deleteAndCleanCycleBin(bot, TalendItemTypeEnum.ANALYSIS,
+//	@After
+//	public void cleanSource() {
+////		TalendSwtbotTdqCommon.deleteAndCleanCycleBin(bot, TalendItemTypeEnum.ANALYSIS,
+////				ANALYSISLABEL);
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
 //				ANALYSISLABEL);
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				ANALYSISLABEL);
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-	}
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//	}
 }

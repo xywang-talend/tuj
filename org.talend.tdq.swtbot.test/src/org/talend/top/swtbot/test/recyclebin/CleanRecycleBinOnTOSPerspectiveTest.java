@@ -20,7 +20,6 @@ public class CleanRecycleBinOnTOSPerspectiveTest extends TalendSwtbotForTdq{
 	public void CcleanRecycleBinOnTOSPerspective(){
 		bot.sleep(10000);
 		try {
-//			bot.menu("Window").menu("Perspective").menu("Service Builder").click();
 			bot.menu("Window").menu("Perspective").menu("Integration").click();
 		} catch (WidgetNotFoundException e2) {
 			System.out.println("Haven't found Service Builder!");
@@ -69,10 +68,16 @@ public class CleanRecycleBinOnTOSPerspectiveTest extends TalendSwtbotForTdq{
 		} catch (Exception e) {
 		
 		}
-		bot.viewByTitle("Repository").setFocus();
+		try {
+			bot.menu("Window").menu("Perspective").menu("Profiler")
+			.click();
+		} catch (WidgetNotFoundException e) {
+			System.out.println("can't find the menu Profiler");
+		}
+		bot.viewByTitle("DQ Repository").setFocus();
 		tree= new SWTBotTree((Tree)bot.widget(WidgetOfType.widgetOfType(Tree.class),
-				bot.viewByTitle("Repository").getWidget()));
-		SWTBotTreeItem[] arraylist = tree.expandNode("Recycle bin").getItems();
+				bot.viewByTitle("DQ Repository").getWidget()));
+		SWTBotTreeItem[] arraylist = tree.expandNode("Recycle Bin").getItems();
 		Assert.assertEquals(0, arraylist.length);
 		
 		

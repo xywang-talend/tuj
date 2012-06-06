@@ -27,6 +27,7 @@ public class CreateColumnAnalysisFormTableAnalysisTest extends
 	public void beforeClass() {
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 		TalendSwtbotTdqCommon
 				.createAnalysis(bot, TalendAnalysisTypeEnum.DQRULE);
 		TalendSwtbotTdqCommon.createDQRule(bot, DQRULENAME, RULEEXPRESSION);
@@ -81,7 +82,29 @@ public class CreateColumnAnalysisFormTableAnalysisTest extends
 		bot.textWithLabel("Name").setText("column");
 		bot.button("Finish").click();
 		bot.editorByTitle("column 0.1").show();
-		bot.sleep(60000);
+		
+		String column = TalendSwtbotTdqCommon.getColumns(bot,
+				TalendMetadataTypeEnum.MYSQL, "tbi", "customer", "address1")[0];
+		formBot.hyperlink("Select columns to analyze").click();
+		bot.waitUntil(Conditions.shellIsActive("Column Selection"));
+		tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
+				.widgetOfType(Tree.class)));
+		tree.expandNode("tbi").getNode(0).expand().select("customer");
+		bot.table().getTableItem(column).check();
+		bot.button("OK").click();
+		formBot.ccomboBox(1).setSelection("Nominal");
+		bot.toolbarButtonWithTooltip("Save").click();
+		formBot.hyperlink("Select indicators for each column").click();
+		bot.waitUntil(Conditions.shellIsActive("Indicator Selection"));
+
+		tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
+				.widgetOfType(Tree.class)));
+		tree.getTreeItem("Simple Statistics").click(1);
+		bot.checkBox().click();
+		bot.button("OK").click();
+		
+		
+		
 		bot.toolbarButtonWithTooltip("Run").click();
 		try {
 			SWTBotShell shell = bot.shell("Run Analysis");
@@ -94,20 +117,21 @@ public class CreateColumnAnalysisFormTableAnalysisTest extends
 				.getProperty("tdq.analysis.result.screenshot.path")
 				+ "dqrule_column.jpeg");
 		bot.editorByTitle("column 0.1").close();
+		bot.editorByTitle(TalendAnalysisTypeEnum.DQRULE.toString()+" 0.1").close();
 
 	}
 
-	@After
-	public void afterClass() {
-
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				"column 0.1");
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.DQRULE.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot,
-				TalendItemTypeEnum.LIBRARY_DQRULE, DQRULENAME);
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-
-	}
+//	@After
+//	public void afterClass() {
+//
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				"column");
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.DQRULE.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot,
+//				TalendItemTypeEnum.LIBRARY_DQRULE, DQRULENAME);
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//
+//	}
 }

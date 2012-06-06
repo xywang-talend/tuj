@@ -23,6 +23,7 @@ public class CreateFunctionalAnalysisTest extends TalendSwtbotForTdq {
 	public void beforeRunning() {
 		TalendSwtbotTdqCommon.createConnection(bot,
 				TalendMetadataTypeEnum.MYSQL);
+		bot.editorByTitle(TalendMetadataTypeEnum.MYSQL.toString()+" 0.1").close();
 	}
 
 	@Test
@@ -39,13 +40,15 @@ public class CreateFunctionalAnalysisTest extends TalendSwtbotForTdq {
 				.getNode(0).expand()
 				.select(TalendAnalysisTypeEnum.FUNCTIONAL.toString() + " 0.1");
 		Assert.assertNotNull(analysisItem);
+		bot.editorByTitle(TalendAnalysisTypeEnum.FUNCTIONAL.toString()+" 0.1").close();
+	
 	}
 
-	@After
-	public void cleanSource() {
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
-				TalendAnalysisTypeEnum.FUNCTIONAL.toString());
-		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
-				TalendMetadataTypeEnum.MYSQL.toString());
-	}
+//	@After
+//	public void cleanSource() {
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.ANALYSIS,
+//				TalendAnalysisTypeEnum.FUNCTIONAL.toString());
+//		TalendSwtbotTdqCommon.deleteSource(bot, TalendItemTypeEnum.METADATA,
+//				TalendMetadataTypeEnum.MYSQL.toString());
+//	}
 }
