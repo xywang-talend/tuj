@@ -741,7 +741,8 @@ public class TestLicenseAccountsCount extends Login {
 				.getText("//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='admin@company.com']");
 		int i = 0;
 		selenium.refresh();
-		Thread.sleep(3000);
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='"
+				+ username + "']", WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='"
 				+ username + "']");
 		Thread.sleep(2000);
@@ -1126,6 +1127,14 @@ public class TestLicenseAccountsCount extends Login {
 		if(n!=-1){
 		String username = "";
 		String name = "";
+		
+		this.waitForElementPresent("idMenuUserElement", WAIT_TIME);
+		selenium.setSpeed(MIN_SPEED);
+		selenium.click("idMenuUserElement");
+		this.waitForElementPresent(
+				"//div[@class='x-grid3-cell-inner x-grid3-col-login' and text()='admin@company.com']",
+				WAIT_TIME);
+		
 		for (int i = 0; i < 1; i++) {
 			username = "MDM_over@talend.com";		
 			name = "DQ_" + i;
