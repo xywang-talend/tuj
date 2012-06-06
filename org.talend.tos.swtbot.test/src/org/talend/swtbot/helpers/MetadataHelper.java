@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -19,6 +19,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
@@ -70,7 +71,7 @@ public class MetadataHelper implements Helper {
             throws IOException, URISyntaxException {
         Utilities.dndMetadataOntoJob(jobEditor, item.getItem(), item.getComponentType(), new Point(100, 100));
 
-        SWTBotGefEditPart metadata = UTIL.getTalendComponentPart(jobEditor, item.getItemName());
+        SWTBotGefEditPart metadata = UTIL.getTalendComponentPart(jobEditor, item.getComponentLabel());
         Assert.assertNotNull("can not get component '" + item.getComponentType() + "'", metadata);
         if (item instanceof TalendEdiItem) {
             metadata.click();
@@ -88,7 +89,8 @@ public class MetadataHelper implements Helper {
             }, 10000);
             String fileName = "\"" + ((TalendEdiItem) item).getAbsoluteFilePath() + "\"";
             fileName = fileName.replace("\\", "/");
-            GEFBOT.textInGroup("EDI parameters", 0).setText(fileName);
+            SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
+            GEFBOT.textInGroup("EDI parameters", 0).selectAll().typeText(fileName, 0);
         }
         JobHelper.connect2TLogRow(jobEditor, metadata, rowName, new Point(300, 100));
         JobHelper.runJob(jobEditor, timeout);
@@ -140,7 +142,7 @@ public class MetadataHelper implements Helper {
         GEFBOT.button(0).click();
         SWTBotShell shell = GEFBOT.shell("Repository Content").activate();
         try {
-            GEFBOT.tree().getTreeItem(ruleItem.getItemFullName()).select();
+            GEFBOT.tree().expandNode("Validation Rules").select(ruleItem.getItemFullName());
         } catch (WidgetNotFoundException e) {
             shell.close();
             Assert.fail(e.getCause().getMessage());

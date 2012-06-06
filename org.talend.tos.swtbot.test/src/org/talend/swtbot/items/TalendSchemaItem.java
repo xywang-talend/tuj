@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -12,13 +12,41 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
-import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.talend.swtbot.Utilities.TalendItemType;
 
 /**
  * DOC fzhong class global comment. Detailled comment
  */
 public class TalendSchemaItem extends TalendMetadataItem {
+
+    TalendSchemaItem() {
+        super();
+    }
+
+    TalendSchemaItem(TalendItemType itemType) {
+        super(itemType);
+    }
+
+    public String getComponentLabel() {
+        if (this.componentLabel != null)
+            return this.componentLabel;
+        if (TalendItemType.DB_CONNECTIONS.equals(this.getItemType()))
+            return "\"" + this.itemName + "\"";
+        return this.itemName;
+    }
+
+    /**
+     * get the actived shell after click context menu of schema
+     * 
+     * @return shell of context menu
+     */
+    private SWTBotShell activeShellOfContextMenu(String contextMenu, String shellTitle) {
+        getItem().contextMenu(contextMenu).click();
+        gefBot.waitUntil(Conditions.shellIsActive(shellTitle), 30000);
+        return gefBot.shell(shellTitle).activate();
+    }
 
     /**
      * Right click schema and click 'Edit Schema'.
@@ -26,9 +54,15 @@ public class TalendSchemaItem extends TalendMetadataItem {
      * @return shell of 'Edit Schema'
      */
     public SWTBotShell editSchema() {
-        SWTBotShell shell;
-        getItem().contextMenu("Edit Schema").click();
-        shell = new SWTGefBot().shell("Schema");
-        return shell;
+        return activeShellOfContextMenu("Edit Schema", "Schema");
+    }
+
+    /**
+     * Right click schema and click 'Data Viewer'/
+     * 
+     * @return shell of 'Data Viewer'
+     */
+    public SWTBotShell dataViewer() {
+        return activeShellOfContextMenu("Data Viewer", "Data Preview: ");
     }
 }

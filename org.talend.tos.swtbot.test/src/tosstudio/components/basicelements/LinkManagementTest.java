@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -20,10 +20,10 @@ import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobItem;
@@ -42,13 +42,14 @@ public class LinkManagementTest extends TalendSwtBotForTos {
 
     @Before
     public void createJob() {
-        buildTitle = Utilities.getBuildTitle();
+        repositories.add(ERepositoryObjectType.PROCESS);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
     }
 
     @Test
     public void useComponentInJob() {
+        buildTitle = getBuildTitle();
         SWTBotGefEditor jobEditor = jobItem.getEditor();
 
         Utilities.dndPaletteToolOntoJob(jobEditor, "tRowGenerator", new Point(100, 100));
@@ -85,10 +86,4 @@ public class LinkManagementTest extends TalendSwtBotForTos {
         gefBot.button("OK").click();
     }
 
-    @After
-    public void removePreviousCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.delete(jobItem.getParentNode(), JOBNAME, "0.1", null);
-        Utilities.emptyRecycleBin();
-    }
 }

@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -19,14 +19,13 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.JobHelper;
@@ -46,13 +45,14 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
 
     @Before
     public void createJob() {
-        buildTitle = Utilities.getBuildTitle();
+        repositories.add(ERepositoryObjectType.PROCESS);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
     }
 
     @Test
     public void useComponentInJob() throws IOException, URISyntaxException {
+        buildTitle = getBuildTitle();
         SWTBotGefEditor jobEditor = jobItem.getEditor();
 
         Utilities.dndPaletteToolOntoJob(jobEditor, "tRowGenerator", new Point(100, 100));
@@ -70,66 +70,66 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
         rowGen.doubleClick();
         SWTBotShell shell = gefBot.shell(buildTitle + " - tRowGenerator - tRowGenerator_1");
         shell.activate();
-        try {
-            /* Add column "id" */
-            gefBot.buttonWithTooltip("Add").click();
-            gefBot.table(0).click(0, 2);
-            gefBot.text("newColumn").setText("id");
-            gefBot.table(0).click(0, 4);
-            gefBot.ccomboBox("String").setSelection("int | Integer");
-            gefBot.table(0).click(0, 10);
-            gefBot.ccomboBox().setSelection("sequence");
-            gefBot.table(0).select(0);
-            /* Add column "name" */
-            gefBot.buttonWithTooltip("Add").click();
-            gefBot.table(0).click(1, 2);
-            gefBot.text("newColumn").setText("name");
-            gefBot.table(0).click(1, 6);
-            gefBot.text().setText("6");
-            gefBot.table(0).select(1);
+        // try {
+        /* Add column "id" */
+        gefBot.buttonWithTooltip("Add").click();
+        gefBot.table(0).click(0, 2);
+        gefBot.text("newColumn").setText("id");
+        gefBot.table(0).click(0, 4);
+        gefBot.ccomboBox("String").setSelection("int | Integer");
+        gefBot.table(0).click(0, 10);
+        gefBot.ccomboBox().setSelection("Numeric.sequence");
+        gefBot.table(0).select(0);
+        /* Add column "name" */
+        gefBot.buttonWithTooltip("Add").click();
+        gefBot.table(0).click(1, 2);
+        gefBot.text("newColumn").setText("name");
+        gefBot.table(0).click(1, 6);
+        gefBot.text().setText("6");
+        gefBot.table(0).select(1);
 
-            gefBot.button("OK").click();
-            gefBot.waitUntil(Conditions.shellCloses(shell));
+        gefBot.button("OK").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
 
-            jobEditor.select(rowGen);
-            jobEditor.clickContextMenu("Row").clickContextMenu("Main");
-            jobEditor.click(map);
-            SWTBotGefEditPart rowMain = jobEditor.getEditPart("row1 (Main)");
-            Assert.assertNotNull("can not draw row line", rowMain);
+        jobEditor.select(rowGen);
+        jobEditor.clickContextMenu("Row").clickContextMenu("Main");
+        jobEditor.click(map);
+        SWTBotGefEditPart rowMain = jobEditor.getEditPart("row1 (Main)");
+        Assert.assertNotNull("can not draw row line", rowMain);
 
-            /* Edit tMap */
-            map.doubleClick();
-            shell = gefBot.shell(buildTitle + " - tMap - tMap_1");
-            shell.activate();
-            gefBot.waitUntil(Conditions.shellIsActive(buildTitle + " - tMap - tMap_1"));
+        /* Edit tMap */
+        map.doubleClick();
+        shell = gefBot.shell(buildTitle + " - tMap - tMap_1");
+        shell.activate();
+        gefBot.waitUntil(Conditions.shellIsActive(buildTitle + " - tMap - tMap_1"));
 
-            gefBot.toolbarButtonWithTooltip("Add output table").click();
-            gefBot.shell("Add a output").activate();
-            gefBot.button("OK").click();
+        gefBot.toolbarButtonWithTooltip("Add output table").click();
+        gefBot.shell("Add a output").activate();
+        gefBot.button("OK").click();
 
-            gefBot.cTabItem("Schema editor").setFocus();
-            gefBot.tableWithLabel("row1").select(0, 1);
-            gefBot.buttonWithTooltip("Copy selected items", 0).click();
-            gefBot.buttonWithTooltip("Paste", 1).click();
+        gefBot.cTabItem("Schema editor").setFocus();
+        gefBot.tableWithLabel("row1").select(0, 1);
+        gefBot.buttonWithTooltip("Copy selected items", 0).click();
+        gefBot.buttonWithTooltip("Paste", 1).click();
 
-            gefBot.tableWithLabel("out1").click(0, 1);
-            gefBot.text().setText("row1.id");
-            gefBot.tableWithLabel("out1").click(1, 1);
-            gefBot.text().setText("row1.name");
-            gefBot.button("Apply").click();
-            gefBot.button("Ok").click();
-            gefBot.waitUntil(Conditions.shellCloses(shell));
-        } catch (WidgetNotFoundException wnfe) {
-            gefBot.button("Cancel").click();
-            gefBot.shell("Close without save").activate();
-            gefBot.button("OK").click();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            gefBot.button("Cancel").click();
-            gefBot.shell("Close without save").activate();
-            gefBot.button("OK").click();
-            Assert.fail(e.getMessage());
-        }
+        gefBot.tableWithLabel("out1").click(0, 1);
+        gefBot.text().setText("row1.id");
+        gefBot.tableWithLabel("out1").click(1, 1);
+        gefBot.text().setText("row1.name");
+        gefBot.button("Apply").click();
+        gefBot.button("Ok").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
+        // } catch (WidgetNotFoundException wnfe) {
+        // gefBot.button("Cancel").click();
+        // gefBot.shell("Close without save").activate();
+        // gefBot.button("OK").click();
+        // Assert.fail(wnfe.getCause().getMessage());
+        // } catch (Exception e) {
+        // gefBot.button("Cancel").click();
+        // gefBot.shell("Close without save").activate();
+        // gefBot.button("OK").click();
+        // Assert.fail(e.getMessage());
+        // }
 
         /* Connect tMap and tFileOutputDelimited */
         jobEditor.click(map);
@@ -144,10 +144,4 @@ public class ExternalComponentsTest extends TalendSwtBotForTos {
         JobHelper.runJob(jobEditor);
     }
 
-    @After
-    public void removePreviousCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

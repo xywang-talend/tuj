@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -71,8 +71,7 @@ public class CreateXmlFileWithXsdTest extends TalendSwtBotForTos {
     @Test
     public void createXmlFileWithXsdTest() throws IOException, URISyntaxException {
         fileItem.setComponentType("tFileInputXML");
-        Utilities
-                .dndMetadataOntoJob(jobItem.getEditor(), fileItem.getItem(), fileItem.getComponentType(), new Point(100, 100));
+        Utilities.dndMetadataOntoJob(jobItem.getEditor(), fileItem.getItem(), fileItem.getComponentType(), new Point(100, 100));
         String filePath = Utilities.getFileFromCurrentPluginSampleFolder("test.xml").getAbsolutePath();
         gefBot.textWithLabel("File Name: ").setText(filePath);
         gefBot.button("Confirm").click();
@@ -89,9 +88,5 @@ public class CreateXmlFileWithXsdTest extends TalendSwtBotForTos {
         System.setProperty("filexml.schema0", defaultProp_schema0);
         System.setProperty("filexml.schema1", defaultProp_schema1);
         System.setProperty("filexml.schema2", defaultProp_schema2);
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(fileItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 }

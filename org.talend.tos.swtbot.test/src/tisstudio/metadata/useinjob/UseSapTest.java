@@ -68,6 +68,7 @@ public class UseSapTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviousCreateItems() {
+        gefBot.closeAllShells();
         jobItem.getEditor().saveAndClose();
         Utilities.cleanUpRepository(jobItem.getParentNode());
         Utilities.cleanUpRepository(sapItem.getParentNode());

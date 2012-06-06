@@ -10,12 +10,11 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package tisstudio.metadata.useinjob;
+package tosstudio.metadata.useinjob;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,47 +22,41 @@ import org.junit.runner.RunWith;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.helpers.MetadataHelper;
-import org.talend.swtbot.items.TalendCopybookItem;
 import org.talend.swtbot.items.TalendJobItem;
-import org.talend.swtbot.items.TalendSchemaItem;
+import org.talend.swtbot.items.TalendLdapItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class UseCopybookTest extends TalendSwtBotForTos {
+public class UseLdapTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 
-    private SWTBotGefEditor jobEditor;
-
-    private TalendCopybookItem copybookItem;
+    private TalendLdapItem ldapItem;
 
     private static final String JOBNAME = "jobTest"; // $NON-NLS-1$
 
-    private static final String METADATA_NAME = "copybookTest"; // $NON-NLS-1$
+    private static final String METADATA_NAME = "ldapTest"; // $NON-NLS-1$
 
     @Before
     public void createJobAndMetadata() throws IOException, URISyntaxException {
         repositories.add(ERepositoryObjectType.PROCESS);
-        repositories.add(ERepositoryObjectType.METADATA_FILE_EBCDIC);
-
+        repositories.add(ERepositoryObjectType.METADATA_LDAP_SCHEMA);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
-        jobEditor = jobItem.getEditor();
-        copybookItem = new TalendCopybookItem(METADATA_NAME);
-        copybookItem.create();
+        ldapItem = new TalendLdapItem(METADATA_NAME);
+        ldapItem.create();
     }
 
     @Test
     public void useMetadataInJob() throws IOException, URISyntaxException {
-        TalendSchemaItem schemaItem = copybookItem.retrieveSchema("_0").get("_0");
-        schemaItem.setComponentType("tFileInputEBCDIC");
-        schemaItem.setExpectResultFromFile("copybook.result");
-        MetadataHelper.output2Console(jobEditor, schemaItem);
+        ldapItem.setComponentType("tLDAPInput");
+        ldapItem.setExpectResultFromFile("ldap.result");
+        MetadataHelper.output2Console(jobItem.getEditor(), ldapItem);
 
         String result = gefBot.styledText().getText();
-        MetadataHelper.assertResult(result, schemaItem);
+        MetadataHelper.assertResult(result, ldapItem);
     }
 
 }

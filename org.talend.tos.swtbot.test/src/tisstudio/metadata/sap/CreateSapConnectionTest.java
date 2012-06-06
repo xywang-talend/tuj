@@ -43,6 +43,7 @@ public class CreateSapConnectionTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
+        gefBot.closeAllShells();
         Utilities.cleanUpRepository(sapItem.getParentNode());
         Utilities.emptyRecycleBin();
     }

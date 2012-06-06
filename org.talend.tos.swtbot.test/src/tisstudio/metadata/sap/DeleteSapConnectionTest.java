@@ -44,6 +44,7 @@ public class DeleteSapConnectionTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
+        gefBot.closeAllShells();
         Utilities.emptyRecycleBin();
     }
 }

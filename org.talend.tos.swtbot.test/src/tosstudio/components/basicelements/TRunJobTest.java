@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -16,11 +16,11 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.JobHelper;
@@ -42,13 +42,14 @@ public class TRunJobTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobs() {
+        repositories.add(ERepositoryObjectType.PROCESS);
         jobItem1 = new TalendJobItem(JOBNAME1);
         jobItem1.create();
     }
 
     @Test
     public void testTRunJob() {
-        String buitdTitle = Utilities.getBuildTitle();
+        String buitdTitle = getBuildTitle();
         SWTBotGefEditor jobEditor1 = jobItem1.getEditor();
 
         Utilities.dndPaletteToolOntoJob(jobEditor1, "tRowGenerator", new Point(100, 100));
@@ -74,21 +75,11 @@ public class TRunJobTest extends TalendSwtBotForTos {
         gefBot.viewByTitle("Component").setFocus();
         gefBot.button(4).click();
         gefBot.shell("Find a Job").setFocus();
-        gefBot.tree().getTreeItem(jobItem1.getItemFullName()).select();
+        Utilities.getTalendItemNode(gefBot.tree(), jobItem1.getItemType()).getNode(jobItem1.getItemFullName()).select();
         gefBot.button("OK").click();
         JobHelper.runJob(jobItem2.getItemName());
         String result1 = JobHelper.execResultFilter(JobHelper.getExecutionResult());
         Assert.assertNotNull("the bug for job cann't execute", result1);
 
     }
-
-    @After
-    public void removePreviousCreateItems() {
-        jobItem1.getEditor().saveAndClose();
-        jobItem2.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem1.getParentNode());
-        Utilities.cleanUpRepository(jobItem2.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
-
 }

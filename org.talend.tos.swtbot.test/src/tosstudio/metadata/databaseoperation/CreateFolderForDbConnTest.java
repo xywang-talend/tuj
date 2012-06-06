@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -12,11 +12,14 @@
 // ============================================================================
 package tosstudio.metadata.databaseoperation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendFolderItem;
@@ -33,16 +36,16 @@ public class CreateFolderForDbConnTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
+        List<String> folders = new ArrayList<String>();
+        folders.add(FOLDERNAME);
+        repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
+        repositoriesFolders.put(ERepositoryObjectType.METADATA_CONNECTIONS, folders);
+
+        folderItem = new TalendFolderItem(FOLDERNAME);
     }
 
     @Test
     public void createFolderForDbConn() {
-        folderItem = Utilities.createFolder(FOLDERNAME, Utilities.TalendItemType.DB_CONNECTIONS);
-    }
-
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.cleanUpRepository(folderItem.getParentNode());
-        Utilities.emptyRecycleBin();
+        folderItem.createUnder(Utilities.TalendItemType.DB_CONNECTIONS);
     }
 }

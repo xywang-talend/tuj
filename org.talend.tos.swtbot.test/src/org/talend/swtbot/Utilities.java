@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -37,21 +37,56 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefFigureCanvas;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
+import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.hamcrest.Matcher;
 import org.junit.Assert;
-import org.talend.swtbot.items.TalendFolderItem;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.swtbot.items.TalendBrmsItem;
+import org.talend.swtbot.items.TalendBusinessModelItem;
+import org.talend.swtbot.items.TalendContextItem;
+import org.talend.swtbot.items.TalendCopybookItem;
+import org.talend.swtbot.items.TalendDBItem;
+import org.talend.swtbot.items.TalendDelimitedFileItem;
+import org.talend.swtbot.items.TalendDocumentationItem;
+import org.talend.swtbot.items.TalendEdiItem;
+import org.talend.swtbot.items.TalendEmbeddedRulesItem;
+import org.talend.swtbot.items.TalendExcelFileItem;
+import org.talend.swtbot.items.TalendFtpItem;
+import org.talend.swtbot.items.TalendGenericSchemaItem;
+import org.talend.swtbot.items.TalendHL7Item;
+import org.talend.swtbot.items.TalendItem;
+import org.talend.swtbot.items.TalendJobItem;
+import org.talend.swtbot.items.TalendJobScriptItem;
+import org.talend.swtbot.items.TalendJobletItem;
+import org.talend.swtbot.items.TalendLdapItem;
+import org.talend.swtbot.items.TalendLdifFileItem;
+import org.talend.swtbot.items.TalendMdmItem;
+import org.talend.swtbot.items.TalendPositionalFileItem;
+import org.talend.swtbot.items.TalendRecycleBinItem;
+import org.talend.swtbot.items.TalendRegexFileItem;
+import org.talend.swtbot.items.TalendRoutineItem;
+import org.talend.swtbot.items.TalendSalesforceItem;
+import org.talend.swtbot.items.TalendSapItem;
+import org.talend.swtbot.items.TalendSchemaItem;
+import org.talend.swtbot.items.TalendSqlTemplateItem;
+import org.talend.swtbot.items.TalendSurvivorshipRulesItem;
+import org.talend.swtbot.items.TalendValidationRuleItem;
+import org.talend.swtbot.items.TalendWebServiceItem;
+import org.talend.swtbot.items.TalendXmlFileItem;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
@@ -85,9 +120,8 @@ public class Utilities {
     public enum TalendItemType {
         BUSINESS_MODEL,
         JOB_DESIGNS,
-        // SERVICES,
+        SERVICES,
         JOBLET_DESIGNS,
-        CONTEXTS,
         ROUTINES,
         JOBSCRIPTS,
         SQL_TEMPLATES,
@@ -112,6 +146,7 @@ public class Utilities {
         FTP,
         HL7,
         EDI,
+        CONTEXTS,
         DOCUMENTATION,
         RECYCLE_BIN
     }
@@ -167,53 +202,20 @@ public class Utilities {
      * @return void
      */
     public static void emptyRecycleBin() {
-        SWTBotTreeItem recycleBin = tree.expandNode("Recycle bin").select();
-        gefBot.waitUntil(Conditions.widgetIsEnabled(recycleBin));
-        if (recycleBin.rowCount() != 0) {
-            recycleBin.click();
-            recycleBin.contextMenu("Empty recycle bin").click();
-            gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
-            gefBot.button("Yes").click();
-        }
-    }
-
-    public static SWTBotTreeItem createCopybook(String copybookNAME, SWTBotTreeItem treeNode) throws IOException,
-            URISyntaxException {
-        treeNode.contextMenu("Create EBCDIC").click();
-        gefBot.waitUntil(Conditions.shellIsActive("EBCDIC Connection"));
-        shell = gefBot.shell("EBCDIC Connection").activate();
-
-        /* step 1 of 3 */
-        gefBot.textWithLabel("Name").setText(copybookNAME);
-        boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
-        if (nextButtonIsEnabled) {
-            gefBot.button("Next >").click();
-        } else {
-            shell.close();
-            Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
-        }
-
-        /* step 2 of 3 */
-        gefBot.textWithLabel("File").setText(
-                getFileFromCurrentPluginSampleFolder(System.getProperty("copybook.filepath")).getAbsolutePath());
-        gefBot.textWithLabel("Data file").setText(
-                getFileFromCurrentPluginSampleFolder(System.getProperty("copybook.datafile")).getAbsolutePath());
-        gefBot.button("Generate").click();
-        gefBot.button("Next >").click();
-
-        /* step 3 of 3 */
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newCopybookItem = null;
         try {
-            newCopybookItem = treeNode.select(copybookNAME + " 0.1");
+            SWTBotTreeItem recycleBin = tree.expandNode("Recycle bin").select();
+            gefBot.waitUntil(Conditions.widgetIsEnabled(recycleBin));
+            if (recycleBin.rowCount() != 0) {
+                recycleBin.click();
+                recycleBin.contextMenu("Empty recycle bin").click();
+                gefBot.waitUntil(Conditions.shellIsActive("Empty recycle bin"));
+                gefBot.button("Yes").click();
+            }
         } catch (Exception e) {
+            gefBot.closeAllShells();
+            System.out.println("ERROR: Empty recycle bin error.");
             e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("copybook item is not created", newCopybookItem);
         }
-
-        return treeNode.getNode(copybookNAME + " 0.1");
     }
 
     /**
@@ -441,7 +443,7 @@ public class Utilities {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Assert.assertNotNull("item is not copied", newItem);
+            Assert.assertNotNull("copy of item '" + itemName + " " + itemVersion + "' does not exist", newItem);
         }
     }
 
@@ -495,7 +497,7 @@ public class Utilities {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Assert.assertNotNull("item is not duplicated", newItem);
+            Assert.assertNotNull("duplicate of item '" + itemName + " " + itemVersion + "' does not exist", newItem);
         }
     }
 
@@ -516,8 +518,8 @@ public class Utilities {
             return tree.expandNode("Business Models");
         case JOB_DESIGNS:
             return tree.expandNode("Job Designs");
-            // case SERVICES:
-            // return tree.expandNode("Services");
+        case SERVICES:
+            return tree.expandNode("Services");
         case JOBLET_DESIGNS:
             return tree.expandNode("Joblet Designs");
         case CONTEXTS:
@@ -580,6 +582,76 @@ public class Utilities {
         return null;
     }
 
+    public static TalendItem getInstanceOfType(TalendItemType itemType) {
+        switch (itemType) {
+        case BUSINESS_MODEL:
+            return new TalendBusinessModelItem();
+        case JOB_DESIGNS:
+            return new TalendJobItem();
+        case SERVICES:
+            return null;
+        case JOBLET_DESIGNS:
+            return new TalendJobletItem();
+        case CONTEXTS:
+            return new TalendContextItem();
+        case ROUTINES:
+            return new TalendRoutineItem();
+        case JOBSCRIPTS:
+            return new TalendJobScriptItem();
+        case SQL_TEMPLATES:
+            return new TalendSqlTemplateItem();
+        case DB_CONNECTIONS:
+            return new TalendDBItem();
+        case SAP_CONNECTIONS:
+            return new TalendSapItem();
+        case FILE_DELIMITED:
+            return new TalendDelimitedFileItem();
+        case FILE_POSITIONAL:
+            return new TalendPositionalFileItem();
+        case FILE_REGEX:
+            return new TalendRegexFileItem();
+        case FILE_XML:
+            return new TalendXmlFileItem();
+        case FILE_EXCEL:
+            return new TalendExcelFileItem();
+        case FILE_LDIF:
+            return new TalendLdifFileItem();
+        case LDAP:
+            return new TalendLdapItem();
+        case SALESFORCE:
+            return new TalendSalesforceItem();
+        case GENERIC_SCHEMAS:
+            return new TalendGenericSchemaItem();
+        case TALEND_MDM:
+            return new TalendMdmItem();
+        case SURVIVORSHIP_RULES:
+            return new TalendSurvivorshipRulesItem();
+        case BRMS:
+            return new TalendBrmsItem();
+        case EMBEDDED_RULES:
+            return new TalendEmbeddedRulesItem();
+        case COPYBOOK:
+            return new TalendCopybookItem();
+        case WEB_SERVICE:
+            return new TalendWebServiceItem();
+        case VALIDATION_RULES:
+            return new TalendValidationRuleItem();
+        case FTP:
+            return new TalendFtpItem();
+        case HL7:
+            return new TalendHL7Item();
+        case EDI:
+            return new TalendEdiItem();
+        case DOCUMENTATION:
+            return new TalendDocumentationItem();
+        case RECYCLE_BIN:
+            return new TalendRecycleBinItem();
+        default:
+            break;
+        }
+        return null;
+    }
+
     /**
      * DOC fzhong Comment method "getView".
      * 
@@ -604,95 +676,67 @@ public class Utilities {
         return new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
     }
 
-    private static SWTBotTreeItem createFolder(String folderName, SWTBotTreeItem treeNode) {
-        treeNode.contextMenu("Create folder").click();
-        gefBot.waitUntil(Conditions.shellIsActive("New folder"));
-        shell = gefBot.shell("New folder");
-        shell.activate();
-
-        gefBot.textWithLabel("Label").setText(folderName);
-
-        boolean finishButtonIsEnabled = gefBot.button("Finish").isEnabled();
-        if (finishButtonIsEnabled) {
-            gefBot.button("Finish").click();
-        } else {
-            shell.close();
-            Assert.assertTrue("finish button is not enabled, folder created fail, maybe the item is exist", finishButtonIsEnabled);
-        }
-        gefBot.waitUntil(Conditions.shellCloses(shell));
-
-        SWTBotTreeItem newFolderItem = null;
-        try {
-            newFolderItem = treeNode.expand().select(folderName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("folder is not created", newFolderItem);
-        }
-
-        return newFolderItem;
-    }
-
-    public static TalendFolderItem createFolder(String folderName, TalendItemType itemType) {
-        SWTBotTreeItem folder = createFolder(folderName, Utilities.getTalendItemNode(itemType));
-        TalendFolderItem folderItem = new TalendFolderItem();
-        folderItem.setItem(folder);
-        folderItem.setItemName(folderName);
-        folderItem.setItemPath("");
-        folderItem.setFolderPath(folderName);
-        folderItem.setParentNode(Utilities.getTalendItemNode(itemType));
-        return folderItem;
-    }
-
-    public static TalendFolderItem createFolder(String folderName, TalendFolderItem parentFolder) {
-        SWTBotTreeItem folder = createFolder(folderName, parentFolder.getItem());
-        TalendFolderItem folderItem = new TalendFolderItem();
-        folderItem.setItem(folder);
-        folderItem.setItemName(folderName);
-        folderItem.setItemPath(parentFolder.getFolderPath());
-        folderItem.setFolderPath(parentFolder.getFolderPath() + "/" + folderName);
-        folderItem.setParentNode(parentFolder.getItem());
-        return folderItem;
-    }
-
     /**
-     * DOC fzhong Comment method "cleanUpRepository". Delete all items in repository to recycle bin.
+     * DOC fzhong Comment method "cleanUpRepository". Delete all items in repository.
      * 
-     * @param tree tree in repository
-     * @param buildType "TOS" or "TIS"
      */
-    public static void cleanUpRepository(SWTBotTree tree, String buildType) {
-        List<TalendItemType> itemList = null;
-        for (TalendItemType itemType : TalendItemType.values()) {
-            if ("TOS".equals(buildType)) {
-                itemList = getTISItemTypes(); // if TOS, get TIS items and pass next step
-            }
-            if (itemList != null && itemList.contains(itemType))
-                continue; // if TOS, pass TIS items
+    public static void cleanUpRepository() {
+        List<TalendItemType> itemTypes = new ArrayList<TalendItemType>();
+        if ("TIS".equals(TalendSwtBotForTos.getBuildType()))
+            itemTypes = getTISItemTypes();
+        if ("TOSDI".equals(TalendSwtBotForTos.getBuildType()))
+            itemTypes = getTOSDIItemTypes();
+        if ("TOSBD".equals(TalendSwtBotForTos.getBuildType()))
+            itemTypes = getTOSBDItemTypes();
+        for (TalendItemType itemType : itemTypes) {
             SWTBotTreeItem treeNode = getTalendItemNode(itemType);
             if (TalendItemType.SQL_TEMPLATES.equals(itemType))
-                treeNode = treeNode.expandNode("Generic", "UserDefined"); // focus on specific sql template type
+                treeNode = treeNode.expandNode("Hive", "UserDefined"); // focus on specific sql template type
             if (TalendItemType.DOCUMENTATION.equals(itemType) || TalendItemType.RECYCLE_BIN.equals(itemType))
                 continue; // undo with documentation and recycle bin
-            for (String itemName : treeNode.getNodes()) {
-                if (!"system".equals(itemName))
-                    treeNode.getNode(itemName).contextMenu("Delete").click();
-            }
+            cleanUpRepository(treeNode);
         }
+        emptyRecycleBin();
     }
 
     public static List<TalendItemType> getTISItemTypes() {
         List<TalendItemType> itemList = new ArrayList<TalendItemType>();
-        // itemList.add(TalendItemType.SERVICES);
-        itemList.add(TalendItemType.JOBLET_DESIGNS);
-        itemList.add(TalendItemType.JOBSCRIPTS);
-        itemList.add(TalendItemType.SAP_CONNECTIONS);
-        itemList.add(TalendItemType.BRMS);
-        itemList.add(TalendItemType.EMBEDDED_RULES);
-        itemList.add(TalendItemType.COPYBOOK);
-        itemList.add(TalendItemType.VALIDATION_RULES);
-        itemList.add(TalendItemType.HL7);
-        itemList.add(TalendItemType.EDI);
+        for (TalendItemType itemType : TalendItemType.values())
+            itemList.add(itemType);
+        return itemList;
+    }
+
+    public static List<TalendItemType> getTOSDIItemTypes() {
+        List<TalendItemType> itemList = new ArrayList<TalendItemType>();
+        itemList.add(TalendItemType.BUSINESS_MODEL);
+        itemList.add(TalendItemType.JOB_DESIGNS);
+        itemList.add(TalendItemType.ROUTINES);
+        itemList.add(TalendItemType.SQL_TEMPLATES);
+        itemList.add(TalendItemType.DB_CONNECTIONS);
+        itemList.add(TalendItemType.FILE_DELIMITED);
+        itemList.add(TalendItemType.FILE_POSITIONAL);
+        itemList.add(TalendItemType.FILE_REGEX);
+        itemList.add(TalendItemType.FILE_XML);
+        itemList.add(TalendItemType.FILE_EXCEL);
+        itemList.add(TalendItemType.FILE_LDIF);
+        itemList.add(TalendItemType.LDAP);
+        itemList.add(TalendItemType.SALESFORCE);
+        itemList.add(TalendItemType.GENERIC_SCHEMAS);
+        itemList.add(TalendItemType.WEB_SERVICE);
+        itemList.add(TalendItemType.FTP);
+        itemList.add(TalendItemType.CONTEXTS);
+        itemList.add(TalendItemType.DOCUMENTATION);
+        itemList.add(TalendItemType.RECYCLE_BIN);
+        return itemList;
+    }
+
+    public static List<TalendItemType> getTOSBDItemTypes() {
+        List<TalendItemType> itemList = new ArrayList<TalendItemType>();
+        itemList.add(TalendItemType.JOB_DESIGNS);
+        itemList.add(TalendItemType.ROUTINES);
+        itemList.add(TalendItemType.SQL_TEMPLATES);
+        itemList.add(TalendItemType.CONTEXTS);
+        itemList.add(TalendItemType.RECYCLE_BIN);
         return itemList;
     }
 
@@ -702,11 +746,35 @@ public class Utilities {
      * @param treeNode treeNode of the tree in repository
      */
     public static void cleanUpRepository(SWTBotTreeItem treeNode) {
+        List<String> items = getItemsForNode(treeNode);
+        if (items.isEmpty())
+            return;
+        SWTBotTreeItemExt treeNodeExt = new SWTBotTreeItemExt(treeNode.select(items.toArray(new String[items.size()])));
+        int count = 0;
+        boolean isDeleted = false;
+        do {
+            try {
+                treeNodeExt.contextMenu("Delete").click();
+                count++;
+                if (count > 3)
+                    throw new Exception();
+            } catch (Exception e) {
+                System.out.println("ERROR: Could not delete items under tree node '" + treeNode.getText() + "'.");
+                e.printStackTrace();
+                return;
+            }
+            if (getItemsForNode(treeNode).isEmpty())
+                isDeleted = true;
+        } while (!isDeleted);
+    }
+
+    private static List<String> getItemsForNode(SWTBotTreeItem treeNode) {
         gefBot.waitUntil(Conditions.widgetIsEnabled(treeNode));
-        for (String itemName : treeNode.getNodes()) {
-            if (!"system".equals(itemName))
-                treeNode.getNode(itemName).contextMenu("Delete").click();
-        }
+        List<String> items = treeNode.expand().getNodes();
+        String exceptItem = "system";
+        if (items.contains(exceptItem))
+            items.remove(exceptItem);
+        return items;
     }
 
     public static SWTBotTreeItem createFTP(String ftpName, SWTBotTreeItem treeNode) {
@@ -785,72 +853,6 @@ public class Utilities {
     }
 
     /**
-     * DOC fzhong Comment method "createEmbeddedRules".
-     * 
-     * @param resourceType 'XLS' or 'DRL'
-     * @param treeNode
-     * @param rulesName
-     * @param rulesName
-     * @throws URISyntaxException
-     * @throws IOException
-     */
-    public static void createEmbeddedRules(String resourceType, String ruleName, SWTBotTreeItem treeNode) throws IOException,
-            URISyntaxException {
-        treeNode.contextMenu("Create Rules").click();
-        shell = gefBot.shell("New Rule ...").activate();
-        gefBot.textWithLabel("Name").setText(ruleName);
-        boolean isNextButtonEnable = gefBot.button("Next >").isEnabled();
-        if (!isNextButtonEnable) {
-            shell.close();
-            Assert.assertTrue("rule item is not created, maybe the item name already exist", isNextButtonEnable);
-        }
-        gefBot.button("Next >").click();
-
-        try {
-            if ("XLS".equals(resourceType)) {
-                gefBot.radio("select").click();
-                gefBot.comboBoxWithLabel("Type of rule resource:").setSelection("New XLS (Excel)");
-                gefBot.textWithLabel("DRL/XLS").setText(
-                        getFileFromCurrentPluginSampleFolder("ExcelRulesTest.xls").getAbsolutePath());
-                gefBot.button("Finish").click();
-                // can't get download shell at this step
-            } else if ("DRL".equals(resourceType)) {
-                gefBot.radio("create").click();
-                gefBot.comboBoxWithLabel("Type of rule resource:").setSelection("New DRL (rule package)");
-                gefBot.button("Finish").click();
-            }
-        } catch (WidgetNotFoundException wnfe) {
-            shell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            shell.close();
-            Assert.fail(e.getMessage());
-        }
-
-        SWTBotShell errorShell = null;
-        try {
-            errorShell = gefBot.shell("Problem Executing Operation").activate();
-            if (errorShell.isActive()) {
-                gefBot.button("OK").click();
-                gefBot.cTabItem(ruleName + " 0.1").close();
-            }
-        } catch (WidgetNotFoundException wnfe) {
-            // ignor this exception, shell did not open means item create successfully.
-        } finally {
-            Assert.assertNull("bug for cannot create or restore resource because it already exist.", errorShell);
-        }
-
-        SWTBotTreeItem newRuleItem = null;
-        try {
-            newRuleItem = treeNode.expand().select(ruleName + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("embedded rule item is not created", newRuleItem);
-        }
-    }
-
-    /**
      * DOC fzhong Comment method "dndPaletteToolOntoJob". Drag and drop component from palette onto job.
      * 
      * @param jobEditor job editor
@@ -891,10 +893,10 @@ public class Utilities {
      * 
      * @param jobEditor job editor
      * @param sourceItem metadata item in reporitory
-     * @param componentLabel the label of specific component type
+     * @param componentType the label of specific component type
      * @param locationOnJob the specific location on job
      */
-    public static void dndMetadataOntoJob(SWTBotGefEditor jobEditor, SWTBotTreeItem sourceItem, String componentLabel,
+    public static void dndMetadataOntoJob(SWTBotGefEditor jobEditor, SWTBotTreeItem sourceItem, String componentType,
             Point locationOnJob) {
         SWTBotGefFigureCanvas figureCanvas = new SWTBotGefFigureCanvas((FigureCanvas) gefBot.widget(
                 WidgetOfType.widgetOfType(FigureCanvas.class), jobEditor.getWidget()));
@@ -902,11 +904,11 @@ public class Utilities {
 
         sourceItem.select();
         dndUtil.dragAndDrop(sourceItem, figureCanvas, locationOnJob);
-        if (componentLabel != null && !"".equals(componentLabel)) {
+        if (componentType != null && !"".equals(componentType)) {
             gefBot.shell("Components").activate();
-            gefBot.table(0).getTableItem(componentLabel).select();
+            gefBot.table(0).getTableItem(componentType).select();
             gefBot.button("OK").click();
-            if (componentLabel.equals("tFileInputPositional"))
+            if (componentType.equals("tFileInputPositional"))
                 gefBot.button("OK").click();
         }
         if (gefBot.activeShell().getText().equals("Added context"))
@@ -920,15 +922,6 @@ public class Utilities {
 
         sourceItem.select();
         dndUtil.dragAndDrop(sourceItem, figureCanvas, locationOnModel);
-    }
-
-    /**
-     * Get build title, only used in the beginning of one test.
-     * 
-     * @return build title
-     */
-    public static String getBuildTitle() {
-        return gefBot.activeShell().getText().split("\\(")[0].trim();
     }
 
     /**
@@ -950,4 +943,259 @@ public class Utilities {
 
         });
     }
+
+    /**
+     * Does a <em>best effort</em> to reset the perspective. This method attempts to:
+     * <ul>
+     * <li>close all non-workbench windows</li>
+     * <li>save and close all open editors</li>
+     * <li>clean up all items in repository</li>
+     * <li>reset the <em>active</em> perspective</li>
+     * <ul>
+     */
+    public static void resetActivePerspective() {
+        gefBot.closeAllShells();
+        gefBot.saveAllEditors();
+        gefBot.closeAllEditors();
+        cleanUpRepository();
+        gefBot.resetActivePerspective();
+    }
+
+    /**
+     * to set the value in the component view of all kinds of DB and test the data viewer
+     * 
+     * @param dbItem the DB item
+     * @param jobItem the job Item
+     * @param expected the expected result
+     * @param tableName the table name
+     * @param componentType the db component type
+     */
+    public static void dataViewerOnDBComponent(TalendDBItem dbItem, TalendJobItem jobItem, String expected, String tableName,
+            String componentType) {
+        // retrive schema
+        dbItem.retrieveDbSchema(tableName);
+        TalendSchemaItem schema = dbItem.getSchema(tableName);
+        Assert.assertNotNull("did not retrieve schema", schema.getItem());
+
+        TalendSwtBotForTos swtbot = new TalendSwtBotForTos();
+        // test drag db2 input component to workspace
+        schema.setComponentType(componentType);
+        Utilities.dndMetadataOntoJob(jobItem.getEditor(), schema.getItem(), schema.getComponentType(), new Point(100, 100));
+        SWTBotGefEditPart gefEditPart = swtbot.getTalendComponentPart(jobItem.getEditor(), schema.getComponentLabel());
+        Assert.assertNotNull("cann't get component " + schema.getComponentType() + "", gefEditPart);
+
+        // dataviewer
+        dataView(jobItem, gefEditPart, componentType);
+
+        if (componentType.equals("tTeradataInput")) {
+            int result = gefBot.tree().rowCount();
+            Assert.assertEquals("the result is not the expected result", Integer.parseInt(expected), result);
+        } else {
+            String result1 = gefBot.tree().cell(0, 1);
+            String result2 = gefBot.tree().cell(0, 2);
+            Assert.assertEquals("the result is not the expected result", expected, result1 + result2);
+        }
+        gefBot.button("Close").click();
+
+    }
+
+    /**
+     * data viewer of metadataItem
+     * 
+     * @param jobItem the job Item
+     * @param gefEditPart the specified SWTBoTGefEditPart
+     * @param componentType the type of component
+     */
+
+    public static void dataView(TalendJobItem jobItem, SWTBotGefEditPart gefEditPart, final String componentType) {
+        jobItem.getEditor().select(gefEditPart).setFocus();
+        gefEditPart.click();
+        jobItem.getEditor().clickContextMenu("Data viewer");
+        gefBot.waitUntil(new DefaultCondition() {
+
+            public boolean test() throws Exception {
+                String shellTitle = gefBot.activeShell().getText();
+                return ("Data Preview: " + componentType + "_1").equals(shellTitle) || "Select Context".equals(shellTitle);
+            }
+
+            public String getFailureMessage() {
+                return "the shell of data preview did not activate";
+            }
+        }, 20000);
+        if ("Select Context".equals(gefBot.activeShell().getText()))
+            Assert.fail("the shell 'Data Preview: " + componentType + "_1' did not activate, but shell 'Select Context' activate");
+        gefBot.shell("Data Preview: " + componentType + "_1").activate();
+    }
+
+    /**
+     * data viewer on SCD Component
+     * 
+     * @param jobItem the job Item
+     * @param componentType the type of component
+     * @param dbName the name of db
+     * @param gefEditPart
+     */
+    public static void dataViewOnSCDComponent(TalendJobItem jobItem, String componentType, String dbName,
+            SWTBotGefEditPart gefEditPart) {
+        String sql = "create table dataviwer(age int, name varchar(12));\n " + "insert into dataviwer values(1, 'a');\n";
+
+        // create table
+        createTable(sql, jobItem, componentType);
+
+        // select table
+        selectTable(componentType, dbName);
+
+        // edit schema
+        gefBot.button(4).click();
+        editSchema(componentType);
+
+        dataView(jobItem, gefEditPart, componentType);
+
+        String result1 = gefBot.tree().cell(0, 1);
+        String result2 = gefBot.tree().cell(0, 2);
+        Assert.assertEquals("the result is not the expected result", "1a", result1 + result2);
+        gefBot.button("Close").click();
+
+        // Drop table
+        dropTable(sql, gefEditPart, jobItem, componentType);
+    }
+
+    private static void dropTable(String sql, SWTBotGefEditPart gefEditPart, TalendJobItem jobItem, String componentType) {
+        sql = "drop table dataviwer;";
+        gefEditPart.click();
+        gefBot.viewByTitle("Component").setFocus();
+        gefBot.button(3).click();
+        gefBot.waitUntil(
+                Conditions.shellIsActive("SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:"
+                        + componentType + "_1"), 30000);
+        gefBot.shell("SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:" + componentType + "_1");
+        gefBot.styledText().setText(sql);
+        gefBot.toolbarButtonWithTooltip("Execute SQL (Ctrl+Enter)").click();
+        gefBot.button("OK").click();
+    }
+
+    private static void editSchema(String componentType) {
+        gefBot.shell("Schema of " + componentType + "_1").activate();
+        gefBot.buttonWithTooltip("Add").click();
+        gefBot.table(0).click(0, 3);
+        gefBot.text("newColumn").setText("age");
+        gefBot.table(0).click(0, 5);
+        gefBot.ccomboBox("String").setSelection("int | Integer");
+        gefBot.table(0).select(0);
+        gefBot.buttonWithTooltip("Add").click();
+        gefBot.table(0).click(1, 3);
+        gefBot.text("newColumn1").setText("name");
+        gefBot.table(0).select(1);
+        gefBot.button("OK").click();
+    }
+
+    private static void selectTable(String componentType, String dbName) {
+        gefBot.buttonWithTooltip("Show the table list for the current conection").click();
+
+        gefBot.waitUntil(Conditions.shellIsActive("Select Table Name"), 30000);
+        gefBot.shell("Select Table Name").activate();
+        if (componentType.equals("tOracleSCD")) {
+            gefBot.tree().expandNode(System.getProperty(dbName + ".sid")).select("DATAVIWER");
+        } else {
+            gefBot.tree().expandNode(System.getProperty(dbName + ".dataBase")).select("dataviwer");
+        }
+        gefBot.button("OK").click();
+    }
+
+    private static void createTable(String sql, TalendJobItem jobItem, String componentType) {
+        gefBot.waitUntil(
+                Conditions.shellIsActive("SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:"
+                        + componentType + "_1"), 30000);
+        SWTBotShell shell = gefBot.shell(
+                "SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:" + componentType + "_1")
+                .activate();
+
+        gefBot.styledText().setText(sql);
+        gefBot.toolbarButtonWithTooltip("Execute SQL (Ctrl+Enter)").click();
+
+        // if table has exist,drop the table ,then create table gain
+        long defaultTimeout = SWTBotPreferences.TIMEOUT;
+        SWTBotPreferences.TIMEOUT = 100;
+        try {
+            gefBot.waitUntil(Conditions.shellIsActive("Error Executing SQL"));
+            String errorLog = gefBot.label(1).getText();
+            if (errorLog.contains("name") && errorLog.contains("existing object") || errorLog.contains("dataviwer")
+                    || errorLog.contains("already exists")) {
+                // String table = errorLog.split("'")[1];
+                sql = "drop table dataviwer;\n" + sql;
+            }
+
+            if (errorLog.contains("Unknown table") && errorLog.contains("database doesn't exist")) {
+                gefBot.button("OK").click();
+            } else {
+                gefBot.button("OK").click();
+                gefBot.shell(
+                        "SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:" + componentType + "_1")
+                        .activate();
+                gefBot.styledText(0).setText(sql);
+                gefBot.toolbarButtonWithTooltip("Execute SQL (Ctrl+Enter)").click();
+            }
+        } catch (TimeoutException e) {
+            // ignor this, means execute sql successfully, did not pop up error dialog
+        } finally {
+            SWTBotPreferences.TIMEOUT = defaultTimeout;
+            gefBot.button("OK").click();
+            gefBot.waitUntil(Conditions.shellCloses(shell));
+        }
+
+    }
+
+    /**
+     * import items
+     * 
+     * @param archiveFileName the name of the archive file need to import under folder 'sample'.
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    public static void importItems(String archiveFileName) throws IOException, URISyntaxException {
+        gefBot.toolbarButtonWithTooltip("Import Items").click();
+
+        gefBot.shell("Import items").activate();
+        gefBot.radio("Select archive file:").click();
+        gefBot.text(1).setText(Utilities.getFileFromCurrentPluginSampleFolder(archiveFileName).getAbsolutePath());
+        gefBot.tree().setFocus();
+        gefBot.button("Select All").click();
+        gefBot.button("Finish").click();
+        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")));
+    }
+
+    public static List<ERepositoryObjectType> getERepositoryObjectTypes() {
+        List<ERepositoryObjectType> list = new ArrayList<ERepositoryObjectType>();
+        list.add(ERepositoryObjectType.BUSINESS_PROCESS);
+        list.add(ERepositoryObjectType.PROCESS);
+        list.add(ERepositoryObjectType.SERVICESOPERATION);
+        list.add(ERepositoryObjectType.JOBLET);
+        list.add(ERepositoryObjectType.CONTEXT);
+        list.add(ERepositoryObjectType.ROUTINES);
+        list.add(ERepositoryObjectType.JOB_SCRIPT);
+        list.add(ERepositoryObjectType.SQLPATTERNS);
+        list.add(ERepositoryObjectType.METADATA_CONNECTIONS);
+        list.add(ERepositoryObjectType.METADATA_SAPCONNECTIONS);
+        list.add(ERepositoryObjectType.METADATA_FILE_DELIMITED);
+        list.add(ERepositoryObjectType.METADATA_FILE_POSITIONAL);
+        list.add(ERepositoryObjectType.METADATA_FILE_REGEXP);
+        list.add(ERepositoryObjectType.METADATA_FILE_XML);
+        list.add(ERepositoryObjectType.METADATA_FILE_EXCEL);
+        list.add(ERepositoryObjectType.METADATA_FILE_LDIF);
+        list.add(ERepositoryObjectType.METADATA_LDAP_SCHEMA);
+        list.add(ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA);
+        list.add(ERepositoryObjectType.METADATA_GENERIC_SCHEMA);
+        list.add(ERepositoryObjectType.METADATA_MDMCONNECTION);
+        list.add(ERepositoryObjectType.METADATA_FILE_RULES);
+        list.add(ERepositoryObjectType.METADATA_FILE_EBCDIC);
+        list.add(ERepositoryObjectType.METADATA_WSDL_SCHEMA);
+        list.add(ERepositoryObjectType.METADATA_VALIDATION_RULES);
+        list.add(ERepositoryObjectType.METADATA_FILE_FTP);
+        list.add(ERepositoryObjectType.METADATA_FILE_HL7);
+        list.add(ERepositoryObjectType.METADATA_EDIFACT);
+        list.add(ERepositoryObjectType.DOCUMENTATION);
+        list.add(ERepositoryObjectType.RECYCLE_BIN);
+        return list;
+    }
+
 }

@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -31,6 +31,8 @@ public class TalendMetadataItem extends TalendItem {
 
     protected String componentType;
 
+    protected String componentLabel;
+
     public TalendMetadataItem() {
     }
 
@@ -40,6 +42,7 @@ public class TalendMetadataItem extends TalendItem {
 
     public TalendMetadataItem(String itemName, TalendItemType itemType) {
         super(itemName, itemType);
+        this.componentLabel = this.itemName;
     }
 
     public String getComponentType() {
@@ -54,6 +57,16 @@ public class TalendMetadataItem extends TalendItem {
      */
     public void setComponentType(String componentType) {
         this.componentType = componentType;
+    }
+
+    public String getComponentLabel() {
+        if (this.componentLabel == null)
+            return this.itemName;
+        return this.componentLabel;
+    }
+
+    public void setComponentLabel(String componentLabel) {
+        this.componentLabel = componentLabel;
     }
 
     public String getExpectResult() {
@@ -72,7 +85,7 @@ public class TalendMetadataItem extends TalendItem {
             StringBuffer rightResult = new StringBuffer();
             while ((tempStr = reader.readLine()) != null)
                 rightResult.append(tempStr + "\n");
-            this.expectResult = rightResult.toString();
+            this.expectResult = rightResult.toString().trim();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,7 +107,7 @@ public class TalendMetadataItem extends TalendItem {
     }
 
     public TalendSchemaItem getSchema(String name) {
-        TalendSchemaItem schemaItem = new TalendSchemaItem();
+        TalendSchemaItem schemaItem = new TalendSchemaItem(this.getItemType());
         schemaItem.setItem(item.expand().getNode(name));
         schemaItem.setParentNode(item);
         return schemaItem;

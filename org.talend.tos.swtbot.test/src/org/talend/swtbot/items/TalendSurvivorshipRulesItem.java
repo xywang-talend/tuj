@@ -12,30 +12,18 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.talend.swtbot.Utilities;
 
 /**
  * DOC fzhong class global comment. Detailled comment
  */
-public class TalendSqlTemplateItem extends TalendItem {
+public class TalendSurvivorshipRulesItem extends TalendMetadataItem {
 
-    public TalendSqlTemplateItem() {
-        super(Utilities.TalendItemType.SQL_TEMPLATES);
+    public TalendSurvivorshipRulesItem() {
+        super(Utilities.TalendItemType.SURVIVORSHIP_RULES);
     }
 
-    public TalendSqlTemplateItem(String itemName) {
-        super(itemName, Utilities.TalendItemType.SQL_TEMPLATES);
-    }
-
-    @Override
-    public void create() {
-        SWTBotShell shell = beginCreationWizard("Create SQLTemplate", "New SQLTemplate");
-        finishCreationWizard(shell);
-    }
-
-    public SWTBotEditor getEditor() {
-        return gefBot.editorByTitle(itemFullName);
+    public TalendSurvivorshipRulesItem(String itemName) {
+        super(itemName, Utilities.TalendItemType.SURVIVORSHIP_RULES);
     }
 }

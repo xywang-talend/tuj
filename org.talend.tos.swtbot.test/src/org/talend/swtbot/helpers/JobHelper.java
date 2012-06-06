@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -12,6 +12,10 @@
 // ============================================================================
 package org.talend.swtbot.helpers;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
@@ -20,6 +24,8 @@ import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefFigureCanvas;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
 import org.talend.swtbot.DndUtil;
 import org.talend.swtbot.Utilities;
@@ -71,9 +77,30 @@ public class JobHelper implements Helper {
         GEFBOT.viewByTitle("Run (Job " + jobName + ")").setFocus();
         GEFBOT.button(" Run").click();
 
+        SWTBotShell shell = null;
         try {
-            GEFBOT.shell("Find Errors in Jobs").close();
+            shell = GEFBOT.shell("Find Errors in Jobs").activate();
         } catch (WidgetNotFoundException e) {
+            // pass exception means no error found in jobs
+        } finally {
+            if (shell != null) {
+                StringBuffer errorlog = new StringBuffer();
+                SWTBotTreeItem[] jobs = GEFBOT.tree().getAllItems();
+                for (int i = 0; i < jobs.length; i++) {
+                    SWTBotTreeItem[] components = jobs[i].getItems();
+                    for (int j = 0; j < components.length; j++) {
+                        SWTBotTreeItem[] errors = components[j].getItems();
+                        for (int k = 0; k < errors.length; k++) {
+                            errorlog.append(errors[k].cell(1) + " for component '" + components[j].cell(0) + "'" + " in job '"
+                                    + jobs[i].cell(0) + "',\n");
+                        }
+                    }
+                }
+                if (errorlog != null && !"".equals(errorlog)) {
+                    shell.close();
+                    Assert.fail("find errors in jobs:\n" + errorlog);
+                }
+            }
         }
 
         GEFBOT.waitUntil(new DefaultCondition() {
@@ -187,4 +214,22 @@ public class JobHelper implements Helper {
         DndUtil dndUtil = new DndUtil(jobEditor.getWidget().getDisplay());
         dndUtil.dragAndDrop(paletteFigureCanvas, new Point(x, y + 20 * folderLevel), jobFigureCanvas, locationOnJob);
     }
+
+    public static String getExpectResultFromFile(String fileName) {
+        String result = null;
+        try {
+            File resultFile = Utilities.getFileFromCurrentPluginSampleFolder(fileName);
+            BufferedReader reader = new BufferedReader(new FileReader(resultFile));
+            String tempStr = null;
+            StringBuffer rightResult = new StringBuffer();
+            while ((tempStr = reader.readLine()) != null)
+                rightResult.append(tempStr + "\n");
+            result = rightResult.toString().trim();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
 }

@@ -1,5 +1,7 @@
 package org.talend.swtbot.items;
 
+import junit.framework.Assert;
+
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
@@ -46,11 +48,15 @@ public class TalendLdapItem extends TalendMetadataItem {
         gefBot.button("Check Authentication").click();
 
         gefBot.waitUntil(Conditions.shellIsActive("Check Authentication Parameter"), 20000);
-        tempShell = gefBot.shell("Check Authentication Parameter");
+        tempShell = gefBot.shell("Check Authentication Parameter").activate();
+        String checkMsg = gefBot.label(1).getText();
         gefBot.button("OK").click();
         gefBot.waitUntil(Conditions.shellCloses(tempShell));
+        if ("The authentication check failed.".equals(checkMsg)) {
+            shell.close();
+            Assert.fail(checkMsg);
+        }
         gefBot.button("Fetch Base DNs").click();
-
         gefBot.waitUntil(Conditions.shellIsActive("Fetch base DNs"));
         tempShell = gefBot.shell("Fetch base DNs");
         gefBot.button("OK").click();
@@ -75,5 +81,9 @@ public class TalendLdapItem extends TalendMetadataItem {
         }, 60000);
         gefBot.button("Next >").click();
         finishCreationWizard(shell);
+    }
+
+    public SWTBotShell beginEditWizard() {
+        return beginEditWizard("Edit LDAP schema", "Update LDAP schema");
     }
 }

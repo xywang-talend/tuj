@@ -16,11 +16,11 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.JobHelper;
@@ -38,13 +38,14 @@ public class IterateLinkTest extends TalendSwtBotForTos {
 
     @Before
     public void createJob() {
+        repositories.add(ERepositoryObjectType.PROCESS);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
     }
 
     @Test
     public void testLink() {
-        String buildTitle = Utilities.getBuildTitle();
+        String buildTitle = getBuildTitle();
         SWTBotGefEditor jobEditor = jobItem.getEditor();
 
         Utilities.dndPaletteToolOntoJob(jobEditor, "tRowGenerator", new Point(100, 100));
@@ -78,16 +79,8 @@ public class IterateLinkTest extends TalendSwtBotForTos {
         JobHelper.runJob(jobEditor);
         String result = JobHelper.getExecutionResult();
         int number = (result.length() - result.replace("tLogRow_2", "").length()) / "tLogRow_2".length();
-        System.out.println(number);
         Assert.assertEquals("haven't execute the default times", 2, number);
 
-    }
-
-    @After
-    public void removePreviousCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 
 }

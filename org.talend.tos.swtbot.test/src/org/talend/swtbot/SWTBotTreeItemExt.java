@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -12,9 +12,14 @@
 // ============================================================================
 package org.talend.swtbot;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.results.Result;
+import org.eclipse.swtbot.swt.finder.results.WidgetResult;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 
 /**
@@ -23,13 +28,21 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
  */
 public class SWTBotTreeItemExt extends SWTBotTreeItem {
 
+    private Tree tree;
+
     /**
      * 
      * @param treeItem - A SWTBotTreeItem object from which we can get a TreeItem widget
      * @throws WidgetNotFoundException
      */
-    public SWTBotTreeItemExt(SWTBotTreeItem treeItem) throws WidgetNotFoundException {
+    public SWTBotTreeItemExt(final SWTBotTreeItem treeItem) throws WidgetNotFoundException {
         super(treeItem.widget);
+        this.tree = syncExec(new WidgetResult<Tree>() {
+
+            public Tree run() {
+                return treeItem.widget.getParent();
+            }
+        });
     }
 
     /**
@@ -65,4 +78,26 @@ public class SWTBotTreeItemExt extends SWTBotTreeItem {
     public String getText(int column) {
         return cell(column);
     }
+
+    /**
+     * Improve function of contextMenu to delete two more items at the same time
+     */
+    @Override
+    public SWTBotMenu contextMenu(String text) {
+        waitForEnabled();
+        notifyTree(SWT.MouseDown, createMouseEvent(0, 0, 3, 0, 1));
+        notifyTree(SWT.MouseUp, createMouseEvent(0, 0, 3, 0, 1));
+        notifyTree(SWT.MenuDetect);
+        return super.contextMenu(tree, text);
+    }
+
+    private void notifyTree(int eventType) {
+        notify(eventType, createEvent(), tree);
+    }
+
+    private void notifyTree(int eventType, Event event) {
+        notify(eventType, event, tree);
+    }
+    
+    
 }

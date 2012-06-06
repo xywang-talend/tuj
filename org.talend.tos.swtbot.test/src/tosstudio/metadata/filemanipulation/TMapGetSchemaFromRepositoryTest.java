@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -20,10 +20,10 @@ import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendGenericSchemaItem;
@@ -49,7 +49,8 @@ public class TMapGetSchemaFromRepositoryTest extends TalendSwtBotForTos {
 
     @Before
     public void createJob() {
-        buildTitle = Utilities.getBuildTitle();
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.METADATA_GENERIC_SCHEMA);
         jobItem = new TalendJobItem(JOB_NAME);
         jobItem.create();
         genericSchemaItem = new TalendGenericSchemaItem(SCHEMA_NAME);
@@ -58,6 +59,7 @@ public class TMapGetSchemaFromRepositoryTest extends TalendSwtBotForTos {
 
     @Test
     public void tMapGetSchemaFromRepositoryTest() {
+        buildTitle = getBuildTitle();
         SWTBotGefEditor jobEditor = jobItem.getEditor();
         Utilities.dndPaletteToolOntoJob(jobEditor, "tMap", new Point(100, 100));
         getTalendComponentPart(jobEditor, "tMap_1").doubleClick();
@@ -105,11 +107,4 @@ public class TMapGetSchemaFromRepositoryTest extends TalendSwtBotForTos {
         }
     }
 
-    @After
-    public void removePreviousCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(genericSchemaItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

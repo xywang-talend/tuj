@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -14,17 +14,12 @@ package tosstudio.projectmanagement.statusmanagement;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +27,7 @@ import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.Utilities.TalendItemType;
+import org.talend.swtbot.items.TalendItem;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -39,59 +35,36 @@ import org.talend.swtbot.Utilities.TalendItemType;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class ChangeAllTechnicalItemsTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotShell shell;
-
-    private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip"; //$NON-NLS-1$
-
-    private String[] treeNodes = { "Business Models", "Job Designs", "Contexts", "Code", "SQL Templates", "Metadata",
-            "Documentation" };
-
-    private String[] treeItems = { "BUSINESS_MODEL", "JOB_DESIGNS", "CONTEXTS", "ROUTINES", "SQL_TEMPLATES", "DB_CONNECTIONS",
-            "FILE_DELIMITED", "FILE_POSITIONAL", "FILE_REGEX", "FILE_XML", "FILE_EXCEL", "FILE_LDIF", "LDAP", "SALESFORCE",
-            "GENERIC_SCHEMAS", "WEB_SERVICE", "FTP" };
-
-    private String[] codeNodes = { "Routines" };
-
-    private String[] sqlTemplatePath = { "Generic", "UserDefined" };
-
-    private String[] metadataNodes = { "Db Connections", "File delimited", "File positional", "File regex", "File xml",
-            "File Excel", "File ldif", "LDAP", "Salesforce", "Generic schemas", "Web Service", "FTP" };
-
-    private String[] metadataContextMenu = { "connection", "file delimited", "file positional", "file regex", "file xml",
-            "file Excel", "file ldif", "LDAP schema", "Salesforce Connection", "generic schema", "WSDL schema", "FTP" };
-
-    private String[] metadataShellTitle = { "Database Connection", "Edit an existing Delimited File",
-            "Edit an existing Positional File", "Edit an existing RegEx File", "Edit an existing Xml File",
-            "Edit an existing Excel File", "Edit an existing Ldif File", "Update LDAP schema", "Edit an exist Salesforce",
-            "Update generic schema", "Update WSDL schema", "" };
-
     @Before
     public void initialisePrivateFields() throws IOException, URISyntaxException {
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        gefBot.toolbarButtonWithTooltip("Import Items").click();
-
-        gefBot.shell("Import items").activate();
-        gefBot.radio("Select archive file:").click();
-        gefBot.text(1).setText(Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getAbsolutePath());
-        gefBot.tree().setFocus();
-        gefBot.button("Select All").click();
-        gefBot.button("Finish").click();
-        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")));
+        repositories = Utilities.getERepositoryObjectTypes();
+        Utilities.importItems("items_" + getBuildType() + ".zip");
     }
 
     @Test
     public void changeAllTechnicalItems() {
         gefBot.toolbarButtonWithTooltip("Project settings").click();
-        gefBot.shell("Project Settings").activate();
+        SWTBotShell shell = gefBot.shell("Project Settings").activate();
         gefBot.tree().expandNode("General").select("Status Management").click();
-        for (TalendItemType itemType : TalendItemType.values()) {
-            if (Utilities.getTISItemTypes().contains(itemType) || Utilities.TalendItemType.RECYCLE_BIN.equals(itemType))
-                continue;
+        List<TalendItemType> itemTypes = new ArrayList<TalendItemType>();
+        if ("TIS".equals(getBuildType()))
+            itemTypes = Utilities.getTISItemTypes();
+        else if ("TOSDI".equals(getBuildType()))
+            itemTypes = Utilities.getTOSDIItemTypes();
+        else if ("TOSBD".equals(getBuildType()))
+            itemTypes = Utilities.getTOSBDItemTypes();
+        // undo assert for under items, cause did not import these items
+        itemTypes.remove(TalendItemType.SERVICES);
+        itemTypes.remove(TalendItemType.SAP_CONNECTIONS);
+        itemTypes.remove(TalendItemType.TALEND_MDM);
+        itemTypes.remove(TalendItemType.BRMS);
+        itemTypes.remove(TalendItemType.SURVIVORSHIP_RULES);
+        itemTypes.remove(TalendItemType.VALIDATION_RULES);
+        itemTypes.remove(TalendItemType.DOCUMENTATION);
+        itemTypes.remove(TalendItemType.RECYCLE_BIN);
+
+        shell.setFocus();
+        for (TalendItemType itemType : itemTypes) {
             SWTBotTreeItem treeNode = Utilities.getTalendItemNode(gefBot.tree(1), itemType);
             treeNode.check();
         }
@@ -100,49 +73,37 @@ public class ChangeAllTechnicalItemsTest extends TalendSwtBotForTos {
         gefBot.shell("Confirm").activate();
         gefBot.button("OK").click();
 
-        int i;
-        // Assert business models, i=0
-        i = 0;
-        assertItemStatus(treeItems[i], "properties", "Edit properties", "", treeNodes[i]);
-        // Assert job designs, i=1
-        i = 1;
-        assertItemStatus(treeItems[i], "properties", "Edit properties", "testing", treeNodes[i]);
-        // Assert contexts, i=2
-        i = 2;
-        assertItemStatus(treeItems[i], "context group", "Create / Edit a context group", "testing", treeNodes[i]);
-        // Assert code - routine, i=3
-        i = 3;
-        assertItemStatus(treeItems[i], "properties", "Edit properties", "testing", treeNodes[i], codeNodes[0]);
-        // Assert sql template, i=4
-        i = 4;
-        assertItemStatus(treeItems[i], "properties", "Edit properties", "testing", treeNodes[i], sqlTemplatePath[0],
-                sqlTemplatePath[1]);
-        // Assert metadata, i=5
-        i = 5;
-        for (int k2 = 0; k2 < metadataNodes.length; k2++) {
-            assertItemStatus(treeItems[i + k2], metadataContextMenu[k2], metadataShellTitle[k2], "testing", treeNodes[i],
-                    metadataNodes[k2]);
+        String errorMsg = "";
+        for (TalendItemType itemType : itemTypes) {
+            String assertExpect = "testing";
+            if (TalendItemType.BUSINESS_MODEL.equals(itemType))
+                assertExpect = "";
+            errorMsg += assertItemStatus(itemType, assertExpect);
         }
+        if (!"".equals(errorMsg))
+            Assert.fail(errorMsg);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        shell.close();
-        Utilities.cleanUpRepository(tree, System.getProperty("buildType"));
-        Utilities.emptyRecycleBin();
-    }
+    private String assertItemStatus(TalendItemType itemType, String assertExpect) {
+        SWTBotTreeItem treeNode = null;
+        if (itemType == TalendItemType.SQL_TEMPLATES)
+            treeNode = Utilities.getTalendItemNode(itemType).expandNode("Hive", "UserDefined");
+        else
+            treeNode = Utilities.getTalendItemNode(itemType);
 
-    private void assertItemStatus(String itemName, String contextMenu, String shellTitle, String assertExpect, String... nodes) {
-        tree.expandNode(nodes).getNode(itemName + " 0.1").contextMenu("Edit " + contextMenu).click();
-        try {
-            if (!"".equals(shellTitle))
-                shell = gefBot.shell(shellTitle).activate();
-            Assert.assertEquals(itemName + " status", assertExpect, gefBot.ccomboBoxWithLabel("Status").getText());
-            gefBot.button("Cancel").click();
-        } catch (WidgetNotFoundException wnfe) {
-            if (gefBot.shell("Message").isActive())
-                gefBot.shell("Message").close();
-            Assert.assertTrue(itemName + " widget not open", false);
-        }
+        String itemName = itemType.toString() + " 0.1";
+        if ("TOSBD".equals(getBuildType()))
+            itemName = itemType.toString();
+        if (!treeNode.getNodes().contains(itemName))
+            return "item '" + itemName + "' did not import\n";
+
+        TalendItem item = Utilities.getInstanceOfType(itemType);
+        if (itemType == TalendItemType.SQL_TEMPLATES)
+            item.setFolderPath("Hive/UserDefined");
+        item.setItem(treeNode.getNode(itemName));
+        if (!assertExpect.equals(item.getStatus()))
+            return "status of item '" + itemName + "' did not change\n";
+
+        return "";
     }
 }

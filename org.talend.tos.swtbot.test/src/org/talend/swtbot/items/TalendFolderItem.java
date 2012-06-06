@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -13,10 +13,12 @@
 package org.talend.swtbot.items;
 
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.Utilities.TalendItemType;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -34,6 +36,10 @@ public class TalendFolderItem {
     private SWTBotTreeItem parentNode;
 
     private SWTGefBot gefBot = new SWTGefBot();
+
+    public TalendFolderItem(String folderName) {
+        setItemName(folderName);
+    }
 
     public String getItemName() {
         return itemName;
@@ -95,9 +101,54 @@ public class TalendFolderItem {
         this.parentNode = parentNode;
     }
 
+    private void create() {
+        parentNode.contextMenu("Create folder").click();
+        gefBot.waitUntil(Conditions.shellIsActive("New folder"));
+        SWTBotShell shell = gefBot.shell("New folder");
+        shell.activate();
+
+        gefBot.textWithLabel("Label").setText(getItemName());
+
+        boolean finishButtonIsEnabled = gefBot.button("Finish").isEnabled();
+        if (finishButtonIsEnabled) {
+            gefBot.button("Finish").click();
+        } else {
+            shell.close();
+            Assert.assertTrue("finish button is not enabled, folder created fail, maybe the item is exist", finishButtonIsEnabled);
+        }
+        gefBot.waitUntil(Conditions.shellCloses(shell));
+
+        SWTBotTreeItem newFolderItem = null;
+        try {
+            newFolderItem = parentNode.expand().select(itemName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Assert.assertNotNull("folder is not created", newFolderItem);
+        }
+
+        setItem(newFolderItem);
+    }
+
+    public TalendFolderItem createUnder(TalendItemType itemType) {
+        setParentNode(Utilities.getTalendItemNode(itemType));
+        create();
+        setItemPath("");
+        setFolderPath(itemName);
+        return this;
+    }
+
+    public TalendFolderItem createUnder(TalendFolderItem parentFolder) {
+        setParentNode(parentFolder.getItem());
+        create();
+        setItemPath(parentFolder.getFolderPath());
+        setFolderPath(parentFolder.getFolderPath() + "/" + itemName);
+        return this;
+    }
+
     public void rename(String newFolderName) {
         parentNode.expandNode(itemName).contextMenu("Rename folder").click();
-        SWTBotShell shell = gefBot.shell("New folder").activate();
+        SWTBotShell shell = gefBot.shell("Rename folder").activate();
         gefBot.textWithLabel("Label").setText(newFolderName);
         boolean isFinishButtonEnable = gefBot.button("Finish").isEnabled();
         if (!isFinishButtonEnable) {
@@ -117,7 +168,7 @@ public class TalendFolderItem {
     }
 
     public void delete() {
-        parentNode.getNode(itemName).contextMenu("Delete").click();
+        parentNode.expand().getNode(itemName).contextMenu("Delete").click();
         SWTBotTreeItem newItem = null;
         String path = "";
         try {

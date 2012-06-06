@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -12,16 +12,24 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.allOf;
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withStyle;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 import junit.framework.Assert;
 
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotCTabItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.hamcrest.Matcher;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.Utilities.TalendItemType;
 
@@ -62,55 +70,41 @@ public class TalendFileItem extends TalendMetadataItem {
         return Utilities.getFileFromCurrentPluginSampleFolder(filePath + ".result");
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public void finishCreationWizard(final SWTBotShell shell) {
-        try {
-            gefBot.waitUntil(new DefaultCondition() {
+        final SWTBotCTabItem outputTab = gefBot.cTabItem("Output");
+        Matcher matcher = allOf(widgetOfType(Button.class), withStyle(SWT.PUSH, null));
+        final SWTBotButton previewButton = new SWTBotButton((Button) gefBot.widget(matcher, gefBot.cTabItem("Preview").widget));
 
-                public boolean test() throws Exception {
+        gefBot.waitUntil(new DefaultCondition() {
 
-                    return gefBot.button("Next >").isEnabled();
-                }
-
-                public String getFailureMessage() {
-                    shell.close();
-                    return "next button was never enabled";
-                }
-            }, 60000);
-            if (isSetHeadingRowAsColumnName) {
-                gefBot.checkBox("Set heading row as column names").click();
+            public boolean test() throws Exception {
+                shell.setFocus();
+                boolean isPreviewFail = outputTab.isActive();
+                if (isPreviewFail)
+                    return true;
+                boolean isPreviewDone = "Refresh Preview".equals(previewButton.getText());
+                return isPreviewDone;
             }
-            gefBot.button("Next >").click();
-            gefBot.waitUntil(new DefaultCondition() {
 
-                public boolean test() throws Exception {
+            public String getFailureMessage() {
+                return "refresh preview did not finish";
+            }
+        }, 30000);
 
-                    return gefBot.button("Finish").isEnabled();
-                }
-
-                public String getFailureMessage() {
-                    shell.close();
-                    return "finish button was never enabled";
-                }
-            }, 10000);
-            gefBot.button("Finish").click();
-        } catch (WidgetNotFoundException wnfe) {
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            Assert.fail(e.getMessage());
-        } finally {
-            shell.close();
+        if (outputTab.isActive()) {
+            Assert.fail("Refresh preview fail - " + gefBot.styledText().getText());
         }
 
-        SWTBotTreeItem newItem = null;
-        try {
-            newItem = parentNode.expand().select(itemName + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("item is not created", newItem);
+        if (isSetHeadingRowAsColumnName) {
+            gefBot.checkBox("Set heading row as column names").click();
         }
 
-        setItem(parentNode.getNode(itemName + " 0.1"));
+        gefBot.button("Next >").click();
+        gefBot.button("Finish").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
+
+        setItem(parentNode.expand().getNode(itemName + " 0.1"));
     }
 
     public void setHeadingRowAsColumnName() {
