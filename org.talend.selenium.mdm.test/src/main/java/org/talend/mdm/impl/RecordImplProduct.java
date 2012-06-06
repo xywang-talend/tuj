@@ -506,7 +506,7 @@ public class RecordImplProduct extends Record{
 		flow.openMenuGoven();
 		flow.openMenuWorkFlowTask();
 		this.sleepCertainTime(5000);
-		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.workflowtaskspage.tasks.properties.waiting")).size()>=1);
+		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.workflowtaskspage.tasks.properties.ready")).size()>=1);
 		
 		//resort tasks by date ,and open the first work flow task
 		flow.sortWorkFlowTaskBydate();
@@ -518,7 +518,7 @@ public class RecordImplProduct extends Record{
 	    log.loginUserForce(userFrank, frankPass);	 
 	    WelcomeImpl wel = new WelcomeImpl(this.driver);
 	    wel.openWorkFlowTaskFromWelcome();
-	    Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.workflowtaskspage.tasks.properties.waiting")).size()>=1);
+	    Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.workflowtaskspage.tasks.properties.ready")).size()>=1);
 	    
 		// resort tasks by date ,and open the first work flow task
 		flow.sortWorkFlowTaskBydate();
