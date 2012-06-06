@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -20,12 +20,11 @@ import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendContextItem;
 import org.talend.swtbot.items.TalendJobItem;
 
@@ -45,6 +44,8 @@ public class VariablesTabTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
+        repositories.add(ERepositoryObjectType.CONTEXT);
+        repositories.add(ERepositoryObjectType.PROCESS);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
         contextItem = new TalendContextItem(CONTEXT_NAME);
@@ -53,7 +54,7 @@ public class VariablesTabTest extends TalendSwtBotForTos {
 
     @Test
     public void variablesTabTest() {
-        gefBot.viewByTitle("Contexts(Job " + jobItem.getItemFullName() + ")").setFocus();
+        gefBot.viewByTitle("Contexts(" + jobItem.getEditor().getTitle() + ")").setFocus();
         gefBot.cTabItem("Variables").activate();
         SWTBotTree varTree = gefBot.tree(0);
         SWTBotButton addBtn = gefBot.button(0);
@@ -104,11 +105,4 @@ public class VariablesTabTest extends TalendSwtBotForTos {
         varTree.getTreeItem(CONTEXT_NAME).click();
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(contextItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

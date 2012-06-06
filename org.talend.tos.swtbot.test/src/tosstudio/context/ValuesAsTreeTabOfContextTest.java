@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -18,10 +18,10 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.SWTBotTreeExt;
 import org.talend.swtbot.SWTBotTreeItemExt;
 import org.talend.swtbot.TalendSwtBotForTos;
@@ -49,6 +49,8 @@ public class ValuesAsTreeTabOfContextTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
+        repositories.add(ERepositoryObjectType.CONTEXT);
+        repositories.add(ERepositoryObjectType.PROCESS);
         jobItem = new TalendJobItem(jobName);
         jobItem.create();
         contextItem = new TalendContextItem(contextName);
@@ -59,7 +61,7 @@ public class ValuesAsTreeTabOfContextTest extends TalendSwtBotForTos {
     public void valueTreeOfContext() {
         SWTBotGefEditor jobEditor = jobItem.getEditor();
         Utilities.dndMetadataOntoJob(jobEditor, contextItem.getItem(), null, new Point(20, 20));
-        gefBot.viewByTitle("Contexts(Job " + jobName + " 0.1)").setFocus();
+        gefBot.viewByTitle("Contexts(" + jobItem.getEditor().getTitle() + ")").setFocus();
         gefBot.cTabItem("Values as tree").activate();
 
         // test if order by variable
@@ -99,14 +101,6 @@ public class ValuesAsTreeTabOfContextTest extends TalendSwtBotForTos {
         String value = gefBot.tree(0).getTreeItem("new1").getNode(0).cell(4);
         Assert.assertEquals("cann't edit the value of built-in type", newValue, value);
 
-    }
-
-    @After
-    public void removePreviousCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(contextItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 
 }

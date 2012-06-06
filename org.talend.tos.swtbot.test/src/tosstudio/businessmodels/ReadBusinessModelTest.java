@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -15,13 +15,12 @@ package tosstudio.businessmodels;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendBusinessModelItem;
 
 /**
@@ -36,6 +35,7 @@ public class ReadBusinessModelTest extends TalendSwtBotForTos {
 
     @Before
     public void createBusinessModel() {
+        repositories.add(ERepositoryObjectType.BUSINESS_PROCESS);
         businessModelItem = new TalendBusinessModelItem(BUSINESS_MODEL_NAME);
         businessModelItem.create();
         businessModelItem.getEditor().close();
@@ -55,10 +55,4 @@ public class ReadBusinessModelTest extends TalendSwtBotForTos {
         }
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        businessModelItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(businessModelItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

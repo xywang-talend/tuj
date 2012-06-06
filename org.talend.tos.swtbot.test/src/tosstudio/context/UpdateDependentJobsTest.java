@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -12,15 +12,17 @@
 // ============================================================================
 package tosstudio.context;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import junit.framework.Assert;
 
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendContextItem;
@@ -34,6 +36,8 @@ public class UpdateDependentJobsTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 
+    private List<TalendJobItem> copyJobItems = new ArrayList<TalendJobItem>();
+
     private TalendContextItem contextItem;
 
     private static final String JOBNAME = "jobTest"; //$NON-NLS-1$
@@ -42,6 +46,8 @@ public class UpdateDependentJobsTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
+        repositories.add(ERepositoryObjectType.CONTEXT);
+        repositories.add(ERepositoryObjectType.PROCESS);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
         contextItem = new TalendContextItem(CONTEXT_NAME);
@@ -49,7 +55,7 @@ public class UpdateDependentJobsTest extends TalendSwtBotForTos {
         Utilities.dndMetadataOntoJob(jobItem.getEditor(), contextItem.getItem(), null, new Point(100, 100));
         jobItem.getEditor().save();
         for (int i = 0; i < 5; i++)
-            jobItem.copyAndPaste();
+            copyJobItems.add((TalendJobItem) jobItem.copyAndPaste());
     }
 
     @Test
@@ -58,9 +64,10 @@ public class UpdateDependentJobsTest extends TalendSwtBotForTos {
         gefBot.shell("Create / Edit a context group").activate();
         gefBot.button("Next >").click();
         gefBot.cTabItem("Values as table").activate();
+        gefBot.tree(0).getTreeItem(System.getProperty("context.variable0")).select();
         gefBot.tree(0).getTreeItem(System.getProperty("context.variable0")).click(1);
         gefBot.text().setText("test");
-        gefBot.tree(0).getTreeItem(System.getProperty("context.variable0")).select();
+        gefBot.tree(0).getTreeItem(System.getProperty("context.variable0")).click();
         gefBot.button("Finish").click();
 
         gefBot.shell("Modification").activate();
@@ -69,30 +76,17 @@ public class UpdateDependentJobsTest extends TalendSwtBotForTos {
         gefBot.shell("Update Detection").activate();
         gefBot.button("OK").click();
 
-        assertContextInJob(jobItem.getItemFullName());
-        assertContextInJob("Copy_of_" + JOBNAME + " 0.1");
-        assertContextInJob("Copy_of_" + JOBNAME + "_a 0.1");
-        assertContextInJob("Copy_of_" + JOBNAME + "_b 0.1");
-        assertContextInJob("Copy_of_" + JOBNAME + "_c 0.1");
-        assertContextInJob("Copy_of_" + JOBNAME + "_d 0.1");
+        assertContextInJob(jobItem);
+        for (TalendJobItem job : copyJobItems)
+            assertContextInJob(job);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        for (SWTBotEditor editor : gefBot.editors()) {
-            editor.saveAndClose();
-        }
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(contextItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
-
-    private void assertContextInJob(String jobFullName) {
-        jobItem.getParentNode().getNode(jobFullName).select().doubleClick();
-        gefBot.viewByTitle("Contexts(Job " + jobFullName + ")").setFocus();
+    private void assertContextInJob(TalendJobItem jobItem) {
+        jobItem.getParentNode().expand().getNode(jobItem.getItemFullName()).select().doubleClick();
+        gefBot.viewByTitle("Contexts(" + jobItem.getEditor().getTitle() + ")").setFocus();
         gefBot.cTabItem("Values as table").activate();
         String var0 = System.getProperty("context.variable0");
-        Assert.assertEquals("context in job(" + jobFullName + ") did not update", "test", gefBot.tree(0)
+        Assert.assertEquals("context in job(" + jobItem.getItemFullName() + ") did not update", "test", gefBot.tree(0)
                 .getTreeItem(CONTEXT_NAME).getNode(var0).cell(1));
     }
 }
