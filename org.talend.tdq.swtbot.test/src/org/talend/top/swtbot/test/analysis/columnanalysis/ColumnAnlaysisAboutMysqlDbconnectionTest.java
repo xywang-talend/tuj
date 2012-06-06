@@ -28,6 +28,7 @@ public class ColumnAnlaysisAboutMysqlDbconnectionTest extends TalendSwtbotForTdq
 	public void ColumnAnlaysisAboutMysqlDbconnectionTable(){
 		String column = TalendSwtbotTdqCommon.getColumns(bot,
 				TalendMetadataTypeEnum.MYSQL, "tbi", "customer", "address1")[0];
+		System.out.println("*******"+column+"********");
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
 				.show();
 		formBot.hyperlink("Select columns to analyze").click();
@@ -60,10 +61,11 @@ public class ColumnAnlaysisAboutMysqlDbconnectionTest extends TalendSwtbotForTdq
 				WidgetOfType.widgetOfType(Tree.class),
 				bot.viewByTitle("DQ Repository").getWidget()));
 		tree.expandNode("Metadata","DB connections",TalendMetadataTypeEnum.MYSQL.toString(),"tbi").getNode(0).select();
-		ContextMenuHelper.clickContextMenu(tree, "Reload column list");
+		ContextMenuHelper.clickContextMenu(tree, "Reload table list");
 		bot.waitUntil(Conditions.shellIsActive("Confirm reload"));
-		SWTBotShell shell = bot.shell("Progress Information");
 		bot.button("OK").click();
+		SWTBotShell shell = bot.shell("Progress Information");
+		
 		bot.waitUntil(Conditions.shellIsActive("Analyzed element changed"));
 		bot.button("OK").click();
 		bot.waitUntil(Conditions.shellCloses(shell));

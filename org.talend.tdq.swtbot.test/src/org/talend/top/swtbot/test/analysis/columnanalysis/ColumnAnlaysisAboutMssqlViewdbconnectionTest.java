@@ -23,20 +23,22 @@ public class ColumnAnlaysisAboutMssqlViewdbconnectionTest extends TalendSwtbotFo
 		
 		bot.editorByTitle(TalendMetadataTypeEnum.MSSQL.toString() + " 0.1")
 				.close();
+		TalendSwtbotTdqCommon
+		.createAnalysis(bot, TalendAnalysisTypeEnum.COLUMN);
 		
 	}
 	
 	@Test
 	public void ColumnAnlaysisAboutMssqlViewdbconnection(){
 		String column = TalendSwtbotTdqCommon.getViewColumns(bot,
-				TalendMetadataTypeEnum.MSSQL , "Talend", "View_3", "id")[0];
+				TalendMetadataTypeEnum.MSSQL , "Talend", "yhbai_view", "name")[0];
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
 				.show();
 		formBot.hyperlink("Select columns to analyze").click();
 		bot.waitUntil(Conditions.shellIsActive("Column Selection"));
 		SWTBotTree tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
 				.widgetOfType(Tree.class)));
-		tree.expandNode("Talend").getNode(1).expand().getNode(1).expand().select("View_3");
+		tree.expandNode("Talend").getNode("dbo").expand().getNode(1).expand().select("yhbai_view");
 		bot.table().getTableItem(column).check();
 		bot.button("OK").click();
 		formBot.ccomboBox(1).setSelection("Nominal");
@@ -62,22 +64,22 @@ public class ColumnAnlaysisAboutMssqlViewdbconnectionTest extends TalendSwtbotFo
 				WidgetOfType.widgetOfType(Tree.class),
 				bot.viewByTitle("DQ Repository").getWidget()));
 		tree.expandNode("Metadata","DB connections",TalendMetadataTypeEnum.MSSQL.toString(),"Talend").
-		getNode(1).expand().getNode(1).select();
-		ContextMenuHelper.clickContextMenu(tree, "Reload column list");
+		getNode("dbo").expand().getNode(1).select();
+		ContextMenuHelper.clickContextMenu(tree, "Reload view list");
 		bot.waitUntil(Conditions.shellIsActive("Confirm reload"));
-		SWTBotShell shell = bot.shell("Progress Information");
 		bot.button("OK").click();
 		bot.waitUntil(Conditions.shellIsActive("Analyzed element changed"));
 		bot.button("OK").click();
-		bot.waitUntil(Conditions.shellCloses(shell));
+//		SWTBotShell shell = bot.shell("Progress Information");
+//		bot.waitUntil(Conditions.shellCloses(shell));
 		tree.expandNode("Metadata","DB connections",TalendMetadataTypeEnum.MSSQL.toString(),"Talend").
-		getNode(1).expand().getNode(1).expand().getNode("View_3").expand().getNode(0).select();
+		getNode("dbo").expand().getNode(1).expand().getNode("yhbai_view").expand().getNode(0).select();
 		ContextMenuHelper.clickContextMenu(tree, "Reload column list");
 		bot.waitUntil(Conditions.shellIsActive("Confirm reload"));
 		bot.button("OK").click();
 		bot.waitUntil(Conditions.shellIsActive("Analyzed element changed"));
 		bot.button("OK").click();
-		bot.waitUntil(Conditions.shellCloses(shell));
+//		bot.waitUntil(Conditions.shellCloses(shell));
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1").show();
 		bot.toolbarButtonWithTooltip("Run").click();
 

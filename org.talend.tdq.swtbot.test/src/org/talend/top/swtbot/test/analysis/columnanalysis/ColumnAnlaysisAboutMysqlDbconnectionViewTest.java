@@ -35,6 +35,7 @@ public class ColumnAnlaysisAboutMysqlDbconnectionViewTest extends TalendSwtbotFo
 		SWTBotTree tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
 				.widgetOfType(Tree.class)));
 		tree.expandNode("tbi").getNode(1).expand().select("view_customer");
+		
 		bot.table().getTableItem(column).check();
 		bot.button("OK").click();
 		formBot.ccomboBox(1).setSelection("Nominal");
@@ -60,10 +61,12 @@ public class ColumnAnlaysisAboutMysqlDbconnectionViewTest extends TalendSwtbotFo
 				WidgetOfType.widgetOfType(Tree.class),
 				bot.viewByTitle("DQ Repository").getWidget()));
 		tree.expandNode("Metadata","DB connections",TalendMetadataTypeEnum.MYSQL.toString(),"tbi").getNode(1).select();
-		ContextMenuHelper.clickContextMenu(tree, "Reload column list");
+		ContextMenuHelper.clickContextMenu(tree, "Reload view list");
 		bot.waitUntil(Conditions.shellIsActive("Confirm reload"));
-		SWTBotShell shell = bot.shell("Progress Information");
 		bot.button("OK").click();
+		SWTBotShell shell = bot.shell("Progress Information");
+//		bot.waitUntil(Conditions.shellCloses(shell));
+
 		bot.waitUntil(Conditions.shellIsActive("Analyzed element changed"));
 		bot.button("OK").click();
 		bot.waitUntil(Conditions.shellCloses(shell));
@@ -78,11 +81,11 @@ public class ColumnAnlaysisAboutMysqlDbconnectionViewTest extends TalendSwtbotFo
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1").show();
 		bot.toolbarButtonWithTooltip("Run").click();
 
-		try {
-			SWTBotShell shell1 = bot.shell("Run Analysis");
-			bot.waitUntil(Conditions.shellCloses(shell1));
-		} catch (TimeoutException e) {
-		}
+//		try {
+//			SWTBotShell shell1 = bot.shell("Run Analysis");
+//			bot.waitUntil(Conditions.shellCloses(shell1));
+//		} catch (TimeoutException e) {
+//		}
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString()+" 0.1").close();
 		
 	}

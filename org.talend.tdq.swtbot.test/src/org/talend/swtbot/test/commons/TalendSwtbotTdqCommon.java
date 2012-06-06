@@ -635,12 +635,12 @@ public class TalendSwtbotTdqCommon {
 			break;
 		}
 		bot.button("Apply").click();
-		if(bot.activeShell().getText().equals("Set database")){
-			bot.waitUntil(Conditions.shellIsActive("Set database"));
-			SWTBotShell shell = bot.shell("Set database");
-			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellCloses(shell), 60000);
-		}
+//		if(bot.activeShell().getText().equals("Set database")){
+//			bot.waitUntil(Conditions.shellIsActive("Set database"));
+//			SWTBotShell shell = bot.shell("Set database");
+//			bot.button("OK").click();
+//			bot.waitUntil(Conditions.shellCloses(shell), 60000);
+//		}
 			SWTBotShell shellp;
 			try {
 				shellp = bot.shell("Progress Information");
@@ -649,13 +649,14 @@ public class TalendSwtbotTdqCommon {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(bot.activeShell().getText().equals("Confirm")){
-				System.out.println(bot.activeShell().getText()+"::::::::::::::::::");
-			bot.waitUntil(Conditions.shellIsActive("Confirm"));
-			SWTBotShell shell2 = bot.shell("Confirm");
-			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellCloses(shell2),60000);
-			}
+//			if(bot.activeShell().getText().equals("Confirm")){
+//				System.out.println(bot.activeShell().getText()+"::::::::::::::::::");
+//			bot.waitUntil(Conditions.shellIsActive("Confirm"));
+//			SWTBotShell shell2 = bot.shell("Confirm");
+//			bot.button("OK").click();
+//			bot.waitUntil(Conditions.shellCloses(shell2),60000);
+//			}
+		System.out.println(bot.activeShell().getText()+"::::::::::::::::::");
 			if(bot.activeShell().getText().equals("Information")){
 				System.out.println(bot.activeShell().getText()+"::::::::::::::::::");
 			bot.waitUntil(Conditions.shellIsActive("Information"));
@@ -663,18 +664,27 @@ public class TalendSwtbotTdqCommon {
 			bot.button("OK").click();
 			bot.waitUntil(Conditions.shellCloses(shellc),60000);
 			}
-			if(bot.activeShell().getText().equals("Warning")){
-			bot.waitUntil(Conditions.shellIsActive("Warning"));
-			SWTBotShell shell1 = bot.shell("Warning");
+//			if(bot.activeShell().getText().equals("Warning")){
+//			bot.waitUntil(Conditions.shellIsActive("Warning"));
+//			SWTBotShell shell1 = bot.shell("Warning");
+//			bot.button("OK").click();
+//			bot.waitUntil(Conditions.shellCloses(shell1));
+//			}
 			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellCloses(shell1));
-			}
-			bot.button("OK").click();
-			if(bot.activeShell().getText().equals("Set database")){
-			bot.waitUntil(Conditions.shellIsActive("Set database"));
-			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellCloses(shell),60000);
-			}
+			
+//			try {
+//				shellp = bot.shell("Progress Information");
+//				bot.waitUntil(Conditions.shellCloses(shellp), 60000);
+//			} catch (TimeoutException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			
+//			if(bot.activeShell().getText().equals("Set database")){
+//			bot.waitUntil(Conditions.shellIsActive("Set database"));
+//			bot.button("OK").click();
+//			bot.waitUntil(Conditions.shellCloses(shell),60000);
+//			}
 			try {
 				shellp = bot.shell("Progress Information");
 				bot.waitUntil(Conditions.shellCloses(shellp), 60000);
@@ -683,12 +693,12 @@ public class TalendSwtbotTdqCommon {
 				e.printStackTrace();
 			}
 
-			if(bot.activeShell().getText().equals("Confirm")){
-			bot.waitUntil(Conditions.shellIsActive("Confirm"));
-			SWTBotShell shell2 = bot.shell("Confirm");
-			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellCloses(shell2),60000);
-			}
+//			if(bot.activeShell().getText().equals("Confirm")){
+//			bot.waitUntil(Conditions.shellIsActive("Confirm"));
+//			SWTBotShell shell2 = bot.shell("Confirm");
+//			bot.button("OK").click();
+//			bot.waitUntil(Conditions.shellCloses(shell2),60000);
+//			}
 			if(bot.activeShell().getText().equals("Information")){
 				System.out.println(bot.activeShell().getText()+"::::::::::::::::::");
 			bot.waitUntil(Conditions.shellIsActive("Information"));
@@ -696,12 +706,12 @@ public class TalendSwtbotTdqCommon {
 			bot.button("OK").click();
 			bot.waitUntil(Conditions.shellCloses(shellc),60000);
 			}
-			if(bot.activeShell().getText().equals("Warning")){
-				SWTBotShell shellc = bot.shell("Warning");
-			bot.waitUntil(Conditions.shellIsActive("Warning"));
-			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellCloses(shellc),60000);
-			}
+//			if(bot.activeShell().getText().equals("Warning")){
+//				SWTBotShell shellc = bot.shell("Warning");
+//			bot.waitUntil(Conditions.shellIsActive("Warning"));
+//			bot.button("OK").click();
+//			bot.waitUntil(Conditions.shellCloses(shellc),60000);
+//			}
 		
 		
 //		System.out.println(System.getProperty("reportdb.oracle.password")
@@ -810,6 +820,7 @@ public class TalendSwtbotTdqCommon {
 		bot.textWithLabel("Where clause").setText(expression);
 		bot.button("Finish").click();
 		System.out.println("aaaaaa");
+		bot.sleep(3000);
 		bot.editorByTitle(lable + " 0.1").close();
 	}
 	public static void deleteAndCleanCycleBin(SWTWorkbenchBot bot,TalendItemTypeEnum type, String label) {
@@ -1037,9 +1048,16 @@ public class TalendSwtbotTdqCommon {
 		case MSSQL:
 			columnsNode = tree
 			.expandNode("Metadata", "DB connections",
-					metadata.toString(), structure).getNode(1).expand().getNode(0).expand()
+					metadata.toString(), structure).getNode("dbo").expand().getNode(0).expand()
 			.expandNode(table).getNode(0);
 			columnsItem = columnsNode.expand().getItems();
+			for(int i=0; i<columns.length; i++){
+				for(SWTBotTreeItem item : columnsItem){
+					if(item.getText().contains(columns[i]))
+						columns[i] = item.getText();
+				}
+			}
+			System.out.println("columnsItem");
 			count = Integer.parseInt(columnsNode.getText().substring(
 					columnsNode.getText().indexOf("(") + 1,
 					columnsNode.getText().indexOf(")")));
@@ -1089,9 +1107,16 @@ public class TalendSwtbotTdqCommon {
 		case MSSQL:
 			columnsNode = tree
 			.expandNode("Metadata", "DB connections",
-					metadata.toString(), structure).getNode(1).expand().getNode(1).expand()
+					metadata.toString(), structure).getNode("dbo").expand().getNode(1).expand()
 			.expandNode(table).getNode(0);
 			columnsItem = columnsNode.expand().getItems();
+			for(int i=0; i<columns.length; i++){
+				for(SWTBotTreeItem item : columnsItem){
+					if(item.getText().contains(columns[i]))
+						columns[i] = item.getText();
+				}
+			}
+			System.out.println("columnsItem");
 			count = Integer.parseInt(columnsNode.getText().substring(
 					columnsNode.getText().indexOf("(") + 1,
 					columnsNode.getText().indexOf(")")));
@@ -1104,6 +1129,8 @@ public class TalendSwtbotTdqCommon {
 				}
 			}
 			break;
+			
+			
 		}
 
 		return columns;

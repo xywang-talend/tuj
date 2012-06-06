@@ -38,6 +38,7 @@ public class CatalogAnalysisCheatSheetTest extends TalendSwtbotForTdq{
 		TalendSwtbotTdqCommon.createCSAnalysis(bot, TalendAnalysisTypeEnum.CATALOG, TalendMetadataTypeEnum.MYSQL);
 		formBot.imageHyperlink("Click when complete").click();
 		formBot.imageHyperlink("Click to perform").click();
+		bot.sleep(60000);
 		bot.editorByTitle(TalendAnalysisTypeEnum.CATALOG+" 0.1").close();
 		
 		try {

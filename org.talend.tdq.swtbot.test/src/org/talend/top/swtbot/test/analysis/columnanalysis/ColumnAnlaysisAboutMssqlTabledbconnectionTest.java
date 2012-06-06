@@ -5,6 +5,7 @@ import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,21 +24,26 @@ public class ColumnAnlaysisAboutMssqlTabledbconnectionTest extends TalendSwtbotF
 		
 		bot.editorByTitle(TalendMetadataTypeEnum.MSSQL.toString() + " 0.1")
 				.close();
+		TalendSwtbotTdqCommon
+		.createAnalysis(bot, TalendAnalysisTypeEnum.COLUMN);
 	}
+
 	
 	@Test
 	public void ColumnAnlaysisAboutMssqlTabledbconnection(){
 		
 		String column = TalendSwtbotTdqCommon.getColumns(bot,
-				TalendMetadataTypeEnum.MSSQL , "Talend", "additionalinfomap", "dtype")[0];
+				TalendMetadataTypeEnum.MSSQL , "Talend", "yhbai", "name")[0];
+		String item = bot.tree().expandNode("Metadata","DB connections","MSSQL", "Talend","dbo","Tables (140)","yhbai","Columns (2)").getNodes().get(1);
+		System.out.println("*******"+item+"********");
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMN.toString() + " 0.1")
 				.show();
 		formBot.hyperlink("Select columns to analyze").click();
 		bot.waitUntil(Conditions.shellIsActive("Column Selection"));
 		SWTBotTree tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
 				.widgetOfType(Tree.class)));
-		tree.expandNode("S6581FBD").getNode(0).expand().getNode(0).expand().select("FIDEM");
-		bot.table().getTableItem(column).check();
+		tree.expandNode("Talend").getNode("dbo").expand().getNode(0).expand().select("yhbai");
+		bot.table().getTableItem(item).check();
 		bot.button("OK").click();
 		formBot.ccomboBox(1).setSelection("Nominal");
 		bot.toolbarButtonWithTooltip("Save").click();
@@ -62,16 +68,18 @@ public class ColumnAnlaysisAboutMssqlTabledbconnectionTest extends TalendSwtbotF
 				WidgetOfType.widgetOfType(Tree.class),
 				bot.viewByTitle("DQ Repository").getWidget()));
 		tree.expandNode("Metadata","DB connections",TalendMetadataTypeEnum.MSSQL.toString(),"Talend").
-		getNode(1).expand().getNode(0).select();
-		ContextMenuHelper.clickContextMenu(tree, "Reload column list");
+		getNode("dbo").expand().getNode(0).select();
+		ContextMenuHelper.clickContextMenu(tree, "Reload table list");
 		bot.waitUntil(Conditions.shellIsActive("Confirm reload"));
-		SWTBotShell shell = bot.shell("Progress Information");
+	
 		bot.button("OK").click();
+		SWTBotShell shell = bot.shell("Progress Information");
 		bot.waitUntil(Conditions.shellIsActive("Analyzed element changed"));
 		bot.button("OK").click();
+	
 		bot.waitUntil(Conditions.shellCloses(shell));
 		tree.expandNode("Metadata","DB connections",TalendMetadataTypeEnum.MSSQL.toString(),"Talend").
-		getNode(1).expand().getNode(0).expand().getNode("additionalinfomap").expand().getNode(0).select();
+		getNode("dbo").expand().getNode(0).expand().getNode("yhbai").expand().getNode(0).select();
 		ContextMenuHelper.clickContextMenu(tree, "Reload column list");
 		bot.waitUntil(Conditions.shellIsActive("Confirm reload"));
 		bot.button("OK").click();

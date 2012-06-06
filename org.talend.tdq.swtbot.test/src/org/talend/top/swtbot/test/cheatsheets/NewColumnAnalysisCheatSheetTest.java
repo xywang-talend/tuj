@@ -42,7 +42,7 @@ public class NewColumnAnalysisCheatSheetTest extends TalendSwtbotForTdq{
 		tree.expandNode("tbi").getNode(0).expand().select("customer");
 		bot.table().getTableItem("birthdate(DATE)").check();
 		bot.button("OK").click();
-		formBot.ccomboBox(2).setSelection("Interval");
+		formBot.ccomboBox(1).setSelection("Interval");
 		formBot.imageHyperlink("Click to perform").click();
 		bot.waitUntil(Conditions.shellIsActive("Indicator Selection"));
 
