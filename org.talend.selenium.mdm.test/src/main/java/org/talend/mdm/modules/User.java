@@ -181,7 +181,7 @@ public User(WebDriver driver) {
 	public void minUserConfigPanel(){
 		Actions builder = new Actions(driver);
 		 builder.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.max.configure.panel.line"))))
-		 .moveToElement(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.add.role.save"))), 0, -10).release().build().perform();
+		 .moveToElement(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.add.role.save"))), 0, 0).release().build().perform();
 	}
 	public  WebElement getUserDeleteElement(String userName) {
 		return	this.getElementByXpath(this.getString(locator, "xpath.user.delete", userName));		 
