@@ -18,6 +18,7 @@ public class UserImpl extends User{
 		log.loginAdministrator(userName, userPassword, message);
 		this.openMenuAdministrator();
 		this.gotoUserManagePage();
+		this.sleepCertainTime(5000);
 		this.deleteUser(userDelete);
 	}
 	

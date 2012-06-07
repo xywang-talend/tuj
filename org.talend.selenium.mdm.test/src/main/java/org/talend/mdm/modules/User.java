@@ -116,9 +116,10 @@ public User(WebDriver driver) {
 	
 	public void deleteUser(String userName) {
 		this.minUserConfigPanel();
+		this.sleepCertainTime(3000);
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.user.delete", userName)), WAIT_TIME_MAX), "the user to delete not present right now.");
 		this.sleepCertainTime(1000);
-		this.selectAUser("administrator");
+//		this.selectAUser("administrator");
 		this.clickElementByXpath(this.getString(locator, "xpath.user.delete", userName));
 		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.user.delete.yes")),WAIT_TIME_MIN).isDisplayed());
 		this.sleepCertainTime(2000);
@@ -181,7 +182,7 @@ public User(WebDriver driver) {
 	public void minUserConfigPanel(){
 		Actions builder = new Actions(driver);
 		 builder.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.max.configure.panel.line"))))
-		 .moveToElement(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.add.role.save"))), 0, 0).release().build().perform();
+		 .moveToElement(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.add.role.save")))).release().build().perform();
 	}
 	public  WebElement getUserDeleteElement(String userName) {
 		return	this.getElementByXpath(this.getString(locator, "xpath.user.delete", userName));		 
