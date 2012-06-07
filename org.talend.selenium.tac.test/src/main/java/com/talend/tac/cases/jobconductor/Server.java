@@ -16,11 +16,11 @@ public class Server extends Login {
 
 	public void openServerMenu() {
 		this.waitForElementPresent("!!!menu.executionServers.element!!!",
-				WAIT_TIME);
+				WAIT_TIME*2);
 		selenium.click("!!!menu.executionServers.element!!!");
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Servers']//ancestor::div[@class=' x-viewport x-component x-border-layout-ct']//span[@class='x-fieldset-header-text' and text()='Execution server']",
-				WAIT_TIME);
+				WAIT_TIME*2);
 		this.waitForElementPresent(
 				"//div[@class='header-title' and text()='Servers']", WAIT_TIME);
 
@@ -29,9 +29,9 @@ public class Server extends Login {
 	public void addServer(String serverLabel, String des, String host,
 			boolean active) {
 		this.openServerMenu();
-		waitForElementPresent("idSubModuleAddButton", 30000);
+		waitForElementPresent("idSubModuleAddButton", WAIT_TIME);
 		selenium.click("idSubModuleAddButton");
-		this.sleep(2000);
+		this.waitForElementPresent("//input[@name='label']//parent::div//following-sibling::img", WAIT_TIME);
 		// serverLabel
 		this.typeString(other.getString("inputname.id.server.add.label"),
 				serverLabel);

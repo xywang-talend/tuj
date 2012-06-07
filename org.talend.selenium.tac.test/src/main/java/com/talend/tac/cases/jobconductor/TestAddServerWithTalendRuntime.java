@@ -71,7 +71,7 @@ public class TestAddServerWithTalendRuntime extends Server {
 		" x-grid3-col-talendRuntime') and text()='Job Server']"));
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+lable+"']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
 				" x-grid3-col-talendRuntime') and text()='Talend Runtime']"));
-		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+lable+"']//ancestor::table[contains(@class,'x-grid3-row-table')]//button[text()='Admin server']"));
+		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+lable+"']//ancestor::table[contains(@class,'x-grid3-row-table')]//button[text()='Admin server']"));		
 		
 	}
 	
@@ -174,7 +174,7 @@ public class TestAddServerWithTalendRuntime extends Server {
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+lable+"']//ancestor::table[contains(@class,'x-grid3-row-table')]//div[contains(@class,'x-grid3-cell-inner" +
 				" x-grid3-col-talendRuntime') and text()='Talend Runtime']"));
 		Assert.assertTrue(selenium.isElementPresent("//div[text()='"+lable+"']//ancestor::table[contains(@class,'x-grid3-row-table')]//button[text()='Admin server']"));
-	    Assert.assertTrue(selenium.isElementPresent("//span[text()='testRuntimeServerOfUncheckActive']//ancestor::div[@class='x-grid3-row-body']//td[@class='status-img-INACTIVE-Talend-Runtime']"));
+	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+lable+"']//ancestor::div[@class='x-grid3-row-body']//td[@class='status-img-INACTIVE-Talend-Runtime']"));
 	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+lable+"']//ancestor::div[@class='x-grid3-row-body']//td//span[text()='CPU Number']//following-sibling::span[text()='null']"));
 	    Assert.assertTrue(selenium.isElementPresent("//span[text()='"+lable+"']//ancestor::div[@class='x-grid3-row-body']//td//td[text()='Used CPU']//following-sibling::td[2][text()='0 %']"));
 	    

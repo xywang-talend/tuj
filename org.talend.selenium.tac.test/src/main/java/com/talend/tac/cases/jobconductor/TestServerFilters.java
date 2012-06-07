@@ -92,7 +92,7 @@ public class TestServerFilters extends Server {
 	//server filters in esbconductor, check just appear esbServer, jobserver are not displayed
 	@Test
 	@Parameters({"ServerForUseAvailable", "ServerForUseUnavailable", "ServerLablename",
-		"RuntimeServerChangeDefaultPortLablename", "license.ESB"})
+		"RuntimeServerChangeDefaultPortLablename", "LicenseESB"})
 	public void testServerFiltersInEsbconductor(String jobServer1, String jobServer2, String esbServer1,
 			String esbServer2, String esbLicense) {
 		
@@ -104,7 +104,7 @@ public class TestServerFilters extends Server {
 		
 		//go to 'Job Conductor' page
 		this.clickWaitForElementPresent("!!!menu.esbconductor.element!!!");
-		//click add button, check just appear two jobServers in server drop-down list
+		//click add button, check just appear two esbServers in server drop-down list
 		selenium.click("//div[text()='ESB Conductor' and @class='header-title']//ancestor::div" +
 				"[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
 				"//button[text()='Add'] ");
@@ -121,7 +121,7 @@ public class TestServerFilters extends Server {
 	
 	//creation the case for change license to MDM
 	@Test
-	@Parameters({"license.MDM"})
+	@Parameters({"LicenseMDM"})
 	public void resetLicenseToMDM(String license) {
 		
 		uploadLicense(license);

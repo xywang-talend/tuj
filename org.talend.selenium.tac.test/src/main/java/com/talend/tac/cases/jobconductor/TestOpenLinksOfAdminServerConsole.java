@@ -35,16 +35,15 @@ public class TestOpenLinksOfAdminServerConsole extends Server {
 		}
 		
 		//login 'Admin Server'
-		selenium.setSpeed(MID_SPEED);
-		this.genenateUserPw();
-		selenium.keyPressNative(""+KeyEvent.VK_TAB);
+		selenium.setSpeed(MID_SPEED);		
 		this.genenateUserPw();
 		selenium.keyPressNative(""+KeyEvent.VK_ENTER);
-		
+		selenium.keyPressNative("9");
+		this.genenateUserPw();
+		selenium.keyPressNative(""+KeyEvent.VK_ENTER);
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -52,14 +51,13 @@ public class TestOpenLinksOfAdminServerConsole extends Server {
 		for(String id : idss) {
 			if(id.startsWith("Apache")) {
 				selenium.windowFocus();
-			}
-			
+			}			
 			System.out.println("=" + id);
 		}
-		System.out.println(idss[1]);
-		
+		System.out.println(idss[1]);		
 		Assert.assertEquals(karafPageTitleExpected, idss[1]);
-		
+		uploadLicense("org/talend/tac/folder/license/ESB_EE.license");
+		this.waitForElementPresent("idLeftMenuTreeLogoutButton", WAIT_TIME);
 	}
 	
 	public void genenateUserPw() {
@@ -77,10 +75,30 @@ public class TestOpenLinksOfAdminServerConsole extends Server {
 			r.keyPress(KeyEvent.VK_F);
 			r.keyRelease(KeyEvent.VK_F);
 		} catch (AWTException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
+	
+	public void uploadLicense(String license) {
+		
+		   this.waitForElementPresent("//b[text()='admin, admin']", WAIT_TIME);
+		   			
+		   this.clickWaitForElementPresent("idMenuLicenseElement");
+		   waitForElementPresent("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", WAIT_TIME);
+		   selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", parseRelativePath(license));
+		   selenium.click("//button[text()='Upload']");
+				
+	       System.out.println("license upload is successful");	
+	       
+	       try {
+			Thread.sleep(3000);
+		   } catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		   }
+	       selenium.refresh();        
+	       
+		}	
 	
 }

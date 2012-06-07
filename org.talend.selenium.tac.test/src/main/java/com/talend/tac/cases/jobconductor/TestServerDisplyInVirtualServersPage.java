@@ -52,7 +52,9 @@ public class TestServerDisplyInVirtualServersPage extends Server {
 		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+esbServer2+"' and @class='x-tree3-node-text']"));		
 		
 		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+esbServer3+"' and @class='x-tree3-node-text']"));
-		
+		this.deleteServer(jobServer1);
+        this.deleteServer(jobServer2);
+		this.deleteServer(esbServer2);
 		
 	}
 		
