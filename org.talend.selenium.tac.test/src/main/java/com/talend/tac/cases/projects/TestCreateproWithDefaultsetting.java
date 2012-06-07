@@ -32,8 +32,8 @@ import com.talend.tac.cases.Login;
 
 public class TestCreateproWithDefaultsetting extends Login {
 	@Test
-	@Parameters({ "SVNurl", "SVNuserName", "SVNuserPassword", "ProlableName",
-			"Prolanguage" })
+	@Parameters({ "svnUrl", "svnUserName", "svnUserPassword", "proLableName",
+			"proLanguage" })
 	public void f(String SVNurl, String SVNusername, String SVNpassword,
 			String prolable, String language) {
 		configSetting(SVNurl, SVNusername, SVNpassword);

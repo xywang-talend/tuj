@@ -17,8 +17,8 @@ public class TestModifyTask extends Login {
 	}
 	
 	@Test
-	@Parameters({"label","modifyTask","AddreferenceProjectname","branchNameTrunk","jobNameReferencetjava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"label","modifyTask","addReferenceProjectName","branchNameTrunk","jobNameReferencetjava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testModifyTask(String label,String modifyLabel,String projectName,String branchName,String jobName,
 			String version,String context,String jobServer,String statistic) {
 		
@@ -27,7 +27,7 @@ public class TestModifyTask extends Login {
 		selenium.setSpeed(MID_SPEED);
 		if(!selenium.isElementPresent("//span[text()='"+modifyLabel+"']")) {
 		    selenium.setSpeed(MIN_SPEED);
-			this.waitForElementPresent("//span[text()='"+label+"']	", WAIT_TIME);
+			this.waitForElementPresent("//span[text()='"+label+"']", WAIT_TIME);
 		    selenium.mouseDown("//span[text()='"+label+"']");//select a exist task
 
             this.typeString("idJobConductorTaskLabelInput", modifyLabel);//task name /Label            

@@ -10,7 +10,7 @@ public class TestDbConfigImportParameters extends DbConfig {
 
 
 	@Test
-	@Parameters({"dbConfig.importParameters.path","license.file.path"})
+	@Parameters({"dbConfigImportParametersPath","licenseFilePath"})
 	public void testDbConfigImportParameters(String dbConfigParametersPath,String license) {
 
 		selenium.windowMaximize();

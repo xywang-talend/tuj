@@ -1,4 +1,4 @@
-package com.talend.tac.cases.executePlan;
+	package com.talend.tac.cases.executePlan;
 
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -7,8 +7,8 @@ public class TestPlanExecution extends Plan {
 
 	
 	@Test
-	@Parameters({"plan.unexecuted.label","plan.unexecuted.tasklabel","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"plan.unexecuted.label","plan.unexecuted.tasklabel","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testGeneratePlan(String planlabel,String tasklabel, String labelDescription,String commonpro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic) throws InterruptedException {
 		

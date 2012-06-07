@@ -9,7 +9,7 @@ import com.talend.tac.cases.Login;
 public class TestJobAnalyses extends Login {
 
 	@Test
-	@Parameters({"Mysql_Connectionlabel"})
+	@Parameters({"mysqlConnectionlabel"})
 	public void testJobAnalyses(String connection) {
 		this.clickWaitForElementPresent("!!!menu.dashjobs.element!!!");
 		//wait and select the first "connection"
@@ -36,7 +36,7 @@ public class TestJobAnalyses extends Login {
 	}
 	
 	@Test
-	@Parameters({"MSSQL_Connectionlabel"})
+	@Parameters({"mssqlConnectionlabel"})
 	public void testDeleteConnectionUsedByJobAnalyses(String connection) {
 		String warningmessage = other.getString("delete.connetion.warning");
 		String warningmessage1 =  "Delete Faild: Cannot delete connection "+'"'+connection+'"'+" because it's active for...";
@@ -44,6 +44,16 @@ public class TestJobAnalyses extends Login {
 		//wait and select the first "connection"
 		this.waitForElementPresent("//label[text()='Active connection:']/following-sibling::div//input",WAIT_TIME);
 		selenium.click("//label[text()='Active connection:']/following-sibling::div//input/following-sibling::div");
+		
+		boolean flag = false;
+		int i = 0;
+		while(i <5 && flag == false){
+			
+			i++;
+			selenium.click("//label[text()='Active connection:']/following-sibling::div//input/following-sibling::div");
+			flag = selenium.isElementPresent("//div[contains(@class,'x-combo-list-item') and text()=' "+connection+"']");
+			
+		}
 		this.mouseDownWaitForElementPresent("//div[contains(@class,'x-combo-list-item') and text()=' "+connection+"']");
 		this.waitForElementPresent("//img[@title='Ok']", WAIT_TIME);
 		//select a connection and simulate a click

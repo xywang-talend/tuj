@@ -16,8 +16,8 @@ public class TestRecoverLastExecution extends AddTask {
 	
 	//check logs of first checkpoint of tjavaWithMulripleCheckpoint
 	@Test
-	@Parameters({"taskWithTjavaWithMulripleCheckpoint","labelDescription","AddcommonProjectname","branchNameTrunk","tjavaWithMulripleCheckpoint","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"taskWithTjavaWithMulripleCheckpoint","labelDescription","addCommonProjectName","branchNameTrunk","tjavaWithMulripleCheckpoint","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testFirstCheckPointOfTjavaWithMulripleCheckpoint(String label, String description,String commonpro,String branchName,String jobName,
 			String version,String context,String serverName,String statisticName) {
 		

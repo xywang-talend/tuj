@@ -7,8 +7,8 @@ import org.testng.annotations.Test;
 public class TestDbConfig extends DbConfig {
 
 	@Test(groups = { "initDB" })
-	@Parameters( { "db.url", "db.userName", "db.userPassWd", "db.driver",
-			"license.file.path","license.fileInvalid.path"})
+	@Parameters( { "dbUrl", "dbUserName", "dbUserPassWd", "dbDriver",
+			"licenseFilePath","licenseFileInvalidPath"})
 	public void testDbConfig(String url, String userName, String userPassWd,
 			String driver, String license,String invalidLicense) {
 

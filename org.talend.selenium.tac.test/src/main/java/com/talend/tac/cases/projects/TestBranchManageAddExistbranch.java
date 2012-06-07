@@ -9,8 +9,8 @@ import com.talend.tac.cases.Login;
 
 public class TestBranchManageAddExistbranch extends Login {
 	@Test
-	@Parameters({ "AddcommonProjectname", "BranchName" })
-	public void testAddProjectbranchexist(String project, String branchname) throws InterruptedException {
+	@Parameters({ "addCommonProjectName", "branchName" })
+	public void testAddProjectbranchexist(String project, String branchName) throws InterruptedException {
 		// first add a branch to a project
 //		Thread.sleep(5000);
 		
@@ -29,7 +29,7 @@ public class TestBranchManageAddExistbranch extends Login {
 		selenium.fireEvent("idBranchManagementSourceInput", "blur");
 		selenium.setSpeed(MIN_SPEED);
 		selenium.click("idBranchManagementTargetInput");
-		selenium.type("idBranchManagementTargetInput", branchname);
+		selenium.type("idBranchManagementTargetInput", branchName);
 		selenium.fireEvent("idBranchManagementTargetInput", "blur");
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idBranchManagementCreateButton");
@@ -47,8 +47,8 @@ public class TestBranchManageAddExistbranch extends Login {
 		}
 		// delete the exist branch
 		selenium.setSpeed(MAX_SPEED);
-		selenium.mouseDown("//span[text()='" + branchname + "']");
-		selenium.contextMenu("//span[text()='" + branchname + "']");
+		selenium.mouseDown("//span[text()='" + branchName + "']");
+		selenium.contextMenu("//span[text()='" + branchName + "']");
 		selenium.mouseOver("delete-item-branch");
 		selenium.click("delete-item-branch");
 		Assert.assertTrue(selenium.isElementPresent("//button[text()='Yes']"),
@@ -60,13 +60,13 @@ public class TestBranchManageAddExistbranch extends Login {
 		selenium.setSpeed(MIN_SPEED);
 		// check the new close button
 		selenium.refresh();
-		closeButton(project, branchname);
+		closeButton(project, branchName);
 
 	}
 	
 	@Test
-	@Parameters({ "AddcommonProjectname", "BranchName" })
-	public void testAddProjectbranchNamedTrunkToBranch(String project, String branchname) throws InterruptedException {
+	@Parameters({ "addCommonProjectName", "branchName" })
+	public void testAddProjectbranchNamedTrunkToBranch(String project, String branchName) throws InterruptedException {
 		// first add a branch to a project
 		
 		selenium.setSpeed(MIN_SPEED);
@@ -80,8 +80,8 @@ public class TestBranchManageAddExistbranch extends Login {
 		selenium.click("idBranchManagementButton");
 		selenium.setSpeed(MID_SPEED);
 		this.clickWaitForElementPresent("idBranchManagementSourceInput");
-		this.waitForElementPresent("//div[text()='branches/"+branchname+"']", WAIT_TIME);
-		selenium.mouseDown("//div[text()='branches/"+branchname+"']");
+		this.waitForElementPresent("//div[text()='branches/"+branchName+"']", WAIT_TIME);
+		selenium.mouseDown("//div[text()='branches/"+branchName+"']");
 		selenium.fireEvent("idBranchManagementSourceInput", "blur");
 		selenium.setSpeed(MIN_SPEED);
 		this.typeString("idBranchManagementTargetInput", "trunk");
@@ -94,7 +94,7 @@ public class TestBranchManageAddExistbranch extends Login {
 
 	}
 
-	public void closeButton(String project, String branchname) {
+	public void closeButton(String project, String branchName) {
 //		selenium.setSpeed(MID_SPEED);
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ project + "')]", WAIT_TIME);
@@ -106,7 +106,7 @@ public class TestBranchManageAddExistbranch extends Login {
 		selenium.mouseDown("//div[text()='trunk']");
 		selenium.fireEvent("idBranchManagementSourceInput", "blur");
 		selenium.setSpeed(MIN_SPEED);
-		this.typeString("idBranchManagementTargetInput", branchname);
+		this.typeString("idBranchManagementTargetInput", branchName);
 		selenium.click("idBranchManagementCloseButton");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(

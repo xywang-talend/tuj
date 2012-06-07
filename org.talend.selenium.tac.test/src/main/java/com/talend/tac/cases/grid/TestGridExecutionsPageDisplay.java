@@ -13,8 +13,8 @@ import org.testng.annotations.Parameters;
 public class TestGridExecutionsPageDisplay extends Grid {
 
 	@Test
-	@Parameters({"grid.task.label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"grid.task.label","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testGridGoToFirstPage(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName) {
 	    this.cleanTask();
 		this.addTask(label, description, projectName, branchName, jobName, version, context, serverName, statisticName);
@@ -132,8 +132,8 @@ public class TestGridExecutionsPageDisplay extends Grid {
 	
 	
 //	@Test//(dependsOnMethods={"testGridGoToFirstPage"})
-	@Parameters({"grid.task.label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"grid.task.label","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testGridGoToLastPage(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName) {
 		String label2 = label+"second";
         this.openGridMenu();
@@ -153,8 +153,8 @@ public class TestGridExecutionsPageDisplay extends Grid {
 	}
 	
 	@Test(dependsOnMethods={"testGridNoFutureExecutionsAfterAFutureDate"})
-	@Parameters({"grid.task.label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"grid.task.label","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testGridGoToNextPageByUIButton(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName) {
 		String label2 = label+"second";
         this.openGridMenu();
@@ -172,8 +172,8 @@ public class TestGridExecutionsPageDisplay extends Grid {
 	
 	
 	@Test(dependsOnMethods={"testGridGoToFirstPage"})
-	@Parameters({"grid.task.label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"grid.task.label","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testGridGoToPreviousPageByUIButton(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName) {
 		String label2 = label+"second";
         this.openGridMenu();
@@ -185,8 +185,8 @@ public class TestGridExecutionsPageDisplay extends Grid {
 	}
 	
 	@Test(dependsOnMethods={"testGridGoToFirstPage"})
-	@Parameters({"grid.task.label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"grid.task.label","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testGridGoToFirstPageByUIButton(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName) {
 		String label2 = label+"second";
         this.openGridMenu();
@@ -201,7 +201,7 @@ public class TestGridExecutionsPageDisplay extends Grid {
 	}
 	
 	@Test(dependsOnMethods={"testGridGoToFirstPage"})
-	@Parameters({"grid.task.label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
+	@Parameters({"grid.task.label","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testGridGoToLastPageByUIButton(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName) {
 		String label2 = label+"second";

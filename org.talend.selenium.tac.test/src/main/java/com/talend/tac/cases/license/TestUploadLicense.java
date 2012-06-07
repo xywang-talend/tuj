@@ -17,7 +17,7 @@ public class TestUploadLicense extends Login {
 	}
 	
 	@Test
-	@Parameters( { "license.fileInvalid.path" })
+	@Parameters( { "licenseFileInvalidPath" })
 	public void testUploadInvalidLicense(String license) {
 		waitForElementPresent("idMenuLicenseElement", 30);
 		selenium.click("idMenuLicenseElement");
@@ -29,7 +29,7 @@ public class TestUploadLicense extends Login {
 	}
 	
 	@Test
-	@Parameters( { "license.file.path" })
+	@Parameters( { "licenseFilePath" })
 	public void testUploadValidLicense(String license) {
 		waitForElementPresent("idMenuLicenseElement", 30);
 		selenium.click("idMenuLicenseElement");

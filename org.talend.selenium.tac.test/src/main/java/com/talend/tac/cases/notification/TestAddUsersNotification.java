@@ -18,7 +18,7 @@ public class TestAddUsersNotification extends AddNotification {
       				selenium.setSpeed(MID_SPEED);
       				selenium.click("//div[contains(text(),'Notification') and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
       						"//button[@id='idSubModuleDeleteButton']");
-      			    Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected notification [\\s\\S]$"));
+      			    selenium.getConfirmation().contains("Are you sure you want to remove the selected notification");
         		    selenium.setSpeed(MIN_SPEED);
         		 
     		    } else {

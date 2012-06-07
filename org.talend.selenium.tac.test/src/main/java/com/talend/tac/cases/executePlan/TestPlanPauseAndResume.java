@@ -8,8 +8,8 @@ public class TestPlanPauseAndResume extends Plan {
     
 	//test pause plan button and resume plan button
 	@Test
-	@Parameters({"addTaskForplanPauseAndResume","labelDescription","AddcommonProjectname","branchNameTrunk",
-		"jobNameTJava","version0.1","context","statisticEnabled","ServerForUseAvailable",
+	@Parameters({"addTaskForplanPauseAndResume","labelDescription","addCommonProjectName","branchNameTrunk",
+		"jobNameTJava","version0.1","context","statisticEnabled","serverForUseAvailable",
 		"planPauseAndResumeLabel","plan.simpletrigger.label.planuseAndResume"})
 	public void testPlanPauseAndResume(String label,String taskDescription,String projectName,
 			String branchName,String jobName,String version,String context,String statisticName,

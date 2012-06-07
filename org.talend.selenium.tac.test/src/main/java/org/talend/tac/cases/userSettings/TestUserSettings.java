@@ -11,7 +11,7 @@ import com.talend.tac.cases.Login;
 
 public class TestUserSettings extends Login {
 	@Test
-	@Parameters( { "userName" ,"userSetting.CurrentUser.newSvnLogin","userSetting.CurrentUser.newSvnPasswd","svn.conf.serverUser","svn.conf.serverPassword"})
+	@Parameters( { "userName" ,"userSettingCurrentUserNewSvnLogin","userSettingCurrentUserNewSvnPasswd","svnConfServerUser","svnConfServerPassword"})
 	public void testChangeSVNaCCOUNT(String CurrentLoginName,String newSvnLogin,String newSvnPasswd,String svnConfUser,String svnConfPass) {
 
 		this.clickWaitForElementPresent("idMenuChangePasswordElement");
@@ -38,7 +38,7 @@ public class TestUserSettings extends Login {
 	}
 
 	@Test
-	@Parameters( {"userName","userPassword", "userSetting.currentUser.newPasswd" })
+	@Parameters( {"userName","userPassword", "userSettingCurrentUserNewPasswd" })
 	public void testChangePasswdOfCurrentUser(String user,String pass,String newPasswd) {
 
 		doModify(newPasswd);

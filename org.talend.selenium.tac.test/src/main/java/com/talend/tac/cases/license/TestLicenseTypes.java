@@ -72,7 +72,7 @@ public class TestLicenseTypes extends TestLicenseTypesAllowed{
 	
 	
 	@Test
-	@Parameters( { "license.file.path","pass","fail","validlicense.path" })
+	@Parameters( { "licenseFilePath","pass","fail","validlicensePath" })
 	public void testLicenseTypes(String path,String passTypes,String unpassTypes,String valid){
 		String[] pass = null;
 		String[] unpass = null;

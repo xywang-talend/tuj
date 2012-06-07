@@ -55,7 +55,7 @@ public class TestLoginPage extends Base {
 	
 	//check login page of license ESB
 	@Test
-	@Parameters({"license.ESB", "license.ESB.suiteName", "license.ESB.appName"})
+	@Parameters({"licenseESB", "licenseESBSuiteName", "licenseESBAppName"})
 	public void testLoginPageOfESB(String license, String suiteName, String appName) {
 		
 		this.checkLoginPage(license, suiteName, appName);
@@ -64,7 +64,7 @@ public class TestLoginPage extends Base {
 	
 	//check login page of license TDQ
 	@Test
-	@Parameters({"license.TDQ", "license.TDQ.suiteName", "license.TDQ.appName"})
+	@Parameters({"licenseTDQ", "licenseTDQSuiteName", "licenseTDQAppName"})
 	public void testLoginPageOfTDQ(String license, String suiteName, String appName) {
 		
 		this.checkLoginPage(license, suiteName, appName);
@@ -73,7 +73,7 @@ public class TestLoginPage extends Base {
 	
 	//check login page of license TIS
 	@Test
-	@Parameters({"license.TIS", "license.TIS.suiteName", "license.TIS.appName"})
+	@Parameters({"licenseTIS", "licenseTISSuiteName", "licenseTISAppName"})
 	public void testLoginPageOfTIS(String license, String suiteName, String appName) {
 		
 		this.checkLoginPage(license, suiteName, appName);
@@ -81,7 +81,7 @@ public class TestLoginPage extends Base {
 	}
 	//check login page of license MDM
 	@Test
-	@Parameters({"license.MDM", "license.MDM.suiteName", "license.MDM.appName"})
+	@Parameters({"licenseMDM", "licenseMDMSuiteName", "licenseMDMAppName"})
 	public void testLoginPageOfMDM(String license, String suiteName, String appName) {
 		
 		this.checkLoginPage(license, suiteName, appName);
@@ -90,7 +90,7 @@ public class TestLoginPage extends Base {
 	
 	//check login page of license CLOUD
 	@Test
-	@Parameters({"license.CLOUD", "license.CLOUD.suiteName", "license.CLOUD.appName"})
+	@Parameters({"licenseCLOUD", "licenseCLOUDSuiteName", "licenseCLOUDAppName"})
 	public void testLoginPageOfCLOUD(String license, String suiteName, String appName) {
 		
 		this.checkLoginPage(license, suiteName, appName);

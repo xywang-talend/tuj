@@ -37,7 +37,7 @@ public class TestDeleteProjectUsedBytask extends Login {
 	}
 
 	@Test
-	@Parameters({ "AddcommonProjectname" })
+	@Parameters({ "addCommonProjectName" })
 	public void testDeleteProjectUsedbytask(String deleteProname) throws Exception {
 		//
 		selenium.setSpeed(MAX_SPEED);

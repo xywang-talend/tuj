@@ -7,8 +7,8 @@ import org.testng.annotations.Test;
 
 public class TestAddServerForUse extends Server {
 	@Test
-	@Parameters({ "ServerForUseAvailable", "ServerForUseUnavailable","ServerForUseDownlabel",
-			"ServeravailableHost" })
+	@Parameters({ "serverForUseAvailable", "serverForUseUnavailable","serverForUseDownlabel",
+			"serverAvailableHost" })
 	public void testAddServerForUseAvailable(String lableavailable, String labelunactive,String downlabel,
 			String availablehost) throws InterruptedException {
 		this.openServerMenu();
@@ -27,8 +27,8 @@ public class TestAddServerForUse extends Server {
 	}
 
 	@Test
-	@Parameters({ "ServerForUseAvailable", "ServerForUseUnavailable","ServerForUseDownlabel",
-			"ServeravailableHost" })
+	@Parameters({ "serverForUseAvailable", "serverForUseUnavailable","serverForUseDownlabel",
+			"serverAvailableHost" })
 	public void testAddServerForUseInactive(String lableavailable, String labelunactive,String downlabel,
 			String availablehost) throws InterruptedException {
 		this.openServerMenu();

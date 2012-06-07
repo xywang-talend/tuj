@@ -13,8 +13,8 @@ public class TestNumberFormatExceptionAboutTriggerRepetitions extends Grid {
 
 
 	@Test 
-	@Parameters({"grid.task.label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"grid.task.label","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testNumberFormatExceptionBigger(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName){
 		this.openTaskMenu();
 		this.addTask(label, description, projectName, branchName, jobName, version, context, serverName, statisticName);
@@ -40,7 +40,7 @@ public class TestNumberFormatExceptionAboutTriggerRepetitions extends Grid {
 	
 	
 	@Test 
-	@Parameters({"grid.task.label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
+	@Parameters({"grid.task.label","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
 		"context","ServerForUseAvailable","statisticEnabled"})
 	public void testNumberFormatExceptionSmaller(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName){
 		this.openTaskMenu();

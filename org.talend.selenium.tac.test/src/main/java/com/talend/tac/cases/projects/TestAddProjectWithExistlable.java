@@ -13,8 +13,8 @@ public class TestAddProjectWithExistlable extends Projects {
 
 	@Test
 	// @Test(groups = { "AddBranch" }, dependsOnGroups = { "Add" })
-	@Parameters({ "SVNurl", "SVNuserName", "SVNuserPassword",
-			"AddcommontestProjectname", "Prolanguage", "ProjectType" })
+	@Parameters({ "svnUrl", "svnUserName", "svnUserPassword",
+			"addCommonTestProjectName", "proLanguage", "projectType" })
 	public void testAddProjectExist(String url, String user, String password,
 			String proname, String language, String type) throws Exception {
         this.openMenuProject();

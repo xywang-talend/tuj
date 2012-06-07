@@ -5,7 +5,7 @@ import org.testng.annotations.Parameters;
 
 public class TestDuplicateConnection extends Connection {
 	@Test
-	@Parameters({ "Mysql_Connectionlabel" })
+	@Parameters({ "mysqlConnectionlabel" })
 	public void testDuplicateConnectionMysql(String label)
 			throws InterruptedException {
 		this.openConnection();

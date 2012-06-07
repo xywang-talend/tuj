@@ -9,8 +9,8 @@ public class TestAddTask  extends TaskUtils {
 
 	//add a task
 	@Test
-	@Parameters({"modifyTask","TaskWithJobOfGenerateBigLogs","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameOfgenerateBigLogs","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled", "firefox.download.path"})
+	@Parameters({"modifyTask","TaskWithJobOfGenerateBigLogs","labelDescription","addCommonProjectName","branchNameTrunk","jobNameOfgenerateBigLogs","version0.1",
+		"context","serverForUseAvailable","statisticEnabled", "firefoxDownloadPath"})
 	public void testAddTaskWithJobOfGenerateBigLogs (String taskLabel, String label, String labelDescription,String commonpro,String trunk,String jobName,
 			String version,String context,String jobServer,String statistic, String downloadPath) {
 				
@@ -29,8 +29,8 @@ public class TestAddTask  extends TaskUtils {
 	}
 	
 	@Test
-	@Parameters({"label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"label","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testAddTask(String label, String labelDescription,String commonpro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic) {
 	   	
@@ -47,8 +47,8 @@ public class TestAddTask  extends TaskUtils {
     
 	//add a exist task
 	@Test
-	@Parameters({"label","existLabelDescription","AddreferenceProjectname","branchNameTrunk","jobNameReferencetjava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"label","existLabelDescription","addReferenceProjectName","branchNameTrunk","jobNameReferencetjava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testAddExistTask(String label, String labelDescription,String commonpro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic) {
 		
@@ -65,8 +65,8 @@ public class TestAddTask  extends TaskUtils {
 	
 	//add a task of uncheck active 
 	@Test
-	@Parameters({"labelNotChooseActive","notChooseLabelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"labelNotChooseActive","notChooseLabelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testAddNotChooseActiveTask(String label, String labelDescription,String commonpro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic) {
 		
@@ -126,8 +126,8 @@ public class TestAddTask  extends TaskUtils {
 	//add a task for t
 	//add a task for test run tRunJob
 	@Test
-	@Parameters({"labelTRunJobByTaskRun","labelTRunJobByTaskRunDescription","AddcommonProjectname","branchNameTrunk","jobNameTRunJob","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"labelTRunJobByTaskRun","labelTRunJobByTaskRunDescription","addCommonProjectName","branchNameTrunk","jobNameTRunJob","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testAddTaskForTestRunTRunJob(String label, String labelDescription,String commonpro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic) {
 		
@@ -144,8 +144,8 @@ public class TestAddTask  extends TaskUtils {
 	
 	//add a task for test run RefJobByMaintRunJobRun
 	@Test
-	@Parameters({"labelRefProJobByMainProTRunJobRun","labelRefJobByMaintRunJobRunDescription","AddcommonProjectname","branchNameTrunk","jobNameRefJobByMaintRunJobRun","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"labelRefProJobByMainProTRunJobRun","labelRefJobByMaintRunJobRunDescription","addCommonProjectName","branchNameTrunk","jobNameRefJobByMaintRunJobRun","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testAddTaskForTestRefJobByMaintRunJobRun(String label, String labelDescription,String commonpro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic) {
 		
@@ -164,8 +164,8 @@ public class TestAddTask  extends TaskUtils {
 	
 	//add a task for test run tjava(from referencepro)
 	@Test
-	@Parameters({"labelReferenceproTjava","labelReferenceproTjavaDescription","AddreferenceProjectname","branchNameTrunk","jobNameReferencetjava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"labelReferenceproTjava","labelReferenceproTjavaDescription","addReferenceProjectName","branchNameTrunk","jobNameReferencetjava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testAddTaskForTestChooseReferecePro(String label, String labelDescription,String referencepro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic) {
 		
@@ -183,8 +183,8 @@ public class TestAddTask  extends TaskUtils {
 	}
 	
 	@Test
-	@Parameters({"labelAddJVMParametersForTask","labelAddJVMParametersForTaskDescription","AddcommonProjectname","branchNameTrunk",
-		"jobNameTJava","version0.1","context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"labelAddJVMParametersForTask","labelAddJVMParametersForTaskDescription","addCommonProjectName","branchNameTrunk",
+		"jobNameTJava","version0.1","context","serverForUseAvailable","statisticEnabled"})
 	public void testAddSimpleTask(String label,String description,String projectName,String branchName,
 			String jobName,String version,String context,String serverName,String statisticName) {
 		
@@ -202,8 +202,8 @@ public class TestAddTask  extends TaskUtils {
 	
 	//add a task with a unactive server
 	@Test
-	@Parameters({"TaskWithInactiveServer","labelDescription","AddcommonProjectname","branchNameTrunk",
-		"jobNameTJava","version0.1","context","ServerForUseUnavailable","statisticEnabled"})
+	@Parameters({"TaskWithInactiveServer","labelDescription","addCommonProjectName","branchNameTrunk",
+		"jobNameTJava","version0.1","context","serverForUseUnavailable","statisticEnabled"})
 	public void testAddTaskWithInactiveServer(String label,String description,String projectName,String branchName,
 			String jobName,String version,String context,String serverName,String statisticName) {
 		
@@ -222,8 +222,8 @@ public class TestAddTask  extends TaskUtils {
 	
 	//add a task with latest job
 	@Test
-	@Parameters({"TaskLabelOfLatestJob","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","versionLatest",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"TaskLabelOfLatestJob","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","versionLatest",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testAddTaskWithLatestJob(String label, String labelDescription,String commonpro,String branch,String jobName,
 			String version,String context,String jobServer,String statistic) {
 	   	
@@ -248,8 +248,8 @@ public class TestAddTask  extends TaskUtils {
 	
 	//add a task of automated selecting combo value
 	@Test
-	@Parameters({"TaskOfAutomatedSelectingComboValue","labelReferenceproTjavaDescription","AddreferenceProjectname","branchNameTrunk","jobNameReferencetjava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"TaskOfAutomatedSelectingComboValue","labelReferenceproTjavaDescription","addReferenceProjectName","branchNameTrunk","jobNameReferencetjava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testAddTaskOfAutomatedSelectingComboValue(String label, String labelDescription,String referencepro,String trunk,String jobName,
 			String version,String context,String jobServer,String statistic) {
 	   	

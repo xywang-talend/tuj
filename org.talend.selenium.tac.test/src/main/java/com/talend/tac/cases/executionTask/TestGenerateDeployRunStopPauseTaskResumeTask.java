@@ -14,8 +14,8 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 	TriggerDate date = new TriggerDate();
 	//add a task of project contains space and run it, check it running whether normal
 	@Test
-	@Parameters({"taskProjectWithContainsSpaceChar","labelDescription","ProjectWithSpaceChar","branchNameTrunk",
-		"jobNameTJava","version0.1","context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"taskProjectWithContainsSpaceChar","labelDescription","projectWithSpaceChar","branchNameTrunk",
+		"jobNameTJava","version0.1","context","serverForUseAvailable","statisticEnabled"})
 	public void testRunTaskOfItsProjectWithContainsSpaceChar(String label,String description,String projectName,String branchName,
 			String jobName,String version,String context,String serverName,String statisticName) {
 		
@@ -199,8 +199,8 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 	
 	//Run a task with a Inactive server
 	@Test	
-	@Parameters({"TaskWithInactiveServer","labelDescription","AddcommonProjectname","branchNameTrunk",
-		"jobNameTJava","version0.1","context","ServerForUseUnavailable","statisticEnabled"})
+	@Parameters({"TaskWithInactiveServer","labelDescription","addCommonProjectName","branchNameTrunk",
+		"jobNameTJava","version0.1","context","serverForUseUnavailable","statisticEnabled"})
 	public void testRunTaskWithInactiveServer(String label,String description,String projectName,String branchName,
 			String jobName,String version,String context,String serverName,String statisticName) {
 				
@@ -274,7 +274,10 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+taskLabel+"']//ancestor::table[@class='x-grid3-row-table']//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-triggersStatus')]" +
 				"//img[@title='At least one Trigger is running' ]"), "//span[text()='"+taskLabel+"']//ancestor::table[@class='x-grid3-row-table']//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-triggersStatus')]" +
 						"//img[@title='At least one Trigger is running' ] is without appear");
-        Assert.assertTrue(selenium.isElementPresent("//span[text()='"+cronTriggerLabel+"']//ancestor::table[@class='x-grid3-row-table']" +
+
+		this.waitForElementPresent("//span[text()='"+cronTriggerLabel+"']//ancestor::table[@class='x-grid3-row-table']" +
+		"//img[@title='Normal']", WAIT_TIME);
+		Assert.assertTrue(selenium.isElementPresent("//span[text()='"+cronTriggerLabel+"']//ancestor::table[@class='x-grid3-row-table']" +
 		"//img[@title='Normal']"), "//span[text()='"+cronTriggerLabel+"']//ancestor::table[@class='x-grid3-row-table']//img[@alt='Normal'] is without appear");
 		selenium.setSpeed(MIN_SPEED);
         

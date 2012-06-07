@@ -6,8 +6,8 @@ import org.testng.annotations.Test;
 public class TestAddcommonpro extends Projects {
 
 	@Test
-	@Parameters({ "SVNurl","ProjectType", "SVNuserName", "SVNuserPassword",
-			"AddcommontestProjectname", "AddreferencetestProjectname","Prolanguage"  })
+	@Parameters({ "svnUrl","projectType", "svnUserName", "svnUserPassword",
+			"addCommonTestProjectName", "addReferenceTestProjectName","proLanguage"  })
 	public void testAddTestProjects(String url,String type, String user, String password,
 			String proname, String name2,String language) throws Exception {
 		    this.openMenuProject();

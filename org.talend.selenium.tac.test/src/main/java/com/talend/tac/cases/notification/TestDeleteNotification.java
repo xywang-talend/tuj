@@ -109,8 +109,8 @@ public class TestDeleteNotification extends AddNotification {
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("//div[contains(text(),'Conductor') and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");//clcik "Delete"
 		selenium.setSpeed(MIN_SPEED);
-		Assert.assertTrue(selenium.getConfirmation().matches(other.getString("delete.plan.warning")));
-		Assert.assertEquals(selenium.getConfirmation(), "Do you want to remove all of the related logs and archives");
+		selenium.getConfirmation();
+		selenium.getConfirmation().contains("Do you want to remove all of the related logs and archives");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+testModifyTask+"']"));//the task cannot appear
 		selenium.setSpeed(MIN_SPEED);
@@ -128,7 +128,7 @@ public class TestDeleteNotification extends AddNotification {
 	delete 'use_server_unactive', return notification page and check corresponding
 	 notification is deleted**/
 	@Test
-	@Parameters({"eventJobServerAlert","ServerForUseUnavailable"})
+	@Parameters({"eventJobServerAlert","serverForUseUnavailable"})
 	public void testDeleteJobServerByDeleteJobServer(String eventJobServerAlert, String jobServer) {
 		
 		this.clickWaitForElementPresent("!!!menu.notification.element!!!");//into notification
@@ -146,7 +146,7 @@ public class TestDeleteNotification extends AddNotification {
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("//div[text()='Servers' and @class='header-title']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");//clcik "Delete"
 		selenium.setSpeed(MIN_SPEED);
-		Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected execution server [\\s\\S]$"));
+		selenium.getConfirmation().contains("Are you sure you want to remove the selected execution server");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(selenium.isElementPresent("//div[text()='"+jobServer+"']"));//the task cannot appear
 		selenium.setSpeed(MIN_SPEED);

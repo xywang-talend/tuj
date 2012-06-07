@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 public class TestAuditWithRemoteCommondline extends Audit {
 	@Test
-	@Parameters({"AddcommonProjectname","trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
+	@Parameters({"addCommonProjectName","trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
 		"jobNameTJava"})
 	public void testAuditTrunkWithRemoteCommondline(String projectName, String tRunJobCheckPoint, String tjavaCheckpoint,
 			String tjava){

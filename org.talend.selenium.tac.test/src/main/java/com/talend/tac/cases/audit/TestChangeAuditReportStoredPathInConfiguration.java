@@ -16,7 +16,7 @@ public class TestChangeAuditReportStoredPathInConfiguration extends Audit {
 /*	//change audit report stored path in configuration, go to audit page.select a  project
    and branch ,start audit, go to the directory to check the reports generated */
 	@Test
-	@Parameters({"auditStoredReportsPath","mysqlURL", "mysqlUserName", "mysqlPassWord", "mysqlDriver", "AddcommonProjectname","trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
+	@Parameters({"auditStoredReportsPath","mysqlURL", "mysqlUserName", "mysqlPassWord", "mysqlDriver", "addCommonProjectName","trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
 		"jobNameTJava"})
 	public void testChangeAuditReportStoredPathInConfiguration(String auditStoredReportsPath, String url, String userName, String userPassWd, String driver,
 			String projectName, String tRunJobCheckPoint, String tjavaCheckpoint,

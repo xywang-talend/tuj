@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 public class TestDeletepro extends Projects {
 
 	@Test
-	@Parameters({ "DeleteProjectname" })
+	@Parameters({ "deleteProjectName" })
 	public void testDeletepro(String deleteProname) throws Exception {
 		//
 		this.openMenuProject();

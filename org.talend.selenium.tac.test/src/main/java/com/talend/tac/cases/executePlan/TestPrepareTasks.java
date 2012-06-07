@@ -8,8 +8,8 @@ public class TestPrepareTasks extends Plan {
 
 	@Test
 	@Parameters({"task.label",
-			"labelDescription", "AddcommonProjectname", "branchName",
-			"jobName", "version", "context", "ServerForUseAvailable",
+			"labelDescription", "addCommonProjectName", "branchName",
+			"jobName", "version", "context", "serverForUseAvailable",
 			"statisticEnabled" })
 	public void testPrepareTask(
 			String tasklabel, String labelDescription, String commonpro,

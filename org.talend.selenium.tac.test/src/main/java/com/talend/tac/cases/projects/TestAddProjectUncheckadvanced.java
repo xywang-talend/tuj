@@ -11,7 +11,7 @@ public class TestAddProjectUncheckadvanced extends Projects {
 	TestDeletepro delete = new TestDeletepro();
 
 	@Test
-	@Parameters({"uncheckAdvancedProject" ,"ProjectType", "Prolanguage" })
+	@Parameters({"uncheckAdvancedProject" ,"projectType", "proLanguage" })
 	public void testAddProjectWithoutClickAdvanced(String namecommon,String type, String language)
 			throws InterruptedException {
 	this.openMenuProject();

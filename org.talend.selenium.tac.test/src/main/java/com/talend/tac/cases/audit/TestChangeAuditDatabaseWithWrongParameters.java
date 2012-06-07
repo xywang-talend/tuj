@@ -36,7 +36,7 @@ public class TestChangeAuditDatabaseWithWrongParameters extends Audit {
 	
 	//change audit db info with wrong url and check wrong info
 	@Test
-	@Parameters({"wrong.url", "mysqlUserName", "mysqlPassWord", "mysqlDriver"})
+	@Parameters({"wrongUrl", "mysqlUserName", "mysqlPassWord", "mysqlDriver"})
 	public void testChangeAuditDatabaseWithWrongUrl(String url, String userName, String userPassWd, String driver) {
 		
 		String urlInfo = "Cannot connect to database (cause Communications link failure Last packet sent to the server was 0 ms ago.)";
@@ -60,7 +60,7 @@ public class TestChangeAuditDatabaseWithWrongParameters extends Audit {
     
 	//change audit db info with wrong driver and check wrong info
 	@Test
-	@Parameters({"mysqlURL", "mysqlUserName", "mysqlPassWord", "H2Driver"})
+	@Parameters({"mysqlURL", "mysqlUserName", "mysqlPassWord", "h2Driver"})
 	public void testChangeAuditDatabaseWithWrongDriver(String url, String userName, String userPassWd, String driver) {
 		
 		String wrongDriverInfo = "Driver cannot understand url '"+url+"'";

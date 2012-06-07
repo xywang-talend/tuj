@@ -79,8 +79,8 @@ public class TestCheckpointsFilter extends Grid {
 	}
 
 	@Test 
-	@Parameters({"grid.recoverymanagement.task.label","labelDescription","AddcommonProjectname","branchNameTrunk","jobNameTJava","version0.1",
-		"context","ServerForUseAvailable","statisticEnabled"})
+	@Parameters({"grid.recoverymanagement.task.label","labelDescription","addCommonProjectName","branchNameTrunk","jobNameTJava","version0.1",
+		"context","serverForUseAvailable","statisticEnabled"})
 	public void testRecoveryCheckpointsFilters(String label, String description, String projectName, String branchName, String jobName, String version, String context, String serverName, String statisticName){
 		this.openTaskMenu();
 		this.addTask(label, description, projectName, branchName, jobName, version, context, serverName, statisticName);

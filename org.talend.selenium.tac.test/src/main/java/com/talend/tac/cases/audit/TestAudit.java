@@ -12,8 +12,8 @@ import org.testng.annotations.Test;
 public class TestAudit extends Audit {
 	
 	@Test
-	@Parameters({"mysqlURL", "mysqlUserName", "mysqlPassWord", "mysqlDriver"})
-	public void changeDbToMysql(String url, String userName, String userPassWd, String driver) {
+	@Parameters({"mysqlURL", "mysqlUserName", "mysqlPassWord", "mysqlDriver",  "auditStoredDefaultReportsPath"})
+	public void changeDbToMysql(String url, String userName, String userPassWd, String driver, String defaultPath) {
 		
 		this.openAudit();
 		   
@@ -28,11 +28,28 @@ public class TestAudit extends Audit {
 	    this.waitForCheckConnectionStatus("//div[text()='OK']", 3);
 	    selenium.click("//div[contains(@class,'x-nodrag x-tool-close x-tool x-component')]");
 //	    /*change db info*/
+	    
+		  //go to configuration page
+		this.clickWaitForElementPresent("idMenuConfigElement");
+		this.waitForElementPresent("//div[text()='Configuration' and @class='header-title']", WAIT_TIME);
+		String onlineButton = "//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]/following-sibling::div//button[@aria-pressed='true']";
+//		String offlineButton = "//div[text()='Configuration' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]/following-sibling::div//button[@aria-pressed='false']";
+		if(selenium.isElementPresent(onlineButton)) {
+			
+			selenium.click(onlineButton);			
+			
+		}
+		//change value of 'reports stored path' to a directory not exist
+		this.waitForElementPresent("//div[contains(text(),'Audit (')]", WAIT_TIME);
+		selenium.mouseDown("//div[contains(text(),'Audit (')]");
+	    /*change 'reports stored path' to incipient path*/
+		this.typeWordsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),locatorOfAllInputTags, this.getAbsolutePath(defaultPath));
+	    this.AssertEqualsInConfigurationMenu(other.getString("audit.conf.reportsStoredPath.editButton"),locatorOfAllInputTags, this.getAbsolutePath(defaultPath),other.getString("audit.conf.reportsStoredPath.statusIcon"));
 		
 	}
 	
 	@Test
-	@Parameters({"AddcommonProjectname", "trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
+	@Parameters({"addCommonProjectName", "trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
 		"jobNameTJava"})
 	public void testAuditTrunk(String projectName, String tRunJobCheckPoint, String tjavaCheckpoint,
 			String tjava){
@@ -54,7 +71,7 @@ public class TestAudit extends Audit {
 	}
 	
 	@Test
-	@Parameters({"AddcommonProjectname"})
+	@Parameters({"addCommonProjectName"})
 	public void testAuditTrunkStop(String projectName){
 		auditProcess(projectName, "trunk");
 		Assert.assertTrue(this.waitForTextPresent("Running...", WAIT_TIME));
@@ -66,7 +83,7 @@ public class TestAudit extends Audit {
 	
 	
 	@Test
-	@Parameters({"AddcommonProjectname","trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
+	@Parameters({"addCommonProjectName","trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
 		"jobNameTJava"})
 	public void testAuditTrunkStopRelaunchAudit(String projectName, String tRunJobCheckPoint, String tjavaCheckpoint,
 			String tjava){
@@ -95,7 +112,7 @@ public class TestAudit extends Audit {
 	}
 	
 	@Test
-	@Parameters({"AddcommonProjectname", "trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
+	@Parameters({"addCommonProjectName", "trunjobWithCheckpoint", "tjavaWithMulripleCheckpoint", 
 		"jobNameTJava", "jobNameBranchJob"})
 	public void testAuditBranch(String projectName, String tRunJobCheckPoint, String tjavaCheckpoint,
 			String tjava, String branchJob){
@@ -118,7 +135,7 @@ public class TestAudit extends Audit {
 	}
 	
 	@Test
-	@Parameters({"AddcommonProjectname","remotehostAddress","remotehostAddressWithWrong"})
+	@Parameters({"addCommonProjectName","remotehostAddress","remotehostAddressWithWrong"})
 	public void testAuditWithOutStartCommondline(String projectName,String normalCommondline,String wrongCommondline){
 		System.err.println(wrongCommondline);	
 		this.changeCommandLineConfig(wrongCommondline, other.getString("commandLine.conf.primary.wrong.host.statusIcon"));
