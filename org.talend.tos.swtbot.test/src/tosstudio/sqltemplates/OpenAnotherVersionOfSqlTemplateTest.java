@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -14,13 +14,12 @@ package tosstudio.sqltemplates;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCTabItem;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendSqlTemplateItem;
 
 /**
@@ -33,10 +32,11 @@ public class OpenAnotherVersionOfSqlTemplateTest extends TalendSwtBotForTos {
 
     private static final String SQLTEMPLATE_NAME = "sqlTemplateTest"; //$NON-NLS-1$
 
-    private static final String FOLDERPATH = "Generic/UserDefined"; //$NON-NLS-1$
+    private static final String FOLDERPATH = "Hive/UserDefined"; //$NON-NLS-1$
 
     @Before
     public void createAJob() {
+        repositories.add(ERepositoryObjectType.SQLPATTERNS);
         sqlTemplateItem = new TalendSqlTemplateItem(SQLTEMPLATE_NAME);
         sqlTemplateItem.setFolderPath(FOLDERPATH);
         sqlTemplateItem.create();
@@ -47,7 +47,7 @@ public class OpenAnotherVersionOfSqlTemplateTest extends TalendSwtBotForTos {
     public void openAnotherVersionOfSqlTemplate() {
         sqlTemplateItem.getItem().contextMenu("Open an other version").click();
 
-        gefBot.shell("New job").activate();
+        gefBot.shell("Job version").activate();
         gefBot.checkBox("Create new version and open it?").click();
         gefBot.button("M").click();
         gefBot.button("m").click();
@@ -57,10 +57,4 @@ public class OpenAnotherVersionOfSqlTemplateTest extends TalendSwtBotForTos {
         Assert.assertNotNull("sql template tab is not opened", newTabItem1);
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        gefBot.editorByTitle(SQLTEMPLATE_NAME + " 1.1").saveAndClose();
-        Utilities.cleanUpRepository(sqlTemplateItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -18,6 +18,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobItem;
@@ -36,6 +37,8 @@ public class DeleteItemsFromRecycleBinTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.RECYCLE_BIN);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
         jobItem.getEditor().saveAndClose();
@@ -45,7 +48,7 @@ public class DeleteItemsFromRecycleBinTest extends TalendSwtBotForTos {
     @Test
     public void deleteItemsFromRecycleBin() {
         recycleBinNode = Utilities.getTalendItemNode(Utilities.TalendItemType.RECYCLE_BIN);
-        recycleBinNode.getNode(JOBNAME + " 0.1 ()").contextMenu("Delete forever").click();
+        recycleBinNode.getNode(jobItem.getItemFullName() + " ()").contextMenu("Delete forever").click();
         gefBot.shell("Delete forever").activate();
         gefBot.button("Yes").click();
         gefBot.waitUntil(new DefaultCondition() {

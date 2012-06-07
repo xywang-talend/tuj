@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -17,11 +17,11 @@ import java.net.URISyntaxException;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobItem;
@@ -32,18 +32,15 @@ import org.talend.swtbot.items.TalendJobItem;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class ExportJobAsWebserviceInWarFileTest extends TalendSwtBotForTos {
 
-    private SWTBotShell shell;
-
     private TalendJobItem jobItem;
 
     private static final String JOBNAME = "test01"; //$NON-NLS-1$
-
-    private static final String SAMPLE_RELATIVE_FILEPATH = "items.zip"; //$NON-NLS-1$
 
     private static final String FILE_SEPARATOR = System.getProperties().getProperty("file.separator"); //$NON-NLS-1$
 
     @Before
     public void createAJob() {
+        repositories.add(ERepositoryObjectType.PROCESS);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
     }
@@ -51,11 +48,10 @@ public class ExportJobAsWebserviceInWarFileTest extends TalendSwtBotForTos {
     @Test
     public void exportJob() throws IOException, URISyntaxException {
         jobItem.getItem().contextMenu("Export Job").click();
-        shell = gefBot.shell("Export Job").activate();
+        gefBot.shell("Export Job").activate();
         gefBot.comboBoxWithLabel("Select the export type").setSelection("Axis WebService (WAR)");
         gefBot.comboBoxWithLabel("To &archive file:").setText(
-                Utilities.getFileFromCurrentPluginSampleFolder(SAMPLE_RELATIVE_FILEPATH).getParent() + FILE_SEPARATOR
-                        + "output_job.war");
+                Utilities.getFileFromCurrentPluginSampleFolder("") + FILE_SEPARATOR + "output_job.war");
         gefBot.button("Finish").click();
 
         gefBot.waitUntil(new DefaultCondition() {
@@ -72,10 +68,10 @@ public class ExportJobAsWebserviceInWarFileTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
-        shell.close();
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.emptyRecycleBin();
-        Utilities.getFileFromCurrentPluginSampleFolder("output_job.war").delete();
+        try {
+            Utilities.getFileFromCurrentPluginSampleFolder("output_job.war").delete();
+        } catch (NullPointerException e) {
+            // pass this exception, means no file need to delete.
+        }
     }
 }

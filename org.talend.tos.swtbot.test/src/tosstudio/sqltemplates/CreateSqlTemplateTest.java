@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -13,12 +13,11 @@
 package tosstudio.sqltemplates;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendSqlTemplateItem;
 
 /**
@@ -31,10 +30,11 @@ public class CreateSqlTemplateTest extends TalendSwtBotForTos {
 
     private static final String SQLTEMPLATENAME = "sqlTemplate1"; //$NON-NLS-1$
 
-    private static final String FOLDERPATH = "Generic/UserDefined"; //$NON-NLS-1$
+    private static final String FOLDERPATH = "Hive/UserDefined"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() {
+        repositories.add(ERepositoryObjectType.SQLPATTERNS);
         sqlTemplateItem = new TalendSqlTemplateItem(SQLTEMPLATENAME);
         sqlTemplateItem.setFolderPath(FOLDERPATH);
     }
@@ -44,10 +44,4 @@ public class CreateSqlTemplateTest extends TalendSwtBotForTos {
         sqlTemplateItem.create();
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        sqlTemplateItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(sqlTemplateItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }
