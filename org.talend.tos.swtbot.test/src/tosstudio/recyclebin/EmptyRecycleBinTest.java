@@ -12,8 +12,9 @@
 // ============================================================================
 package tosstudio.recyclebin;
 
+import junit.framework.Assert;
+
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,16 +50,6 @@ public class EmptyRecycleBinTest extends TalendSwtBotForTos {
     public void emptyRecycleBin() {
         Utilities.emptyRecycleBin();
         recycleBinNode = Utilities.getTalendItemNode(Utilities.TalendItemType.RECYCLE_BIN);
-        gefBot.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-                return (recycleBinNode.rowCount() == 0);
-            }
-
-            public String getFailureMessage() {
-                Utilities.emptyRecycleBin();
-                return "recycle bin did not empty";
-            }
-        });
+        Assert.assertNull("did not empty recycle bin", recycleBinNode.getNodes());
     }
 }

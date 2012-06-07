@@ -14,6 +14,8 @@ package tosstudio.importexport;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
@@ -41,27 +43,39 @@ public class ImportItemsTest extends TalendSwtBotForTos {
         Utilities.importItems("items_" + getBuildType() + ".zip");
 
         Utilities.getRepositoryTree().setFocus();
-        for (TalendItemType itemType : TalendItemType.values()) {
-            String itemVersion = " 0.1";
-            if ("TOSDI".equals(TalendSwtBotForTos.getBuildType())) {
-                if (Utilities.getTISItemTypes().contains(itemType))
-                    continue; // if TOSDI, pass TIS items
-            }
-            if ("TOSBD".equals(TalendSwtBotForTos.getBuildType())) {
-                if (!Utilities.getTOSBDItemTypes().contains(itemType))
-                    continue; // if TOSBD, pass items except TOSBD
-                itemVersion = "";
-            }
-            SWTBotTreeItem treeNode = Utilities.getTalendItemNode(itemType);
-            if (TalendItemType.SQL_TEMPLATES.equals(itemType))
-                treeNode = treeNode.expandNode("Hive", "UserDefined"); // focus on specific sql template type
-            if (TalendItemType.DOCUMENTATION.equals(itemType) || TalendItemType.RECYCLE_BIN.equals(itemType))
-                continue; // undo with documentation and recycle bin
-            if (treeNode.rowCount() != 0) {
-                SWTBotTreeItem newTreeItem = treeNode.select(itemType.toString() + itemVersion);
-                Assert.assertNotNull(itemType.toString() + " item not exist", newTreeItem);
-            }
+        List<TalendItemType> itemTypes = new ArrayList<TalendItemType>();
+        String itemVersion = " 0.1";
+        if ("TIS".equals(TalendSwtBotForTos.getBuildType()))
+            itemTypes = Utilities.getTISItemTypes();
+        else if ("TOSDI".equals(TalendSwtBotForTos.getBuildType()))
+            itemTypes = Utilities.getTOSDIItemTypes();
+        else if ("TOSBD".equals(TalendSwtBotForTos.getBuildType())) {
+            itemTypes = Utilities.getTOSBDItemTypes();
+            itemVersion = "";
         }
+        // undo assert for under items, cause did not import these items
+        itemTypes.remove(TalendItemType.SAP_CONNECTIONS);
+        itemTypes.remove(TalendItemType.TALEND_MDM);
+        itemTypes.remove(TalendItemType.BRMS);
+        itemTypes.remove(TalendItemType.SURVIVORSHIP_RULES);
+        itemTypes.remove(TalendItemType.DOCUMENTATION);
+        itemTypes.remove(TalendItemType.RECYCLE_BIN);
+
+        String errorMsg = "";
+        for (TalendItemType itemType : itemTypes) {
+            errorMsg += assertItemExist(itemType, itemType.toString() + itemVersion);
+        }
+        if (!"".equals(errorMsg))
+            Assert.fail(errorMsg);
+    }
+
+    private String assertItemExist(TalendItemType itemType, String itemFullName) {
+        SWTBotTreeItem treeNode = Utilities.getTalendItemNode(itemType);
+        if (TalendItemType.SQL_TEMPLATES.equals(itemType))
+            treeNode = treeNode.expandNode("Hive", "UserDefined"); // focus on specific sql template type
+        if (!treeNode.getNodes().contains(itemFullName))
+            return "item '" + itemFullName + "' did not import\n";
+        return "";
     }
 
 }
