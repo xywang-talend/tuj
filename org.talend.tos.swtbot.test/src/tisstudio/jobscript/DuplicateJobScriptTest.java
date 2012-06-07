@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -13,12 +13,11 @@
 package tisstudio.jobscript;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobScriptItem;
 
 /**
@@ -35,6 +34,7 @@ public class DuplicateJobScriptTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
+    	repositories.add(ERepositoryObjectType.JOB_SCRIPT);
         jobScriptItem = new TalendJobScriptItem(JOBSCRIPT_NAME);
         jobScriptItem.create();
     }
@@ -44,10 +44,4 @@ public class DuplicateJobScriptTest extends TalendSwtBotForTos {
         jobScriptItem.duplicate(NEW_JOBSCRIPT_NAME);
     }
 
-    @After
-    public void removePreviousCreateItems() {
-        jobScriptItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobScriptItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }
