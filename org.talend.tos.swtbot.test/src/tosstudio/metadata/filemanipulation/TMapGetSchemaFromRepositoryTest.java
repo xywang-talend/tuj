@@ -16,9 +16,7 @@ import junit.framework.Assert;
 
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Before;
 import org.junit.Test;
@@ -63,48 +61,38 @@ public class TMapGetSchemaFromRepositoryTest extends TalendSwtBotForTos {
         SWTBotGefEditor jobEditor = jobItem.getEditor();
         Utilities.dndPaletteToolOntoJob(jobEditor, "tMap", new Point(100, 100));
         getTalendComponentPart(jobEditor, "tMap_1").doubleClick();
-        SWTBotShell tMapShell = gefBot.shell(buildTitle + " - tMap - tMap_1");
-        SWTBotShell tempShell = null;
-        try {
-            gefBot.toolbarButtonWithTooltip("Add output table").click();
-            tempShell = gefBot.shell("Add a output").activate();
-            gefBot.button("OK").click();
-            gefBot.toolbarToggleButtonWithTooltip("tMap settings").click();
-            gefBot.tableWithLabel("out1", 0).doubleClick(2, 2);
-            gefBot.button("...").click();
-            tempShell = gefBot.shell("Options").activate();
-            gefBot.table(0).select("Repository");
-            gefBot.button("OK").click();
-            gefBot.tableWithLabel("out1", 0).doubleClick(3, 2);
-            gefBot.button("...").click();
-            tempShell = gefBot.shell("Repository Content").activate();
-            SWTBotTreeItem schema = gefBot.tree(0).expandNode("Generic schemas", genericSchemaItem.getItemFullName());
-            schema.expand().select("metadata");
-            gefBot.button("OK").click();
-            Assert.assertEquals("schemas did not add", 3, gefBot.tableWithLabel("out1", 1).rowCount());
-            gefBot.button("Ok").click();
 
-            TalendSchemaItem schemaItem = genericSchemaItem.getSchema("metadata");
-            schemaItem.editSchema();
-            gefBot.buttonWithTooltip("Add").click();
-            gefBot.button("Finish").click();
-            tempShell = gefBot.shell("Modification").activate();
-            gefBot.button("Yes").click();
-            tempShell = gefBot.shell("Update Detection").activate();
-            gefBot.button("OK").click();
+        gefBot.shell(buildTitle + " - tMap - tMap_1").activate();
+        gefBot.toolbarButtonWithTooltip("Add output table").click();
+        gefBot.shell("Add a output").activate();
+        gefBot.button("OK").click();
+        gefBot.toolbarToggleButtonWithTooltip("tMap settings").click();
+        gefBot.tableWithLabel("out1", 0).doubleClick(2, 2);
+        gefBot.button("...").click();
+        gefBot.shell("Options").activate();
+        gefBot.table(0).select("Repository");
+        gefBot.button("OK").click();
+        gefBot.tableWithLabel("out1", 0).doubleClick(3, 2);
+        gefBot.button("...").click();
+        gefBot.shell("Repository Content").activate();
+        SWTBotTreeItem schema = gefBot.tree(0).expandNode("Generic schemas", genericSchemaItem.getItemFullName());
+        schema.expand().select("metadata");
+        gefBot.button("OK").click();
+        Assert.assertEquals("schemas did not add", 3, gefBot.tableWithLabel("out1", 1).rowCount());
+        gefBot.button("Ok").click();
 
-            getTalendComponentPart(jobEditor, "tMap_1").doubleClick();
-            Assert.assertEquals("schemas did not update", 4, gefBot.tableWithLabel("out1", 1).rowCount());
-            gefBot.button("Ok").click();
-        } catch (WidgetNotFoundException wnfe) {
-            tempShell.close();
-            tMapShell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            tempShell.close();
-            tMapShell.close();
-            Assert.fail(e.getMessage());
-        }
+        TalendSchemaItem schemaItem = genericSchemaItem.getSchema("metadata");
+        schemaItem.editSchema();
+        gefBot.buttonWithTooltip("Add").click();
+        gefBot.button("Finish").click();
+        gefBot.shell("Modification").activate();
+        gefBot.button("Yes").click();
+        gefBot.shell("Update Detection").activate();
+        gefBot.button("OK").click();
+
+        getTalendComponentPart(jobEditor, "tMap_1").doubleClick();
+        Assert.assertEquals("schemas did not update", 4, gefBot.tableWithLabel("out1", 1).rowCount());
+        gefBot.button("Ok").click();
     }
 
 }
