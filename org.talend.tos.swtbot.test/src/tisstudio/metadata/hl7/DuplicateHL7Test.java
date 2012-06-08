@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -12,19 +12,16 @@
 // ============================================================================
 package tisstudio.metadata.hl7;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 
@@ -48,6 +45,7 @@ public class DuplicateHL7Test extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
+        repositories.add(ERepositoryObjectType.METADATA_FILE_HL7);
         view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.HL7);
@@ -59,10 +57,4 @@ public class DuplicateHL7Test extends TalendSwtBotForTos {
         Utilities.duplicate(treeNode, HL7NAME, "0.1", NEW_HL7NAME);
     }
 
-    @After
-    public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
-        Utilities.delete(treeNode, HL7NAME, "0.1", null);
-        Utilities.delete(treeNode, NEW_HL7NAME, "0.1", null);
-        Utilities.emptyRecycleBin();
-    }
 }

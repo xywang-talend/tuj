@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -13,12 +13,11 @@
 package tisstudio.metadata.edi;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendEdiItem;
 
 /**
@@ -40,17 +39,14 @@ public class DeleteEdiTest extends TalendSwtBotForTos {
 
     @Before
     public void createEdi() {
+        repositories.add(ERepositoryObjectType.METADATA_EDIFACT);
         ediItem = new TalendEdiItem(EDINAME, STANDARD, RELEASE, SCHEMAS);
         ediItem.create();
     }
 
     @Test
     public void deleteEdi() {
-        Utilities.delete(ediItem.getParentNode(), EDINAME, "0.1", null);
+        ediItem.delete();
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.emptyRecycleBin();
-    }
 }
