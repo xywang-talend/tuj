@@ -108,8 +108,8 @@ public class TalendMetadataItem extends TalendItem {
 
     public TalendSchemaItem getSchema(String name) {
         TalendSchemaItem schemaItem = new TalendSchemaItem(this.getItemType());
-        schemaItem.setItem(item.expand().getNode(name));
-        schemaItem.setParentNode(item);
+        schemaItem.setItem(getItem().expand().getNode(name));
+        schemaItem.setParentNode(getItem());
         return schemaItem;
     }
 }

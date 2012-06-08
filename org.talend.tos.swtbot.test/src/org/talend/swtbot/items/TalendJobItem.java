@@ -17,7 +17,7 @@ public class TalendJobItem extends TalendItem {
 
     @Override
     public void create() {
-        SWTBotShell shell = beginCreationWizard("Create job", "Job version");
+        SWTBotShell shell = beginCreationWizard("Create job", "New job");
         finishCreationWizard(shell);
     }
 

@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -18,13 +18,12 @@ import java.net.URISyntaxException;
 import junit.framework.Assert;
 
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.DndUtil;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
@@ -48,6 +47,9 @@ public class ExportAsContextForXmlTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.METADATA_FILE_XML);
+        repositories.add(ERepositoryObjectType.CONTEXT);
         jobItem = new TalendJobItem(JOB_NAME);
         jobItem.create();
         fileItem = new TalendXmlFileItem(FILE_NAME);
@@ -56,73 +58,58 @@ public class ExportAsContextForXmlTest extends TalendSwtBotForTos {
     @Test
     public void exportAsContextForXmlTest() throws IOException, URISyntaxException {
         SWTBotShell shell = fileItem.beginCreationWizard("Create file xml", "New Xml File");
-        try {
-            gefBot.button("Next >").click();
-            gefBot.textWithLabel("XML").setText(
-                    Utilities.getFileFromCurrentPluginSampleFolder(fileItem.getFilePath()).getAbsolutePath());
-            gefBot.button("Next >").click();
 
-            DndUtil dndUtil = new DndUtil(shell.display);
-            String[] loops = System.getProperty("filexml.loop").split("/");
-            SWTBotTreeItem loop = gefBot.treeInGroup("Source Schema").expandNode(loops[0]);
-            for (int i = 1; i < loops.length; i++) {
-                loop = loop.expandNode(loops[i]);
-            }
-            SWTBotTable targetItem = gefBot.tableInGroup("Target Schema", 0);
-            dndUtil.dragAndDrop(loop, targetItem);
-            String[] schemas = new String[3];
-            for (int i = 0; i < 3; i++) {
-                schemas[i] = System.getProperty("filexml.schema" + i);
-            }
-            SWTBotTreeItem sourceTarget = loop.getNode(schemas[0]);
-            loop.select(schemas);
-            targetItem = gefBot.tableInGroup("Target Schema", 1);
-            dndUtil.dragAndDrop(sourceTarget, targetItem);
-            // export as context
-            gefBot.button("Export as context").click();
-            gefBot.shell("Create / Edit a context group").activate();
-            gefBot.button("Finish").click();
-            gefBot.button("Refresh Preview").click();
-            gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 60000);
-            boolean isPreviewSuccessful = false;
-            int rowCount = 0;
-            rowCount = gefBot.table(2).rowCount();
-            if (rowCount != 0)
-                isPreviewSuccessful = true;
-            Assert.assertTrue("preview fail", isPreviewSuccessful);
-            // revert context
-            gefBot.button("Revert Context").click();
-            gefBot.button("Refresh Preview").click();
-            gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 60000);
-            rowCount = gefBot.table(2).rowCount();
-            if (rowCount != 0)
-                isPreviewSuccessful = true;
-            Assert.assertTrue("preview fail", isPreviewSuccessful);
-            // export as context again
-            gefBot.button("Export as context").click();
-            gefBot.shell("Create / Edit a context group").activate();
-            gefBot.button("Finish").click();
-            // finish
-            fileItem.finishCreationWizard(shell);
-        } catch (WidgetNotFoundException wnfe) {
-            shell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            shell.close();
-            Assert.fail(e.getMessage());
+        gefBot.button("Next >").click();
+        gefBot.textWithLabel("XML").setText(
+                Utilities.getFileFromCurrentPluginSampleFolder(fileItem.getFilePath()).getAbsolutePath());
+        gefBot.button("Next >").click();
+
+        DndUtil dndUtil = new DndUtil(shell.display);
+        String[] loops = System.getProperty("filexml.loop").split("/");
+        SWTBotTreeItem loop = gefBot.treeInGroup("Source Schema").expandNode(loops[0]);
+        for (int i = 1; i < loops.length; i++) {
+            loop = loop.expandNode(loops[i]);
         }
+        SWTBotTable targetItem = gefBot.tableInGroup("Target Schema", 0);
+        dndUtil.dragAndDrop(loop, targetItem);
+        String[] schemas = new String[3];
+        for (int i = 0; i < 3; i++) {
+            schemas[i] = System.getProperty("filexml.schema" + i);
+        }
+        SWTBotTreeItem sourceTarget = loop.getNode(schemas[0]);
+        loop.select(schemas);
+        targetItem = gefBot.tableInGroup("Target Schema", 1);
+        dndUtil.dragAndDrop(sourceTarget, targetItem);
+        // export as context
+        gefBot.button("Export as context").click();
+        gefBot.shell("Create / Edit a context group").activate();
+        gefBot.button("Finish").click();
+        gefBot.button("Refresh Preview").click();
+        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 10000);
+        boolean isPreviewSuccessful = false;
+        int rowCount = 0;
+        rowCount = gefBot.table(2).rowCount();
+        if (rowCount != 0)
+            isPreviewSuccessful = true;
+        Assert.assertTrue("preview fail", isPreviewSuccessful);
+        // revert context
+        gefBot.button("Revert Context").click();
+        gefBot.button("Refresh Preview").click();
+        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 10000);
+        rowCount = gefBot.table(2).rowCount();
+        if (rowCount != 0)
+            isPreviewSuccessful = true;
+        Assert.assertTrue("preview fail", isPreviewSuccessful);
+        // export as context again
+        gefBot.button("Export as context").click();
+        gefBot.shell("Create / Edit a context group").activate();
+        gefBot.button("Finish").click();
+        // finish
+        fileItem.finishCreationWizard(shell);
 
         fileItem.setComponentType("tFileInputXML");
         MetadataHelper.output2Console(jobItem.getEditor(), fileItem);
         MetadataHelper.assertResult(JobHelper.getExecutionResult(), fileItem);
     }
 
-    @After
-    public void removePreviousCreateItem() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(fileItem.getParentNode());
-        Utilities.cleanUpRepository(Utilities.getTalendItemNode(Utilities.TalendItemType.CONTEXTS));
-        Utilities.emptyRecycleBin();
-    }
 }

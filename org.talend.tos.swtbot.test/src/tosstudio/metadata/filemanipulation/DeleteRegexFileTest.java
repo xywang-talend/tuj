@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -16,12 +16,11 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendRegexFileItem;
 
 /**
@@ -36,6 +35,7 @@ public class DeleteRegexFileTest extends TalendSwtBotForTos {
 
     @Before
     public void createRegexFile() throws IOException, URISyntaxException {
+        repositories.add(ERepositoryObjectType.METADATA_FILE_REGEXP);
         fileItem = new TalendRegexFileItem(FILENAME);
         fileItem.create();
     }
@@ -45,8 +45,4 @@ public class DeleteRegexFileTest extends TalendSwtBotForTos {
         fileItem.delete();
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.emptyRecycleBin();
-    }
 }

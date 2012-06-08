@@ -15,6 +15,8 @@ package org.talend.swtbot.items;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import junit.framework.Assert;
+
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
@@ -67,12 +69,17 @@ public class TalendXmlFileItem extends TalendFileItem {
         targetItem = gefBot.tableInGroup("Target Schema", 1);
         dndUtil.dragAndDrop(sourceTarget, targetItem);
         gefBot.button("Refresh Preview").click();
+        SWTBotShell progressShell = null;
         try {
             gefBot.waitUntil(Conditions.shellIsActive("Progress Information"));
-            SWTBotShell progressShell = gefBot.shell("Progress Information").activate();
+            progressShell = gefBot.shell("Progress Information").activate();
             gefBot.waitUntil(Conditions.shellCloses(progressShell), 10000);
         } catch (TimeoutException e) {
-            // did not pop up progress information, maybe it disappear too fast
+            // do nothing if progressShell is null, means progress information disappear too fast
+            if (progressShell != null && progressShell.isOpen()) {
+                gefBot.button("Cancel").click();
+                Assert.fail(e.getMessage());
+            }
         }
 
         finishCreationWizard(shell);
