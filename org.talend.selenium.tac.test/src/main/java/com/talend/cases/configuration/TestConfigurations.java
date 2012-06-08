@@ -18,7 +18,7 @@ import com.talend.tac.cases.Login;
 public class TestConfigurations extends configuration {
 	
   @Test
-  @Parameters({"commandline.conf.primary.host","commandline.conf.primary.port","commandline.conf.primary.archivePath"})
+  @Parameters({"commandlineConfPrimaryHost","commandlineConfPrimaryPort","commandlineConfPrimaryArchivePath"})
   public void testSetCommandlinePrimary(String commandlineHost,String commandlinePort,String commandlinePath) {
 	
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
@@ -35,7 +35,7 @@ public class TestConfigurations extends configuration {
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
   }
   @Test
-  @Parameters ({"commandline.conf.secondary.host","commandline.conf.secondary.port","commandline.conf.secondary.archivePath"})
+  @Parameters ({"commandlineConfSecondaryHost","commandlineConfSecondaryPort","commandlineConfSecondaryArchivePath"})
   public void testSetCommandlineSecondary(String commandlineHost,String commandlinePort,String commandlinePath) {
 	 
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/secondary')]");
@@ -55,7 +55,7 @@ public class TestConfigurations extends configuration {
   
   //set a stop zkServer
   @Test
-  @Parameters ({"esb.conf.zookeeperServer.stop","esb.conf.serviceActivityMonitorServer.stop"})
+  @Parameters ({"esbConfZookeeperServerStop","esbConfServiceActivityMonitorServer"})
   public void testSetESBWithStopZKServer(String zookeeperServer,String serviceActivityMonitorServer){
 		
 	  try {
@@ -86,7 +86,7 @@ public class TestConfigurations extends configuration {
   
   
   @Test
-  @Parameters ({"esb.conf.zookeeperServer","esb.conf.serviceActivityMonitorServer"})
+  @Parameters ({"esbConfZookeeperServer","esbConfServiceActivityMonitorServer"})
   public void testSetESBWithStartZKServer(String zookeeperServer,String serviceActivityMonitorServer){
 	  
 	  startStopZkServer("start", this.getZookeeperPath());	  
@@ -122,8 +122,8 @@ public class TestConfigurations extends configuration {
   }
 
   @Test
-  @Parameters ({"LDAP.conf.useLDAPAutentication","LDAP.conf.ldapServerIp","LDAP.conf.ldapServerPort","LDAP.conf.ldapRoot","LDAP.conf.ldapPrincipalDNPrefix",
-	  "LDAP.conf.ldapAdminPassword","LDAP.conf.ldap.fields.mail","LDAP.conf.ldap.fields.firstname","LDAP.conf.ldap.fields.lastname"})
+  @Parameters ({"ldapConfuseLDAPAutentication","ldapConfLdapServerIp","ldapConfLdapServerPort","ldapConfLdapRoot","ldapConfLdapPrincipalDNPrefix",
+	  "ldapConfLdapAdminPassword","ldapConfLdapFieldsMail","ldapConfLdapFieldsFirstname","ldapConfLdapFieldsLastname"})
   public void testSetLDAP(String useLDAPAutentication,String ldapServerIp,String ldapServerPort,String ldapRoot,String ldapPrincipalDNPrefix,String ldapAdminPassword,String ldapFieldsMail,String ldapFieldsFirstName,String ldapFieldsLastName ) {
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),'LDAP (11 Parameters')]");
 	  this.typeWordsInConfigurationMenu(other.getString("LDAP.conf.useLDAPAutentication.editButton"), locatorOfAllInputTags, useLDAPAutentication);
@@ -167,7 +167,7 @@ public class TestConfigurations extends configuration {
 	  this.clickWaitForElementPresent("//div[contains(text(),'Log4j (2 Parameters)')]");  
   }
   @Test
-  @Parameters ({"smtp.conf.useSmtp","smtp.conf.mailServerHost","smtp.conf.mailServerPort","smtp.conf.mailUserName","smtp.conf.mailPassword","smtp.conf.serverRequireSSL"})
+  @Parameters ({"smtpConfUseSmtp","smtpConfMailServerHost","smtpConfMailServerPort","smtpConfMailUserName","smtpConfMailPassword","smtpConfServerRequireSSL"})
   public void testSetSMTP(String useSmtp,String mailServerHost,String mailServerPort,String mailUserName,String mailPassword,String serverRequireSSL){//String serverRequireSSL
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),'SMTP')]");
 	  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.useSmtp.editButton"), locatorOfAllInputTags, useSmtp);
@@ -202,7 +202,7 @@ public class TestConfigurations extends configuration {
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Job conductor (')]"); 
 	//assertEquals
   }
-  @Test
+//  @Test
   @Parameters ({"soaManager.conf.jobsDeployPath","soaManager.conf.serverAddress","soaManager.conf.serverPort"})
   public void testSetSoaManager(String soaJobDeployedPath,String soaMangerHost,String soaMangerProt){
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Soa manager (')]"); 
@@ -221,7 +221,7 @@ public class TestConfigurations extends configuration {
 
 
   @Test
-  @Parameters ({"svn.conf.serverLocationURL","svn.conf.serverUser","svn.conf.serverPassword"})
+  @Parameters ({"svnUrl","svnConfServerUser","svnConfServerPassword"})
   public void testSetSVN(String svnServerLocationUrl,String svnServerUser,String svnServerPassword){
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Svn (')]"); 
 	  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverLocationURL.editButton"), locatorOfAllInputTags, svnServerLocationUrl);
@@ -264,7 +264,7 @@ public class TestConfigurations extends configuration {
    */
 		  
 	@Test//(enabled=true,dependsOnMethods="testSetLog4j")
-	 @Parameters ({"firefox.download.path","log4j.conf.logsName"})
+	 @Parameters ({"firefoxDownloadPath","log4j.conf.logsName"})
 	public void testDownloadLog(String downloadPath,String logsName) {
 		this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
 		this.clickWaitForElementPresent("//button[text()='Download Log']");
@@ -305,7 +305,7 @@ public class TestConfigurations extends configuration {
 	}
 
 	@Test//(enabled=false)
-	@Parameters ({"firefox.download.path"})
+	@Parameters ({"firefoxDownloadPath"})
 	public void testExportParameters(String downloadPath) {
 		this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
 		this.clickWaitForElementPresent("//button[text()='Export parameters']");

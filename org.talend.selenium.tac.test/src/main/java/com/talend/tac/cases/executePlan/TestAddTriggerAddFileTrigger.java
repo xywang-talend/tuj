@@ -33,7 +33,7 @@ public class TestAddTriggerAddFileTrigger extends Plan {
 		foldpath = this.getAbsolutePath(foldpath);
 		
 		AntAction antAction = new AntAction();
-		properties.put("file.path", foldpath+"testFiletrigger.txt");
+		properties.put("file.path", foldpath+"/testFiletrigger.txt");
 		antAction.runTarget("File.xml", "create", properties);
 		
 		this.clickWaitForElementPresent("!!!menu.executionPlan.element!!!");

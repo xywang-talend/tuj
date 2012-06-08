@@ -38,13 +38,13 @@ public class TestChangeServerPort extends Server {
 				WAIT_TIME);
 		Assert.assertTrue(selenium.isElementPresent("//span[contains(text(),'Command port:')]//parent::li//img[@title='This port is " +
 				"misconfigured or an other application uses it on server!']"));
-		Assert.assertTrue(selenium.isElementPresent("//span[contains(text(),'File transfer port:')]//parent::li//img[@title=" +
+		Assert.assertTrue(selenium.isElementPresent("//span[contains(text(),'File transfert port:')]//parent::li//img[@title=" +
 				"'This port is misconfigured or an other application uses it on server!']"));
 		Assert.assertTrue(selenium.isElementPresent("//span[contains(text(),'Monitoring port:')]//parent::li//img[@title='This port is " +
 		"misconfigured or an other application uses it on server!']"));
 		Assert.assertTrue(selenium.isElementPresent("//span[contains(text(),'Command port:')]" +
 				"//parent::li//div[contains(text(),'2255')]"));
-		Assert.assertTrue(selenium.isElementPresent("//span[contains(text(),'File transfer port:')]" +
+		Assert.assertTrue(selenium.isElementPresent("//span[contains(text(),'File transfert port:')]" +
 				"//parent::li//div[contains(text(),'2251')]"));
 		Assert.assertTrue(selenium.isElementPresent("//span[contains(text(),'Monitoring port:')]" +
 		"//parent::li//div[contains(text(),'2252')]"));

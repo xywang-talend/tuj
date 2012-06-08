@@ -128,6 +128,14 @@ public String locatorOfAllInputTags = other.getString("commandline.conf.all.inpu
 		super.login(user, password);
 		this.clickWaitForElementPresent("idMenuConfigElement");
 //		selenium.setSpeed("500");
+		this.waitForElementPresent("//div[@class='header-title' and text()='Configuration']", WAIT_TIME);
+		
+		if(selenium.isElementPresent("//div[@class='header-title' and text()='Configuration']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//following-sibling::div//button[@aria-pressed='true']")) {
+			
+			this.clickWaitForElementPresent("//div[@class='header-title' and text()='Configuration']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//following-sibling::div//button[@aria-pressed='true']");
+			this.waitForElementPresent("//div[@class='header-title' and text()='Configuration']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//following-sibling::div//button[@aria-pressed='false']", WAIT_TIME);
+			
+		}
 	}
 
 	@AfterClass

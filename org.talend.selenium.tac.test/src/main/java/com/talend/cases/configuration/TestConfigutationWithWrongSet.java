@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class TestConfigutationWithWrongSet extends configuration {
   
 	  @Test
-	  @Parameters ({"svn.conf.wrong.serverLocationURL","svn.conf.wrong.serverUser","svn.conf.wrong.serverPassword"})
+	  @Parameters ({"svnConfWrongServerLocationURL","svnConfWrongServerUser","svnConfWrongServerPassword"})
 	  public void testSetWrongSVN(String svnServerLocationWrongUrl,String svnServerWrongUser,String svnServerWrongPassword){
 		  
 		  this.mouseDownWaitForElementPresent("//div[contains(text(),'Svn (')]"); 
@@ -29,7 +29,7 @@ public class TestConfigutationWithWrongSet extends configuration {
 	  }
 	  
 	  @Test
-	  @Parameters ({"smtp.conf.useSmtp","smtp.conf.wrong.mailServerHost","smtp.conf.wrong.mailServerPort","smtp.conf.wrong.mailUserName","smtp.conf.wrong.mailPassword","smtp.conf.serverRequireSSL"})
+	  @Parameters ({"smtpConfUseSmtp","smtp.conf.wrong.mailServerHost","smtp.conf.wrong.mailServerPort","smtp.conf.wrong.mailUserName","smtp.conf.wrong.mailPassword","smtpConfServerRequireSSL"})
 	  public void testSetWrongSMTP(String useSmtp,String wrongMailServerHost,String wrongMailServerPort,String wrongMailUserName,String wrongMailPassword,String serverRequireSSL){//String serverRequireSSL
 		  this.mouseDownWaitForElementPresent("//div[contains(text(),'SMTP')]");
 		  this.typeWordsInConfigurationMenu(other.getString("smtp.conf.useSmtp.editButton"), locatorOfAllInputTags, useSmtp);
