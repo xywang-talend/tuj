@@ -10,7 +10,7 @@ import com.talend.tac.base.Base;
 public class TestAddProjectWithNullLabel extends Projects {
 
 	@Test
-	@Parameters({ "sVNurl", "sVNuserName", "sVNuserPassword",
+	@Parameters({ "svnurl", "svnuserName", "svnuserPassword",
 			"nullLabelProject", "proLanguage", "projectType" })
 	public void testAddProjectWithOutLabel(String url, String user, String password,
 			String proname, String language, String type) throws Exception {

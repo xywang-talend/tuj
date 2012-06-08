@@ -13,7 +13,7 @@ public class TestAddProjectWithExistlable extends Projects {
 
 	@Test
 	// @Test(groups = { "AddBranch" }, dependsOnGroups = { "Add" })
-	@Parameters({ "sVNurl", "sVNuserName", "sVNuserPassword",
+	@Parameters({ "svnurl", "svnuserName", "svnuserPassword",
 			"addCommontestProjectName", "proLanguage", "projectType" })
 	public void testAddProjectExist(String url, String user, String password,
 			String proname, String language, String type) throws Exception {

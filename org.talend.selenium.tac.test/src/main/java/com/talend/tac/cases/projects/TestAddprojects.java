@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class TestAddprojects extends Projects {
 
 	@Test
-	@Parameters({ "sVNurl","projectType", "sVNuserName", "sVNuserPassword",
+	@Parameters({ "svnurl","projectType", "svnuserName", "svnuserPassword",
 		"addCommonProjectName", "addReferenceProjectName","proLanguage" })
 	public void testAddProjectCommonAndReference(String url, String type, String user,
 			String password, String proname, String name2, String language)
@@ -18,7 +18,7 @@ public class TestAddprojects extends Projects {
 	}
 	
 	@Test
-	@Parameters({ "sVNurl","projectType", "sVNuserName", "sVNuserPassword",
+	@Parameters({ "svnurl","projectType", "svnuserName", "svnuserPassword",
 			"projectWithSpaceChar",  "proLanguage" })
 	public void testAddProjectLabelWithSpace(String url, String type, String user,
 			String password, String proname,String language)
@@ -29,7 +29,7 @@ public class TestAddprojects extends Projects {
 	
 	//add a project and check it whether normal appear in project authorization page
 	@Test
-	@Parameters({ "sVNurl","projectType", "sVNuserName", "sVNuserPassword",
+	@Parameters({ "svnurl","projectType", "svnuserName", "svnuserPassword",
 		"addProjectAndCheckItAppearInProjectAuthorization",  "proLanguage" })
 	public void testAddNewCommonProjectAndCheckItAppearInProjectAuthorizationAndReferences(String url, String type, String user,
 			String password, String proname,String language) {
@@ -55,7 +55,7 @@ public class TestAddprojects extends Projects {
 	
 	
 	@Test
-	@Parameters({ "sVNurl","projectType", "sVNuserName", "sVNuserPassword",
+	@Parameters({ "svnurl","projectType", "svnuserName", "svnuserPassword",
 		"addProjectAndCheckItAppearInProjectAuthorization",  "proLanguage" })
 	public void testAddNewReferenceProjectAndCheckItAppearInProjectAuthorizationAndReferences(String url, String type, String user,
 			String password, String proname,String language) {
