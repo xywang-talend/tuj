@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -20,11 +20,11 @@ import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.JobHelper;
@@ -48,6 +48,8 @@ public class UseAdvanceWebServiceTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.METADATA_WSDL_SCHEMA);
         jobItem = new TalendJobItem(JOB_NAME);
         jobItem.create();
         webServiceItem = new TalendWebServiceItem(METADATA_NAME);
@@ -59,7 +61,7 @@ public class UseAdvanceWebServiceTest extends TalendSwtBotForTos {
     public void useMetadataInJob() throws IOException, URISyntaxException {
         Utilities.dndPaletteToolOntoJob(jobItem.getEditor(), "tFixedFlowInput", new Point(100, 100));
         SWTBotGefEditPart fixedFlowInput = getTalendComponentPart(jobItem.getEditor(), "tFixedFlowInput_1");
-        Assert.assertNotNull("can not get component '" + webServiceItem.getComponentType() + "'", fixedFlowInput);
+        Assert.assertNotNull("can not get component 'fixedFlowInput'", fixedFlowInput);
         jobItem.getEditor().click(fixedFlowInput);
         gefBot.viewByTitle("Component").setFocus();
         selecteAllTalendTabbedPropertyListIndex(0);
@@ -71,8 +73,7 @@ public class UseAdvanceWebServiceTest extends TalendSwtBotForTos {
         gefBot.waitUntil(Conditions.tableHasRows(schemaTable, 1));
         gefBot.tableInGroup("Mode").click(0, 2);
         gefBot.text(1).setText("\"test\"");
-
-        webServiceItem.setComponentType("tWebService");
+        // webServiceItem.setComponentType("tWebService");
         Utilities.dndMetadataOntoJob(jobItem.getEditor(), webServiceItem.getItem(), webServiceItem.getComponentType(), new Point(
                 300, 100));
         SWTBotGefEditPart webService = getTalendComponentPart(jobItem.getEditor(), webServiceItem.getItemName());
@@ -93,11 +94,4 @@ public class UseAdvanceWebServiceTest extends TalendSwtBotForTos {
         MetadataHelper.assertResult(actualResult, webServiceItem);
     }
 
-    @After
-    public void removePreviousCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(webServiceItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

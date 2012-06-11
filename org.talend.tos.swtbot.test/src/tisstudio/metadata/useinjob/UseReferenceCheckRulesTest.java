@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -23,6 +23,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.JobHelper;
@@ -52,6 +53,9 @@ public class UseReferenceCheckRulesTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.METADATA_VALIDATION_RULES);
+        repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
         dbItem = new TalendDBItem(DB_NAME, Utilities.DbConnectionType.MYSQL);
         dbItem.create();
         String sql = "create table test(id int, name varchar(12));\n" + "insert into test values(1, 'a');\n"
@@ -75,7 +79,7 @@ public class UseReferenceCheckRulesTest extends TalendSwtBotForTos {
         TalendSchemaItem schema = dbItem.getSchema("test");
         schema.setComponentType("tMysqlInput");
         Utilities.dndMetadataOntoJob(jobItem.getEditor(), schema.getItem(), schema.getComponentType(), new Point(100, 100));
-        SWTBotGefEditPart metadata = getTalendComponentPart(jobItem.getEditor(), schema.getItemName());
+        SWTBotGefEditPart metadata = getTalendComponentPart(jobItem.getEditor(), schema.getComponentLabel());
         Assert.assertNotNull("can not get component '" + schema.getComponentType() + "'", metadata);
         MetadataHelper.activateValidationRule(metadata, ruleItem);
         JobHelper.connect2TLogRow(jobItem.getEditor(), metadata, new Point(300, 100));
@@ -89,10 +93,5 @@ public class UseReferenceCheckRulesTest extends TalendSwtBotForTos {
     public void removePreviousCreateItems() {
         String sql = "drop table test;\n" + "drop table reference;";
         dbItem.executeSQL(sql);
-        Utilities.cleanUpRepository(dbItem.getParentNode());
-        Utilities.cleanUpRepository(ruleItem.getParentNode());
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 }
