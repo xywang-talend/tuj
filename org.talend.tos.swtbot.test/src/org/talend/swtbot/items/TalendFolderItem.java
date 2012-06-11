@@ -148,7 +148,7 @@ public class TalendFolderItem {
 
     public void rename(String newFolderName) {
         parentNode.expandNode(itemName).contextMenu("Rename folder").click();
-        SWTBotShell shell = gefBot.shell("Rename folder").activate();
+        SWTBotShell shell = gefBot.shell("New folder").activate();
         gefBot.textWithLabel("Label").setText(newFolderName);
         boolean isFinishButtonEnable = gefBot.button("Finish").isEnabled();
         if (!isFinishButtonEnable) {

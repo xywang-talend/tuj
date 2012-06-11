@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -13,14 +13,12 @@
 package tosstudio.projectmanagement.performance;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
-import org.junit.Assert;
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobItem;
 
 /**
@@ -35,6 +33,7 @@ public class CreateNewVersionOfJobTest extends TalendSwtBotForTos {
 
     @Before
     public void createAJob() {
+        repositories.add(ERepositoryObjectType.PROCESS);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
     }
@@ -49,20 +48,18 @@ public class CreateNewVersionOfJobTest extends TalendSwtBotForTos {
         gefBot.button("m").click();
         gefBot.button("Finish").click();
 
-        SWTBotTreeItem newJobItem = null;
-        try {
-            newJobItem = jobItem.getParentNode().expand().getNode(JOBNAME + " 1.1");
-            jobItem.setItem(newJobItem);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("new version of job is not created", newJobItem);
-        }
-    }
+        gefBot.waitUntil(new DefaultCondition() {
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.emptyRecycleBin();
+            @Override
+            public boolean test() throws Exception {
+                return jobItem.getParentNode().expand().getNode(JOBNAME + " 1.1").isVisible();
+            }
+
+            @Override
+            public String getFailureMessage() {
+                return "new version of job not found";
+            }
+        });
+        jobItem.setItem(jobItem.getParentNode().expand().getNode(JOBNAME + " 1.1"));
     }
 }
