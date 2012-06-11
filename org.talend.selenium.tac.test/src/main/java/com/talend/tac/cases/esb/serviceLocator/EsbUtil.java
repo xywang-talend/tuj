@@ -292,9 +292,9 @@ public class EsbUtil extends Login {
 		  
 		this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), other.getString("esb.conf.serviceActivityMonitorServer.input"), MonitorServer);
 		  
-//	    this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.value"),
-//			   MonitorServer, MonitorServerStatusIconLocator);
-//		
+	    this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.value"),
+			   MonitorServer, MonitorServerStatusIconLocator);
+		
 	}
 	
 	public void uploadLicense(String license) {

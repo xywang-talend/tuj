@@ -6,7 +6,7 @@ import java.awt.Event;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
+import com.talend.tac.base.Karaf;
 public class TestServiceLocator extends EsbUtil {	
 
 		
@@ -447,7 +447,7 @@ public class TestServiceLocator extends EsbUtil {
         selenium.type("//div[contains(@class,'x-menu-list-item x-menu-list-item-indent')]//input[contains(@class,'x-form-text x-form-focus')]", "F");
         selenium.keyDownNative(""+Event.ENTER);
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(6000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -461,6 +461,37 @@ public class TestServiceLocator extends EsbUtil {
 		Assert.assertTrue(totalPage.equals("1"));		
 		Assert.assertTrue(totalService.trim().equals("3"));
     }
-
     
+    @Test
+    @Parameters({"karafUrl","providerName"})
+    public void testUptimeOfService(String KarafURL,String ProviderName) {
+    	Karaf karaf=new Karaf(KarafURL);
+    	karaf.karafAction("stop "+ProviderName+"-control-bundle", WAIT_TIME);  //stop service
+    	this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");  //into SL page
+		selenium.setSpeed(MID_SPEED);
+		this.waitForElementPresent("//div[text()='jobFirstProvider']//ancestor::div[@class='x-grid-group-hd']//following-sibling::div[1]//div[@class='x-grid3-cell-inner x-grid3-col-upTime']", WAIT_TIME);
+		String uptime_before=selenium.getText("//div[text()='jobFirstProvider']//ancestor::div[@class='x-grid-group-hd']//following-sibling::div[1]//div[@class='x-grid3-cell-inner x-grid3-col-upTime']");
+		Assert.assertTrue(uptime_before.equals("Last seen less than 1 min ago"));		
+    	karaf.karafAction("start "+ProviderName+"-control-bundle", WAIT_TIME);  //start service
+    	selenium.click("//b[text()='Refresh']");
+		String uptime_after=selenium.getText("//div[text()='jobFirstProvider']//ancestor::div[@class='x-grid-group-hd']//following-sibling::div[1]//div[@class='x-grid3-cell-inner x-grid3-col-upTime']");
+        System.out.println("---------uptime_after:"+uptime_after);
+		Assert.assertTrue(uptime_after.equals("less than 1 min"));
+    }
+    
+    @Test
+    @Parameters({})
+    public void testDeleteUnavaiableService() {
+    	this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");  //into SL page
+    	selenium.setSpeed(MID_SPEED);
+    	this.waitForElementPresent("//div[text()='http://localhost:8040/services/jobFourthProvider' and @class='x-grid3-cell-inner x-grid3-col-endpoint']", WAIT_TIME);
+    	selenium.mouseDown("//div[text()='http://localhost:8040/services/jobFourthProvider' and @class='x-grid3-cell-inner x-grid3-col-endpoint']");
+    	this.waitForElementPresent("//span[text()='Metadata']", WAIT_TIME);
+    	selenium.click("//span[text()='Metadata']");
+    	this.waitForElementPresent("//span[text()='Metadata']//ancestor::div[@class=' x-tab-panel x-component']//following-sibling::div[@class=' x-component']//table//button[text()='Delete']", WAIT_TIME);
+    	selenium.chooseOkOnNextConfirmation();
+    	selenium.click("//span[text()='Metadata']//ancestor::div[@class=' x-tab-panel x-component']//following-sibling::div[@class=' x-component']//table//button[text()='Delete']");
+        selenium.click("//button[text()='Yes']");
+    	this.waitForElementDispear("//div[text()='http://localhost:8040/services/jobFourthProvider' and @class='x-grid3-cell-inner x-grid3-col-endpoint']", WAIT_TIME);
+    }
 }
