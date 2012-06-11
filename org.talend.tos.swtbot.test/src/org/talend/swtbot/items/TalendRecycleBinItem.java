@@ -24,7 +24,7 @@ public class TalendRecycleBinItem extends TalendItem {
     }
 
     public void restore() {
-        item.contextMenu("Restore").click();
+        getItem().contextMenu("Restore").click();
         setItem(null);
     }
 }

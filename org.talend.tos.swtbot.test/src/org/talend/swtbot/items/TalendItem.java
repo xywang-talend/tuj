@@ -75,14 +75,16 @@ public class TalendItem implements Cloneable {
 
     public void setItem(SWTBotTreeItem item) {
         this.item = item;
-        if (getItemFullName() != item.getText()) {
-            if (item.getText().indexOf(" ") == -1) {
-                setItemName(item.getText());
-            } else {
-                String[] temp = item.getText().split(" ");
-                setItemName(temp[0]);
-                setItemVersion(temp[1]);
-            }
+        if (item == null)
+            return;
+        if (getItemFullName() == item.getText())
+            return;
+        if (item.getText().indexOf(" ") == -1) {
+            setItemName(item.getText());
+        } else {
+            String[] temp = item.getText().split(" ");
+            setItemName(temp[0]);
+            setItemVersion(temp[1]);
         }
     }
 

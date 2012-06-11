@@ -34,13 +34,7 @@ public class ImportLowBuildConnectionTest extends TalendSwtBotForTos {
 
     @Before
     public void importConnection() throws IOException, URISyntaxException {
-        gefBot.toolbarButtonWithTooltip("Import Items").click();
-        gefBot.shell("Import items").activate();
-        gefBot.radio("Select archive file:").click();
-        gefBot.text(1).setText(Utilities.getFileFromCurrentPluginSampleFolder("mysql_conn.zip").getAbsolutePath());
-        gefBot.tree().setFocus();
-        gefBot.button("Select All").click();
-        gefBot.button("Finish").click();
+        Utilities.importItems("mysql_conn.zip");
     }
 
     @Test
