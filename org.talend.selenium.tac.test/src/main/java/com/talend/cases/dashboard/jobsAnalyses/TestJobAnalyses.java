@@ -1,6 +1,8 @@
 package com.talend.cases.dashboard.jobsAnalyses;
 
 import static org.testng.Assert.*;
+import junit.framework.Assert;
+
 import org.testng.annotations.Test;
 import org.testng.annotations.Parameters;
 import com.talend.tac.base.Base;
@@ -68,8 +70,8 @@ public class TestJobAnalyses extends Login {
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+ connection + "')]");
 		selenium.chooseOkOnNextConfirmation();
 		selenium.click("//div[text()='Connections']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");
-		assert (selenium.getConfirmation().equals(warningmessage));
-//		assertTrue(this.waitForTextPresent(warningmessage1, WAIT_TIME));
+
+		Assert.assertTrue(selenium.getConfirmation().contains(warningmessage));	//		assertTrue(this.waitForTextPresent(warningmessage1, WAIT_TIME));
 		selenium.refresh();
 		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+ connection + "')]", WAIT_TIME);
 		selenium.setSpeed(MIN_SPEED);

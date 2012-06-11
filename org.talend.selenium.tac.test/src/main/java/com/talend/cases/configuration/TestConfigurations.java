@@ -2,18 +2,11 @@ package com.talend.cases.configuration;
 
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.util.Hashtable;
 
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
-
-import com.talend.tac.base.AntAction;
-import com.talend.tac.base.Base;
-import com.talend.tac.cases.Login;
 
 public class TestConfigurations extends configuration {
 	
@@ -162,7 +155,7 @@ public class TestConfigurations extends configuration {
  
 	  this.AssertEqualsInConfigurationMenu(other.getString("log4j.conf.logsPath.editButton"), locatorOfAllInputTags,
 			  this.getAbsolutePath(logsPath)+logsName, other.getString("log4j.conf.TalendAppenderStatusIconLocator"));
-	  assertTrue(selenium.isElementPresent(other.getString("log4j.conf.ThresholdStatusIconLocator")));
+	  Assert.assertTrue(selenium.isElementPresent(other.getString("log4j.conf.TechnicalLogThreshold.StatusIcon")));
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Log4j (2')]");
 	  this.clickWaitForElementPresent("//div[contains(text(),'Log4j (2 Parameters)')]");  
   }
