@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
@@ -85,6 +86,7 @@ public class UpdateTheStatusOfEachItemTest extends TalendSwtBotForTos {
         gefBot.button("OK").click();
         gefBot.shell("Confirm the new version of items").activate();
         gefBot.button("Confirm").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
 
         String errorMsg = "";
         for (TalendItemType itemType : itemTypes) {

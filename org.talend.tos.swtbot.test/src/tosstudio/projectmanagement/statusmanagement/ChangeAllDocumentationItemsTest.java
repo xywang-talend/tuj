@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.junit.Assert;
 import org.junit.Before;
@@ -32,8 +33,6 @@ import org.talend.swtbot.items.TalendBusinessModelItem;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class ChangeAllDocumentationItemsTest extends TalendSwtBotForTos {
 
-    private SWTBotShell shell;
-
     private TalendBusinessModelItem businessModelItem;
 
     private static final String BUSINESSMODELNAME = "businessModel1"; //$NON-NLS-1$
@@ -49,30 +48,19 @@ public class ChangeAllDocumentationItemsTest extends TalendSwtBotForTos {
     @Test
     public void changeAllDocumentationItems() {
         gefBot.toolbarButtonWithTooltip("Project settings").click();
-        shell = gefBot.shell("Project Settings");
-        shell.activate();
-        try {
-            gefBot.tree().expandNode("General").select("Status Management").click();
-            Utilities.deselectDefaultSelection("Change all techinal items to a fixed status.");
-            gefBot.radio("Change all documentation items to a fixed status.").click();
+        SWTBotShell shell = gefBot.shell("Project Settings").activate();
+        gefBot.tree().expandNode("General").select("Status Management").click();
+        Utilities.deselectDefaultSelection("Change all techinal items to a fixed status.");
+        gefBot.radio("Change all documentation items to a fixed status.").click();
 
-            gefBot.tree(1).getTreeItem("Business Models").check();
-            gefBot.comboBox().setSelection("checked");
-            gefBot.button("OK").click();
-            gefBot.shell("Confirm").activate();
-            gefBot.button("OK").click();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            shell.close();
-        }
+        gefBot.tree(1).getTreeItem("Business Models").check();
+        gefBot.comboBox().setSelection("checked");
+        gefBot.button("OK").click();
+        gefBot.shell("Confirm").activate();
+        gefBot.button("OK").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
 
-        businessModelItem.getItem().contextMenu("Edit properties").click();
-        shell = gefBot.shell("Edit properties");
-        shell.activate();
-        Assert.assertEquals("Business Models status", "checked", gefBot.ccomboBoxWithLabel("Status").getText());
-        shell.close();
-
+        Assert.assertEquals("Business Models status", "checked", businessModelItem.getStatus());
     }
 
 }
