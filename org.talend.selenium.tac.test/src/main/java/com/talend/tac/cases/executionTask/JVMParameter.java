@@ -121,7 +121,7 @@ public class JVMParameter extends Login{
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idJobConductorCmdPrmDeleteButton");
 		selenium.setSpeed(MIN_SPEED);
-		Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected JVM parameter [\\s\\S]$"));
+		Assert.assertTrue(selenium.getConfirmation().contains("Are you sure you want to remove the selected JVM parameter"));
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertTrue(!selenium.isElementPresent("//span[text()='JVM parameter']//ancestor::div[@class='x-grid3-viewport']" +
 				"//div[@class='x-grid3-cell-inner x-grid3-col-parameter']"));

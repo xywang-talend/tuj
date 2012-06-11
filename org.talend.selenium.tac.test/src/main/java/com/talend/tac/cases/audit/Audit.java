@@ -194,7 +194,7 @@ public class Audit extends Login {
 		
 		System.err.println(commandlineHost);
 		this.clickWaitForElementPresent("idMenuConfigElement");
-		this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
+		this.mouseDownWaitForElementPresent("//div[contains(text(),'Command line/primary')]");
 		this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),locatorOfAllInputTags, commandlineHost);
 		this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),locatorOfAllInputTags, commandlineHost, statusIcon);
 		

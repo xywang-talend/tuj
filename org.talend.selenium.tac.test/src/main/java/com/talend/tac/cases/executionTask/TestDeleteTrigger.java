@@ -22,7 +22,7 @@ public class TestDeleteTrigger extends Login {
     	
     	selenium.chooseOkOnNextConfirmation();
     	selenium.click("idTriggerDelete");
-		Assert.assertTrue(selenium.getConfirmation().matches("^Are you sure you want to remove the selected trigger [\\s\\S]$"));
+		Assert.assertTrue(selenium.getConfirmation().contains("Are you sure you want to remove the selected trigger"));
 		
 		selenium.click("idTriggerRefresh");
 		

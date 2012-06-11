@@ -19,7 +19,7 @@ public class TestDeteleTask  extends Login {
 		selenium.chooseCancelOnNextConfirmation();
 		selenium.click("idSubModuleDeleteButton");//clcik "Delete"
 		selenium.setSpeed(MID_SPEED);
-		Assert.assertTrue(selenium.getConfirmation().matches(other.getString("delete.plan.warning")));
+		Assert.assertTrue(selenium.getConfirmation().contains(other.getString("delete.plan.warning")));
 		Assert.assertTrue(selenium.isElementPresent("//span[text()='testTaskNotChooseActive']"));
 		selenium.setSpeed(MIN_SPEED);
 		
@@ -36,8 +36,8 @@ public class TestDeteleTask  extends Login {
 		selenium.chooseOkOnNextConfirmation();
 		selenium.chooseOkOnNextConfirmation();
 		selenium.click("idSubModuleDeleteButton");//clcik "Delete"
-		Assert.assertTrue(selenium.getConfirmation().matches(other.getString("delete.plan.warning")));
-		Assert.assertEquals(selenium.getConfirmation(), "Do you want to remove all of the related logs and archives");
+		Assert.assertTrue(selenium.getConfirmation().contains(other.getString("delete.plan.warning")));
+		Assert.assertTrue(selenium.getConfirmation().contains("Do you want to remove all of the related logs and archives"));
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(selenium.isElementPresent("//span[text()='testTaskNotChooseActive']"));//the plan cannot appear
 		selenium.setSpeed(MIN_SPEED);
