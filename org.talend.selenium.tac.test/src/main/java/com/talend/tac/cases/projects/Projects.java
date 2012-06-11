@@ -139,7 +139,7 @@ public class Projects extends Login {
 				+ projectLabel + "')]");
 		selenium.chooseCancelOnNextConfirmation();
 		selenium.click("idSubModuleDeleteButton");
-		assert (selenium.getConfirmation().matches(other
+		Assert.assertTrue(selenium.getConfirmation().contains(other
 				.getString("delete.project.warning")));
 		this.sleep(5000);
 		this.waitForElementPresent(
@@ -157,8 +157,12 @@ public class Projects extends Login {
 				+ projectLabel + "')]");
 		selenium.chooseOkOnNextConfirmation();
 		selenium.click("idSubModuleDeleteButton");
-		assert (selenium.getConfirmation().matches(other
+		Assert.assertTrue(selenium.getConfirmation().contains(other
 				.getString("delete.project.warning")));
+		selenium.setSpeed(MID_SPEED);
+		Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				+ projectLabel + "')]"));
+		selenium.setSpeed(MIN_SPEED);
 	}
 
 	public void deleteAllProjects() {
@@ -175,7 +179,7 @@ public class Projects extends Login {
 			}
 		}
 		selenium.setSpeed(MIN_SPEED);
-
+         
 	}
 
 	public void deleteProjectsNotUsed() {
@@ -202,8 +206,12 @@ public class Projects extends Login {
 				selenium.chooseOkOnNextConfirmation();
 				selenium.click("//div[text()='Projects']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");
 				// selenium.setSpeed(MAX_SPEED);
-				assert (selenium.getConfirmation().matches(other
+				Assert.assertTrue(selenium.getConfirmation().contains(other
 						.getString("delete.project.warning")));
+				selenium.setSpeed(MIN_SPEED);
+                selenium.setSpeed(MID_SPEED);
+				Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and text()='"
+						+ projects.get(i) + "']"));
 				selenium.setSpeed(MIN_SPEED);
 			}
 

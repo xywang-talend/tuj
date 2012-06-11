@@ -34,8 +34,8 @@ public class TestBranchManageAddExistbranch extends Login {
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("idBranchManagementCreateButton");
 
-		if (selenium.isElementPresent("//span[text()='"
-				+ other.getString("project.branchmanage.add.conform") + "']")) {
+		if (selenium.isElementPresent("//span[contains(text(),'"
+				+ other.getString("project.branchmanage.add.conform") + "')]")) {
 
 			selenium.click("//button[text()='"
 					+ other.getString("project.branchmanage.add.conform.ok")
@@ -88,8 +88,8 @@ public class TestBranchManageAddExistbranch extends Login {
 		this.waitForElementPresent("//input[@id='idBranchManagementTargetInput']//ancestor::div[contains(@class,'x-form-element x-form-el-x')]//img", WAIT_TIME);
 //		selenium.setSpeed(MID_SPEED);
 		selenium.click("idBranchManagementCreateButton");
-		Assert.assertFalse(this.waitElement("//span[text()='"
-				+ other.getString("project.branchmanage.add.conform") + "']", WAIT_TIME));
+		Assert.assertFalse(this.waitElement("//span[contains(text(),'"
+				+ other.getString("project.branchmanage.add.conform") + "')]", 20));
 		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 
 	}

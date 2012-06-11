@@ -1,4 +1,6 @@
 package com.talend.tac.cases.projects;
+import javax.sound.midi.SysexMessage;
+
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -29,8 +31,10 @@ public class TestBranchManageAdd extends Login {
 		this.typeString("idBranchManagementTargetInput", branchname);
 //		selenium.setSpeed(MID_SPEED);
 		selenium.click("idBranchManagementCreateButton");
-		this.waitForElementPresent("//span[text()='"
-				+ other.getString("project.branchmanage.add.conform") + "']", WAIT_TIME);
+		System.err.println("//span[contains(text(),'"
+				+ other.getString("project.branchmanage.add.conform") + "')]");
+		this.waitForElementPresent("//span[contains(text(),'"
+				+ other.getString("project.branchmanage.add.conform") + "')]", WAIT_TIME);
 		selenium.click("//button[text()='"
 				+ other.getString("project.branchmanage.add.conform.ok")
 				+ "']");
@@ -76,8 +80,8 @@ public class TestBranchManageAdd extends Login {
 		this.typeString("idBranchManagementTargetInput", branchname);
 //		selenium.setSpeed(MID_SPEED);
 		selenium.click("idBranchManagementCreateButton");
-		this.waitForElementPresent("//span[text()='"
-				+ other.getString("project.branchmanage.add.conform") + "']", WAIT_TIME);
+		this.waitForElementPresent("//span[contains(text(),'"
+				+ other.getString("project.branchmanage.add.conform") + "')]", WAIT_TIME);
 		selenium.click("//button[text()='"
 				+ other.getString("project.branchmanage.add.conform.ok")
 				+ "']");
@@ -111,8 +115,8 @@ public class TestBranchManageAdd extends Login {
 		this.waitForElementPresent("//input[@id='idBranchManagementTargetInput']//ancestor::div[contains(@class,'x-form-element x-form-el-x')]//img", WAIT_TIME);
 //		selenium.setSpeed(MID_SPEED);
 		selenium.click("idBranchManagementCreateButton");
-		Assert.assertFalse(this.waitElement("//span[text()='"
-				+ other.getString("project.branchmanage.add.conform") + "']", WAIT_TIME));
+		Assert.assertFalse(this.waitElement("//span[contains(text(),'"
+				+ other.getString("project.branchmanage.add.conform") + "')]", 20));
 		selenium.click("//div[@class=' x-nodrag x-tool-close x-tool x-component']");
 
 	}
