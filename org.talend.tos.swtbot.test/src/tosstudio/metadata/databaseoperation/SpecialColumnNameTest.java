@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -24,6 +24,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.JobHelper;
@@ -50,21 +51,25 @@ public class SpecialColumnNameTest extends TalendSwtBotForTos {
 
     @Before
     public void createJobAndMetadata() {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
+
+        jobItem = new TalendJobItem(JOB_NAME);
+        jobItem.create();
+
         dbItem = new TalendDBItem(DB_NAME, Utilities.DbConnectionType.MYSQL);
         dbItem.create();
         String sql = "create table " + TABLE_NAME + "(id int, class varchar(20), _static varchar(20));\n" + "insert into "
                 + TABLE_NAME + " values(1, 'a', 'a');";
         dbItem.executeSQL(sql);
         dbItem.retrieveDbSchema(TABLE_NAME);
-
-        jobItem = new TalendJobItem(JOB_NAME);
-        jobItem.create();
     }
 
     @Test
     public void useMetadataInJob() throws IOException, URISyntaxException {
         TalendSchemaItem schemaItem = dbItem.getSchema(TABLE_NAME);
-
+        if (schemaItem.getItem() == null)
+            Assert.fail("schema did not retrieve");
         /*
          * Assert column name of schema
          */
@@ -95,9 +100,5 @@ public class SpecialColumnNameTest extends TalendSwtBotForTos {
     public void removePreviousCreateItem() {
         String sql = "drop table " + TABLE_NAME;
         dbItem.executeSQL(sql);
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(dbItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 }

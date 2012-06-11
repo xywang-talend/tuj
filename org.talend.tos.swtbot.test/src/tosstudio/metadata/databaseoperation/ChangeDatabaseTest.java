@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -15,7 +15,6 @@ package tosstudio.metadata.databaseoperation;
 import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
 
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
@@ -25,6 +24,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendDBItem;
@@ -43,6 +43,7 @@ public class ChangeDatabaseTest extends TalendSwtBotForTos {
 
     @Before
     public void createDBConnection() {
+        repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
         dbItem = new TalendDBItem(DBNAME, Utilities.DbConnectionType.MYSQL);
         dbItem.create();
         String sql = "create database " + DATABASE_NAME;
@@ -53,38 +54,33 @@ public class ChangeDatabaseTest extends TalendSwtBotForTos {
     public void changeDatabase() {
         SWTBotShell schemaShell = null;
         SWTBotTreeItem treeItem = null;
-        try {
-            dbItem.getItem().doubleClick();
-            schemaShell = gefBot.shell("Database Connection").activate();
-            gefBot.button("Next >").click();
-            gefBot.textWithLabel("DataBase").setText(DATABASE_NAME);
-            gefBot.button("Finish").click();
+        dbItem.getItem().doubleClick();
+        schemaShell = gefBot.shell("Database Connection").activate();
+        gefBot.button("Next >").click();
+        gefBot.textWithLabel("DataBase").setText(DATABASE_NAME);
+        gefBot.button("Finish").click();
+        if ("TIS".equals(TalendSwtBotForTos.getBuildType())) {
             gefBot.shell("Confirm Reload Connection").activate();
+            Utilities.deselectDefaultSelection("reload");
+            gefBot.radio("don't reload").click();
             gefBot.button("OK").click();
-            gefBot.shell("Modification").activate();
-            gefBot.button("No").click();
-
-            dbItem.getItem().contextMenu("Retrieve Schema").click();
-            schemaShell = gefBot.shell("Schema").activate();
-            gefBot.button("Next >").click();
-            gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 10000);
-            treeItem = gefBot.treeInGroup("Select Schema to create").getTreeItem(DATABASE_NAME);
-            schemaShell.close();
-            Assert.assertNotNull("database did not change", treeItem);
-        } catch (WidgetNotFoundException wnfe) {
-            schemaShell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            schemaShell.close();
-            Assert.fail(e.getMessage());
         }
+        gefBot.shell("Modification").activate();
+        gefBot.button("No").click();
+
+        dbItem.getItem().contextMenu("Retrieve Schema").click();
+        schemaShell = gefBot.shell("Schema").activate();
+        gefBot.button("Next >").click();
+        gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 10000);
+        treeItem = gefBot.treeInGroup("Select Schema to create").getTreeItem(DATABASE_NAME);
+        schemaShell.close();
+
+        Assert.assertNotNull("database did not change", treeItem);
     }
 
     @After
     public void removePreviouslyCreateItems() {
         String sql = "drop database " + DATABASE_NAME;
         dbItem.executeSQL(sql);
-        Utilities.cleanUpRepository(dbItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 }

@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -15,7 +15,6 @@ package tosstudio.metadata.databaseoperation;
 import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
 
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
@@ -25,6 +24,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendDBItem;
@@ -45,6 +45,7 @@ public class SchemaConsistenceTest extends TalendSwtBotForTos {
 
     @Before
     public void createMetadata() {
+        repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
         dbItem = new TalendDBItem(DB_NAME, Utilities.DbConnectionType.MYSQL);
         dbItem.create();
         String sql = "create table " + TABLE1 + "(id int, name varchar(20));\n" + "create table " + TABLE2
@@ -55,41 +56,32 @@ public class SchemaConsistenceTest extends TalendSwtBotForTos {
     @Test
     public void schemaConsistenceTest() {
         SWTBotShell tempShell = null;
-        try {
-            dbItem.getItem().contextMenu("Retrieve Schema").click();
-            tempShell = gefBot.shell("Schema").activate();
-            gefBot.button("Next >").click();
-            gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 10000);
-            SWTBotTreeItem catalog = gefBot.treeInGroup("Select Schema to create").expandNode(
-                    System.getProperty("mysql.dataBase"));
-            catalog.getNode(TABLE1).check();
-            catalog.getNode(TABLE2).check();
-            gefBot.button("Next >").click();
+        dbItem.getItem().contextMenu("Retrieve Schema").click();
+        tempShell = gefBot.shell("Schema").activate();
+        gefBot.button("Next >").click();
+        gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 10000);
+        SWTBotTreeItem catalog = gefBot.treeInGroup("Select Schema to create").expandNode(System.getProperty("mysql.dataBase"));
+        catalog.getNode(TABLE1).check();
+        catalog.getNode(TABLE2).check();
+        gefBot.waitUntil(Conditions.widgetIsEnabled(gefBot.button("Next >")), 30000);
+        gefBot.button("Next >").click();
 
-            int schemaCount = gefBot.tableInGroup("Schema", 0).rowCount();
-            Assert.assertEquals("did not add all selected schemas", 2, schemaCount);
+        int schemaCount = gefBot.tableInGroup("Schema", 0).rowCount();
+        Assert.assertEquals("did not add all selected schemas", 2, schemaCount);
 
-            gefBot.button("< Back").click();
-            catalog.getNode(TABLE2).uncheck();
-            gefBot.button("Next >").click();
+        gefBot.button("< Back").click();
+        catalog.getNode(TABLE2).uncheck();
+        gefBot.button("Next >").click();
 
-            schemaCount = gefBot.tableInGroup("Schema", 0).rowCount();
-            Assert.assertEquals("the de-selected schemas still in the list", 1, schemaCount);
-            tempShell.close();
-        } catch (WidgetNotFoundException wnfe) {
-            tempShell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            tempShell.close();
-            Assert.fail(e.getMessage());
-        }
+        schemaCount = gefBot.tableInGroup("Schema", 0).rowCount();
+        Assert.assertEquals("the de-selected schemas still in the list", 1, schemaCount);
+        tempShell.close();
     }
 
     @After
     public void removePreviousCreateItem() {
+        gefBot.closeAllShells();
         String sql = "drop table " + TABLE1 + ";\n" + "drop table " + TABLE2;
         dbItem.executeSQL(sql);
-        Utilities.cleanUpRepository(dbItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 }

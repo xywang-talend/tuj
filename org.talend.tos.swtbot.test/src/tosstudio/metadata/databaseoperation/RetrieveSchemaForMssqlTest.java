@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -19,6 +19,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendDBItem;
@@ -38,6 +39,7 @@ public class RetrieveSchemaForMssqlTest extends TalendSwtBotForTos {
 
     @Before
     public void createMetadata() {
+        repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
         dbItem = new TalendDBItem(DB_NAME, Utilities.DbConnectionType.MSSQL);
         dbItem.create();
         String sql = "create table " + TABLE_NAME + "(id int, name varchar(20))";
@@ -55,7 +57,5 @@ public class RetrieveSchemaForMssqlTest extends TalendSwtBotForTos {
     public void removePreviousCreateItem() {
         String sql = "drop table " + TABLE_NAME;
         dbItem.executeSQL(sql);
-        Utilities.cleanUpRepository(dbItem.getParentNode());
-        Utilities.emptyRecycleBin();
     }
 }

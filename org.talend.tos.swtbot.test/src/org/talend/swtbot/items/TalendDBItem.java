@@ -201,7 +201,7 @@ public class TalendDBItem extends TalendMetadataItem {
         }
 
         SWTBotShell shell = null;
-        item.contextMenu("Edit queries").click();
+        getItem().contextMenu("Edit queries").click();
 
         long defaultTimeout = SWTBotPreferences.TIMEOUT;
         SWTBotPreferences.TIMEOUT = 100;
@@ -256,7 +256,7 @@ public class TalendDBItem extends TalendMetadataItem {
     }
 
     public void retrieveDbSchema(String... schemas) {
-        getParentNode().getNode(itemName + " 0.1").contextMenu("Retrieve Schema").click();
+        getItem().contextMenu("Retrieve Schema").click();
         gefBot.waitUntil(Conditions.shellIsActive("Schema"), 5000);
         gefBot.shell("Schema").activate();
         gefBot.button("Next >").click();

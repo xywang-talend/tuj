@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -13,12 +13,11 @@
 package tosstudio.metadata.genericschema;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendGenericSchemaItem;
 
 /**
@@ -33,6 +32,7 @@ public class CreateGenericSchemaTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
+        repositories.add(ERepositoryObjectType.METADATA_GENERIC_SCHEMA);
         genericSchemaItem = new TalendGenericSchemaItem(SCHEMANAME);
     }
 
@@ -41,9 +41,4 @@ public class CreateGenericSchemaTest extends TalendSwtBotForTos {
         genericSchemaItem.create();
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        Utilities.cleanUpRepository(genericSchemaItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }
