@@ -14,7 +14,7 @@ public class RecordImplDataTypes extends Record{
 		this.driver = driver;
 	}
 
-	public void deleteRecordImpl(String container,String modle,String entity,String Identifie,String IdentifieValue){
+	public void deleteRecordImpl(String container,String modle,String entity,String IdValue){
 		OperationType="PHYSICAL_DELETE";
 		source="genericUI";
 		chooseContainer(container);	
@@ -23,47 +23,15 @@ public class RecordImplDataTypes extends Record{
 		chooseEntity(entity);	
 		this.sleepCertainTime(3000);
 		this.clickElementByXpath(locator.getString("xpath.record.click.lastpage"));
-		chooseRcord(entity,Identifie,IdentifieValue);			
+		chooseRcord(entity,"id",IdValue);			
 	    this.sleepCertainTime(5000);
 	    deleteTheRecord(entity);
 	    this.sleepCertainTime(5000);
-	    openJournal(entity,IdentifieValue,OperationType,source);
+	    openJournal(entity,IdValue,OperationType,source);
 	    JournalResultCount();
 	}
 	
-	public void duplicateRecordImpl(String container,String modle,String entity,String Identifie,String IdentifieValue,String IdentifieValueDup ) {
-		String[] parametersID={entity,Identifie};	
-		String[] parametersIDclose={entity,IdentifieValue};	
-		String[] parametersIDAssert={entity,Identifie,IdentifieValueDup};
-		String[] parametersIDValueAssert={Identifie,IdentifieValueDup};
-		OperationType="CREATE";
-	    source="genericUI";
-		chooseContainer(container);	
-		chooseModle(modle);
-		clickSave();
-		chooseEntity(entity);
-		this.sleepCertainTime(10000);
-		this.clickElementByXpath(locator.getString("xpath.record.click.lastpage"));
-		this.sleepCertainTime(10000);
-		chooseRcord(entity,Identifie,IdentifieValue);
-		this.sleepCertainTime(5000);
-		this.clickElementByXpath(locator.getString("xpath.record.Duplicate.click"));	
-		this.clickElementByXpath(this.getString(locator,"xpath.record.Duplicate.close.origin",parametersIDclose));
-		this.sleepCertainTime(10000);
-		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.Duplicate.input",parametersID)), IdentifieValueDup);
-		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
-		this.sleepCertainTime(10000);
-//		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));	
-		this.sleepCertainTime(3000);
-		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.choose.record.assert.feild2",parametersIDAssert)), WAIT_TIME_MAX),"duplicateARecord");
-		this.sleepCertainTime(3000); 
-		openJournal(entity,IdentifieValueDup,OperationType,source);
-		this.sleepCertainTime(3000); 
-		JournalCheckResult(IdentifieValueDup,OperationType);
-		this.sleepCertainTime(5000);		
-		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.record.ceate.jouranl",parametersIDValueAssert )), WAIT_TIME_MIN));
-		
-	}	
+	
 	
 	public void createRecordAllFieldImpl(String container,String modle,String entity,String IdValue) {
 	        OperationType="CREATE";
@@ -238,58 +206,5 @@ public class RecordImplDataTypes extends Record{
 	
 }
 	
-	public void updateRecordImpl(String container,String modle,String entity,String Identifie,String IdentifieValue ,String Zipcode,String ZipcodeValue) {
-		String city,state,region,moreinfo;
-		String cityOld,stateOld,regionOld,moreinfoOld;
-		String[] parametersZip={entity,Zipcode};	
-		OperationType="UPDATE";
-	    source="DStar_EnrichAgencyLocation";
-		chooseContainer(container);	
-		chooseModle(modle);
-		clickSave();
-		chooseEntity(entity);
-		this.sleepCertainTime(3000);
-		this.clickElementByXpath(locator.getString("xpath.record.click.lastpage"));
-		//get the old value
-		chooseRcord(entity,Identifie,IdentifieValue);
-		this.sleepCertainTime(3000);
-		cityOld=this.getValueInput(By.xpath("//input[@name='Agency/City']"));
-		stateOld=this.getValueInput(By.xpath("//input[@name='Agency/State']"));
-		regionOld=this.getValueInput(By.xpath("//input[@name='Agency/Region']"));
-		this.sleepCertainTime(3000);
-		this.clickElementByXpath("//a[text()='Map']//following-sibling::img");
-		moreinfoOld=this.getValueInput(By.xpath("//label[text()='Url:']//following-sibling::div//div//input"));	
-		this.clickElementByXpath("//button[text()='Cancel']");	
-		this.sleepCertainTime(5000);
-		this.modifyText(this.getElementByXpath(this.getString(locator, "xpath.record.choose.create.input.feild2",parametersZip)), ZipcodeValue);
-		this.sleepCertainTime(5000);
-		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));	
-		this.clickElementByXpath(locator.getString("xpath.record.click.refresh"));			
-		//get the value after update
-		this.sleepCertainTime(5000);
-		chooseRcord(entity,Identifie,IdentifieValue);
-		this.sleepCertainTime(5000);
-		city=this.getValueInput(By.xpath("//input[@name='Agency/City']"));
-		state=this.getValueInput(By.xpath("//input[@name='Agency/State']"));
-		region=this.getValueInput(By.xpath("//input[@name='Agency/Region']"));
-		this.sleepCertainTime(3000);
-		this.clickElementByXpath("//a[text()='Map']//following-sibling::img");
-		this.sleepCertainTime(3000);
-		moreinfo=this.getValueInput(By.xpath("//label[text()='Url:']//following-sibling::div//div//input"));	
-		this.clickElementByXpath("//button[text()='Cancel']");	
-		//assert in the journal
-	    this.sleepCertainTime(3000);
-	    openJournal(entity,IdentifieValue,OperationType,source);
-	    this.sleepCertainTime(5000);
-	    JournalCheckResult(IdentifieValue,OperationType);
-		this.sleepCertainTime(5000); 		 
-		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.city", cityOld)), WAIT_TIME_MIN));
-		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.State", stateOld)), WAIT_TIME_MIN));
-		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.Region",regionOld)), WAIT_TIME_MIN));
-		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.MoreInfo",moreinfoOld)), WAIT_TIME_MIN));
-		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.city", city)), WAIT_TIME_MIN));
-		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.State", state)), WAIT_TIME_MIN));
-		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.Region",region)), WAIT_TIME_MIN));
-		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.MoreInfo",moreinfo)), WAIT_TIME_MIN));
-	}
+
 }

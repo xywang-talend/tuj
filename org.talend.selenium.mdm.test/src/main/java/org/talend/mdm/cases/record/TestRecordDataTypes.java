@@ -14,9 +14,9 @@ public class TestRecordDataTypes extends Login {
 		recordImpl = new RecordImplDataTypes(driver);	
 	}		
 	@Test
-	@Parameters( { "container","modle","entity","Identifie" ,"IdentifieValue"})
-	public void testDeleteRecord(String container,String modle,String entity,String Identifie,String IdentifieValue ) {
-		recordImpl.deleteRecordImpl(container,modle,entity, Identifie,IdentifieValue);
+	@Parameters( { "container","modle","entity","IdValue" })
+	public void testDeleteRecord(String container,String modle,String entity,String IdValue ) {
+		recordImpl.deleteRecordImpl(container,modle,entity,IdValue);
 	}
 
 	@Test
@@ -30,15 +30,6 @@ public class TestRecordDataTypes extends Login {
 	public void testCreateRecordAllField(String container,String modle,String entity,String IdValue) {
 		recordImpl.createRecordAllFieldImpl(container, modle, entity,IdValue);
 	}
-	@Test
-	@Parameters( { "container","modle","entity","Identifie" ,"IdentifieValue","IdentifieValueDup" })
-	public void testDuplicateRecord(String container,String modle,String entity,String Identifie,String IdentifieValue,String IdentifieValueDup ) {
-		recordImpl.duplicateRecordImpl(container, modle, entity, Identifie,IdentifieValue, IdentifieValueDup);
-	}
-	@Test
-	@Parameters( { "container","modle","entity","Identifie" ,"IdentifieValue","Zipcode","ZipcodeValue"})
-	public void testUpdateRecord(String container,String modle,String entity,String Identifie,String IdentifieValue,String Zipcode,String ZipcodeValue ) {
-		recordImpl.updateRecordImpl(container, modle, entity,Identifie,IdentifieValue,Zipcode,ZipcodeValue);
-	}
+
 	
 }
