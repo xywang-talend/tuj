@@ -17,10 +17,10 @@ import junit.framework.Assert;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobItem;
@@ -44,6 +44,9 @@ public class GenerateAllDocTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateFields() {
+        repositories.add(ERepositoryObjectType.PROCESS);
+        repositories.add(ERepositoryObjectType.JOBLET);
+        repositories.add(ERepositoryObjectType.DOCUMENTATION);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
         jobletItem = new TalendJobletItem(JOBLETNAME);
@@ -62,6 +65,7 @@ public class GenerateAllDocTest extends TalendSwtBotForTos {
         SWTBotTreeItem newDocItemForJob = null;
         SWTBotTreeItem newDocItemForJoblet = null;
         try {
+            docNode.expand();
             newDocItemForJob = docNode.expandNode("generated", "jobs").select(JOBNAME + " 0.1");
             newDocItemForJoblet = docNode.expandNode("generated", "joblets").select(JOBLETNAME + " 0.1");
         } catch (Exception e) {
@@ -72,12 +76,4 @@ public class GenerateAllDocTest extends TalendSwtBotForTos {
         }
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        jobletItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(jobletItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

@@ -30,6 +30,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.SWTBotLabelExt;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
@@ -51,6 +52,7 @@ public class FilterItemsTest extends TalendSwtBotForTos {
 
     @Before
     public void initialisePrivateField() {
+        repositories.add(ERepositoryObjectType.PROCESS);
         view = Utilities.getRepositoryView();
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
     }
@@ -69,7 +71,7 @@ public class FilterItemsTest extends TalendSwtBotForTos {
         tempShell = gefBot.shell("Repository Filter").activate();
         try {
             for (TalendItemType itemType : TalendItemType.values()) {
-                if (TalendItemType.ROUTINES.equals(itemType) || TalendItemType.RECYCLE_BIN.equals(itemType))
+                if (TalendItemType.RECYCLE_BIN.equals(itemType))
                     continue; // undo with routine and recycle bin
                 tempTreeNode = Utilities.getTalendItemNode(gefBot.tree(0), itemType);
                 tempTreeNode.uncheck();
