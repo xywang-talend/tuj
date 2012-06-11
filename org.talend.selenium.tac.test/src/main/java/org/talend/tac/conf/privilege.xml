@@ -40,7 +40,7 @@
 		<suite-file path="cleaner.xml" />
 	</suite-files>
 -->	
-	<test name="UserCleaner" preserve-order="flase">
+	<test name="privilege01_UserCleaner" preserve-order="flase">
 		<classes>
 			<class name="com.talend.tac.cases.users.TestAddUser">
 				<methods>
@@ -50,13 +50,13 @@
 		</classes>
 	</test>
 	
-	<test name="testCreateAllRolesInAdvance" preserve-order="true">
+	<test name="privilege02_testCreateAllRolesInAdvance" preserve-order="true">
 		<classes>
 			<class name="com.talend.tac.cases.user.TestCreatUsersInAdvance" />
 		</classes>
 	</test>
 
-	<test name="TestAdminPrivilege">
+	<test name="privilege03_TestAdminPrivilege">
 		<parameter name="userName" value="admin@tac.com" />
 		<parameter name="userPassword" value="adminPasswd" />
 		<classes>
@@ -64,7 +64,7 @@
 			</class>
 		</classes>
 	</test>
-	<test name="TestOperationManagerPrivilege">
+	<test name="privilege04_TestOperationManagerPrivilege">
 		<parameter name="userName" value="operation@tac.com" />
 		<parameter name="userPassword" value="operationPasswd" />
 		<classes>
@@ -72,7 +72,7 @@
 				name="com.talend.tac.cases.rolesRights.TestCheckRoleOperationManagerPrivilege" />
 		</classes>
 	</test>
-	<test name="TestdesignerPrivilege">
+	<test name="privilege05_TestdesignerPrivilege">
 		<parameter name="userName" value="designer@tac.com" />
 		<parameter name="userPassword" value="designerPasswd" />
 			<parameter name="userNameAdmin" value="admin@company.com" />
@@ -82,14 +82,25 @@
 				name="com.talend.tac.cases.rolesRights.TestCheckRoleDesignerPrivilege"></class>
 		</classes>
 	</test>
-	<test name="TestViewerPrivilege">
+	<test name="privilege05_TestViewerPrivilege">
 		<parameter name="userName" value="viewer@tac.com" />
 		<parameter name="userPassword" value="viewerPasswd" />
 		<classes>
 			<class
 				name="com.talend.tac.cases.rolesRights.TestCheckRoleViewerPrivilege"></class>
 		</classes>
-	</test><!--
+	</test>
+	
+	<test name="privilege07_UserCleaner" preserve-order="flase">
+		<classes>
+			<class name="com.talend.tac.cases.users.TestAddUser">
+				<methods>
+					<include name="clearAllUsers"></include>
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<!--
 	
 	 test forgetPasswd using user created maunully 
 	<test name="TestForgetPassword">

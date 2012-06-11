@@ -42,7 +42,7 @@ this.waitForElementPresent("//div[text()='" + rb.getString("login.error.badPassw
 	
 	//login with a deactivated user
 	@Test
-	@Parameters( { "uncheckActiveUser", "passWord" })
+	@Parameters( { "uncheckActiveUser", "PassWord" })
 	public void testDeactivatedUserLogin(String user, String password) {
 		waitForElementPresent("idLoginInput", 20);
 		waitForElementPresent("idLoginPasswordInput", 20);
