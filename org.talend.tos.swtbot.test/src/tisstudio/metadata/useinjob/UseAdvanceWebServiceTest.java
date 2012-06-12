@@ -73,7 +73,7 @@ public class UseAdvanceWebServiceTest extends TalendSwtBotForTos {
         gefBot.waitUntil(Conditions.tableHasRows(schemaTable, 1));
         gefBot.tableInGroup("Mode").click(0, 2);
         gefBot.text(1).setText("\"test\"");
-        // webServiceItem.setComponentType("tWebService");
+        webServiceItem.setComponentType("tWebService");
         Utilities.dndMetadataOntoJob(jobItem.getEditor(), webServiceItem.getItem(), webServiceItem.getComponentType(), new Point(
                 300, 100));
         SWTBotGefEditPart webService = getTalendComponentPart(jobItem.getEditor(), webServiceItem.getItemName());
