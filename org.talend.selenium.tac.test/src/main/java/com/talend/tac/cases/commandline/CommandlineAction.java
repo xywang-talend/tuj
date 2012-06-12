@@ -39,4 +39,8 @@ public class CommandlineAction extends Commandline {
 	public List<String> helpFiltr(){
 		return cmd.command("helpFilter" , "----");
 	}
+	
+	public boolean isCommandCompleted(int id) {
+		return this.getCommandStatus(id).contains("COMPLETED");
+	}
 }
