@@ -324,8 +324,6 @@ public class OccurrencesImpl extends Record{
 		Assert.assertEquals(this.getValueInput(By.xpath("//input[@name='Occurrences/datetime2']")),dataTime2);
 		
 		 String[] parameters_container={id,container};
-			String[] parameters_modle={id,modle};
-			String[] parameters_entity={id,entity};
 		//delete this record to recycle bin first
 		this.deleteToRecycleBin();
 		this.clickRecycle();
@@ -352,6 +350,24 @@ public class OccurrencesImpl extends Record{
 		Assert.assertEquals(this.getValueInput(By.xpath("//input[@name='Occurrences/datetime']")), dataTime);
 		Assert.assertEquals(this.getValueInput(By.xpath("//input[@name='Occurrences/datetime2']")),dataTime2);
 		
+	}
+	
+	public void physicalDeleteOccurrencesRecord(String container,String modle,String entity,String id){
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);	
+		maxDataBrowserBoard();
+		this.sleepCertainTime(6000);
+		Assert.assertTrue(this.waitfor(By.xpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-Occurrences/id')  and contains(text(),'"+id+"')]//ancestor::table[contains(@class,'x-grid3-row-table')]"), WAIT_TIME_MIN).isDisplayed());
+		this.clickElementByXpath("//div[contains(@class,'x-grid3-cell-inner x-grid3-col-Occurrences/id')  and contains(text(),'"+id+"')]//ancestor::table[contains(@class,'x-grid3-row-table')]");
+		String OperationType="PHYSICAL_DELETE";
+		String source="genericUI";
+	    this.sleepCertainTime(5000);
+	    deleteTheRecord(entity);
+	    this.sleepCertainTime(5000);
+	    openJournal(entity,id,OperationType,source);
+	    JournalResultCount();
 	}
 	
 }

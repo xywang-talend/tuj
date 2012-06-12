@@ -45,7 +45,11 @@ public class TestRecordOccurrences extends Login {
 		occurrences.logicalDeleteOccurrencesRecord(container, modle, entity, id,booLean, booLean2, string, string2, integer, integer2, dou, dou2, dataTime, dataTime2, urlName, urlValue, url2Name, url2Value, enu, enu2, faterType, fatherName, fatherAdd, fater2Type, father2Name, father2Add, sonName, sonAdd, sonSchool, son2Name, son2Add, son2School);
 		}
 
-
+	@Test
+	@Parameters( { "container","modle","entity","id"})
+	public void testPhysicalDeleteOccurrencesRecord(String container,String modle,String entity,String id) {
+		occurrences.physicalDeleteOccurrencesRecord(container, modle, entity, id);
+		}
 	
 	
 }
