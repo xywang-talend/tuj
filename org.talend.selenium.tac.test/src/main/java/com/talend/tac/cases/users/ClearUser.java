@@ -1,19 +1,23 @@
 package com.talend.tac.cases.users;
 
+
+import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.talend.tac.cases.Login;
 
-public class ClearUser extends Login{
+public class ClearUser extends Users{
   
 	@Test
-//	(dependsOnGroups={"ModifyUser"})
-	@Parameters({"userName","_FirstName","_LastName"})
-	public void clearUsers(String userName,String FirstName,String LastName) throws Exception {
+	@Parameters({"userName","_FirstName","_LastName", "LoginNameChooseTypeDataQuality"
+		, "ModifiyUserName", "importUserName"})
+	public void clearUsers(String userName,String FirstName,String LastName
+			,String loginNameChooseTypeDataQuality, String modifiyUserName,
+			 String importUserName) throws Exception {
    
 		 this.clickWaitForElementPresent("idMenuUserElement");
-			    
+			
+		 this.waitForElementPresent("//div[text()='"+userName+"']", WAIT_TIME);
 	     selenium.mouseDown("//div[text()='"+userName+"']");//Select Login user
 		 selenium.setSpeed(MAX_SPEED);
 		 selenium.type("idUserFirstNameInput", FirstName);
@@ -23,7 +27,13 @@ public class ClearUser extends Login{
 		 selenium.setSpeed(MAX_SPEED);
 		 selenium.click("idFormSaveButton");
 	     selenium.setSpeed(MIN_SPEED);
-	
+	     
+	     this.clickWaitForElementPresent("idMenuUserElement");
+		 Assert.assertTrue(selenium.isTextPresent(userName));
+		 
+		 this.deleteUser(userName, loginNameChooseTypeDataQuality);
+	     this.deleteUser(userName, modifiyUserName);
+	     this.deleteUser(userName, importUserName);
 	}
 	
 	
