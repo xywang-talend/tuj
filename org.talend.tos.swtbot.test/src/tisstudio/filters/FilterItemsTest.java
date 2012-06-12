@@ -17,9 +17,9 @@ import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withTo
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotLabel;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
@@ -48,8 +48,6 @@ public class FilterItemsTest extends TalendSwtBotForTos {
 
     private SWTBotLabelExt filterLabel;
 
-    private SWTBotShell tempShell;
-
     @Before
     public void initialisePrivateField() {
         repositories.add(ERepositoryObjectType.PROCESS);
@@ -68,25 +66,18 @@ public class FilterItemsTest extends TalendSwtBotForTos {
         filterLabel = new SWTBotLabelExt(label);
         filterLabel.rightClick();
 
-        tempShell = gefBot.shell("Repository Filter").activate();
-        try {
-            for (TalendItemType itemType : TalendItemType.values()) {
-                if (TalendItemType.RECYCLE_BIN.equals(itemType))
-                    continue; // undo with routine and recycle bin
-                tempTreeNode = Utilities.getTalendItemNode(gefBot.tree(0), itemType);
-                tempTreeNode.uncheck();
-            }
-            gefBot.button("OK").click();
-
-            filterLabel.click();
-            rowCount = tree.rowCount();
-        } catch (WidgetNotFoundException wnfe) {
-            tempShell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            tempShell.close();
-            Assert.fail(e.getMessage());
+        SWTBotShell shell = gefBot.shell("Repository Filter").activate();
+        for (TalendItemType itemType : TalendItemType.values()) {
+            if (TalendItemType.RECYCLE_BIN.equals(itemType))
+                continue; // undo with routine and recycle bin
+            tempTreeNode = Utilities.getTalendItemNode(gefBot.tree(0), itemType);
+            tempTreeNode.uncheck();
         }
+        gefBot.button("OK").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
+
+        filterLabel.click();
+        rowCount = tree.rowCount();
 
         Assert.assertEquals("items did not filter", 1, rowCount);
     }
@@ -94,22 +85,14 @@ public class FilterItemsTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         filterLabel.rightClick();
-        SWTBotTreeItem tempTreeNode = null;
-        try {
-            for (TalendItemType itemType : TalendItemType.values()) {
-                if (TalendItemType.ROUTINES.equals(itemType) || TalendItemType.RECYCLE_BIN.equals(itemType))
-                    continue; // undo with routine and recycle bin
-                tempTreeNode = Utilities.getTalendItemNode(gefBot.tree(0), itemType);
-                tempTreeNode.check();
-            }
-            gefBot.button("OK").click();
-        } catch (WidgetNotFoundException wnfe) {
-            tempShell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            tempShell.close();
-            Assert.fail(e.getMessage());
+        SWTBotShell shell = gefBot.shell("Repository Filter").activate();
+        for (TalendItemType itemType : TalendItemType.values()) {
+            if (TalendItemType.ROUTINES.equals(itemType) || TalendItemType.RECYCLE_BIN.equals(itemType))
+                continue; // undo with routine and recycle bin
+            Utilities.getTalendItemNode(gefBot.tree(0), itemType).check();
         }
+        gefBot.button("OK").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
         filterLabel.click();
     }
 }

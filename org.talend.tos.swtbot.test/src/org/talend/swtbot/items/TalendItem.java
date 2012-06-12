@@ -162,6 +162,10 @@ public class TalendItem implements Cloneable {
     }
 
     public void setStatus(String status) {
+        SWTBotShell shell = beginEditWizard();
+        gefBot.ccomboBoxWithLabel("Status").setSelection(status);
+        gefBot.button("Finish").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
         this.status = status;
     }
 

@@ -16,11 +16,10 @@ import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withTo
 
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotLabel;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Assert;
@@ -47,8 +46,6 @@ public class FilterItemsByStatusTest extends TalendSwtBotForTos {
 
     private SWTBotLabelExt filterLabel;
 
-    private SWTBotShell tempShell;
-
     @Before
     public void initialisePrivateField() {
         repositories.add(ERepositoryObjectType.PROCESS);
@@ -60,9 +57,9 @@ public class FilterItemsByStatusTest extends TalendSwtBotForTos {
         jobItem3.create();
         for (SWTBotEditor editor : gefBot.editors())
             editor.saveAndClose();
-        editProperties(jobItem1.getItem(), "testing");
-        editProperties(jobItem2.getItem(), "development");
-        editProperties(jobItem3.getItem(), "production");
+        jobItem1.setStatus("testing");
+        jobItem2.setStatus("development");
+        jobItem3.setStatus("production");
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -77,23 +74,16 @@ public class FilterItemsByStatusTest extends TalendSwtBotForTos {
         filterLabel = new SWTBotLabelExt(label);
         filterLabel.rightClick();
 
-        tempShell = gefBot.shell("Repository Filter").activate();
-        try {
-            gefBot.tableWithLabel("Filter By Status :").getTableItem(1).uncheck();
-            gefBot.tableWithLabel("Filter By Status :").getTableItem(2).uncheck();
-            gefBot.tableWithLabel("Filter By Status :").getTableItem(3).uncheck();
-            gefBot.button("OK").click();
+        SWTBotShell shell = gefBot.shell("Repository Filter").activate();
+        gefBot.tableWithLabel("Filter By Status :").getTableItem(1).uncheck();
+        gefBot.tableWithLabel("Filter By Status :").getTableItem(2).uncheck();
+        gefBot.tableWithLabel("Filter By Status :").getTableItem(3).uncheck();
+        gefBot.button("OK").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
 
-            filterLabel.click();
-            rowCount = jobItem1.getParentNode().rowCount();
-            actualJob = jobItem1.getParentNode().expand().getNode(0).getText();
-        } catch (WidgetNotFoundException wnfe) {
-            tempShell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            tempShell.close();
-            Assert.fail(e.getMessage());
-        }
+        filterLabel.click();
+        rowCount = jobItem1.getParentNode().rowCount();
+        actualJob = jobItem1.getParentNode().expand().getNode(0).getText();
 
         Assert.assertEquals("items did not filter", 1, rowCount);
         Assert.assertEquals("did not filter the job", expectJob, actualJob);
@@ -102,35 +92,13 @@ public class FilterItemsByStatusTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         filterLabel.rightClick();
-        try {
-            gefBot.tableWithLabel("Filter By Status :").getTableItem(1).check();
-            gefBot.tableWithLabel("Filter By Status :").getTableItem(2).check();
-            gefBot.tableWithLabel("Filter By Status :").getTableItem(3).check();
-            gefBot.button("OK").click();
-        } catch (WidgetNotFoundException wnfe) {
-            tempShell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            tempShell.close();
-            Assert.fail(e.getMessage());
-        }
+        SWTBotShell shell = gefBot.shell("Repository Filter").activate();
+        gefBot.tableWithLabel("Filter By Status :").getTableItem(1).check();
+        gefBot.tableWithLabel("Filter By Status :").getTableItem(2).check();
+        gefBot.tableWithLabel("Filter By Status :").getTableItem(3).check();
+        gefBot.button("OK").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
         filterLabel.click();
-
     }
 
-    private void editProperties(SWTBotTreeItem itemNode, String status) {
-        SWTBotShell tempShell = null;
-        try {
-            itemNode.contextMenu("Edit properties").click();
-            tempShell = gefBot.shell("Edit properties").activate();
-            gefBot.ccomboBoxWithLabel("Status").setSelection(status);
-            gefBot.button("Finish").click();
-        } catch (WidgetNotFoundException wnfe) {
-            tempShell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            tempShell.close();
-            Assert.fail(e.getMessage());
-        }
-    }
 }
