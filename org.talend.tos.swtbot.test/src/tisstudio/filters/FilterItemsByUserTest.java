@@ -16,8 +16,8 @@ import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withTo
 
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotLabel;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.hamcrest.Matcher;
@@ -42,8 +42,6 @@ public class FilterItemsByUserTest extends TalendSwtBotForTos {
 
     private SWTBotLabelExt filterLabel;
 
-    private SWTBotShell tempShell;
-
     @Before
     public void initialisePrivateField() {
         repositories.add(ERepositoryObjectType.PROCESS);
@@ -61,21 +59,14 @@ public class FilterItemsByUserTest extends TalendSwtBotForTos {
         filterLabel = new SWTBotLabelExt(label);
         filterLabel.rightClick();
 
-        tempShell = gefBot.shell("Repository Filter").activate();
-        try {
-            gefBot.checkBox("All Users").click();
-            gefBot.table(0).getTableItem(0).uncheck();
-            gefBot.button("OK").click();
+        SWTBotShell shell = gefBot.shell("Repository Filter").activate();
+        gefBot.checkBox("All Users").click();
+        gefBot.table(0).getTableItem(0).uncheck();
+        gefBot.button("OK").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
 
-            filterLabel.click();
-            rowCount = jobItem.getParentNode().rowCount();
-        } catch (WidgetNotFoundException wnfe) {
-            tempShell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            tempShell.close();
-            Assert.fail(e.getMessage());
-        }
+        filterLabel.click();
+        rowCount = jobItem.getParentNode().expand().rowCount();
 
         Assert.assertEquals("items did not filter", 0, rowCount);
     }
@@ -83,16 +74,10 @@ public class FilterItemsByUserTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() {
         filterLabel.rightClick();
-        try {
-            gefBot.checkBox("All Users").click();
-            gefBot.button("OK").click();
-        } catch (WidgetNotFoundException wnfe) {
-            tempShell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            tempShell.close();
-            Assert.fail(e.getMessage());
-        }
+        SWTBotShell shell = gefBot.shell("Repository Filter").activate();
+        gefBot.checkBox("All Users").click();
+        gefBot.button("OK").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
         filterLabel.click();
 
         for (SWTBotEditor editor : gefBot.editors())
