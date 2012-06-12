@@ -1,0 +1,96 @@
+// ============================================================================
+//
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//
+// ============================================================================
+package tisstudio.metadata.db.cdc.mysql;
+
+import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities.DbConnectionType;
+import org.talend.swtbot.items.TalendDBItem;
+
+/**
+ * DOC fzhong class global comment. Detailled comment
+ */
+@RunWith(SWTBotJunit4ClassRunner.class)
+public class ChangeDbConnectionForCDCTest extends TalendSwtBotForTos {
+
+    private TalendDBItem dbItem1, dbItem2, dbItem3;
+
+    private static final String DB_NAME1 = "mysql1";
+
+    private static final String DB_NAME2 = "mysql2";
+
+    private static final String DB_NAME3 = "mysql3";
+
+    private static final String DATABASE = "autodb2";
+
+    private static final String TABLE_NAME = "autotest";
+
+    private boolean isTableCreated = false;
+
+    private boolean isDatabaseCreated = false;
+
+    private boolean isSubscriberCreated = false;
+
+    @Before
+    public void createDb() {
+        repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
+        dbItem1 = new TalendDBItem(DB_NAME1, DbConnectionType.MYSQL);
+        dbItem1.create();
+        dbItem2 = (TalendDBItem) dbItem1.duplicate(DB_NAME2);
+        dbItem1.executeSQL("create table " + TABLE_NAME + "(id int, name varchar(20));");
+        isTableCreated = true;
+        dbItem1.executeSQL("create database " + DATABASE);
+        isDatabaseCreated = true;
+        dbItem1.retrieveDbSchema(TABLE_NAME);
+
+        String defaultProperty = System.getProperty("mysql.dataBase");
+        System.setProperty("mysql.dataBase", DATABASE);
+        dbItem3 = new TalendDBItem(DB_NAME3, DbConnectionType.MYSQL);
+        dbItem3.create();
+        System.setProperty("mysql.dataBase", defaultProperty);
+    }
+
+    @Test
+    public void changeDbConnectionForCDCTest() {
+        isSubscriberCreated = dbItem1.createCDCWith(dbItem2);
+        if (dbItem1.editCDCWith(dbItem3))
+            isSubscriberCreated = false;
+
+        String defaultProperty = System.getProperty("mysql.dataBase");
+        System.setProperty("mysql.dataBase", DATABASE);
+        dbItem3.retrieveDbSchema("tsubscribers");
+        Assert.assertNotNull("schema 'tsubscribers' did not create in new database", dbItem3.getSchema("tsubscribers"));
+        System.setProperty("mysql.dataBase", defaultProperty);
+
+        dbItem2.retrieveDbSchema("tsubscribers");
+        Assert.assertNull("schema 'tsubscribers' did not remove in old database", dbItem2.getSchema("tsubscribers"));
+    }
+
+    @After
+    public void cleanUp() {
+        String sql = "";
+        if (isTableCreated)
+            sql = sql + "drop table " + TABLE_NAME + ";\n";
+        if (isDatabaseCreated)
+            sql = sql + "drop database " + DATABASE + ";\n";
+        if (isSubscriberCreated)
+            sql = sql + "drop table tsubscribers;\n";
+        dbItem1.executeSQL(sql);
+    }
+}
