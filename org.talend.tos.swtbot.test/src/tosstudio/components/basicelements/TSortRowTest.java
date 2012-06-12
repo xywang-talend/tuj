@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -21,15 +21,16 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.junit.After;
+import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.swtbot.SWTBotTableExt;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.JobHelper;
 import org.talend.swtbot.helpers.MetadataHelper;
-import org.talend.swtbot.items.TalendDelimitedFileItem;
 import org.talend.swtbot.items.TalendJobItem;
 
 /**
@@ -40,28 +41,50 @@ public class TSortRowTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 
-    private TalendDelimitedFileItem fileItem;
-
     private static final String JOBNAME = "jobTest"; //$NON-NLS-1$
 
-    private static final String FILENAME = "fileTest"; //$NON-NLS-1$
+    private static final String FILENAME = "test.csv"; //$NON-NLS-1$
 
     @Before
-    public void createJob() {
+    public void createJob() throws IOException, URISyntaxException {
+        repositories.add(ERepositoryObjectType.PROCESS);
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
-        fileItem = new TalendDelimitedFileItem(FILENAME);
-        fileItem.setExpectResultFromFile("tSortRowTest.result");
-        fileItem.create();
+
+        Utilities.dndPaletteToolOntoJob(jobItem.getEditor(), "tFileInputDelimited", new Point(100, 100));
+        SWTBotGefEditPart tFileInputDelimited = getTalendComponentPart(jobItem.getEditor(), "tFileInputDelimited_1");
+        Assert.assertNotNull("can not get component 'tFileInputDelimited_1'", tFileInputDelimited);
+        tFileInputDelimited.doubleClick();
+        gefBot.viewByTitle("Component").setFocus();
+        // setting file path
+        SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
+        gefBot.text(0)
+                .selectAll()
+                .typeText(
+                        "\"" + Utilities.getFileFromCurrentPluginSampleFolder(FILENAME).getAbsolutePath().replace("\\", "/")
+                                + "\"", 0);
+        // setting schema
+        gefBot.button(4).click();
+        gefBot.shell("Schema of tFileInputDelimited_1").activate();
+        SWTBotTableExt table = new SWTBotTableExt(gefBot.table(0));
+        gefBot.buttonWithTooltip("Add").click();
+        table.click(0, "Column");
+        gefBot.text("newColumn").setText("id");
+        table.click(0, "Type");
+        gefBot.ccomboBox("String").setSelection("int | Integer");
+        table.select(0);
+        gefBot.buttonWithTooltip("Add").click();
+        table.click(1, "Column");
+        gefBot.text("newColumn").setText("name");
+        table.select(1);
+        gefBot.button("OK").click();
     }
 
     @Test
     public void tSortRowTest() throws IOException, URISyntaxException {
         SWTBotGefEditor jobEditor = jobItem.getEditor();
 
-        Utilities.dndMetadataOntoJob(jobEditor, fileItem.getItem(), "tFileInputDelimited", new Point(50, 100));
-        SWTBotGefEditPart tFileInputDelimited = getTalendComponentPart(jobEditor, fileItem.getItemName());
-        Assert.assertNotNull("can not get component '" + fileItem.getItemName() + "'", tFileInputDelimited);
+        SWTBotGefEditPart tFileInputDelimited = getTalendComponentPart(jobItem.getEditor(), "tFileInputDelimited_1");
         Utilities.dndPaletteToolOntoJob(jobEditor, "tSortRow", new Point(250, 100));
         SWTBotGefEditPart tSortRow = getTalendComponentPart(jobEditor, "tSortRow_1");
         Assert.assertNotNull("can not get component 'tSortRow_1'", tSortRow);
@@ -69,27 +92,21 @@ public class TSortRowTest extends TalendSwtBotForTos {
 
         tSortRow.doubleClick();
         gefBot.viewByTitle("Component").setFocus();
+        SWTBotTableExt table = new SWTBotTableExt(gefBot.table(0));
         gefBot.buttonWithTooltip("Add").click();
-        gefBot.table(0).click(0, 3);
+        table.click(0, "Order asc or desc?");
         gefBot.ccomboBox("asc").setSelection("desc");
         gefBot.buttonWithTooltip("Add").click();
-        gefBot.table(0).click(1, 1);
-        gefBot.ccomboBox("Column0").setSelection("Column1");
-        gefBot.table(0).click(1, 2);
+        table.click(1, "Schema column");
+        gefBot.ccomboBox("id").setSelection("name");
+        table.click(1, "sort num or alpha?");
         gefBot.ccomboBox("num").setSelection("alpha");
 
         JobHelper.connect2TLogRow(jobEditor, tSortRow, new Point(450, 100));
         JobHelper.runJob(jobEditor);
 
         String actualResult = JobHelper.getExecutionResult();
-        MetadataHelper.assertResult(actualResult, fileItem);
+        MetadataHelper.assertResult(actualResult, JobHelper.getExpectResultFromFile("tSortRowTest.result"));
     }
 
-    @After
-    public void removePreviouslyCreateItems() {
-        jobItem.getEditor().saveAndClose();
-        Utilities.cleanUpRepository(jobItem.getParentNode());
-        Utilities.cleanUpRepository(fileItem.getParentNode());
-        Utilities.emptyRecycleBin();
-    }
 }

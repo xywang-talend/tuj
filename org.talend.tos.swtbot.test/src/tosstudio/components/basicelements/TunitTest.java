@@ -94,6 +94,7 @@ public class TunitTest extends TalendSwtBotForTos {
 
         JobHelper.runJob(jobItem.getItemName());
         String result = JobHelper.execResultFilter(JobHelper.getExecutionResult());
+        System.out.println(JobHelper.getExpectResultFromFile(RESULTFILE));
         Assert.assertEquals("the result is not the expected result", JobHelper.getExpectResultFromFile(RESULTFILE), result);
 
     }
