@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -12,18 +12,24 @@
 // ============================================================================
 package tisstudio.filters;
 
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotViewMenu;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withTooltip;
+
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotLabel;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarButton;
+import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.swtbot.SWTBotLabelExt;
 import org.talend.swtbot.TalendSwtBotForTos;
+import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobItem;
 
 /**
@@ -34,11 +40,7 @@ public class FilterItemsByUserTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 
-    private SWTBotViewMenu menu;
-
-    private SWTBotToolbarButton button;
-
-    private SWTBotShell tempShell;
+    private SWTBotLabelExt filterLabel;
 
     @Before
     public void initialisePrivateField() {
@@ -52,42 +54,33 @@ public class FilterItemsByUserTest extends TalendSwtBotForTos {
     public void filterItemsByUser() {
         int rowCount = 0;
 
-        button = gefBot.viewByTitle("Repository").toolbarButton("Activte Filter \n(filter settings available in the view menu)");
-        button.click();
-        menu = gefBot.viewByTitle("Repository").menu("Filter Setting...");
-        menu.click();
+        Matcher matcher = withTooltip("Filters...\nRight click to set up");
+        SWTBotLabel label = new SWTBotLabel((Label) gefBot.widget(matcher, Utilities.getRepositoryView().getWidget()));
+        filterLabel = new SWTBotLabelExt(label);
+        filterLabel.rightClick();
 
-        tempShell = gefBot.shell("Repository Filter Setting").activate();
-        try {
-            gefBot.checkBox("All Users").click();
-            gefBot.table(0).getTableItem(0).uncheck();
-            gefBot.button("OK").click();
+        SWTBotShell shell = gefBot.shell("Repository Filter").activate();
+        gefBot.checkBox("All Users").click();
+        gefBot.table(0).getTableItem(0).uncheck();
+        gefBot.button("OK").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
 
-            rowCount = jobItem.getParentNode().rowCount();
-        } catch (WidgetNotFoundException wnfe) {
-            tempShell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            tempShell.close();
-            Assert.fail(e.getMessage());
-        }
+        filterLabel.click();
+        rowCount = jobItem.getParentNode().expand().rowCount();
 
         Assert.assertEquals("items did not filter", 0, rowCount);
     }
 
     @After
     public void removePreviouslyCreateItems() {
-        menu.click();
-        try {
-            gefBot.checkBox("All Users").click();
-            gefBot.button("OK").click();
-        } catch (WidgetNotFoundException wnfe) {
-            tempShell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            tempShell.close();
-            Assert.fail(e.getMessage());
-        }
-        button.click();
+        filterLabel.rightClick();
+        SWTBotShell shell = gefBot.shell("Repository Filter").activate();
+        gefBot.checkBox("All Users").click();
+        gefBot.button("OK").click();
+        gefBot.waitUntil(Conditions.shellCloses(shell));
+        filterLabel.click();
+
+        for (SWTBotEditor editor : gefBot.editors())
+            editor.saveAndClose();
     }
 }
