@@ -82,7 +82,7 @@ public class UpdateDependentJobsTest extends TalendSwtBotForTos {
     }
 
     private void assertContextInJob(TalendJobItem jobItem) {
-        jobItem.getParentNode().expand().getNode(jobItem.getItemFullName()).select().doubleClick();
+        jobItem.getItem().select().doubleClick();
         gefBot.viewByTitle("Contexts(" + jobItem.getEditor().getTitle() + ")").setFocus();
         gefBot.cTabItem("Values as table").activate();
         String var0 = System.getProperty("context.variable0");
