@@ -164,6 +164,7 @@ public User(WebDriver driver) {
 	}
 	
 	public void clickAddNewUser(){
+		logger.warn("*****************************************************"+System.getProperty("webdriver.browser"));
 		this.maxUserConfigPanel();
 		this.clickElementByXpath(locator.getString("xpath.user.button.add"));
 	}
@@ -173,17 +174,21 @@ public User(WebDriver driver) {
 		 builder.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.max.configure.panel.line"))))
 		 .moveToElement(this.findElementDefineDriver(this.driver, By.xpath(this.getString(locator, "xpath.user.identifier", "administrator"))), 0, 0).release().build().perform();
 	*/
+		if(System.getProperty("webdriver.browser")!=null && System.getProperty("webdriver.browser").trim().contains("iexplore")){
 			Actions builder1 = new Actions(driver);
 			 builder1.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.max.configure.panel.line"))))
 		.moveToElement(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.license.menu")))).release().build().perform();
-		
+		}
 	}
 	
 	public void minUserConfigPanel(){
+		if(System.getProperty("webdriver.browser")!=null && System.getProperty("webdriver.browser").trim().contains("iexplore")){
 		Actions builder = new Actions(driver);
 		 builder.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.max.configure.panel.line"))))
 		 .moveToElement(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.add.role.save")))).release().build().perform();
-	}
+	
+		}
+		}
 	public  WebElement getUserDeleteElement(String userName) {
 		return	this.getElementByXpath(this.getString(locator, "xpath.user.delete", userName));		 
 	}
