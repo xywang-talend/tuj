@@ -168,7 +168,54 @@ public class ThirdEntityImpl extends Record{
 	}
 	
 	
-
+	public void createThirdEntityRecordFailedImpl(String container,String modle,String entity,String key,String name,String mdM1,String mdO2,String mdOu3
+			,String mdMu4,String mdO5m51,String mdO5o51,String mdOu6m61,String mdOu6o62
+			,String odM1,String odO2,String odOu3,String odMu4,String odO5m51,String odO5o51,String odOu6m61,String odOu6o62){
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);	
+		maxDataBrowserBoard();
+		this.sleepCertainTime(6000);
+		int recordCount = Integer
+				.parseInt(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText().split("of")[1].trim());
+		logger.warn("before create ,total record num is:"+recordCount);
+		this.clickCreateRecord();
+		this.expendAllFields();
+		
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.key.input"), key);
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.name.input"), name);
+		
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.mandatoryDetails.mandatory1.input"), mdM1);
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.mandatoryDetails.optional2.input"), mdO2);
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.mandatoryDetails.optionalUbounded3.input"), mdOu3);
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.mandatoryDetails.mandatoryUbounded4.input"), mdMu4);
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.mandatoryDetails.optional5.mandatory51.input"), mdO5m51);
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.mandatoryDetails.optional5.optional51.input"), mdO5o51);
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.mandatoryDetails.optionalUbounded6.mandatory61.input"), mdOu6m61);
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.mandatoryDetails.optionalUbounded6.optional62.input"), mdOu6o62);
+		
+		
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.optionalDetails.mandatory1.input"), odM1);
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.optionalDetails.optional2.input"), odO2);
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.optionalDetails.optionalUbounded3.input"), odOu3);
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.optionalDetails.mandatoryUbounded4.input"), odMu4);
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.optionalDetails.optional5.mandatory51.input"), odO5m51);
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.optionalDetails.optional5.optional51.input"), odO5o51);
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.optionalDetails.optionalUbounded6.mandatory61.input"), odOu6m61);
+		this.typeTextByXpath(locator.getString("xpath.thirdentity.optionalDetails.optionalUbounded6.optional62.input"), odOu6o62);
+		
+		
+	    this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
+	    Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.thirdentity.create.notinputallfieldsrequired.warning.info")), WAIT_TIME_MIN).isDisplayed());
+	    this.clickElementByXpath(locator.getString("xpath.thirdentity.create.notinputallfieldsrequired.warning.ok.button"));
+	    this.sleepCertainTime(5000);
+	    int recordCountAfter = Integer
+				.parseInt(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText().split("of")[1].trim());
+		logger.warn("after create ,total record num is:"+recordCountAfter);
+		Assert.assertTrue(recordCountAfter-recordCount==0);
+		
+	}
 	
 	
 	
