@@ -32,7 +32,7 @@ import org.talend.swtbot.items.TalendJobItem;
  * DOC vivian class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class ParameterOfContextUsingInTjavaTest extends TalendSwtBotForTos {
+public class ParameterOfContextUsingInTJavaTest extends TalendSwtBotForTos {
 
     private TalendContextItem contextItem;
 
@@ -65,7 +65,7 @@ public class ParameterOfContextUsingInTjavaTest extends TalendSwtBotForTos {
 
         gefBot.viewByTitle("Component").setFocus();
         SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
-        gefBot.sleep(5000);
+        gefBot.sleep(1000);
         gefBot.styledText().selectCurrentLine();
         String text = "System.out.println(context." + System.getProperty("context.variable0") + "+context."
                 + System.getProperty("context.variable1") + " );";
