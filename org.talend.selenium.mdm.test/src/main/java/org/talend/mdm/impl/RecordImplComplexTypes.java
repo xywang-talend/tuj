@@ -64,5 +64,43 @@ public class RecordImplComplexTypes extends Record{
 	
 }
 	
-
+	public void testCreateRecordAddMultipleFieldImpl(String container,String modle,String entity,String IdValue) {
+        OperationType="CREATE";
+        source="genericUI";
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);
+		this.sleepCertainTime(3000);
+		this.clickCreateRecord();			
+		this.sleepCertainTime(3000);
+		this.clickElementByXpath("//div[text()='son1']//ancestor::tr//img");			
+		  this.typeTextByName("ComplexTypes/son1/Name", "sonName");
+		  this.typeTextByName("ComplexTypes/son1/Address", "sonAddress");
+	      this.clickElementByXpath("//input[@name='ComplexTypes/son1/Address']//ancestor::tr//img[@id='Add']");
+	      this.sleepCertainTime(2000);
+	      this.typeTextByXpath("//div[contains(@id,'TreeDetail-root')]/div/div[3]/div/div[3]//input", "sonAddressAdd");
+		  this.typeTextByName("ComplexTypes/son1/School", "sonSchool");			
+		  
+		  ///////////////////////////////////////////////
+		  this.clickElementByXpath("//div[text()='father1']//ancestor::tr//img[contains(@style,'background')]");				
+		  this.typeTextByName("ComplexTypes/father1/Name", "fatherName");
+		  this.typeTextByName("ComplexTypes/father1/Address", "fatherAddress");			
+		  this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
+		  
+		  
+		  //assert
+		  chooseRcord(entity,"key",IdValue);
+		  this.clickElementByXpath("//div[text()='son1']//ancestor::tr//img");	
+		  this.clickElementByXpath("//div[text()='father1']//ancestor::tr//img[contains(@style,'background')]");	
+		  Assert.assertEquals(this.getValueInput(By.name("ComplexTypes/son1/Name")),  "sonName");
+		  Assert.assertEquals(this.getValueInput(By.name("ComplexTypes/son1/Address")), "sonAddress");
+		  Assert.assertEquals(this.getValueInput(By.xpath("//div[contains(@id,'TreeDetail-root')]/div/div[3]/div/div[3]//input")), "sonAddressAdd");
+		  
+		  Assert.assertEquals(this.getValueInput(By.name("ComplexTypes/son1/School")), "sonSchool");
+		  Assert.assertEquals(this.getValueInput(By.name("ComplexTypes/father1/Name")), "fatherName");
+		  Assert.assertEquals(this.getValueInput(By.name("ComplexTypes/father1/Address")), "fatherAddress");
+		  openJournal(entity,IdValue,OperationType,source);
+		  JournalResultCount();
+    }
 }

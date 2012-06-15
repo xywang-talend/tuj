@@ -26,6 +26,10 @@ public class TestRecordComplexTypes extends Login {
 	public void testCreateRecordAllField(String container,String modle,String entity,String IdValue) {
 		recordImpl.createRecordAllFieldImpl(container, modle, entity,IdValue);
 	}
-
 	
+	@Test
+	@Parameters( { "container","modle","entity","IdValue"})
+	public void testCreateRecordAddMultipleField(String container,String modle,String entity,String IdValue) {
+		recordImpl.testCreateRecordAddMultipleFieldImpl(container, modle, entity,IdValue);
+	}
 }
