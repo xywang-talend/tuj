@@ -9,7 +9,6 @@ import com.talend.tac.base.AntAction;
 public class CommandlineImpls extends CommandlineAction {	
 	int randomNum;		
 //	CommandlineAction cmdAction;
-	CommandStatusChecker csc = new CommandStatusChecker();
 	String commandActualStatus;
 	public void commandlineInitLocalImpl(String commandResult, String commandStatus) {
 		
