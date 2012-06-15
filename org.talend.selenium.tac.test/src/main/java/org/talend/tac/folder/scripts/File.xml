@@ -6,6 +6,24 @@
     <target name="delete">
         <delete file="${file.path}"/>
     </target>
+	
+    <target name="delete_dir">
+    	<delete dir="${dir.path}"/>
+    </target>
+	
+    <target name="available_file">
+        <condition property="available">
+        	<available file="${file}" type="file"/>
+        </condition>
+    	<echo>${file} --- ${available} </echo>
+    </target>
+	
+    <target name="available_dir">
+        <condition property="available">
+        	<available file="${dir}" type="dir"/>
+        </condition>
+    	<echo>${dir} --- ${available} </echo>
+    </target>
 
 	<!-- - - - - - - - - - - - - - - - - - 
           target: create                      

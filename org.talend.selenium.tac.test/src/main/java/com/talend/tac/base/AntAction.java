@@ -44,6 +44,10 @@ public class AntAction {
 		
 	}
 	
+	private String getProperty(String propertyName){
+		return project.getProperty(propertyName);
+	}
+	
 	public void runTarget(String file, String target, Hashtable properties){
 		this.init(file);
 		try {
@@ -69,7 +73,7 @@ public class AntAction {
 	}
 	
 	public void runTarget(String file, String target) {
-		this.runTarget(file, target, null);
+		this.runTarget(file, target, new Hashtable());
 	}
 	
 	public void runTarget(String file, Hashtable properties) {
@@ -77,6 +81,38 @@ public class AntAction {
 	}
 	
 	public void runTarget(String file){
-		this.runTarget(file, null, null);
+		this.runTarget(file, null, new Hashtable());
+	}
+	
+	public String runTarget(String file, String target, Hashtable properties, String getPropertyName){
+		this.runTarget(file, target, properties);
+		return this.getProperty(getPropertyName);
+	}
+
+	public String runTarget(String file, String target, String getPropertyName ) {
+		return this.runTarget(file, target, null, getPropertyName);
+	}
+	
+	public String runTarget(String file, Hashtable properties, String getPropertyName) {
+		return this.runTarget(file, null, properties, getPropertyName);
+	}
+	
+	
+	public static void main(String[] args){
+		 AntAction aa = new AntAction();
+	     Hashtable<String, String> properties = new Hashtable<String, String>();
+//	     properties.put("file", "D:\\temp\\tempConfFile.csv");
+//	     System.out.println(aa.runTarget("File.xml", "available_file", properties, "available"));
+//	     
+//	     properties.put("dir", "D:\\temp");
+//	     System.out.println(aa.runTarget("File.xml", "available_dir", properties, "available"));
+
+
+//	     properties.put("file.path", "D:\\temp\\dell\\tempConfFile.csv");
+//	     System.out.println(aa.runTarget("File.xml", "delete", properties, "available"));
+//	     
+	     properties.put("dir.path", "D:\\temp\\del");
+	     System.out.println(aa.runTarget("File.xml", "delete_dir", properties, "available"));
+	     
 	}
 }
