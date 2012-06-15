@@ -1,13 +1,20 @@
 package com.talend.tac.cases.commandline;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
 import java.net.Socket;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class Commandline {
 	protected String server = "localhost";
@@ -17,6 +24,205 @@ public class Commandline {
 	int timeout = 3000;
 	PrintWriter pw;
 	BufferedReader br;
+	
+	private static boolean onHudson = false;
+	Hashtable properties = new Hashtable();
+	/**
+	  * 根据传入的文件夹地址 遍历该文件夹下的所有文件名称
+	  * @Method ReadAllFilesName
+	  * @param filePath 文件夹地址
+	  * @return LinkedHashMap
+	  */
+	
+	
+	 public void delFolder(String folderPath) {
+	     try {
+	        delAllFile(folderPath); //删除完里面所有内容
+	        String filePath = folderPath;
+	        filePath = filePath.toString();
+	        java.io.File myFilePath = new java.io.File(filePath);
+	        myFilePath.delete(); //删除空文件夹
+	        System.err.println("delete successful");
+	     } catch (Exception e) {
+	       e.printStackTrace(); 
+	     }
+
+	     }
+	 
+   //删除指定文件夹下所有文件
+   //param path 文件夹完整绝对路径
+      public boolean delAllFile(String path) {
+          boolean flag = false;
+          File file = new File(path);
+          if (!file.exists()) {
+            return flag;
+          }
+          if (!file.isDirectory()) {
+            return flag;
+          }
+          String[] tempList = file.list();
+          File temp = null;
+          for (int i = 0; i < tempList.length; i++) {
+             if (path.endsWith(File.separator)) {
+                temp = new File(path + tempList[i]);
+             } else {
+                 temp = new File(path + File.separator + tempList[i]);
+             }
+             if (temp.isFile()) {
+                temp.delete();
+             }
+             if (temp.isDirectory()) {
+                delAllFile(path + "/" + tempList[i]);//先删除文件夹里面的文件
+                delFolder(path + "/" + tempList[i]);//再删除空文件夹
+                flag = true;
+             }
+          }
+          return flag;
+        }
+	
+	public int randomNum() {
+        int[] intRet = new int[6]; 
+        int intRd = 0; //存放随机数
+        int count = 0; //记录生成的随机数个数
+        int flag = 0; //是否已经生成过标志
+        while(count<6){
+             Random rdm = new Random(System.currentTimeMillis());
+             intRd = Math.abs(rdm.nextInt())%32+1;
+             for(int i=0;i<count;i++){
+                 if(intRet[i]==intRd){
+                     flag = 1;
+                     break;
+                 }else{
+                     flag = 0;
+                 }
+             }
+             if(flag==0){
+                 intRet[count] = intRd;
+                 count++;
+             }
+    }
+   
+    System.out.println("randomNum>>>>>"+intRd);
+    return intRd;
+  
+}
+	
+	
+	
+	
+	 public static LinkedHashMap ReadAllFilesName(String filePath){
+	  LinkedList list=new LinkedList();
+	  LinkedHashMap map = new LinkedHashMap();
+	  String fileName = "";
+	  File tmp;
+	   File dir=new File(filePath);
+	   File file[]=dir.listFiles();
+	   //遍历文件夹下的所有文件
+	         for(int i=0;i<file.length;i++){
+	          if(file[i].isDirectory()){//如果是文件夹，暂放集合中去
+	            list.add(file[i]);
+	          }else{
+	          // System.out.println(file[i].getAbsolutePath());
+	         fileName = file[i].getName();
+	            map.put(fileName+i,fileName);
+	          }//end if
+	     }//end for
+	        //开始循环遍历，次级文件夹下的所有文件
+	         while(!list.isEmpty()){
+	           tmp=(File)list.removeFirst();
+	           if(tmp.isDirectory()){
+	              file=tmp.listFiles();
+	              if(file==null) continue;
+	                for(int i=0;i<file.length;i++){
+	                   if(file[i].isDirectory()){
+	                      list.add(file[i]);
+	                   }else{
+	                   // System.out.println(file[i].getAbsolutePath());
+	                   fileName = file[i].getName();
+	                      map.put(fileName+i,fileName);
+	                   }//end if
+	                }//end for
+	             }else{
+	              fileName = tmp.getName();
+	                 map.put(fileName,fileName);
+	             } 
+	         }//end while
+	  return map;
+	 }
+	 
+	 
+	  public LinkedHashMap getFileNameList(String path) {
+	   String filePath = path;
+	   LinkedHashMap map = this.ReadAllFilesName(filePath);
+//	   String out = "";
+//	   for(Iterator keyItr = map.keySet().iterator();keyItr.hasNext();){
+//	        Object i  =  keyItr.next();
+//	           out = (String)map.get(i);
+//	           System.out.println(out);
+//	   }
+	   
+	   return map;
+	   
+	 }
+	
+	public boolean isOnHudson(){
+		String testsOnHudson = System.getProperty("tests.on.hudson");
+		if(testsOnHudson != null && !"".equals(testsOnHudson.trim())) {
+			onHudson = true;
+		}
+		return onHudson;
+	}
+	
+	/**
+	 * get the Uniform Resource Locator of the filePath
+	 * @param filePath
+	 * @return
+	 */
+	public URL getfileURL(String filePath){
+		URL fileUrl = null;
+//		String onHudson = System.getProperty("tests.on.hudson");
+		try {
+			if(this.isOnHudson()) {
+				fileUrl = new File(System.getProperty("selenium.target.src") + File.separator + filePath).toURL();
+			} else {
+				fileUrl = TestCommandline.class.getClassLoader().getResource(filePath);
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("URL -- " + fileUrl);
+		return fileUrl;
+	}
+	
+	/**
+	 * @param filePath
+	 * @return
+	 */
+	public String parseRelativePath(String filePath){
+		System.out.println("path before:     "+filePath);
+		System.out.println("path after:     "+getfileURL(filePath).toString());
+		return this.getfileURL(filePath).toString();
+	}
+	
+	/**
+	 * get absolute path of the filePath
+	 * @param filePath
+	 * @return
+	 */
+	public String getAbsolutePath(String filePath) {
+		return this.getfileURL(filePath).getPath();
+	}
+	
+
+	public int getCommandId(String commandResultInfo) {
+		
+		String[] ss = commandResultInfo.split("ADDED_COMMAND");
+		System.err.println(">>>>>>>>>"+ss[1]);
+		int commandId = Integer.valueOf(ss[1].trim()).intValue();
+		return commandId;
+		
+	}
+	
 	
 	public Commandline() {
 		if(System.getProperty("commandline.server")!=null)
