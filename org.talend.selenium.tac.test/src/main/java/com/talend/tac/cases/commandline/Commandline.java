@@ -5,9 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.MalformedURLException;
 import java.net.Socket;
-import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -16,25 +14,34 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class Commandline {
+import org.testng.ITestContext;
+
+import com.talend.tac.base.Base;
+
+public class Commandline extends Base{
 	protected String server = "localhost";
 	protected int port = 8002;
+
 	Socket socket = null;
 	StringBuffer sb = new StringBuffer();
 	int timeout = 3000;
 	PrintWriter pw;
 	BufferedReader br;
 	
-	private static boolean onHudson = false;
 	Hashtable properties = new Hashtable();
+	
+	@Override
+	public void initSelenium(String server, String port, String browser,
+			String url, String language, String country, String root,
+			ITestContext context) {
+	}
+	
 	/**
 	  * 根据传入的文件夹地址 遍历该文件夹下的所有文件名称
 	  * @Method ReadAllFilesName
 	  * @param filePath 文件夹地址
 	  * @return LinkedHashMap
 	  */
-	
-	
 	 public void delFolder(String folderPath) {
 	     try {
 	        delAllFile(folderPath); //删除完里面所有内容
@@ -46,8 +53,7 @@ public class Commandline {
 	     } catch (Exception e) {
 	       e.printStackTrace(); 
 	     }
-
-	     }
+	 }
 	 
    //删除指定文件夹下所有文件
    //param path 文件夹完整绝对路径
@@ -100,15 +106,10 @@ public class Commandline {
                  intRet[count] = intRd;
                  count++;
              }
-    }
-   
-    System.out.println("randomNum>>>>>"+intRd);
-    return intRd;
-  
-}
-	
-	
-	
+	    }
+	    System.out.println("randomNum>>>>>"+intRd);
+	    return intRd;
+	}
 	
 	 public static LinkedHashMap ReadAllFilesName(String filePath){
 	  LinkedList list=new LinkedList();
@@ -160,69 +161,16 @@ public class Commandline {
 //	           out = (String)map.get(i);
 //	           System.out.println(out);
 //	   }
-	   
 	   return map;
-	   
 	 }
-	
-	public boolean isOnHudson(){
-		String testsOnHudson = System.getProperty("tests.on.hudson");
-		if(testsOnHudson != null && !"".equals(testsOnHudson.trim())) {
-			onHudson = true;
-		}
-		return onHudson;
-	}
-	
-	/**
-	 * get the Uniform Resource Locator of the filePath
-	 * @param filePath
-	 * @return
-	 */
-	public URL getfileURL(String filePath){
-		URL fileUrl = null;
-//		String onHudson = System.getProperty("tests.on.hudson");
-		try {
-			if(this.isOnHudson()) {
-				fileUrl = new File(System.getProperty("selenium.target.src") + File.separator + filePath).toURL();
-			} else {
-				fileUrl = TestCommandline.class.getClassLoader().getResource(filePath);
-			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		System.out.println("URL -- " + fileUrl);
-		return fileUrl;
-	}
-	
-	/**
-	 * @param filePath
-	 * @return
-	 */
-	public String parseRelativePath(String filePath){
-		System.out.println("path before:     "+filePath);
-		System.out.println("path after:     "+getfileURL(filePath).toString());
-		return this.getfileURL(filePath).toString();
-	}
-	
-	/**
-	 * get absolute path of the filePath
-	 * @param filePath
-	 * @return
-	 */
-	public String getAbsolutePath(String filePath) {
-		return this.getfileURL(filePath).getPath();
-	}
-	
 
 	public int getCommandId(String commandResultInfo) {
-		
 		String[] ss = commandResultInfo.split("ADDED_COMMAND");
 		System.err.println(">>>>>>>>>"+ss[1]);
 		int commandId = Integer.valueOf(ss[1].trim()).intValue();
 		return commandId;
 		
 	}
-	
 	
 	public Commandline() {
 		if(System.getProperty("commandline.server")!=null)
