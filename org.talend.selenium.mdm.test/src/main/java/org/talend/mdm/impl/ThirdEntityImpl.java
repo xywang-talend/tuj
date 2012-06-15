@@ -167,7 +167,46 @@ public class ThirdEntityImpl extends Record{
 		
 	}
 	
-	
+	public void updateThirdEntityRecordSuccessWithMutipleOccurrencesImpl(String container,String modle,String entity,String key,String name,String mdM1,String mdO2,String mdOu3
+			,String mdMu4,String mdO5m51,String mdO5o51,String mdOu6m61,String mdOu6o62
+			,String odM1,String odO2,String odOu3,String odMu4,String odO5m51,String odO5o51,String odOu6m61,String odOu6o62){
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);	
+		maxDataBrowserBoard();
+		this.sleepCertainTime(6000);
+	    Assert.assertTrue(this.waitfor(By.xpath(this.getString(locator, "xpath.thirdentity.record.select.by.key", key)), WAIT_TIME_MID).isDisplayed());
+		this.clickElementByXpath(this.getString(locator, "xpath.thirdentity.record.select.by.key", key));
+		
+		this.clickElementByXpath(locator.getString("xpath.thirdentity.mandatoryDetails.expend.img"));
+		this.sleepCertainTime(2000);
+		//remove mutiple occurrences of mandatoryUbounde4,remove multiple optionalUbounde6
+		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.thirdentity.mandatoryDetails.mandatoryUbounded4.input")).size()==2);
+		this.clickElementByXpath(locator.getString("xpath.thirdentity.mamdatoryDetails.mandatoryUbounded4.removeoccurrences.img"));
+		Assert.assertTrue(this.waitfor(By.xpath("//span[contains(text(),'Do you really want to delete the selected record?')]"), WAIT_TIME_MIN).isDisplayed());	   
+		this.clickElementByXpath("//span[contains(text(),'Confirmation')]//ancestor::div[contains(@class,'x-window-plain x-window-dlg x-window x-component')]//button[contains(text(),'Yes')]");
+		this.sleepCertainTime(3000);
+		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.thirdentity.mandatoryDetails.mandatoryUbounded4.input")).size()==1);
+		
+		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.thirdentity.mamdatoryDetails.optionalUbounded6")).size()==2);
+		this.clickElementByXpath(locator.getString("xpath.thirdentity.mamdatoryDetails.optionalUbounded6.removeoccurrences.img"));
+		Assert.assertTrue(this.waitfor(By.xpath("//span[contains(text(),'Do you really want to delete the selected record?')]"), WAIT_TIME_MIN).isDisplayed());	   
+		this.clickElementByXpath("//span[contains(text(),'Confirmation')]//ancestor::div[contains(@class,'x-window-plain x-window-dlg x-window x-component')]//button[contains(text(),'Yes')]");
+		this.sleepCertainTime(3000);
+		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.thirdentity.mamdatoryDetails.optionalUbounded6")).size()==1);
+		
+	    this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
+	    this.sleepCertainTime(10000);
+		
+	    this.clickElementByXpath(this.getString(locator, "xpath.thirdentity.record.select.by.key", key));
+		this.sleepCertainTime(6000);
+		this.clickElementByXpath(locator.getString("xpath.thirdentity.mandatoryDetails.expend.img"));
+		this.sleepCertainTime(2000);
+		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.thirdentity.mandatoryDetails.mandatoryUbounded4.input")).size()==1);
+		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.thirdentity.mamdatoryDetails.optionalUbounded6")).size()==1);
+		
+	}
 	public void createThirdEntityRecordFailedImpl(String container,String modle,String entity,String key,String name,String mdM1,String mdO2,String mdOu3
 			,String mdMu4,String mdO5m51,String mdO5o51,String mdOu6m61,String mdOu6o62
 			,String odM1,String odO2,String odOu3,String odMu4,String odO5m51,String odO5o51,String odOu6m61,String odOu6o62){
