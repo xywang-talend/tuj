@@ -29,7 +29,6 @@ public class CommandlineAction extends Commandline {
 	}
 	
 	public String createProject(String project, String description, String user, String passwd){
-		System.err.println("createProject -pn " + project + " -pd " + description + " -pl java -pa " + user + " -pap " + passwd);
 		return cmd.command("createProject -pn " + project + " -pd " + description + " -pl java -pa " + user + " -pap " + passwd);
 	}
 	
@@ -58,10 +57,31 @@ public class CommandlineAction extends Commandline {
 	}
 	
 	public boolean isCommandCompleted(int id) {
-		System.err.println("commandIdStatus>>>>>>>>"+this.getCommandStatus(id));
 		return this.getCommandStatus(id).contains("COMPLETED");
 	}
 	
-	
+	public boolean commandStatusCheck(int id, int period, int checkTimes){
+		boolean iscompleted = false;
+		boolean running = true;
+		int count = 0;
+		while(running){
+			count ++;
+			try {
+				Thread.sleep(period);
+			} catch (InterruptedException e) {
+			}
+			iscompleted = isCommandCompleted(id);
+			if(iscompleted){
+				System.out.println("Task Done");
+				running = false;
+				break;
+			} else if(count > checkTimes){
+				System.out.println("Haven't finished");
+				running = false;
+				break;
+			}
+		}
+		return iscompleted;
+	}
 	
 }
