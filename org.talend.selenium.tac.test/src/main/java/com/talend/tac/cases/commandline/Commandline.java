@@ -67,16 +67,15 @@ public class Commandline {
 	public List<String> command(String server, int port, int timeout, String command, String end) {
 		List<String> results = new ArrayList<String>();
 		String result = null;
-		PrintWriter os;
 		try {
 			socket = new Socket(server, port);
 			socket.setSoTimeout(timeout);
             boolean autoflush = false;
-            os = new PrintWriter(socket.getOutputStream(),autoflush);
-            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            pw = new PrintWriter(socket.getOutputStream(),autoflush);
+            br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			
-            os.println(command);
-			os.flush();
+            pw.println(command);
+            pw.flush();
 			
 			result = br.readLine();
 			
