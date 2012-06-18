@@ -55,7 +55,39 @@ public class CommandlineAction extends Commandline {
 	public String exportItems(String path){
 		return cmd.command("exportItems "+path);
 	}
+
+	public List<String> listCommand(){
+		return cmd.command("listCommand -a", "talend>");
+	}
+
+	public List<String> listExecutionServer(){
+		return cmd.command("listExecutionServer", "talend>");
+	}
+
+	public List<String> listJob(){
+		return cmd.command("listJob", "talend>");
+	}
+
+	public List<String> listProject(){
+		return cmd.command("listProject", "talend>");
+	}
+
+	public List<String> listItem(){
+		return cmd.command("listItem", "talend>");
+	}
+
+	public String changeJobVersion(){
+		return cmd.command("changeVersion 2.0 -if type=process");
+	}
+
+	public List<String> listOtherVersionJob(){
+		return cmd.command("listItem -if version=2.0", "talend>");
+	}
 	
+	public List<String> showVersion(){
+		return cmd.command("showVersion", "talend>");
+	}
+
 	public boolean isCommandCompleted(int id) {
 		return this.getCommandStatus(id).contains("COMPLETED");
 	}
@@ -70,6 +102,7 @@ public class CommandlineAction extends Commandline {
 				Thread.sleep(period);
 			} catch (InterruptedException e) {
 			}
+			System.err.println("id "+id+" "+count+" status>>>>>>>"+getCommandStatus(id));
 			iscompleted = isCommandCompleted(id);
 			if(iscompleted){
 				System.out.println("Task Done");

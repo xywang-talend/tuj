@@ -86,30 +86,6 @@ public class Commandline extends Base{
           return flag;
         }
 	
-	public int randomNum() {
-        int[] intRet = new int[6]; 
-        int intRd = 0; //存放随机数
-        int count = 0; //记录生成的随机数个数
-        int flag = 0; //是否已经生成过标志
-        while(count<6){
-             Random rdm = new Random(System.currentTimeMillis());
-             intRd = Math.abs(rdm.nextInt())%32+1;
-             for(int i=0;i<count;i++){
-                 if(intRet[i]==intRd){
-                     flag = 1;
-                     break;
-                 }else{
-                     flag = 0;
-                 }
-             }
-             if(flag==0){
-                 intRet[count] = intRd;
-                 count++;
-             }
-	    }
-	    System.out.println("randomNum>>>>>"+intRd);
-	    return intRd;
-	}
 	
 	 public static LinkedHashMap ReadAllFilesName(String filePath){
 	  LinkedList list=new LinkedList();
