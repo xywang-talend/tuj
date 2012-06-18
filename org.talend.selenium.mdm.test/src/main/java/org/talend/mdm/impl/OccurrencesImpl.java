@@ -55,6 +55,7 @@ public class OccurrencesImpl extends Record{
 		this.typeTextByXpath(locator.getString("xpath.occurrences.datetime2.input"),dataTime2);
 		//fill url
 		this.clickElementByXpath("//div[text()='url']//ancestor::tr/td[2]//span[contains(@class,'x-form-field-wrap  x-component x-form-invalid')]");
+		this.sleepCertainTime(3000);
 		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.occurrences.url.editurl")), WAIT_TIME_MIN).isDisplayed());
 		this.typeTextByXpath(locator.getString("xpath.occurrences.url.name.input"), urlName);
 	    this.typeTextByXpath(locator.getString("xpath.occurrences.url.value.input"), urlValue);
@@ -206,6 +207,7 @@ public class OccurrencesImpl extends Record{
 		this.typeTextByXpath(locator.getString("xpath.occurrences.datetime2.input"),dataTime2);
 		//fill url
 		this.clickElementByXpath("//div[text()='url']//ancestor::tr/td[2]//span[contains(@class,'x-form-field-wrap  x-component x-form-invalid')]");
+		this.sleepCertainTime(3000);
 		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.occurrences.url.editurl")), WAIT_TIME_MIN).isDisplayed());
 		this.typeTextByXpath(locator.getString("xpath.occurrences.url.name.input"), urlName);
 	    this.typeTextByXpath(locator.getString("xpath.occurrences.url.value.input"), urlValue);
