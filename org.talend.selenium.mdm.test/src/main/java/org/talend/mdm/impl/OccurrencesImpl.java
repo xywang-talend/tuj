@@ -54,7 +54,8 @@ public class OccurrencesImpl extends Record{
 		this.typeTextByXpath(locator.getString("xpath.occurrences.datetime.input"), dataTime);
 		this.typeTextByXpath(locator.getString("xpath.occurrences.datetime2.input"),dataTime2);
 		//fill url
-		this.clickElementByXpath("//div[text()='url']//ancestor::tr/td[2]//span[contains(@class,'x-form-field-wrap  x-component x-form-invalid')]");
+		this.sleepCertainTime(3000);
+		this.clickElementByXpath(locator.getString("xpath.occurrences.url.openeditpanel.img"));
 		this.sleepCertainTime(3000);
 		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.occurrences.url.editurl")), WAIT_TIME_MIN).isDisplayed());
 		this.typeTextByXpath(locator.getString("xpath.occurrences.url.name.input"), urlName);
@@ -62,7 +63,8 @@ public class OccurrencesImpl extends Record{
 	    this.clickElementByXpath(locator.getString("xpath.occurrences.url.save.button"));
 	    
 		//fill url2
-		this.clickElementByXpath("//div[text()='url2']//ancestor::tr//span[contains(@class,'x-form-field-wrap  x-component')]");
+	    this.sleepCertainTime(3000);
+	    this.clickElementByXpath(locator.getString("xpath.occurrences.url2.openeditpanel.img"));
 		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.occurrences.url.editurl")), WAIT_TIME_MIN).isDisplayed());
 		this.typeTextByXpath(locator.getString("xpath.occurrences.url.name.input"), url2Name);
 	    this.typeTextByXpath(locator.getString("xpath.occurrences.url.value.input"), url2Value);
@@ -206,7 +208,8 @@ public class OccurrencesImpl extends Record{
 		this.typeTextByXpath(locator.getString("xpath.occurrences.datetime.input"), dataTime);
 		this.typeTextByXpath(locator.getString("xpath.occurrences.datetime2.input"),dataTime2);
 		//fill url
-		this.clickElementByXpath("//div[text()='url']//ancestor::tr/td[2]//span[contains(@class,'x-form-field-wrap  x-component x-form-invalid')]");
+		this.sleepCertainTime(3000);
+		this.clickElementByXpath(locator.getString("xpath.occurrences.url.openeditpanel.img"));
 		this.sleepCertainTime(3000);
 		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.occurrences.url.editurl")), WAIT_TIME_MIN).isDisplayed());
 		this.typeTextByXpath(locator.getString("xpath.occurrences.url.name.input"), urlName);
@@ -214,7 +217,8 @@ public class OccurrencesImpl extends Record{
 	    this.clickElementByXpath(locator.getString("xpath.occurrences.url.save.button"));
 	    
 		//fill url2
-		this.clickElementByXpath("//div[text()='url2']//ancestor::tr//span[contains(@class,'x-form-field-wrap  x-component')]");
+	    this.sleepCertainTime(3000);
+		this.clickElementByXpath(locator.getString("xpath.occurrences.url2.openeditpanel.img"));
 		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.occurrences.url.editurl")), WAIT_TIME_MIN).isDisplayed());
 		this.typeTextByXpath(locator.getString("xpath.occurrences.url.name.input"), url2Name);
 	    this.typeTextByXpath(locator.getString("xpath.occurrences.url.value.input"), url2Value);
