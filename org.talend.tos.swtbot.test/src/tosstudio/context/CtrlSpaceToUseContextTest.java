@@ -37,7 +37,7 @@ import org.talend.swtbot.items.TalendJobItem;
  * DOC fzhong class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class CtrlSpaceToUseContext extends TalendSwtBotForTos {
+public class CtrlSpaceToUseContextTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 
