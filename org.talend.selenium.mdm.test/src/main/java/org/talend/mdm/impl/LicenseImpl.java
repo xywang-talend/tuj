@@ -39,8 +39,8 @@ public class LicenseImpl extends License{
 		System.out.println(file.getAbsolutePath());
 		this.typeInlicenseFile(file.getAbsolutePath());
 		this.clickUploadLicenseButton();
-		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.license.uploading.inprogressbar.wating")), WAIT_TIME_MID), "uploading license bar err");
-		Assert.assertTrue(this.isElementPresent(By.xpath(locator.getString("xpath.license.upload.sending")), WAIT_TIME_MID), "uploading license bar err");
+		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.license.uploading.inprogressbar.wating")), WAIT_TIME_MID).isDisplayed(), "uploading license bar err");
+		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.license.upload.sending")), WAIT_TIME_MID).isDisplayed(), "uploading license bar err");
 	    this.sleepCertainTime(5000);
 	}
 	
