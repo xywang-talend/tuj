@@ -8,7 +8,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.talend.tac.base.Karaf;
 public class TestServiceLocator extends EsbUtil {	
-
+	static String KarafURL="localhost";
+	Karaf karaf=new Karaf(KarafURL);
 		
 	//test display service of 'live services only'/'all services'	
 	@Test
@@ -276,42 +277,7 @@ public class TestServiceLocator extends EsbUtil {
 		checkSortAscendingSortDescending("endpoint", "http://localhost:8040/services/soap/jobSixedProvider/",
 				"http://localhost:8040/services/jobFirstProvider");
 		
-	}
-	
-//	//Stop and restart a service connected to Service Locator and check correct status display in server table
-//	@Test
-//	@Parameters({"provider.file.path.jobFourthProvider", "jobFourthProvider"})
-//	public void testCheckServiceLocationPageStopServiceAndRestart(String jobFourthPrividerFilePath, 
-//			String jobFourthProvider) {
-//		 
-//		//go to 'ServiceLocator' page
-//		this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");
-//		
-//		installStratService(jobFourthPrividerFilePath, jobFourthProvider);		
-//		//click 'Refresh' button
-//		selenium.click("//b[text()='Refresh']");		
-//		//start job
-//		assertStartService(jobFourthProvider);
-//		Assert.assertFalse(selenium.isElementPresent("//div[text()='http://127.0.0.1:9996/esb/provider']" +
-//				"//ancestor::table[@class='x-grid3-row-table']//span[@style='color: red;']"));
-//		
-//		stopService("jobFourthProvider");
-//		//click 'Refresh' button
-//		selenium.click("//b[text()='Refresh']");		
-//		//stop job
-//		assertStopService(jobFourthProvider);
-//		Assert.assertTrue(selenium.isElementPresent("//div[text()='http://127.0.0.1:9996/esb/provider']" +
-//				"//ancestor::table[@class='x-grid3-row-table']//span[@style='color: red;']"));
-//		
-//		installStratService(jobFourthPrividerFilePath, jobFourthProvider);		
-//		//click 'Refresh' button
-//		selenium.click("//b[text()='Refresh']");		
-//		//start job
-//		assertStartService(jobFourthProvider);
-//		Assert.assertFalse(selenium.isElementPresent("//div[text()='http://127.0.0.1:9996/esb/provider']" +
-//				"//ancestor::table[@class='x-grid3-row-table']//span[@style='color: red;']"));
-//		
-//	}	
+	}		
 	
 	//stop zkserver, check status info of configuration page and serviceLocation page  
 	@Test
@@ -426,7 +392,6 @@ public class TestServiceLocator extends EsbUtil {
     @Test
     public void testFilterServiceLocator() {
     	this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");//into SL page
-		this.clickWaitForElementPresent("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-endpoint')]/a");
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("//a[text()='Show in Groups']");
 		selenium.setSpeed(MID_SPEED);
@@ -463,9 +428,9 @@ public class TestServiceLocator extends EsbUtil {
     }
     
     @Test
-    @Parameters({"karafUrl","providerName"})
-    public void testUptimeOfService(String KarafURL,String ProviderName) {
-    	Karaf karaf=new Karaf(KarafURL);
+    @Parameters({"providerName"})
+    public void testUptimeOfService(String ProviderName) {
+    	
     	karaf.karafAction("stop "+ProviderName+"-control-bundle", WAIT_TIME);  //stop service
     	this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");  //into SL page
 		selenium.setSpeed(MID_SPEED);
@@ -480,7 +445,6 @@ public class TestServiceLocator extends EsbUtil {
     }
     
     @Test
-    @Parameters({})
     public void testDeleteUnavaiableService() {
     	this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");  //into SL page
     	selenium.setSpeed(MID_SPEED);
@@ -492,6 +456,77 @@ public class TestServiceLocator extends EsbUtil {
     	selenium.chooseOkOnNextConfirmation();
     	selenium.click("//span[text()='Metadata']//ancestor::div[@class=' x-tab-panel x-component']//following-sibling::div[@class=' x-component']//table//button[text()='Delete']");
         selenium.click("//button[text()='Yes']");
-    	this.waitForElementDispear("//div[text()='http://localhost:8040/services/jobFourthProvider' and @class='x-grid3-cell-inner x-grid3-col-endpoint']", WAIT_TIME);
+    	this.waitForElementDispear("//div[text()='http://localhost:8040/services/jobFourthProvider' and @class='x-grid3-cell-inner x-grid3-col-endpoint']", WAIT_TIME);    	
     }
+    
+    @Test
+    @Parameters({"consumerName","jobThirdProvider"})
+    public void testLargeAmountOfEndpoints(String consumerName,String jobThirdProvider) {
+    	this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");  //into SL page
+//    	karaf.karafAction("features:install tesb-locator-soap-service", WAIT_TIME);  //start locator-soap service
+//        for(int i=0;i<3;i++) {
+//        	karaf.karafAction("install -s file://"+getAbsolutePath("org/talend/tac/folder/esb/"+consumerName+".jar")+"", WAIT_TIME);
+//			this.sleep(40000);			
+//        	karaf.karafAction("uninstall "+consumerName, WAIT_TIME);
+//        	System.err.println("generate events :"+i);
+//        }
+        selenium.click("//b[text()='Refresh']");
+        this.clickWaitForElementPresent("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-endpoint')]/a");		
+        selenium.setSpeed(MID_SPEED);
+		selenium.click("//a[text()='Show in Groups']");
+		selenium.setSpeed(MID_SPEED);
+		Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid-group-div']"));
+//		checkSortAscendingSortDescending("name", jobThirdProvider, "NewService");
+//		checkSortAscendingSortDescending("endpoint", "http://localhost:8040/services/jobThirdProvider",
+//				"http://localhost:8040/services/jobFirstProvider");
+		Assert.assertTrue(selenium.getValue("//div[contains(@class,'x-small-editor x-toolbar x-component x-toolbar-layout-ct')]//input[contains(@class,'gwt-TextBox x-component ')]").equals("1"));
+		selenium.click("//div[@class='my-paging-text x-component ' and text()='Page']//ancestor::tr[@class='x-toolbar-left-row']//td[8]//table");
+		this.sleep(5000);
+		System.out.println(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[contains(@class,'gwt-TextBox x-component')]").toString());
+		Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[contains(@class,'gwt-TextBox x-component')]").toString().equals("2"), "test go to next page failed!");//test go to next page
+        
+    }
+    
+    @Test
+    public void testGotoLastPage() {
+    	this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");  //into SL page
+    	this.sleep(3000);
+		String lastpage = selenium.getText("//div[contains(@class,'x-small-editor x-toolbar x-component x-toolbar-layout-ct')]//div[contains(text(),'of') and @class='my-paging-text x-component']");
+		System.out.println(lastpage);
+		String totalPage = lastpage.substring(lastpage.indexOf(" ") + 1);
+		System.out.println(totalPage);
+//		selenium.click("//div[@class='my-paging-text x-component ' and text()='Page']//ancestor::tr[@class='x-toolbar-left-row']//td[9]//table");
+		selenium.click("//tr[@class='x-toolbar-left-row']//td[9]//table");
+		this.sleep(3000);
+		Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[contains(@class,'gwt-TextBox x-component')]").equals(totalPage), "test go to last page failed!");
+    }
+    
+    @Test
+    public void testGotoPreviousPage() {
+    	this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");  //into SL page
+		this.sleep(3000);
+		String lastpage = selenium.getText("//div[contains(@class,'x-small-editor x-toolbar x-component x-toolbar-layout-ct')]//div[contains(text(),'of') and @class='my-paging-text x-component']");
+		System.out.println(lastpage);
+		String totalPage = lastpage.substring(lastpage.indexOf(" ") + 1);
+		System.out.println(totalPage);
+		this.testGotoLastPage();
+		selenium.click("//tr[@class='x-toolbar-left-row']//td[2]//table");
+		this.sleep(3000);
+		System.out.println(selenium.getValue(
+						"//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[contains(@class,'gwt-TextBox x-component')]"));
+		Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[contains(@class,'gwt-TextBox x-component')]").toString()
+						.equals((Integer.parseInt(totalPage)-1)+""), "test go to previous page failed!");
+    }
+    
+    @Test
+	public void testMonitorGoToFirstPage() {
+    	this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");  //into SL page
+		this.sleep(3000);
+		this.testGotoLastPage();
+		selenium.click("//div[contains(@class,'my-paging-text x-component') and text()='Page']//ancestor::tr[contains(@class,'x-toolbar-left-row')]//td[1]//table");
+		this.sleep(3000);
+		Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[contains(@class,'gwt-TextBox x-component')]")
+						.equals("1"), "test go to last page failed!");
+
+	}
 }

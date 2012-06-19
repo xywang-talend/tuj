@@ -55,7 +55,6 @@
 			
 
       <test name="serviceLocator06_TestUptime">
-      <parameter name='karafUrl' value='localhost'/>
       <parameter name="providerName" value="jobFirstProvider" />
 		   <classes>
 		      <class name="com.talend.tac.cases.esb.serviceLocator.TestServiceLocator">
@@ -74,6 +73,21 @@
 		         </methods>
 		      </class> 
 		   </classes>
+	  </test>
+	  
+	  <test name="serviceLocator08_TestPaging">
+	  <parameter name="consumerName" value="testLargeAmountEndpoints" />
+	  <parameter name="jobThirdProvider" value="jobThirdProvider" />
+	       <classes>
+	       <class name="com.talend.tac.cases.esb.serviceLocator.TestServiceLocator">
+	       <methods>
+	       <include name="testLargeAmountOfEndpoints"/>
+	       <include name="testGotoLastPage"/> 
+	       <include name="testGotoPreviousPage"/> 
+	       <include name="testMonitorGoToFirstPage"/>
+	       </methods>
+	       </class>
+	       </classes>		
 	  </test>
   </suite>
 

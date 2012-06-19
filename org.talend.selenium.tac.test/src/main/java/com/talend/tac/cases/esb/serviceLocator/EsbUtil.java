@@ -31,8 +31,8 @@ public class EsbUtil extends Login {
 	
 	public void uninstallService(String jobName) {
 		
-		karaf.karafAction("uninstall "+jobName+"", 5000);
-		System.out.println("**--**the "+jobName+" is unintall successful");
+		karaf.karafAction("stop "+jobName+"-control-bundle", 5000);
+		System.out.println("**--**the "+jobName+" is stopped successful");
 		
 	}
 	
@@ -246,7 +246,7 @@ public class EsbUtil extends Login {
 			
 		  }
 		this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB (')]");
-		this.typeWordsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), other.getString("esb.conf.ZookeeperServer.input"), ServiceLocation);
+		this.typeWordsInConfigurationMenu(other.getString("esb.conf.ZookeeperServer.editButton"), other.getString("commandline.conf.all.input"), ServiceLocation);
 	  	
 		selenium.click("idConfigRefreshButton");
 		
@@ -290,7 +290,7 @@ public class EsbUtil extends Login {
 	
 	public void modifySAMServer(String MonitorServer, String MonitorServerStatusIconLocator) {					     
 		  
-		this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), other.getString("esb.conf.serviceActivityMonitorServer.input"), MonitorServer);
+		this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), other.getString("commandline.conf.all.input"), MonitorServer);
 		  
 	    this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.value"),
 			   MonitorServer, MonitorServerStatusIconLocator);
