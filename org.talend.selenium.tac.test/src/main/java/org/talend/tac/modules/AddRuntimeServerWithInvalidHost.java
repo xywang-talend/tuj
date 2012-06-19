@@ -263,13 +263,13 @@ public class AddRuntimeServerWithInvalidHost extends WebDriverBase{
 		}
         this.clickElementByXpath("//a[text()='Sort Ascending']");
  		this.mouseDown("//div[text()='"+labelAfterCopy+"']");
- 		logger.info("expected label-------"+labelAfterCopy);
- 		logger.info("label-----------:"+getElementByXpath("//span[@class='serv-t1']").getText());
- 		Assert.assertTrue(this.getElementByXpath("//span[@class='serv-t1']").getText().equals(labelAfterCopy));
- 		Assert.assertTrue(this.getElementByXpath("//span[text()='Hostname: ']//following-sibling::span[@class='serv-value']").getText().equals("localhost"));
- 		Assert.assertTrue(this.getElementByXpath("//span[contains(text(),'Copy_of_testRuntimeServer')]//ancestor::table[@class='serv-header']//following-sibling::table[1]//span[contains(text(),'Command port:')]//following-sibling::span//div[@class='gwt-HTML']").getText().equals(" 8000"));
- 		Assert.assertTrue(this.getElementByXpath("//span[contains(text(),'Copy_of_testRuntimeServer')]//ancestor::table[@class='serv-header']//following-sibling::table[1]//span[contains(text(),'File transfert port: ')]//following-sibling::span//div[@class='gwt-HTML']").getText().equals(" 8001"));
- 		Assert.assertTrue(this.getElementByXpath("//span[contains(text(),'Copy_of_testRuntimeServer')]//ancestor::table[@class='serv-header']//following-sibling::table[1]//span[contains(text(),'Monitoring port:')]//following-sibling::span//div[@class='gwt-HTML']").getText().equals(" 8888"));
+// 		logger.info("expected label-------"+labelAfterCopy);
+// 		logger.info("label-----------:"+getElementByXpath("//span[@class='serv-t1']").getText());
+// 		Assert.assertTrue(this.getElementByXpath("//span[@class='serv-t1']").getText().equals(labelAfterCopy));
+ 		Assert.assertTrue(this.getElementByXpath("//span[text()='"+labelAfterCopy+"']//ancestor::table[@class='serv-header']//following-sibling::table[1]//span[text()='Hostname: ']//following-sibling::span").getText().equals("192.168.30.132"));
+ 		Assert.assertTrue(this.getElementByXpath("//span[contains(text(),'"+labelAfterCopy+"')]//ancestor::table[@class='serv-header']//following-sibling::table[1]//span[contains(text(),'Command port:')]//following-sibling::span//div[@class='gwt-HTML']").getText().equals(" 8000"));
+ 		Assert.assertTrue(this.getElementByXpath("//span[contains(text(),'"+labelAfterCopy+"')]//ancestor::table[@class='serv-header']//following-sibling::table[1]//span[contains(text(),'File transfert port: ')]//following-sibling::span//div[@class='gwt-HTML']").getText().equals(" 8001"));
+ 		Assert.assertTrue(this.getElementByXpath("//span[contains(text(),'"+labelAfterCopy+"')]//ancestor::table[@class='serv-header']//following-sibling::table[1]//span[contains(text(),'Monitoring port:')]//following-sibling::span//div[@class='gwt-HTML']").getText().equals(" 8888"));
  		Assert.assertTrue(this.getElementByName("timeoutUnknownState").getAttribute("value").equals("120"));
  		Assert.assertTrue(this.getElementByXpath("//span[text()='Mgmt-Server port:']//following-sibling::span[@class='serv-value']").getText().equals("44444"));
  		Assert.assertTrue(this.getElementByXpath("//span[text()='Mgmt-Reg port: ']//following-sibling::span[@class='serv-value']").getText().equals("1099"));

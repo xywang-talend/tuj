@@ -83,17 +83,17 @@ public class SelectFeatureFromArchiva extends WebDriverBase {
 			"/parent::td/following-sibling::td[1]//div[1]").getText().trim();
 	        Assert.assertEquals(mavenProtocol, mavenProtocolExpected);
 			this.getElementByXpath(other.getString("ESBConduction.ArtifactRepositoryUrl.editButton")).click();
-			this.waitforElementDisplayed(By.xpath(other.getString("ESBConduction.conf.ArtifactRepositoryUrl.input")), WAIT_TIME_MIN);
-			this.getElementByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryUrl.input")).clear();
-			this.typeTextByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryUrl.input"), artifactRepositoryUrl);
+			this.waitforElementDisplayed(By.xpath(other.getString("commandline.conf.all.input")), WAIT_TIME_MIN);
+			this.getElementByXpath(other.getString("commandline.conf.all.input")).clear();
+			this.typeTextByXpath(other.getString("commandline.conf.all.input"), artifactRepositoryUrl);
 			this.getElementByXpath(other.getString("ESBConduction.ArtifactRepositoryUserName.editButton")).click();
-			this.waitforElementDisplayed(By.xpath(other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input")), WAIT_TIME_MIN);
-			this.getElementByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input")).clear();
-			this.typeTextByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input"), artifactRepositoryUserName);
+			this.waitforElementDisplayed(By.xpath(other.getString("commandline.conf.all.input")), WAIT_TIME_MIN);
+			this.getElementByXpath(other.getString("commandline.conf.all.input")).clear();
+			this.typeTextByXpath(other.getString("commandline.conf.all.input"), artifactRepositoryUserName);
 			this.getElementByXpath(other.getString("ESBConduction.ArtifactRepositoryPassWord.editButton")).click();
-			this.waitforElementDisplayed(By.xpath(other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input")), WAIT_TIME_MIN);
-			this.getElementByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input")).clear();
-			this.typeTextByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input"), artifactRepositoryPassWord);
+			this.waitforElementDisplayed(By.xpath(other.getString("commandline.conf.all.input")), WAIT_TIME_MIN);
+			this.getElementByXpath(other.getString("commandline.conf.all.input")).clear();
+			this.typeTextByXpath(other.getString("commandline.conf.all.input"), artifactRepositoryPassWord);
 			
 			this.getElementById("idConfigRefreshButton").click();
 			try {
@@ -107,12 +107,12 @@ public class SelectFeatureFromArchiva extends WebDriverBase {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			this.AssertEqualsInConfigurationMenu("//div[text()='Artifact repository url']//parent::td//following-sibling::td[1]//div[contains(@class,' x-form-label x-component')]",other.getString("ESBConduction.conf.rtifactRepositoryUrl.input"), artifactRepositoryUrl,
+			this.AssertEqualsInConfigurationMenu("//div[text()='Artifact repository url']//parent::td//following-sibling::td[1]//div[contains(@class,' x-form-label x-component')]",other.getString("commandline.conf.all.input"), artifactRepositoryUrl,
 					other.getString(urlStatus));
-			this.AssertEqualsInConfigurationMenu("//div[text()='Artifact repository username']//parent::td//following-sibling::td[1]//div[contains(@class,' x-form-label x-component')]",other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input"), artifactRepositoryUserName,
+			this.AssertEqualsInConfigurationMenu("//div[text()='Artifact repository username']//parent::td//following-sibling::td[1]//div[contains(@class,' x-form-label x-component')]",other.getString("commandline.conf.all.input"), artifactRepositoryUserName,
 					other.getString(usernameStatus));
 			logger.info("*********passwordStatus:"+pwStatus);
-			this.AssertEqualsInConfigurationMenuForPassword("//div[text()='Artifact repository password']//parent::td//following-sibling::td[1]//div[contains(@class,' x-form-label x-component')]",other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input"), artifactRepositoryPassWord,
+			this.AssertEqualsInConfigurationMenuForPassword("//div[text()='Artifact repository password']//parent::td//following-sibling::td[1]//div[contains(@class,' x-form-label x-component')]",other.getString("commandline.conf.all.input"), artifactRepositoryPassWord,
 					other.getString(pwStatus));
 			Assert.assertTrue(this.isElementPresent(By.xpath(other.getString(mavenStatus)),WAIT_TIME_MIN));		  
 		    

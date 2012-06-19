@@ -95,7 +95,9 @@ public class TestServerFilters extends Server {
 		"RuntimeServerChangeDefaultPortLablename", "LicenseESB"})
 	public void testServerFiltersInEsbconductor(String jobServer1, String jobServer2, String esbServer1,
 			String esbServer2, String esbLicense) {
-		
+		this.openServerMenu();
+		this.addServer("testJobServer", "", "localhost", true);
+		this.addServer("testJobServerUnavaiable", "", "localhost", false);
 		//change license to esb
 		uploadLicense(esbLicense);
 		this.waitForElementPresent("//span[text()='ESB Infrastructure']", WAIT_TIME);

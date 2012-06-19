@@ -19,8 +19,21 @@
     <parameter name ='mavenProtocolExpected' value='Reachable'/>
     <parameter name ='artifactRepositoryPassWordWithWrong' value='tadminWrong'/>
     
+    <test name="ESBConductor01_testSortESBConductor">
+		<parameter name='labelOfService_1' value='a' />
+		<parameter name='labelOfService_2' value='b' />
+		<parameter name='labelOfService_3' value='c' />
+		<parameter name='tag_1' value='tagA' />
+		<parameter name='tag_2' value='tagB' />
+		<classes>
+			<class name="org.talend.tac.cases.esbconductor.TestSortAsendAndDescenESBConductor" />
+			<methods>
+				<include name="testSortESBConductor" />
+			</methods>
+		</classes>
+	</test>
     
-    <test name="ESBConductor01_testAddESBConductor" preserve-order="true">
+    <test name="ESBConductor02_testAddESBConductor" preserve-order="true">
 		<classes>
 			<class name="com.talend.tac.cases.esbconductor.TestAddESBConductor" >
 			    <methods>
@@ -31,7 +44,24 @@
 		</classes>
 	</test>
 	
-	<test name="ESBConductor02_testDeployESBConductor" preserve-order="true">
+	<test name="ESBConductor03_testDuplicateESBConductor">
+		<classes>
+			<class name="com.talend.tac.cases.esbconductor.TestDuplicateESBConductor" />
+		</classes>
+	</test>
+	 	
+	<test name="ESBConductor04_testDeployWithInactiveRuntime">
+	    <parameter name ='labelOfServiceWithInactiveServer' value='testDeployWithInactiveServer'/> 
+	    <parameter name ='InactiveServerOfRuntime' value='testRuntimeServerOfUncheckActive'/>
+		<classes>
+			<class name="com.talend.tac.cases.esbconductor.TestDeployWithInactiveRuntime" />
+				<methods>
+					<include name="testDeployConductorWithInactiveRuntime"/>
+				</methods>
+		</classes>
+	</test>
+	
+	<test name="ESBConductor05_testDeployESBConductor" preserve-order="true">
 		<classes>
 			<class name="com.talend.tac.cases.esbconductor.TestDeployESBConductor" >
 			    <methods>
@@ -42,13 +72,20 @@
 		</classes>	
 	</test>
 	
-	<test name="ESBConductor03_testDuplicateESBConductor">
+	<test name="ESBConductor06_testEditESBConductor"
+		preserve-order="true">
+	<parameter name ='repository' value='repo-snapshot'/>
+    <parameter name ='group' value='org.example'/>
+    <parameter name ='artifact' value='jobFourthProvider-feature'/>
+    <parameter name ='version' value='0.1.0-SNAPSHOT'/>
+    <parameter name='name' value='jobFourthProvider-feature'/>
+    <parameter name='serverOfRuntime' value='Copy_of_testRuntimeServer'/>
 		<classes>
-			<class name="com.talend.tac.cases.esbconductor.TestDuplicateESBConductor" />
+			<class name="org.talend.tac.cases.esbconductor.TestEditESBConductor" />
 		</classes>
 	</test>
 	
-	<test name="ESBConductor04_testDeleteESBConductor_cancel">
+	<test name="ESBConductor07_testDeleteESBConductor_cancel">
 		<classes>
 			<class name="com.talend.tac.cases.esbconductor.TestDeleteESBConductor" />
 			<methods>
@@ -57,7 +94,7 @@
 		</classes>
 	</test>
 	
-	<test name="ESBConductor05_testDeleteESBConductor_ok">
+	<test name="ESBConductor08_testDeleteESBConductor_ok">
 		<classes>
 			<class name="com.talend.tac.cases.esbconductor.TestDeleteESBConductor" />
 			<methods>
@@ -67,7 +104,7 @@
 		</classes>
 	</test>
 	
-	<test name="ESBConductor06_testStartESBConductor">
+	<test name="ESBConductor09_testStartESBConductor">
 	    <parameter name ='labelOfService' value='addConductorForTestStart'/> 
 		<classes>
 			<class name="com.talend.tac.cases.esbconductor.TestStartESBConductor" />
@@ -77,7 +114,7 @@
 		</classes>
 	</test>
 	
-	<test name="ESBConductor07_testStopESBConductor">
+	<test name="ESBConductor10_testStopESBConductor">
 	    <parameter name ='labelOfService' value='addConductorForTestStop'/> 
 		<classes>
 			<class name="com.talend.tac.cases.esbconductor.TestStopConductor" />
@@ -87,7 +124,7 @@
 		</classes>
 	</test>
 	
-	<test name="ESBConductor08_testGroupESBConductor">
+	<test name="ESBConductor11_testGroupESBConductor">
 	    <parameter name='labelOfService_1' value='service_1' />
 		<parameter name='labelOfService_2' value='service_2' />
 		<parameter name='labelOfService_3' value='service_3' />
@@ -102,7 +139,7 @@
 	</test>
 	
  
-    <test name="ESBConductor09_testSelectFeature">
+    <test name="ESBConductor12_testSelectFeature">
 	    <parameter name ='warning_Num' value='4'/> 
 		<classes>
 			<class name="com.talend.tac.cases.esbconductor.TestSelectFeatureFromArchiva" />
@@ -115,19 +152,8 @@
 				</methods>
 		</classes>
 	</test>
-	
-	<test name="ESBConductor10_testDeployWithInactiveRuntime">
-	    <parameter name ='labelOfServiceWithInactiveServer' value='testDeployWithInactiveServer'/> 
-	    <parameter name ='InactiveServerOfRuntime' value='testRuntimeServerOfUncheckActive'/>
-		<classes>
-			<class name="com.talend.tac.cases.esbconductor.TestDeployWithInactiveRuntime" />
-				<methods>
-					<include name="testDeployConductorWithInactiveRuntime"/>
-				</methods>
-		</classes>
-	</test>
    
-    <test name="ESBConductor11_testDeployWithInactiveRuntime">
+    <test name="ESBConductor13_testDeployWithInactiveRuntime">
 	    <parameter name ='labelOfServiceWithDifferentContext' value='testUsingDifferentContext'/> 
 	    <parameter name='repositoryForContext' value='repo-snapshot' />
 		<parameter name='groupForContext' value='example' />
@@ -146,32 +172,6 @@
 		</classes>
 	</test>
 	
-	<test name="ESBConductor12_testConfigurateEsb">
-	    <parameter name ='labelOfServiceWithInactiveServer' value='testDeployWithInactiveServer'/> 
-	    <parameter name ='InactiveServerOfRuntime' value='testRuntimeServerOfUncheckActive'/>
-		<classes>
-			<class name="com.talend.tac.cases.esbconductor.TestConfigurationESBConductor" />
-				<methods>
-					<include name="testConfigurationESBConductorIsWrong"/>
-					<include name="testConfigurationESBConductorIsOK"/>
-				</methods>
-		</classes>
-	</test>
-	
-	 <test name="ESBConductor13_testSortESBConductor">
-		<parameter name='labelOfService_1' value='a' />
-		<parameter name='labelOfService_2' value='b' />
-		<parameter name='labelOfService_3' value='c' />
-		<parameter name='tag_1' value='tagA' />
-		<parameter name='tag_2' value='tagB' />
-		<classes>
-			<class name="org.talend.tac.cases.esbconductor.TestSortAsendAndDescenESBConductor" />
-			<methods>
-				<include name="testSortESBConductor" />
-			</methods>
-		</classes>
-	</test>
-	
 	<test name="ESBConductor14_testOpenLinkOfArtifact"
 		preserve-order="true">
 		<classes>
@@ -183,34 +183,8 @@
 			</class>
 		</classes>
 	</test>
-	
-	<test name="ESBConductor15_testEditESBConductor"
-		preserve-order="true">
-	<parameter name ='repository' value='repo-snapshot'/>
-    <parameter name ='group' value='org.example'/>
-    <parameter name ='artifact' value='jobFourthProvider-feature'/>
-    <parameter name ='version' value='0.1.0-SNAPSHOT'/>
-    <parameter name='name' value='jobFourthProvider-feature'/>
-    <parameter name='serverOfRuntime' value='Copy_of_testRuntimeServer'/>
-		<classes>
-			<class name="org.talend.tac.cases.esbconductor.TestEditESBConductor" />
-		</classes>
-	</test>
-	
-	<test name="ESBConductor16_testActivityCoulmns">
-	    <parameter name="LabelForResetContext" value="testServiceForResetContext"/>
-	    <classes>
-			<class
-				name="org.talend.tac.cases.esbconductor.TestActivityConfigColumns">
-				<methods>
-					<include name="testControlDisplayofMenu" />
-				</methods>
-			</class>
-		 </classes>
-	</test>
-	
-	
-	<test name="ESBConductor17_testResetContextPara"
+		
+	<test name="ESBConductor15_testResetContextPara"
 		preserve-order="true">
 		<parameter name="LabelForResetContext" value="testServiceForResetContext"/>
 		<parameter name='repositoryForContext' value='repo-snapshot' />
@@ -232,13 +206,25 @@
 		</classes>
 	</test>
 	
-	<test name="ESBConductor20_testRefreshConfigProperties">
+	<test name="ESBConductor16_testRefreshConfigProperties">
     <parameter name="LabelForResetContext" value="testServiceForResetContext"/>
 	    <classes>
 			<class
 				name="org.talend.tac.cases.esbconductor.TestRefreshConfigProperties">
 				<methods>
 					<include name="testRefreshConfigProperties" />
+				</methods>
+			</class>
+		 </classes>
+	</test>
+	
+	<test name="ESBConductor17_testActivityCoulmns">
+	    <parameter name="LabelForResetContext" value="testServiceForResetContext"/>
+	    <classes>
+			<class
+				name="org.talend.tac.cases.esbconductor.TestActivityConfigColumns">
+				<methods>
+					<include name="testControlDisplayofMenu" />
 				</methods>
 			</class>
 		 </classes>
@@ -261,8 +247,20 @@
 			</class>
 		 </classes>
 	</test>
+	
+	<test name="ESBConductor19_testConfigurateEsb">
+	    <parameter name ='labelOfServiceWithInactiveServer' value='testDeployWithInactiveServer'/> 
+	    <parameter name ='InactiveServerOfRuntime' value='testRuntimeServerOfUncheckActive'/>
+		<classes>
+			<class name="com.talend.tac.cases.esbconductor.TestConfigurationESBConductor" />
+				<methods>
+					<include name="testConfigurationESBConductorIsWrong"/>
+					<include name="testConfigurationESBConductorIsOK"/>
+				</methods>
+		</classes>
+	</test>
    
-    <test name="ESBConductor21_testSelectFeatureWithUnavaiableArtifact"
+    <test name="ESBConductor20_testSelectFeatureWithUnavaiableArtifact"
 		preserve-order="true">
 		<parameter name='artifactRepositoryWrongUrl' value='http://192.168.0.200:8082/archiva'/>
 		<classes>
