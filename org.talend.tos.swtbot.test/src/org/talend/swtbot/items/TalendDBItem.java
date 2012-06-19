@@ -223,12 +223,13 @@ public class TalendDBItem extends TalendMetadataItem {
             gefBot.styledText(0).setText(str);
             gefBot.toolbarButtonWithTooltip("Execute SQL (Ctrl+Enter)").click();
 
-            SWTBotPreferences.TIMEOUT = 100;
+            SWTBotPreferences.TIMEOUT = 1000;
             try {
                 gefBot.waitUntil(Conditions.shellIsActive("Error Executing SQL"));
                 gefBot.shell("Error Executing SQL").activate();
                 String errorLog = gefBot.label(1).getText();
-                if (errorLog.contains("Table") && errorLog.contains("already exists")) {
+                if ((errorLog.contains("Table") && errorLog.contains("already exists"))
+                        || errorLog.contains("There is already an object")) {
                     String table = errorLog.split("'")[1];
                     str = "drop table " + table + ";\n" + str;
                 }

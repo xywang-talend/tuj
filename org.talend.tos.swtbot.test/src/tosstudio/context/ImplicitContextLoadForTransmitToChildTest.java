@@ -14,6 +14,8 @@ package tosstudio.context;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
@@ -36,7 +38,7 @@ import org.talend.swtbot.items.TalendJobItem;
  * DOC vivian class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class ImplictTcontextLoaderforTransmitToChildTest extends TalendSwtBotForTos {
+public class ImplicitContextLoadForTransmitToChildTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem1;
 
@@ -48,22 +50,33 @@ public class ImplictTcontextLoaderforTransmitToChildTest extends TalendSwtBotFor
 
     private static final String FILE = "contextForJob.txt";//$NON-NLS-1$
 
+    private Map<String, String> context1 = new HashMap<String, String>();
+
+    private Map<String, String> context2 = new HashMap<String, String>();
+
     @Before
     public void createJob() {
         repositories.add(ERepositoryObjectType.PROCESS);
+
         jobItem1 = new TalendJobItem(JOBNAME1);
         jobItem1.create();
         jobItem2 = new TalendJobItem(JOBNAME2);
         jobItem2.create();
+
+        context1 = getContextFromPropertyFile();
+        context2 = getContextFromPropertyFile();
+        context2.put("context.value0", "3");
+        context2.put("context.value1", "b");
+        context2.put("context.value2", "4");
     }
 
     @Test
-    public void testImplictTcontextLoadTest() throws IOException, URISyntaxException {
+    public void testImplictContextLoadTest() throws IOException, URISyntaxException {
         SWTBotGefEditor jobEditor1 = jobItem1.getEditor();
         SWTBotGefEditor jobEditor2 = jobItem2.getEditor();
 
         jobEditor1.show();
-        createContextForJob(1, jobEditor1);
+        createContextForJob(context1, jobEditor1);
 
         gefBot.viewByTitle("Job(" + jobItem1.getItemFullName() + ")").setFocus();
         selecteAllTalendTabbedPropertyListIndex(1);
@@ -71,6 +84,7 @@ public class ImplictTcontextLoaderforTransmitToChildTest extends TalendSwtBotFor
         gefBot.checkBox("Implicit tContextLoad").click();
         gefBot.radio("From File").click();
         SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
+        gefBot.sleep(1000);
         String filePath = Utilities.getFileFromCurrentPluginSampleFolder(FILE).getAbsolutePath();
         filePath = "\"" + filePath.replace("\\", "/") + "\"";
         gefBot.text(1).selectAll().typeText(filePath);
@@ -92,7 +106,7 @@ public class ImplictTcontextLoaderforTransmitToChildTest extends TalendSwtBotFor
 
         // create context and drag tJava to job2
         jobEditor2.show();
-        createContextForJob(2, jobEditor2);
+        createContextForJob(context2, jobEditor2);
         dragTJavaToJob(jobEditor2);
         JobHelper.runJob(jobEditor2);
         String result2 = JobHelper.execResultFilter(JobHelper.getExecutionResult());
@@ -106,7 +120,7 @@ public class ImplictTcontextLoaderforTransmitToChildTest extends TalendSwtBotFor
 
     }
 
-    private void createContextForJob(int jobId, SWTBotGefEditor jobEditor) {
+    private void createContextForJob(Map<String, String> context, SWTBotGefEditor jobEditor) {
         gefBot.viewByTitle("Contexts(" + jobEditor.getTitle() + ")").show();
         SWTBotTreeItem treeItem;
         SWTBotTreeItemExt treeItemExt;
@@ -116,18 +130,17 @@ public class ImplictTcontextLoaderforTransmitToChildTest extends TalendSwtBotFor
             treeItem = gefBot.tree(0).getTreeItem("new1").click();
             treeItemExt = new SWTBotTreeItemExt(treeItem);
             treeItemExt.click(0);
-            gefBot.text("new1").setText(System.getProperty("context" + jobId + ".variable" + i));
+            gefBot.text("new1").setText(context.get("context.variable" + i));
             treeItemExt.click(2);
-            gefBot.ccomboBox("String").setSelection(System.getProperty("context" + jobId + ".type" + i));
+            gefBot.ccomboBox("String").setSelection(context.get("context.type" + i));
             treeItemExt.click(3);
         }
         gefBot.cTabItem("Values as tree").activate();
         for (int j = 0; j < 3; j++) {
-            treeItem = gefBot.tree(0).expandNode(System.getProperty("context" + jobId + ".variable" + j)).getNode(0).select()
-                    .click();
+            treeItem = gefBot.tree(0).expandNode(context.get("context.variable" + j)).getNode(0).select().click();
             treeItemExt = new SWTBotTreeItemExt(treeItem);
             treeItemExt.click(4);
-            gefBot.text().setText(System.getProperty("context" + jobId + ".value" + j));
+            gefBot.text().setText(context.get("context.value" + j));
         }
 
     }
@@ -145,4 +158,13 @@ public class ImplictTcontextLoaderforTransmitToChildTest extends TalendSwtBotFor
         return tJava;
     }
 
+    private Map<String, String> getContextFromPropertyFile() {
+        Map<String, String> map = new HashMap<String, String>();
+        String[] keys = { "context.variable", "context.value", "context.type" };
+        for (int i = 0; i < 3; i++) {
+            for (String key : keys)
+                map.put(key + i, System.getProperty(key + i));
+        }
+        return map;
+    }
 }

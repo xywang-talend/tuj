@@ -50,6 +50,6 @@ public class EmptyRecycleBinTest extends TalendSwtBotForTos {
     public void emptyRecycleBin() {
         Utilities.emptyRecycleBin();
         recycleBinNode = Utilities.getTalendItemNode(Utilities.TalendItemType.RECYCLE_BIN);
-        Assert.assertNull("did not empty recycle bin", recycleBinNode.getNodes());
+        Assert.assertEquals("did not empty recycle bin", 0, recycleBinNode.getNodes().size());
     }
 }
