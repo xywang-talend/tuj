@@ -38,7 +38,7 @@ import org.talend.swtbot.items.TalendJobItem;
  * DOC vivian class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class ImplictContextLoadForTransmitToChildTest extends TalendSwtBotForTos {
+public class ImplicitContextLoadForTransmitToChildTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem1;
 
