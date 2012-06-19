@@ -94,12 +94,20 @@ public class UserImpl extends User{
 	    this.clickSaveAndCheckExpectedTrue(identifier);
 	    this.clickElementByXpath(this.getString(locator, "xpath.user.status", identifier));
 	    Assert.assertTrue(this.getValue(this.getElementByXpath(this.getString(locator, "xpath.user.status", identifier))).equals("false"), "Inactive user "+identifier+" added failed!");
+	    this.deleteUser(identifier);
 	}
 	
 	public void addUserWithMultipleRoles(String userTest,String identifier,String firstName,String lastName,String password,String confirmPassword,String email,String company,String defaultVersion, boolean active,String[] roles){
 		this.openMenuAdministrator();
 		this.gotoUserManagePage();
+		this.searchUser(userTest);
+		this.sleepCertainTime(5000);
 		this.deleteAllUsersStartWith(userTest);
+		this.sleepCertainTime(3000);
+		this.searchUser("*");
+		this.sleepCertainTime(5000);
+		System.err.println("after delete,total user number is :"+this.getElementsByXpath(locator.getString("xpath.user.listdisplay.identiferlist")).size());
+		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.user.listdisplay.identiferlist")).size()==4);
 		this.addUser(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active, roles);
 		this.deleteUser(identifier);
 	}
