@@ -105,6 +105,11 @@ public class CommandlineAction extends Commandline {
 		return cmd.command("importDelimitedMetadata "+databaseMetadataPath);
 	}
 	
+	public String executeJobOnServer(String jobName, String serverName){
+		System.err.println("executeJobOnServer "+jobName+" "+"-es "+serverName);
+		return cmd.command("executeJobOnServer "+jobName+" "+"-es "+serverName);
+	}
+	
 	public boolean isCommandCompleted(int id) {
 		return this.getCommandStatus(id).contains("COMPLETED");
 	}

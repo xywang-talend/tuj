@@ -398,7 +398,8 @@ public class CommandlineImpls extends CommandlineAction {
 		
 		this.commandlineLogonProjectImpl(commandResult, commPro, userName, userPassword, url, root);
         
-		String importDatebaseMetadataResult = this.importDatabaseMetadata(databaseMetadataPath);		
+		System.err.println(this.getAbsolutePath(databaseMetadataPath)+"/test_db");
+		String importDatebaseMetadataResult = this.importDatabaseMetadata(this.getAbsolutePath(databaseMetadataPath)+"/test_db.zip");		
 		System.err.println("importDatebaseMetadataResult>>>>>>>>"+importDatebaseMetadataResult);
 		int commandImportDatebaseMetadataId = this.getCommandId(importDatebaseMetadataResult);
 		Assert.assertTrue(importDatebaseMetadataResult.contains(commandResult+" "+commandImportDatebaseMetadataId));
@@ -412,13 +413,53 @@ public class CommandlineImpls extends CommandlineAction {
 			, String delimitedMetadataPath) {		
 		
 		this.commandlineLogonProjectImpl(commandResult, commPro, userName, userPassword, url, root);
-        
-		String importDelimitedMetadataPathResult = this.importDelimitedMetadata(delimitedMetadataPath);		
+		
+		System.err.println(this.getAbsolutePath(delimitedMetadataPath)+"/test_delimited.zip");
+		String importDelimitedMetadataPathResult = this.importDelimitedMetadata(this.getAbsolutePath(delimitedMetadataPath)+"/test_delimited.zip");		
 		System.err.println("importDelimitedMetadataPathResult>>>>>>>>"+importDelimitedMetadataPathResult);
 		int commandImportDelimitedMetadataPathId = this.getCommandId(importDelimitedMetadataPathResult);
 		Assert.assertTrue(importDelimitedMetadataPathResult.contains(commandResult+" "+commandImportDelimitedMetadataPathId));
 		this.commandlineGetCommandStatusImpl(commandImportDelimitedMetadataPathId, WAIT_TIME);
 		
+		
+	}
+
+	public void commandlineExecuteJobOnServerImpl(String commandResult
+			, String url, String root, String commPro, String userName, String userPassword
+			, String serverHost) {
+		
+		
+		this.commandlineListJobImpl(commandResult, url, root, commPro, userName, userPassword);		
+		
+		Assert.assertTrue(ss.contains("generateBigLogs"));
+		Assert.assertTrue(ss.contains("refJobByMaintRunJobRun"));
+		Assert.assertTrue(ss.contains("tRunJob"));
+		Assert.assertTrue(ss.contains("tjavaWithMulripleCheckPoint"));
+		Assert.assertTrue(ss.contains("tjava"));
+		Assert.assertTrue(ss.contains("trunjobWithCheckpoint"));
+
+		String commandExecuteJobOnServerResult = this.executeJobOnServer("tjavaWithMulripleCheckPoint", serverHost);
+		System.err.println("commandExecuteJobOnServerResult>>>>>>>>"+commandExecuteJobOnServerResult);
+		int commandExecuteJobOnServerId = this.getCommandId(commandExecuteJobOnServerResult);
+		Assert.assertTrue(commandExecuteJobOnServerResult.contains(commandResult+" "+commandExecuteJobOnServerId));
+		this.commandlineGetCommandStatusImpl(commandExecuteJobOnServerId, WAIT_TIME);
+		List<String> executeJobOnServerResult = this.getCommandStatusAllInfo(commandExecuteJobOnServerId);
+		
+		String executeJobOnServerResultInfo = "";
+		for(int i=0; i<executeJobOnServerResult.size(); i++) {			
+			
+			executeJobOnServerResultInfo = executeJobOnServerResultInfo+executeJobOnServerResult.get(i);
+            System.err.println("i>>>>>>>>"+executeJobOnServerResult.get(i));			
+			
+		}
+		System.err.println("executeJobOnServerResultInfo>>>"+executeJobOnServerResultInfo);	
+		
+		Assert.assertTrue(executeJobOnServerResultInfo.contains("Job STARTED"));
+		Assert.assertTrue(executeJobOnServerResultInfo.contains("the first checkpoint"));
+		Assert.assertTrue(executeJobOnServerResultInfo.contains("the second checkpoint"));
+		Assert.assertTrue(executeJobOnServerResultInfo.contains("the third checkpoint"));
+		Assert.assertTrue(executeJobOnServerResultInfo.contains("the fourth checkpoint"));
+//		Assert.assertTrue(executeJobOnServerResultInfo.contains("Job ENDED"));
 		
 	}
 

@@ -259,7 +259,18 @@ public class TestCommandline extends CommandlineImpls {
 		this.commandlineImportDelimitedMetadataImpl(commandResult, url, root, commPro, userName, userPassword, importMetedataPath);
 		
 	}
-	
+
+	@Test
+	@Parameters({"commandResult", "url", "root", "addCommonProjectName", 
+		"userName", "userPassword", "serverForUseAvailable"})
+	public void testCommandlineExecuteJobOnServer(String commandResult
+			, String url, String root,  String project, 
+			String userName, String userPassword, String serverName) {
+		
+		this.commandlineExecuteJobOnServerImpl(commandResult, url, root, project, userName, userPassword, serverName);		
+
+	}	
+
 }
 
 
