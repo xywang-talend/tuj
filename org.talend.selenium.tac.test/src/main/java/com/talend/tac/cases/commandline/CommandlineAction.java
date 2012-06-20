@@ -87,7 +87,24 @@ public class CommandlineAction extends Commandline {
 	public List<String> showVersion(){
 		return cmd.command("showVersion", "talend>");
 	}
+	
+	public String executeJob(String jobName, String jdkPath){
+		System.err.println("executeJob "+jobName+" "+"-i \""+jdkPath+"\"");
+		return cmd.command("executeJob "+jobName+" "+"-i \""+jdkPath+"\"");
+	}
+	
+	public List<String> getCommandStatusAllInfo(int id){
+		return cmd.command("getCommandStatus "+id, "talend>");
+	}
 
+	public String importDatabaseMetadata(String databaseMetadataPath){		
+		return cmd.command("importDatabaseMetadata "+databaseMetadataPath);
+	}
+
+	public String importDelimitedMetadata(String databaseMetadataPath){		
+		return cmd.command("importDelimitedMetadata "+databaseMetadataPath);
+	}
+	
 	public boolean isCommandCompleted(int id) {
 		return this.getCommandStatus(id).contains("COMPLETED");
 	}

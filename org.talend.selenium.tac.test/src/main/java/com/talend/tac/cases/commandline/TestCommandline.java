@@ -226,7 +226,41 @@ public class TestCommandline extends CommandlineImpls {
 		this.commandlineShowVersionImpl(commandResult, url, root);
 
 	}
+	
+	@Test
+	@Parameters({"commandResult", "url", "root", "addCommonProjectName", 
+		"userName", "userPassword", "jdkPath"})
+	public void testCommandlineExecuteJob(String commandResult
+			, String url, String root,  String project, 
+			String userName, String userPassword, String jdkPath) {
+		
+		this.commandlineExecuteJobImpl(commandResult, url, root, project, userName, userPassword, jdkPath);		
 
+	}	
+
+	@Test
+	@Parameters({"commandResult", "projectName", 
+		"userName", "userPassword", "url", "root", "importMetedataPath"})
+	public void testCommandlineImportDatabaseMetadata(String commandResult
+			, String commPro, String userName, String userPassword
+			, String url, String root, String importMetedataPath) {
+        
+		this.commandlineImportDatabaseMetadataImpl(commandResult, url, root, commPro, userName, userPassword, importMetedataPath);
+		
+	}
+
+	@Test
+	@Parameters({"commandResult", "projectName", 
+		"userName", "userPassword", "url", "root", "importMetedataPath"})
+	public void testCommandlineDelimitedMetadata(String commandResult
+			, String commPro, String userName, String userPassword
+			, String url, String root, String importMetedataPath) {
+        
+		this.commandlineImportDelimitedMetadataImpl(commandResult, url, root, commPro, userName, userPassword, importMetedataPath);
+		
+	}
+	
 }
+
 
 

@@ -16,8 +16,7 @@ public class CommandlineImpls extends CommandlineAction {
 		System.err.println("initLocalResult>>>"+initLocalResult);
 		int commandInitLocalId = this.getCommandId(initLocalResult);
 		Assert.assertTrue(initLocalResult.contains(commandResult+" "+commandInitLocalId));
-//		csc.checking(cmdAction, commandInitLocalId, 1000, 100);
-		this.commandlineGetCommandStatusImpl(commandInitLocalId, 40);
+		this.commandlineGetCommandStatusImpl(commandInitLocalId, WAIT_TIME);
 		
 	}
 	
@@ -37,8 +36,7 @@ public class CommandlineImpls extends CommandlineAction {
 		System.out.println(">>>>>>>>>>"+initRemoteResult);
 		System.out.println(">>>>>>>>>>"+commandResult+" "+commandInitRemoteId);
 		Assert.assertTrue(initRemoteResult.contains(commandResult+" "+commandInitRemoteId));
-//		csc.checking(cmdAction, commandInitRemoteId, 1000, 100);
-		this.commandlineGetCommandStatusImpl(commandInitRemoteId, 100);
+		this.commandlineGetCommandStatusImpl(commandInitRemoteId, WAIT_TIME);
 		
 	}	
 	
@@ -51,8 +49,7 @@ public class CommandlineImpls extends CommandlineAction {
 		System.err.println("LogonPtoject>>>"+logonProject);
 		int commandLogonProjectId = this.getCommandId(logonProject);
 		Assert.assertTrue(logonProject.contains(commandResult+" "+commandLogonProjectId));
-//		csc.checking(cmdAction, commandLogonProjectId, 1000, 100);
-		this.commandlineGetCommandStatusImpl(commandLogonProjectId, 100);
+		this.commandlineGetCommandStatusImpl(commandLogonProjectId, WAIT_TIME);
 		
 	}	
 	
@@ -66,8 +63,7 @@ public class CommandlineImpls extends CommandlineAction {
 		System.err.println("creatRemoteProjectResult>>>"+creatRemoteProjectResult);		
 		int commandCreatRemoteProjectResultId = this.getCommandId(creatRemoteProjectResult);
 		Assert.assertTrue(creatRemoteProjectResult.contains(commandResult+" "+commandCreatRemoteProjectResultId));
-//		csc.checking(cmdAction, commandCreatRemoteProjectResultId, 1000, 100);
-		this.commandlineGetCommandStatusImpl(commandCreatRemoteProjectResultId, 100);
+		this.commandlineGetCommandStatusImpl(commandCreatRemoteProjectResultId, WAIT_TIME);
 		
 		this.commandlineListProjectImpl(commandResult, url, root, commPro, userName, userPassword);
 		
@@ -84,8 +80,7 @@ public class CommandlineImpls extends CommandlineAction {
 	
 		int commandExportAllJobId = this.getCommandId(exportAllJob);
 		Assert.assertTrue(exportAllJob.contains(commandResult+" "+commandExportAllJobId));
-//		csc.checking(cmdAction, commandExportAllJobId, 1000, 100);
-		this.commandlineGetCommandStatusImpl(commandExportAllJobId, 100);
+		this.commandlineGetCommandStatusImpl(commandExportAllJobId, WAIT_TIME*2);
 		
 		LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(exportPath));
 		map.containsValue("generateBigLogs.zip");
@@ -156,8 +151,7 @@ public class CommandlineImpls extends CommandlineAction {
 		System.err.println("logoffProjectResult>>>"+logoffProjectResult);
 		int commandLogoffProjectId = this.getCommandId(logoffProjectResult);
 		Assert.assertTrue(logoffProjectResult.contains(commandResult+" "+commandLogoffProjectId));
-//		csc.checking(cmdAction, commandLogoffProjectId, 1000, 100);
-		this.commandlineGetCommandStatusImpl(commandLogoffProjectId, 60);
+		this.commandlineGetCommandStatusImpl(commandLogoffProjectId, WAIT_TIME);
 		System.err.println("***********testCommandlineHelpFiltr finished***********");
 		
 	}
@@ -171,8 +165,7 @@ public class CommandlineImpls extends CommandlineAction {
 		System.err.println("createLocalProjectResult>>>"+createLocalProjectResult);	
 		int commandCreateLocalProjectResultId = this.getCommandId(createLocalProjectResult);
 		Assert.assertTrue(createLocalProjectResult.contains(commandResult+" "+commandCreateLocalProjectResultId));
-//		csc.checking(cmdAction, commandCreateLocalProjectResultId, 1000, 100);
-		this.commandlineGetCommandStatusImpl(commandCreateLocalProjectResultId,60);		
+		this.commandlineGetCommandStatusImpl(commandCreateLocalProjectResultId,WAIT_TIME);		
 		
 		List<String> listCommandListProjectResult = this.listProject();
 		System.err.println("listCommandResult>>>>>>>>"+listCommandListProjectResult);
@@ -198,7 +191,7 @@ public class CommandlineImpls extends CommandlineAction {
 		
 		int commandImportItemsResultId = this.getCommandId(importItemsResult);
 		Assert.assertTrue(importItemsResult.contains(commandResult+" "+commandImportItemsResultId));
-	    this.commandlineGetCommandStatusImpl(commandImportItemsResultId, 80);
+	    this.commandlineGetCommandStatusImpl(commandImportItemsResultId, WAIT_TIME);
 		
 	}
 
@@ -212,7 +205,7 @@ public class CommandlineImpls extends CommandlineAction {
 		
 		int commandExportItemsResultId = this.getCommandId(exportItemsResult);
 		Assert.assertTrue(exportItemsResult.contains(commandResult+" "+commandExportItemsResultId));
-	    this.commandlineGetCommandStatusImpl(commandExportItemsResultId, 100);
+	    this.commandlineGetCommandStatusImpl(commandExportItemsResultId, WAIT_TIME);
 	    LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(exportPath));
 		map.containsValue("REFERENCEPRO");
 		this.delFolder(this.getAbsolutePath(exportPath+"/REFERENCEPRO"));		
@@ -240,7 +233,6 @@ public class CommandlineImpls extends CommandlineAction {
 			, String url, String root, String commPro, String userName, String userPassword,
 			 String listExecutionServer, String listExecutionServer1) {
 		
-		this.commandlineInitRemoteImpl(commandResult, url, root);
 		this.commandlineLogonProjectImpl(commandResult, commPro, userName, userPassword, url, root);
 		
 		List<String> listCommandResult = this.listExecutionServer();
@@ -260,9 +252,14 @@ public class CommandlineImpls extends CommandlineAction {
 	public void commandlineListJobImpl(String commandResult
 			, String url, String root, String commPro, String userName, String userPassword) {
 		
-		this.commandlineInitRemoteImpl(commandResult, url, root);
 		this.commandlineLogonProjectImpl(commandResult, commPro, userName, userPassword, url, root);
 		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		List<String> listCommandListJobResult = this.listJob();
 		System.err.println("listCommandResult>>>>>>>>"+listCommandListJobResult);
 		
@@ -279,7 +276,6 @@ public class CommandlineImpls extends CommandlineAction {
 	public void commandlineListProjectImpl(String commandResult
 			, String url, String root, String commPro, String userName, String userPassword) {
 		
-		this.commandlineInitRemoteImpl(commandResult, url, root);
 		this.commandlineLogonProjectImpl(commandResult, commPro, userName, userPassword, url, root);
 		
 		List<String> listCommandListProjectResult = this.listProject();
@@ -298,7 +294,6 @@ public class CommandlineImpls extends CommandlineAction {
 	public void commandlineListItemImpl(String commandResult
 			, String url, String root, String commPro, String userName, String userPassword) {
 		
-		this.commandlineInitRemoteImpl(commandResult, url, root);
 		this.commandlineLogonProjectImpl(commandResult, commPro, userName, userPassword, url, root);
 		
 		List<String> listCommandListItemResult = this.listItem();
@@ -323,7 +318,7 @@ public class CommandlineImpls extends CommandlineAction {
 		System.err.println("changeJobVersionResult>>>>>>>>"+listCommandChangeJobVersionResult);
 		
 		int commandChangeJobVersionId = this.getCommandId(listCommandChangeJobVersionResult);
-		this.commandlineGetCommandStatusImpl(commandChangeJobVersionId , 50);
+		this.commandlineGetCommandStatusImpl(commandChangeJobVersionId , WAIT_TIME);
 		
 		List<String> listCommandlistOtherVersionResult = this.listOtherVersionJob();
 		System.err.println("listCommandResult>>>>>>>>"+listCommandlistOtherVersionResult);
@@ -358,5 +353,73 @@ public class CommandlineImpls extends CommandlineAction {
 		Assert.assertTrue(!showVersionActual.equals(null));
 		
 	}
-	
+
+	public void commandlineExecuteJobImpl(String commandResult
+			, String url, String root, String commPro, String userName, String userPassword
+			, String jdkPath) {
+		
+		
+		this.commandlineListJobImpl(commandResult, url, root, commPro, userName, userPassword);		
+		
+		Assert.assertTrue(ss.contains("generateBigLogs"));
+		Assert.assertTrue(ss.contains("refJobByMaintRunJobRun"));
+		Assert.assertTrue(ss.contains("tRunJob"));
+		Assert.assertTrue(ss.contains("tjavaWithMulripleCheckPoint"));
+		Assert.assertTrue(ss.contains("tjava"));
+		Assert.assertTrue(ss.contains("trunjobWithCheckpoint"));		
+		System.err.println("ss>>>"+ss);	
+
+		String commandExecuteJobResult = this.executeJob("tjavaWithMulripleCheckPoint", jdkPath);
+		System.err.println("commandExecuteJobResult>>>>>>>>"+commandExecuteJobResult);
+		int commandExecuteJobId = this.getCommandId(commandExecuteJobResult);
+		Assert.assertTrue(commandExecuteJobResult.contains(commandResult+" "+commandExecuteJobId));
+		this.commandlineGetCommandStatusImpl(commandExecuteJobId, WAIT_TIME);
+		List<String> executeJobResult = this.getCommandStatusAllInfo(commandExecuteJobId);
+		
+		String executeJobResultInfo = "";
+		for(int i=0; i<executeJobResult.size(); i++) {			
+			
+			executeJobResultInfo = executeJobResultInfo+executeJobResult.get(i);
+            System.err.println("i>>>>>>>>"+executeJobResult.get(i));			
+			
+		}
+		System.err.println("executeJobResultInfo>>>"+executeJobResultInfo);	
+		
+		Assert.assertTrue(executeJobResultInfo.contains("the first checkpoint"));
+		Assert.assertTrue(executeJobResultInfo.contains("the second checkpoint"));
+		Assert.assertTrue(executeJobResultInfo.contains("the third checkpoint"));
+		Assert.assertTrue(executeJobResultInfo.contains("the fourth checkpoint"));
+		
+	}
+
+	public void commandlineImportDatabaseMetadataImpl(String commandResult
+			, String url, String root, String commPro, String userName, String userPassword
+			, String databaseMetadataPath) {		
+		
+		this.commandlineLogonProjectImpl(commandResult, commPro, userName, userPassword, url, root);
+        
+		String importDatebaseMetadataResult = this.importDatabaseMetadata(databaseMetadataPath);		
+		System.err.println("importDatebaseMetadataResult>>>>>>>>"+importDatebaseMetadataResult);
+		int commandImportDatebaseMetadataId = this.getCommandId(importDatebaseMetadataResult);
+		Assert.assertTrue(importDatebaseMetadataResult.contains(commandResult+" "+commandImportDatebaseMetadataId));
+		this.commandlineGetCommandStatusImpl(commandImportDatebaseMetadataId, WAIT_TIME);
+		
+		
+	}
+
+	public void commandlineImportDelimitedMetadataImpl(String commandResult
+			, String url, String root, String commPro, String userName, String userPassword
+			, String delimitedMetadataPath) {		
+		
+		this.commandlineLogonProjectImpl(commandResult, commPro, userName, userPassword, url, root);
+        
+		String importDelimitedMetadataPathResult = this.importDelimitedMetadata(delimitedMetadataPath);		
+		System.err.println("importDelimitedMetadataPathResult>>>>>>>>"+importDelimitedMetadataPathResult);
+		int commandImportDelimitedMetadataPathId = this.getCommandId(importDelimitedMetadataPathResult);
+		Assert.assertTrue(importDelimitedMetadataPathResult.contains(commandResult+" "+commandImportDelimitedMetadataPathId));
+		this.commandlineGetCommandStatusImpl(commandImportDelimitedMetadataPathId, WAIT_TIME);
+		
+		
+	}
+
 }
