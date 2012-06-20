@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
@@ -226,26 +228,25 @@ public class TalendDBItem extends TalendMetadataItem {
             SWTBotPreferences.TIMEOUT = 1000;
             try {
                 gefBot.waitUntil(Conditions.shellIsActive("Error Executing SQL"));
-                gefBot.shell("Error Executing SQL").activate();
+                SWTBotShell errorShell = gefBot.shell("Error Executing SQL").activate();
                 String errorLog = gefBot.label(1).getText();
                 if ((errorLog.contains("Table") && errorLog.contains("already exists"))
                         || errorLog.contains("There is already an object")) {
                     String table = errorLog.split("'")[1];
                     str = "drop table " + table + ";\n" + str;
-                }
-                if (errorLog.contains("database exists")) {
+                } else if (errorLog.contains("database exists")) {
                     String database = errorLog.split("'")[2];
                     str = "drop database " + database + ";\n" + str;
+                } else {
+                    errorShell.close();
+                    shell.close();
+                    Assert.fail("ERROR Executing SQL - " + errorLog);
                 }
 
-                if (errorLog.contains("Unknown table") && errorLog.contains("database doesn't exist")) {
-                    gefBot.button("OK").click();
-                } else {
-                    gefBot.button("OK").click();
-                    shell.activate();
-                    gefBot.styledText(0).setText(str);
-                    gefBot.toolbarButtonWithTooltip("Execute SQL (Ctrl+Enter)").click();
-                }
+                gefBot.button("OK").click();
+                shell.activate();
+                gefBot.styledText(0).setText(str);
+                gefBot.toolbarButtonWithTooltip("Execute SQL (Ctrl+Enter)").click();
             } catch (TimeoutException e) {
                 // ignor this, means execute sql successfully, did not pop up error dialog
             } finally {

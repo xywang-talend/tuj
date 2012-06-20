@@ -1011,20 +1011,26 @@ public class Utilities {
         jobItem.getEditor().select(gefEditPart).setFocus();
         gefEditPart.click();
         jobItem.getEditor().clickContextMenu("Data viewer");
+
         gefBot.waitUntil(new DefaultCondition() {
 
             public boolean test() throws Exception {
                 String shellTitle = gefBot.activeShell().getText();
-                return ("Data Preview: " + componentType + "_1").equals(shellTitle) || "Select Context".equals(shellTitle);
+                return !shellTitle.contains(TalendSwtBotForTos.getBuildTitle()) && !shellTitle.contains("Progress Information");
             }
 
             public String getFailureMessage() {
                 return "the shell of data preview did not activate";
             }
         }, 20000);
-        if ("Select Context".equals(gefBot.activeShell().getText()))
-            Assert.fail("the shell 'Data Preview: " + componentType + "_1' did not activate, but shell 'Select Context' activate");
-        gefBot.shell("Data Preview: " + componentType + "_1").activate();
+        String shellTitle = gefBot.activeShell().getText();
+        if (("Data Preview: " + componentType + "_1").equals(shellTitle))
+            gefBot.activeShell().activate();
+        else {
+            gefBot.activeShell().close();
+            Assert.fail("the shell 'Data Preview: " + componentType + "_1' did not activate, but shell '" + shellTitle
+                    + "' activate");
+        }
     }
 
     /**
