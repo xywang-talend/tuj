@@ -92,6 +92,13 @@ public class UseCDCComponentInJobTest extends TalendSwtBotForTos {
 
     @After
     public void cleanUp() {
+        if ("Execute SQL Statement".equals(gefBot.activeShell().getText())) {
+            if ("OK".equals(gefBot.button(0).getText()))
+                gefBot.button("OK").click();
+            else
+                gefBot.button("Cancel").click();
+        }
+
         if (isCDCAdded)
             dbItem.deactivateCDCFor(TABLE_NAME);
         if (isCDCCreated)

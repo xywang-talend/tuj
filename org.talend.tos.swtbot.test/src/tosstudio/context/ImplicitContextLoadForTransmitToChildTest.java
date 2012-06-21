@@ -80,8 +80,8 @@ public class ImplicitContextLoadForTransmitToChildTest extends TalendSwtBotForTo
 
         gefBot.viewByTitle("Job(" + jobItem1.getItemFullName() + ")").setFocus();
         selecteAllTalendTabbedPropertyListIndex(1);
-        gefBot.checkBox("Use Project Settings").click();
-        gefBot.checkBox("Implicit tContextLoad").click();
+        gefBot.checkBox("Use Project Settings").deselect();
+        gefBot.checkBox("Implicit tContextLoad").select();
         gefBot.radio("From File").click();
         SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
         gefBot.sleep(1000);
@@ -98,6 +98,7 @@ public class ImplicitContextLoadForTransmitToChildTest extends TalendSwtBotForTo
         Assert.assertNotNull("cann't get component tRunJob", tRunJob);
         tRunJob.click();
         gefBot.viewByTitle("Component").setFocus();
+        selecteAllTalendTabbedPropertyListIndex(0);
         gefBot.button(4).click();
         gefBot.shell("Find a Job").activate();
         Utilities.getTalendItemNode(gefBot.tree(), jobItem2.getItemType()).getNode(jobItem2.getItemFullName()).select();
