@@ -22,11 +22,13 @@ public class Login extends Base {
 		selenium.type("idLoginInput", user);
 		
 		String pwValue = selenium.getValue("idLoginPasswordInput");
-//		if( pwValue==null || "".equals(pwValue) ) {
+		if( pwValue==null || "".equals(pwValue) ) {
 			selenium.typeKeys("idLoginPasswordInput", password);
 			selenium.type("idLoginPasswordInput", password);
-//		} 
+		} 
+		selenium.click("idLoginPasswordInput");
 		selenium.keyPressNative(Event.TAB +"");
+		selenium.keyUpNative(Event.TAB +"");
 		this.waitForElementPresent("idLoginInput", Base.WAIT_TIME);
 		selenium.click("idLoginButton");
 		selenium.setSpeed(MID_SPEED);

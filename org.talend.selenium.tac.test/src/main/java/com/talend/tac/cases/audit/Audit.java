@@ -3,6 +3,7 @@ package com.talend.tac.cases.audit;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+import java.awt.Event;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
@@ -56,6 +57,7 @@ public class Audit extends Login {
 		this.clickWaitForElementPresent(other.getString("audit.conf.reportsStoredPath.editButton"));//click the edit button to make the input tag shown.
 		String defaultPath = selenium.getValue(locatorOfAllInputTags);
 		selenium.keyDownNative(""+KeyEvent.VK_ENTER);
+		selenium.keyUpNative(""+KeyEvent.VK_ENTER);
 		System.out.println(">>>>>>>>"+defaultPath);
 		return defaultPath;
 	
@@ -149,10 +151,101 @@ public class Audit extends Login {
 		this.clickWaitForElementPresent("!!!menu.audit.element!!!");
 		//project
 		this.clickWaitForElementPresent("//label[text()='Project:']/following-sibling::div//table//div//div");
+		if(!selenium.isElementPresent("//div[@role='listitem' and text()='"+projectName+"']")) {
+			
+			selenium.keyPressNative(KeyEvent.VK_DOWN+"");
+			selenium.keyUpNative(KeyEvent.VK_DOWN+"");				
+			
+		}
 		this.waitForElementPresent("//div[@role='listitem' and text()='"+projectName+"']",WAIT_TIME+70);
 		selenium.mouseDown("//div[@role='listitem' and text()='"+projectName+"']");
 		//branches
 		this.clickWaitForElementPresent("//label[text()='Branch:']/following-sibling::div//div/div");
+		if(!selenium.isElementPresent("//div[@role='listitem' and contains(text(),'"+branches+"')][1]")) {
+			
+			selenium.keyPressNative(KeyEvent.VK_DOWN+"");
+			selenium.keyUpNative(KeyEvent.VK_DOWN+"");	
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+					
+			
+		}
 		this.waitForElementPresent("//div[@role='listitem' and contains(text(),'"+branches+"')][1]", WAIT_TIME);
 		selenium.mouseDown("//div[@role='listitem' and contains(text(),'"+branches+"')][1]");
 		//start
