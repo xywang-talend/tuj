@@ -55,7 +55,8 @@ public class OccurrencesImpl extends Record{
 		this.typeTextByXpath(locator.getString("xpath.occurrences.datetime2.input"),dataTime2);
 		//fill url
 		this.sleepCertainTime(3000);
-		this.doubleClick(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.occurrences.url.openeditpanel.img"))));
+		this.clickElementByXpath(locator.getString("xpath.occurrences.url.openeditpanel.img"));
+//		this.doubleClick(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.occurrences.url.openeditpanel.img"))));
 		this.sleepCertainTime(3000);
 		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.occurrences.url.editurl")), WAIT_TIME_MIN).isDisplayed());
 		this.typeTextByXpath(locator.getString("xpath.occurrences.url.name.input"), urlName);
@@ -209,7 +210,8 @@ public class OccurrencesImpl extends Record{
 		this.typeTextByXpath(locator.getString("xpath.occurrences.datetime2.input"),dataTime2);
 		//fill url
 		this.sleepCertainTime(3000);
-		this.doubleClick(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.occurrences.url.openeditpanel.img"))));
+		this.clickElementByXpath(locator.getString("xpath.occurrences.url.openeditpanel.img"));
+//		this.doubleClick(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.occurrences.url.openeditpanel.img"))));
 		this.sleepCertainTime(3000);
 		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.occurrences.url.editurl")), WAIT_TIME_MIN).isDisplayed());
 		this.typeTextByXpath(locator.getString("xpath.occurrences.url.name.input"), urlName);
