@@ -7,14 +7,13 @@ import org.testng.annotations.Test;
 public class TestAddprojects extends Projects {
 
 	@Test
-	@Parameters({ "svnUrl", "projectType", "svnUserName", "svnUserPassword",
+	@Parameters({ "projectType",
 			"addCommonProjectName", "addReferenceProjectName", "proLanguage" })
-	public void testAddProjectCommonAndReference(String url, String type, String user,
-			String password, String proname, String name2, String language)
+	public void testAddProjectCommonAndReference(String type, String proname, String name2, String language)
 			throws Exception {
 		this.openMenuProject();
-		this.addProjectSVN_DEFINED(proname, "project_common", language, Projects.PROJECT_ADD_TYPE_COMMON, type, url, user, password);
-		this.addProjectSVN_DEFINED(name2, "project_reference", language, Projects.PROJECT_ADD_TYPE_REF, type, url, user, password);
+		this.addProjectSVN_DEFAULT(proname, "project_common", language, Projects.PROJECT_ADD_TYPE_COMMON, type);
+		this.addProjectSVN_DEFAULT(name2, "project_reference", language, Projects.PROJECT_ADD_TYPE_REF, type);
 	}
 	
 	@Test
