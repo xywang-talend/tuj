@@ -126,7 +126,13 @@ public class Project extends WebDriverBase {
 		logger.info("accept alert");
 		this.acceptAlert();
 		logger.info("check project whether disappear");
-		this.waitElemet(4000);
+		this.waitElemet(5000);
+		if(this.isElementPresent(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				+ projectLabel + "')]"), 2)) {
+			
+			this.clickElementById("//div[text()='Projects' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//following-sibling::div//button[@id='idSubModuleRefreshButton']");
+			
+		}
 		Assert.assertFalse(this.isElementPresent(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ projectLabel + "')]"), 5));
 		
