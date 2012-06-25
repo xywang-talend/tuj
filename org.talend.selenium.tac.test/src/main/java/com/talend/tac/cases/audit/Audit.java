@@ -283,11 +283,11 @@ public class Audit extends Login {
 		int linksNum = this.selenium.getXpathCount("//a[contains(text(),'Audit for project "+'"'+projectName.toUpperCase()+'"'+" created at')]").intValue();
 		return linksNum;
 	}
-	public void changeCommandLineConfig(String commandlineHost, String statusIcon) {
+	public void changeCommandLineConfig(String commandlineNum, String commandlineHost, String statusIcon) {
 		
 		System.err.println(commandlineHost);
 		this.clickWaitForElementPresent("idMenuConfigElement");
-		this.mouseDownWaitForElementPresent("//div[contains(text(),'CommandLine/primary')]");
+		this.mouseDownWaitForElementPresent("//div[contains(text(),'CommandLine/"+commandlineNum+"')]");
 		this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),locatorOfAllInputTags, commandlineHost);
 		this.AssertEqualsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),locatorOfAllInputTags, commandlineHost, statusIcon);
 		

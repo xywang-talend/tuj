@@ -12,6 +12,6 @@ public class TestChangeCommondlineToLocalHost extends Audit {
 	@Test
 	@Parameters({"localhostAddress"})
 	public void testCommondlineLocalhost(String ip){
-		this.changeCommandLineConfig(ip,  other.getString("commandLine.conf.primary.host.statusIcon"));
+		this.changeCommandLineConfig("primary", ip,  other.getString("commandLine.conf.primary.host.statusIcon"));
 	}
 }

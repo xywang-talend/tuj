@@ -138,13 +138,15 @@ public class TestAudit extends Audit {
 	@Parameters({"addCommonProjectName","remotehostAddress","remotehostAddressWithWrong"})
 	public void testAuditWithOutStartCommondline(String projectName,String normalCommondline,String wrongCommondline){
 		System.err.println(wrongCommondline);	
-		this.changeCommandLineConfig(wrongCommondline, other.getString("commandLine.conf.primary.wrong.host.statusIcon"));
+		this.changeCommandLineConfig("primary", wrongCommondline, other.getString("commandLine.conf.primary.wrong.host.statusIcon"));
+		selenium.refresh();
+		this.changeCommandLineConfig("secondary", wrongCommondline, other.getString("commandLine.conf.primary.wrong.host.statusIcon"));
 		selenium.refresh();
 		this.sleep(5000);
 		auditProcess(projectName, "branch");
 		Assert.assertTrue(this.waitForTextPresent("Cannot connect to CommandLine, please check your configuration", MAX_WAIT_TIME));
 		this.sleep(5000);
-		this.changeCommandLineConfig(normalCommondline, other.getString("commandLine.conf.primary.host.statusIcon"));
+		this.changeCommandLineConfig("primary", normalCommondline, other.getString("commandLine.conf.primary.host.statusIcon"));
 		selenium.refresh();
 		this.sleep(5000);
 	}

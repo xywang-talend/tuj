@@ -106,9 +106,8 @@ public class TestModifyUser extends Users {
 		selenium.setSpeed(MIN_SPEED);
 		
 		selenium.refresh();
-		selenium.setSpeed(MID_SPEED);
+		this.waitForElementPresent("//b[text()='zhang, jack']", WAIT_TIME);
 	    Assert.assertTrue(selenium.isElementPresent("//b[text()='zhang, jack']"));
-	    selenium.setSpeed(MIN_SPEED);
 	}
     
 	//modify user(aaa@gmail.com)'loginname to 'account@company.com'
