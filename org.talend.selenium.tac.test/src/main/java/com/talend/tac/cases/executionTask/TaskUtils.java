@@ -235,11 +235,11 @@ public class TaskUtils extends Login {
 		
 		selenium.refresh();
 		this.clickWaitForElementPresent("idMenuConfigElement");//into Configuration page
-		this.waitForElementPresent("//div[contains(text(),'Command line/primary')]", WAIT_TIME);
-		selenium.mouseDown("//div[contains(text(),'Command line/primary')]");
-		this.clickWaitForElementPresent("//div[contains(text(),' Command line/primary')]/parent::div/following-sibling::div//table//tr/td/div[text()='Host']" +
+		this.waitForElementPresent("//div[contains(text(),'CommandLine/primary')]", WAIT_TIME);
+		selenium.mouseDown("//div[contains(text(),'CommandLine/primary')]");
+		this.clickWaitForElementPresent("//div[contains(text(),' CommandLine/primary')]/parent::div/following-sibling::div//table//tr/td/div[text()='Host']" +
 				"//parent::td/following-sibling::td/div/img[@title='Click to edit']");
-		this.waitForElementPresent("//div[contains(text(),' Command line/primary (')]/ancestor::div[@class='x-grid3-body']" +
+		this.waitForElementPresent("//div[contains(text(),' CommandLine/primary (')]/ancestor::div[@class='x-grid3-body']" +
 				"/following-sibling::div/div/input", WAIT_TIME); 
 		System.out.println("*--------------*");
 		this.typeString("//div[@class=' x-form-field-wrap  x-component']//input",hostAddress);
