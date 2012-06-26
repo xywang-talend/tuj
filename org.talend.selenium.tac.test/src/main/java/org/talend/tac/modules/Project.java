@@ -125,16 +125,20 @@ public class Project extends WebDriverBase {
 		this.waitElemet(3000);
 		logger.info("accept alert");
 		this.acceptAlert();
-		logger.info("check project whether disappear");
-		this.waitElemet(5000);
-		if(this.isElementPresent(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
-				+ projectLabel + "')]"), 1)) {
-			
-			driver.findElement(By.xpath("//div[text()='Projects' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//following-sibling::div//button[@id='idSubModuleRefreshButton']")).click();
-			this.waitElemet(7);
+		logger.info("check project whether disappear");		
+		boolean pro = this.isElementPresent(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				+ projectLabel + "')]"), 1);
+		int i = 0;
+		while (pro == true && i < WAIT_TIME_MIN) {
+		    
+			i++;
+			this.waitElemet(1000);
+			pro = this.isElementPresent(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+					+ projectLabel + "')]"), 1);
+			System.err.println(i+">>>>"+pro);
 			
 		}
-		this.waitElemet(3);
+						
 		Assert.assertFalse(this.isElementPresent(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ projectLabel + "')]"), 5));
 		
