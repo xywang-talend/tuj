@@ -134,6 +134,7 @@ public class Project extends WebDriverBase {
 			this.waitElemet(7);
 			
 		}
+		this.waitElemet(3);
 		Assert.assertFalse(this.isElementPresent(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ projectLabel + "')]"), 5));
 		
