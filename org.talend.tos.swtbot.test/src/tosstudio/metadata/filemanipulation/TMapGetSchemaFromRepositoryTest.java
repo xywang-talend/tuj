@@ -16,6 +16,7 @@ import junit.framework.Assert;
 
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Before;
@@ -73,7 +74,15 @@ public class TMapGetSchemaFromRepositoryTest extends TalendSwtBotForTos {
         gefBot.table(0).select("Repository");
         gefBot.button("OK").click();
         gefBot.tableWithLabel("out1", 0).doubleClick(3, 2);
-        gefBot.button("...").click();
+        try {
+            gefBot.button("...").click();
+        } catch (WidgetNotFoundException e) {
+            // ignore this if can find it
+            gefBot.button("Apply").click();
+            gefBot.button("Cancel").click();
+            Assert.fail("cann't find the button on  linux");
+        }
+
         gefBot.shell("Repository Content").activate();
         SWTBotTreeItem schema = gefBot.tree(0).expandNode("Generic schemas", genericSchemaItem.getItemFullName());
         schema.expand().select("metadata");
