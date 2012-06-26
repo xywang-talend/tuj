@@ -131,7 +131,8 @@ public class Project extends WebDriverBase {
 				+ projectLabel + "')]"), 1)) {
 			
 			driver.findElement(By.xpath("//div[text()='Projects' and @class='header-title']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//following-sibling::div//button[@id='idSubModuleRefreshButton']")).click();
-						
+			this.waitElemet(7);
+			
 		}
 		Assert.assertFalse(this.isElementPresent(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ projectLabel + "')]"), 5));

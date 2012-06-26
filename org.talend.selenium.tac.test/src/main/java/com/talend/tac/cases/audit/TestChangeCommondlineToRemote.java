@@ -10,6 +10,6 @@ public class TestChangeCommondlineToRemote extends Audit {
 	@Test
 	@Parameters({"remotehostAddress"})
 	public void testCommondlineRemote(String ip){
-		this.changeCommandLineConfig("primary", ip, other.getString("commandLine.conf.primary.host.statusIcon"));
+		this.changeCommandLineConfig("primary", other.getString("commandline.conf.primary.host.editButton"), ip, other.getString("commandLine.conf.primary.host.statusIcon"));
 	}
 }

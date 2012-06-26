@@ -62,9 +62,7 @@ public class TestChangeAuditReportStoredPathInConfiguration extends Audit {
 	@Parameters({"auditStoredReportsPathWithNotExistPath"})
 	public void testChangeReportStoredPathWithNotExistPath(String notExistPath) {
 		
-		//go to configuration page
-		this.clickWaitForElementPresent("idMenuConfigElement");
-		
+		this.intoConfigPage();
 		//change value of 'reports stored path' to a directory not exist
 		this.waitForElementPresent("//div[contains(text(),'Audit (')]", WAIT_TIME);
 		selenium.mouseDown("//div[contains(text(),'Audit (')]");
