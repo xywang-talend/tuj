@@ -18,6 +18,7 @@ import java.util.List;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -73,6 +74,11 @@ public class NotCreateNewItemInRecycleBinTest extends TalendSwtBotForTos {
             SWTBotPreferences.TIMEOUT = defaultTimeout;
             Assert.assertFalse("should not create new item in recycle bin", isCreateEnable);
         }
+    }
+
+    @After
+    public void cleanup() {
+        Utilities.emptyRecycleBin();
     }
 
 }

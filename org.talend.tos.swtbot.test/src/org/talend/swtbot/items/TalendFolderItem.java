@@ -175,7 +175,7 @@ public class TalendFolderItem {
             if (itemPath != null)
                 path = itemPath;
             path = " (" + path + ")";
-            newItem = Utilities.getRepositoryTree().expandNode("Recycle bin").select(itemName + path);
+            newItem = Utilities.getTalendItemNode(TalendItemType.RECYCLE_BIN).getNode(itemName + path);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

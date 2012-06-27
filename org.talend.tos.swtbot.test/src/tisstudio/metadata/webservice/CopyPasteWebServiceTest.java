@@ -12,48 +12,36 @@
 // ============================================================================
 package tisstudio.metadata.webservice;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendWebServiceItem;
 
 /**
- * DOC Administrator class global comment. Detailled comment
+ * DOC fzhong class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class CopyPasteWebServiceTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
+    private TalendWebServiceItem webserviceItem;
 
     private static final String WEBSERVICENAME = "webService1"; //$NON-NLS-1$
-
-    private static final String TYPE = "simple"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() {
         repositories.add(ERepositoryObjectType.METADATA_WSDL_SCHEMA);
-        view = Utilities.getRepositoryView();
-        view.setFocus();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.WEB_SERVICE);
-        Utilities.createWebService(TYPE, WEBSERVICENAME, treeNode);
+
+        webserviceItem = new TalendWebServiceItem(WEBSERVICENAME);
+        webserviceItem.setTypeAsSimple();
+        webserviceItem.create();
     }
 
     @Test
     public void copyAndPasteWebService() {
-        Utilities.copyAndPaste(treeNode, WEBSERVICENAME, "0.1");
+        webserviceItem.copyAndPaste();
     }
 
 }

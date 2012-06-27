@@ -31,4 +31,15 @@ public class TalendFtpItem extends TalendMetadataItem {
     public SWTBotShell beginEditWizard() {
         return beginEditWizard("Edit FTP", null);
     }
+
+    public void create() {
+        SWTBotShell shell = beginCreationWizard("Create FTP", null);
+
+        gefBot.textWithLabel("Username").setText(System.getProperty("ftp.username"));
+        gefBot.textWithLabel("Password").setText(System.getProperty("ftp.password"));
+        gefBot.textWithLabel("Host").setText(System.getProperty("ftp.host"));
+        gefBot.textWithLabel("Port").setText(System.getProperty("ftp.port"));
+
+        finishCreationWizard(shell);
+    }
 }

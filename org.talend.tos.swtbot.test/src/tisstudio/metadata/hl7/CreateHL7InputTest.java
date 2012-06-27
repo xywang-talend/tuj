@@ -12,46 +12,35 @@
 // ============================================================================
 package tisstudio.metadata.hl7;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendHL7Item;
 
 /**
- * DOC Administrator class global comment. Detailled comment
+ * DOC fzhong class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class CreateHL7InputTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
+    private TalendHL7Item hl7Item;
 
     private static final String HL7NAME = "hl7_1"; //$NON-NLS-1$ 
-
-    private static final String TYPE = "input"; //$NON-NLS-1$
 
     @Before
     public void initialisePrivateFields() {
         repositories.add(ERepositoryObjectType.METADATA_FILE_HL7);
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.HL7);
+
+        hl7Item = new TalendHL7Item(HL7NAME);
+        hl7Item.setTypeAsInput();
     }
 
     @Test
     public void createHL7Input() {
-        Utilities.createHL7(TYPE, treeNode, HL7NAME);
+        hl7Item.create();
     }
 
 }
