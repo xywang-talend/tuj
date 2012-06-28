@@ -40,6 +40,7 @@ public class WorkFlowTask extends Base{
 	public void openAWorkTask(){
 		this.clickElementByXpath(locator.getString("xpath.workflowtaskspage.tasks.firsttask"));
 	    this.doubleClick(this.getElementByXpath(locator.getString("xpath.workflowtaskspage.tasks.firsttask")));
+	    this.sleepCertainTime(5000);
 	}
 	
 	public void closeAWorkTask(){
