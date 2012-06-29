@@ -14,7 +14,7 @@ public class TestConfigurations extends configuration {
   @Parameters({"commandlineConfPrimaryHost","commandlineConfPrimaryPort","commandlineConfPrimaryArchivePath"})
   public void testSetCommandlinePrimary(String commandlineHost,String commandlinePort,String commandlinePath) {
 	
-	  this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'CommandLine/primary')]");
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.host.editButton"),locatorOfAllInputTags, commandlineHost);
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.primary.port.editButton"),locatorOfAllInputTags, commandlinePort);
 	  this.typeWordsInConfigurationMenu(other.getString("commandLine.conf.primary.archivePath.editButton"),locatorOfAllInputTags, this.getAbsolutePath(commandlinePath));
@@ -25,13 +25,13 @@ public class TestConfigurations extends configuration {
 //	  this.waitForElementPresent(other.getString("commandline.conf.primary.genralStatusIcon"), WAIT_TIME);
 	  //->THIS IS NOT SUIT FOR AUTOMATION CURRENTLY,BECAUSE THE GENERAL ICON STATUS DID'T CHANGE IN TIME, AUTHOUGHT THE PARAMETERS ARE ALL CORRECT.
 
-	  this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'CommandLine/primary')]");
   }
   @Test
   @Parameters ({"commandlineConfSecondaryHost","commandlineConfSecondaryPort","commandlineConfSecondaryArchivePath"})
   public void testSetCommandlineSecondary(String commandlineHost,String commandlinePort,String commandlinePath) {
 	 
-	  this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/secondary')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'CommandLine/secondary')]");
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.secondary.host.editButton"),locatorOfAllInputTags, commandlineHost);
 	  this.typeWordsInConfigurationMenu(other.getString("commandline.conf.secondary.port.editButton"),locatorOfAllInputTags, commandlinePort);
 	  this.typeWordsInConfigurationMenu(other.getString("commandLine.conf.secondary.archivePath.editButton"),locatorOfAllInputTags, this.getAbsolutePath(commandlinePath));
@@ -41,7 +41,7 @@ public class TestConfigurations extends configuration {
 	  this.AssertEqualsInConfigurationMenu(other.getString("commandLine.conf.secondary.archivePath.editButton"),locatorOfAllInputTags, this.getAbsolutePath(commandlinePath));
 //	  this.waitForElementPresent(other.getString("commandline.conf.secondary.generalStatusIcon"), WAIT_TIME);
 	 
-	  this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/secondary')]");
+	  this.mouseDownWaitForElementPresent("//div[contains(text(),'CommandLine/secondary')]");
 	  
   }
   
@@ -259,7 +259,7 @@ public class TestConfigurations extends configuration {
 	@Test//(enabled=true,dependsOnMethods="testSetLog4j")
 	 @Parameters ({"firefoxDownloadPath","log4j.conf.logsName"})
 	public void testDownloadLog(String downloadPath,String logsName) {
-		this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
+		this.mouseDownWaitForElementPresent("//div[contains(text(),'CommandLine/primary')]");
 		this.clickWaitForElementPresent("//button[text()='Download Log']");
 		
 		try {
@@ -300,7 +300,7 @@ public class TestConfigurations extends configuration {
 	@Test//(enabled=false)
 	@Parameters ({"firefoxDownloadPath"})
 	public void testExportParameters(String downloadPath) {
-		this.mouseDownWaitForElementPresent("//div[contains(text(),' Command line/primary')]");
+		this.mouseDownWaitForElementPresent("//div[contains(text(),'CommandLine/primary')]");
 		this.clickWaitForElementPresent("//button[text()='Export parameters']");
 		
 		try {
