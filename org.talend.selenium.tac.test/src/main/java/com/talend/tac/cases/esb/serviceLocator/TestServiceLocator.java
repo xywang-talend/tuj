@@ -66,37 +66,7 @@ public class TestServiceLocator extends EsbUtil {
 		Assert.assertFalse(selenium.isElementPresent("//div[contains(text(),'"+jobFiveProvider+"')]"));
 		Assert.assertFalse(selenium.isElementPresent("//div[contains(text(),'"+jobSixthProvider+"')]"));
 		
-	}
-    
-	//stop all services, check info of click 'all services' page
-//	@Test
-//	@Parameters({"jobFirstProvider", "jobSecondProvider", "jobThirdProvider"})
-//	public void testDisplayLiveServicesOnlyAfterStopAllServices(String jobFirstProvider,
-//			String jobSecondProvider, String jobThirdProvider) {
-//
-//		//stop all jobs	
-//		stopService(jobThirdProvider);
-//		
-//		//go to 'ServiceLocator' page
-//		this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");
-//		
-//		//click 'Refresh' button
-//		selenium.click("//b[text()='Refresh']");
-//		
-//		//stop job
-//		assertStopService(jobFirstProvider);
-//		assertStopService(jobSecondProvider);
-//		assertStopService(jobThirdProvider);
-//		
-//		//just only display live service 
-//		selenium.click("//label[text()='live services only']//preceding-sibling::input");
-//		
-//		//verify display result
-//		this.waitForTextPresent("There are no services available. Please check your filter and click" +
-//				" refresh button to retry.", WAIT_TIME);
-//		
-//		
-//	}
+	}   
 	
 	//check service value display whether normal per columns
 	@Test
@@ -392,6 +362,7 @@ public class TestServiceLocator extends EsbUtil {
     @Test
     public void testFilterServiceLocator() {
     	this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");//into SL page
+    	this.clickWaitForElementPresent("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-endpoint')]/a");
 		selenium.setSpeed(MID_SPEED);
 		selenium.click("//a[text()='Show in Groups']");
 		selenium.setSpeed(MID_SPEED);
@@ -436,12 +407,12 @@ public class TestServiceLocator extends EsbUtil {
 		selenium.setSpeed(MID_SPEED);
 		this.waitForElementPresent("//div[text()='jobFirstProvider']//ancestor::div[@class='x-grid-group-hd']//following-sibling::div[1]//div[@class='x-grid3-cell-inner x-grid3-col-upTime']", WAIT_TIME);
 		String uptime_before=selenium.getText("//div[text()='jobFirstProvider']//ancestor::div[@class='x-grid-group-hd']//following-sibling::div[1]//div[@class='x-grid3-cell-inner x-grid3-col-upTime']");
-		Assert.assertTrue(uptime_before.equals("Last seen less than 1 min ago"));		
+		Assert.assertTrue(uptime_before.contains("Last seen less than 1 min ago"));		
     	karaf.karafAction("start "+ProviderName+"-control-bundle", WAIT_TIME);  //start service
     	selenium.click("//b[text()='Refresh']");
 		String uptime_after=selenium.getText("//div[text()='jobFirstProvider']//ancestor::div[@class='x-grid-group-hd']//following-sibling::div[1]//div[@class='x-grid3-cell-inner x-grid3-col-upTime']");
         System.out.println("---------uptime_after:"+uptime_after);
-		Assert.assertTrue(uptime_after.equals("less than 1 min"));
+		Assert.assertTrue(uptime_after.contains("less than 1 min"));
     }
     
     @Test
@@ -463,22 +434,21 @@ public class TestServiceLocator extends EsbUtil {
     @Parameters({"consumerName","jobThirdProvider"})
     public void testLargeAmountOfEndpoints(String consumerName,String jobThirdProvider) {
     	this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");  //into SL page
-//    	karaf.karafAction("features:install tesb-locator-soap-service", WAIT_TIME);  //start locator-soap service
-//        for(int i=0;i<3;i++) {
-//        	karaf.karafAction("install -s file://"+getAbsolutePath("org/talend/tac/folder/esb/"+consumerName+".jar")+"", WAIT_TIME);
-//			this.sleep(40000);			
-//        	karaf.karafAction("uninstall "+consumerName, WAIT_TIME);
-//        	System.err.println("generate events :"+i);
-//        }
+    	karaf.karafAction("features:install tesb-locator-soap-service", WAIT_TIME);  //start locator-soap service
+        for(int i=0;i<3;i++) {
+        	karaf.karafAction("install -s file://"+getAbsolutePath("org/talend/tac/folder/esb/"+consumerName+".jar")+"", WAIT_TIME);
+			this.sleep(40000);			
+        	karaf.karafAction("uninstall "+consumerName, WAIT_TIME);
+        	System.err.println("generate events :"+i);
+        }
+        karaf.karafAction("uninstall "+consumerName, WAIT_TIME);
         selenium.click("//b[text()='Refresh']");
         this.clickWaitForElementPresent("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-endpoint')]/a");		
         selenium.setSpeed(MID_SPEED);
 		selenium.click("//a[text()='Show in Groups']");
 		selenium.setSpeed(MID_SPEED);
 		Assert.assertFalse(selenium.isElementPresent("//div[@class='x-grid-group-div']"));
-//		checkSortAscendingSortDescending("name", jobThirdProvider, "NewService");
-//		checkSortAscendingSortDescending("endpoint", "http://localhost:8040/services/jobThirdProvider",
-//				"http://localhost:8040/services/jobFirstProvider");
+		checkSortAscendingSortDescending("name", "NewService", "NewService");
 		Assert.assertTrue(selenium.getValue("//div[contains(@class,'x-small-editor x-toolbar x-component x-toolbar-layout-ct')]//input[contains(@class,'gwt-TextBox x-component ')]").equals("1"));
 		selenium.click("//div[@class='my-paging-text x-component ' and text()='Page']//ancestor::tr[@class='x-toolbar-left-row']//td[8]//table");
 		this.sleep(5000);
@@ -495,7 +465,6 @@ public class TestServiceLocator extends EsbUtil {
 		System.out.println(lastpage);
 		String totalPage = lastpage.substring(lastpage.indexOf(" ") + 1);
 		System.out.println(totalPage);
-//		selenium.click("//div[@class='my-paging-text x-component ' and text()='Page']//ancestor::tr[@class='x-toolbar-left-row']//td[9]//table");
 		selenium.click("//tr[@class='x-toolbar-left-row']//td[9]//table");
 		this.sleep(3000);
 		Assert.assertTrue(selenium.getValue("//div[@class=' x-small-editor x-toolbar x-component x-toolbar-layout-ct ']//input[contains(@class,'gwt-TextBox x-component')]").equals(totalPage), "test go to last page failed!");

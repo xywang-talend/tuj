@@ -41,6 +41,7 @@ public class Esb extends EsbUtil {
 			karaf.karafAction("install -s file://"+getAbsolutePath("org/talend/tac/folder/esb/"+consumerName+"-0.1.jar")+"", 3000);
 			System.err.println("generate events :"+i);
 		}
+		karaf.karafAction("uninstall "+consumerName+"", 3000);
 	}
 
 	

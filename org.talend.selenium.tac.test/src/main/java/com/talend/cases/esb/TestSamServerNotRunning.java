@@ -53,6 +53,11 @@ public class TestSamServerNotRunning extends Esb {
 		  this.mouseDownWaitForElementPresent("//div[contains(text(),'ESB (')]");
 		  selenium.setSpeed(MID_SPEED);
 	      this.typeWordsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.editButton"), other.getString("commandline.conf.all.input"), monitorStop);
+	      try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	      this.AssertEqualsInConfigurationMenu(other.getString("esb.conf.serviceActivityMonitorServer.value"), monitorStop);
 		  this.waitForTextPresent("SAM Server for this url is unavailable", WAIT_TIME);
 		  //open service activity monitor page

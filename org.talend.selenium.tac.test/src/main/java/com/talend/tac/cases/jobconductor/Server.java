@@ -44,6 +44,7 @@ public class Server extends Login {
 			selenium.click("//input[@class=' x-form-checkbox' and @type='checkbox' and @name='active']");
 		}
 		selenium.click("idFormSaveButton");
+		selenium.click("//span[text()='Rate']//ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder']//preceding-sibling::div[@class='x-panel-tbar x-panel-tbar-noheader x-panel-tbar-noborder']//button[@id='idSubModuleRefreshButton']");
 		this.waitForElementPresent("//div[text()='" + serverLabel + "']",
 				WAIT_TIME);
 		Assert.assertTrue(

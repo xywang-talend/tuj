@@ -11,7 +11,7 @@
 	<parameter name="ServerDescription" value="server" />
 
 	<!-- local server -->
-	<parameter name="ServerHost" value="localhost" />
+	<parameter name="ServerHost" value="192.168.30.132" />
 	<parameter name="ServerCommondport" value="8000" />
 	<parameter name="ServerFiletransfortport" value="8001" />
 	<parameter name="ServerMonitorport" value="8888" />	
@@ -22,8 +22,8 @@
 	<!-- license  -->
 	<parameter name="LicenseMDM" value="org/talend/tac/folder/license/MDM_TDQ_EE_MPX.license" />
 	<parameter name="LicenseESB" value="org/talend/tac/folder/license/ESB_EE.license"/>
-	
-	 <test name="server08_TestAddServerWithTalendRuntime">
+	 
+	 <test name="server01_TestAddServerWithTalendRuntime">
 	    <parameter name="ServerLablename" value="testRuntimeServer" />
 	    <parameter name="ServerLablenameOfUncheckActive" value="testRuntimeServerOfUncheckActive" />
 	    <parameter name="RuntimeServerChangeDefaultPortLablename" value="testRuntimeServerChangeDefaultPort" />
@@ -41,7 +41,7 @@
 		</classes>
     </test>
     
-    <test name="server09_TestAddServerWithTalendRuntime" preserve-order="true">
+    <test name="server02_TestAddServerWithTalendRuntime" preserve-order="true">
 		<classes>
 		    <parameter name='ServerForUseAvailable' value='testJobServer'/>
 		    <parameter name='ServerForUseUnavailable' value='testJobServerUnavaiable'/>
@@ -56,8 +56,8 @@
 			</class>
 		</classes>
     </test>
-    
-    <test name="server10_TestAddServerWithTalendRuntime" preserve-order="true">
+    	
+    <test name="server03_TestAddServerWithTalendRuntime" preserve-order="true">
 		<classes>
 		    <parameter name='ServerForUseAvailable' value='testJobServer'/>
 		    <parameter name='ServerForUseUnavailable' value='testJobServerUnavaiable'/>
@@ -68,54 +68,44 @@
 		</classes>
     </test>
 
-    <test name="server11_TestAddServerWithTalendRuntime" preserve-order="true">
+    <test name="server04_TestAddServerWithTalendRuntime" preserve-order="true">
         <parameter name="ServerLablename" value="testRuntimeServer" />
 		<classes>
 		   <class name="com.talend.tac.cases.jobconductor.TestOpenLinksOfAdminServerConsole"/>
 		</classes>
     </test>
-			
-    <test name="server02_WithUnavaiableJobServer">
-	    <parameter name='RuntimeWithJobserverUnavaiable' value='RuntimeWithUnavaiableJobServer'/>
-	    <parameter name='ServerHost' value='localhost'/>
-	    <parameter name='ServiceName' value='tesb-job-server'/>
-	    <classes>
-		    <class name="org.talend.tac.cases.runtimeserver.TestAddRuntimeServerWithInactiveJobServer" />
-		      <method>	
-		          <include name='addServerWithJobServerUnavaiable'/>
-		      </method>
-	    </classes>
-    </test> 
-	 
-    <test name="server06_DuplicateRuntimeServer">
+		
+     
+	 	
+    <test name="server05_DuplicateRuntimeServer">
          <parameter name='TestRuntimeServer' value='testRuntimeServer'/>
 	      <classes>
 		    <class name="org.talend.tac.cases.runtimeserver.TestDuplicateRuntimeServer" />
 	      </classes>
     </test>
-       
-    <test name="server03_EditServer">
+      
+    <test name="server06_EditServer">
 	    <parameter name ='serverOfRuntime' value='testRuntimeServer'/> 
 	    <classes>
 		   <class name="org.talend.tac.cases.runtimeserver.TestEditESBRuntimeServer" />
 	    </classes>
-    </test>
-    
-    <test name="server04_SortServers">
+    </test> 
+ 
+    <test name="server07_SortServers">
 	    <parameter name ='DescendingValue' value='testRuntimeServer_edit'/> 
 	    <parameter name ='AscendingValue' value='Copy_of_testRuntimeServer'/>
 	    <classes>
 		    <class name="org.talend.tac.cases.runtimeserver.TestSortAscendAndDescendRuntimeServer" />
 	    </classes>
     </test>
-       
-    <test name="server05_ActivityColumns">
+      
+    <test name="server08_ActivityColumns">
 	      <classes>
 		    <class name="org.talend.tac.cases.runtimeserver.TestActivityColumnsOfServer" />
 	      </classes>
     </test>
-   
-    <test name="server01_InvalidHostServer">
+    
+    <test name="server09_InvalidHostServer">
 	    <parameter name='InvalidHostServer' value='InvalidHostOfRuntime'/>
 	    <parameter name='InvalidHost' value='192.168.0.200'/>
 	    <classes>
@@ -123,6 +113,18 @@
 		        <method>
 		           <include name='addServerInvalid'/>
 		        </method>
+	    </classes>
+    </test>
+    
+    <test name="server10_WithUnavaiableJobServer">
+	    <parameter name='RuntimeWithJobserverUnavaiable' value='RuntimeWithUnavaiableJobServer'/>
+	    <parameter name='ServerHost' value='192.168.30.132'/>
+	    <parameter name='ServiceName' value='tesb-job-server'/>
+	    <classes>
+		    <class name="org.talend.tac.cases.runtimeserver.TestAddRuntimeServerWithInactiveJobServer" />
+		      <method>	
+		          <include name='addServerWithJobServerUnavaiable'/>
+		      </method>
 	    </classes>
     </test>
 </suite>

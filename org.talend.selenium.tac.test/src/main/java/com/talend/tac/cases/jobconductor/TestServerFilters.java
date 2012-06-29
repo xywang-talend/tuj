@@ -13,7 +13,7 @@ public class TestServerFilters extends Server {
 	   			
 	   this.clickWaitForElementPresent("idMenuLicenseElement");
 	   waitForElementPresent("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", WAIT_TIME);
-	   selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", parseRelativePath(license));
+	   selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]",  parseRelativePath(license));
 	   selenium.click("//button[text()='Upload']");
 			
        System.out.println("license upload is successful");	
@@ -96,8 +96,8 @@ public class TestServerFilters extends Server {
 	public void testServerFiltersInEsbconductor(String jobServer1, String jobServer2, String esbServer1,
 			String esbServer2, String esbLicense) {
 		this.openServerMenu();
-		this.addServer("testJobServer", "", "localhost", true);
-		this.addServer("testJobServerUnavaiable", "", "localhost", false);
+		this.addServer("testJobServer", "", "192.168.30.132", true);
+		this.addServer("testJobServerUnavaiable", "", "192.168.30.132", false);
 		//change license to esb
 		uploadLicense(esbLicense);
 		this.waitForElementPresent("//span[text()='ESB Infrastructure']", WAIT_TIME);
