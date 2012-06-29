@@ -51,6 +51,7 @@ public class CreateSimpleColumnAnalysisByColumnTest extends TalendSwtbotForTdq {
 		SWTBotUtils.clickContextMenu(tree, "Simple analysis");
 		bot.textWithLabel("Name").setText(ANALYSISLABEL);
 		bot.button("Finish").click();
+		bot.toolbarButtonWithTooltip("Refresh").click();
 		bot.editorByTitle(ANALYSISLABEL + " 0.1").close();
 	}
 

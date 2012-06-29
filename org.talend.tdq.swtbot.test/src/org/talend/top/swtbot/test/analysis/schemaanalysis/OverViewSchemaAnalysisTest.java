@@ -47,8 +47,9 @@ public class OverViewSchemaAnalysisTest extends TalendSwtbotForTdq {
 		bot.textWithLabel("Name").setText(ANALYSISLABEL);
 		bot.button("Next >").click();
 		bot.button("Finish").click();
+		bot.toolbarButtonWithTooltip("Refresh").click();
 		SWTBotTreeItem analysisItem = tree.expandNode("Data Profiling")
-				.getNode(0).expand().select(ANALYSISLABEL + " 0.1");
+				.getNode(0).expand().getNode(0).select();
 		Assert.assertNotNull(analysisItem);
 		bot.editorByTitle(ANALYSISLABEL + " 0.1").close();
 	}

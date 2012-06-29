@@ -30,6 +30,7 @@ public class RunACatalogAnalysisPostgresqlTest extends TalendSwtbotForTdq{
 	public void RunACatalogAnalysisPostgresql(){
 		TalendSwtbotTdqCommon.createAnalysis(bot,
 				TalendAnalysisTypeEnum.CATALOG, TalendMetadataTypeEnum.POSTGRESQL);
+		bot.toolbarButtonWithTooltip("Refresh").click();
 		bot.viewByTitle("DQ Repository").setFocus();
 		bot.toolbarButtonWithTooltip("Refresh").click();
 		SWTBotTree tree = new SWTBotTree((Tree) bot.widget(
@@ -48,7 +49,7 @@ public class RunACatalogAnalysisPostgresqlTest extends TalendSwtbotForTdq{
 //        	bot.waitUntil(Conditions.shellCloses(shell));
 //        } catch (TimeoutException e) {
 //        }	
-        formBot.section("Statistical information").setFocus();
+//        formBot.section("Statistical information").setFocus();
         formBot.table().getTableItem(0).select();
         formBot.table(1).getTableItem(0).select();
         SWTBotTableItem tableItem = formBot.table(1).getTableItem(1).select();

@@ -30,6 +30,7 @@ public class CreateFolderTest extends TalendSwtbotForTdq {
 		Assert.assertNotNull(tree.expandNode("Data Profiling").getNode(0)
 				.expand().select(FOLDERNAME + " (0)"));
 		ContextMenuHelper.clickContextMenu(tree, "Delete");
+                                                                                                                                                                                                                                                                           
 		tree.expandNode("Recycle Bin").select(FOLDERNAME);
 		ContextMenuHelper.clickContextMenu(tree, "Delete");
 		bot.waitUntil(Conditions.shellIsActive("Delete forever"));

@@ -43,6 +43,7 @@ public class ColumnAnaWithIntTest extends TalendSwtbotForTdq {
 		SWTBotUtils.clickContextMenu(tree, "Simple analysis");
 		bot.textWithLabel("Name").setText(ANALYSISLABEL);
 		bot.button("Finish").click();
+		bot.toolbarButtonWithTooltip("Refresh").click();
 		bot.cTabItem(ANALYSISLABEL + " 0.1").setFocus();
 		bot.toolbarButtonWithTooltip("Run").click();
 		try {

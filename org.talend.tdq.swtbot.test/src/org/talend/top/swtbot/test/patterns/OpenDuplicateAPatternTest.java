@@ -21,7 +21,7 @@ public class OpenDuplicateAPatternTest extends TalendSwtbotForTdq{
 				bot.viewByTitle("DQ Repository").getWidget()));
 		tree.expandNode("Libraries","Patterns","Regex","address").getNode(0).select();
 		ContextMenuHelper.clickContextMenu(tree, "Open");
-		bot.editorByTitle("BE Code postal 0.1").close();
+		bot.editorByTitle("BE_Code_postal 0.1").close();
 		bot.viewByTitle("DQ Repository").setFocus();
 		tree = new SWTBotTree((Tree)bot.widget(WidgetOfType.widgetOfType(Tree.class),
 				bot.viewByTitle("DQ Repository").getWidget()));
@@ -49,8 +49,8 @@ public class OpenDuplicateAPatternTest extends TalendSwtbotForTdq{
 		} catch (Exception e) {
 		
 		}
-		Assert.assertNotNull(tree.expandNode("Recycle Bin").select("Copy_of_BE Code postal"));
-		tree.expandNode("Recycle Bin").select("Copy_of_BE Code postal");
+		Assert.assertNotNull(tree.expandNode("Recycle Bin").select("Copy_of_BE_Code_postal"));
+		tree.expandNode("Recycle Bin").select("Copy_of_BE_Code_postal");
 		ContextMenuHelper.clickContextMenu(tree, "Delete");
 		bot.waitUntil(Conditions.shellIsActive("Delete forever"));
 		shell = bot.shell("Delete forever");
