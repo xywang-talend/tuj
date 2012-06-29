@@ -63,7 +63,7 @@ public class Base {
 		if(null == System.getProperty("webdriver.firefox.bin.path") || "".equals(System.getProperty("webdriver.firefox.bin.path").trim()) || System.getProperty("webdriver.firefox.bin.path").trim().contains("webdriver.firefox.bin.path")) {
 			browser = this.setDefaultValue("*firefox", System.getProperty("selenium.browser"), browser);
 		} else{
-			browser="*firefox"+System.getProperty("webdriver.firefox.bin.path");
+			browser="*firefox "+System.getProperty("webdriver.firefox.bin.path").trim();
 		}
 		
 		
