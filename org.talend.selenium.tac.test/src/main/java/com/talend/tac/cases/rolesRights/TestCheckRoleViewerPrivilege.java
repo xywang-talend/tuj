@@ -27,8 +27,8 @@ public class TestCheckRoleViewerPrivilege extends Login {
 	}
 	
 	@Test
-	@Parameters({ "ServerForUseAvailable", "ServerForUseUnavailable","ServerForUseDownlabel",
-			"ServeravailableHost" })
+	@Parameters({ "serverForUseAvailable", "serverForUseUnavailable","serverForUseDownlabel",
+			"serverForUseDownlabel" })
 	public void testViewerReadForServer(String lableavailable, String labelunactive,String downlabel,
 			String availablehost) {
 		waitForElementPresent("idLeftMenuTreeLogoutButton",WAIT_TIME );

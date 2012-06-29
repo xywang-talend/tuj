@@ -39,8 +39,8 @@ public class TestCheckRoleDesignerPrivilege extends Login {
 	
 	
 	@Test
-	@Parameters({ "ServerForUseAvailable", "ServerForUseUnavailable","ServerForUseDownlabel",
-			"ServeravailableHost" })
+	@Parameters({ "serverForUseAvailable", "serverForUseUnavailable","serverForUseDownlabel",
+		"serverForUseDownlabel"  })
 	public void testDesignerReadForServer(String lableavailable, String labelunactive,String downlabel,
 			String availablehost) {
 		waitForElementPresent("idLeftMenuTreeLogoutButton",WAIT_TIME );
@@ -84,7 +84,7 @@ public class TestCheckRoleDesignerPrivilege extends Login {
 	
 	
 	@Test
-	@Parameters ({"svn.conf.serverLocationURL","userNameAdmin","userPasswordAdmin"})
+	@Parameters ({"svnUrl","userNameAdmin","userPasswordAdmin"})
 	public void testDesignerReadForConfigurations(String svnUrl,String user,String pass) {
 		waitForElementPresent("idLeftMenuTreeLogoutButton",WAIT_TIME );
 		assertTrue(selenium.isElementPresent("idMenuConfigElement"));
