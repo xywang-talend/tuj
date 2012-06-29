@@ -60,7 +60,13 @@ public class Base {
 		
 		port = this.setDefaultValue(port, 4444 + "");
 		
-		browser = this.setDefaultValue("*firefox", System.getProperty("selenium.browser"), browser);
+		if(null == System.getProperty("webdriver.firefox.bin.path") || "".equals(System.getProperty("webdriver.firefox.bin.path").trim()) || System.getProperty("webdriver.firefox.bin.path").trim().contains("webdriver.firefox.bin.path")) {
+			browser = this.setDefaultValue("*firefox", System.getProperty("selenium.browser"), browser);
+		} else{
+			browser="*firefox"+System.getProperty("webdriver.firefox.bin.path");
+		}
+		
+		
 //		browser = this.setDefaultValue(browser, "*firefox");
 		
 		url = this.setDefaultValue("http://localhost:8080/", System.getProperty("tomcat.url"), url);
