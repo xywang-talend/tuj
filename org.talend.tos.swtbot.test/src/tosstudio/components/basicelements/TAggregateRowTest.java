@@ -117,6 +117,7 @@ public class TAggregateRowTest extends TalendSwtBotForTos {
         gefBot.button("OK").click();
         gefBot.waitUntil(Conditions.shellCloses(shell));
 
+        gefBot.viewByTitle("Component").setFocus();
         // define the columns in Group By
         gefBot.buttonWithTooltip("Add", 0).click();
         // define the columns in Operations

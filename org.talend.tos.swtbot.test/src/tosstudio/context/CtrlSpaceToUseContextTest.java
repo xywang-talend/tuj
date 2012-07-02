@@ -59,7 +59,7 @@ public class CtrlSpaceToUseContextTest extends TalendSwtBotForTos {
     }
 
     @Test
-    public void ctrlSpaceToUseContext() {
+    public void ctrlSpaceToUseContextTest() {
         SWTBotGefEditor jobEditor = jobItem.getEditor();
 
         // use context in job

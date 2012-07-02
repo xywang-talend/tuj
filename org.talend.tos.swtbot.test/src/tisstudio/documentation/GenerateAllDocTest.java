@@ -57,7 +57,7 @@ public class GenerateAllDocTest extends TalendSwtBotForTos {
     public void generateAllDoc() {
         docNode = Utilities.getTalendItemNode(Utilities.TalendItemType.DOCUMENTATION);
         docNode.getNode("generated").contextMenu("Generate all projects documentation").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Progress Information"));
+        gefBot.waitUntil(Conditions.shellIsActive("Progress Information"), 10000);
         gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 30000);
         gefBot.waitUntil(Conditions.shellIsActive("Talend Open Studio"));
         gefBot.button("OK").click();

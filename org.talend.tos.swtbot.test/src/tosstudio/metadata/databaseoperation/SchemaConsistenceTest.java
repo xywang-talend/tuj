@@ -59,7 +59,7 @@ public class SchemaConsistenceTest extends TalendSwtBotForTos {
         dbItem.getItem().contextMenu("Retrieve Schema").click();
         tempShell = gefBot.shell("Schema").activate();
         gefBot.button("Next >").click();
-        gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 10000);
+        gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 30000);
         SWTBotTreeItem catalog = gefBot.treeInGroup("Select Schema to create").expandNode(System.getProperty("mysql.dataBase"));
         catalog.getNode(TABLE1).check();
         catalog.getNode(TABLE2).check();

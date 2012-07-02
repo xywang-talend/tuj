@@ -264,7 +264,7 @@ public class TalendDBItem extends TalendMetadataItem {
         gefBot.button("Next >").click();
         List<String> schemaList = new ArrayList<String>(Arrays.asList(schemas));
 
-        gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 50000);
+        gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 30000);
         SWTBotTree root = gefBot.treeInGroup("Select Schema to create");
         SWTBotTreeItem treeNode = null;
         if (getCatalog() != null && getSchema() == null)

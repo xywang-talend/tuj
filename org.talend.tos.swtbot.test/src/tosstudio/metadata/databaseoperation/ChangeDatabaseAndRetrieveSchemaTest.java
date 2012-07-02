@@ -77,7 +77,7 @@ public class ChangeDatabaseAndRetrieveSchemaTest extends TalendSwtBotForTos {
         dbItem.getItem().contextMenu("Retrieve Schema").click();
         gefBot.shell("Schema").activate();
         gefBot.button("Next >").click();
-        gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 10000);
+        gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 30000);
         SWTBotTreeItem catalog = gefBot.treeInGroup("Select Schema to create").expandNode(DATABASE_NAME);
         catalog.getNode(TABLE2).check();
         gefBot.button("Next >").click();

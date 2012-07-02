@@ -53,17 +53,20 @@ public class ChangeDbConnectionForCDCTest extends TalendSwtBotForTos {
         dbItem1 = new TalendDBItem(DB_NAME1, DbConnectionType.MYSQL);
         dbItem1.create();
         dbItem2 = (TalendDBItem) dbItem1.duplicate(DB_NAME2);
-        dbItem1.executeSQL("create table " + TABLE_NAME + "(id int, name varchar(20));");
-        isTableCreated = true;
-        dbItem1.executeSQL("create database " + DATABASE);
-        isDatabaseCreated = true;
+        isTableCreated = dbItem1.executeSQL("create table " + TABLE_NAME + "(id int, name varchar(20));");
+        isDatabaseCreated = dbItem1.executeSQL("create database " + DATABASE);
         dbItem1.retrieveDbSchema(TABLE_NAME);
 
         String defaultProperty = System.getProperty("mysql.dataBase");
         System.setProperty("mysql.dataBase", DATABASE);
-        dbItem3 = new TalendDBItem(DB_NAME3, DbConnectionType.MYSQL);
-        dbItem3.create();
-        System.setProperty("mysql.dataBase", defaultProperty);
+        try {
+            dbItem3 = new TalendDBItem(DB_NAME3, DbConnectionType.MYSQL);
+            dbItem3.create();
+        } catch (Exception e) {
+            Assert.fail(e.getMessage());
+        } finally {
+            System.setProperty("mysql.dataBase", defaultProperty);
+        }
     }
 
     @Test
