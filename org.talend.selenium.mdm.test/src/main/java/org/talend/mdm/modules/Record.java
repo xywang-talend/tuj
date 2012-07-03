@@ -28,6 +28,12 @@ public class Record extends Base {
 		 * this.clickElementByXpath("//button[text()='No']"); }
 		 */
 	}
+	
+	public void deleteToRecycleBin(){
+		this.clickElementByXpath(locator.getString("xpath.record.delete.record")); 
+		this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.choose")); 
+//		this.clickElementByXpath(locator.getString("xpath.record.delete.record.to.recycle.choose.ok")); 
+	}
 
 	public void openJournal(String entity, String key, String OperationType,
 			String source) {
