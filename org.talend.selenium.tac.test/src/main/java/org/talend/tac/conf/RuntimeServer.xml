@@ -48,10 +48,10 @@
 		    <parameter name="ServerLablename" value="testRuntimeServer" />
 		    <parameter name="RuntimeServerChangeDefaultPortLablename" value="testRuntimeServerChangeDefaultPort" />
 			<class name="com.talend.tac.cases.jobconductor.TestServerFilters">
-			    <methods>
-			        <include name="testServerFiltersInJobconductor"/>
+			    <methods>			       
 			        <include name="testServerFiltersInEsbconductor"/>
 			        <include name="resetLicenseToMDM"/>
+			        <include name="testServerFiltersInJobconductor"/>
 			    </methods>
 			</class>
 		</classes>
@@ -74,18 +74,6 @@
 		   <class name="com.talend.tac.cases.jobconductor.TestOpenLinksOfAdminServerConsole"/>
 		</classes>
     </test>
-			
-    <test name="server02_WithUnavaiableJobServer">
-	    <parameter name='RuntimeWithJobserverUnavaiable' value='RuntimeWithUnavaiableJobServer'/>
-	    <parameter name='ServerHost' value='localhost'/>
-	    <parameter name='ServiceName' value='tesb-job-server'/>
-	    <classes>
-		    <class name="org.talend.tac.cases.runtimeserver.TestAddRuntimeServerWithInactiveJobServer" />
-		      <method>	
-		          <include name='addServerWithJobServerUnavaiable'/>
-		      </method>
-	    </classes>
-    </test> 
 	 
     <test name="server06_DuplicateRuntimeServer">
          <parameter name='TestRuntimeServer' value='testRuntimeServer'/>
@@ -114,6 +102,18 @@
 		    <class name="org.talend.tac.cases.runtimeserver.TestActivityColumnsOfServer" />
 	      </classes>
     </test>
+    
+    <test name="server02_WithUnavaiableJobServer">
+	    <parameter name='RuntimeWithJobserverUnavaiable' value='RuntimeWithUnavaiableJobServer'/>
+	    <parameter name='ServerHost' value='localhost'/>
+	    <parameter name='ServiceName' value='tesb-job-server'/>
+	    <classes>
+		    <class name="org.talend.tac.cases.runtimeserver.TestAddRuntimeServerWithInactiveJobServer" />
+		      <method>	
+		          <include name='addServerWithJobServerUnavaiable'/>
+		      </method>
+	    </classes>
+    </test> 
    
     <test name="server01_InvalidHostServer">
 	    <parameter name='InvalidHostServer' value='InvalidHostOfRuntime'/>

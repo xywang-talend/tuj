@@ -15,7 +15,7 @@ public class TestSelectFeatureWithArtifactUnavailable extends WebdriverLogin {
     
     @Test
     @Parameters({"artifactRepositoryWrongUrl",
-        "artifactRepositoryUserName","artifactRepositoryPassWordWithWrong","mavenProtocolExpected"
+        "artifactRepositoryUserName","artifactRepositoryPassWord","mavenProtocolExpected"
     })
     public void configArtifact(String artifactRepositoryUrl, String artifactRepositoryUserName
                       			, String artifactRepositoryPassWord, String mavenProtocolExpected) {

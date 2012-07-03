@@ -57,39 +57,28 @@ public class SelectFeatureFromArchiva extends WebDriverBase {
 	}
 	
 	
-	 public void commonMethodForSelectFeature(String label,String des) {
-		 this.intoESBConductorPage();
-	     this.clickElementById("idESBConductorTaskGridAddButton");
-	     this.isElementPresent(By.xpath("//img[@class='gwt-Image" +
+	public void commonMethodForSelectFeature(String label,String des) {
+		this.intoESBConductorPage();
+	    this.clickElementById("idESBConductorTaskGridAddButton");
+	    this.isElementPresent(By.xpath("//img[@class='gwt-Image" +
 		     " x-component ']"), WAIT_TIME_MAX);
-	     this.typeTextById("idESBConductorTasklabelInput", label);
-	     this.typeTextById("idESBConductorTaskdesInput", des);
-	     this.getElementById("idESBConductorTaskSelectButton").click();
-	     this.isElementPresent(By.xpath("//span[text()='Select" +
+	    this.typeTextById("idESBConductorTasklabelInput", label);
+	    this.typeTextById("idESBConductorTaskdesInput", des);
+	    this.getElementById("idESBConductorTaskSelectButton").click();
+	    this.isElementPresent(By.xpath("//span[text()='Select" +
 		     " Feature from Talend repository']"), WAIT_TIME_MAX);
 	 }
 	 
-	 public void intoConfigurationPage() {
-	        this.getElementById("idMenuConfigElement").click();
-	        this.waitforTextDisplayed("CONFIGURATION", WAIT_TIME_MIN);
+	public void intoConfigurationPage() {
+	    this.getElementById("idMenuConfigElement").click();
+	    this.waitforTextDisplayed("CONFIGURATION", WAIT_TIME_MIN);
 	   }	
 		
-     public void configurateEsbConductor(String artifactRepositoryUrl, String artifactRepositoryUserName
+    public void configurateEsbConductor(String artifactRepositoryUrl, String artifactRepositoryUserName
 				, String artifactRepositoryPassWord, String mavenProtocolExpected,String urlStatus
 				, String usernameStatus, String pwStatus, String mavenStatus) {
 		       
 			this.waitforElementDisplayed(By.xpath("//div[@class='header-title' and text()='Configuration']"), WAIT_TIME_MIN);
-//			if(this.isElementPresent(By.xpath("//div[text()='Configuration' and @class='header-title']"+
-//				"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
-//				"//button[@class='x-btn-text' and @aria-pressed='true']"),WAIT_TIME_MIN)) {			 
-//				this.clickElementByXpath("//div[text()='Configuration' and @class='header-title']"+
-//				"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
-//				"//button[@class='x-btn-text' and @aria-pressed='true']");
-//				this.waitforElementDisplayed(By.xpath("//div[text()='Configuration' and @class='header-title']"+
-//						"//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct')]"+
-//						"//button[@class='x-btn-text' and @aria-pressed='false']"), WAIT_TIME_MIN);
-//				
-//			}
 			this.waitforElementDisplayed(By.xpath("//div[contains(text(),'ESB conductor (4 Parameters')]"), WAIT_TIME_MIN);
 			this.mouseDown("//div[contains(text(),'ESB conductor (4 Parameters')]");
 			String mavenProtocol = this.getElementByXpath("//div[contains(text(),'ESB conductor (4 Parameters')]/parent::div/following-sibling::div//table//div[text()='Maven protocol']" +
@@ -99,29 +88,29 @@ public class SelectFeatureFromArchiva extends WebDriverBase {
 			this.waitforElementDisplayed(By.xpath(other.getString("ESBConduction.conf.rtifactRepositoryUrl.input")), WAIT_TIME_MIN);
 			this.getElementByXpath(other.getString("ESBConduction.conf.rtifactRepositoryUrl.input")).clear();
 			this.typeTextByXpath(other.getString("ESBConduction.conf.rtifactRepositoryUrl.input"), artifactRepositoryUrl);
-			this.getElementByXpath(other.getString("ESBConduction.ArtifactRepositoryUserName.editButton")).click();
-			this.waitforElementDisplayed(By.xpath(other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input")), WAIT_TIME_MIN);
-			this.getElementByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input")).clear();
-			this.typeTextByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input"), artifactRepositoryUserName);
-			this.getElementByXpath(other.getString("ESBConduction.ArtifactRepositoryPassWord.editButton")).click();
-			this.waitforElementDisplayed(By.xpath(other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input")), WAIT_TIME_MIN);
-			this.getElementByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input")).clear();
-			this.typeTextByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input"), artifactRepositoryPassWord);
+//			this.getElementByXpath(other.getString("ESBConduction.ArtifactRepositoryUserName.editButton")).click();
+//			this.waitforElementDisplayed(By.xpath(other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input")), WAIT_TIME_MIN);
+//			this.getElementByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input")).clear();
+//			this.typeTextByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input"), artifactRepositoryUserName);
+//			this.getElementByXpath(other.getString("ESBConduction.ArtifactRepositoryPassWord.editButton")).click();
+//			this.waitforElementDisplayed(By.xpath(other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input")), WAIT_TIME_MIN);
+//			this.getElementByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input")).clear();
+//			this.typeTextByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input"), artifactRepositoryPassWord);
 			
 			this.getElementById("idConfigRefreshButton").click();
 			try {
-				Thread.sleep(15000);
+				Thread.sleep(25000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}			
 			this.getElementById("idConfigRefreshButton").click();
 			try {
-				Thread.sleep(10000);
+				Thread.sleep(25000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 //			this.mouseDown("//div[contains(text(),'ESB conductor (4 Parameters')]");
-//	        this.clickElementByXpath("//div[contains(text(),'ESB conductor (4 Parameters')]");		
+	        this.clickElementByXpath("//div[contains(text(),'ESB conductor (4 Parameters')]");		
 			this.AssertEqualsInConfigurationMenu("//div[text()='Artifact repository url']//parent::td//following-sibling::td[1]//div[contains(@class,' x-form-label x-component')]",other.getString("ESBConduction.conf.rtifactRepositoryUrl.input"), artifactRepositoryUrl,
 					other.getString(urlStatus));
 			this.AssertEqualsInConfigurationMenu("//div[text()='Artifact repository username']//parent::td//following-sibling::td[1]//div[contains(@class,' x-form-label x-component')]",other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input"), artifactRepositoryUserName,
@@ -135,7 +124,7 @@ public class SelectFeatureFromArchiva extends WebDriverBase {
 		
 		public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value,String statusIconLocator){
 			this.AssertEqualsInConfigurationMenu(locatorOfEditButton, locatorOfInput, value);
-			this.waitforElementDisplayed(By.xpath(statusIconLocator), 20);//wait and check the icon status.
+			this.waitforElementDisplayed(By.xpath(statusIconLocator), WAIT_TIME_MIN);//wait and check the icon status.
 		}
 		public void AssertEqualsInConfigurationMenu(String locatorOfEditButton,String locatorOfInput,String value){
 			this.waitforElementDisplayed(By.xpath(locatorOfEditButton), WAIT_TIME_MIN);

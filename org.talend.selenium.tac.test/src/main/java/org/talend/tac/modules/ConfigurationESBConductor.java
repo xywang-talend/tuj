@@ -5,9 +5,11 @@ import static org.testng.Assert.assertEquals;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.HasInputDevices;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.Mouse;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.internal.Locatable;
+import org.openqa.selenium.internal.seleniumemulation.KeyEvent;
 import org.talend.tac.base.WebDriverBase;
 import org.testng.Assert;
 
@@ -67,7 +69,7 @@ public class ConfigurationESBConductor extends WebDriverBase {
 		this.waitforElementDisplayed(By.xpath(other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input")), WAIT_TIME_MIN);
 		this.getElementByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input")).clear();
 		this.typeTextByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input"), artifactRepositoryPassWord);
-
+//        this.keyDown(Keys.ENTER);
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {

@@ -8,8 +8,8 @@ public class TestServerDisplyInVirtualServersPage extends Server {
    
 	//check server type 'talend runtime' display in virture server page
 	@Test
-	@Parameters({"serverForUseAvailable", "serverForUseUnavailable", "serverLablename",
-		"runtimeServerChangeDefaultPortLablename", "serverLablenameOfUncheckActive"})
+	@Parameters({"ServerForUseAvailable", "ServerForUseUnavailable", "ServerLablename",
+		"RuntimeServerChangeDefaultPortLablename", "ServerLablenameOfUncheckActive"})
 	public void testServerDisplyInVirtualServersPage(String jobServer1, String jobServer2, String esbServer1,
 			String esbServer2, String esbServer3) {
 		
@@ -52,7 +52,9 @@ public class TestServerDisplyInVirtualServersPage extends Server {
 		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+esbServer2+"' and @class='x-tree3-node-text']"));		
 		
 		Assert.assertFalse(selenium.isElementPresent("//span[text()='"+esbServer3+"' and @class='x-tree3-node-text']"));
-		
+		this.deleteServer(jobServer1);
+        this.deleteServer(jobServer2);
+		this.deleteServer(esbServer2);
 		
 	}
 		

@@ -13,7 +13,7 @@ public class TestOpenLinksOfAdminServerConsole extends Server {
    
 	//open links of admin console
 	@Test
-	@Parameters({"serverLablename"})
+	@Parameters({"ServerLablename"})
 	public void testOpenLinksOfAdminServerConsole(String esbServer) {
 		
 		String karafPageTitleExpected = "Apache Karaf Web Console - Bundles";
@@ -55,7 +55,9 @@ public class TestOpenLinksOfAdminServerConsole extends Server {
 			System.out.println("=" + id);
 		}
 		System.out.println(idss[1]);		
-		Assert.assertEquals(karafPageTitleExpected, idss[1]);		
+		Assert.assertEquals(karafPageTitleExpected, idss[1]);
+		uploadLicense("org/talend/tac/folder/license/ESB_EE.license");
+		this.waitForElementPresent("idLeftMenuTreeLogoutButton", WAIT_TIME);
 	}
 	
 	public void genenateUserPw() {
@@ -77,5 +79,26 @@ public class TestOpenLinksOfAdminServerConsole extends Server {
 		}
 		
 	}
+	
+	public void uploadLicense(String license) {
+		
+		   this.waitForElementPresent("//b[text()='admin, admin']", WAIT_TIME);
+		   			
+		   this.clickWaitForElementPresent("idMenuLicenseElement");
+		   waitForElementPresent("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", WAIT_TIME);
+		   selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", parseRelativePath(license));
+		   selenium.click("//button[text()='Upload']");
+				
+	       System.out.println("license upload is successful");	
+	       
+	       try {
+			Thread.sleep(3000);
+		   } catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		   }
+	       selenium.refresh();        
+	       
+		}	
 	
 }

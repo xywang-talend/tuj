@@ -13,7 +13,7 @@ public class TestServerFilters extends Server {
 	   			
 	   this.clickWaitForElementPresent("idMenuLicenseElement");
 	   waitForElementPresent("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", WAIT_TIME);
-	   selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", parseRelativePath(license));
+	   selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]",  parseRelativePath(license));
 	   selenium.click("//button[text()='Upload']");
 			
        System.out.println("license upload is successful");	
@@ -64,8 +64,8 @@ public class TestServerFilters extends Server {
 	
 	//server filters in jobconductor, check just appear jobServer, check runtime server are not displayed
 	@Test
-	@Parameters({"serverForUseAvailable", "serverForUseUnavailable", "serverLablename",
-		"runtimeServerChangeDefaultPortLablename"})
+	@Parameters({"ServerForUseAvailable", "ServerForUseUnavailable", "ServerLablename",
+		"RuntimeServerChangeDefaultPortLablename"})
 	public void testServerFiltersInJobconductor(String jobServer1, String jobServer2, String esbServer1,
 			String esbServer2) {
 		
@@ -91,11 +91,13 @@ public class TestServerFilters extends Server {
 	
 	//server filters in esbconductor, check just appear esbServer, jobserver are not displayed
 	@Test
-	@Parameters({"serverForUseAvailable", "serverForUseUnavailable", "serverLablename",
-		"runtimeServerChangeDefaultPortLablename", "licenseESB"})
+	@Parameters({"ServerForUseAvailable", "ServerForUseUnavailable", "ServerLablename",
+		"RuntimeServerChangeDefaultPortLablename", "LicenseESB"})
 	public void testServerFiltersInEsbconductor(String jobServer1, String jobServer2, String esbServer1,
 			String esbServer2, String esbLicense) {
-		
+		this.openServerMenu();
+		this.addServer("testJobServer", "", "192.168.30.132", true);
+		this.addServer("testJobServerUnavaiable", "", "192.168.30.132", false);
 		//change license to esb
 		uploadLicense(esbLicense);
 		this.waitForElementPresent("//span[text()='ESB Infrastructure']", WAIT_TIME);
@@ -104,7 +106,7 @@ public class TestServerFilters extends Server {
 		
 		//go to 'Job Conductor' page
 		this.clickWaitForElementPresent("!!!menu.esbconductor.element!!!");
-		//click add button, check just appear two jobServers in server drop-down list
+		//click add button, check just appear two esbServers in server drop-down list
 		selenium.click("//div[text()='ESB Conductor' and @class='header-title']//ancestor::div" +
 				"[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']" +
 				"//button[text()='Add'] ");
@@ -121,7 +123,7 @@ public class TestServerFilters extends Server {
 	
 	//creation the case for change license to MDM
 	@Test
-	@Parameters({"licenseMDM"})
+	@Parameters({"LicenseMDM"})
 	public void resetLicenseToMDM(String license) {
 		
 		uploadLicense(license);

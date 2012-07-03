@@ -17,7 +17,7 @@ public class AddRuntimeServerWithInvalidHostImpl extends AddRuntimeServerWithInv
 		this.openServerMenu();
 		this.addRuntimeServer(serverLabel,invalidhost);
 		this.checkServerStatus(serverLabel,server_status_down);
-		this.deleteServer(serverLabel);
+//		this.deleteServer(serverLabel);
 	}
 	
 	public void addServerWithJobServerUnavaiable(String serverLabel,String host,String serviceName) {

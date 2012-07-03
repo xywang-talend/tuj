@@ -31,8 +31,8 @@ public class EsbUtil extends Login {
 	
 	public void uninstallService(String jobName) {
 		
-		karaf.karafAction("uninstall "+jobName+"", 5000);
-		System.out.println("**--**the "+jobName+" is unintall successful");
+		karaf.karafAction("stop "+jobName+"-control-bundle", 5000);
+		System.out.println("**--**the "+jobName+" is stopped successful");
 		
 	}
 	
