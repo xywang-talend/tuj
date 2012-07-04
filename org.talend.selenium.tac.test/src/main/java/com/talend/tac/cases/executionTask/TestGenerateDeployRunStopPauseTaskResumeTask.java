@@ -207,7 +207,7 @@ public class TestGenerateDeployRunStopPauseTaskResumeTask extends TaskUtils {
 	//Run a task with a Inactive server
 	@Test	
 	@Parameters({"TaskWithInactiveServer","labelDescription","addCommonProjectName","branchNameTrunk",
-		"jobNameTJava","version0.1","context","ServerForUseUnavailable","statisticEnabled"})
+		"jobNameTJava","version0.1","context","serverForUseUnavailable","statisticEnabled"})
 	public void testRunTaskWithInactiveServer(String label,String description,String projectName,String branchName,
 			String jobName,String version,String context,String serverName,String statisticName) {
 				

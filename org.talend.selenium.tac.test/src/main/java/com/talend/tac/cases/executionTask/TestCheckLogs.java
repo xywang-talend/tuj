@@ -185,7 +185,7 @@ public class TestCheckLogs extends TaskUtils {
 		selenium.type("//span[text()='Logs']//ancestor::div[contains(@class," +
 				"'x-tab-panel x-component')]//td[5]//input", "3");//modify of page numbers
 		
-		selenium.focus("//span[text()='Logs']//ancestor::div[contains(@class," +
+		selenium.click("//span[text()='Logs']//ancestor::div[contains(@class," +
 				"'x-tab-panel x-component')]//td[5]//input");
 		selenium.keyDownNative(""+Event.ENTER);
 		

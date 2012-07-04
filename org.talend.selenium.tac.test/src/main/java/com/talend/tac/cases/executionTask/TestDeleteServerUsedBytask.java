@@ -24,6 +24,7 @@ public class TestDeleteServerUsedBytask extends Login{
 		
 		selenium.refresh();//in order to light on the delete button
 		selenium.chooseOkOnNextConfirmation();
+		this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+Servername+"')]", WAIT_TIME);
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"+Servername+"')]");
 		selenium.click("idSubModuleDeleteButton");
 		selenium.getConfirmation();
