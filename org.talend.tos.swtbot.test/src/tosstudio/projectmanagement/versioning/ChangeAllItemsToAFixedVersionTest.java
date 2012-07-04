@@ -28,6 +28,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.Utilities.BuildType;
 import org.talend.swtbot.Utilities.TalendItemType;
 
 /**
@@ -49,9 +50,9 @@ public class ChangeAllItemsToAFixedVersionTest extends TalendSwtBotForTos {
         gefBot.tree().expandNode("General").select("Version Management").click();
 
         List<TalendItemType> itemTypes = new ArrayList<TalendItemType>();
-        if ("TIS".equals(getBuildType()))
+        if (BuildType.TIS == getBuildType())
             itemTypes = Utilities.getTISItemTypes();
-        else if ("TOSDI".equals(getBuildType()))
+        else if (BuildType.TOSBD == getBuildType())
             itemTypes = Utilities.getTOSDIItemTypes();
         // undo assert for under items, cause did not import these items
         itemTypes.remove(TalendItemType.SERVICES);

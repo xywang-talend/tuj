@@ -25,6 +25,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Assert;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.Utilities.BuildType;
 import org.talend.swtbot.Utilities.TalendItemType;
 
 /**
@@ -94,7 +95,7 @@ public class TalendItem implements Cloneable {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
-        if ("TOSBD".equals(TalendSwtBotForTos.getBuildType()) || getItemVersion() == null) {
+        if ((BuildType.TOSBD == TalendSwtBotForTos.getBuildType()) || getItemVersion() == null) {
             setItemFullName(this.itemName);
         } else {
             setItemFullName(this.itemName + " " + getItemVersion());
@@ -134,7 +135,7 @@ public class TalendItem implements Cloneable {
     }
 
     public void setItemVersion(String itemVersion) {
-        if (!"TOSBD".equals(TalendSwtBotForTos.getBuildType())) {
+        if (BuildType.TOSBD != TalendSwtBotForTos.getBuildType()) {
             this.itemVersion = itemVersion;
             setItemFullName(getItemName() + " " + this.itemVersion);
         }
@@ -179,11 +180,14 @@ public class TalendItem implements Cloneable {
 
     public TalendItem copyAndPaste() {
         List<String> nodes = getParentNode().expand().getNodes();
-        String copiedName = "Copy_of_" + getItemName() + " " + getItemVersion();
+        String version = "";
+        if (getItemVersion() != null)
+            version = " " + getItemVersion();
+        String copiedName = "Copy_of_" + getItemName() + version;
         if (nodes.contains(copiedName)) {
             for (int i = 0; i < 26; i++) {
                 char _char = (char) ('a' + i);
-                String str = "Copy_of_" + getItemName() + "_" + _char + " " + getItemVersion();
+                String str = "Copy_of_" + getItemName() + "_" + _char + version;
                 if (!nodes.contains(str)) {
                     copiedName = str;
                     break;

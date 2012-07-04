@@ -28,6 +28,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.SWTBotTreeItemExt;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.Utilities.BuildType;
 import org.talend.swtbot.helpers.JobHelper;
 import org.talend.swtbot.items.TalendJobItem;
 
@@ -84,18 +85,21 @@ public class ImplicitContextLoadFromFileTest extends TalendSwtBotForTos {
         jobEditor.save();
 
         // implicit context load from file
-        gefBot.viewByTitle("Job(" + jobItem.getItemFullName() + ")").show();
+        gefBot.viewByTitle(jobEditor.getTitle().replaceFirst(" ", "(") + ")").show();
         selecteAllTalendTabbedPropertyListIndex(1);
         gefBot.checkBox("Use Project Settings").deselect();
         gefBot.checkBox("Implicit tContextLoad").select();
         gefBot.radio("From File").click();
         gefBot.sleep(1000);
-        gefBot.text(1)
+        int textIndex = 0; // index of text with label "From File"
+        if (BuildType.TIS == getBuildType())
+            textIndex = 1;
+        gefBot.text(textIndex)
                 .selectAll()
                 .typeText(
                         "\"" + Utilities.getFileFromCurrentPluginSampleFolder("context.txt").getAbsolutePath().replace("\\", "/")
-                                + "\"", 0); // gefBot.textWithLabel("Field Separator")
-        gefBot.text(2).selectAll().typeText("\";\"", 0); // gefBot.textWithLabel("Field Separator")
+                                + "\"", 0); // gefBot.textWithLabel("From File")
+        gefBot.text(textIndex + 1).selectAll().typeText("\";\"", 0); // gefBot.textWithLabel("Field Separator")
         JobHelper.runJob(jobEditor);
         String result = JobHelper.execResultFilter(JobHelper.getExecutionResult());
         Assert.assertEquals("get wrong context value from file", "file", result);

@@ -25,6 +25,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.Utilities.BuildType;
 import org.talend.swtbot.Utilities.TalendItemType;
 
 /**
@@ -45,11 +46,11 @@ public class ImportItemsTest extends TalendSwtBotForTos {
         Utilities.getRepositoryTree().setFocus();
         List<TalendItemType> itemTypes = new ArrayList<TalendItemType>();
         String itemVersion = " 0.1";
-        if ("TIS".equals(TalendSwtBotForTos.getBuildType()))
+        if (BuildType.TIS == getBuildType())
             itemTypes = Utilities.getTISItemTypes();
-        else if ("TOSDI".equals(TalendSwtBotForTos.getBuildType()))
+        else if (BuildType.TOSDI == getBuildType())
             itemTypes = Utilities.getTOSDIItemTypes();
-        else if ("TOSBD".equals(TalendSwtBotForTos.getBuildType())) {
+        else if (BuildType.TOSBD == getBuildType()) {
             itemTypes = Utilities.getTOSBDItemTypes();
             itemVersion = "";
         }

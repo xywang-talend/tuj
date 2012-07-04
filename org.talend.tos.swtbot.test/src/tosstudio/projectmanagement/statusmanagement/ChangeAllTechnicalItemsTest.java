@@ -27,6 +27,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.Utilities.BuildType;
 import org.talend.swtbot.Utilities.TalendItemType;
 import org.talend.swtbot.items.TalendItem;
 
@@ -48,11 +49,11 @@ public class ChangeAllTechnicalItemsTest extends TalendSwtBotForTos {
         SWTBotShell shell = gefBot.shell("Project Settings").activate();
         gefBot.tree().expandNode("General").select("Status Management").click();
         List<TalendItemType> itemTypes = new ArrayList<TalendItemType>();
-        if ("TIS".equals(getBuildType()))
+        if (BuildType.TIS == getBuildType())
             itemTypes = Utilities.getTISItemTypes();
-        else if ("TOSDI".equals(getBuildType()))
+        else if (BuildType.TOSDI == getBuildType())
             itemTypes = Utilities.getTOSDIItemTypes();
-        else if ("TOSBD".equals(getBuildType()))
+        else if (BuildType.TOSBD == getBuildType())
             itemTypes = Utilities.getTOSBDItemTypes();
         // undo assert for under items, cause did not import these items
         itemTypes.remove(TalendItemType.SERVICES);
@@ -94,7 +95,7 @@ public class ChangeAllTechnicalItemsTest extends TalendSwtBotForTos {
             treeNode = Utilities.getTalendItemNode(itemType);
 
         String itemName = itemType.toString() + " 0.1";
-        if ("TOSBD".equals(getBuildType()))
+        if (BuildType.TOSBD == getBuildType())
             itemName = itemType.toString();
         if (!treeNode.getNodes().contains(itemName))
             return "item '" + itemName + "' did not import\n";

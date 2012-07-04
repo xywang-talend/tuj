@@ -26,8 +26,6 @@
 // ============================================================================
 package org.talend.swtbot;
 
-import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withTooltip;
-
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -44,7 +42,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.gef.EditPart;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
@@ -53,9 +50,7 @@ import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.matchers.AbstractMatcher;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotLabel;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
@@ -70,7 +65,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.designer.core.ui.editor.connections.ConnLabelEditPart;
 import org.talend.designer.core.ui.editor.connections.ConnectionLabel;
 import org.talend.designer.core.ui.editor.nodes.NodePart;
-import org.talend.swtbot.Utilities.TalendItemType;
+import org.talend.swtbot.Utilities.BuildType;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
@@ -93,7 +88,7 @@ public class TalendSwtBotForTos {
 
     private static String buildTitle;
 
-    private static String buildType;
+    private static BuildType buildType;
 
     public static List<ERepositoryObjectType> repositories = new ArrayList<ERepositoryObjectType>();
 
@@ -212,9 +207,6 @@ public class TalendSwtBotForTos {
         gefBot.saveAllEditors();
         gefBot.closeAllEditors();
 
-        SWTBotLabelExt refresh = new SWTBotLabelExt(new SWTBotLabel((Label) gefBot.widget(withTooltip("refresh"), Utilities
-                .getRepositoryView().getWidget())));
-        refresh.click();
         IWorkspace workspace = ResourcesPlugin.getWorkspace();
         IWorkspaceRunnable operation = new IWorkspaceRunnable() {
 
@@ -272,14 +264,8 @@ public class TalendSwtBotForTos {
         };
         workspace.run(cleanup, null);
 
-        refresh.click();
+        Utilities.getRepositoryView().toolbarPushButton("refresh").click();
         Utilities.emptyRecycleBin();
-        SWTBotTreeItem[] items = Utilities.getTalendItemNode(TalendItemType.RECYCLE_BIN).expand().getItems();
-        for (SWTBotTreeItem item : items) {
-            item.contextMenu("Delete forever").click();
-            gefBot.shell("Delete forever").activate();
-            gefBot.button("Yes").click();
-        }
         gefBot.resetActivePerspective();
 
         repositories.clear();
@@ -295,24 +281,24 @@ public class TalendSwtBotForTos {
         return buildTitle;
     }
 
-    public static String getBuildType() {
+    public static BuildType getBuildType() {
         return buildType;
     }
 
     public static void setBuildType(String buildTitle) {
         if ("Talend Platform Big Data edition".equals(buildTitle)) {
-            buildType = "TIS";
+            buildType = BuildType.TIS;
             return;
         }
         if ("Talend Open Studio for Data Integration".equals(buildTitle)) {
-            buildType = "TOSDI";
+            buildType = BuildType.TOSDI;
             return;
         }
         if ("Talend Open Studio for Big Data".equals(buildTitle)) {
-            buildType = "TOSBD";
+            buildType = BuildType.TOSBD;
             return;
         }
-        buildType = "TIS";
+        buildType = BuildType.TIS;
     }
 
 }

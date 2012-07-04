@@ -31,6 +31,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.SWTBotTreeItemExt;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.Utilities.BuildType;
 import org.talend.swtbot.helpers.JobHelper;
 import org.talend.swtbot.items.TalendJobItem;
 
@@ -78,17 +79,20 @@ public class ImplicitContextLoadForTransmitToChildTest extends TalendSwtBotForTo
         jobEditor1.show();
         createContextForJob(context1, jobEditor1);
 
-        gefBot.viewByTitle("Job(" + jobItem1.getItemFullName() + ")").setFocus();
+        gefBot.viewByTitle(jobEditor1.getTitle().replaceFirst(" ", "(") + ")").setFocus();
         selecteAllTalendTabbedPropertyListIndex(1);
-        gefBot.checkBox("Use Project Settings").deselect();
-        gefBot.checkBox("Implicit tContextLoad").select();
+        gefBot.checkBox("Use Project Settings").click();
+        gefBot.checkBox("Implicit tContextLoad").click();
         gefBot.radio("From File").click();
         SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
         gefBot.sleep(1000);
         String filePath = Utilities.getFileFromCurrentPluginSampleFolder(FILE).getAbsolutePath();
         filePath = "\"" + filePath.replace("\\", "/") + "\"";
-        gefBot.text(1).selectAll().typeText(filePath);
-        gefBot.text(2).selectAll().typeText("\"" + ";" + "\"");
+        int textIndex = 0; // index of text with label "From File"
+        if (BuildType.TIS == getBuildType())
+            textIndex = 1;
+        gefBot.text(textIndex).selectAll().typeText(filePath); // gefBot.textWithLabel("From File")
+        gefBot.text(textIndex + 1).selectAll().typeText("\"" + ";" + "\""); // gefBot.textWithLabel("Field Separator")
 
         // drag tJava and tRunJob to job
         dragTJavaToJob(jobEditor1);
@@ -98,7 +102,6 @@ public class ImplicitContextLoadForTransmitToChildTest extends TalendSwtBotForTo
         Assert.assertNotNull("cann't get component tRunJob", tRunJob);
         tRunJob.click();
         gefBot.viewByTitle("Component").setFocus();
-        selecteAllTalendTabbedPropertyListIndex(0);
         gefBot.button(4).click();
         gefBot.shell("Find a Job").activate();
         Utilities.getTalendItemNode(gefBot.tree(), jobItem2.getItemType()).getNode(jobItem2.getItemFullName()).select();
@@ -109,12 +112,14 @@ public class ImplicitContextLoadForTransmitToChildTest extends TalendSwtBotForTo
         jobEditor2.show();
         createContextForJob(context2, jobEditor2);
         dragTJavaToJob(jobEditor2);
+        jobEditor2.save();
         JobHelper.runJob(jobEditor2);
         String result2 = JobHelper.execResultFilter(JobHelper.getExecutionResult());
         Assert.assertEquals("the result is not the expected result,maybe the variable is not available in job", "3b4.0", result2);
 
         // run job1
         jobEditor1.show();
+        jobEditor1.save();
         JobHelper.runJob(jobEditor1);
         String result1 = JobHelper.execResultFilter(JobHelper.getExecutionResult());
         Assert.assertEquals("the result is not the expected result,maybe the context is not from file", "5c6.0\n5c6.0", result1);
