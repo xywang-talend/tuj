@@ -9,7 +9,7 @@ public class TestAddJobserverNotification extends AddNotification {
 	
     //add a jobserver'notification(JobServerAlertNotification)
 	@Test
-	@Parameters({"categoryJobServer","eventJobServerAlert","descriptionJobServerAlert","ServerForUseUnavailable"})
+	@Parameters({"categoryJobServer","eventJobServerAlert","descriptionJobServerAlert","serverForUseUnavailable"})
 	public void testAddJobserversJobServerAlertNotification(String categoryJobServer, String eventJobServerAlert,
 			String descriptionJobServerAlert, String jobServer) {
 		
@@ -24,7 +24,7 @@ public class TestAddJobserverNotification extends AddNotification {
 	}
 	//add a jobserver'notification(uncheck Active)
 	@Test
-	@Parameters({"categoryJobServer","eventJobServerAlert","descriptionJobServerAlert","ServerForUseAvailable"})
+	@Parameters({"categoryJobServer","eventJobServerAlert","descriptionJobServerAlert","serverForUseAvailable"})
 	public void testAddJobserversNotificationUncheckActive(String categoryJobServer,String eventJobServerAlert,
 			String descriptionJobServerAlert,String jobServer) {
 		

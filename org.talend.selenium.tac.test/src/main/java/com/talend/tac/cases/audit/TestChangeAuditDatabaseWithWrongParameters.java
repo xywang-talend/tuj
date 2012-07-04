@@ -60,7 +60,7 @@ public class TestChangeAuditDatabaseWithWrongParameters extends Audit {
     
 	//change audit db info with wrong driver and check wrong info
 	@Test
-	@Parameters({"mysqlURL", "mysqlUserName", "mysqlPassWord", "H2Driver"})
+	@Parameters({"mysqlURL", "mysqlUserName", "mysqlPassWord", "h2Driver"})
 	public void testChangeAuditDatabaseWithWrongDriver(String url, String userName, String userPassWd, String driver) {
 		
 		String wrongDriverInfo = "Driver cannot understand url '"+url+"'";

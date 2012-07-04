@@ -33,7 +33,7 @@ CheckEveryTimeOpenPreviousSelectedUsersTasksJobServerAreAlreadyChecked{
 	
 	//test check every time open previous selected jobservers are already checked
 	@Test
-	@Parameters({"categoryJobServer","eventJobServerAlert","descriptionJobServerAlert","ServerForUseUnavailable","ServerForUseAvailable"})
+	@Parameters({"categoryJobServer","eventJobServerAlert","descriptionJobServerAlert","serverForUseUnavailable","serverForUseAvailable"})
 	public void testCheckEveryTimeOpenPreviousSelectedJobServersAreAlreadyChecked(String categoryJobServer, String eventJobServerAlert,
 			String descriptionJobServerAlert, String jobServer, String jobserverAvailable) {
 		

@@ -61,7 +61,7 @@ CheckAllUsersJobserverTaskOfClickFirstCheckBox {
 	//test select all jobservers of click first checkbox
 	@Test
 	@Parameters({"categoryJobServer","eventJobServerAlert","descriptionJobServerAlert",
-		"ServerForUseUnavailable","ServerForUseAvailable"})
+		"serverForUseUnavailable","serverForUseAvailable"})
 	public void testCheckAllJobServersOfClickFirstCheckBox(String categoryJobServer, String eventJobServerAlert,
 			String descriptionJobServerAlert, String jobServer, String jobserverAvailable) throws InterruptedException  {
 		

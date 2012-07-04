@@ -124,7 +124,18 @@ public class Project extends WebDriverBase {
 		logger.info("accept alert");
 		this.acceptAlert();
 		logger.info("check project whether disappear");
-		this.waitElemet(2000);
+		boolean pro = this.isElementPresent(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+				+ projectLabel + "')]"), 1);
+		int i = 0;
+		while (pro == true && i < WAIT_TIME_MIN) {
+		    
+			i++;
+			this.waitElemet(1000);
+			pro = this.isElementPresent(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
+					+ projectLabel + "')]"), 1);
+			System.err.println(i+">>>>"+pro);
+			
+		}
 		Assert.assertFalse(this.isElementPresent(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ projectLabel + "')]"), 5));
 		

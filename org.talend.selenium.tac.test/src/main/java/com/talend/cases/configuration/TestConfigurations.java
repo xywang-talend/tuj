@@ -232,7 +232,7 @@ public class TestConfigurations extends configuration {
 
 
   @Test
-  @Parameters ({"sVNurl","svnConfServerUser","svnConfServerPassword"})
+  @Parameters ({"svnurl","svnConfServerUser","svnConfServerPassword"})
   public void testSetSVN(String svnServerLocationUrl,String svnServerUser,String svnServerPassword){
 	  this.mouseDownWaitForElementPresent("//div[contains(text(),'Svn (')]"); 
 	  this.typeWordsInConfigurationMenu(other.getString("svn.conf.serverLocationURL.editButton"), other.getString("svn.conf.serverLocationURL.input"), svnServerLocationUrl);

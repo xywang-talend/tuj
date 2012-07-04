@@ -128,7 +128,7 @@ public class TestDeleteNotification extends AddNotification {
 	delete 'use_server_unactive', return notification page and check corresponding
 	 notification is deleted**/
 	@Test
-	@Parameters({"eventJobServerAlert","ServerForUseUnavailable"})
+	@Parameters({"eventJobServerAlert","serverForUseUnavailable"})
 	public void testDeleteJobServerByDeleteJobServer(String eventJobServerAlert, String jobServer) {
 		
 		this.clickWaitForElementPresent("!!!menu.notification.element!!!");//into notification
