@@ -163,7 +163,7 @@ public class RedefineContext extends WebDriverBase {
                    + "']"), WAIT_TIME_MIN));
        }
        
-       public void deleteUndeployedConductorOk(String label,String name) {
+       public void deleteUndeployedConductorOk(String label) {
     	   this.mouseDown("//div[text()='" + label + "']");
     	   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridDeleteButton']"), WAIT_TIME_MIN);
     	   this.getElementById("idESBConductorTaskGridDeleteButton").click();        	   

@@ -19,6 +19,8 @@
 
 package org.talend.tac.modules.impl;
 
+import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.talend.tac.modules.RedefineContext;
 
@@ -57,7 +59,7 @@ public class RedefineContextImpl extends RedefineContext {
        }
        
        public void deleteUndeployedConductor(String label,String name) {
-    	   this.deleteUndeployedConductorOk(label, name);
+    	   this.deleteUndeployedConductorOk(label);
        }
        
        public void resetContextParameters(String label, String des, String repository,
@@ -92,6 +94,11 @@ public class RedefineContextImpl extends RedefineContext {
        
        public void refershConfigProperties(String label) {
     	   this.refreshConfig(label);
+       }
+       
+       public void deleteServiceOrRoute(String label) {
+    	   this.deleteUndeployedConductorOk(label);
+    	   Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='" + label + "']"), 20));
        }
 
 }

@@ -29,13 +29,12 @@ public class TestStartESBConductor extends WebdriverLogin {
 		String startStatus = "Started";
 		String startPromptInfo = "Bundle 'jobSecondProvider' started.";
 		
-		startESBConductorImpl.addESBConductor(label, des, repository, group, artifact, version, name, type, context, server);
-		
-		startESBConductorImpl.deployAddedConductor(label, name, deployPromptInfo, deployId, deployStatus);
-		
+		startESBConductorImpl.addESBConductor(label, des, repository, group, artifact, version, name, type, context, server);		
+		startESBConductorImpl.deployAddedConductor(label, name, deployPromptInfo, deployId, deployStatus);		
 		startESBConductorImpl.startDeployedConductor(label, name, startPromptInfo,
 				startId, startStatus);
 		
 	}
+	
 	
 }
