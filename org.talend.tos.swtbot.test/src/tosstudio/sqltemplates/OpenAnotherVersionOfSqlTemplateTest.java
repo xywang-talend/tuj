@@ -47,7 +47,7 @@ public class OpenAnotherVersionOfSqlTemplateTest extends TalendSwtBotForTos {
     public void openAnotherVersionOfSqlTemplate() {
         sqlTemplateItem.getItem().contextMenu("Open an other version").click();
 
-        gefBot.shell("New job").activate();
+        gefBot.shell("Job version").activate();
         gefBot.checkBox("Create new version and open it?").click();
         gefBot.button("M").click();
         gefBot.button("m").click();

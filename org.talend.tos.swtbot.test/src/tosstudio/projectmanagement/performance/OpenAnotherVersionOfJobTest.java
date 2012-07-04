@@ -45,7 +45,7 @@ public class OpenAnotherVersionOfJobTest extends TalendSwtBotForTos {
         jobItem.getEditor().saveAndClose();
         jobItem.getItem().contextMenu("Open an other version").click();
 
-        gefBot.shell("New job").activate();
+        gefBot.shell("Job version").activate();
         gefBot.checkBox("Create new version and open it?").click();
         gefBot.button("M").click();
         gefBot.button("m").click();
@@ -68,7 +68,7 @@ public class OpenAnotherVersionOfJobTest extends TalendSwtBotForTos {
         });
         jobItem.setItem(jobItem.getParentNode().expand().getNode(JOBNAME + " 1.1"));
         jobItem.getItem().contextMenu("Open an other version").click();
-        gefBot.shell("New job").activate();
+        gefBot.shell("Job version").activate();
         gefBot.table().select(0);
         gefBot.button("Finish").click();
 

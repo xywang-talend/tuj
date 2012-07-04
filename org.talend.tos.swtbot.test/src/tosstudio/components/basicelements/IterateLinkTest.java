@@ -72,9 +72,8 @@ public class IterateLinkTest extends TalendSwtBotForTos {
         SWTBotGefEditPart tLogRow2 = getTalendComponentPart(jobEditor, "tLogRow_2");
         tLogRow2.click();
         gefBot.viewByTitle("Component").setFocus();
-
-        gefBot.radio("Basic").click();
         gefBot.radio("Table (print values in cells of a table)").click();
+        Utilities.deselectDefaultSelection("Basic");
         JobHelper.connect(jobEditor, tRowGenerator1, tRowGenerator2, "Iterate");
         JobHelper.runJob(jobEditor);
         String result = JobHelper.getExecutionResult();
