@@ -26,6 +26,7 @@ import org.junit.runner.RunWith;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.Utilities.BuildType;
 import org.talend.swtbot.items.TalendDBItem;
 
 /**
@@ -65,7 +66,7 @@ public class ChangeDatabaseAndRetrieveSchemaTest extends TalendSwtBotForTos {
         gefBot.button("Next >").click();
         gefBot.textWithLabel("DataBase").setText(DATABASE_NAME);
         gefBot.button("Finish").click();
-        if ("TIS".equals(TalendSwtBotForTos.getBuildType())) {
+        if (BuildType.TIS == getBuildType()) {
             gefBot.shell("Confirm Reload Connection").activate();
             Utilities.deselectDefaultSelection("reload");
             gefBot.radio("don't reload").click();

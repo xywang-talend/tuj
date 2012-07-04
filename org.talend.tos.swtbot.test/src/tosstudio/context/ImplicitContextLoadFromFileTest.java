@@ -28,6 +28,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.SWTBotTreeItemExt;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.Utilities.BuildType;
 import org.talend.swtbot.helpers.JobHelper;
 import org.talend.swtbot.items.TalendJobItem;
 
@@ -90,9 +91,9 @@ public class ImplicitContextLoadFromFileTest extends TalendSwtBotForTos {
         gefBot.checkBox("Implicit tContextLoad").select();
         gefBot.radio("From File").click();
         gefBot.sleep(1000);
-        int textIndex = 1; // index of text with label "From File"
-        if ("TOSBD".equals(getBuildType()))
-            textIndex = 0;
+        int textIndex = 0; // index of text with label "From File"
+        if (BuildType.TIS == getBuildType())
+            textIndex = 1;
         gefBot.text(textIndex)
                 .selectAll()
                 .typeText(

@@ -4,6 +4,7 @@ import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
+import org.talend.swtbot.Utilities.BuildType;
 
 public class TalendJobItem extends TalendItem {
 
@@ -22,7 +23,7 @@ public class TalendJobItem extends TalendItem {
     }
 
     public SWTBotGefEditor getEditor() {
-        if ("TOSBD".equals(TalendSwtBotForTos.getBuildType()))
+        if (BuildType.TOSBD == TalendSwtBotForTos.getBuildType())
             return gefBot.gefEditor("Job " + itemFullName + " ");
         return gefBot.gefEditor("Job " + itemFullName);
     }

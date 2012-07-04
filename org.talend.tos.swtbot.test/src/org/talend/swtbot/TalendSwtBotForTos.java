@@ -65,6 +65,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.designer.core.ui.editor.connections.ConnLabelEditPart;
 import org.talend.designer.core.ui.editor.connections.ConnectionLabel;
 import org.talend.designer.core.ui.editor.nodes.NodePart;
+import org.talend.swtbot.Utilities.BuildType;
 
 /**
  * DOC sgandon class global comment. Detailled comment <br/>
@@ -87,7 +88,7 @@ public class TalendSwtBotForTos {
 
     private static String buildTitle;
 
-    private static String buildType;
+    private static BuildType buildType;
 
     public static List<ERepositoryObjectType> repositories = new ArrayList<ERepositoryObjectType>();
 
@@ -280,24 +281,24 @@ public class TalendSwtBotForTos {
         return buildTitle;
     }
 
-    public static String getBuildType() {
+    public static BuildType getBuildType() {
         return buildType;
     }
 
     public static void setBuildType(String buildTitle) {
         if ("Talend Platform Big Data edition".equals(buildTitle)) {
-            buildType = "TIS";
+            buildType = BuildType.TIS;
             return;
         }
         if ("Talend Open Studio for Data Integration".equals(buildTitle)) {
-            buildType = "TOSDI";
+            buildType = BuildType.TOSDI;
             return;
         }
         if ("Talend Open Studio for Big Data".equals(buildTitle)) {
-            buildType = "TOSBD";
+            buildType = BuildType.TOSBD;
             return;
         }
-        buildType = "TIS";
+        buildType = BuildType.TIS;
     }
 
 }

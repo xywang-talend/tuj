@@ -97,6 +97,15 @@ import org.talend.swtbot.items.TalendXmlFileItem;
 public class Utilities {
 
     /**
+     * Define a enum for build type
+     */
+    public enum BuildType {
+        TIS,
+        TOSDI,
+        TOSBD
+    }
+
+    /**
      * Define a enum for database type
      */
     public enum DbConnectionType {
@@ -682,11 +691,11 @@ public class Utilities {
      */
     public static void cleanUpRepository() {
         List<TalendItemType> itemTypes = new ArrayList<TalendItemType>();
-        if ("TIS".equals(TalendSwtBotForTos.getBuildType()))
+        if (BuildType.TIS == TalendSwtBotForTos.getBuildType())
             itemTypes = getTISItemTypes();
-        if ("TOSDI".equals(TalendSwtBotForTos.getBuildType()))
+        if (BuildType.TOSDI == TalendSwtBotForTos.getBuildType())
             itemTypes = getTOSDIItemTypes();
-        if ("TOSBD".equals(TalendSwtBotForTos.getBuildType()))
+        if (BuildType.TOSBD == TalendSwtBotForTos.getBuildType())
             itemTypes = getTOSBDItemTypes();
         for (TalendItemType itemType : itemTypes) {
             SWTBotTreeItem treeNode = getTalendItemNode(itemType);
@@ -1167,7 +1176,11 @@ public class Utilities {
         gefBot.tree().setFocus();
         gefBot.button("Select All").click();
         gefBot.button("Finish").click();
-        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 30000);
+        try {
+            gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 30000);
+        } catch (WidgetNotFoundException e) {
+            // pass exception if not found progress information
+        }
     }
 
     public static List<ERepositoryObjectType> getERepositoryObjectTypes() {
