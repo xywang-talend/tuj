@@ -1167,7 +1167,7 @@ public class Utilities {
         gefBot.tree().setFocus();
         gefBot.button("Select All").click();
         gefBot.button("Finish").click();
-        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")));
+        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 30000);
     }
 
     public static List<ERepositoryObjectType> getERepositoryObjectTypes() {

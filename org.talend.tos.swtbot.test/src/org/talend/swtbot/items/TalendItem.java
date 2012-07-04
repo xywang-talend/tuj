@@ -179,11 +179,14 @@ public class TalendItem implements Cloneable {
 
     public TalendItem copyAndPaste() {
         List<String> nodes = getParentNode().expand().getNodes();
-        String copiedName = "Copy_of_" + getItemName() + " " + getItemVersion();
+        String version = "";
+        if (getItemVersion() != null)
+            version = " " + getItemVersion();
+        String copiedName = "Copy_of_" + getItemName() + version;
         if (nodes.contains(copiedName)) {
             for (int i = 0; i < 26; i++) {
                 char _char = (char) ('a' + i);
-                String str = "Copy_of_" + getItemName() + "_" + _char + " " + getItemVersion();
+                String str = "Copy_of_" + getItemName() + "_" + _char + version;
                 if (!nodes.contains(str)) {
                     copiedName = str;
                     break;

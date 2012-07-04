@@ -102,7 +102,7 @@ public class ImplicitContextLoadFromDatabaseTest extends TalendSwtBotForTos {
         jobEditor.save();
 
         // implicit context load from database
-        gefBot.viewByTitle("Job(" + jobItem.getItemFullName() + ")").show();
+        gefBot.viewByTitle(jobEditor.getTitle().replaceFirst(" ", "(") + ")").show();
         selecteAllTalendTabbedPropertyListIndex(1);
         gefBot.checkBox("Use Project Settings").deselect();
         gefBot.checkBox("Implicit tContextLoad").select();
