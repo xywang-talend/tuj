@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name=" Product entity Record" parallel="false">
+<suite name=" Store Record" parallel="false">
     <parameter name="user.name" value="jennifer" />
 	<parameter name="user.password" value="jennifer" />
 	<parameter name="message" value="User 'jennifer' is already logged in another session!" />
@@ -10,6 +10,7 @@
      
     <test name=" create a record" >
 	    <classes>   	
+	     <parameter name="testlink.id" value="TMDMQA-5806"/>
 	         <parameter name="addressValue" value="22, Jianguomenwai Avenue, Chaoyang District, Beijing" />
 	       	 <class name="org.talend.mdm.cases.record.TestRecordStore">
 				<methods>				 	           
@@ -22,6 +23,7 @@
   
     <test name=" update a record" >
 	    <classes>
+	     <parameter name="testlink.id" value="TMDMQA-5812"/>
 	         <parameter name="address" value="Address" />	
 	         <parameter name="addressValue" value="5-10-13, Minami Aoyama Minato-ku. Tokyo" />
 	         <class name="org.talend.mdm.cases.record.TestRecordStore">
@@ -30,11 +32,12 @@
 		        </methods>
 		    </class>
 	    </classes>
-  </test>  -->
+  </test>  
   
   
      <test name=" Duplicate a record" >
 	    <classes>   
+	     <parameter name="testlink.id" value="TMDMQA-5816"/>
 	    	<parameter name="storeIdValueDup" value="t8" /> 
 	       	 <class name="org.talend.mdm.cases.record.TestRecordStore">
 				<methods>				 	           
@@ -45,7 +48,7 @@
   </test>       
      <test name=" delete the created record" >
 	    <classes>
-	   
+	    <parameter name="testlink.id" value="TMDMQA-5822"/>
 	       	 <class name="org.talend.mdm.cases.record.TestRecordStore">
 				<methods>				 	           
 		           <include name="testDeleteRecord"/>		        
@@ -54,7 +57,8 @@
 	    </classes>
   </test>  
        <test name=" delete the duplicate record" >
-	    <classes>   
+	    <classes>  
+	     <parameter name="testlink.id" value="TMDMQA-5827"/> 
 	    	<parameter name="storeIdValue" value="t8" /> 
 	       	 <class name="org.talend.mdm.cases.record.TestRecordStore">
 				<methods>				 	           
