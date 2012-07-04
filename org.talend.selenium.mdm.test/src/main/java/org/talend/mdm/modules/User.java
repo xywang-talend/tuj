@@ -89,12 +89,14 @@ public User(WebDriver driver) {
 	
 	protected void addUser(String identifier,String firstName,String lastName,String password,String confirmPassword,
 			String email, String company, String defaultVersion, boolean active, String[] roles) {
+		
 		this.clickAddNewUser();
 		this.confBaseUserInfo(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active);
 		this.selectRoles(roles);
 		this.minUserConfigPanel();
 		this.clickElementByXpath(locator.getString("xpath.user.add.role.save"));
 		this.getElementByXpath(locator.getString("xpath.user.add.role.flashcache.ok")).click();
+		this.clickLastPageButton();
 		Assert.assertTrue((this.isElementPresent(By.xpath(this.getString(locator, "xpath.user.identifier", identifier)), WAIT_TIME_MAX)));
 	    this.logger.warn("user "+identifier+" had been added succussfull!");
 //		Assert.assertNotNull("Haven't add the user " + identifier + "successfully!", getUserDeleteElement(identifier));
@@ -102,6 +104,7 @@ public User(WebDriver driver) {
 	
 	protected void addUser(String identifier,String firstName,String lastName,String password,String confirmPassword,
 			String email, String company, String defaultVersion, boolean active, String roles) {
+		
 		this.clickAddNewUser();
 		this.confBaseUserInfo(identifier, firstName, lastName, password, confirmPassword, email, company, defaultVersion, active);
 		this.selectRoles(roles);
@@ -110,15 +113,17 @@ public User(WebDriver driver) {
 		this.logger.warn("click add user save button!");
 		this.getElementByXpath(locator.getString("xpath.user.add.role.flashcache.ok")).click();
 		this.logger.warn("click add flush cache ok button!");
-	    Assert.assertTrue((this.isElementPresent(By.xpath(this.getString(locator, "xpath.user.identifier", identifier)), WAIT_TIME_MAX)));
+		this.clickLastPageButton();
+		Assert.assertTrue((this.isElementPresent(By.xpath(this.getString(locator, "xpath.user.identifier", identifier)), WAIT_TIME_MAX)));
 	    this.logger.warn("user "+identifier+" had been added succussfull!");
 	}
 	
 	public void deleteUser(String userName) {
 		this.minUserConfigPanel();
+		this.sleepCertainTime(3000);
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.user.delete", userName)), WAIT_TIME_MAX), "the user to delete not present right now.");
 		this.sleepCertainTime(1000);
-		this.selectAUser("administrator");
+//		this.selectAUser("administrator");
 		this.clickElementByXpath(this.getString(locator, "xpath.user.delete", userName));
 		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.user.delete.yes")),WAIT_TIME_MIN).isDisplayed());
 		this.sleepCertainTime(2000);
@@ -128,6 +133,7 @@ public User(WebDriver driver) {
 	    logger.warn("user "+userName +" deleted successful!");
 	}
 	protected void deleteAllUsersStartWith(String userExcept){
+		
 		List a = this.getElementsByXpath(locator.getString("xpath.user.listdisplay.identiferlist"));
 		List b = new ArrayList<String>();
 		for(int i=0;i<a.size();i++){
@@ -152,37 +158,46 @@ public User(WebDriver driver) {
 			logger.warn("The "+j+" time to delete user name is :"+userName);
 			this.deleteUser(userName);
 		}
-		this.sleepCertainTime(3000);
-		System.err.println("after delete,total user number is :"+this.getElementsByXpath(locator.getString("xpath.user.listdisplay.identiferlist")).size());
-		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.user.listdisplay.identiferlist")).size()==4);
 	}
 
 	public void searchUser(String userName) {
-		this.modifyTextByXpath(locator.getString("xpath.user.search.input"), userName);
+		this.typeString(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.search.input"))), userName);
 		this.clickElementByXpath(locator.getString("xpath.user.search"));
 	}
 	
 	public void clickAddNewUser(){
+		logger.warn("*****************************************************"+System.getProperty("webdriver.browser"));
 		this.maxUserConfigPanel();
 		this.clickElementByXpath(locator.getString("xpath.user.button.add"));
 	}
 	
+	public void clickLastPageButton(){
+		this.sleepCertainTime(5000);
+		if(this.getElementByXpath(locator.getString("xpath.record.click.lastpage")).isEnabled()){
+		this.clickElementByXpath(locator.getString("xpath.record.click.lastpage"));
+		this.sleepCertainTime(5000);
+		}
+	}
 	public void maxUserConfigPanel(){
 	/*	Actions builder = new Actions(driver);
 		 builder.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.max.configure.panel.line"))))
 		 .moveToElement(this.findElementDefineDriver(this.driver, By.xpath(this.getString(locator, "xpath.user.identifier", "administrator"))), 0, 0).release().build().perform();
 	*/
+		if(System.getProperty("webdriver.browser")!=null && System.getProperty("webdriver.browser").trim().contains("iexplore")){
 			Actions builder1 = new Actions(driver);
 			 builder1.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.max.configure.panel.line"))))
 		.moveToElement(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.license.menu")))).release().build().perform();
-		
+		}
 	}
 	
 	public void minUserConfigPanel(){
+		if(System.getProperty("webdriver.browser")!=null && System.getProperty("webdriver.browser").trim().contains("iexplore")){
 		Actions builder = new Actions(driver);
 		 builder.clickAndHold(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.max.configure.panel.line"))))
-		 .moveToElement(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.add.role.save"))), 0, -10).release().build().perform();
-	}
+		 .moveToElement(this.findElementDefineDriver(this.driver, By.xpath(locator.getString("xpath.user.add.role.save")))).release().build().perform();
+	
+		}
+		}
 	public  WebElement getUserDeleteElement(String userName) {
 		return	this.getElementByXpath(this.getString(locator, "xpath.user.delete", userName));		 
 	}
@@ -268,6 +283,7 @@ public User(WebDriver driver) {
 	public void clickSaveAndCheckExpectedTrue(String userName){
 		this.clickElementByXpath(locator.getString("xpath.user.add.role.save"));
 		this.clickElementByXpath(locator.getString("xpath.user.add.role.flashcache.ok"));
+		this.clickLastPageButton();
 	    Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator, "xpath.user.identifier", userName)), WAIT_TIME_MID), "user"+userName+"added failed!");
 	}
 	

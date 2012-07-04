@@ -96,13 +96,14 @@ public class License extends Base{
 	
 	protected int transformExistUserNum(String str){
 		System.err.println(str);
-		String s=(str.substring(str.indexOf("/")-1, str.length()));
+		String s=(str.substring(str.lastIndexOf(" ")+1, str.length()));
+		logger.warn("p:"+s);
 		return Integer.parseInt(s.split("/")[0]);
 	}
 	
 	protected int transformTotalUserNum(String str){
 		System.err.println(str);
-		String s=(str.substring(str.indexOf("/")-1, str.length()));
+		String s=(str.substring(str.indexOf("/")-1, str.length())).trim();
 		return Integer.parseInt(s.split("/")[1]);
 	}
 	
@@ -131,6 +132,8 @@ public class License extends Base{
 	 * @return
 	 */
 	public int getAvailableWeb(){
+		logger.warn("Total web users:"+this.transformTotalUserNum(this.getUsersExistCountWeb()));
+		logger.warn("Already exist web users:"+this.transformExistUserNum(this.getUsersExistCountWeb()));
 		return (this.transformTotalUserNum(this.getUsersExistCountWeb())-this.transformExistUserNum(this.getUsersExistCountWeb()));
 	}
 }
