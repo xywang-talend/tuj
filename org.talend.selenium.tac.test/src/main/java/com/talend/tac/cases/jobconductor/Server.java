@@ -184,9 +184,10 @@ public class Server extends Login {
 		for (int i = 0; i < servers.size(); i++) {
 			if (servers.get(i).startsWith("test")) {
 				selenium.refresh();
-				this.sleep(5000);
+				this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and text()='"
+						+ servers.get(i) + "']", WAIT_TIME);
 				selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and text()='"
-						+ servers.get(i) + "']");
+							+ servers.get(i) + "']");
 				this.sleep(3000);
 				selenium.chooseOkOnNextConfirmation();
 				selenium.click("//div[text()='Servers']/ancestor::div[@class='x-panel-body x-panel-body-noheader x-panel-body-noborder x-border-layout-ct']//button[@id='idSubModuleDeleteButton']");
@@ -199,7 +200,8 @@ public class Server extends Login {
 		for (int i = 0; i < servers.size(); i++) {
 			if (servers.get(i).startsWith("Copy_of_")) {
 				selenium.refresh();
-				this.sleep(5000);
+				this.waitForElementPresent("//div[@class='x-grid3-cell-inner x-grid3-col-label' and text()='"
+						+ servers.get(i) + "']", WAIT_TIME);
 				selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-label' and text()='"
 						+ servers.get(i) + "']");
 				this.sleep(3000);
