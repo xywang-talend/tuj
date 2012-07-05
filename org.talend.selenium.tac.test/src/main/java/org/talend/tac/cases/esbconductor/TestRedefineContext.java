@@ -21,6 +21,7 @@ package org.talend.tac.cases.esbconductor;
 
 import org.talend.tac.base.WebdriverLogin;
 import org.talend.tac.modules.impl.RedefineContextImpl;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -41,9 +42,14 @@ public class TestRedefineContext extends WebdriverLogin {
            String group, String artifact, String version, String name, String type, 
            String context, String server,String variableName,String variableValue) {
            redefineContextImpl.redefineContext(label, des, repository, group, artifact, version, name, type, context, server,variableName,variableValue);
-           redefineContextImpl.deployConductor(label, name);
-           redefineContextImpl.deleteContextProperties(label);
-           redefineContextImpl.undeployConductor(label);
+           redefineContextImpl.deployConductor(label, name);                    
+       }
+       
+       @AfterMethod
+       @Parameters({"labelOfServiceWithDifferentContext","featureName"})
+       public void deleteUselessRoute(String label,String name) {
+    	   redefineContextImpl.deleteContextProperties(label);
+    	   redefineContextImpl.undeployConductor(label);
            redefineContextImpl.deleteUndeployedConductor(label, name);
        }
        

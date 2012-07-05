@@ -1,17 +1,20 @@
 package org.talend.tac.cases.esbconductor;
 
 import org.talend.tac.base.WebdriverLogin;
+import org.talend.tac.modules.impl.RedefineContextImpl;
 import org.talend.tac.modules.impl.StartESBConductorImpl;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class TestStartESBConductor extends WebdriverLogin {
-	
+public class TestStartESBConductor extends WebdriverLogin {	
 	StartESBConductorImpl startESBConductorImpl;
+	RedefineContextImpl redefine;
     @BeforeMethod
     public void beforeMethod(){
     	startESBConductorImpl = new StartESBConductorImpl(driver);
+    	redefine = new RedefineContextImpl(driver);
     }
     
 	@Test
@@ -34,6 +37,13 @@ public class TestStartESBConductor extends WebdriverLogin {
 		startESBConductorImpl.startDeployedConductor(label, name, startPromptInfo,
 				startId, startStatus);
 		
+	}
+	
+	@AfterMethod
+	@Parameters({"labelOfService","name"})
+	public void deleteUselessServices(String label,String name) {
+		startESBConductorImpl.undeployStartedConductor(label, name);
+		redefine.deleteServiceOrRoute(label);
 	}
 	
 	

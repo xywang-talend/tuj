@@ -104,7 +104,6 @@ public class StopConductor extends WebDriverBase {
 		this.mouseDown("//div[text()='"+label+"']");
 		this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridUndeployButton']"), WAIT_TIME_MIN);
 	    this.getElementById("idESBConductorTaskGridUndeployButton").click();	
-//		this.clickElementById("idESBConductorTaskGridUndeployButton");
 		this.acceptAlert();		
 		try {
 			Thread.sleep(2000);

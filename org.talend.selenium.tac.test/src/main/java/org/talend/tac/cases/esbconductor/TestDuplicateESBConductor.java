@@ -27,10 +27,9 @@ public class TestDuplicateESBConductor extends WebdriverLogin {
 	}
 	
 	@AfterMethod
-	@Parameters({"labelOfService","CopyOfService"})
-	public void deleteUselessServices(String label1,String label2) {
-		redefine.deleteServiceOrRoute(label1);
-		redefine.deleteServiceOrRoute(label2);
+	@Parameters({"CopyOfService"})
+	public void deleteUselessServices(String label) {
+		redefine.deleteServiceOrRoute(label);
 	}
 	
 }
