@@ -45,7 +45,7 @@ public class CreateSubscribersTableTest extends TalendSwtBotForTos {
 
     @Test
     public void createSubscribersTableTest() {
-        dbItem.getItem().expand().getNode("CDC Foundation").contextMenu("Create CDC").click();
+        dbItem.getParentNode().expandNode(dbItem.getItemFullName()).getNode("CDC Foundation").contextMenu("Create CDC").click();
         gefBot.shell("Create Change Data Capture").activate();
         gefBot.button("...").click();
         gefBot.shell("Repository Content").activate();
@@ -66,7 +66,6 @@ public class CreateSubscribersTableTest extends TalendSwtBotForTos {
         isSubscriberCreated = true;
         gefBot.button("Close").click();
         gefBot.button("Finish").click();
-
         copy_of_dbItem.retrieveDbSchema("tsubscribers");
         Assert.assertNotNull("schema 'tsubscribers' did not create in database", copy_of_dbItem.getSchema("tsubscribers"));
     }

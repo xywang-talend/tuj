@@ -45,7 +45,7 @@ public class TalendDBItem extends TalendMetadataItem {
 
     public TalendSchemaItem getSchema(String name) {
         name = convertString(name);
-        SWTBotTreeItem schemaNode = getItem().expand().expandNode("Table schemas");
+        SWTBotTreeItem schemaNode = getParentNode().getNode(getItemFullName()).expand().expandNode("Table schemas");
         SWTBotTreeItem schema = null;
         try {
             schema = schemaNode.getNode(name);
@@ -203,7 +203,7 @@ public class TalendDBItem extends TalendMetadataItem {
         }
 
         SWTBotShell shell = null;
-        getItem().contextMenu("Edit queries").click();
+        getParentNode().getNode(getItemFullName()).contextMenu("Edit queries").click();
 
         long defaultTimeout = SWTBotPreferences.TIMEOUT;
         SWTBotPreferences.TIMEOUT = 100;
@@ -258,7 +258,7 @@ public class TalendDBItem extends TalendMetadataItem {
     }
 
     public void retrieveDbSchema(String... schemas) {
-        getItem().contextMenu("Retrieve Schema").click();
+        getParentNode().getNode(getItemFullName()).contextMenu("Retrieve Schema").click();
         gefBot.waitUntil(Conditions.shellIsActive("Schema"), 5000);
         gefBot.shell("Schema").activate();
         gefBot.button("Next >").click();
@@ -362,7 +362,7 @@ public class TalendDBItem extends TalendMetadataItem {
     }
 
     public boolean createCDCWith(TalendDBItem linkConnection) {
-        getItem().expand().getNode("CDC Foundation").contextMenu("Create CDC").click();
+        getParentNode().getNode(getItemFullName()).expand().getNode("CDC Foundation").contextMenu("Create CDC").click();
         return cdcWizard(linkConnection);
     }
 
@@ -470,7 +470,7 @@ public class TalendDBItem extends TalendMetadataItem {
 
     public SWTBotTreeItem getCDCFoundation() {
         try {
-            return getItem().expandNode("CDC Foundation").getNode(0);
+            return getParentNode().getNode(getItemFullName()).expandNode("CDC Foundation").getNode(0);
         } catch (Exception e) {
             log.error("exception for getting CDC foundation", e);
             return null;

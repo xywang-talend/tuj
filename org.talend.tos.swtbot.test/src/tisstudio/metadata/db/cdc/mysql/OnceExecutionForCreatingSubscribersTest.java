@@ -45,7 +45,8 @@ public class OnceExecutionForCreatingSubscribersTest extends TalendSwtBotForTos 
 
     @Test
     public void onceExecutionForCreatingSubscribersTest() {
-        dbItem.getItem().expand().getNode("CDC Foundation").contextMenu("Create CDC").click();
+        dbItem.getParentNode().expandNode(dbItem.getItemFullName()).expand().getNode("CDC Foundation").contextMenu("Create CDC")
+                .click();
         gefBot.shell("Create Change Data Capture").activate();
         gefBot.button("...").click();
         gefBot.shell("Repository Content").activate();
