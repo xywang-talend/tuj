@@ -87,16 +87,7 @@ public class SelectFeatureFromArchiva extends WebDriverBase {
 			this.getElementByXpath(other.getString("ESBConduction.ArtifactRepositoryUrl.editButton")).click();
 			this.waitforElementDisplayed(By.xpath(other.getString("ESBConduction.conf.rtifactRepositoryUrl.input")), WAIT_TIME_MIN);
 			this.getElementByXpath(other.getString("ESBConduction.conf.rtifactRepositoryUrl.input")).clear();
-			this.typeTextByXpath(other.getString("ESBConduction.conf.rtifactRepositoryUrl.input"), artifactRepositoryUrl);
-//			this.getElementByXpath(other.getString("ESBConduction.ArtifactRepositoryUserName.editButton")).click();
-//			this.waitforElementDisplayed(By.xpath(other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input")), WAIT_TIME_MIN);
-//			this.getElementByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input")).clear();
-//			this.typeTextByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryUserName.input"), artifactRepositoryUserName);
-//			this.getElementByXpath(other.getString("ESBConduction.ArtifactRepositoryPassWord.editButton")).click();
-//			this.waitforElementDisplayed(By.xpath(other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input")), WAIT_TIME_MIN);
-//			this.getElementByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input")).clear();
-//			this.typeTextByXpath(other.getString("ESBConduction.conf.ArtifactRepositoryPassWord.input"), artifactRepositoryPassWord);
-			
+			this.typeTextByXpath(other.getString("ESBConduction.conf.rtifactRepositoryUrl.input"), artifactRepositoryUrl);		
 			this.getElementById("idConfigRefreshButton").click();
 			try {
 				Thread.sleep(25000);
@@ -109,7 +100,6 @@ public class SelectFeatureFromArchiva extends WebDriverBase {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-//			this.mouseDown("//div[contains(text(),'ESB conductor (4 Parameters')]");
 	        this.clickElementByXpath("//div[contains(text(),'ESB conductor (4 Parameters')]");		
 			this.AssertEqualsInConfigurationMenu("//div[text()='Artifact repository url']//parent::td//following-sibling::td[1]//div[contains(@class,' x-form-label x-component')]",other.getString("ESBConduction.conf.rtifactRepositoryUrl.input"), artifactRepositoryUrl,
 					other.getString(urlStatus));
@@ -145,8 +135,57 @@ public class SelectFeatureFromArchiva extends WebDriverBase {
 			this.waitforElementDisplayed(By.xpath("//label[text()='Repository:']//following-sibling::div//div[contains(@class,'x-form-trigger x-form-trigger-arrow')]"), 30);         
 			getElementByXpath("//label[text()='Repository:']//following-sibling::div//div[contains(@class,'x-form-trigger x-form-trigger-arrow')]").click();
 	        Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='"+repository+"'and @role='listitem']"), 20));
-//			Assert.assertTrue(this.isTextPresent("Operation failed: Software update repository cannot be reached (http://192.168.0.200:8082/archiva). -- For more information see your log file"));			
 		}
-	 
+	    
+		public void testCollapseAll(String repository) {
+			this.waitforElementDisplayed(By.xpath("//label[text()='Repository:']//following-sibling::div//div[contains(@class,'x-form-trigger x-form-trigger-arrow')]"), 30);         
+			getElementByXpath("//label[text()='Repository:']//following-sibling::div//div[contains(@class,'x-form-trigger x-form-trigger-arrow')]").click();
+			this.waitforElementDisplayed(By.xpath("//div[text()='"+repository+"'and @role='listitem']"), WAIT_TIME_MAX);
+	        getElementByXpath("//div[text()='"+repository+"'and @role='listitem']").click();
+	        try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+	        this.waitforElementDisplayed(By.xpath("//span[text()='Group']//ancestor::div[@class=' x-small-editor x-panel-header x-component x-unselectable']//following::div[@class='x-panel-bwrap']//tr[@class='x-toolbar-left-row']/td[1]"), WAIT_TIME_MIN);
+	        this.clickElementByXpath("//span[text()='Group']//ancestor::div[@class=' x-small-editor x-panel-header x-component x-unselectable']//following::div[@class='x-panel-bwrap']//tr[@class='x-toolbar-left-row']/td[1]");	        
+		}
+		
+		public void testExpandAll() {
+	        this.waitforElementDisplayed(By.xpath("//span[text()='Group']//ancestor::div[@class=' x-small-editor x-panel-header x-component x-unselectable']//following::div[@class='x-panel-bwrap']//tr[@class='x-toolbar-left-row']/td[2]"), WAIT_TIME_MIN);
+	        try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+	        this.clickElementByXpath("//span[text()='Group']//ancestor::div[@class=' x-small-editor x-panel-header x-component x-unselectable']//following::div[@class='x-panel-bwrap']//tr[@class='x-toolbar-left-row']/td[2]");	        
+		}
+		
+		public void SearchGroupId(String repository,String group) {
+			this.waitforElementDisplayed(By.xpath("//label[text()='Repository:']//following-sibling::div//div[contains(@class,'x-form-trigger x-form-trigger-arrow')]"), 30);         
+			getElementByXpath("//label[text()='Repository:']//following-sibling::div//div[contains(@class,'x-form-trigger x-form-trigger-arrow')]").click();
+			this.waitforElementDisplayed(By.xpath("//div[text()='"+repository+"'and @role='listitem']"), WAIT_TIME_MAX);
+	        getElementByXpath("//div[text()='"+repository+"'and @role='listitem']").click();
+	        try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+	        this.waitforElementDisplayed(By.xpath("//span[text()='Group']//ancestor::div[@class=' x-small-editor x-panel-header x-component x-unselectable']//following::div[@class='x-panel-bwrap']//tr[@class='x-toolbar-left-row']/td[1]"), WAIT_TIME_MIN);
+	        this.clickElementByXpath("//span[text()='Group']//ancestor::div[@class=' x-small-editor x-panel-header x-component x-unselectable']//following::div[@class='x-panel-bwrap']//tr[@class='x-toolbar-left-row']/td[1]");	        
+	        this.waitforElementDisplayed(By.xpath("//span[text()='Group']//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder')]//preceding-sibling::div[contains(@class,'x-panel-tbar x-panel-tbar-noheader x-panel-tbar-noborder')]//input"), WAIT_TIME_MIN);
+		    this.typeTextByXpath("//span[text()='Group']//ancestor::div[contains(@class,'x-panel-body x-panel-body-noheader x-panel-body-noborder')]//preceding-sibling::div[contains(@class,'x-panel-tbar x-panel-tbar-noheader x-panel-tbar-noborder')]//input", group);
+		}
+		
+		public void SearchArtifact(String repository,String group) {
+			this.waitforElementDisplayed(By.xpath("//label[text()='Repository:']//following-sibling::div//div[contains(@class,'x-form-trigger x-form-trigger-arrow')]"), 30);         
+			getElementByXpath("//label[text()='Repository:']//following-sibling::div//div[contains(@class,'x-form-trigger x-form-trigger-arrow')]").click();
+			this.waitforElementDisplayed(By.xpath("//div[text()='"+repository+"'and @role='listitem']"), WAIT_TIME_MAX);
+	        getElementByXpath("//div[text()='"+repository+"'and @role='listitem']").click();
+	        this.getElementByXpath("//span[text()='" + group + "']").click();	        
+	        this.waitforElementDisplayed(By.xpath("//span[text()='Group']//ancestor::div[contains(@class,'x-window-body x-border-layout-ct')]//div[3]//input"), WAIT_TIME_MIN);
+		    this.getElementByXpath("//span[text()='Group']//ancestor::div[contains(@class,'x-window-body x-border-layout-ct')]//div[3]//input").clear();
+	        this.typeTextByXpath("//span[text()='Group']//ancestor::div[contains(@class,'x-window-body x-border-layout-ct')]//div[3]//input", "fea");		    
+		}
 
 }

@@ -23,7 +23,7 @@
     
  
  <!-- Implement by selenium2  -->    	        
-   <test name="ESBConductor02_testSortESBConductor">
+   <test name="ESBConductor01_testSortESBConductor">
 		<parameter name='labelOfService_1' value='a' />
 		<parameter name='labelOfService_2' value='b' />
 		<parameter name='labelOfService_3' value='c' />
@@ -37,7 +37,7 @@
 		</classes>
 	</test>
   
-    <test name="ESBConductor03_testAddESBConductor" preserve-order="true">
+    <test name="ESBConductor02_testAddESBConductor" preserve-order="true">
 	    <classes>
 		    <class name="org.talend.tac.cases.esbconductor.TestAddESBConductor">
 			   <methods>
@@ -48,7 +48,7 @@
 	    </classes>
     </test>
         
-    <test name="ESBConductor04_testDuplicateESBConductor" preserve-order="true">
+    <test name="ESBConductor03_testDuplicateESBConductor" preserve-order="true">
     <parameter name='CopyOfService' value='Copy_of_testesbConductorOfService'/>
 		<classes>
 			<class name="org.talend.tac.cases.esbconductor.TestDuplicateESBConductor" />
@@ -56,7 +56,7 @@
 	</test>
 	
 
-	<test name="ESBConductor05_testAddESBConductorWithInactiveServer"
+	<test name="ESBConductor04_testAddESBConductorWithInactiveServer"
 		preserve-order="true">
 		<parameter name='labelOfService' value='addConductorForTestInactiveServer' />
 		<classes>
@@ -69,7 +69,7 @@
 		</classes>
 	</test>
  
-	<test name="ESBConductor06_testDeployESBConductor" preserve-order="true">
+	<test name="ESBConductor05_testDeployESBConductor" preserve-order="true">
 		<classes>
 			<class name="org.talend.tac.cases.esbconductor.TestDeployESBConductor">
 				<methods>
@@ -80,7 +80,7 @@
 		</classes>
 	</test>
 	
-	<test name="ESBConductor07_testEditESBConductor" preserve-order="true">
+	<test name="ESBConductor06_testEditESBConductor" preserve-order="true">
 	<parameter name = 'editedlabelOfService' value='testesbConductorOfService_Edit'/>
 	<parameter name ='repository' value='repo-snapshot'/>
     <parameter name ='group' value='example'/>
@@ -93,7 +93,7 @@
 		</classes>
 	</test>
   
-	<test name="ESBConductor08_testSelectFeatureFromArchiva"
+	<test name="ESBConductor07_testSelectFeatureFromArchiva"
 		preserve-order="true">
 		<classes>
 			<class
@@ -104,8 +104,7 @@
 			</class>
 		</classes>
 	</test>
-  	
-	
+  		
 	<test name="ESBConductor08_testSelectFeatureWtihComplexStructure"
 	preserve-order="true">
 	<parameter name='repository' value='repo-snapshot' />
@@ -121,9 +120,49 @@
 			</methods>
 		</class>
 	</classes>
-</test>
+    </test>
+    
+    <test name='ESBConductor09_testCollapseAndExpandGroupId'>
+    <parameter name='repository' value='repo-snapshot' />
+    <parameter name='group' value='auto'/>
+    	<classes>
+		<class
+			name="org.talend.tac.cases.esbconductor.TestCollapseAndExpandOfArtifact">
+			<methods>
+				<include name='testCollapseAllAndExpandAll' />
+			</methods>
+		</class>
+	</classes>   
+    </test>
 	
-	<test name="ESBConductor09_testDeleteESBConductor_cancel"
+	<test name='ESBConductor10_testSearchGroupId'>
+    <parameter name='repository' value='repo-snapshot' />
+    <parameter name='group' value='auto'/>
+    	<classes>
+		<class
+			name="org.talend.tac.cases.esbconductor.TestSearchGroupId">
+			<methods>
+				<include name='testSearchGroupId' />
+			</methods>
+		</class>
+	</classes>   
+    </test>
+	
+	<test name='ESBConductor11_testSearchArtifact'>
+    <parameter name = 'repository' value='repo-snapshot' />
+    <parameter name = 'group' value='auto'/>
+    <parameter name = 'artifact' value='CRMService-feature'/>
+    	<classes>
+		<class
+			name="org.talend.tac.cases.esbconductor.TestSearchArtifact">
+			<methods>
+				<include name='testSearchArtifactByKeyWord'/>
+			</methods>
+		</class>
+	</classes>   
+    </test>
+	
+	<test name="ESBConductor12_testDeleteESBConductor_cancel"
 		preserve-order="true">
 		<classes>
 			<class name="org.talend.tac.cases.esbconductor.TestDeleteESBConductor" />
@@ -135,7 +174,7 @@
 		</classes>
 	</test>
 
-	<test name="ESBConductor10_testStartESBConductor">
+	<test name="ESBConductor13_testStartESBConductor">
 		<parameter name='labelOfService' value='addConductorForTestStart' />
 		<parameter name ='artifact' value='jobFirstProvider-feature'/>
 		<parameter name='name' value='jobFirstProvider-feature'/>
@@ -147,7 +186,7 @@
 		</classes>
 	</test>
   
-	<test name="ESBConductor11_testStopESBConductor">
+	<test name="ESBConductor14_testStopESBConductor">
 		<parameter name='labelOfService' value='addConductorForTestStop' />
 		<classes>
 			<class name="org.talend.tac.cases.esbconductor.TestStopConductor" />
@@ -157,7 +196,7 @@
 		</classes>
 	</test>
 
-	<test name="ESBConductor12_testGroupESBConductor">
+	<test name="ESBConductor15_testGroupESBConductor">
 		<parameter name='labelOfService_1' value='service_1' />
 		<parameter name='labelOfService_2' value='service_2' />
 		<parameter name='labelOfService_3' value='service_3' />
@@ -171,7 +210,7 @@
 		</classes>
 	</test>
   
-	<test name="ESBConductor13_testContext">
+	<test name="ESBConductor16_testContext">
 		<parameter name='labelOfServiceWithDifferentContext' value='testDifferentContext' />
 		<parameter name='repositoryForContext' value='repo-snapshot' />
 		<parameter name='groupForContext' value='example' />
@@ -190,7 +229,7 @@
 		</classes>
 	</test>
 	
-	<test name="ESBConductor14_testDeleteCofigProperty">
+	<test name="ESBConductor17_testDeleteCofigProperty">
 		<parameter name='labelOfServiceWithDifferentContext' value='testDeleteConfigProperty1' />
 		<parameter name='repositoryForContext' value='repo-snapshot' />
 		<parameter name='groupForContext' value='example' />
@@ -210,7 +249,7 @@
 		</classes>
 	</test>
 
-   <test name="ESBConductor15_testOpenLinkOfArtifact"
+   <test name="ESBConductor18_testOpenLinkOfArtifact"
 		preserve-order="true">
 		<classes>
 			<class
@@ -222,7 +261,7 @@
 		</classes>
 	</test>
 
-	<test name="ESBConductor16_testResetContextPara"
+	<test name="ESBConductor19_testResetContextPara"
 		preserve-order="true">
 		<parameter name="LabelForResetContext" value="testServiceForResetContext"/>
 		<parameter name='repositoryForContext' value='repo-snapshot' />
@@ -244,7 +283,7 @@
 		</classes>
 	</test>
 
-	<test name="ESBConductor17_testSortContextParas">
+	<test name="ESBConductor20_testSortContextParas">
 	    <parameter name="LabelForResetContext" value="testServiceForResetContext"/>
 	    <parameter name="NameA" value="a"/>
 	    <parameter name="NameB" value="b"/>
@@ -262,7 +301,7 @@
 		 </classes>
 	</test>
 		
-	<test name="ESBConductor18_testActivityCoulmns">
+	<test name="ESBConductor21_testActivityCoulmns">
 	    <parameter name="LabelForResetContext" value="testServiceForResetContext"/>
 	    <classes>
 			<class
@@ -274,7 +313,7 @@
 		 </classes>
 	</test>
  	
-	<test name="ESBConductor19_testRefreshConfigProperties">
+	<test name="ESBConductor22_testRefreshConfigProperties">
     <parameter name="LabelForResetContext" value="testServiceForResetContext"/>
 	    <classes>
 			<class
@@ -286,7 +325,7 @@
 		 </classes>
 	</test>
 	
-	<test name="ESBConductor20_testConfigurationESBConductor"
+	<test name="ESBConductor23_testConfigurationESBConductor"
 	  preserve-order="true">
 	  <classes>
 		 <class
@@ -299,7 +338,7 @@
 	  </classes>
     </test>	
  
-	<test name="ESBConductor21_testSelectFeatureWithUnavaiableArtifact"
+	<test name="ESBConductor24_testSelectFeatureWithUnavaiableArtifact"
 		preserve-order="true">
 		<parameter name='artifactRepositoryWrongUrl' value='http://192.168.0.200:8082/archiva'/>
 		<classes>

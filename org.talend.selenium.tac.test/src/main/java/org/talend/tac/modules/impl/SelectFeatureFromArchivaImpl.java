@@ -35,6 +35,24 @@ public class SelectFeatureFromArchivaImpl extends SelectFeatureFromArchiva {
 		this.seletFeature(label, des, repository, group, artifact, version, name);
 	}
 	
+	public void testCollapseAndExpandAll(String label,String des,String repository,String group) {
+		this.commonMethodForSelectFeature(label, des);
+		this.testCollapseAll(repository);
+		Assert.assertTrue(this.isElementPresent(By.xpath("//div[contains(@class,'x-tree3-el x-tree3-node-joint-collapse')]"), WAIT_TIME_MIN));
+		this.testExpandAll();
+		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='" + group + "']"), WAIT_TIME_MIN));
+	}
 	
+	public void testSearchId(String label,String des,String repository,String group) {
+		this.commonMethodForSelectFeature(label, des);
+		this.SearchGroupId(repository, group);
+		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='" + group + "']"), WAIT_TIME_MIN));
+	}
+	
+	public void testSearchArtifactByKeyWord(String label,String des,String repository,String group,String artifact) {
+		this.commonMethodForSelectFeature(label, des);
+		this.SearchArtifact(repository, group);
+		Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='" + artifact + "']"), WAIT_TIME_MIN));
+	}
 	
 }
