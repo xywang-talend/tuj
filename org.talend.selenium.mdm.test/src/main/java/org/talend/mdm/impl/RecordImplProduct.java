@@ -328,6 +328,7 @@ public class RecordImplProduct extends Record{
 		this.clickElementByXpath(this.getString(locator, "xpath.record.remove.store",StoreId ));
 		this.clickElementByXpath("//button[text()='Remove']");
 		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
+		this.sleepCertainTime(10000);
 		
 		enterJournal(entity,UniqueIdValue,OperationType,source);
 		this.sleepCertainTime(3000);
