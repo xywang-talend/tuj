@@ -40,8 +40,7 @@ public class ThirdEntityImpl extends Record{
 		chooseEntity(entity);	
 		maxDataBrowserBoard();
 		this.sleepCertainTime(6000);
-		int recordCount = Integer
-				.parseInt(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText().split("of")[1].trim());
+		int recordCount = this.getTotalRecordNum();
 		logger.warn("before create ,total record num is:"+recordCount);
 		this.clickCreateRecord();
 		this.expendAllFields();
@@ -71,8 +70,7 @@ public class ThirdEntityImpl extends Record{
 		
 	    this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
 	    this.sleepCertainTime(10000);
-	    int recordCountAfter = Integer
-				.parseInt(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText().split("of")[1].trim());
+	    int recordCountAfter = this.getTotalRecordNum();
 		logger.warn("after create ,total record num is:"+recordCountAfter);
 		Assert.assertTrue(recordCountAfter-recordCount==1);
 		this.expendAllFields();
@@ -110,8 +108,7 @@ public class ThirdEntityImpl extends Record{
 		chooseEntity(entity);	
 		maxDataBrowserBoard();
 		this.sleepCertainTime(6000);
-		int recordCount = Integer
-				.parseInt(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText().split("of")[1].trim());
+		int recordCount = this.getTotalRecordNum();
 		logger.warn("before create ,total record num is:"+recordCount);
 		this.clickCreateRecord();
 		this.expendAllFields();
@@ -155,8 +152,7 @@ public class ThirdEntityImpl extends Record{
 		
 	    this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
 	    this.sleepCertainTime(10000);
-	    int recordCountAfter = Integer
-				.parseInt(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText().split("of")[1].trim());
+	    int recordCountAfter = this.getTotalRecordNum();
 		logger.warn("after create ,total record num is:"+recordCountAfter);
 		Assert.assertTrue(recordCountAfter-recordCount==1);
 		
@@ -216,8 +212,7 @@ public class ThirdEntityImpl extends Record{
 		chooseEntity(entity);	
 		maxDataBrowserBoard();
 		this.sleepCertainTime(6000);
-		int recordCount = Integer
-				.parseInt(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText().split("of")[1].trim());
+		int recordCount = this.getTotalRecordNum();
 		logger.warn("before create ,total record num is:"+recordCount);
 		this.clickCreateRecord();
 		this.expendAllFields();
@@ -249,8 +244,7 @@ public class ThirdEntityImpl extends Record{
 	    Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.thirdentity.create.notinputallfieldsrequired.warning.info")), WAIT_TIME_MIN).isDisplayed());
 	    this.clickElementByXpath(locator.getString("xpath.thirdentity.create.notinputallfieldsrequired.warning.ok.button"));
 	    this.sleepCertainTime(5000);
-	    int recordCountAfter = Integer
-				.parseInt(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText().split("of")[1].trim());
+	    int recordCountAfter = this.getTotalRecordNum();
 		logger.warn("after create ,total record num is:"+recordCountAfter);
 		Assert.assertTrue(recordCountAfter-recordCount==0);
 		

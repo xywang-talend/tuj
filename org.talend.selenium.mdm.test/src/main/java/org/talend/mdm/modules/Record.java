@@ -389,6 +389,12 @@ public class Record extends Base {
 		this.sleepCertainTime(20000);
 	}
 
+	public int getTotalRecordNum(){
+		int recordCount = Integer
+				.parseInt(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText().split("~")[1].trim());
+		return recordCount;
+	}
+	
 	public void closeDatachangesViewer() {
 		this.clickElementByXpath(locator.getString("xpath.datachangesviewer.tab.close"));
 	}
