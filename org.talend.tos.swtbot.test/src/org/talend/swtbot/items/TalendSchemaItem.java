@@ -44,7 +44,7 @@ public class TalendSchemaItem extends TalendMetadataItem {
      */
     private SWTBotShell activeShellOfContextMenu(String contextMenu, String shellTitle) {
         getItem().contextMenu(contextMenu).click();
-        gefBot.waitUntil(Conditions.shellIsActive(shellTitle), 10000);
+        gefBot.waitUntil(Conditions.shellIsActive(shellTitle), 60000);
         return gefBot.shell(shellTitle).activate();
     }
 

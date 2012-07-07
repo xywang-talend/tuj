@@ -1031,7 +1031,7 @@ public class Utilities {
             public String getFailureMessage() {
                 return "the shell of data preview did not activate";
             }
-        }, 20000);
+        }, 30000);
         String shellTitle = gefBot.activeShell().getText();
         if (("Data Preview: " + componentType + "_1").equals(shellTitle))
             gefBot.activeShell().activate();
@@ -1118,6 +1118,13 @@ public class Utilities {
     }
 
     private static void createTable(String sql, TalendJobItem jobItem, String componentType) {
+        try {
+            gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Open SQLBuilder Dialog")), 60000);
+        } catch (TimeoutException e) {
+            gefBot.button("Cancel").click();
+            gefBot.button("Run in Background").click();
+            Assert.fail(e.getMessage());
+        }
         gefBot.waitUntil(
                 Conditions.shellIsActive("SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:"
                         + componentType + "_1"), 30000);

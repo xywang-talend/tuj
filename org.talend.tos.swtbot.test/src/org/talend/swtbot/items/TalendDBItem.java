@@ -259,12 +259,19 @@ public class TalendDBItem extends TalendMetadataItem {
 
     public void retrieveDbSchema(String... schemas) {
         getParentNode().getNode(getItemFullName()).contextMenu("Retrieve Schema").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Schema"), 5000);
+        gefBot.waitUntil(Conditions.shellIsActive("Schema"), 60000);
         gefBot.shell("Schema").activate();
         gefBot.button("Next >").click();
         List<String> schemaList = new ArrayList<String>(Arrays.asList(schemas));
 
-        gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 30000);
+        try {
+            gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 60000);
+        } catch (TimeoutException e) {
+            gefBot.toolbarButtonWithTooltip("Cancel Operation").click();
+            gefBot.waitUntil(Conditions.widgetIsEnabled(gefBot.button("Cancel")), 60000);
+            gefBot.button("Cancel").click();
+            Assert.fail(e.getMessage());
+        }
         SWTBotTree root = gefBot.treeInGroup("Select Schema to create");
         SWTBotTreeItem treeNode = null;
         if (getCatalog() != null && getSchema() == null)
@@ -348,16 +355,11 @@ public class TalendDBItem extends TalendMetadataItem {
         gefBot.button("OK").click();
         gefBot.button("Create Subscriber").click();
         gefBot.shell("Create Subscriber and Execute SQL Script").activate();
-        gefBot.button("Execute").click();
-        gefBot.shell("Execute SQL Statement").activate();
-        if ("Table 'tsubscribers' already exists".equals(gefBot.label(1).getText())) {
-            isSubscriberCreated = true;
-            gefBot.button("Ignore").click();
-        }
-        gefBot.button("OK").click();
-        isSubscriberCreated = true;
+        execute();
         gefBot.button("Close").click();
         gefBot.button("Finish").click();
+
+        isSubscriberCreated = true;
         return isSubscriberCreated;
     }
 
@@ -373,6 +375,7 @@ public class TalendDBItem extends TalendMetadataItem {
         isNewSubscriberCreated = cdcWizard(linkConnection);
         gefBot.shell("CDC changed").activate();
         gefBot.button("Yes").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Execute SQL Statement"), 60000);
         gefBot.shell("Execute SQL Statement").activate();
         gefBot.button("OK").click();
         isOldSubscriberDeleted = true;
@@ -385,9 +388,7 @@ public class TalendDBItem extends TalendMetadataItem {
             return isSubscriberDeleted;
         getCDCFoundation().contextMenu("Delete CDC").click();
         gefBot.shell("Create Subscriber and Execute SQL Script").activate();
-        gefBot.button("Execute").click();
-        gefBot.shell("Execute SQL Statement").activate();
-        gefBot.button("OK").click();
+        execute();
         isSubscriberDeleted = true;
         gefBot.button("Close").click();
         return isSubscriberDeleted;
@@ -451,20 +452,10 @@ public class TalendDBItem extends TalendMetadataItem {
             gefBot.checkBox("Update").deselect();
         if (!catchDelete)
             gefBot.checkBox("Delete").deselect();
-        gefBot.button("Execute").click();
-        boolean ifexists = true; // the created table had exits
-        while (ifexists) {
-            gefBot.shell("Execute SQL Statement").activate();
-            String statement = gefBot.label(1).getText();
-            if (statement.contains("sucessfully")) {
-                ifexists = false;
-            } else {
-                gefBot.button("Ignore").click();
-            }
-        }
-        gefBot.button("OK").click();
-        isAddOK = true;
+        execute();
         gefBot.button("Close").click();
+
+        isAddOK = true;
         return isAddOK;
     }
 
@@ -485,12 +476,13 @@ public class TalendDBItem extends TalendMetadataItem {
      */
     public SWTBotShell viewAllChangesFor(String schemaName) {
         getSchema(schemaName).getItem().contextMenu("View All Changes").click();
-        gefBot.waitUntil(Conditions.shellIsActive("View All Changes"), 20000);
+        gefBot.waitUntil(Conditions.shellIsActive("View All Changes"), 60000);
         return gefBot.shell("View All Changes").activate();
     }
 
     public void addSubscribersFor(String schemaName, String... subscribers) {
         getSchema(schemaName).getItem().contextMenu("Edit CDC Subscribers").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Edit CDC"), 60000);
         gefBot.shell("Edit CDC").activate();
         for (String subscriber : subscribers) {
             gefBot.button("Add").click();
@@ -503,23 +495,43 @@ public class TalendDBItem extends TalendMetadataItem {
             }
             gefBot.button("OK").click();
             gefBot.shell("Create Subscriber and Execute SQL Script").activate();
-            gefBot.button("Execute").click();
-            gefBot.shell("Execute SQL Statement").activate();
-            gefBot.button("OK").click();
+            execute();
             gefBot.button("Close").click();
         }
         gefBot.button("OK").click();
     }
 
+    /**
+     * DOC Do operations after clicking button 'Execute'
+     */
+    private void execute() {
+        gefBot.button("Execute").click();
+        try {
+            gefBot.waitUntil(Conditions.shellIsActive("Execute SQL Statement"), 60000);
+        } catch (TimeoutException e) {
+            gefBot.button("Cancel").click();
+            Assert.fail(e.getMessage());
+        }
+
+        boolean executeOK = false;
+        do {
+            gefBot.shell("Execute SQL Statement").activate();
+            if (gefBot.label(1).getText().contains("sucessfully"))
+                executeOK = true;
+            else
+                gefBot.button("Ignore").click();
+        } while (!executeOK);
+        gefBot.button("OK").click();
+    }
+
     public void deleteSubscribersFor(String schemaName, String... subscribers) {
         getSchema(schemaName).getItem().contextMenu("Edit CDC Subscribers").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Edit CDC"), 60000);
         gefBot.shell("Edit CDC").activate();
         gefBot.list().select(subscribers);
         gefBot.button("Delete").click();
         gefBot.shell("Create Subscriber and Execute SQL Script").activate();
-        gefBot.button("Execute").click();
-        gefBot.shell("Execute SQL Statement").activate();
-        gefBot.button("OK").click();
+        execute();
         gefBot.button("Close").click();
         gefBot.button("OK").click();
     }
@@ -527,9 +539,7 @@ public class TalendDBItem extends TalendMetadataItem {
     public void deactivateCDCFor(String schemaName) {
         getSchema(schemaName).getItem().contextMenu("Deactivate CDC").click();
         gefBot.shell("Create Subscriber and Execute SQL Script").activate();
-        gefBot.button("Execute").click();
-        gefBot.shell("Execute SQL Statement").activate();
-        gefBot.button("OK").click();
+        execute();
         gefBot.button("Close").click();
     }
 

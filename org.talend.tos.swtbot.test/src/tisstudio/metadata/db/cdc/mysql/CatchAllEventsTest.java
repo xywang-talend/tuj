@@ -39,6 +39,10 @@ public class CatchAllEventsTest extends TalendSwtBotForTos {
 
     private boolean isTableCreated = false;
 
+    private boolean isCDCCreated = false;
+
+    private boolean isCDCAdded = false;
+
     @Before
     public void createDb() {
         repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
@@ -51,8 +55,8 @@ public class CatchAllEventsTest extends TalendSwtBotForTos {
 
     @Test
     public void catchAllEventsTest() {
-        dbItem.createCDCWith(copy_of_dbItem);
-        dbItem.addCDCFor(TABLE_NAME);
+        isCDCCreated = dbItem.createCDCWith(copy_of_dbItem);
+        isCDCAdded = dbItem.addCDCFor(TABLE_NAME);
 
         String sql_i = "insert into " + TABLE_NAME + " values(1, 'a');\n";
         String sql_u = "update " + TABLE_NAME + " set name='b' where id=1;\n";
@@ -68,14 +72,10 @@ public class CatchAllEventsTest extends TalendSwtBotForTos {
 
     @After
     public void cleanUp() {
-        if ("Execute SQL Statement".equals(gefBot.activeShell().getText())) {
-            if ("OK".equals(gefBot.button(0).getText()))
-                gefBot.button("OK").click();
-            else
-                gefBot.button("Cancel").click();
-        }
-
-        dbItem.deleteCDC();
+        if (isCDCAdded)
+            dbItem.deactivateCDCFor(TABLE_NAME);
+        if (isCDCCreated)
+            dbItem.deleteCDC();
         String sql = "";
         if (isTableCreated)
             sql = sql + "drop table " + TABLE_NAME + ";\n";

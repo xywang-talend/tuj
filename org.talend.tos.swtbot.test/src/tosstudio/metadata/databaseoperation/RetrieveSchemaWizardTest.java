@@ -15,10 +15,9 @@ package tosstudio.metadata.databaseoperation;
 import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
 
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -53,23 +52,21 @@ public class RetrieveSchemaWizardTest extends TalendSwtBotForTos {
     @Test
     public void retrieveSchema() {
         int rowCount = 0;
-        SWTBotShell tempShell = null;
+
+        dbItem.getItem().contextMenu("Retrieve Schema").click();
+        gefBot.shell("Schema").activate();
+        gefBot.button("Next >").click();
         try {
-            dbItem.getItem().contextMenu("Retrieve Schema").click();
-            tempShell = gefBot.shell("Schema").activate();
-            gefBot.button("Next >").click();
             gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 30000);
-            gefBot.treeInGroup("Select Schema to create").expandNode(System.getProperty("mysql.dataBase")).getNode(TABLENAME)
-                    .check();
-            gefBot.button("Next >").click();
+        } catch (TimeoutException e) {
+            gefBot.toolbarButtonWithTooltip("Cancel Operation").click();
+            gefBot.waitUntil(Conditions.widgetIsEnabled(gefBot.button("Cancel")), 60000);
             gefBot.button("Cancel").click();
-        } catch (WidgetNotFoundException wnfe) {
-            tempShell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            tempShell.close();
             Assert.fail(e.getMessage());
         }
+        gefBot.treeInGroup("Select Schema to create").expandNode(System.getProperty("mysql.dataBase")).getNode(TABLENAME).check();
+        gefBot.button("Next >").click();
+        gefBot.button("Cancel").click();
 
         rowCount = dbItem.getItem().getNode("Table schemas").rowCount();
         Assert.assertEquals("schemas be retrieved even cancel the wizard of retrieving schema", 0, rowCount);

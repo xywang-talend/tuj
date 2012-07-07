@@ -41,6 +41,10 @@ public class AddCDCToTableWithPrimaryKeyTest extends TalendSwtBotForTos {
 
     private boolean isTableCreated = false;
 
+    private boolean isCDCCreated = false;
+
+    private boolean isCDCAdded = false;
+
     @Before
     public void createDb() {
         repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
@@ -54,8 +58,8 @@ public class AddCDCToTableWithPrimaryKeyTest extends TalendSwtBotForTos {
 
     @Test
     public void addCDCToTableWithPrimaryKeyTest() {
-        dbItem.createCDCWith(copy_of_dbItem);
-        dbItem.addCDCFor(TABLE_NAME);
+        isCDCCreated = dbItem.createCDCWith(copy_of_dbItem);
+        isCDCAdded = dbItem.addCDCFor(TABLE_NAME);
 
         copy_of_dbItem.retrieveDbSchema(TSUBSCRIBERS, TCDC_TABLE);
         Assert.assertNotNull("schema" + TSUBSCRIBERS + " did not create in new database", copy_of_dbItem.getSchema(TSUBSCRIBERS));
@@ -64,14 +68,10 @@ public class AddCDCToTableWithPrimaryKeyTest extends TalendSwtBotForTos {
 
     @After
     public void cleanUp() {
-        if ("Execute SQL Statement".equals(gefBot.activeShell().getText())) {
-            if ("OK".equals(gefBot.button(0).getText()))
-                gefBot.button("OK").click();
-            else
-                gefBot.button("Cancel").click();
-        }
-
-        dbItem.deleteCDC();
+        if (isCDCAdded)
+            dbItem.deactivateCDCFor(TABLE_NAME);
+        if (isCDCCreated)
+            dbItem.deleteCDC();
         String sql = "";
         if (isTableCreated)
             sql = sql + "drop table " + TABLE_NAME + ";\n";

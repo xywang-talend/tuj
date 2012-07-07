@@ -39,6 +39,8 @@ public class DeactivateCDCTest extends TalendSwtBotForTos {
 
     private boolean isTableCreated = false;
 
+    private boolean isCDCCreated = false;
+
     @Before
     public void createDb() {
         repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
@@ -51,7 +53,7 @@ public class DeactivateCDCTest extends TalendSwtBotForTos {
 
     @Test
     public void deactivateCDCTest() {
-        dbItem.createCDCWith(copy_of_dbItem);
+        isCDCCreated = dbItem.createCDCWith(copy_of_dbItem);
         dbItem.addCDCFor(TABLE_NAME, true, false, false);
         dbItem.deactivateCDCFor(TABLE_NAME);
 
@@ -69,14 +71,8 @@ public class DeactivateCDCTest extends TalendSwtBotForTos {
 
     @After
     public void cleanUp() {
-        if ("Execute SQL Statement".equals(gefBot.activeShell().getText())) {
-            if ("OK".equals(gefBot.button(0).getText()))
-                gefBot.button("OK").click();
-            else
-                gefBot.button("Cancel").click();
-        }
-
-        dbItem.deleteCDC();
+        if (isCDCCreated)
+            dbItem.deleteCDC();
         String sql = "";
         if (isTableCreated)
             sql = sql + "drop table " + TABLE_NAME + ";\n";

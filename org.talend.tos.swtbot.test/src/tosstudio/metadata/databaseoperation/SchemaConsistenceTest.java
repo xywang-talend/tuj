@@ -19,6 +19,7 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -59,7 +60,14 @@ public class SchemaConsistenceTest extends TalendSwtBotForTos {
         dbItem.getItem().contextMenu("Retrieve Schema").click();
         tempShell = gefBot.shell("Schema").activate();
         gefBot.button("Next >").click();
-        gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 30000);
+        try {
+            gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Tree.class)), 30000);
+        } catch (TimeoutException e) {
+            gefBot.toolbarButtonWithTooltip("Cancel Operation").click();
+            gefBot.waitUntil(Conditions.widgetIsEnabled(gefBot.button("Cancel")), 60000);
+            gefBot.button("Cancel").click();
+            Assert.fail(e.getMessage());
+        }
         SWTBotTreeItem catalog = gefBot.treeInGroup("Select Schema to create").expandNode(System.getProperty("mysql.dataBase"));
         catalog.getNode(TABLE1).check();
         catalog.getNode(TABLE2).check();
