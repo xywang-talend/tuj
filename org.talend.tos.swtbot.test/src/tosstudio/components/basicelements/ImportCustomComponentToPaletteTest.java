@@ -120,6 +120,8 @@ public class ImportCustomComponentToPaletteTest extends TalendSwtBotForTos {
     @After
     public void removePreviouslyCreateItems() throws IOException, URISyntaxException {
         deleteUserComponent(USER_COMPONENT_FOLDER + "/" + USER_COMPONENT_NAME2);
+        if ("Generation Engine Initialization in progress...".equals(gefBot.activeShell().getText()))
+            gefBot.button("Run in Background").click();
     }
 
     private void waitInitialization() {
