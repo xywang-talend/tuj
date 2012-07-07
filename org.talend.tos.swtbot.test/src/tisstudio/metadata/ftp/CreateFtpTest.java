@@ -12,18 +12,13 @@
 // ============================================================================
 package tisstudio.metadata.ftp;
 
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
+import org.talend.swtbot.items.TalendFtpItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -31,25 +26,20 @@ import org.talend.swtbot.Utilities;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class CreateFtpTest extends TalendSwtBotForTos {
 
-    private SWTBotView view;
-
-    private SWTBotTree tree;
-
-    private SWTBotTreeItem treeNode;
+    private TalendFtpItem ftpItem;
 
     private static final String FTPNAME = "ftpTest";
 
     @Before
     public void initialisePrivateFields() {
         repositories.add(ERepositoryObjectType.METADATA_FILE_FTP);
-        view = Utilities.getRepositoryView();
-        tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
-        treeNode = Utilities.getTalendItemNode(Utilities.TalendItemType.FTP);
+
+        ftpItem = new TalendFtpItem(FTPNAME);
     }
 
     @Test
     public void creatFtp() {
-        Utilities.createFTP(FTPNAME, treeNode);
+        ftpItem.create();
     }
 
 }

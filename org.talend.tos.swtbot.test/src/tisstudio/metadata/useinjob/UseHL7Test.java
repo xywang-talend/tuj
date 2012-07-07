@@ -17,13 +17,11 @@ import java.net.URISyntaxException;
 
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.helpers.MetadataHelper;
 import org.talend.swtbot.items.TalendHL7Item;
 import org.talend.swtbot.items.TalendJobItem;
@@ -36,9 +34,7 @@ public class UseHL7Test extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 
-    private SWTBotTreeItem metadataNode;
-
-    private SWTBotTreeItem metadataItem;
+    private TalendHL7Item hl7Item;
 
     private SWTBotGefEditor jobEditor;
 
@@ -50,17 +46,17 @@ public class UseHL7Test extends TalendSwtBotForTos {
     public void createJobAndMetadata() throws IOException, URISyntaxException {
         repositories.add(ERepositoryObjectType.PROCESS);
         repositories.add(ERepositoryObjectType.METADATA_FILE_HL7);
+
         jobItem = new TalendJobItem(JOBNAME);
         jobItem.create();
         jobEditor = jobItem.getEditor();
-        metadataNode = Utilities.getTalendItemNode(Utilities.TalendItemType.HL7);
-        metadataItem = Utilities.createHL7("input", metadataNode, METADATA_NAME);
+        hl7Item = new TalendHL7Item(METADATA_NAME);
+        hl7Item.setTypeAsInput();
+        hl7Item.create();
     }
 
     @Test
     public void useMetadataInJob() throws IOException, URISyntaxException {
-        TalendHL7Item hl7Item = new TalendHL7Item();
-        hl7Item.setItem(metadataItem);
         MetadataHelper.output2Console(jobEditor, hl7Item, "row_MSH_1");
 
         String result = gefBot.styledText().getText();

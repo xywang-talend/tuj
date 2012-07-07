@@ -228,213 +228,6 @@ public class Utilities {
     }
 
     /**
-     * DOC fzhong Comment method "createWebService".
-     * 
-     * @param type 'simple' or 'advanced'
-     * @param webServiceName
-     * @param treeNode
-     */
-    public static SWTBotTreeItem createWebService(String type, String webServiceName, SWTBotTreeItem treeNode) {
-        treeNode.contextMenu("Create WSDL schema").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Create new WSDL schema"));
-        shell = gefBot.shell("Create new WSDL schema").activate();
-        try {
-            /* step 1 of 4 */
-            gefBot.textWithLabel("Name").setText(webServiceName);
-            boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
-            if (nextButtonIsEnabled) {
-                gefBot.button("Next >").click();
-            } else {
-                shell.close();
-                Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
-            }
-
-            if ("simple".equals(type)) {
-                /* step 2 of 4 */
-                gefBot.button("Next >").click();
-
-                /* step 3 of 4 */
-                gefBot.textWithLabel("WSDL").setText(System.getProperty("webService.url"));
-                gefBot.textWithLabel("Method").setText(System.getProperty("webService.method"));
-                gefBot.button("Add ").click();
-                gefBot.button("Refresh Preview").click();
-                gefBot.waitUntil(new DefaultCondition() {
-
-                    public boolean test() throws Exception {
-
-                        return gefBot.button("Next >").isEnabled();
-                    }
-
-                    public String getFailureMessage() {
-                        shell.close();
-                        return "next button was never enabled";
-                    }
-                }, 60000);
-                gefBot.button("Next >").click();
-            } else if ("advanced".equals(type)) {
-                /* step 2 of 4 */
-                Utilities.deselectDefaultSelection("Simple WSDL");
-                gefBot.radio("Advanced WebService").click();
-                gefBot.button("Next >").click();
-
-                /* step 3 of 4 */
-                gefBot.button(1).click();// click refresh button
-                gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 30000);
-                gefBot.tableWithLabel("Operation:").click(0, 0);
-
-                // set input mapping
-                // left schema
-                gefBot.cTabItem(" Input mapping ").activate();
-                gefBot.button("Schema Management").click();
-                gefBot.shell("Schema").activate();
-                gefBot.buttonWithTooltip("Add").click();
-                gefBot.button("OK").click();
-                // right schema
-                gefBot.table(1).click(0, 1);
-                gefBot.buttonWithTooltip("Add list element").click();
-                gefBot.shell("ParameterTree").activate();
-                gefBot.tree().select("City");
-                gefBot.button("OK").click();
-
-                gefBot.table(1).click(1, 0);
-                gefBot.text().setText("input.newColumn");
-
-                // set output mapping
-                // left schema
-                gefBot.cTabItem(" Output mapping ").activate();
-                gefBot.table(0).click(0, 0);
-                gefBot.buttonWithTooltip("Add List element").click();
-                gefBot.shell("ParameterTree").activate();
-                gefBot.tree().select("GetWeatherResult");
-                gefBot.button("OK").click();
-                // right schema
-                gefBot.button("...").click();
-                gefBot.buttonWithTooltip("Add").click();
-                gefBot.button("OK").click();
-
-                gefBot.table(1).click(0, 0);
-                gefBot.text().setText("parameters.GetWeatherResult");
-
-                gefBot.button("Next >").click();
-            }
-
-            /* step 4 of 4 */
-            gefBot.waitUntil(new DefaultCondition() {
-
-                public boolean test() throws Exception {
-
-                    return gefBot.button("Finish").isEnabled();
-                }
-
-                public String getFailureMessage() {
-                    shell.close();
-                    return "finish button was never enabled";
-                }
-            });
-            gefBot.button("Finish").click();
-        } catch (Exception e) {
-            shell.close();
-            Assert.fail(e.getCause().getMessage());
-        }
-
-        SWTBotTreeItem newWebServiceItem = null;
-        try {
-            newWebServiceItem = treeNode.expand().select(webServiceName + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("web service item is not created", newWebServiceItem);
-        }
-
-        return treeNode.getNode(webServiceName + " 0.1");
-    }
-
-    /**
-     * DOC fzhong Comment method "createHL7".
-     * 
-     * @param type HL7 type, 'input' or 'output'
-     * @param treeNode
-     * @param hl7Name
-     */
-    public static SWTBotTreeItem createHL7(String type, SWTBotTreeItem treeNode, String hl7Name) {
-        treeNode.contextMenu("Create HL7").click();
-        shell = gefBot.shell("New HL7 File").activate();
-        try {
-            /* step 1 of 5 */
-            gefBot.textWithLabel("Name").setText(hl7Name);
-            boolean nextButtonIsEnabled = gefBot.button("Next >").isEnabled();
-            if (nextButtonIsEnabled) {
-                gefBot.button("Next >").click();
-            } else {
-                shell.close();
-                Assert.assertTrue("next button is not enabled, maybe the item name is exist,", nextButtonIsEnabled);
-            }
-
-            if ("input".equals(type)) {
-                /* step 2 of 5 */
-                gefBot.button("Next >").click();
-
-                /* step 3 of 5 */
-                gefBot.textWithLabel("HL7 File path:").setText(
-                        getFileFromCurrentPluginSampleFolder(System.getProperty("hl7.filepath")).getAbsolutePath());
-                gefBot.button("Next >").click();
-
-                /* step 4 of 5 */
-                for (int i = 0; i < 3; i++) {
-                    gefBot.buttonWithTooltip("Add").click();
-                    gefBot.tableInGroup("Schema View").click(i, 3);
-                    gefBot.text().setText(System.getProperty("hl7.column.MSH" + i));
-                    gefBot.tableInGroup("Schema View").select(i);
-                }
-                gefBot.comboBoxWithLabel("Segment(As Schema)").setSelection("EVN");
-                for (int j = 0; j < 2; j++) {
-                    gefBot.buttonWithTooltip("Add").click();
-                    gefBot.tableInGroup("Schema View").click(j, 3);
-                    gefBot.text().setText(System.getProperty("hl7.column.EVN" + j));
-                    gefBot.tableInGroup("Schema View").select(j);
-                }
-                gefBot.button("Next >").click();
-            } else if ("output".equals(type)) {
-                /* step 2 of 5 */
-                Utilities.deselectDefaultSelection("HL7Input");
-                gefBot.radio("HL7OutPut").click();
-                gefBot.button("Next >").click();
-
-                /* step 3 of 5 */
-                gefBot.radio("Create from a file").click();
-                gefBot.textWithLabel("HL7 File path:").setText(
-                        getFileFromCurrentPluginSampleFolder(System.getProperty("hl7.filepath")).getAbsolutePath());
-                gefBot.textWithLabel("Output File Path").setText(
-                        getFileFromCurrentPluginSampleFolder(System.getProperty("hl7.outputFile")).getAbsolutePath());
-                gefBot.button("Next >").click();
-
-                /* step 4 of 5 */
-                gefBot.button("Next >").click();
-            }
-
-            /* step 5 of 5 */
-            gefBot.button("Finish").click();
-        } catch (WidgetNotFoundException wnfe) {
-            shell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            shell.close();
-            Assert.fail(e.getMessage());
-        }
-
-        SWTBotTreeItem newHl7Item = null;
-        try {
-            newHl7Item = treeNode.expand().select(hl7Name + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("hl7 item is not created", newHl7Item);
-        }
-
-        return treeNode.getNode(hl7Name + " 0.1");
-    }
-
-    /**
      * DOC fzhong Comment method "copyAndPaste". Copy and paste the item(itemName + itemVersion) under tree node
      * (treeNode)
      * 
@@ -786,35 +579,6 @@ public class Utilities {
         return items;
     }
 
-    public static SWTBotTreeItem createFTP(String ftpName, SWTBotTreeItem treeNode) {
-        treeNode.contextMenu("Create FTP").click();
-
-        gefBot.textWithLabel("Name").setText(ftpName);
-        boolean isNextButonEnable = gefBot.button("Next >").isEnabled();
-        if (!isNextButonEnable) {
-            gefBot.button("Cancel").click();
-            Assert.assertTrue("next button is not enable, maybe the item name already exist", isNextButonEnable);
-        }
-        gefBot.button("Next >").click();
-
-        gefBot.textWithLabel("Username").setText(System.getProperty("ftp.username"));
-        gefBot.textWithLabel("Password").setText(System.getProperty("ftp.password"));
-        gefBot.textWithLabel("Host").setText(System.getProperty("ftp.host"));
-        gefBot.textWithLabel("Port").setText(System.getProperty("ftp.port"));
-        gefBot.button("Finish").click();
-
-        SWTBotTreeItem newFTPItem = null;
-        try {
-            newFTPItem = treeNode.expand().select(ftpName + " 0.1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Assert.assertNotNull("ftp item is not created", newFTPItem);
-        }
-
-        return treeNode.getNode(ftpName + " 0.1");
-    }
-
     public static void createTalendMDM(SWTBotTreeItem treeNode, String mdmName) {
         treeNode.contextMenu("Create MDM Connection").click();
 
@@ -1031,7 +795,7 @@ public class Utilities {
             public String getFailureMessage() {
                 return "the shell of data preview did not activate";
             }
-        }, 20000);
+        }, 30000);
         String shellTitle = gefBot.activeShell().getText();
         if (("Data Preview: " + componentType + "_1").equals(shellTitle))
             gefBot.activeShell().activate();
@@ -1118,6 +882,13 @@ public class Utilities {
     }
 
     private static void createTable(String sql, TalendJobItem jobItem, String componentType) {
+        try {
+            gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Open SQLBuilder Dialog")), 60000);
+        } catch (TimeoutException e) {
+            gefBot.button("Cancel").click();
+            gefBot.button("Run in Background").click();
+            Assert.fail(e.getMessage());
+        }
         gefBot.waitUntil(
                 Conditions.shellIsActive("SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:"
                         + componentType + "_1"), 30000);
@@ -1176,11 +947,7 @@ public class Utilities {
         gefBot.tree().setFocus();
         gefBot.button("Select All").click();
         gefBot.button("Finish").click();
-        try {
-            gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 30000);
-        } catch (WidgetNotFoundException e) {
-            // pass exception if not found progress information
-        }
+        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 30000);
     }
 
     public static List<ERepositoryObjectType> getERepositoryObjectTypes() {

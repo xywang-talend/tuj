@@ -13,6 +13,8 @@
 package tisstudio.metadata.db.cdc.mysql;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -45,8 +47,7 @@ public class OnceExecutionForCreatingSubscribersTest extends TalendSwtBotForTos 
 
     @Test
     public void onceExecutionForCreatingSubscribersTest() {
-        dbItem.getParentNode().expandNode(dbItem.getItemFullName()).expand().getNode("CDC Foundation").contextMenu("Create CDC")
-                .click();
+        dbItem.getParentNode().expandNode(dbItem.getItemFullName()).getNode("CDC Foundation").contextMenu("Create CDC").click();
         gefBot.shell("Create Change Data Capture").activate();
         gefBot.button("...").click();
         gefBot.shell("Repository Content").activate();
@@ -55,6 +56,12 @@ public class OnceExecutionForCreatingSubscribersTest extends TalendSwtBotForTos 
         gefBot.button("Create Subscriber").click();
         gefBot.shell("Create Subscriber and Execute SQL Script").activate();
         gefBot.button("Execute").click();
+        try {
+            gefBot.waitUntil(Conditions.shellIsActive("Execute SQL Statement"), 60000);
+        } catch (TimeoutException e) {
+            gefBot.button("Cancel").click();
+            Assert.fail(e.getMessage());
+        }
         gefBot.shell("Execute SQL Statement").activate();
         gefBot.button("OK").click();
         isSubscriberCreated = true;
@@ -66,6 +73,13 @@ public class OnceExecutionForCreatingSubscribersTest extends TalendSwtBotForTos 
 
     @After
     public void cleanUp() {
+        if ("Execute SQL Statement".equals(gefBot.activeShell().getText())) {
+            if ("OK".equals(gefBot.button(0).getText()))
+                gefBot.button("OK").click();
+            else
+                gefBot.button("Cancel").click();
+        }
+
         String sql = null;
         if (isSubscriberCreated)
             sql = "drop table tsubscribers;";

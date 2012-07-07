@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2011 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2012 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -12,24 +12,16 @@
 // ============================================================================
 package tisstudio.filters;
 
-import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withTooltip;
-
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotViewMenu;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.waits.Conditions;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotLabel;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.hamcrest.Matcher;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarButton;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.swtbot.SWTBotLabelExt;
 import org.talend.swtbot.TalendSwtBotForTos;
-import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendJobItem;
 
 /**
@@ -40,7 +32,9 @@ public class FilterItemsByNameTest extends TalendSwtBotForTos {
 
     private TalendJobItem jobItem;
 
-    private SWTBotLabelExt filterLabel;
+    private SWTBotViewMenu menu;
+
+    private SWTBotToolbarButton button;
 
     @Before
     public void initialisePrivateField() {
@@ -53,27 +47,24 @@ public class FilterItemsByNameTest extends TalendSwtBotForTos {
         jobItem.create();
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Test
     public void filterItemsByName() {
         String expectJob = "job_b 0.1";
         String actualJob = null;
         int rowCount = 0;
 
-        Matcher matcher = withTooltip("Filters...\nRight click to set up");
-        SWTBotLabel label = new SWTBotLabel((Label) gefBot.widget(matcher, Utilities.getRepositoryView().getWidget()));
-        filterLabel = new SWTBotLabelExt(label);
-        filterLabel.rightClick();
+        button = gefBot.viewByTitle("Repository").toolbarButton("Activte Filter \n(filter settings available in the view menu)");
+        button.click();
+        menu = gefBot.viewByTitle("Repository").menu("Filter Setting...");
+        menu.click();
 
-        SWTBotShell shell = gefBot.shell("Repository Filter").activate();
+        gefBot.shell("Repository Filter Setting").activate();
         gefBot.checkBox(0).click();
         gefBot.text(0).setText("*_b");
         gefBot.button("OK").click();
-        gefBot.waitUntil(Conditions.shellCloses(shell));
 
-        filterLabel.click();
         rowCount = jobItem.getParentNode().rowCount();
-        actualJob = jobItem.getParentNode().expand().getNode(0).getText();
+        actualJob = jobItem.getParentNode().getNode(0).getText();
 
         Assert.assertEquals("items did not filter", 1, rowCount);
         Assert.assertEquals("did not filter the job", expectJob, actualJob);
@@ -81,14 +72,10 @@ public class FilterItemsByNameTest extends TalendSwtBotForTos {
 
     @After
     public void removePreviouslyCreateItems() {
-        filterLabel.rightClick();
-        SWTBotShell shell = gefBot.shell("Repository Filter").activate();
+        menu.click();
         gefBot.checkBox(0).click();
         gefBot.button("OK").click();
-        gefBot.waitUntil(Conditions.shellCloses(shell));
-        filterLabel.click();
-
-        for (SWTBotEditor editor : gefBot.editors())
-            editor.saveAndClose();
+        button.click();
     }
+
 }

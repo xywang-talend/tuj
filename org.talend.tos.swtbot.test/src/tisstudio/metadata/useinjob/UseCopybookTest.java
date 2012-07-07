@@ -60,7 +60,7 @@ public class UseCopybookTest extends TalendSwtBotForTos {
         TalendSchemaItem schemaItem = copybookItem.retrieveSchema("_0").get("_0");
         schemaItem.setComponentType("tFileInputEBCDIC");
         schemaItem.setExpectResultFromFile("copybook.result");
-        MetadataHelper.output2Console(jobEditor, schemaItem);
+        MetadataHelper.output2Console(jobEditor, schemaItem, "row__0_1");
 
         String result = gefBot.styledText().getText();
         MetadataHelper.assertResult(result, schemaItem);

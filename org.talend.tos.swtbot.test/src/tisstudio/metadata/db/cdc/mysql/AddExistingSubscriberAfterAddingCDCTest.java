@@ -15,6 +15,7 @@ package tisstudio.metadata.db.cdc.mysql;
 import junit.framework.Assert;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.junit.After;
 import org.junit.Before;
@@ -39,6 +40,10 @@ public class AddExistingSubscriberAfterAddingCDCTest extends TalendSwtBotForTos 
 
     private boolean isTableCreated = false;
 
+    private boolean isCDCCreated = false;
+
+    private boolean isCDCAdded = false;
+
     @Before
     public void createDb() {
         repositories.add(ERepositoryObjectType.METADATA_CONNECTIONS);
@@ -51,10 +56,11 @@ public class AddExistingSubscriberAfterAddingCDCTest extends TalendSwtBotForTos 
 
     @Test
     public void addExistingSubscriberAfterAddingCDCTest() {
-        dbItem.createCDCWith(copy_of_dbItem);
-        dbItem.addCDCFor(TABLE_NAME);
+        isCDCCreated = dbItem.createCDCWith(copy_of_dbItem);
+        isCDCAdded = dbItem.addCDCFor(TABLE_NAME);
 
         dbItem.getSchema(TABLE_NAME).getItem().contextMenu("Edit CDC Subscribers").click();
+        gefBot.waitUntil(Conditions.shellIsActive("Edit CDC"), 60000);
         SWTBotShell shell = gefBot.shell("Edit CDC").activate();
         gefBot.button("Add").click();
         gefBot.shell("Input subscriber name").activate();
@@ -67,7 +73,10 @@ public class AddExistingSubscriberAfterAddingCDCTest extends TalendSwtBotForTos 
 
     @After
     public void cleanUp() {
-        dbItem.deleteCDC();
+        if (isCDCAdded)
+            dbItem.deactivateCDCFor(TABLE_NAME);
+        if (isCDCCreated)
+            dbItem.deleteCDC();
         String sql = "";
         if (isTableCreated)
             sql = sql + "drop table " + TABLE_NAME + ";\n";

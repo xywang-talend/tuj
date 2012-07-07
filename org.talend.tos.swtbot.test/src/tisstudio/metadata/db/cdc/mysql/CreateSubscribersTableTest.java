@@ -13,6 +13,8 @@
 package tisstudio.metadata.db.cdc.mysql;
 
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -54,6 +56,12 @@ public class CreateSubscribersTableTest extends TalendSwtBotForTos {
         gefBot.button("Create Subscriber").click();
         gefBot.shell("Create Subscriber and Execute SQL Script").activate();
         gefBot.button("Execute").click();
+        try {
+            gefBot.waitUntil(Conditions.shellIsActive("Execute SQL Statement"), 60000);
+        } catch (TimeoutException e) {
+            gefBot.button("Cancel").click();
+            Assert.fail(e.getMessage());
+        }
         gefBot.shell("Execute SQL Statement").activate();
         if ("Table 'tsubscribers' already exists".equals(gefBot.label(1).getText())) {
             isSubscriberCreated = true;
@@ -72,6 +80,13 @@ public class CreateSubscribersTableTest extends TalendSwtBotForTos {
 
     @After
     public void cleanUp() {
+        if ("Execute SQL Statement".equals(gefBot.activeShell().getText())) {
+            if ("OK".equals(gefBot.button(0).getText()))
+                gefBot.button("OK").click();
+            else
+                gefBot.button("Cancel").click();
+        }
+
         String sql = null;
         if (isSubscriberCreated)
             sql = "drop table tsubscribers;";
