@@ -15,8 +15,13 @@ package tosstudio.importexport;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import junit.framework.Assert;
+
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,10 +53,18 @@ public class ExportJobTest extends TalendSwtBotForTos {
     @Test
     public void exportJob() throws IOException, URISyntaxException {
         jobItem.getItem().contextMenu("Export Job").click();
-        gefBot.shell("Export Job").activate();
+        SWTBotShell shell = gefBot.shell("Export Job").activate();
         gefBot.comboBoxWithLabel("To &archive file:").setText(
                 Utilities.getFileFromCurrentPluginSampleFolder("") + FILE_SEPARATOR + "output_job.zip");
         gefBot.button("Finish").click();
+        try {
+            gefBot.waitUntil(Conditions.shellCloses(shell), 60000);
+        } catch (TimeoutException e) {
+            gefBot.toolbarButtonWithTooltip("Cancel Operation").click();
+            gefBot.waitUntil(Conditions.widgetIsEnabled(gefBot.button("Cancel")), 60000);
+            gefBot.button("Cancel").click();
+            Assert.fail(e.getMessage());
+        }
 
         gefBot.waitUntil(new DefaultCondition() {
 
