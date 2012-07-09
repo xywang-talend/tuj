@@ -30,6 +30,14 @@ public class Commandline extends Base{
 	
 	Hashtable properties = new Hashtable();
 	
+	public String getJDKPath() {
+		
+		String jdkPath = System.getProperty("java.home").replace("\\", "/")+"/bin/java.exe";
+		System.out.println(jdkPath);
+		return "\""+jdkPath+"\"";
+		
+	}
+	
 	@Override
 	public void initSelenium(String server, String port, String browser,
 			String url, String language, String country, String root,
@@ -212,7 +220,8 @@ public class Commandline extends Base{
 			sb.append(result);
 			results.add(result);
 			
-			while(!"".equals(result) && null!=result && !"\n".equals(result)){
+//			while(!"".equals(result) && null!=result && !"\n".equals(result))
+			while(true){
 				result = br.readLine();
 //				System.out.println("==== " + result);
 				sb.append(result.trim() + "\n");

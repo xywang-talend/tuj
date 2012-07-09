@@ -88,9 +88,9 @@ public class CommandlineAction extends Commandline {
 		return cmd.command("showVersion", "talend>");
 	}
 	
-	public String executeJob(String jobName, String jdkPath){
-		System.err.println("executeJob "+jobName+" "+"-i \""+jdkPath+"\"");
-		return cmd.command("executeJob "+jobName+" "+"-i \""+jdkPath+"\"");
+	public String executeJob(String jobName){
+		System.err.println("executeJob "+jobName+" "+"-i "+this.getJDKPath());
+		return cmd.command("executeJob "+jobName+" "+"-i "+this.getJDKPath());
 	}
 	
 	public List<String> getCommandStatusAllInfo(int id){
@@ -120,11 +120,16 @@ public class CommandlineAction extends Commandline {
 		return cmd.command("exportJob "+jobName+" "+"-dd "+exportPath);
 	}
 
-	public String executeAllJob(String jdkPath){
-		System.err.println("executeAllJob -i \""+jdkPath+"\"");
-		return cmd.command("executeAllJob -i \""+jdkPath+"\"");
+	public String executeAllJob(){
+		System.err.println("executeAllJob -i "+this.getJDKPath());
+		return cmd.command("executeAllJob -i "+this.getJDKPath());
 	}
-	
+
+	public String executeJobOfVersionOnServer(String jobName, String serverName){
+		System.err.println("executeJobOnServer "+jobName+" -es "+serverName+" -jv 2.0");
+		return cmd.command("executeJobOnServer "+jobName+" -es "+serverName+" -jv 2.0");
+	}
+
 	public boolean isCommandCompleted(int id) {
 		return this.getCommandStatus(id).contains("COMPLETED");
 	}

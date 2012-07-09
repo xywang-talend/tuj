@@ -355,8 +355,7 @@ public class CommandlineImpls extends CommandlineAction {
 	}
 
 	public void commandlineExecuteJobImpl(String commandResult
-			, String url, String root, String commPro, String userName, String userPassword
-			, String jdkPath) {
+			, String url, String root, String commPro, String userName, String userPassword) {
 		
 		
 		this.commandlineListJobImpl(commandResult, url, root, commPro, userName, userPassword);		
@@ -369,7 +368,7 @@ public class CommandlineImpls extends CommandlineAction {
 		Assert.assertTrue(ss.contains("trunjobWithCheckpoint"));		
 		System.err.println("ss>>>"+ss);	
 
-		String commandExecuteJobResult = this.executeJob("tjavaWithMulripleCheckPoint", jdkPath);
+		String commandExecuteJobResult = this.executeJob("tjavaWithMulripleCheckPoint");
 		System.err.println("commandExecuteJobResult>>>>>>>>"+commandExecuteJobResult);
 		int commandExecuteJobId = this.getCommandId(commandExecuteJobResult);
 		Assert.assertTrue(commandExecuteJobResult.contains(commandResult+" "+commandExecuteJobId));
@@ -489,8 +488,7 @@ public class CommandlineImpls extends CommandlineAction {
 	}
 	
 	public void commandlineExecuteAllJobImpl(String commandResult
-			, String url, String root, String commPro, String userName, String userPassword
-			, String jdkPath) {
+			, String url, String root, String commPro, String userName, String userPassword) {
 		
 		
 		this.commandlineListJobImpl(commandResult, url, root, commPro, userName, userPassword);	
@@ -498,7 +496,7 @@ public class CommandlineImpls extends CommandlineAction {
 		Assert.assertTrue(ss.contains("tjava"));
 		Assert.assertTrue(ss.contains("tjavaWithMulripleCheckPoint"));
 
-		String commandExecuteAllJobResult = this.executeAllJob(jdkPath);
+		String commandExecuteAllJobResult = this.executeAllJob();
 		System.err.println("commandExecuteAllJobResult>>>>>>>>"+commandExecuteAllJobResult);
 		int commandExecuteAllJobId = this.getCommandId(commandExecuteAllJobResult);
 		Assert.assertTrue(commandExecuteAllJobResult.contains(commandResult+" "+commandExecuteAllJobId));
@@ -519,8 +517,44 @@ public class CommandlineImpls extends CommandlineAction {
 		Assert.assertTrue(executeAllJobResultInfo.contains("the second checkpoint"));
 		Assert.assertTrue(executeAllJobResultInfo.contains("the third checkpoint"));
 		Assert.assertTrue(executeAllJobResultInfo.contains("the fourth checkpoint"));
-//		Assert.assertTrue(executeAllJobResultInfo.contains("Job ENDED"));
+		Assert.assertTrue(executeAllJobResultInfo.contains("JackZhang"));
+		Assert.assertTrue(executeAllJobResultInfo.contains("23"));
+		Assert.assertTrue(executeAllJobResultInfo.contains("Sat Aug 13 00:00:00 CDT 1988"));
 		
 	}
+	public void commandlineExecuteJobOfVersionOnJobServerImpl(String commandResult
+			, String url, String root, String commPro, String userName, String userPassword
+			, String server) {
+		
+		
+		this.commandlineListJobImpl(commandResult, url, root, commPro, userName, userPassword);	
+		
+		Assert.assertTrue(ss.contains("tjava"));
+		Assert.assertTrue(ss.contains("tjavaWithMulripleCheckPoint"));
 
+		String commandExecuteJobOfVersionOnServerResult = this.executeJobOfVersionOnServer("tjavaWithMulripleCheckPoint", server);
+		System.err.println("commandExecuteJobOfVersionOnServerResult>>>>>>>>"+commandExecuteJobOfVersionOnServerResult);
+		int commandExecuteJobOfVersionOnServerId = this.getCommandId(commandExecuteJobOfVersionOnServerResult);
+		Assert.assertTrue(commandExecuteJobOfVersionOnServerResult.contains(commandResult+" "+commandExecuteJobOfVersionOnServerId));
+		this.commandlineGetCommandStatusImpl(commandExecuteJobOfVersionOnServerId, WAIT_TIME*3);
+		List<String> executeJobOfVersionOnServerResult = this.getCommandStatusAllInfo(commandExecuteJobOfVersionOnServerId);
+		
+		String executeJobOfVersionOnServerResultInfo = "";
+		for(int i=0; i<executeJobOfVersionOnServerResult.size(); i++) {			
+			
+			executeJobOfVersionOnServerResultInfo = executeJobOfVersionOnServerResultInfo+executeJobOfVersionOnServerResult.get(i);
+            System.err.println("i>>>>>>>>"+executeJobOfVersionOnServerResult.get(i));	
+            
+		}
+		System.err.println("executeJobOfVersionOnServerResultInfo>>>"+executeJobOfVersionOnServerResultInfo);	
+		
+		Assert.assertTrue(executeJobOfVersionOnServerResultInfo.contains("Job STARTED"));
+		Assert.assertTrue(executeJobOfVersionOnServerResultInfo.contains("the first checkpoint"));
+		Assert.assertTrue(executeJobOfVersionOnServerResultInfo.contains("the second checkpoint"));
+		Assert.assertTrue(executeJobOfVersionOnServerResultInfo.contains("the third checkpoint"));
+		Assert.assertTrue(executeJobOfVersionOnServerResultInfo.contains("the fourth checkpoint"));
+		Assert.assertTrue(executeJobOfVersionOnServerResultInfo.contains("Job ENDED SUCCESSFULLY"));
+		
+	}
+	
 }

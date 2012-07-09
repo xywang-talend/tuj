@@ -229,12 +229,12 @@ public class TestCommandline extends CommandlineImpls {
 	
 	@Test
 	@Parameters({"commandResult", "url", "root", "addCommonProjectName", 
-		"userName", "userPassword", "jdkPath"})
+		"userName", "userPassword"})
 	public void testCommandlineExecuteJob(String commandResult
 			, String url, String root,  String project, 
-			String userName, String userPassword, String jdkPath) {
+			String userName, String userPassword) {
 		
-		this.commandlineExecuteJobImpl(commandResult, url, root, project, userName, userPassword, jdkPath);		
+		this.commandlineExecuteJobImpl(commandResult, url, root, project, userName, userPassword);		
 
 	}	
 
@@ -284,12 +284,23 @@ public class TestCommandline extends CommandlineImpls {
 
 	@Test
 	@Parameters({"commandResult", "url", "root", "projectName", 
-		"userName", "userPassword", "jdkPath"})
+		"userName", "userPassword"})
 	public void testCommandlineExecuteAllJob(String commandResult
 			, String url, String root,  String project, 
-			String userName, String userPassword, String jdkPath) {
+			String userName, String userPassword) {
 		
-		this.commandlineExecuteAllJobImpl(commandResult, url, root, project, userName, userPassword, jdkPath);		
+		this.commandlineExecuteAllJobImpl(commandResult, url, root, project, userName, userPassword);		
+
+	}	
+
+	@Test
+	@Parameters({"commandResult", "url", "root", "addCommonProjectName", 
+		"userName", "userPassword", "serverForUseAvailable"})
+	public void testCommandlineExecuteJobOfVersionOnServer(String commandResult
+			, String url, String root,  String project, 
+			String userName, String userPassword, String serverName) {
+		
+		this.commandlineExecuteJobOnServerImpl(commandResult, url, root, project, userName, userPassword, serverName);		
 
 	}	
 
