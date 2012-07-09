@@ -175,9 +175,14 @@ public class JobHelper implements Helper {
 
     public static void connect(SWTBotGefEditor jobEditor, SWTBotGefEditPart sourceComponent, SWTBotGefEditPart targetComponent,
             String rowName) {
+        connect(jobEditor, sourceComponent, targetComponent, "Row", rowName);
+    }
+
+    public static void connect(SWTBotGefEditor jobEditor, SWTBotGefEditPart sourceComponent, SWTBotGefEditPart targetComponent,
+            String contextMenu, String rowName) {
         jobEditor.select(sourceComponent).setFocus();
         sourceComponent.click();
-        jobEditor.clickContextMenu("Row").clickContextMenu(rowName);
+        jobEditor.clickContextMenu(contextMenu).clickContextMenu(rowName);
         jobEditor.click(targetComponent);
         jobEditor.save();
     }

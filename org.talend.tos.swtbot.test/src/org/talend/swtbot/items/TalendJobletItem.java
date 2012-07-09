@@ -12,8 +12,10 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 
 /**
@@ -42,5 +44,19 @@ public class TalendJobletItem extends TalendItem {
 
     public SWTBotGefEditor getEditor() {
         return gefBot.gefEditor("Joblet " + itemFullName);
+    }
+
+    public void clearInputandOutput() {
+        TalendSwtBotForTos tos = new TalendSwtBotForTos();
+        SWTBotGefEditPart input = tos.getTalendComponentPart(getEditor(), "INPUT_1");
+        deleteComponentInJoblet(input);
+        SWTBotGefEditPart output = tos.getTalendComponentPart(getEditor(), "OUTPUT_1");
+        deleteComponentInJoblet(output);
+    }
+
+    public void deleteComponentInJoblet(SWTBotGefEditPart gefEditpart) {
+        getEditor().select(gefEditpart).setFocus();
+        gefEditpart.click();
+        getEditor().clickContextMenu("Delete");
     }
 }

@@ -633,8 +633,30 @@ public class Utilities {
      * @param locationOnJob the specific location on job
      */
     public static void dndPaletteToolOntoJob(SWTBotGefEditor jobEditor, String toolLabel, Point locationOnJob) {
-        jobEditor.activateTool(toolLabel).click(locationOnJob.x, locationOnJob.y);
+        dndPaletteToolOntoEditor(jobEditor, toolLabel, locationOnJob);
         // new JobHelper().activateTool(jobEditor, toolLabel, locationOnJob);
+    }
+
+    /**
+     * DOC vivian Comment method "dndPaletteToolOntoJoblet". Drag and drop component from palette onto joblet.
+     * 
+     * @param jobletEditor joblet editor
+     * @param toolLabel component label
+     * @param locationOnJoblet the specific location on joblet
+     */
+    public static void dndPaletteToolOntoJoblet(SWTBotGefEditor jobletEditor, String toolLabel, Point locationOnJoblet) {
+        dndPaletteToolOntoEditor(jobletEditor, toolLabel, locationOnJoblet);
+    }
+
+    /**
+     * DOC vivian Comment method "dndPaletteToolOntoEditor".
+     * 
+     * @param gefEditor
+     * @param toolLabel
+     * @param point
+     */
+    public static void dndPaletteToolOntoEditor(SWTBotGefEditor gefEditor, String toolLabel, Point point) {
+        gefEditor.activateTool(toolLabel).click(point.x, point.y);
     }
 
     /**
@@ -982,6 +1004,21 @@ public class Utilities {
         list.add(ERepositoryObjectType.DOCUMENTATION);
         list.add(ERepositoryObjectType.RECYCLE_BIN);
         return list;
+    }
+
+    public static SWTBotGefEditPart useTJavaAndSetText(SWTBotGefEditor gefEditor, String text) {
+        TalendSwtBotForTos tos = new TalendSwtBotForTos();
+        gefEditor.show();
+        Utilities.dndPaletteToolOntoEditor(gefEditor, "tJava", new Point(100, 100));
+        SWTBotGefEditPart tJava_1 = tos.getTalendComponentPart(gefEditor, "tJava_1");
+        Assert.assertNotNull("cann't get tJava", tJava_1);
+        tJava_1.click();
+        gefBot.viewByTitle("Component").setFocus();
+        SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
+        gefBot.sleep(1000);
+        gefBot.styledText().selectCurrentLine();
+        gefBot.styledText().typeText(text);
+        return tJava_1;
     }
 
 }
