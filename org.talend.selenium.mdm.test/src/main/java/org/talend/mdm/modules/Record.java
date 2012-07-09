@@ -130,7 +130,7 @@ public class Record extends Base {
 			logger.warn("No data to display");
 			result = true;
 		} else {
-			recordCount = Integer.parseInt(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText().split("of")[1].trim());
+			recordCount = this.getTotalRecordNum();
 			logger.warn(recordCount);
 			dates = new Date[recordCount];
 			try {
@@ -193,8 +193,7 @@ public class Record extends Base {
 			logger.warn("No data to display");
 			result = true;
 		} else {
-			recordCount = Integer
-					.parseInt(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText().split("of")[1].trim());
+			recordCount = this.getTotalRecordNum();
 			names = new String[recordCount];
 			for (int i = 0; i <= recordCount - 1; i++) {
 				String names_text = this.getElementsByXpath(this.getString(locator,"xpath.record.search.record.value",parameters)).get(i).getText();
@@ -246,8 +245,7 @@ public class Record extends Base {
 			logger.warn("No data to display");
 			result = true;
 		} else {
-			recordCount = Integer
-					.parseInt(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText().split("of")[1].trim());
+			recordCount = this.getTotalRecordNum();
 			logger.warn(recordCount);
 			ages = new double[recordCount];
 			for (int i = 0; i <= recordCount - 1; i++) {
@@ -385,9 +383,9 @@ public class Record extends Base {
 	}
 
 	public void clickCreateRecord() {
-		this.sleepCertainTime(20000);
+		this.sleepCertainTime(5000);
 		this.clickElementByXpath(locator.getString("xpath.record.choose.create"));
-		this.sleepCertainTime(20000);
+		this.sleepCertainTime(5000);
 	}
 
 	public int getTotalRecordNum(){
