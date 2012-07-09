@@ -61,7 +61,7 @@ public class RecordImplCustomTypes extends Record{
 		//	this.clickElementByXpath("//div[text()='one']");
 		  this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
 		  this.sleepCertainTime(10000);		 
-	  Assert.assertTrue(this.isElementPresent(By.xpath("//span[contains(text(),'Unable to save item CustomTypes., Unable to create/update the item ')]"), WAIT_TIME_MIN));
+	  Assert.assertTrue(this.isElementPresent(By.xpath("//span[contains(text(),'Unable to save item CustomTypes')]"), WAIT_TIME_MIN));
  	 
 	
 }
