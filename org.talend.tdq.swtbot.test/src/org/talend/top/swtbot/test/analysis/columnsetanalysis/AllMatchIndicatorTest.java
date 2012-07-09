@@ -4,6 +4,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
@@ -87,6 +88,11 @@ public class AllMatchIndicatorTest extends TalendSwtbotForTdq {
 		bot.sleep(5000);
 		bot.toolbarButtonWithTooltip("Save").click();
 		bot.toolbarButtonWithTooltip("Run").click();
+	//	try {
+			SWTBotShell shell = bot.shell("Run Analysis");
+			bot.waitUntil(Conditions.shellCloses(shell),180000);
+	//	} catch (Exception e) {
+	//	}
 		bot.editorByTitle(TalendAnalysisTypeEnum.COLUMNSET.toString() + " 0.1")
 				.close();
 

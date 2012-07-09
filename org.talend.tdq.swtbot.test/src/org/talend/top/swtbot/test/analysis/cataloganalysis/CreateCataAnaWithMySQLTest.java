@@ -36,8 +36,8 @@ public class CreateCataAnaWithMySQLTest extends TalendSwtbotForTdq {
 		SWTBotTree tree = new SWTBotTree((Tree) bot.widget(WidgetOfType
 				.widgetOfType(Tree.class)));
 		SWTBotTreeItem analysisItem = tree.expandNode("Data Profiling")
-				.getNode(0).expand()
-				.select(TalendAnalysisTypeEnum.CATALOG.toString() + " 0.1");
+				.getNode(0).expand().getNode(0).select();
+	//			.select(TalendAnalysisTypeEnum.CATALOG.toString() + " 0.1");
 		Assert.assertNotNull(analysisItem);
 		bot.editorByTitle(TalendAnalysisTypeEnum.CATALOG.toString()+" 0.1").close();
 	}
