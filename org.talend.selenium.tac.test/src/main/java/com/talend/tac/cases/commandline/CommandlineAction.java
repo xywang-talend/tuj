@@ -97,6 +97,11 @@ public class CommandlineAction extends Commandline {
 		return cmd.command("getCommandStatus "+id, "talend>");
 	}
 
+
+	public List<String> getCommandStatusAllInfo(int id, String endInfo){
+		return cmd.command("getCommandStatus "+id, endInfo);
+	}
+	
 	public String importDatabaseMetadata(String databaseMetadataPath){		
 		return cmd.command("importDatabaseMetadata "+databaseMetadataPath);
 	}
@@ -113,6 +118,11 @@ public class CommandlineAction extends Commandline {
 	public String exportJob(String jobName, String exportPath){
 		System.err.println("exportJob "+jobName+" "+"-dd "+exportPath);
 		return cmd.command("exportJob "+jobName+" "+"-dd "+exportPath);
+	}
+
+	public String executeAllJob(String jdkPath){
+		System.err.println("executeAllJob -i \""+jdkPath+"\"");
+		return cmd.command("executeAllJob -i \""+jdkPath+"\"");
 	}
 	
 	public boolean isCommandCompleted(int id) {

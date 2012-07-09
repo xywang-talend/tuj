@@ -187,7 +187,7 @@ public class CommandlineImpls extends CommandlineAction {
 		
 		this.commandlineLogonProjectImpl(commandResult, project, userName, userPassword, url, root);
 		
-		String importItemsResult = this.importItems(this.getAbsolutePath(importPath+"/imporJobs.zip"));
+		String importItemsResult = this.importItems(this.getAbsolutePath(importPath+"/importJobs.zip"));
 		
 		int commandImportItemsResultId = this.getCommandId(importItemsResult);
 		Assert.assertTrue(importItemsResult.contains(commandResult+" "+commandImportItemsResultId));
@@ -488,4 +488,39 @@ public class CommandlineImpls extends CommandlineAction {
 	
 	}
 	
+	public void commandlineExecuteAllJobImpl(String commandResult
+			, String url, String root, String commPro, String userName, String userPassword
+			, String jdkPath) {
+		
+		
+		this.commandlineListJobImpl(commandResult, url, root, commPro, userName, userPassword);	
+		
+		Assert.assertTrue(ss.contains("tjava"));
+		Assert.assertTrue(ss.contains("tjavaWithMulripleCheckPoint"));
+
+		String commandExecuteAllJobResult = this.executeAllJob(jdkPath);
+		System.err.println("commandExecuteAllJobResult>>>>>>>>"+commandExecuteAllJobResult);
+		int commandExecuteAllJobId = this.getCommandId(commandExecuteAllJobResult);
+		Assert.assertTrue(commandExecuteAllJobResult.contains(commandResult+" "+commandExecuteAllJobId));
+		this.commandlineGetCommandStatusImpl(commandExecuteAllJobId, WAIT_TIME*3);
+		List<String> executeAllJobResult = this.getCommandStatusAllInfo(commandExecuteAllJobId);
+		
+		String executeAllJobResultInfo = "";
+		for(int i=0; i<executeAllJobResult.size(); i++) {			
+			
+			executeAllJobResultInfo = executeAllJobResultInfo+executeAllJobResult.get(i);
+            System.err.println("i>>>>>>>>"+executeAllJobResult.get(i));	
+            
+		}
+		System.err.println("executeAllJobResultInfo>>>"+executeAllJobResultInfo);	
+		
+		Assert.assertTrue(executeAllJobResultInfo.contains("COMPLETED"));
+		Assert.assertTrue(executeAllJobResultInfo.contains("the first checkpoint"));
+		Assert.assertTrue(executeAllJobResultInfo.contains("the second checkpoint"));
+		Assert.assertTrue(executeAllJobResultInfo.contains("the third checkpoint"));
+		Assert.assertTrue(executeAllJobResultInfo.contains("the fourth checkpoint"));
+//		Assert.assertTrue(executeAllJobResultInfo.contains("Job ENDED"));
+		
+	}
+
 }

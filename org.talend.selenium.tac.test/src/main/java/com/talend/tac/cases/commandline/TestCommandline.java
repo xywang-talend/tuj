@@ -194,7 +194,7 @@ public class TestCommandline extends CommandlineImpls {
 		Assert.assertTrue(ss.contains("[PROCESS]"));
 		Assert.assertTrue(ss.contains("generateBigLogs"));
 		Assert.assertTrue(ss.contains("[CONTEXT]"));
-		Assert.assertTrue(ss.contains("contxt"));
+		Assert.assertTrue(ss.contains("context"));
 		Assert.assertTrue(ss.contains("[CODE]"));
 		Assert.assertTrue(ss.contains("[routines]"));
 		Assert.assertTrue(ss.contains("[system]"));
@@ -213,7 +213,7 @@ public class TestCommandline extends CommandlineImpls {
 		this.commandlineChangeVersionImpl(commandResult, url, root, project, userName
 				, userPassword);
 				
-		Assert.assertTrue(otherVerionJobs.contains("generateBigLogs"));
+		Assert.assertTrue(otherVerionJobs.contains("tjava"));
 		Assert.assertTrue(otherVerionJobs.contains("tjavaWithMulripleCheckPoint"));
 
 	}
@@ -281,6 +281,17 @@ public class TestCommandline extends CommandlineImpls {
 		this.commandlineExportJobImpl(commandResult, commPro, userName, userPassword, url, root, exportPath);
 		
 	}
+
+	@Test
+	@Parameters({"commandResult", "url", "root", "projectName", 
+		"userName", "userPassword", "jdkPath"})
+	public void testCommandlineExecuteAllJob(String commandResult
+			, String url, String root,  String project, 
+			String userName, String userPassword, String jdkPath) {
+		
+		this.commandlineExecuteAllJobImpl(commandResult, url, root, project, userName, userPassword, jdkPath);		
+
+	}	
 
 }
 
