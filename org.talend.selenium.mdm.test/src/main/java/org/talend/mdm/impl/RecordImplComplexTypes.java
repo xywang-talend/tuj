@@ -59,7 +59,7 @@ public class RecordImplComplexTypes extends Record{
 			this.typeTextByName("ComplexTypes/son1/School", "sonSchool");			
 		    this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
 		    this.sleepCertainTime(10000);		 
-	  Assert.assertTrue(this.isElementPresent(By.xpath("//span[contains(text(),'Unable to save item ComplexTypes., Unable to create/update the item ')]"), WAIT_TIME_MIN));
+	  Assert.assertTrue(this.isElementPresent(By.xpath("//span[contains(text(),'Unable to save item ComplexTypes')]"), WAIT_TIME_MIN));
  	 
 	
 }
@@ -79,7 +79,7 @@ public class RecordImplComplexTypes extends Record{
 		  this.typeTextByName("ComplexTypes/son1/Address", "sonAddress");
 	      this.clickElementByXpath("//input[@name='ComplexTypes/son1/Address']//ancestor::tr//img[@id='Add']");
 	      this.sleepCertainTime(2000);
-	      this.typeTextByXpath("//div[contains(@id,'TreeDetail-root')]/div/div[3]/div/div[3]//input", "sonAddressAdd");
+	      this.typeTextByXpath("//div[contains(@id,'TreeDetail-tree')]/div[2]/div/div[3]/div/div[3]//input", "sonAddressAdd");
 		  this.typeTextByName("ComplexTypes/son1/School", "sonSchool");			
 		  
 		  ///////////////////////////////////////////////
@@ -95,7 +95,7 @@ public class RecordImplComplexTypes extends Record{
 		  this.clickElementByXpath("//div[text()='father1']//ancestor::tr//img[contains(@style,'background')]");	
 		  Assert.assertEquals(this.getValueInput(By.name("ComplexTypes/son1/Name")),  "sonName");
 		  Assert.assertEquals(this.getValueInput(By.name("ComplexTypes/son1/Address")), "sonAddress");
-		  Assert.assertEquals(this.getValueInput(By.xpath("//div[contains(@id,'TreeDetail-root')]/div/div[3]/div/div[3]//input")), "sonAddressAdd");
+		  Assert.assertEquals(this.getValueInput(By.xpath("//div[contains(@id,'TreeDetail-tree')]/div[2]/div/div[3]/div/div[3]//input")), "sonAddressAdd");
 		  
 		  Assert.assertEquals(this.getValueInput(By.name("ComplexTypes/son1/School")), "sonSchool");
 		  Assert.assertEquals(this.getValueInput(By.name("ComplexTypes/father1/Name")), "fatherName");
