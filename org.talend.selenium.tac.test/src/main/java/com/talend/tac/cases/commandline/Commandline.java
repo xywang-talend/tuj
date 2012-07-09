@@ -32,7 +32,10 @@ public class Commandline extends Base{
 	
 	public String getJDKPath() {
 		
-		String jdkPath = System.getProperty("java.home").replace("\\", "/")+"/bin/java.exe";
+		String jdkPath = System.getProperty("java.home").replace("\\", "/")+"/bin/java";
+		if(this.isWindows()){
+			jdkPath = jdkPath + ".exe";
+		}
 		System.out.println(jdkPath);
 		return "\""+jdkPath+"\"";
 		

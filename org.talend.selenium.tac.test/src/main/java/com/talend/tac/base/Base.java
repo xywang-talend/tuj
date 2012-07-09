@@ -1,7 +1,5 @@
 package com.talend.tac.base;
 
-import it.haefelinger.flaka.Break;
-
 import java.awt.Event;
 import java.io.File;
 import java.io.FileInputStream;
@@ -143,7 +141,10 @@ public class Base {
 		}
 		return onHudson;
 	}
-		
+	
+	public boolean isWindows(){
+		return System.getProperty("os.name").contains("Windows");
+	}
 
 	
 	public String setDefaultValue(String variable, String value) {
@@ -506,15 +507,11 @@ public class Base {
 		
 		if(selenium.isElementPresent("//input[@id='"+id+"']"
 				+ "/following-sibling::div")) {
-			
 			selenium.click("//input[@id='"+id+"']"
 					+ "/following-sibling::div");
-			
 		} else {
-			
 			selenium.click("//input[@id='"+id+"']"
 					+ "/following-sibling::img");
-			
 		}
 		
 		this.waitForElementPresent("//div[text()='" + itemName + "' and @role='listitem']", WAIT_TIME);
