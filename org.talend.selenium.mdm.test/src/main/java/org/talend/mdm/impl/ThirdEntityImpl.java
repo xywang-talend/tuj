@@ -142,13 +142,16 @@ public class ThirdEntityImpl extends Record{
 		this.sleepCertainTime(2000);
 		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.thirdentity.mandatoryDetails.mandatoryUbounded4.input")).size()==2);
 		
+		
+		logger.warn(this.getElementsByXpath(locator.getString("xpath.thirdentity.mamdatoryDetails.optionalUbounded6")).size());
+		this.sleepCertainTime(10000);
 		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.thirdentity.mamdatoryDetails.optionalUbounded6")).size()==1);
 		this.clickElementByXpath(locator.getString("xpath.thirdentity.mamdatoryDetails.optionalUbounded6.addoccurrences.img"));
 		this.sleepCertainTime(2000);
 		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.thirdentity.mamdatoryDetails.optionalUbounded6")).size()==2);
 		
 		//fill mandatoryUbounde4 just created
-		this.typeTextByXpath("//div[contains(@id,'TreeDetail-root')]/div/div[4]/div/div[5]//input", mdMu4);
+		this.typeTextByXpath("//div[contains(@id,'TreeDetail-tree')]/div[2]/div/div[4]/div/div[5]//input", mdMu4);
 		
 	    this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
 	    this.sleepCertainTime(10000);
@@ -159,7 +162,7 @@ public class ThirdEntityImpl extends Record{
 		
 		this.clickElementByXpath(locator.getString("xpath.thirdentity.mandatoryDetails.expend.img"));
 		this.sleepCertainTime(2000);
-		Assert.assertEquals(this.getValueInput(By.xpath("//div[contains(@id,'TreeDetail-root')]/div/div[4]/div/div[5]//input")), mdMu4);
+		Assert.assertEquals(this.getValueInput(By.xpath("//div[contains(@id,'TreeDetail-tree')]/div[2]/div/div[4]/div/div[5]//input")), mdMu4);
 		
 	}
 	
@@ -193,6 +196,7 @@ public class ThirdEntityImpl extends Record{
 		Assert.assertTrue(this.getElementsByXpath(locator.getString("xpath.thirdentity.mamdatoryDetails.optionalUbounded6")).size()==1);
 		
 	    this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
+	    Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.record.save.success.warning.info")), WAIT_TIME_MIN).isDisplayed());
 	    this.sleepCertainTime(10000);
 		
 	    this.clickElementByXpath(this.getString(locator, "xpath.thirdentity.record.select.by.key", key));
