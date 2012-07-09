@@ -7,14 +7,12 @@ import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.talend.swtbot.test.commons.TalendSwtbotForTdq;
 import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon;
 import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendAnalysisTypeEnum;
-import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendItemTypeEnum;
 import org.talend.swtbot.test.commons.TalendSwtbotTdqCommon.TalendMetadataTypeEnum;
 
 @RunWith(SWTBotJunit4ClassRunner.class)
