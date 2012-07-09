@@ -368,6 +368,7 @@ public class Record extends Base {
 		this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.choose.entity", entity)), WAIT_TIME_MAX);
 		// this.sleepCertainTime(10000);
 		this.clickElementByXpath(this.getString(locator,"xpath.record.choose.entity", entity));
+		this.sleepCertainTime(10000);
 	}
 
 	public void chooseEntityDirectlyInDataBrowser(String entity) {
