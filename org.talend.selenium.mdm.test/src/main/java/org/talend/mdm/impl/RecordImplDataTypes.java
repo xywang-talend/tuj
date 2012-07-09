@@ -201,7 +201,7 @@ public class RecordImplDataTypes extends Record{
 	//  this.typeTextByName("DataTypesTest/QName1", "d");
 	  this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
 	  this.sleepCertainTime(2000);
-	  Assert.assertTrue(this.isElementPresent(By.xpath("//span[contains(text(),'Unable to save item DataTypesTest., Unable to create/update the item')]"), WAIT_TIME_MIN));
+	  Assert.assertTrue(this.isElementPresent(By.xpath("//span[contains(text(),'Unable to save item DataTypesTest')]"), WAIT_TIME_MIN));
  	 
 	
 }
