@@ -129,22 +129,18 @@ public class CommandlineAction extends Commandline {
 		System.err.println("executeJobOnServer "+jobName+" -es "+serverName+" -jv 2.0");
 		return cmd.command("executeJobOnServer "+jobName+" -es "+serverName+" -jv 2.0");
 	}
-
-	public String executeJobOfContextOnServer(String jobName, String serverName, String context){
-		System.err.println("executeJobOnServer "+jobName+" -es "+serverName+" -jc "+context);
-		return cmd.command("executeJobOnServer "+jobName+" -es "+serverName+" -jc "+context);
+    	
+	public String executeRoute(String routeName){
+		System.err.println("executeRoute "+routeName+" "+"-i "+this.getJDKPath());
+		return cmd.command("executeRoute "+routeName+" "+"-i "+this.getJDKPath());
 	}
 
-	public String changeStatus(String filterValue){
-		System.err.println("changeStatus "+filterValue);
-		return cmd.command("changeStatus "+filterValue);
+	public String exportRoute(String routeName, String path){
+		System.err.println("exportRoute "+routeName+" -dd "+path+" -af "+routeName);
+		return cmd.command("exportRoute "+routeName+" -dd "+path+" -af "+routeName);
 	}
 
-	public List<String> listItemFilter(String filterKey, String filterValue){
-		System.err.println("listItem -if "+filterKey+"="+filterValue);
-		return cmd.command("listItem -if "+filterKey+"="+filterValue, "talend>");
-	}
-
+	
 	public boolean isCommandCompleted(int id) {
 		return this.getCommandStatus(id).contains("COMPLETED");
 	}

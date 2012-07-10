@@ -522,7 +522,6 @@ public class CommandlineImpls extends CommandlineAction {
 		Assert.assertTrue(executeAllJobResultInfo.contains("Sat Aug 13 00:00:00 CDT 1988"));
 		
 	}
-	
 	public void commandlineExecuteJobOfVersionOnJobServerImpl(String commandResult
 			, String url, String root, String commPro, String userName, String userPassword
 			, String server) {
@@ -530,13 +529,9 @@ public class CommandlineImpls extends CommandlineAction {
 		
 		this.commandlineListJobImpl(commandResult, url, root, commPro, userName, userPassword);	
 		
-		Assert.assertTrue(ss.contains("generateBigLogs"));
-		Assert.assertTrue(ss.contains("refJobByMaintRunJobRun"));
-		Assert.assertTrue(ss.contains("tRunJob"));
-		Assert.assertTrue(ss.contains("tjavaWithMulripleCheckPoint"));
 		Assert.assertTrue(ss.contains("tjava"));
-		Assert.assertTrue(ss.contains("trunjobWithCheckpoint"));
-		
+		Assert.assertTrue(ss.contains("tjavaWithMulripleCheckPoint"));
+
 		String commandExecuteJobOfVersionOnServerResult = this.executeJobOfVersionOnServer("tjavaWithMulripleCheckPoint", server);
 		System.err.println("commandExecuteJobOfVersionOnServerResult>>>>>>>>"+commandExecuteJobOfVersionOnServerResult);
 		int commandExecuteJobOfVersionOnServerId = this.getCommandId(commandExecuteJobOfVersionOnServerResult);
@@ -561,101 +556,44 @@ public class CommandlineImpls extends CommandlineAction {
 		Assert.assertTrue(executeJobOfVersionOnServerResultInfo.contains("Job ENDED SUCCESSFULLY"));
 		
 	}
-
-	public void commandlineExecuteJobOfContextOnJobServerImpl(String commandResult
-			, String url, String root, String commPro, String userName, String userPassword
-			, String server) {
+	
+	public void commandlineExecuteRouteImpl(String commandResult
+			, String url, String root, String commPro, String userName, String userPassword) {
 		
 		
-		this.commandlineListJobImpl(commandResult, url, root, commPro, userName, userPassword);	
+		this.commandlineListItemImpl(commandResult, url, root, commPro, userName, userPassword);		
 		
 		Assert.assertTrue(ss.contains("generateBigLogs"));
 		Assert.assertTrue(ss.contains("refJobByMaintRunJobRun"));
 		Assert.assertTrue(ss.contains("tRunJob"));
 		Assert.assertTrue(ss.contains("tjavaWithMulripleCheckPoint"));
 		Assert.assertTrue(ss.contains("tjava"));
-		Assert.assertTrue(ss.contains("tt"));
 		Assert.assertTrue(ss.contains("trunjobWithCheckpoint"));
+		Assert.assertTrue(ss.contains("test"));
+		System.err.println("ss>>>"+ss);	
 
-		String commandExecuteJobOfContextOnServerResult = this.executeJobOfContextOnServer("tt", server, "default");
-		System.err.println("commandExecuteJobOfContextOnServerResult>>>>>>>>"+commandExecuteJobOfContextOnServerResult);
-		int commandExecuteJobOfContextOnServerId = this.getCommandId(commandExecuteJobOfContextOnServerResult);
-		Assert.assertTrue(commandExecuteJobOfContextOnServerResult.contains(commandResult+" "+commandExecuteJobOfContextOnServerId));
-		this.commandlineGetCommandStatusImpl(commandExecuteJobOfContextOnServerId, WAIT_TIME*3);
-		List<String> executeJobOfContextOnServerResult = this.getCommandStatusAllInfo(commandExecuteJobOfContextOnServerId);
-		
-		String executeJobOfContextOnServerResultInfo = "";
-		for(int i=0; i<executeJobOfContextOnServerResult.size(); i++) {			
-			
-			executeJobOfContextOnServerResultInfo = executeJobOfContextOnServerResultInfo+executeJobOfContextOnServerResult.get(i);
-            System.err.println("i>>>>>>>>"+executeJobOfContextOnServerResult.get(i));	
-            
-		}
-		System.err.println("executeJobOfContextOnServerResultInfo>>>"+executeJobOfContextOnServerResultInfo);	
-		
-		Assert.assertTrue(executeJobOfContextOnServerResultInfo.contains("Job STARTED"));
-		Assert.assertTrue(executeJobOfContextOnServerResultInfo.contains("john441988-02-03"));
-		Assert.assertFalse(executeJobOfContextOnServerResultInfo.contains("ddd882088-02-03"));
-		Assert.assertTrue(executeJobOfContextOnServerResultInfo.contains("Job ENDED SUCCESSFULLY"));
-		
-		String commandExecuteJobOfContextOnServerResult1 = this.executeJobOfContextOnServer("tt", server, "pp");
-		System.err.println("commandExecuteJobOfContextOnServerResult1>>>>>>>"+commandExecuteJobOfContextOnServerResult1);
-		int commandExecuteJobOfContextOnServerId1 = this.getCommandId(commandExecuteJobOfContextOnServerResult1);
-		Assert.assertTrue(commandExecuteJobOfContextOnServerResult1.contains(commandResult+" "+commandExecuteJobOfContextOnServerId1));
-		this.commandlineGetCommandStatusImpl(commandExecuteJobOfContextOnServerId1, WAIT_TIME*3);
-		List<String> executeJobOfContextOnServerResult1 = this.getCommandStatusAllInfo(commandExecuteJobOfContextOnServerId1);
-		
-		String executeJobOfContextOnServerResultInfo1 = "";
-		for(int i=0; i<executeJobOfContextOnServerResult1.size(); i++) {			
-			
-			executeJobOfContextOnServerResultInfo1 = executeJobOfContextOnServerResultInfo1+executeJobOfContextOnServerResult1.get(i);
-            System.err.println("i>>>>>>>>"+executeJobOfContextOnServerResult1.get(i));	
-            
-		}
-		System.err.println("executeJobOfContextOnServerResultInfo1>>>"+executeJobOfContextOnServerResultInfo1);	
-		
-		Assert.assertTrue(executeJobOfContextOnServerResultInfo1.contains("Job STARTED"));
-		Assert.assertFalse(executeJobOfContextOnServerResultInfo1.contains("john441988-02-03"));
-		Assert.assertTrue(executeJobOfContextOnServerResultInfo1.contains("ddd882088-02-03"));
-		Assert.assertTrue(executeJobOfContextOnServerResultInfo1.contains("Job ENDED SUCCESSFULLY"));
+		String commandExecuteRouteResult = this.executeRoute("test");
+		System.err.println("commandExecuteRouteResult>>>>>>>>"+commandExecuteRouteResult);
+		int commandExecuteRouteId = this.getCommandId(commandExecuteRouteResult);
+		Assert.assertTrue(commandExecuteRouteResult.contains(commandResult+" "+commandExecuteRouteId));
+		this.commandlineGetCommandStatusImpl(commandExecuteRouteId, WAIT_TIME);
 		
 	}
 	
-	public void commandlineChangeStatusImpl(String commandResult, String project, String user, String passwd
-    		, String url, String root) {		
-		
-		this.commandlineLogonProjectImpl(commandResult, project, user, passwd, url, root);
-		
-		String ss = "";
-		List<String> listCommandListItemResult = listItemFilter("status", "TEST");
-		for(int i=0; i<listCommandListItemResult.size(); i++) {
-			
-			ss = ss+listCommandListItemResult.get(i);
-            System.err.println("i>>>>>>>>"+listCommandListItemResult.get(i));			
-			
-		}
-		System.err.println("ss>>>"+ss);	
-		
-		Assert.assertFalse(ss.contains("tjavaWithMulripleCheckPoint"));
-		Assert.assertFalse(ss.contains("tjava"));
-		
-		String commandChangeStatusInfo = this.changeStatus("TEST");
-		
-		int commandResultId = this.getCommandId(commandChangeStatusInfo);
-		Assert.assertTrue(commandChangeStatusInfo.contains(commandResult+" "+commandResultId));
-		this.commandlineGetCommandStatusImpl(commandResultId, WAIT_TIME);
-		
-		listCommandListItemResult = listItemFilter("status", "TEST");
-		for(int i=0; i<listCommandListItemResult.size(); i++) {
-			
-			ss = ss+listCommandListItemResult.get(i);
-            System.err.println("i>>>>>>>>"+listCommandListItemResult.get(i));			
-			
-		}
-		System.err.println("ss>>>"+ss);	
-		
-		Assert.assertTrue(ss.contains("tjavaWithMulripleCheckPoint"));
-		Assert.assertTrue(ss.contains("tjava"));
+	public void commandlineExportRouteImpl(String commandResult
+			, String url, String root, String commPro, String userName, String userPassword
+			,String exportPath) {
+		this.commandlineListItemImpl(commandResult, url, root, commPro, userName, userPassword);
+		Assert.assertTrue(ss.contains("test"));
+		String commandExportRouteResult = this.exportRoute("test", this.getAbsolutePath(exportPath));
+		System.err.println("commandExportRouteResult>>>>>>>>"+commandExportRouteResult);
+		int commandExportRouteId = this.getCommandId(commandExportRouteResult);
+		Assert.assertTrue(commandExportRouteResult.contains(commandResult+" "+commandExportRouteId));
+		this.commandlineGetCommandStatusImpl(commandExportRouteId, WAIT_TIME*3);
+		LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(exportPath));
+		map.containsValue("test.zip");
+		properties.put("file.path", this.getAbsolutePath(exportPath)+"test.zip");
+		new AntAction().runTarget("File.xml", "delete", properties);
 		
 	}
 	
