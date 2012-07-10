@@ -174,10 +174,10 @@ public class ThirdEntityImpl extends Record{
 		clickSave();
 		chooseEntity(entity);	
 		maxDataBrowserBoard();
-		this.sleepCertainTime(6000);
+		this.sleepCertainTime(10000);
 	    Assert.assertTrue(this.waitfor(By.xpath(this.getString(locator, "xpath.thirdentity.record.select.by.key", key)), WAIT_TIME_MID).isDisplayed());
 		this.clickElementByXpath(this.getString(locator, "xpath.thirdentity.record.select.by.key", key));
-		
+		this.sleepCertainTime(10000);
 		this.clickElementByXpath(locator.getString("xpath.thirdentity.mandatoryDetails.expend.img"));
 		this.sleepCertainTime(2000);
 		//remove mutiple occurrences of mandatoryUbounde4,remove multiple optionalUbounde6
