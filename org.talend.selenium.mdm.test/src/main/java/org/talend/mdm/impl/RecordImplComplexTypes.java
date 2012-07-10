@@ -87,6 +87,7 @@ public class RecordImplComplexTypes extends Record{
 		  this.typeTextByName("ComplexTypes/father1/Name", "fatherName");
 		  this.typeTextByName("ComplexTypes/father1/Address", "fatherAddress");			
 		  this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
+		  this.sleepCertainTime(10000);
 		  
 		  
 		  //assert
