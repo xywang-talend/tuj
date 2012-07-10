@@ -312,7 +312,7 @@ public class OccurrencesImpl extends Record{
 	    Assert.assertTrue(this.getElementsByXpath("//div[text()='son2']").size()==1);
 	    
 		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
-		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.record.save.success.warning.info")), WAIT_TIME_MIN).isDisplayed());
+//		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.record.save.success.warning.info")), WAIT_TIME_MIN).isDisplayed());
 		this.sleepCertainTime(10000);
 	
 		Assert.assertTrue(this.getElementsByXpath("//input[@name='Occurrences/enum2']").size()==1);
