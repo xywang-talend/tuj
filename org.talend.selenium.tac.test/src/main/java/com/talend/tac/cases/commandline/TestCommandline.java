@@ -300,10 +300,31 @@ public class TestCommandline extends CommandlineImpls {
 			, String url, String root,  String project, 
 			String userName, String userPassword, String serverName) {
 		
-		this.commandlineExecuteJobOnServerImpl(commandResult, url, root, project, userName, userPassword, serverName);		
-
+		this.commandlineExecuteJobOfVersionOnJobServerImpl(commandResult, url, root, project, userName, userPassword, serverName);
 	}	
 
+	@Test
+	@Parameters({"commandResult", "url", "root", "addCommonProjectName", 
+		"userName", "userPassword", "serverForUseAvailable"})
+	public void testCommandlineExecuteJobOfContextOnServer(String commandResult
+			, String url, String root,  String project, 
+			String userName, String userPassword, String serverName) {
+		
+		this.commandlineExecuteJobOfContextOnJobServerImpl(commandResult, url, root, project, userName, userPassword, serverName);		
+
+	}
+
+	@Test
+	@Parameters({"commandResult", "url", "root", "projectName", 
+		"userName", "userPassword", "serverForUseAvailable"})
+	public void testCommandlineChangeStatus(String commandResult
+			, String url, String root,  String project, 
+			String userName, String userPassword, String serverName) {
+		
+		this.commandlineChangeStatusImpl(commandResult, project, userName, userPassword, url, root);		
+
+	}
+	
 }
 
 
