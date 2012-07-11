@@ -143,9 +143,27 @@ public class CommandlineAction extends Commandline {
 	public String exportAllJobWithFilters(String path,String jobName) {
 		System.err.println("exportAllJob "+" -dd "+path+" -if label="+jobName);
 		return cmd.command("exportAllJob "+" -dd "+path+" -if label="+jobName);
-	}
-	
+	}	
 
+	public String exportJobContainsSubjob(String jobName, String path){
+		System.err.println("exportJob "+jobName+" -dd "+path+"");
+		return cmd.command("exportJob "+jobName+" -dd "+path+"");
+	}
+
+	public String startGroup(){
+		System.err.println("startGroup");
+		return cmd.command("startGroup");
+	}
+
+	public String stopGroup(){
+		System.err.println("stopGroup");
+		return cmd.command("stopGroup");
+	}
+
+	public String deleteItem(){
+		System.err.println("deleteItems");
+		return cmd.command("deleteItems");
+	}
 	
 	public boolean isCommandCompleted(int id) {
 		return this.getCommandStatus(id).contains("COMPLETED");
