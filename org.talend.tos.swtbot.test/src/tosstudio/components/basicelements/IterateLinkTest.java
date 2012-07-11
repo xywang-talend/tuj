@@ -59,7 +59,7 @@ public class IterateLinkTest extends TalendSwtBotForTos {
         gefBot.button("OK").click();
         JobHelper.connect2TLogRow(jobEditor, tRowGenerator1, new Point(300, 100));
 
-        Utilities.dndPaletteToolOntoJob(jobEditor, "tRowGenerator", new Point(100, 300));
+        Utilities.dndPaletteToolOntoJob(jobEditor, "tRowGenerator", new Point(100, 200));
         SWTBotGefEditPart tRowGenerator2 = getTalendComponentPart(jobEditor, "tRowGenerator_2");
         Assert.assertNotNull("can not get component 'tRowGenerator'", tRowGenerator1);
         tRowGenerator2.doubleClick();
@@ -68,7 +68,7 @@ public class IterateLinkTest extends TalendSwtBotForTos {
         gefBot.buttonWithTooltip("Add").click();
         gefBot.textWithLabel("Number of Rows for RowGenerator").setText("2");
         gefBot.button("OK").click();
-        JobHelper.connect2TLogRow(jobEditor, tRowGenerator2, new Point(300, 300), "tLogRow_2");
+        JobHelper.connect2TLogRow(jobEditor, tRowGenerator2, new Point(300, 200), "tLogRow_2");
         SWTBotGefEditPart tLogRow2 = getTalendComponentPart(jobEditor, "tLogRow_2");
         tLogRow2.click();
         gefBot.viewByTitle("Component").setFocus();

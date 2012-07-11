@@ -12,10 +12,12 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
-import junit.framework.Assert;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.talend.swtbot.Utilities;
 
 /**
@@ -36,15 +38,17 @@ public class TalendExcelFileItem extends TalendFileItem {
         SWTBotShell shell = beginCreationWizard("Create file Excel", "New Excel File");
         try {
             gefBot.textWithLabel("File").setText(Utilities.getFileFromCurrentPluginSampleFolder(filePath).getAbsolutePath());
-            gefBot.treeWithLabel("Set sheets parameters").getTreeItem("All sheets/DSelect sheet").check();
-            gefBot.button("Next >").click();
-        } catch (WidgetNotFoundException wnfe) {
-            shell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            shell.close();
-            Assert.fail(e.getMessage());
+            gefBot.waitUntil(Conditions.shellIsActive("Progress Information"));
+            gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 60000);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            // pass exception if not found progress bar
         }
+        gefBot.treeWithLabel("Set sheets parameters").getTreeItem("All sheets/DSelect sheet").check();
+        gefBot.button("Next >").click();
         finishCreationWizard(shell);
     }
 

@@ -21,11 +21,13 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefFigureCanvas;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.junit.Assert;
 import org.talend.swtbot.DndUtil;
 import org.talend.swtbot.Utilities;
@@ -75,12 +77,31 @@ public class JobHelper implements Helper {
 
     public static void runJob(String jobName, long timeout) {
         GEFBOT.viewByTitle("Run (Job " + jobName + ")").setFocus();
-        GEFBOT.button(" Run").click();
+        final SWTBotButton runButton = GEFBOT.button(" Run").click();
 
         SWTBotShell shell = null;
         try {
-            shell = GEFBOT.shell("Find Errors in Jobs").activate();
-        } catch (WidgetNotFoundException e) {
+            GEFBOT.waitUntil(Conditions.shellIsActive("Progress Information"));
+        } catch (TimeoutException e1) {
+            // pass exception if not found progress bar
+        }
+        try {
+            GEFBOT.waitUntil(new DefaultCondition() {
+
+                public boolean test() throws Exception {
+                    if (runButton.isEnabled())
+                        return true;
+                    return GEFBOT.shell("Find Errors in Jobs").isActive();
+                }
+
+                public String getFailureMessage() {
+                    return null;
+                }
+
+            }, 60000);
+            if (!runButton.isEnabled())
+                shell = GEFBOT.shell("Find Errors in Jobs").activate();
+        } catch (TimeoutException e) {
             // pass exception means no error found in jobs
         } finally {
             if (shell != null) {
@@ -103,16 +124,8 @@ public class JobHelper implements Helper {
             }
         }
 
-        GEFBOT.waitUntil(new DefaultCondition() {
-
-            public boolean test() throws Exception {
-                return GEFBOT.button(" Run").isEnabled();
-            }
-
-            public String getFailureMessage() {
-                return "job did not finish running";
-            }
-        }, timeout);
+        if (!runButton.isEnabled())
+            Assert.fail("job did not finish running");
 
         executionResult = GEFBOT.styledText().getText();
     }

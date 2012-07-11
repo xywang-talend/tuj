@@ -72,8 +72,10 @@ public class TalendXmlFileItem extends TalendFileItem {
         SWTBotShell progressShell = null;
         try {
             gefBot.waitUntil(Conditions.shellIsActive("Progress Information"));
-            progressShell = gefBot.shell("Progress Information").activate();
-            gefBot.waitUntil(Conditions.shellCloses(progressShell), 10000);
+            if ("Progress Information".equals(gefBot.activeShell().getText())) {
+                progressShell = gefBot.shell("Progress Information").activate();
+                gefBot.waitUntil(Conditions.shellCloses(progressShell), 30000);
+            }
         } catch (TimeoutException e) {
             // do nothing if progressShell is null, means progress information disappear too fast
             if (progressShell != null && progressShell.isOpen()) {

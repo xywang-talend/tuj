@@ -61,7 +61,7 @@ public class JobletWith1TriggerOutputTest extends TalendSwtBotForTos {
         jobletItem.clearInputandOutput();
         String text = "System.out.println(\"output\");";
         SWTBotGefEditPart tJava_1 = Utilities.useTJavaAndSetText(jobletEditor, text);
-        Utilities.dndPaletteToolOntoJoblet(jobletEditor, "Trigger Output", new Point(300, 300));
+        Utilities.dndPaletteToolOntoJoblet(jobletEditor, "Trigger Output", new Point(300, 100));
         SWTBotGefEditPart triggerOutput = getTalendComponentPart(jobletEditor, "TRIGGER_OUTPUT_1");
         Assert.assertNotNull("cann't get component Trigger output", triggerOutput);
         JobHelper.connect(jobletEditor, tJava_1, triggerOutput, "Trigger", "On Subjob Ok");
@@ -70,7 +70,7 @@ public class JobletWith1TriggerOutputTest extends TalendSwtBotForTos {
         // drag tJava and joblet into job,and run job
         String text2 = "System.out.println(\"hello\");";
         SWTBotGefEditPart tJava_2 = Utilities.useTJavaAndSetText(jobEditor, text2);
-        Utilities.dndMetadataOntoJob(jobEditor, jobletItem.getItem(), null, new Point(300, 300));
+        Utilities.dndMetadataOntoJob(jobEditor, jobletItem.getItem(), null, new Point(300, 100));
         SWTBotGefEditPart joblet = getTalendComponentPart(jobEditor, JOBLETNAME);
         Assert.assertNotNull("cann't drag joblet from repository to job", joblet);
         JobHelper.connect(jobEditor, joblet, tJava_2, "Trigger", "On Subjob Ok (TRIGGER_OUTPUT_1)");

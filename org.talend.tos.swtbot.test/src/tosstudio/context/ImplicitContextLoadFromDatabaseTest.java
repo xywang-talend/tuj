@@ -115,7 +115,7 @@ public class ImplicitContextLoadFromDatabaseTest extends TalendSwtBotForTos {
         gefBot.tree().expandNode(dbItem.getParentNode().getText(), dbItem.getItemFullName()).select();
         gefBot.button("OK").click();
         gefBot.buttonWithTooltip("Show the table list for the current conection").click();
-        gefBot.waitUntil(Conditions.shellIsActive("Select Table Name"));
+        gefBot.waitUntil(Conditions.shellIsActive("Select Table Name"), 60000);
         gefBot.shell("Select Table Name").activate();
         gefBot.tree().expandNode(System.getProperty("mysql.dataBase")).select(TABLE_NAME);
         gefBot.button("OK").click();
