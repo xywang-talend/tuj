@@ -1,7 +1,6 @@
 package org.talend.mdm.cases.record;
 
 import org.talend.mdm.Login;
-import org.talend.mdm.impl.EdaImpl;
 import org.talend.mdm.impl.RecordImplAgent;
 import org.talend.mdm.impl.SocieteClienteImpl;
 import org.testng.annotations.BeforeMethod;
