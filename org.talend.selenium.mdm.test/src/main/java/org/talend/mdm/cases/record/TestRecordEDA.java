@@ -19,4 +19,10 @@ public class TestRecordEDA extends Login {
 	public void testUpdateRecordAddMultipleField(String container,String modle,String entity,String IdValue,String Type1,String Type2) {
 		recordImpl.testUpdateRecordAddMultipleFieldImpl(container, modle, entity,IdValue,Type1,Type2);
 	}
+	
+	@Test
+	@Parameters( { "container","modle","entity","IdValue","date"})
+	public void testUpdateRecordDate(String container,String modle,String entity,String IdValue,String date) {
+		recordImpl.testUpdateRecordDateImpl(container, modle, entity,IdValue,date);
+	}
 }
