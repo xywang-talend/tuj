@@ -334,46 +334,40 @@ public class TestCommandline extends CommandlineImpls {
 		
 		this.commandlineExportAllJobWithFiltersImpl(commandResult, url, root, commPro, userName, userPassword, exportPath);
 	}
-
-	@Test
-	@Parameters({"commandResult", "url", "root", "addCommonProjectName", 
-		"userName", "userPassword", "exportPath"})
-	public void testCommandlineExportJobContainsSubjob(String commandResult
-			, String url, String root,  String project, 
-			String userName, String userPassword, String path) {
-		
-		this.commandlineExportJobContainsSubjobImpl(commandResult, url, root, project, userName, userPassword, path);		
-
-	}
-
-	@Test
-	@Parameters({"commandResult", "url", "root", "addCommonProjectName", 
-		"userName", "userPassword", "exportPath"})
-	public void testCommandlineStartGroup(String commandResult
-			, String url, String root,  String project, 
-			String userName, String userPassword, String path) {
-		
-		this.commandlineStartGroupImpl(commandResult, project, userName, userPassword, url, root, path);		
-
-	}
 	
 	@Test
-	public void testCommandlineStopGroup() {
-		
-		this.commandlineStopGroupImpl();
-		
-	}
-
-	@Test
-	@Parameters({"commandResult", "url", "root", "projectName", 
+	@Parameters({"commandResult", "url", "root", "addCommonProjectName", 
 		"userName", "userPassword"})
-	public void testCommandlineDeleteItem(String commandResult
+	public void testCommandlineExecuteAllJobWithFilters(String commandResult
 			, String url, String root,  String project, 
 			String userName, String userPassword) {
 		
-		this.commandlineDeleteItemImpl(commandResult, url, root, project, userName, userPassword);		
+		this.commandlineExecuteAllJobWithFiltersImpl(commandResult, url, root, project, userName, userPassword);
+	}
+	
+	@Test
+	@Parameters({"commandResult", "url", "root", "projectName", 
+		"userName", "userPassword"})
+	public void testListItemWithFilters(String commandResult
+			, String url, String root,  String project, 
+			String userName, String userPassword) {
+		
+		this.commandlineListItemWithFiltersImpl(commandResult, url, root, project, userName, userPassword);
+	}
+	
+	@Test
+	@Parameters({"commandResult", "url", "root","addCommonProjectName", 
+		"addReferenceProjectName", "projectWithSpaceChar"})
+	public void testCommandlineListProjectAndReference(String commandResult,String url, String root,String commPro,
+			String refPro, String proSpace) {
+		
+		this.commandlineListProjectAndReferenceImpl(commandResult,url,root);
+				
+		Assert.assertTrue(ss.contains("branch=[trunk] reference="+"["+refPro.toUpperCase()+"/trunk]"));
+		Assert.assertTrue(ss.contains(refPro));
+		Assert.assertTrue(ss.contains(proSpace));
 
-	}	
+	}
 
 }
 

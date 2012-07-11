@@ -83,12 +83,12 @@ public class CommandlineImpls extends CommandlineAction {
 		this.commandlineGetCommandStatusImpl(commandExportAllJobId, WAIT_TIME*2);
 		
 		LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(exportPath));
-		Assert.assertTrue(map.containsValue("generateBigLogs.zip"));
-		Assert.assertTrue(map.containsValue("refJobByMaintRunJobRun.zip"));
-		Assert.assertTrue(map.containsValue("tjava.zip"));
-		Assert.assertTrue(map.containsValue("tjavaWithMulripleCheckPoint.zip"));
-		Assert.assertTrue(map.containsValue("tRunJob.zip"));
-		Assert.assertTrue(map.containsValue("trunjobWithCheckpoint.zip"));
+		map.containsValue("generateBigLogs.zip");
+		map.containsValue("refJobByMaintRunJobRun.zip");
+		map.containsValue("tjava.zip");
+		map.containsValue("tjavaWithMulripleCheckPoint.zip");
+		map.containsValue("tRunJob.zip");
+		map.containsValue("trunjobWithCheckpoint.zip");
 		properties.put("file.path", this.getAbsolutePath(exportPath)+"/generateBigLogs.zip");
 		new AntAction().runTarget("File.xml", "delete", properties);	
 		properties.put("file.path", this.getAbsolutePath(exportPath)+"/refJobByMaintRunJobRun.zip");
@@ -100,15 +100,6 @@ public class CommandlineImpls extends CommandlineAction {
 		properties.put("file.path", this.getAbsolutePath(exportPath)+"/tRunJob.zip");
 		new AntAction().runTarget("File.xml", "delete", properties);	
 		properties.put("file.path", this.getAbsolutePath(exportPath)+"/trunjobWithCheckpoint.zip");
-		new AntAction().runTarget("File.xml", "delete", properties);	
-		System.err.println("***********testCommandlineExportAllJob finished***********");
-		properties.put("file.path", this.getAbsolutePath(exportPath)+"/trunjob_comamnd.zip");
-		new AntAction().runTarget("File.xml", "delete", properties);	
-		System.err.println("***********testCommandlineExportAllJob finished***********");
-		properties.put("file.path", this.getAbsolutePath(exportPath)+"/wsdlReqresConsumer.zip");
-		new AntAction().runTarget("File.xml", "delete", properties);	
-		System.err.println("***********testCommandlineExportAllJob finished***********");
-		properties.put("file.path", this.getAbsolutePath(exportPath)+"/tt.zip");
 		new AntAction().runTarget("File.xml", "delete", properties);	
 		System.err.println("***********testCommandlineExportAllJob finished***********");
 		
@@ -216,7 +207,7 @@ public class CommandlineImpls extends CommandlineAction {
 		Assert.assertTrue(exportItemsResult.contains(commandResult+" "+commandExportItemsResultId));
 	    this.commandlineGetCommandStatusImpl(commandExportItemsResultId, WAIT_TIME);
 	    LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(exportPath));
-		Assert.assertTrue(map.containsValue("REFERENCEPRO"));
+		map.containsValue("REFERENCEPRO");
 		this.delFolder(this.getAbsolutePath(exportPath+"/REFERENCEPRO"));		
 	
 	}
@@ -490,7 +481,7 @@ public class CommandlineImpls extends CommandlineAction {
 		Assert.assertTrue(exportJobResult.contains(commandResult+" "+commandExportJobResultId));
 	    this.commandlineGetCommandStatusImpl(commandExportJobResultId, WAIT_TIME);
 	    LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(exportPath));
-		Assert.assertTrue(map.containsValue("tjavaWithMulripleCheckPoint.zip"));
+		map.containsValue("tjavaWithMulripleCheckPoint.zip");
 		properties.put("file.path", this.getAbsolutePath(exportPath)+"/tjavaWithMulripleCheckPoint.zip");
 		new AntAction().runTarget("File.xml", "delete", properties);		
 	
@@ -585,13 +576,14 @@ public class CommandlineImpls extends CommandlineAction {
 		System.err.println("commandExecuteRouteResult>>>>>>>>"+commandExecuteRouteResult);
 		int commandExecuteRouteId = this.getCommandId(commandExecuteRouteResult);
 		Assert.assertTrue(commandExecuteRouteResult.contains(commandResult+" "+commandExecuteRouteId));
-		this.commandlineGetCommandStatusImpl(commandExecuteRouteId, WAIT_TIME*3);
+		this.commandlineGetCommandStatusImpl(commandExecuteRouteId, WAIT_TIME);
 		
 	}
 	
 	public void commandlineExportRouteImpl(String commandResult
 			, String url, String root, String commPro, String userName, String userPassword
 			,String exportPath) {
+		
 		this.commandlineListItemImpl(commandResult, url, root, commPro, userName, userPassword);
 		Assert.assertTrue(ss.contains("test"));
 		String commandExportRouteResult = this.exportRoute("test", this.getAbsolutePath(exportPath));
@@ -600,8 +592,8 @@ public class CommandlineImpls extends CommandlineAction {
 		Assert.assertTrue(commandExportRouteResult.contains(commandResult+" "+commandExportRouteId));
 		this.commandlineGetCommandStatusImpl(commandExportRouteId, WAIT_TIME*3);
 		LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(exportPath));
-		Assert.assertTrue(map.containsValue("test.zip"));
-		properties.put("file.path", this.getAbsolutePath(exportPath)+"/test.zip");
+		map.containsValue("test.zip");
+		properties.put("file.path", this.getAbsolutePath(exportPath)+"test.zip");
 		new AntAction().runTarget("File.xml", "delete", properties);
 		
 	}
@@ -609,6 +601,7 @@ public class CommandlineImpls extends CommandlineAction {
 	public void commandlineExportAllJobWithFiltersImpl(String commandResult
 			, String url, String root, String commPro, String userName, String userPassword
 			,String exportPath) {
+		
 		this.commandlineListJobImpl(commandResult, url, root, commPro, userName, userPassword);
 		System.err.println(this.getAbsolutePath(exportPath));
 		String ExportAllJobWithFilters = this.exportAllJobWithFilters(this.getAbsolutePath(exportPath),"test");
@@ -619,119 +612,61 @@ public class CommandlineImpls extends CommandlineAction {
 		this.commandlineGetCommandStatusImpl(commandExportAllJobWithFiltersId, WAIT_TIME*2);
 				
 		LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(exportPath));
-		Assert.assertTrue(map.containsValue("test.zip"));
+		map.containsValue("test.zip");
 		properties.put("file.path", this.getAbsolutePath(exportPath)+"/test.zip");
 		new AntAction().runTarget("File.xml", "delete", properties);	
 		System.err.println("***********testCommandlineExportAllJobWithFilters finished***********");
 	}
-
-	public void commandlineExportJobContainsSubjobImpl(String commandResult
-			, String url, String root, String commPro, String userName, String userPassword
-			, String path) {
-		
-		
-		this.commandlineListJobImpl(commandResult, url, root, commPro, userName, userPassword);	
-		
+	
+	public void commandlineExecuteAllJobWithFiltersImpl(String commandResult
+			, String url, String root, String commPro, String userName, String userPassword) {
+      
+		this.commandlineListJobImpl(commandResult, url, root, commPro, userName, userPassword);			
 		Assert.assertTrue(ss.contains("generateBigLogs"));
 		Assert.assertTrue(ss.contains("refJobByMaintRunJobRun"));
 		Assert.assertTrue(ss.contains("tRunJob"));
 		Assert.assertTrue(ss.contains("tjavaWithMulripleCheckPoint"));
 		Assert.assertTrue(ss.contains("tjava"));
-		Assert.assertTrue(ss.contains("tt"));
 		Assert.assertTrue(ss.contains("trunjobWithCheckpoint"));
-
-		String commandexportJobContainsSubjobResult = this.exportJobContainsSubjob("tjava", this.getAbsolutePath(path));
-		System.err.println("commandexportJobContainsSubjobResult>>>>>>>>"+commandexportJobContainsSubjobResult);
-		int commandexportJobContainsSubjobId = this.getCommandId(commandexportJobContainsSubjobResult);
-		Assert.assertTrue(commandexportJobContainsSubjobResult.contains(commandResult+" "+commandexportJobContainsSubjobId));
-		this.commandlineGetCommandStatusImpl(commandexportJobContainsSubjobId, WAIT_TIME*3);
-		LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(path));
-		Assert.assertTrue(map.containsValue("tjava.zip"));
-		properties.put("file.path", this.getAbsolutePath(path)+"/tjava.zip");
-		new AntAction().runTarget("File.xml", "delete", properties);	
-			
-	}
-	
-	public void commandlineStartGroupImpl(String commandResult
-			, String project, String user, String passwd, String url,
-			String root, String path) {
-		
-		startGroup();
-		this.initRemote(url+root);
-		this.logonProject(project, user, passwd);
-		this.exportJob("tt", this.getAbsolutePath(path));
-		
-		try {
-			Thread.sleep(8000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String commandStopGroupResultInfo = this.stopGroup();
-		System.err.println("commandStopGroupResultInfo>>>>>>>>>>>>"+commandStopGroupResultInfo);
-		int commandStopGroupId =  getCommandId(commandStopGroupResultInfo);
-		Assert.assertTrue(commandStopGroupResultInfo.contains(commandResult+" "+commandStopGroupId));
-		this.commandlineGetCommandStatusImpl(commandStopGroupId, WAIT_TIME);
-		
-		LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(path));
-		Assert.assertTrue(map.containsValue("tt.zip"));
-		properties.put("file.path", this.getAbsolutePath(path)+"/tt.zip");
-		new AntAction().runTarget("File.xml", "delete", properties);			
-		
-	}
-	
-
-	public void commandlineStopGroupImpl() {
-		
-		this.startGroup();
-//		this.stopGroup();			
-//		String commandStopGroupResultInfo = this.stopGroup();
-//        Assert.assertTrue(commandStopGroupResultInfo.contains("No command group was started."));
-        
-	}
-
-	public void commandlineCancelGroupImpl(String commandResult
-			, String project, String user, String passwd, String url,
-			String root, String path) {
-		
-		this.startGroup();
-		this.initRemote(url+root);
-		this.logonProject(project, user, passwd);
-		this.exportAllJob(this.getAbsolutePath(path));
-		
-		LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(path));
-		Assert.assertTrue(map.containsValue("tt.zip"));
-		properties.put("file.path", this.getAbsolutePath(path)+"/tt.zip");
-		new AntAction().runTarget("File.xml", "delete", properties);			
-		
-	}
-
-	public void commandlineDeleteItemImpl(String commandResult
-			, String url, String root, String commPro, String userName, String userPassword) {
-		
-		
-		this.commandlineListItemImpl(commandResult, url, root, commPro, userName, userPassword);		
-		
-		Assert.assertTrue(ss.contains("trunjobWithCheckpoint"));
-		Assert.assertTrue(ss.contains("test"));
-		Assert.assertTrue(ss.contains("PROCESS"));
-		Assert.assertTrue(ss.contains("routines"));
-		
 		System.err.println("ss>>>"+ss);	
 
-		String commandDeleteItemResult = this.deleteItem();
-		System.err.println("commandDeleteItemResult>>>>>>>>"+commandDeleteItemResult);
-		int commandDeleteItemId = this.getCommandId(commandDeleteItemResult);
-		Assert.assertTrue(commandDeleteItemResult.contains(commandResult+" "+commandDeleteItemId));
-		this.commandlineGetCommandStatusImpl(commandDeleteItemId, WAIT_TIME);
-		
-		this.commandlineListItemImpl(commandResult, url, root, commPro, userName, userPassword);		
-		
-		Assert.assertFalse(ss.contains("trunjobWithCheckpoint"));
-		Assert.assertFalse(ss.contains("test"));
-		Assert.assertTrue(ss.contains("PROCESS"));
-		Assert.assertTrue(ss.contains("routines"));
-		
+		String commandExecuteAllJobWithFiltersResult = this.executeAllJobWithFilters("tRunJob");
+		System.err.println("commandExecuteAllJobWithFiltersResult>>>>>>>>"+commandExecuteAllJobWithFiltersResult);
+		int commandExecuteAllJobWithFiltersId = this.getCommandId(commandExecuteAllJobWithFiltersResult);
+		Assert.assertTrue(commandExecuteAllJobWithFiltersResult.contains(commandResult+" "+commandExecuteAllJobWithFiltersId));
+		this.commandlineGetCommandStatusImpl(commandExecuteAllJobWithFiltersId, WAIT_TIME*3);	
 	}
 	
+	public void commandlineListItemWithFiltersImpl(String commandResult
+			, String url, String root, String commPro, String userName, String userPassword) {
+		
+		this.commandlineListItemImpl(commandResult, url, root, commPro, userName, userPassword);
+		List<String> listCommandListItemResult = this.listItemWithFilters("version=2.0");
+		System.err.println("listCommandResult>>>>>>>>"+listCommandListItemResult);
+		
+		for(int i=0; i<listCommandListItemResult.size(); i++) {
+			
+			ss = ss+listCommandListItemResult.get(i);
+            System.err.println("i>>>>>>>>"+listCommandListItemResult.get(i));			
+			
+		}
+		System.err.println("ss>>>"+ss);	
+		Assert.assertTrue(ss.contains("tjava"));
+		Assert.assertTrue(ss.contains("tjavaWithMulripleCheckPoint"));
+	}
+	
+	public void commandlineListProjectAndReferenceImpl(String commandResult,String url, String root) {
+		
+		this.commandlineInitRemoteImpl(commandResult, url, root);
+		List<String> listCommandListProjectResult = this.listProjectAndReference();
+		System.err.println("listCommandResult>>>>>>>>"+listCommandListProjectResult);
+		
+		for(int i=0; i<listCommandListProjectResult.size(); i++) {
+			
+			ss = ss+listCommandListProjectResult.get(i);
+            System.err.println("i>>>>>>>>"+listCommandListProjectResult.get(i));			
+			
+		}
+		System.err.println("ss>>>"+ss);	
+	}
 }

@@ -130,12 +130,12 @@ public class CommandlineAction extends Commandline {
 		return cmd.command("executeJobOnServer "+jobName+" -es "+serverName+" -jv 2.0");
 	}
     	
-	public String executeRoute(String routeName){
+	public String executeRoute(String routeName) {
 		System.err.println("executeRoute "+routeName+" "+"-i "+this.getJDKPath());
 		return cmd.command("executeRoute "+routeName+" "+"-i "+this.getJDKPath());
 	}
 
-	public String exportRoute(String routeName, String path){
+	public String exportRoute(String routeName, String path) {
 		System.err.println("exportRoute "+routeName+" -dd "+path+" -af "+routeName);
 		return cmd.command("exportRoute "+routeName+" -dd "+path+" -af "+routeName);
 	}
@@ -143,27 +143,23 @@ public class CommandlineAction extends Commandline {
 	public String exportAllJobWithFilters(String path,String jobName) {
 		System.err.println("exportAllJob "+" -dd "+path+" -if label="+jobName);
 		return cmd.command("exportAllJob "+" -dd "+path+" -if label="+jobName);
-	}	
-
-	public String exportJobContainsSubjob(String jobName, String path){
-		System.err.println("exportJob "+jobName+" -dd "+path+"");
-		return cmd.command("exportJob "+jobName+" -dd "+path+"");
+	}
+	
+	public String executeAllJobWithFilters(String jobName) {
+		System.err.println("executeAllJob -i "+this.getJDKPath()+"-if label="+jobName);
+		return cmd.command("executeAllJob -i "+this.getJDKPath()+"-if label="+jobName);
+	}
+	
+	public List<String> listItemWithFilters(String expression) {
+		System.err.println("listItem -if "+expression);
+		return cmd.command("listItem -if "+expression, "talend>");
+	}
+	
+	public List<String> listProjectAndReference() {
+		System.err.println("listProject -b");
+		return cmd.command("listProject -b", "talend>");
 	}
 
-	public String startGroup(){
-		System.err.println("startGroup");
-		return cmd.command("startGroup");
-	}
-
-	public String stopGroup(){
-		System.err.println("stopGroup");
-		return cmd.command("stopGroup");
-	}
-
-	public String deleteItem(){
-		System.err.println("deleteItems");
-		return cmd.command("deleteItems");
-	}
 	
 	public boolean isCommandCompleted(int id) {
 		return this.getCommandStatus(id).contains("COMPLETED");
