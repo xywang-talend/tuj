@@ -12,10 +12,12 @@ import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 import org.testng.ITestContext;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
 
+import com.talend.tac.base.AntAction;
 import com.talend.tac.base.Base;
 
 public class Commandline extends Base{
@@ -249,5 +251,26 @@ public class Commandline extends Base{
 	
 	public List<String> command(String command, String end) {
 		return this.command(server, port, timeout, command, end);
+	}
+	
+	@BeforeSuite
+	@Parameters({"talendAllHome"})
+	public void beforeTestCommandline(String talendAllHome){
+		AntAction antAction = new AntAction();
+		Hashtable properties = new Hashtable();
+		
+		properties.put("talend-all.home", talendAllHome);
+		properties.put("commandline.port", port);
+		properties.put("commandline.ip", server);
+		Base base = new Base();
+		String filePath = base.getAbsolutePath("org/talend/tac/folder/libs/") + "telnet.jar";
+		
+		System.out.println("Jar Path -- " + filePath);
+		properties.put("jar.path", filePath);
+		
+		antAction.runTarget("Server.xml", "stop-commandline", properties);
+		
+		AntAction antAction2 = new AntAction();
+		antAction2.runTarget("Server.xml", "start-commandline", properties);
 	}
 }

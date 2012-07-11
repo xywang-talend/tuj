@@ -41,6 +41,7 @@
 	<!-- - - - - - - - - - - - - - - - - - 
           target: launch-commandline                     
          - - - - - - - - - - - - - - - - - -->
+	<!--
     <target name="launch-commandline" depends="os">
     	<if>
     		<isset property="is.windows"/>
@@ -67,13 +68,40 @@
     		</else>
     	</if>
     </target>
+	-->
+    <target name="launch-commandline">
+    	<echo>${talend-all.home}</echo>
+    	<echo>${commandline.port}</echo>
+    	<echo>${commandline.ip}</echo>
+		<java jar="${talend-all.home}/plugins/org.eclipse.equinox.launcher_1.1.0.v20100507.jar" 
+				fork="true" spawn="true">
+			<arg line="-nosplash"/>
+			<arg line="-application org.talend.commandline.CommandLine"/>
+			<arg line="-consoleLog"/>
+			<arg line="-data commandline-one-workspace startServer"/>
+			<arg line="-p ${commandline.port}"/>
+			<jvmarg line="-Xms64m -Xmx768m -XX:PermSize=512m -XX:MaxPermSize=512m"/>
+			</java>
+		<waitfor maxwait="10" maxwaitunit="minute"  >
+			<socket server="${commandline.ip}" port="${commandline.port}" />
+		</waitfor>
+    	<echo>---   ----- commandline.port - ${commandline.port}  is ok ----------</echo>
+    </target>
+	
+    <target name="start-commandline">
+		<echo>${basedir}</echo>
+        <java classname="com.talend.tac.base.AntCommmandline">
+        	<arg line="${talend-all.home} ${commandline.ip} ${commandline.port}"/>
+        </java>
+    </target> 
 	
 	<!-- - - - - - - - - - - - - - - - - - 
           target: stop-commandline                      
          - - - - - - - - - - - - - - - - - -->
     <target name="stop-commandline">
-    	<java jar="src/main/java/org/talend/tac/folder/libs/telnet.jar"
-    		dir="${talend-all.home}"
+    	<echo>${basedir}</echo>
+    	
+    	<java jar="${jar.path}"
     		fork="true" spawn="true">
 	    		<arg value="${commandline.ip}"/>
 	    		<arg value="${commandline.port}"/>
