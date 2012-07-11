@@ -1,8 +1,6 @@
 package com.talend.tac.base;
 
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -44,6 +42,10 @@ public class AntAction {
 		
 	}
 	
+	private String getProperty(String propertyName){
+		return project.getProperty(propertyName);
+	}
+	
 	public void runTarget(String file, String target, Hashtable properties){
 		this.init(file);
 		try {
@@ -69,7 +71,7 @@ public class AntAction {
 	}
 	
 	public void runTarget(String file, String target) {
-		this.runTarget(file, target, null);
+		this.runTarget(file, target, new Hashtable());
 	}
 	
 	public void runTarget(String file, Hashtable properties) {
@@ -77,6 +79,19 @@ public class AntAction {
 	}
 	
 	public void runTarget(String file){
-		this.runTarget(file, null, null);
+		this.runTarget(file, null, new Hashtable());
+	}
+	
+	public String runTarget(String file, String target, Hashtable properties, String getPropertyName){
+		this.runTarget(file, target, properties);
+		return this.getProperty(getPropertyName);
+	}
+
+	public String runTarget(String file, String target, String getPropertyName ) {
+		return this.runTarget(file, target, null, getPropertyName);
+	}
+	
+	public String runTarget(String file, Hashtable properties, String getPropertyName) {
+		return this.runTarget(file, null, properties, getPropertyName);
 	}
 }
