@@ -3,10 +3,12 @@ package org.talend.mdm.modules;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.talend.mdm.Base;
 import org.testng.Assert;
@@ -413,7 +415,50 @@ public class Record extends Base {
 		this.clickElementByXpath(this.getString(locator,"xpath.record.choose.delete.record", parameters));
 		this.sleepCertainTime(5000);
 	}
+	  private int compareDate(String d1,String d2){
 
+			String s1=d1.substring(0,4)+"-"+d1.substring(4,6)+"-"+d1.substring(6,8)+" "+d1.substring(9,d1.length());
+			String s2=d2.substring(0,4)+"-"+d2.substring(4,6)+"-"+d2.substring(6,8)+" "+d2.substring(9,d2.length());
+//			System.err.println(s1);
+//			System.err.println(s2);
+			java.text.DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			java.util.Calendar c1=java.util.Calendar.getInstance();
+			java.util.Calendar c2=java.util.Calendar.getInstance();
+			try
+			{
+			c1.setTime(df.parse(s1));
+			c2.setTime(df.parse(s2));
+			}catch(java.text.ParseException e){
+			System.err.println("wrong date formate with s1 or s2 ?");
+			}
+			int result=c1.compareTo(c2);
+			return result;
+	   }
+	public WebElement chooseLatestRecordInJournal(){
+		List<WebElement> a = this.getElementsByXpath("//td[contains(@class,'x-grid3-col x-grid3-cell x-grid3-td-6')]//div[contains(@class,'x-grid3-cell-inner x-grid3-col-6')]");
+		System.out.println("before:");
+		for(int i=0;i<a.size();i++){
+		System.out.println(this.getValue(a.get(i)));
+		}
+		for(int i=0;i<a.size()-1;i++){
+			for(int j=i+1;j<a.size();j++){
+				WebElement c=null;
+				if(compareDate(this.getValue(a.get(i)),this.getValue(a.get(j)))>0){
+					c=a.get(i);
+					a.set(i, a.get(j));
+					a.set(j,c);
+					c=null;
+				}
+			}
+		}
+		System.out.println("after:");
+		for(int i=0;i<a.size();i++){
+		System.out.println(this.getValue(a.get(i)));
+		}
+		System.err.println(this.getValue(a.get(a.size()-1)));
+		return a.get(a.size()-1);
+	}
+	
 	public void clickRecycle() {
 		this.clickElementByXpath(locator.getString("xpath.record.recycle.click.brower"));
 		this.sleepCertainTime(3000);
