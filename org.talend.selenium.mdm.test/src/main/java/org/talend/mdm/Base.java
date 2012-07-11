@@ -696,8 +696,6 @@ public class Base {
 	}
 	
 	public WebDriver setFirefox() {
-		System.setProperty("webdriver.firefox.bin.path", "D:/Program Files/Mozilla Firefox/firefox.exe");
-		
 		logger.warn("webdriver.firefox.bin.path = " + System.getProperty("webdriver.firefox.bin.path"));
 		if(null == System.getProperty("webdriver.firefox.bin.path") || "".equals(System.getProperty("webdriver.firefox.bin.path").trim()) || System.getProperty("webdriver.firefox.bin.path").trim().contains("webdriver.firefox.bin.path")) {
 		} else{
