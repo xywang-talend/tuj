@@ -42,6 +42,7 @@ public class RecordImplAgency extends Record{
 		chooseModle(modle);
 		clickSave();
 		chooseEntity(entity);
+		this.sleepCertainTime(3000);
 		this.clickElementByXpath(locator.getString("xpath.record.click.lastpage"));
 		this.sleepCertainTime(10000);
 		chooseRcord(entity,Identifie,IdentifieValue);
@@ -172,11 +173,12 @@ public class RecordImplAgency extends Record{
 	    openJournal(entity,IdentifieValue,OperationType,source);
 	    this.sleepCertainTime(5000);
 	    JournalCheckResult(IdentifieValue,OperationType);
-		this.sleepCertainTime(5000); 		 
+		this.sleepCertainTime(15000); 		 
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.city", cityOld)), WAIT_TIME_MIN));
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.State", stateOld)), WAIT_TIME_MIN));
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.Region",regionOld)), WAIT_TIME_MIN));
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.MoreInfo",moreinfoOld)), WAIT_TIME_MIN));
+		
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.city", city)), WAIT_TIME_MIN));
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.State", state)), WAIT_TIME_MIN));
 		Assert.assertTrue(this.isElementPresent(By.xpath(this.getString(locator,"xpath.record.ceate.Region",region)), WAIT_TIME_MIN));
