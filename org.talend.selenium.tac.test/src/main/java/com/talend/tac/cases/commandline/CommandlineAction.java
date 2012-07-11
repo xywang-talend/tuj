@@ -139,6 +139,12 @@ public class CommandlineAction extends Commandline {
 		System.err.println("exportRoute "+routeName+" -dd "+path+" -af "+routeName);
 		return cmd.command("exportRoute "+routeName+" -dd "+path+" -af "+routeName);
 	}
+	
+	public String exportAllJobWithFilters(String path,String jobName) {
+		System.err.println("exportAllJob "+" -dd "+path+" -if label="+jobName);
+		return cmd.command("exportAllJob "+" -dd "+path+" -if label="+jobName);
+	}
+	
 
 	
 	public boolean isCommandCompleted(int id) {

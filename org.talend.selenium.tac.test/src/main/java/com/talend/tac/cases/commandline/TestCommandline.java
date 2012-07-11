@@ -324,6 +324,16 @@ public class TestCommandline extends CommandlineImpls {
 		
 		this.commandlineExportRouteImpl(commandResult, url, root, commPro, userName, userPassword, exportPath);
 	}
+	
+	@Test
+	@Parameters({"commandResult", "url", "root", "addCommonProjectName", 
+		"userName", "userPassword","exportPath"})
+	public void testCommandlineExportAllJobWithFilters(String commandResult
+			, String url, String root, String commPro, String userName, String userPassword
+			,String exportPath) {
+		
+		this.commandlineExportAllJobWithFiltersImpl(commandResult, url, root, commPro, userName, userPassword, exportPath);
+	}
 
 }
 

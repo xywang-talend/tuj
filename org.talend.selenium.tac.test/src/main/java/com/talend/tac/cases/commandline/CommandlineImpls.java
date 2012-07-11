@@ -597,4 +597,23 @@ public class CommandlineImpls extends CommandlineAction {
 		
 	}
 	
+	public void commandlineExportAllJobWithFiltersImpl(String commandResult
+			, String url, String root, String commPro, String userName, String userPassword
+			,String exportPath) {
+		this.commandlineListJobImpl(commandResult, url, root, commPro, userName, userPassword);
+		System.err.println(this.getAbsolutePath(exportPath));
+		String ExportAllJobWithFilters = this.exportAllJobWithFilters(this.getAbsolutePath(exportPath),"test");
+		System.err.println("exportAllJob>>>"+ExportAllJobWithFilters);
+	
+		int commandExportAllJobWithFiltersId = this.getCommandId(ExportAllJobWithFilters);
+		Assert.assertTrue(ExportAllJobWithFilters.contains(commandResult+" "+commandExportAllJobWithFiltersId));
+		this.commandlineGetCommandStatusImpl(commandExportAllJobWithFiltersId, WAIT_TIME*2);
+				
+		LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(exportPath));
+		map.containsValue("test.zip");
+		properties.put("file.path", this.getAbsolutePath(exportPath)+"/test.zip");
+		new AntAction().runTarget("File.xml", "delete", properties);	
+		System.err.println("***********testCommandlineExportAllJobWithFilters finished***********");
+	}
+	
 }
