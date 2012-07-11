@@ -529,13 +529,42 @@ public class Base {
 				
 				String testlinkProject = System.getProperty("testlink.porject");
 				String testlinkId = System.getProperty("testlink.id");
+				String testlinkUrl =  System.getProperty("testlink.url")+"tprojectPrefix="+testlinkProject+"&item=testcase&id="+testlinkId;
+
+				StringBuffer sb = new StringBuffer();
+				List<String> infoList = new ArrayList<String>();
+				infoList.add("Container : " + this.getInfoButWithoutDefaultInfo(System.getProperty("container"), "default"));
+				infoList.add("Modle : " + this.getInfoButWithoutDefaultInfo(System.getProperty("modle"), "default"));
+				infoList.add("Entity : " + this.getInfoButWithoutDefaultInfo(System.getProperty("entity"), "default"));
+				String caseInfo = this.getCaseInfo(sb, infoList).toString();
+				
 				int id = Integer.parseInt(testlinkId.substring(testlinkProject.length()+1));
 				testCase.setId(id);
 				
 				testCase.setResult(result);
-				testCase.setNote(testCaseInfo + " !");
+				
+				String noteInfo = "- TestlinkID : " + testlinkUrl + "\n" + caseInfo + "\n - "  + testCaseInfo + " !";
+				testCase.setNote(noteInfo);
+				
 				testCase.setComment(testCaseInfo);
 				testcases.add(testCase);
+			}
+			
+			public StringBuffer getCaseInfo(StringBuffer sb, List<String> list){
+				for(String info : list){
+					if(info!=null){
+						sb.append("- " + info + "\n");
+					}
+				}
+				return sb;
+			}
+			
+			public String getInfoButWithoutDefaultInfo(String info, String defaultInfo){
+				if(info.contains(defaultInfo)){
+					return null;
+				}else{
+					return info;
+				}
 			}
 		}); 
 	}
@@ -609,9 +638,14 @@ public class Base {
 		return driver.manage().window().getSize().width;
 	}
 	
-	public WebDriver initWebdriver(String url, String root, String language, String country, String testlinkId, String testlinkProject ,ITestContext context){
+	public WebDriver initWebdriver(String url, String root, String language, String country, String testlinkId, String testlinkProject, String testlinkUrl,
+			String container, String modle, String entity, ITestContext context){
 		System.setProperty("testlink.id", testlinkId);
 		System.setProperty("testlink.porject", testlinkProject);
+		System.setProperty("testlink.url", testlinkUrl);
+		System.setProperty("container", container);
+		System.setProperty("modle", modle);
+		System.setProperty("entity", entity);
 		
 		currentLocale = new Locale(language, country); // set the locale that
 
@@ -644,7 +678,6 @@ public class Base {
 		return driver;
 	}
 	
-	
 	public WebDriver setWebDriver(Browser browser){
 		switch(browser) {
 			case iexplore: 
@@ -663,6 +696,8 @@ public class Base {
 	}
 	
 	public WebDriver setFirefox() {
+		System.setProperty("webdriver.firefox.bin.path", "D:/Program Files/Mozilla Firefox/firefox.exe");
+		
 		logger.warn("webdriver.firefox.bin.path = " + System.getProperty("webdriver.firefox.bin.path"));
 		if(null == System.getProperty("webdriver.firefox.bin.path") || "".equals(System.getProperty("webdriver.firefox.bin.path").trim()) || System.getProperty("webdriver.firefox.bin.path").trim().contains("webdriver.firefox.bin.path")) {
 		} else{

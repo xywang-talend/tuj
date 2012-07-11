@@ -29,11 +29,12 @@ public class Results {
         return document;
 	}
 	
-	public void crateXmlFile(Document document, String fileName) {
+	public void crateXmlFile(Document document, String fileName, boolean escapeText) {
         XMLWriter output;
         OutputFormat format = OutputFormat.createPrettyPrint();
         try {
             output = new XMLWriter(new FileWriter(fileName), format);
+            output.setEscapeText(escapeText);
             output.write(document);
             output.close();
         } catch (IOException e) {
