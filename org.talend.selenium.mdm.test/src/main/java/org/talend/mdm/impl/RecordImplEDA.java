@@ -37,7 +37,7 @@ public class RecordImplEDA extends Record{
 		enterJournal(entity,IdValue,OperationType,source);
 		JournalResultCount();
     }
-	public void testUpdateRecordDateImpl(String container,String modle,String entity,String IdValue,String date) {
+	public void testUpdateRecordDateImpl(String container,String modle,String entity,String IdValue,String date1,String date2) {
         OperationType="UPDATE";
         source="genericUI";
 		chooseContainer(container);	
@@ -47,13 +47,16 @@ public class RecordImplEDA extends Record{
 		this.sleepCertainTime(3000);
 		entity="Eda";
 		chooseRcord(entity, "idEda",IdValue);
-		this.typeTextByName("Eda/dateDebutEda", date);
+		
+		this.typeTextByName("Eda/dateDebutEda", date1);
+		this.typeTextByName("Eda/dateFinEda", date2);
 		
 		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
 		this.sleepCertainTime(10000);
 		 //assert
 		chooseRcord(entity, "idEda",IdValue);
-		Assert.assertEquals(this.getValueInput(By.name("Eda/dateDebutEda")),date);
+		Assert.assertEquals(this.getValueInput(By.name("Eda/dateDebutEda")),date1);
+		Assert.assertEquals(this.getValueInput(By.name("Eda/dateFinEda")),date2);
 		enterJournal(entity,IdValue,OperationType,source);
 		JournalResultCount();
     }
