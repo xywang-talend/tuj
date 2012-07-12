@@ -643,12 +643,13 @@ public class Base {
 	
 	public WebDriver initWebdriver(String url, String root, String language, String country, String testlinkId, String testlinkProject, String testlinkUrl,
 			String container, String modle, String entity, ITestContext context){
-		System.setProperty("testlink.id", testlinkId);
-		System.setProperty("testlink.porject", testlinkProject);
-		System.setProperty("testlink.url", testlinkUrl);
-		System.setProperty("container", container);
-		System.setProperty("modle", modle);
-		System.setProperty("entity", entity);
+		
+		this.setProerty("testlink.id", testlinkId);
+		this.setProerty("testlink.porject", testlinkProject);
+		this.setProerty("testlink.url", testlinkUrl);
+		this.setProerty("container", container);
+		this.setProerty("modle", modle);
+		this.setProerty("entity", entity);
 		
 		currentLocale = new Locale(language, country); // set the locale that
 
@@ -728,5 +729,11 @@ public class Base {
 	public void killBroswer() {
 		driver.quit();
 		logger.warn("WebDriver Quit");
+	}
+	
+	public void setProerty(String key, String value){
+		if(value!=null && !"".equals(value)){
+			System.setProperty(key, value);
+		}
 	}
 }
