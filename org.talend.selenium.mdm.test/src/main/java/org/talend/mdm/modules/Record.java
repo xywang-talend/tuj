@@ -10,6 +10,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import org.talend.mdm.Base;
 import org.testng.Assert;
 
@@ -403,7 +404,12 @@ public class Record extends Base {
 	public void closeDatachangesViewer() {
 		this.clickElementByXpath(locator.getString("xpath.datachangesviewer.tab.close"));
 	}
-
+    
+	public void setLanguage(String language){
+		Select select = new Select(driver.findElement(By.xpath(locator.getString("xpath.language.selection"))));
+		select.selectByVisibleText(language);
+	}
+	
 	public void closeDataBrowser() {
 		this.clickElementByXpath(locator.getString("xpath.databrowser.tab.close"));
 	}

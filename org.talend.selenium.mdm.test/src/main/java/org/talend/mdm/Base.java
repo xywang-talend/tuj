@@ -49,7 +49,9 @@ public class Base {
 	public ResourceBundle rb = ResourceBundle.getBundle("org.talend.mdm.resources.messages",currentLocale);
 	
 	public ResourceBundle other = ResourceBundle.getBundle("org.talend.mdm.resources.other",currentLocale);
-	public ResourceBundle locator = ResourceBundle.getBundle("org.talend.mdm.resources.locator",currentLocale);
+	public ResourceBundle locatoren = ResourceBundle.getBundle("org.talend.mdm.resources.locator",currentLocale);
+	public ResourceBundle locatorfr = ResourceBundle.getBundle("org.talend.mdm.resources.locatorfr",currentLocale);
+	public ResourceBundle locator = locatoren;
 	
 	public enum Browser{
 		firefox,iexplore

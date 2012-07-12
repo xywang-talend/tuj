@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="SocieteCliente Record" parallel="false">
+    <parameter name="container" value="RTE-RAP" />
+	<parameter name="modle" value="RTE-RAP" />
+    <parameter name="user.name" value="jennifer" />
+	<parameter name="user.password" value="jennifer" />
+    <parameter name="entity" value="[FR:02_Contrat]" /> 	        
+    <parameter name="entity_name" value="Contrat" /> 	        
+    <parameter name="primarykey.name"  value="numeroContrat" />
+    <parameter name='language.france' value='Francais'/>
+    <parameter name='language.english' value='English'/>
+   
+         <test name="test browse contrats record by search" >
+       <parameter name="testlink.id" value="TMDMQA-5882"/>
+	    <classes>
+	    <parameter name="primarykey.value"  value="BNPPARIBAS_AA" />
+	    <parameter name="numeroContratExterne"  value="AA_1111_1111" />
+		    <class name="org.talend.mdm.cases.record.TestRecordContrat">
+				<methods>				 	           
+		           <include name="testBrowseContratRecordBySearch"/>        
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
+  
+         <test name="test browse contrats in french" >
+       <parameter name="testlink.id" value="TMDMQA-5887"/>
+       <parameter name="primarykey.name"  value="Numéro de Contrat GRC" />
+       <parameter name="entity" value="02_Contrat" /> 
+	    <classes>
+	    <parameter name="primarykey.value"  value="BNPPARIBAS_AA" />
+	    <parameter name="numeroContratExterne"  value="AA_1111_1111" />
+		    <class name="org.talend.mdm.cases.record.TestRecordContrat">
+				<methods>				 	           
+		           <include name="testBrowseContratRecordInFrench"/>        
+		        </methods>
+		    </class>
+	    </classes>
+  </test> 
+   
+</suite>
