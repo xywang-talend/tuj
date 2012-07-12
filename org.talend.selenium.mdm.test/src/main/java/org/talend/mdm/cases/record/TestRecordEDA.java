@@ -21,8 +21,8 @@ public class TestRecordEDA extends Login {
 	}
 	
 	@Test
-	@Parameters( { "container","modle","entity","IdValue","date"})
-	public void testUpdateRecordDate(String container,String modle,String entity,String IdValue,String date) {
-		recordImpl.testUpdateRecordDateImpl(container, modle, entity,IdValue,date);
+	@Parameters( { "container","modle","entity","IdValue","date1","date2"})
+	public void testUpdateRecordDate(String container,String modle,String entity,String IdValue,String date1,String date2) {
+		recordImpl.testUpdateRecordDateImpl(container, modle, entity,IdValue,date1,date2);
 	}
 }
