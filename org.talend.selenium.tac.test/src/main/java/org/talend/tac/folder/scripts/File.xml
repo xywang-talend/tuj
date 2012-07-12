@@ -38,4 +38,29 @@
     <target name="modify">
     	<echo append="true" file="${file.path}">Hello!</echo>
     </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: unzip                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="unzip">
+    	<unzip dest="${unzip.to.dir}" src="${zip.file}"/>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: check-file-context
+         - - - - - - - - - - - - - - - - - -->
+    <target name="check-file-context">
+    	<loadfile property="file" srcfile="${file.path}"/>
+    	
+    	<for param="line" list="${file}" delimiter="${line.separator}">
+	      <sequential>
+	        <echo>@{line}</echo>
+	    	<condition property="is.match">
+	    		<matches pattern="${context.pattern}" string="@{line}"/>
+	    	</condition>
+	      	<echo>----------- ${is.match} ----------</echo>
+	      </sequential>
+	    </for>    
+    </target>
+
 </project>

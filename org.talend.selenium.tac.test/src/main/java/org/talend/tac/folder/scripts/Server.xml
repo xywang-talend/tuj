@@ -39,6 +39,38 @@
 
 	
 	<!-- - - - - - - - - - - - - - - - - - 
+          target: launch-zookeeper                   
+         - - - - - - - - - - - - - - - - - -->
+    <target name="server-launcher" depends="os">
+    	<if>
+    		<isset property="is.windows"/>
+    		<then>
+    			<exec executable="cmd" dir="${server.home}"
+    				spawn="true">
+    				<arg value="/c"/>
+					<arg value="${command}"/>
+					<arg value="${action}"/>
+    			</exec>
+    			<echo>${server.home}</echo>
+    			<echo>${command}</echo>
+    			<echo>${action}</echo>
+    		</then>
+    		
+    		<else>
+    			<exec executable="sh" dir="${server.home}"
+    				spawn="true">
+    				<arg value="-c"/>
+    				<arg line="sh ${command} ${action}"/>
+    			</exec>
+    			<echo>${server.home}</echo>
+    			<echo>${command}</echo>
+    			<echo>${action}</echo>
+    		</else>
+    	</if>
+    </target>
+	
+	
+	<!-- - - - - - - - - - - - - - - - - - 
           target: launch-commandline                     
          - - - - - - - - - - - - - - - - - -->
 	<!--
