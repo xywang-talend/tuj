@@ -241,6 +241,7 @@ public class Base {
 	}
 	
 	public void typeTextByName(String name, String text) {
+		this.getElementByName(name).clear();
 		 this.getElementByName(name).sendKeys(text);
 	}
 	
