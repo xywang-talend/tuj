@@ -1,6 +1,10 @@
 package org.talend.mdm.impl;
 
+import java.io.File;
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -107,7 +111,7 @@ public class SocieteClienteImpl extends Record{
 	}
 	
 	public void journalExportAllRecordToExcel(String container,String modle,String entity,String entityName,String keyName,String nom1Grc,String nom2Grc,String codeDecomptes,String codeEic){
-		/*chooseContainer(container);	
+		chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();
 		chooseEntity(entity);	
@@ -124,15 +128,30 @@ public class SocieteClienteImpl extends Record{
 		this.sleepCertainTime(5000);
 		this.enterJournal(entityName, "", OperationType, source);
 	    this.sleepCertainTime(5000);
-	    Assert.assertTrue(this.getTotalJournalRecordNum()>=25);
-	    this.clickElementByXpath(locator.getString("xpath.record.journal.export.button"));*/
+	    int jouranlCount = this.getTotalJournalRecordNum();
+	    Assert.assertTrue(jouranlCount>=25);
+	    this.clickElementByXpath(locator.getString("xpath.record.journal.export.button"));
 	    this.sleepCertainTime(10000);
 	    JExcel excel = new JExcel();
 	    logger.warn(SocieteClienteImpl.class.getClassLoader().getResource("org/talend/mdm/download").getPath());
 	    logger.warn(Base.class.getClassLoader().getResource("org/talend/mdm/download").getPath());
+	    String dateString ="";
+		dateString=this.getNowTime("dd-MM-yyyy");
+		String fileName = "Journal_"+dateString+".xls";
+	    excel.getWorkbook(this.getAbsoluteFolderPath("org/talend/mdm/download/"+fileName));
+	    int exportCount = excel.getSheetgetRows(excel.getSheets()[0]);
+	    Assert.assertTrue(exportCount>=25);
+	    Assert.assertTrue(exportCount==jouranlCount);
+	    logger.warn(excel.getSheets()[0]);
+	    logger.warn(excel.getSheets().length);
+	    excel.closeWorkBook();
+	    File file = null;
+		file = new File(this.getAbsoluteFolderPath("org/talend/mdm/download/"+fileName));
+		if(file.exists()){
+			file.delete();
+		}
 	    
-	    excel.getWorkbook(this.getAbsoluteFolderPath("org/talend/mdm/download"));
-	    logger.warn(excel.getSheets());
+	    
 	}
 	
 }
