@@ -160,6 +160,11 @@ public class CommandlineAction extends Commandline {
 		return cmd.command("listProject -b", "talend>");
 	}
 
+	public String deleteItem(){
+		System.err.println("deleteItems");
+		return cmd.command("deleteItems");
+	}
+
 	public String creatJob(String path){
 		System.err.println("createJob jsJob -sf "+path);
 		return cmd.command("createJob jsJob -sf "+path);

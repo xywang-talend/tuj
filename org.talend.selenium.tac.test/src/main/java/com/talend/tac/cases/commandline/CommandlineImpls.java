@@ -697,7 +697,7 @@ public class CommandlineImpls extends CommandlineAction {
 			
 		}
 		System.err.println("ss1>>>"+ss1);	
-		Assert.assertTrue(ss1.contains("jdGenerateJob"));	
+		Assert.assertTrue(ss1.contains("jsJob"));	
 		
 	}
 
@@ -716,16 +716,115 @@ public class CommandlineImpls extends CommandlineAction {
 		Assert.assertTrue(ss.contains("tt"));
 		Assert.assertTrue(ss.contains("trunjobWithCheckpoint"));
 
-		String commandexportJobContainsSubjobResult = this.exportJobContainsSubjob("tjava", this.getAbsolutePath(path));
+		String commandexportJobContainsSubjobResult = this.exportJobContainsSubjob("tRunJob", this.getAbsolutePath(path));
 		System.err.println("commandexportJobContainsSubjobResult>>>>>>>>"+commandexportJobContainsSubjobResult);
 		int commandexportJobContainsSubjobId = this.getCommandId(commandexportJobContainsSubjobResult);
 		Assert.assertTrue(commandexportJobContainsSubjobResult.contains(commandResult+" "+commandexportJobContainsSubjobId));
 		this.commandlineGetCommandStatusImpl(commandexportJobContainsSubjobId, WAIT_TIME*3);
-		LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(path));
-		Assert.assertTrue(map.containsValue("tjava.zip"));
-//		properties.put("file.path", this.getAbsolutePath(path)+"/tjava.zip");
-//		new AntAction().runTarget("File.xml", "delete", properties);	
+		properties.put("unzip.to.dir", this.getAbsolutePath(path)+"/tRunJob.zip");
+		new AntAction().runTarget("File.xml", "available_file", properties);	
+		properties.put("zip.file", this.getAbsolutePath(path)+"/tRunJob.zip");
+		properties.put("unzip.to.dir", this.getAbsolutePath(path)+"unzip");
+		new AntAction().runTarget("File.xml", "unzip", properties);	
 			
+		properties.put("server.home", this.getAbsolutePath(path)+"unzip/tRunJob");
+		properties.put("command", "tRunJob_run");
+		properties.put("action", " > tRunJob.log");
+		new AntAction().runTarget("Server.xml", "server-launcher", properties);			
+		
+		properties.put("file.path", this.getAbsolutePath(path)+"unzip/tRunJob/tRunJob.log");
+		properties.put("context.pattern", "JackZhang");
+		
+		String isMatch = new AntAction().runTarget("File.xml", "check-file-context", properties, "is.match");
+		System.out.println("IsMatch - " + isMatch);
+		
+		Assert.assertTrue("true".equals(isMatch));
+		
+		properties.put("file.path", this.getAbsolutePath(path)+"/tRunJob.zip");
+		new AntAction().runTarget("File.xml", "delete", properties);
+		this.delFolder(this.getAbsolutePath(path)+"unzip");
+		
+	}
+	
+
+	public void commandlineExportJobAndExecuteImpl(String commandResult
+			, String url, String root, String commPro, String userName, String userPassword
+			, String path) {
+		
+		
+		this.commandlineListJobImpl(commandResult, url, root, commPro, userName, userPassword);	
+		
+		Assert.assertTrue(ss.contains("generateBigLogs"));
+		Assert.assertTrue(ss.contains("refJobByMaintRunJobRun"));
+		Assert.assertTrue(ss.contains("tRunJob"));
+		Assert.assertTrue(ss.contains("tjavaWithMulripleCheckPoint"));
+		Assert.assertTrue(ss.contains("tjava"));
+		Assert.assertTrue(ss.contains("tt"));
+		Assert.assertTrue(ss.contains("trunjobWithCheckpoint"));
+
+		String commandexportJobContainsSubjobResult = this.exportJobContainsSubjob("tRunJob", this.getAbsolutePath(path));
+		System.err.println("commandexportJobContainsSubjobResult>>>>>>>>"+commandexportJobContainsSubjobResult);
+		int commandexportJobContainsSubjobId = this.getCommandId(commandexportJobContainsSubjobResult);
+		Assert.assertTrue(commandexportJobContainsSubjobResult.contains(commandResult+" "+commandexportJobContainsSubjobId));
+		this.commandlineGetCommandStatusImpl(commandexportJobContainsSubjobId, WAIT_TIME*3);
+		properties.put("unzip.to.dir", this.getAbsolutePath(path)+"/tjavaWithMulripleCheckPoint.zip");
+		new AntAction().runTarget("File.xml", "available_file", properties);	
+		properties.put("zip.file", this.getAbsolutePath(path)+"/tjavaWithMulripleCheckPoint.zip");
+		properties.put("unzip.to.dir", this.getAbsolutePath(path)+"unzip");
+		new AntAction().runTarget("File.xml", "unzip", properties);	
+			
+		properties.put("server.home", this.getAbsolutePath(path)+"unzip/tjavaWithMulripleCheckPoint");
+		properties.put("command", "tjavaWithMulripleCheckPoint_run");
+		properties.put("action", " > tjavaWithMulripleCheckPoint.log");
+		new AntAction().runTarget("Server.xml", "server-launcher", properties);			
+		
+		properties.put("file.path", this.getAbsolutePath(path)+"unzip/tjavaWithMulripleCheckPoint/tjavaWithMulripleCheckPoint.log");
+		properties.put("context.pattern", "the first checkpoint");
+		
+		String isMatch = new AntAction().runTarget("File.xml", "check-file-context", properties, "is.match");
+		System.out.println("IsMatch - " + isMatch);
+		
+		Assert.assertTrue("true".equals(isMatch));
+		
+		properties.put("file.path", this.getAbsolutePath(path)+"/tjavaWithMulripleCheckPoint.zip");
+		new AntAction().runTarget("File.xml", "delete", properties);
+		this.delFolder(this.getAbsolutePath(path)+"unzip");
+		
+	}
+
+	public void commandlineDeleteItemImpl(String commandResult
+			, String url, String root, String commPro, String userName, String userPassword) {
+		
+		
+		this.commandlineListItemImpl(commandResult, url, root, commPro, userName, userPassword);		
+		
+		Assert.assertTrue(ss.contains("trunjobWithCheckpoint"));
+		Assert.assertTrue(ss.contains("test"));
+		Assert.assertTrue(ss.contains("PROCESS"));
+		Assert.assertTrue(ss.contains("routines"));
+		
+		System.err.println("ss>>>"+ss);	
+
+		String commandDeleteItemResult = this.deleteItem();
+		System.err.println("commandDeleteItemResult>>>>>>>>"+commandDeleteItemResult);
+		int commandDeleteItemId = this.getCommandId(commandDeleteItemResult);
+		Assert.assertTrue(commandDeleteItemResult.contains(commandResult+" "+commandDeleteItemId));
+		this.commandlineGetCommandStatusImpl(commandDeleteItemId, WAIT_TIME);
+		
+		String ss1 = "";
+		List<String> commandListItemResultInfo = this.listItem();		
+		for(int i=0; i<commandListItemResultInfo.size(); i++) {
+			
+			ss1 = ss1+commandListItemResultInfo.get(i);
+            System.err.println("i>>>>>>>>"+commandListItemResultInfo.get(i));			
+			
+		}		
+		
+		Assert.assertFalse(ss.contains("trunjobWithCheckpoint"));
+		Assert.assertFalse(ss.contains("test"));
+		Assert.assertTrue(ss.contains("PROCESS"));
+		Assert.assertTrue(ss.contains("routines"));
+		
 	}
 	
 }
