@@ -83,12 +83,12 @@ public class CommandlineImpls extends CommandlineAction {
 		this.commandlineGetCommandStatusImpl(commandExportAllJobId, WAIT_TIME*2);
 		
 		LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(exportPath));
-		map.containsValue("generateBigLogs.zip");
-		map.containsValue("refJobByMaintRunJobRun.zip");
-		map.containsValue("tjava.zip");
-		map.containsValue("tjavaWithMulripleCheckPoint.zip");
-		map.containsValue("tRunJob.zip");
-		map.containsValue("trunjobWithCheckpoint.zip");
+		Assert.assertTrue(map.containsValue("generateBigLogs.zip"));
+		Assert.assertTrue(map.containsValue("refJobByMaintRunJobRun.zip"));
+		Assert.assertTrue(map.containsValue("tjava.zip"));
+		Assert.assertTrue(map.containsValue("tjavaWithMulripleCheckPoint.zip"));
+		Assert.assertTrue(map.containsValue("tRunJob.zip"));
+		Assert.assertTrue(map.containsValue("trunjobWithCheckpoint.zip"));
 		properties.put("file.path", this.getAbsolutePath(exportPath)+"/generateBigLogs.zip");
 		new AntAction().runTarget("File.xml", "delete", properties);	
 		properties.put("file.path", this.getAbsolutePath(exportPath)+"/refJobByMaintRunJobRun.zip");
@@ -207,7 +207,8 @@ public class CommandlineImpls extends CommandlineAction {
 		Assert.assertTrue(exportItemsResult.contains(commandResult+" "+commandExportItemsResultId));
 	    this.commandlineGetCommandStatusImpl(commandExportItemsResultId, WAIT_TIME);
 	    LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(exportPath));
-		map.containsValue("REFERENCEPRO");
+	    properties.put("file.path", this.getAbsolutePath(exportPath)+"/REFERENCEPRO");
+		new AntAction().runTarget("File.xml", "available_dir", properties);
 		this.delFolder(this.getAbsolutePath(exportPath+"/REFERENCEPRO"));		
 	
 	}
@@ -481,7 +482,7 @@ public class CommandlineImpls extends CommandlineAction {
 		Assert.assertTrue(exportJobResult.contains(commandResult+" "+commandExportJobResultId));
 	    this.commandlineGetCommandStatusImpl(commandExportJobResultId, WAIT_TIME);
 	    LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(exportPath));
-		map.containsValue("tjavaWithMulripleCheckPoint.zip");
+		Assert.assertTrue(map.containsValue("tjavaWithMulripleCheckPoint.zip"));
 		properties.put("file.path", this.getAbsolutePath(exportPath)+"/tjavaWithMulripleCheckPoint.zip");
 		new AntAction().runTarget("File.xml", "delete", properties);		
 	
@@ -592,7 +593,7 @@ public class CommandlineImpls extends CommandlineAction {
 		Assert.assertTrue(commandExportRouteResult.contains(commandResult+" "+commandExportRouteId));
 		this.commandlineGetCommandStatusImpl(commandExportRouteId, WAIT_TIME*3);
 		LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(exportPath));
-		map.containsValue("test.zip");
+		Assert.assertTrue(map.containsValue("test.zip"));
 		properties.put("file.path", this.getAbsolutePath(exportPath)+"test.zip");
 		new AntAction().runTarget("File.xml", "delete", properties);
 		
@@ -604,16 +605,16 @@ public class CommandlineImpls extends CommandlineAction {
 		
 		this.commandlineListJobImpl(commandResult, url, root, commPro, userName, userPassword);
 		System.err.println(this.getAbsolutePath(exportPath));
-		String ExportAllJobWithFilters = this.exportAllJobWithFilters(this.getAbsolutePath(exportPath),"test");
+		String ExportAllJobWithFilters = this.exportAllJobWithFilters(this.getAbsolutePath(exportPath),"tjava");
 		System.err.println("exportAllJob>>>"+ExportAllJobWithFilters);
 	
 		int commandExportAllJobWithFiltersId = this.getCommandId(ExportAllJobWithFilters);
 		Assert.assertTrue(ExportAllJobWithFilters.contains(commandResult+" "+commandExportAllJobWithFiltersId));
 		this.commandlineGetCommandStatusImpl(commandExportAllJobWithFiltersId, WAIT_TIME*2);
 				
-		LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(exportPath));
-		map.containsValue("test.zip");
-		properties.put("file.path", this.getAbsolutePath(exportPath)+"/test.zip");
+		properties.put("file.path", this.getAbsolutePath(exportPath)+"/tjava.zip");
+		new AntAction().runTarget("File.xml", "available_file", properties);
+		properties.put("file.path", this.getAbsolutePath(exportPath)+"/tjava.zip");
 		new AntAction().runTarget("File.xml", "delete", properties);	
 		System.err.println("***********testCommandlineExportAllJobWithFilters finished***********");
 	}
@@ -669,4 +670,35 @@ public class CommandlineImpls extends CommandlineAction {
 		}
 		System.err.println("ss>>>"+ss);	
 	}
+	
+
+	public void commandlineCreatJobImpl(String commandResult
+			, String url, String root, String commPro, String userName,
+			String userPassword, String path) {
+		
+		
+		this.commandlineListJobImpl(commandResult, url, root, commPro, userName, userPassword);		
+		System.err.println("ss>>>"+ss);	
+
+		Assert.assertFalse(ss.contains("jdGenerateJob"));		
+		
+		String commandCreatJobResult = this.creatJob(this.getAbsolutePath(path)+"/jdGenerateJob_0.1.jobscript");
+		System.err.println("commandCreatJobResult>>>>>>>>"+commandCreatJobResult);
+		int commandCreatJobId = this.getCommandId(commandCreatJobResult);
+		Assert.assertTrue(commandCreatJobResult.contains(commandResult+" "+commandCreatJobId));
+		this.commandlineGetCommandStatusImpl(commandCreatJobId, WAIT_TIME);
+		
+		String ss1 = "";
+		List<String> commandListItemResultInfo = this.listItem();		
+		for(int i=0; i<commandListItemResultInfo.size(); i++) {
+			
+			ss1 = ss1+commandListItemResultInfo.get(i);
+            System.err.println("i>>>>>>>>"+commandListItemResultInfo.get(i));			
+			
+		}
+		System.err.println("ss1>>>"+ss1);	
+		Assert.assertTrue(ss1.contains("jdGenerateJob"));	
+		
+	}
+	
 }

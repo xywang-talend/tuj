@@ -369,6 +369,17 @@ public class TestCommandline extends CommandlineImpls {
 
 	}
 
+	@Test
+	@Parameters({"commandResult", "url", "root", "projectName", 
+		"userName", "userPassword", "importItemtsPath"})
+	public void testCommandlineCreatJob(String commandResult
+			, String url, String root,  String project, 
+			String userName, String userPassword, String path) {
+		
+		this.commandlineCreatJobImpl(commandResult, url, root, project, userName, userPassword, path);		
+
+	}	
+
 }
 
 

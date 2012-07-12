@@ -160,6 +160,10 @@ public class CommandlineAction extends Commandline {
 		return cmd.command("listProject -b", "talend>");
 	}
 
+	public String creatJob(String path){
+		System.err.println("createJob jsJob -sf "+path);
+		return cmd.command("createJob jsJob -sf "+path);
+	}
 	
 	public boolean isCommandCompleted(int id) {
 		return this.getCommandStatus(id).contains("COMPLETED");
