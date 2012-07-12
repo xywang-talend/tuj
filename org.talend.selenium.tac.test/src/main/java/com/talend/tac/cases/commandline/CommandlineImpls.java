@@ -798,8 +798,8 @@ public class CommandlineImpls extends CommandlineAction {
 		
 		this.commandlineListItemImpl(commandResult, url, root, commPro, userName, userPassword);		
 		
-		Assert.assertTrue(ss.contains("trunjobWithCheckpoint"));
-		Assert.assertTrue(ss.contains("test"));
+		Assert.assertTrue(ss.contains("tjavaWithMulripleCheckPoint"));
+		Assert.assertTrue(ss.contains("tjava"));
 		Assert.assertTrue(ss.contains("PROCESS"));
 		Assert.assertTrue(ss.contains("routines"));
 		
@@ -820,10 +820,9 @@ public class CommandlineImpls extends CommandlineAction {
 			
 		}		
 		
-		Assert.assertFalse(ss.contains("trunjobWithCheckpoint"));
-		Assert.assertFalse(ss.contains("test"));
-		Assert.assertTrue(ss.contains("PROCESS"));
-		Assert.assertTrue(ss.contains("routines"));
+		Assert.assertFalse(ss1.contains("tjavaWithMulripleCheckPoint"));
+		Assert.assertFalse(ss1.contains("tjava"));
+		Assert.assertTrue(ss1.contains("routines"));
 		
 	}
 	

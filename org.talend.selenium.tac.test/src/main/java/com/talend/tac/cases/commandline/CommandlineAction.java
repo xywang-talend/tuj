@@ -146,8 +146,8 @@ public class CommandlineAction extends Commandline {
 	}
 	
 	public String executeAllJobWithFilters(String jobName) {
-		System.err.println("executeAllJob -i "+this.getJDKPath()+"-if label="+jobName);
-		return cmd.command("executeAllJob -i "+this.getJDKPath()+"-if label="+jobName);
+		System.err.println("executeAllJob -i "+this.getJDKPath()+" -if label="+jobName);
+		return cmd.command("executeAllJob -i "+this.getJDKPath()+" -if label="+jobName);
 	}
 	
 	public List<String> listItemWithFilters(String expression) {
