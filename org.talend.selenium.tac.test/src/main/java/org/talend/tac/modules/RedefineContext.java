@@ -97,7 +97,7 @@ public class RedefineContext extends WebDriverBase {
        
        public void defineContext(String label,String variableName,String variableValue) {
     	   Robot bot;
-		try {
+		   try {
 		   bot = new Robot();
 		   this.waitforElementDisplayed(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MIN);
 		   this.mouseDown("//div[text()='" + label + "']");
@@ -164,6 +164,7 @@ public class RedefineContext extends WebDriverBase {
        }
        
        public void deleteUndeployedConductorOk(String label) {
+    	   this.waitforElementDisplayed(By.xpath("//div[text()='" + label + "']"), WAIT_TIME_MIN);
     	   this.mouseDown("//div[text()='" + label + "']");
     	   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridDeleteButton']"), WAIT_TIME_MIN);
     	   this.getElementById("idESBConductorTaskGridDeleteButton").click();        	   
@@ -178,7 +179,6 @@ public class RedefineContext extends WebDriverBase {
     	   this.mouseDown("//div[text()='" + label + "']");
     	   this.mouseDown(other.getString("ESBConductor.ConfigProperties.Value"));
     	   this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorPropertyDeleteButton']"), WAIT_TIME_MIN);
-    	//   this.getElementById("idESBConductorPropertyDeleteButton").click();
     	   this.clickElementById("idESBConductorPropertyDeleteButton");
            this.dismissAlert(); 
        }

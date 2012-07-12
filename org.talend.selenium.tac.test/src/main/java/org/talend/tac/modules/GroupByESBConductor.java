@@ -61,6 +61,7 @@ public class GroupByESBConductor extends WebDriverBase {
 	public void addEsbConductor(String label, String des, String repository,
 			String group, String artifact, String version, String name, String type, 
 			String context, String server,String tag,int times) {
+//		this.clickElementById("idESBConductorTaskGridRefreshButton");
 		this.getElementById("idESBConductorTaskGridAddButton").click();
         this.isElementPresent(By.xpath("//img[@class='gwt-Image" +
 				" x-component ']"), WAIT_TIME_MAX);
@@ -74,14 +75,9 @@ public class GroupByESBConductor extends WebDriverBase {
         this.waitforElementDisplayed(By.xpath("//div[text()='"+repository+"'and @role='listitem']"), WAIT_TIME_MAX);
         getElementByXpath("//div[text()='"+repository+"'and @role='listitem']").click();
 		this.getElementByXpath("//span[text()='" + group + "']").click();
-		this.getElementByXpath("//div[text()='" + artifact + "']")
-			.click();
+		this.getElementByXpath("//div[text()='" + artifact + "']").click();
 		this.getElementByXpath("//div[text()='" + version + "']").click();
 		this.getElementByXpath("//button[text()='OK']").click();
-        this.selectDropDownList("Name:","idTaskProjectListBox", name);
-        this.selectDropDownList("Type:","idJobConductorExecutionServerListBox", type);
-        this.selectDropDownList("Context:","idESBConductorTaskContextListBox", context);
-        logger.info("select context");
         this.selectDropDownList("Server:","idJobConductorExecutionServerListBox", server);
         logger.info("select server");
         if(times==0) {
@@ -90,8 +86,14 @@ public class GroupByESBConductor extends WebDriverBase {
         else {
 			this.selectDropDownListByClickArrow("//input[@id='idESBConductorApplicationGroupListBox']/following-sibling::div", tag, "x-combo-list-item");
         }
-        this.getElementById("idFormSaveButton").click();      
+        this.getElementById("idFormSaveButton").click();  
+
 		
+         try {
+ 			Thread.sleep(3000);
+ 		 } catch (InterruptedException e) {
+ 			e.printStackTrace();
+ 		 }
 	}
 	
 	public void groupESBConductor() {

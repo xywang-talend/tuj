@@ -38,14 +38,8 @@ public class DeployESBConductor extends WebDriverBase{
 			this.mouseDown("//div[text()='"+label+"']");
 			this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridUndeployButton']"), WAIT_TIME_MIN);
 		    this.getElementById("idESBConductorTaskGridUndeployButton").click();	
-//			this.clickElementById("idESBConductorTaskGridUndeployButton");
 			this.acceptAlert();		
-			try {
-				Thread.sleep(2000);
-				this.waitforTextDisplayed(promptInfo, 20);
-			} catch (InterruptedException e) {		
-				e.printStackTrace();
-			}			
+			this.waitforTextDisplayed(promptInfo, WAIT_TIME_MIN);		
 			this.getElementById("idESBConductorTaskGridRefreshButton").click();
 			this.clickElementById("idESBConductorTaskGridRefreshButton");	
 			this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']" +

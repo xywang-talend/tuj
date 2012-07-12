@@ -22,16 +22,16 @@ public class TestSortAsendAndDescenESBConductor extends WebdriverLogin {
 	/*add esbconductor of service*/
 	@Test
 	@Parameters({"labelOfService_1","labelOfService_2","labelOfService_3", "desOfService", "repository", "group", "artifact",
-		"version", "name", "type", "context", "serverOfRuntime","tag_1","tag_2"})
+		"version", "name", "type", "context", "serverOfRuntime","tag_1","tag_2","tag_3"})
 	public void testSortESBConductor(String label1,String label2,String label3, String des, String repository,
 			String group, String artifact, String version, String name, String type, 
-			String context, String server,String tagA, String tagB) {
+			String context, String server,String tagA, String tagB,String tagC) {
 		groupByESBConductorImpl.addESBConductors(label1, des, repository, group, artifact, version,
 				name, type, context, server,tagA,0);
 		groupByESBConductorImpl.addESBConductors(label2, des, repository, group, artifact, version, 
 				name, type, context, server, tagB, 0);
 		groupByESBConductorImpl.addESBConductors(label3, des, repository, group, artifact, version,
-				name, type, context, server, tagB, 0);
+				name, type, context, server, tagC, 0);
 		groupByESBConductorImpl.SortESBConductor(label3, label1);
 	}
 	

@@ -36,8 +36,7 @@ public class TestDeleteESBConductor extends WebdriverLogin {
 			String group, String artifact, String version, String name, String type, 
 			String context, String server) {
 		deleteESBConductorImpl.deleteUndeployESBConductor(label, des, repository, group, artifact, version, name, type, context, server);
-		
-		
+				
 	}
 	
 }

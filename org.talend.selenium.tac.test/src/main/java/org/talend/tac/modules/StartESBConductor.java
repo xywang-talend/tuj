@@ -71,12 +71,13 @@ public class StartESBConductor extends WebDriverBase {
 		
 		this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']"), WAIT_TIME_MIN);
 		this.mouseDown("//div[text()='"+label+"']");
-//		this.getElementById(id).click();
 		this.clickElementById(id);//button{deploy start}
-		logger.info("-------promptInfo:"+promptInfo);
-//		this.waitforTextDisplayed(promptInfo, 30);		
-		this.getElementById("idESBConductorTaskGridRefreshButton").click();
-		this.clickElementById("idESBConductorTaskGridRefreshButton");		
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		this.getElementById("idESBConductorTaskGridRefreshButton").click();		
 		this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']" +
 		"//ancestor::table[@class='x-grid3-row-table']//span[text()='"+status+"']"), WAIT_TIME_MIN);
 		Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+label+"']" +
@@ -84,7 +85,6 @@ public class StartESBConductor extends WebDriverBase {
 	}
 	
 	 public void undeployESBConductor(String label, String name) {
-	    	String promptInfo="Feature '"+name+"' undeployed.";
 	    	String status = "Undeployed";   	
 	    	this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']"), WAIT_TIME_MIN);
 			this.mouseDown("//div[text()='"+label+"']");
@@ -92,8 +92,7 @@ public class StartESBConductor extends WebDriverBase {
 		    this.getElementById("idESBConductorTaskGridUndeployButton").click();	
 			this.acceptAlert();		
 			try {
-				Thread.sleep(2000);
-				this.waitforTextDisplayed(promptInfo, 20);
+				Thread.sleep(10000);				
 			} catch (InterruptedException e) {		
 				e.printStackTrace();
 			}			

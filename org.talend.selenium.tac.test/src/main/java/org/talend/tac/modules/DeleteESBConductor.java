@@ -71,7 +71,6 @@ public class DeleteESBConductor extends WebDriverBase{
 		this.mouseDown("//div[text()='"+label+"']");
 		this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridDeleteButton']"), WAIT_TIME_MAX);
 		this.getElementById("idESBConductorTaskGridDeleteButton").click();
-//		this.clickElementById("idESBConductorTaskGridDeleteButton");
 		this.dismissAlert();
 		Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+label+"']"), WAIT_TIME_MAX));
 	}
@@ -80,19 +79,11 @@ public class DeleteESBConductor extends WebDriverBase{
                                 
         this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']"), WAIT_TIME_MIN);
         this.mouseDown("//div[text()='"+label+"']");
-        if(this.isElementPresent(By.xpath("//div[text()='"+label+"']" +
-           "//ancestor::td[@class='x-grid3-col x-grid3-cell x-grid3-td-label ']"+
-           "//preceding-sibling::td//span[text()='Ready to deploy']"),10) ||
-            this.isElementPresent(By.xpath("//div[text()='"+label+"']" +
-           "//ancestor::td[@class='x-grid3-col x-grid3-cell x-grid3-td-label ']"+
-           "//preceding-sibling::td//span[text()='Undeployed']"),10)) {    
         logger.info(other.getString("ESBConductor.DeleteButtonId"));
         this.getElementByXpath("//button[@id='idESBConductorTaskGridDeleteButton']").click();
- //       this.clickElementById("idESBConductorTaskGridDeleteButton");
         this.acceptAlert();
         this.clickElementById("idESBConductorTaskGridRefreshButton");
         Assert.assertFalse(this.isElementPresent(By.xpath("//div[text()='"+label+"']"), 30));
-        } 
     }
     public void undeployESBConductor(String label, String name) {
     	String promptInfo="Feature '"+name+"' undeployed.";
@@ -102,8 +93,8 @@ public class DeleteESBConductor extends WebDriverBase{
 		this.waitforElementDisplayed(By.xpath("//button[@id='idESBConductorTaskGridUndeployButton']"), WAIT_TIME_MIN);
 	    this.getElementById("idESBConductorTaskGridUndeployButton").click();	
 		this.acceptAlert();				
-		this.getElementById("idESBConductorTaskGridRefreshButton");
-		this.clickElementById("idESBConductorTaskGridRefreshButton");	
+		this.waitforTextDisappeared(promptInfo, WAIT_TIME_MIN);
+		this.getElementById("idESBConductorTaskGridRefreshButton").click();
 		this.waitforElementDisplayed(By.xpath("//div[text()='"+label+"']" +
 				"//ancestor::table[@class='x-grid3-row-table']//span[text()='"+status+"']"), WAIT_TIME_MIN);
 	    Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+label+"']" +

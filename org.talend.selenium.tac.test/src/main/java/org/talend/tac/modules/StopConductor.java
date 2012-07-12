@@ -73,7 +73,7 @@ public class StopConductor extends WebDriverBase {
 		this.mouseDown("//div[text()='"+label+"']");			
         this.getElementById(id).click();
 		this.acceptAlert();
-//		this.waitforTextDisplayed(promptInfo, WAIT_TIME_MIN);
+		this.waitforTextDisplayed(promptInfo, WAIT_TIME_MIN);
 		this.getElementById("idESBConductorTaskGridRefreshButton").click();	
 	    Assert.assertTrue(this.isElementPresent(By.xpath("//div[text()='"+label+"']" +
 					"//ancestor::table[@class='x-grid3-row-table']//span[text()='"+status+"']"),WAIT_TIME_MIN));
