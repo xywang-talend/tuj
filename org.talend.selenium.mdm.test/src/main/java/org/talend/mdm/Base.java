@@ -8,7 +8,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -79,7 +81,13 @@ public class Base {
 			e.printStackTrace();
 		}
 	}
-	
+	 public String getNowTime(String dateformat){   
+		        Date   now   =   new   Date();      
+		        SimpleDateFormat   dateFormat   =   new   SimpleDateFormat(dateformat);
+		         String  dateDay  = dateFormat.format(now);      
+		       return dateDay;   
+		    }   
+
 	public void refreshBrowser(){
 		driver.navigate().refresh();
 	}

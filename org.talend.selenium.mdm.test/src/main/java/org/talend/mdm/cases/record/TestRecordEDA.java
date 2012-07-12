@@ -31,6 +31,10 @@ public class TestRecordEDA extends Login {
 	public void testClickRecordButton(String container,String modle,String entity,String IdValue) {
 		recordImpl.testClickRecordButtonImpl(container, modle, entity,IdValue);
 	}
-	
-	
+		
+	@Test
+	@Parameters( { "container","modle","entity","IdValue","type"})
+	public void testClickCalAndDropButton(String container,String modle,String entity,String IdValue,String type) {
+		recordImpl.testClickCalAndDropButtonImpl(container, modle, entity,IdValue,type);
+	}
 }

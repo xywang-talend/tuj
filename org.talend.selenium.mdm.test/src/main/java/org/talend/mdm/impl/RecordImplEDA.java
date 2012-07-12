@@ -83,7 +83,37 @@ public class RecordImplEDA extends Record{
 		JournalResultCount();
     }
 	
-
-
-
+	
+	public void testClickCalAndDropButtonImpl(String container,String modle,String entity,String IdValue,String type) {
+   
+		OperationType="UPDATE";
+        source="genericUI";
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);		
+		this.sleepCertainTime(3000);
+		entity="Edp";
+		chooseRcord(entity, "idEdp",IdValue);
+		
+		//click the cal button
+		
+		this.clickElementByXpath(locator.getString("xpath.record.edp.date"));
+		this.clickElementByXpath("//button[text()='Today']");
+		//click the drop down button
+		this.clickElementByXpath(locator.getString("xpath.record.edp.type"));
+		this.sleepCertainTime(1000);	
+		this.clickElementByXpath(this.getString(locator, "xpath.record.eda.type.value", type));
+		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
+		this.sleepCertainTime(10000);
+		 //assert
+		chooseRcord(entity, "idEdp",IdValue);
+		String dateday;
+		dateday=this.getNowTime("yyyy-MM-dd");		
+	    Assert.assertEquals(this.getValueInput(By.name("Edp/datedebutEdp")),dateday);
+	    Assert.assertEquals(this.getValueInput(By.name("Edp/typeEdp")),type);
+		enterJournal(entity,IdValue,OperationType,source);
+		JournalResultCount();
+    }
+	
 }
