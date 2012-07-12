@@ -23,9 +23,9 @@ public class TestRecordContrat extends Login {
 	}
 	
 	@Test
-	@Parameters( { "container","modle","entity","entity_name","primarykey.name","primarykey.value","numeroContratExterne","language.france","language.english"})
-	public void testBrowseContratRecordInFrench(String container,String modle,String entity,String entityName,String keyName,String keyValue,String numeroContratExterne,String language,String languageDefault) {
-		recordImpl.browseContratRecordInFrench(container, modle, entity,entityName,keyName,keyValue, numeroContratExterne,language,languageDefault);
+	@Parameters( { "container","modle","entity","entity_name","primarykey.name","primarykey.value","numeroContratExterne","language.france","language.english","searchOperator"})
+	public void testBrowseContratRecordInFrench(String container,String modle,String entity,String entityName,String keyName,String keyValue,String numeroContratExterne,String language,String languageDefault,String operator) {
+		recordImpl.browseContratRecordInFrench(container, modle, entity,entityName,keyName,keyValue, numeroContratExterne,language,languageDefault,operator);
 	}
 	
 }

@@ -30,7 +30,7 @@ public class ContratsImpl extends Record{
 	    Assert.assertFalse(this.getElementByXpath(locator.getString("xpath.Contrats.create.numeroContrat.input")).isEnabled());
 	}
 	
-	public void browseContratRecordInFrench(String container,String modle,String entity,String entityName,String keyName,String keyValue,String numeroContratExterne,String language,String languageDefault){
+	public void browseContratRecordInFrench(String container,String modle,String entity,String entityName,String keyName,String keyValue,String numeroContratExterne,String language,String languageDefault,String searchOperator){
 		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.language.selection")), WAIT_TIME_MIN).isDisplayed());
 		this.setLanguage(language);
 		this.locator=this.locatorfr;
@@ -42,7 +42,7 @@ public class ContratsImpl extends Record{
 		maxDataBrowserBoard();
 		this.sleepCertainTime(6000);
 	    
-		this.searchCondition(keyName, "est égal à", keyValue);
+		this.searchCondition(keyName, searchOperator, keyValue);
 	    this.chooseRcord(entityName, "numeroContrat", keyValue);
 	    this.sleepCertainTime(5000);
 	    Assert.assertTrue(this.getValueInput(By.xpath(locator.getString("xpath.Contrats.create.numeroContrat.input"))).equals(keyValue));
