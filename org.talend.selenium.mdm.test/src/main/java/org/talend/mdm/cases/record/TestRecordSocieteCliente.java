@@ -26,4 +26,10 @@ public class TestRecordSocieteCliente extends Login {
 	public void testBrowseSocieteClienteRecordWithFKContrats(String container,String modle,String entity,String entityName,String keyName,String keyValue,String numeroContrat,String numeroContratExterne) {
 		recordImpl.browseSocieteClienteRecordWithFKContrats(container, modle, entity,entityName,keyName,keyValue,numeroContrat, numeroContratExterne);
 	}
+	
+	@Test
+	@Parameters( { "container","modle","entity","entity_name","primarykey.name","nom1Grc","nom2Grc","codeDecomptes","codeEic"})
+	public void testJournalExportAllRecordToExcel(String container,String modle,String entity,String entityName,String keyName,String nom1Grc,String nom2Grc,String codeDecomptes,String codeEic) {
+		recordImpl.journalExportAllRecordToExcel(container, modle, entity,entityName,keyName, nom1Grc, nom2Grc, codeDecomptes, codeEic);
+	}
 }

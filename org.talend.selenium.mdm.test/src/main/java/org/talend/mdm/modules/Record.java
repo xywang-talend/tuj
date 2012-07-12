@@ -394,10 +394,21 @@ public class Record extends Base {
 		this.clickElementByXpath(locator.getString("xpath.record.choose.create"));
 		this.sleepCertainTime(5000);
 	}
+	
+	public void clickSaveRecordButton(){
+		this.clickElementByXpath(locator.getString("xpath.record.choose.create.input.save"));
+	}
 
 	public int getTotalRecordNum(){
 		int recordCount = Integer
 				.parseInt(this.getElementByXpath(locator.getString("xpath.record.search.record.count")).getText().split("~")[1].trim());
+		return recordCount;
+	}
+	
+	
+	public int getTotalJournalRecordNum(){
+		int recordCount = Integer
+				.parseInt(this.getElementByXpath(locator.getString("xpath.record.journal.count")).getText().split("of")[1].trim());
 		return recordCount;
 	}
 	

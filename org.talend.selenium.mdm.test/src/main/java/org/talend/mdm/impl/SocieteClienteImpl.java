@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.talend.mdm.Base;
+import org.talend.mdm.JExcel;
 import org.talend.mdm.modules.Record;
 import org.testng.Assert;
 
@@ -18,6 +20,24 @@ public class SocieteClienteImpl extends Record{
 		
 		this.clickElementByXpath(locator.getString("xpath.SocieteCliente.tab.contrats"));
 		this.sleepCertainTime(5000);
+	}
+	
+	private void createSocieteClienteRecord(String idGrc, String nom1Grc,String nom2Grc,String codeDecomptes,String codeEic){
+		int recordBefore = this.getTotalRecordNum();
+		logger.warn("before create societe record ,total record number is:"+recordBefore);
+		this.clickCreateRecord();
+		this.sleepCertainTime(5000);
+		this.typeTextByXpath(locator.getString("xpath.SocieteCliente.create.nom1Grc.input"), nom1Grc);
+		this.typeTextByXpath(locator.getString("xpath.SocieteCliente.create.nom2Grc.input"), nom2Grc);
+		this.typeTextByXpath(locator.getString("xpath.SocieteCliente.create.idGrc.input"), idGrc);
+		this.typeTextByXpath(locator.getString("xpath.SocieteCliente.create.codeDecomptes.input"), codeDecomptes);
+		this.typeTextByXpath(locator.getString("xpath.SocieteCliente.create.codeEic.input"), codeEic);
+		this.clickSaveRecordButton();
+		this.sleepCertainTime(5000);
+		int recordAfter = this.getTotalRecordNum();
+		logger.warn("before create societe record ,total record number is:"+recordAfter);
+		Assert.assertTrue(recordAfter-recordBefore==1,"societe cliente record create failed!");
+		
 	}
 	public void folersOpenCloseSynchronizedInDataChangesViewerImpl(String container,String modle,String entity,String entityName,String keyName,String keyValue){
 		chooseContainer(container);	
@@ -84,6 +104,35 @@ public class SocieteClienteImpl extends Record{
 	    Assert.assertTrue(this.getValueInput(By.xpath("//input[@name='Contrat/numeroContrat']")).equals(numeroContrat));
 	    Assert.assertTrue(this.getValueInput(By.xpath("//input[@name='Contrat/numeroContratExterne']")).equals(numeroContratExterne));
 	  
+	}
+	
+	public void journalExportAllRecordToExcel(String container,String modle,String entity,String entityName,String keyName,String nom1Grc,String nom2Grc,String codeDecomptes,String codeEic){
+		/*chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);	
+		maxDataBrowserBoard();
+		this.sleepCertainTime(6000);
+		for(int i=0; i <25;i++){
+			String idGrc = "societe"+i;
+			this.createSocieteClienteRecord(idGrc, nom1Grc, nom2Grc, codeDecomptes, codeEic);
+		}
+		String OperationType="CREATE";
+		String source="genericUI";
+		this.sleepCertainTime(5000);
+		this.chooseRcord(entityName, keyName, "societe0");
+		this.sleepCertainTime(5000);
+		this.enterJournal(entityName, "", OperationType, source);
+	    this.sleepCertainTime(5000);
+	    Assert.assertTrue(this.getTotalJournalRecordNum()>=25);
+	    this.clickElementByXpath(locator.getString("xpath.record.journal.export.button"));*/
+	    this.sleepCertainTime(10000);
+	    JExcel excel = new JExcel();
+	    logger.warn(SocieteClienteImpl.class.getClassLoader().getResource("org/talend/mdm/download").getPath());
+	    logger.warn(Base.class.getClassLoader().getResource("org/talend/mdm/download").getPath());
+	    
+	    excel.getWorkbook(this.getAbsoluteFolderPath("org/talend/mdm/download"));
+	    logger.warn(excel.getSheets());
 	}
 	
 }
