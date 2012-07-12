@@ -10,7 +10,7 @@
     </target>
 	
 	<!-- - - - - - - - - - - - - - - - - - 
-          target: launch-zookeeper                   
+          target: server                 
          - - - - - - - - - - - - - - - - - -->
     <target name="server" depends="os">
     	<if>
@@ -19,8 +19,7 @@
     			<exec executable="cmd" dir="${server.home}/bin"
     				spawn="true">
     				<arg value="/c"/>
-					<arg value="${command}"/>
-					<arg value="${action}"/>
+					<arg value="${command} ${action}"/>
     			</exec>
     			<echo>${server.home}/bin</echo>
     			<echo>${command}</echo>
@@ -39,7 +38,7 @@
 
 	
 	<!-- - - - - - - - - - - - - - - - - - 
-          target: launch-zookeeper                   
+          target: server-launcher                 
          - - - - - - - - - - - - - - - - - -->
     <target name="server-launcher" depends="os">
     	<if>
@@ -48,8 +47,7 @@
     			<exec executable="cmd" dir="${server.home}"
     				spawn="true">
     				<arg value="/c"/>
-					<arg value="${command}"/>
-					<arg value="${action}"/>
+    				<arg value="${command} ${action}"/>
     			</exec>
     			<echo>${server.home}</echo>
     			<echo>${command}</echo>
