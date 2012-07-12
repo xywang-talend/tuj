@@ -164,7 +164,12 @@ public class CommandlineAction extends Commandline {
 		System.err.println("createJob jsJob -sf "+path);
 		return cmd.command("createJob jsJob -sf "+path);
 	}
-	
+
+	public String exportJobContainsSubjob(String jobName, String path){
+		System.err.println("exportJob "+jobName+" -dd "+path+"");
+		return cmd.command("exportJob "+jobName+" -dd "+path+"");
+	}
+
 	public boolean isCommandCompleted(int id) {
 		return this.getCommandStatus(id).contains("COMPLETED");
 	}

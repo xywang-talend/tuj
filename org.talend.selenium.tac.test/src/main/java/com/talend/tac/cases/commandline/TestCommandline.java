@@ -380,6 +380,17 @@ public class TestCommandline extends CommandlineImpls {
 
 	}	
 
+	@Test
+	@Parameters({"commandResult", "url", "root", "addCommonProjectName", 
+		"userName", "userPassword", "exportPath"})
+	public void testCommandlineExportJobContainsSubjob(String commandResult
+			, String url, String root,  String project, 
+			String userName, String userPassword, String path) {
+		
+		this.commandlineExportJobContainsSubjobImpl(commandResult, url, root, project, userName, userPassword, path);		
+
+	}
+
 }
 
 

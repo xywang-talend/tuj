@@ -700,5 +700,32 @@ public class CommandlineImpls extends CommandlineAction {
 		Assert.assertTrue(ss1.contains("jdGenerateJob"));	
 		
 	}
+
+	public void commandlineExportJobContainsSubjobImpl(String commandResult
+			, String url, String root, String commPro, String userName, String userPassword
+			, String path) {
+		
+		
+		this.commandlineListJobImpl(commandResult, url, root, commPro, userName, userPassword);	
+		
+		Assert.assertTrue(ss.contains("generateBigLogs"));
+		Assert.assertTrue(ss.contains("refJobByMaintRunJobRun"));
+		Assert.assertTrue(ss.contains("tRunJob"));
+		Assert.assertTrue(ss.contains("tjavaWithMulripleCheckPoint"));
+		Assert.assertTrue(ss.contains("tjava"));
+		Assert.assertTrue(ss.contains("tt"));
+		Assert.assertTrue(ss.contains("trunjobWithCheckpoint"));
+
+		String commandexportJobContainsSubjobResult = this.exportJobContainsSubjob("tjava", this.getAbsolutePath(path));
+		System.err.println("commandexportJobContainsSubjobResult>>>>>>>>"+commandexportJobContainsSubjobResult);
+		int commandexportJobContainsSubjobId = this.getCommandId(commandexportJobContainsSubjobResult);
+		Assert.assertTrue(commandexportJobContainsSubjobResult.contains(commandResult+" "+commandexportJobContainsSubjobId));
+		this.commandlineGetCommandStatusImpl(commandexportJobContainsSubjobId, WAIT_TIME*3);
+		LinkedHashMap map = this.getFileNameList(this.getAbsolutePath(path));
+		Assert.assertTrue(map.containsValue("tjava.zip"));
+//		properties.put("file.path", this.getAbsolutePath(path)+"/tjava.zip");
+//		new AntAction().runTarget("File.xml", "delete", properties);	
+			
+	}
 	
 }
