@@ -13,6 +13,28 @@ public class RecordImplEDA extends Record{
 		super(driver);
 		this.driver = driver;
 	}
+	
+	
+	
+	
+	public void testClickRecordButtonImpl(String container,String modle,String entity,String IdValue) {
+        OperationType="UPDATE";
+        source="genericUI";
+		chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);		
+		this.sleepCertainTime(3000);
+		entity="Eda";
+		chooseRcord(entity, "idEda",IdValue);		
+        this.maxARecordPanel();
+		this.sleepCertainTime(10000);
+		this.clickElementByXpath("//button[text()='Relations']");
+		 //assert
+		Assert.assertNotNull(this.getValueInput(By.name("entity")));
+	
+    }
+	
 	public void testUpdateRecordAddMultipleFieldImpl(String container,String modle,String entity,String IdValue,String Type1,String Type2) {
         OperationType="UPDATE";
         source="genericUI";

@@ -25,4 +25,12 @@ public class TestRecordEDA extends Login {
 	public void testUpdateRecordDate(String container,String modle,String entity,String IdValue,String date1,String date2) {
 		recordImpl.testUpdateRecordDateImpl(container, modle, entity,IdValue,date1,date2);
 	}
+	
+	@Test
+	@Parameters( { "container","modle","entity","IdValue"})
+	public void testClickRecordButton(String container,String modle,String entity,String IdValue) {
+		recordImpl.testClickRecordButtonImpl(container, modle, entity,IdValue);
+	}
+	
+	
 }
