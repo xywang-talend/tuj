@@ -1,11 +1,13 @@
 package org.talend.tac.modules.impl;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.talend.tac.modules.Authorization;
 
 public class AuthorizationImpl extends Authorization {
 	
 	UserImpl userImpl = new UserImpl(driver);
+	ProjectImpl projectImpl = new ProjectImpl(driver);
 	public AuthorizationImpl(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
@@ -64,4 +66,16 @@ public class AuthorizationImpl extends Authorization {
 		this.gotoAuthorzationPage();
 		this.resetColumn();
 	}
+	
+	public void refreshAfterNewProjectCreated(String project, String type) {
+		
+		projectImpl.addProjectImpl(project, type, 1);
+		
+		this.gotoAuthorzationPage();
+		this.waitforElementDisplayed(By.xpath("//span[text()='Projects']//ancestor::div[contains(@class,'x-small-editor x-panel-head')]//following-sibling::div//span[text()='"+project+"']"), WAIT_TIME_MIN);
+		
+		projectImpl.deleteProjectImpl(project);
+		
+	}
+	
 }

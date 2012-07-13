@@ -58,4 +58,12 @@ public class TestProjectAuthorization extends WebdriverLogin {
 		authorizationImpl.setAuthorizationReadAndWriteImpl(project, lastName, firstName, userReadwriteInfo);
 	}
 	
+
+	@Test
+	@Parameters( { "projectLabel", "type.DI"})
+	public void testAfterNewProjectCreated(String project, String type){
+		authorizationImpl.refreshAfterNewProjectCreated(project, type);
+	}
+	
+	
 }
