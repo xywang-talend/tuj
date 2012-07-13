@@ -14,8 +14,8 @@ public class TestDuplicateRuntimeServer extends WebdriverLogin {
     }
     
     @Test
-    @Parameters({"TestRuntimeServer"})
-    public void testDuplicateRuntimeServer(String label) {
-    	addRuntimeServerWithInvalidHostImpl.duplicateServer(label);   
+    @Parameters({"TestRuntimeServer","ServerHost"})
+    public void testDuplicateRuntimeServer(String label,String host) {
+    	addRuntimeServerWithInvalidHostImpl.duplicateServer(label,host);   
     }
 }
