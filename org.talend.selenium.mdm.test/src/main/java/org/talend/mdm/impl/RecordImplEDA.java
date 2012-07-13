@@ -14,13 +14,22 @@ public class RecordImplEDA extends Record{
 		this.driver = driver;
 	}
 	
+	public void testChooseRecordImpl(String container,String modle,String entity,String IdValue) {
+        chooseContainer(container);	
+		chooseModle(modle);
+		clickSave();
+		chooseEntity(entity);		
+		this.sleepCertainTime(3000);
+		entity="UniteAgregation";		
+		chooseRcord(entity, "idUa",IdValue);		
+        this.maxARecordPanel();
+		this.sleepCertainTime(10000);
+		 //assert
+		Assert.assertEquals(this.getValueInput(By.name("UniteAgregation/idUa")),IdValue);
+    }
 	
-	
-	
-	public void testClickRecordButtonImpl(String container,String modle,String entity,String IdValue) {
-        OperationType="UPDATE";
-        source="genericUI";
-		chooseContainer(container);	
+public void testClickRecordButtonImpl(String container,String modle,String entity,String IdValue) {
+     	chooseContainer(container);	
 		chooseModle(modle);
 		clickSave();
 		chooseEntity(entity);		

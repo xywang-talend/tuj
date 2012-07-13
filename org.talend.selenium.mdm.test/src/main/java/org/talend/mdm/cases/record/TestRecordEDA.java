@@ -14,6 +14,14 @@ public class TestRecordEDA extends Login {
 		recordImpl = new RecordImplEDA(driver);	
 	}		
 	
+	
+	
+	@Test
+	@Parameters( { "container","modle","entity","IdValue"})
+	public void testChooseRecord(String container,String modle,String entity,String IdValue) {
+		recordImpl.testChooseRecordImpl(container, modle, entity,IdValue);
+	}
+	
 	@Test
 	@Parameters( { "container","modle","entity","IdValue","Type1","Type2"})
 	public void testUpdateRecordAddMultipleField(String container,String modle,String entity,String IdValue,String Type1,String Type2) {
