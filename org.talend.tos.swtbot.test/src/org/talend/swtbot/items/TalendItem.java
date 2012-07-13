@@ -289,9 +289,12 @@ public class TalendItem implements Cloneable {
             shell.activate();
         }
 
-        // gefBot.textWithLabel("Name").setText(getItemName());
-        SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
-        gefBot.textWithLabel("Name").typeText(getItemName(), 0);
+        gefBot.textWithLabel("Name").setText(getItemName());
+        /*
+         * SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US"; gefBot.sleep(10000);
+         * gefBot.textWithLabel("Name").typeText(getItemName());
+         * System.out.println(gefBot.textWithLabel("Name").getText());
+         */
         return shell;
     }
 
@@ -307,7 +310,7 @@ public class TalendItem implements Cloneable {
                 return "finish button is not enabled, item created fail. Maybe the item name already exist";
             }
 
-        });
+        }, 10000);
         gefBot.button("Finish").click();
 
         long defaultTimeout = SWTBotPreferences.TIMEOUT;
