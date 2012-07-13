@@ -698,6 +698,7 @@ public class Utilities {
         DndUtil dndUtil = new DndUtil(jobEditor.getWidget().getDisplay());
 
         sourceItem.select();
+        jobEditor.setFocus();
         dndUtil.dragAndDrop(sourceItem, figureCanvas, locationOnJob);
         if (componentType != null && !"".equals(componentType)) {
             gefBot.shell("Components").activate();
