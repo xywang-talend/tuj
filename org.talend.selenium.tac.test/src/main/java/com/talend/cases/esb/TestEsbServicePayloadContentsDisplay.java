@@ -4,12 +4,10 @@ package com.talend.cases.esb;
 import org.testng.annotations.Test;
 
 import java.awt.AWTException;
-import java.awt.Event;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
 import org.testng.Assert;
-import org.testng.annotations.Test;
 
 
 
@@ -40,7 +38,7 @@ public class TestEsbServicePayloadContentsDisplay extends Esb {
 		" x-panel-body-noborder x-border-layout-ct']//b[text()='Refresh']");
 		selenium.mouseDown("//div[@class='x-grid3-cell-inner x-grid3-col-port']");
 		rob.keyPress(KeyEvent.VK_DOWN);
-		this.clickWaitForElementPresent("//legend[text()='Request OUT']//parent::fieldset//img[@class='samui-event-content-popup-link']");
+		this.clickWaitForElementPresent("//legend[text()='Request OUT']//parent::fieldset//img[contains(@class,'samui-event-content-popup-link')]");
 		this.waitForElementPresent("//div[contains(@class,'x-small-editor x-window-header x-window-draggable x-component')]//img[@class=' x-panel-inline-icon']", WAIT_TIME);
 		getContent = selenium.getText("//div[@class='x-window-body']");
 		length = selenium.getText("//div[@class='samui-event-content']");

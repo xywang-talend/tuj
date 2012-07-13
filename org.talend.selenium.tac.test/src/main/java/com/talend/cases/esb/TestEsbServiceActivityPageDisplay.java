@@ -81,7 +81,7 @@ public class TestEsbServiceActivityPageDisplay extends Esb {
 	}
 	
 	@Test
-	@Parameters({"esb.monitor.pagesize"})
+	@Parameters({"esbMonitorPagesize"})
 	public void testMonitorPageInput(String pageCounts) {
 		this.openServiceActivityMonitor();
 		this.sleep(3000);

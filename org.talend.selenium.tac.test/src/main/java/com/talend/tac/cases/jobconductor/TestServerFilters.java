@@ -13,7 +13,7 @@ public class TestServerFilters extends Server {
 	   			
 	   this.clickWaitForElementPresent("idMenuLicenseElement");
 	   waitForElementPresent("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]", WAIT_TIME);
-	   selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]",  parseRelativePath(license));
+	   selenium.type("//button[contains(text(),'Browse')]/ancestor::table[1]/preceding-sibling::input[1]",  license);
 	   selenium.click("//button[text()='Upload']");
 			
        System.out.println("license upload is successful");	

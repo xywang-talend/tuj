@@ -12,7 +12,7 @@ public class TestServiceLocator extends EsbUtil {
 		
 	//test display service of 'live services only'/'all services'	
 	@Test
-	@Parameters({"license.esb.file.path", "jobFirstProvider", "jobSecondProvider",
+	@Parameters({"licenseEsbFilePath", "jobFirstProvider", "jobSecondProvider",
 		"jobThirdProvider", "jobFourthProvider", "jobFiveProvider", "jobSixProvider"})
 	public void testDisplayAllService(String license, String jobFirstProvider, String jobSecondProvider,
 			String jobThirdProvider, String jobFourthProvider, String jobFiveProvider,String jobSixthProvider) {	
@@ -67,36 +67,6 @@ public class TestServiceLocator extends EsbUtil {
 		
 	}
     
-	//stop all services, check info of click 'all services' page
-//	@Test
-//	@Parameters({"jobFirstProvider", "jobSecondProvider", "jobThirdProvider"})
-//	public void testDisplayLiveServicesOnlyAfterStopAllServices(String jobFirstProvider,
-//			String jobSecondProvider, String jobThirdProvider) {
-//
-//		//stop all jobs	
-//		stopService(jobThirdProvider);
-//		
-//		//go to 'ServiceLocator' page
-//		this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");
-//		
-//		//click 'Refresh' button
-//		selenium.click("//b[text()='Refresh']");
-//		
-//		//stop job
-//		assertStopService(jobFirstProvider);
-//		assertStopService(jobSecondProvider);
-//		assertStopService(jobThirdProvider);
-//		
-//		//just only display live service 
-//		selenium.click("//label[text()='live services only']//preceding-sibling::input");
-//		
-//		//verify display result
-//		this.waitForTextPresent("There are no services available. Please check your filter and click" +
-//				" refresh button to retry.", WAIT_TIME);
-//		
-//		
-//	}
-	
 	//check service value display whether normal per columns
 	@Test
 	@Parameters({"jobFiveProvider"})
@@ -276,42 +246,7 @@ public class TestServiceLocator extends EsbUtil {
 		checkSortAscendingSortDescending("endpoint", "http://localhost:8040/services/soap/jobSixedProvider/",
 				"http://localhost:8040/services/jobFirstProvider");
 		
-	}
-	
-//	//Stop and restart a service connected to Service Locator and check correct status display in server table
-//	@Test
-//	@Parameters({"provider.file.path.jobFourthProvider", "jobFourthProvider"})
-//	public void testCheckServiceLocationPageStopServiceAndRestart(String jobFourthPrividerFilePath, 
-//			String jobFourthProvider) {
-//		 
-//		//go to 'ServiceLocator' page
-//		this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");
-//		
-//		installStratService(jobFourthPrividerFilePath, jobFourthProvider);		
-//		//click 'Refresh' button
-//		selenium.click("//b[text()='Refresh']");		
-//		//start job
-//		assertStartService(jobFourthProvider);
-//		Assert.assertFalse(selenium.isElementPresent("//div[text()='http://127.0.0.1:9996/esb/provider']" +
-//				"//ancestor::table[@class='x-grid3-row-table']//span[@style='color: red;']"));
-//		
-//		stopService("jobFourthProvider");
-//		//click 'Refresh' button
-//		selenium.click("//b[text()='Refresh']");		
-//		//stop job
-//		assertStopService(jobFourthProvider);
-//		Assert.assertTrue(selenium.isElementPresent("//div[text()='http://127.0.0.1:9996/esb/provider']" +
-//				"//ancestor::table[@class='x-grid3-row-table']//span[@style='color: red;']"));
-//		
-//		installStratService(jobFourthPrividerFilePath, jobFourthProvider);		
-//		//click 'Refresh' button
-//		selenium.click("//b[text()='Refresh']");		
-//		//start job
-//		assertStartService(jobFourthProvider);
-//		Assert.assertFalse(selenium.isElementPresent("//div[text()='http://127.0.0.1:9996/esb/provider']" +
-//				"//ancestor::table[@class='x-grid3-row-table']//span[@style='color: red;']"));
-//		
-//	}	
+	}	
 	
 	//stop zkserver, check status info of configuration page and serviceLocation page  
 	@Test
@@ -469,14 +404,15 @@ public class TestServiceLocator extends EsbUtil {
     	karaf.karafAction("stop "+ProviderName+"-control-bundle", WAIT_TIME);  //stop service
     	this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");  //into SL page
 		selenium.setSpeed(MID_SPEED);
-		this.waitForElementPresent("//div[text()='jobFirstProvider']//ancestor::div[@class='x-grid-group-hd']//following-sibling::div[1]//div[@class='x-grid3-cell-inner x-grid3-col-upTime']", WAIT_TIME);
-		String uptime_before=selenium.getText("//div[text()='jobFirstProvider']//ancestor::div[@class='x-grid-group-hd']//following-sibling::div[1]//div[@class='x-grid3-cell-inner x-grid3-col-upTime']");
-		Assert.assertTrue(uptime_before.contains("Last seen less than 1 min ago"));		
+		this.waitForElementPresent("//div[text()='"+ProviderName+"']//ancestor::div[@class='x-grid-group-hd']//following-sibling::div[1]//div[@class='x-grid3-cell-inner x-grid3-col-upTime']", WAIT_TIME);
+		String uptime_before=selenium.getText("//div[text()='"+ProviderName+"']//ancestor::div[@class='x-grid-group-hd']//following-sibling::div[1]//div[@class='x-grid3-cell-inner x-grid3-col-upTime']");
+		System.err.println("uptime_before:"+uptime_before);
+		Assert.assertTrue(uptime_before.contains("Last seen"));		
     	karaf.karafAction("start "+ProviderName+"-control-bundle", WAIT_TIME);  //start service
     	selenium.click("//b[text()='Refresh']");
-		String uptime_after=selenium.getText("//div[text()='jobFirstProvider']//ancestor::div[@class='x-grid-group-hd']//following-sibling::div[1]//div[@class='x-grid3-cell-inner x-grid3-col-upTime']");
-        System.out.println("---------uptime_after:"+uptime_after);
-		Assert.assertTrue(uptime_after.contains("less than 1 min"));
+		String uptime_after=selenium.getText("//div[text()='"+ProviderName+"']//ancestor::div[@class='x-grid-group-hd']//following-sibling::div[1]//div[@class='x-grid3-cell-inner x-grid3-col-upTime']");
+        System.err.println("---------uptime_after:"+uptime_after);
+		Assert.assertTrue(uptime_after.contains("min"));		
     }
     
     @Test
