@@ -95,6 +95,7 @@ public User(WebDriver driver) {
 		this.selectRoles(roles);
 		this.minUserConfigPanel();
 		this.clickElementByXpath(locator.getString("xpath.user.add.role.save"));
+		Assert.assertTrue(this.waitfor(By.xpath(locator.getString("xpath.user.add.role.flashcache.ok")),WAIT_TIME_MIN).isDisplayed());
 		this.getElementByXpath(locator.getString("xpath.user.add.role.flashcache.ok")).click();
 		this.clickLastPageButton();
 		Assert.assertTrue((this.isElementPresent(By.xpath(this.getString(locator, "xpath.user.identifier", identifier)), WAIT_TIME_MAX)));
