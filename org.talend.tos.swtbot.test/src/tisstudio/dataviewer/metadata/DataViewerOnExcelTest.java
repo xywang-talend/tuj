@@ -43,8 +43,6 @@ public class DataViewerOnExcelTest extends TalendSwtBotForTos {
 
     private static final String FILENAME = "excel"; //$NON-NLS-1$
 
-    private static final String CONTENT = "LondonEngland"; //$NON-NLS-1$
-
     @Before
     public void createJob() {
         repositories.add(ERepositoryObjectType.PROCESS);

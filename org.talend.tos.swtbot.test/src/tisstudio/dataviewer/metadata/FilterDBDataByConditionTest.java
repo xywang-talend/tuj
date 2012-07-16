@@ -64,7 +64,6 @@ public class FilterDBDataByConditionTest extends TalendSwtBotForTos {
         // retrive schema
         dbItem.retrieveDbSchema(TABLENAME);
         TalendSchemaItem schema = dbItem.getSchema(TABLENAME);
-        Assert.assertNotNull("did not retrieve schema", schema.getItem());
 
         TalendSwtBotForTos swtbot = new TalendSwtBotForTos();
         // test drag db2 input component to workspace

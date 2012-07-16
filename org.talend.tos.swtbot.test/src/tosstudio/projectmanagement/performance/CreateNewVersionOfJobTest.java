@@ -50,12 +50,10 @@ public class CreateNewVersionOfJobTest extends TalendSwtBotForTos {
 
         gefBot.waitUntil(new DefaultCondition() {
 
-            @Override
             public boolean test() throws Exception {
                 return jobItem.getParentNode().expand().getNode(JOBNAME + " 1.1").isVisible();
             }
 
-            @Override
             public String getFailureMessage() {
                 return "new version of job not found";
             }

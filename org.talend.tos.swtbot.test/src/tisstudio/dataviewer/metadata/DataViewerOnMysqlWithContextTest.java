@@ -17,7 +17,6 @@ import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -64,7 +63,6 @@ public class DataViewerOnMysqlWithContextTest extends TalendSwtBotForTos {
     @Test
     public void testDataViwer() {
         SWTBotShell tempShell = null;
-        SWTBotTreeItem tableItem = null;
         try {
             dbItem.getItem().doubleClick();
             tempShell = gefBot.shell("Database Connection").activate();
@@ -84,8 +82,6 @@ public class DataViewerOnMysqlWithContextTest extends TalendSwtBotForTos {
         }
         dbItem.retrieveDbSchema(TABLENAME);
         TalendSchemaItem schema = dbItem.getSchema(TABLENAME);
-        tableItem = schema.getItem();
-        Assert.assertNotNull("schemas did not retrieve", tableItem);
 
         schema.setComponentType("tMysqlInput");
         Utilities.dndMetadataOntoJob(jobItem.getEditor(), schema.getItem(), schema.getComponentType(), new Point(100, 100));

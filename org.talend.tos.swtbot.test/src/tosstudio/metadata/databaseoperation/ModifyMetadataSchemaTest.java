@@ -52,8 +52,6 @@ public class ModifyMetadataSchemaTest extends TalendSwtBotForTos {
         int rowCount = 2;
         dbItem.retrieveDbSchema(TABLENAME);
         TalendSchemaItem schema = dbItem.getSchema(TABLENAME);
-        if (schema.getItem() == null)
-            Assert.fail("schema has not been retrieved");
         schema.getItem().doubleClick();
         schemaShell = gefBot.shell("Schema").activate();
         gefBot.buttonWithTooltip("Add").click();

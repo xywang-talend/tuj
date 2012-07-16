@@ -23,7 +23,6 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendDBItem;
-import org.talend.swtbot.items.TalendSchemaItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -49,8 +48,7 @@ public class RetrieveSchemaForMssqlTest extends TalendSwtBotForTos {
     @Test
     public void retrieveSchema() {
         dbItem.retrieveDbSchema(TABLE_NAME);
-        TalendSchemaItem schema = dbItem.getSchema(TABLE_NAME);
-        Assert.assertNotNull("did not retrieve schema", schema.getItem());
+        Assert.assertNotNull("did not retrieve schema", dbItem.getSchema(TABLE_NAME));
     }
 
     @After

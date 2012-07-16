@@ -771,7 +771,6 @@ public class Utilities {
         // retrive schema
         dbItem.retrieveDbSchema(tableName);
         TalendSchemaItem schema = dbItem.getSchema(tableName);
-        Assert.assertNotNull("did not retrieve schema", schema.getItem());
 
         TalendSwtBotForTos swtbot = new TalendSwtBotForTos();
         // test drag db2 input component to workspace
@@ -818,9 +817,11 @@ public class Utilities {
             public String getFailureMessage() {
                 return "the shell of data preview did not activate";
             }
-        }, 30000);
+        }, 60000);
         String shellTitle = gefBot.activeShell().getText();
-        if (("Data Preview: " + componentType + "_1").equals(shellTitle))
+        if ("Progress Information".equals(shellTitle))
+            gefBot.button("Cancel").click();
+        else if (("Data Preview: " + componentType + "_1").equals(shellTitle))
             gefBot.activeShell().activate();
         else {
             gefBot.activeShell().close();
@@ -907,14 +908,15 @@ public class Utilities {
     private static void createTable(String sql, TalendJobItem jobItem, String componentType) {
         try {
             gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Open SQLBuilder Dialog")), 60000);
+        } catch (WidgetNotFoundException wnfe) {
+            // pass exception if shell not found
         } catch (TimeoutException e) {
             gefBot.button("Cancel").click();
             gefBot.button("Run in Background").click();
             Assert.fail(e.getMessage());
         }
-        gefBot.waitUntil(
-                Conditions.shellIsActive("SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:"
-                        + componentType + "_1"), 30000);
+        gefBot.waitUntil(Conditions.shellIsActive("SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:"
+                + componentType + "_1"));
         SWTBotShell shell = gefBot.shell(
                 "SQL Builder [Component Mode] - Job:" + jobItem.getItemName() + " - Component:" + componentType + "_1")
                 .activate();
@@ -970,7 +972,7 @@ public class Utilities {
         gefBot.tree().setFocus();
         gefBot.button("Select All").click();
         gefBot.button("Finish").click();
-        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 30000);
+        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Progress Information")), 60000);
     }
 
     public static List<ERepositoryObjectType> getERepositoryObjectTypes() {

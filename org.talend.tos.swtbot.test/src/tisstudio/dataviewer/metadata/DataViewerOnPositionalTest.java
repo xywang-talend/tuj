@@ -43,8 +43,6 @@ public class DataViewerOnPositionalTest extends TalendSwtBotForTos {
 
     private static final String FILENAME = "positonal"; //$NON-NLS-1$
 
-    private static final String CONTENT = "LondonEngland"; //$NON-NLS-1$
-
     @Before
     public void createJob() {
         repositories.add(ERepositoryObjectType.PROCESS);

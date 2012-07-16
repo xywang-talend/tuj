@@ -67,12 +67,13 @@ public class CanOpenJobletInJobTest extends TalendSwtBotForTos {
         SWTBotGefEditPart joblet = getTalendComponentPart(jobEditor, JOBLETNAME);
         Assert.assertNotNull("cann't drag joblet from repository to job", joblet);
 
+        joblet.select();
         joblet.doubleClick();
         Assert.assertEquals("the joblet is not opened", true, gefBot.activeEditor().getTitle().equals(jobletEditor.getTitle()));
         jobletEditor.close();
 
         jobEditor.show();
-        jobEditor.select(joblet).setFocus();
+        joblet.select();
         joblet.click();
         jobEditor.clickContextMenu("Open Joblet Component");
         Assert.assertEquals("the joblet is not opened", true, gefBot.activeEditor().getTitle().equals(jobletEditor.getTitle()));

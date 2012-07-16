@@ -12,10 +12,7 @@
 // ============================================================================
 package tosstudio.metadata.databaseoperation;
 
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -25,7 +22,6 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.swtbot.TalendSwtBotForTos;
 import org.talend.swtbot.Utilities;
 import org.talend.swtbot.items.TalendDBItem;
-import org.talend.swtbot.items.TalendSchemaItem;
 
 /**
  * DOC fzhong class global comment. Detailled comment
@@ -52,29 +48,17 @@ public class RetrieveSchemaInContextModeTest extends TalendSwtBotForTos {
 
     @Test
     public void retrieveSchemaInContextMode() {
-        SWTBotShell tempShell = null;
-        SWTBotTreeItem tableItem = null;
-        try {
-            dbItem.getItem().doubleClick();
-            tempShell = gefBot.shell("Database Connection").activate();
-            gefBot.button("Next >").click();
-            gefBot.button("Export as context").click();
-            gefBot.shell("Create / Edit a context group").activate();
-            gefBot.button("Finish").click();
-            gefBot.button("Finish").click();
-            gefBot.shell("Modification").activate();
-            gefBot.button("No").click();
-        } catch (WidgetNotFoundException wnfe) {
-            tempShell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            tempShell.close();
-            Assert.fail(e.getMessage());
-        }
+        dbItem.getItem().doubleClick();
+        gefBot.shell("Database Connection").activate();
+        gefBot.button("Next >").click();
+        gefBot.button("Export as context").click();
+        gefBot.shell("Create / Edit a context group").activate();
+        gefBot.button("Finish").click();
+        gefBot.button("Finish").click();
+        gefBot.shell("Modification").activate();
+        gefBot.button("No").click();
         dbItem.retrieveDbSchema(TABLENAME);
-        TalendSchemaItem schema = dbItem.getSchema(TABLENAME);
-        tableItem = schema.getItem();
-        Assert.assertNotNull("schemas did not retrieve", tableItem);
+        Assert.assertNotNull("schemas did not retrieve", dbItem.getSchema(TABLENAME));
     }
 
     @After

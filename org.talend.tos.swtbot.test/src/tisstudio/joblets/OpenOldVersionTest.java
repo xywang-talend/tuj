@@ -45,12 +45,10 @@ public class OpenOldVersionTest extends TalendSwtBotForTos {
         gefBot.button("Finish").click();
         gefBot.waitUntil(new DefaultCondition() {
 
-            @Override
             public boolean test() throws Exception {
                 return jobletItem.getParentNode().getNode(JOBLET_NAME + " 0.2").isVisible();
             }
 
-            @Override
             public String getFailureMessage() {
                 return "new version of joblet not found";
             }

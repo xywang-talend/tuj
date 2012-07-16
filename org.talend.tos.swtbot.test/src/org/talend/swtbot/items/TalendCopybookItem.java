@@ -12,14 +12,19 @@
 // ============================================================================
 package org.talend.swtbot.items;
 
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.junit.Assert;
 import org.talend.swtbot.Utilities;
 
@@ -64,28 +69,29 @@ public class TalendCopybookItem extends TalendMetadataItem {
         Map<String, TalendSchemaItem> schemas = new HashMap<String, TalendSchemaItem>();
 
         getItem().contextMenu("Retrieve Schema").click();
-        SWTBotShell shell = gefBot.shell("Schema").activate();
+        gefBot.shell("Schema").activate();
+        gefBot.button("Next >").click();
         try {
-            gefBot.button("Next >").click();
-            List<String> schemaNames = new ArrayList<String>(Arrays.asList(schemaName));
-            for (String schema : schemaNames) {
-                gefBot.tableInGroup("Select Schema to create").getTableItem(schema).check();
-            }
-            gefBot.button("Next >").click();
-            gefBot.button("Finish").click();
-            for (String schema : schemaNames) {
-                TalendSchemaItem schemaItem = new TalendSchemaItem(this.getItemType());
-                schemaItem.setItem(getItem().getNode(schema));
-                schemaItem.setParentNode(getItem());
-                schemas.put(schema, schemaItem);
-            }
-        } catch (WidgetNotFoundException wnfe) {
-            shell.close();
-            Assert.fail(wnfe.getCause().getMessage());
-        } catch (Exception e) {
-            shell.close();
+            gefBot.waitUntil(Conditions.waitForWidget(widgetOfType(Table.class)), 30000);
+        } catch (TimeoutException e) {
+            gefBot.toolbarButtonWithTooltip("Cancel Operation").click();
+            gefBot.waitUntil(Conditions.widgetIsEnabled(gefBot.button("Cancel")), 60000);
+            gefBot.button("Cancel").click();
             Assert.fail(e.getMessage());
         }
+        List<String> schemaNames = new ArrayList<String>(Arrays.asList(schemaName));
+        for (String schema : schemaNames) {
+            gefBot.tableInGroup("Select Schema to create").getTableItem(schema).check();
+        }
+        gefBot.button("Next >").click();
+        gefBot.button("Finish").click();
+        for (String schema : schemaNames) {
+            TalendSchemaItem schemaItem = new TalendSchemaItem(this.getItemType());
+            schemaItem.setItem(getItem().getNode(schema));
+            schemaItem.setParentNode(getItem());
+            schemas.put(schema, schemaItem);
+        }
+
         return schemas;
     }
 

@@ -46,12 +46,10 @@ public class CopyMultiVersionTest extends TalendSwtBotForTos {
         gefBot.button("Finish").click();
         gefBot.waitUntil(new DefaultCondition() {
 
-            @Override
             public boolean test() throws Exception {
                 return jobletItem.getParentNode().getNode(JOBLET_NAME + " 0.2").isVisible();
             }
 
-            @Override
             public String getFailureMessage() {
                 return "new version of joblet is not found";
             }
@@ -73,12 +71,10 @@ public class CopyMultiVersionTest extends TalendSwtBotForTos {
 
             gefBot.waitUntil(new DefaultCondition() {
 
-                @Override
                 public boolean test() throws Exception {
                     return jobletItem.getParentNode().getNode("Copy_of_" + jobletItem.getItemFullName()).isVisible();
                 }
 
-                @Override
                 public String getFailureMessage() {
                     return "the copy joblet didn't appear";
                 }

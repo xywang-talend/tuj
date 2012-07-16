@@ -10,12 +10,14 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
@@ -50,7 +52,7 @@ public class TalendDBItem extends TalendMetadataItem {
         try {
             schema = schemaNode.getNode(name);
         } catch (WidgetNotFoundException e) {
-            return null;
+            Assert.fail("schema '" + name + "' did not retrieve");
         }
         TalendSchemaItem schemaItem = new TalendSchemaItem(this.getItemType());
         schemaItem.setItem(schema);
@@ -124,22 +126,25 @@ public class TalendDBItem extends TalendMetadataItem {
             e1.printStackTrace();
         }
 
+        final SWTBotText message = gefBot.text(gefBot.widgets(widgetOfType(Text.class), shell.widget).size() - 1);
         gefBot.button("Check").click();
         gefBot.waitUntil(new DefaultCondition() {
 
             public boolean test() throws Exception {
-                return gefBot.shell("Check Connection ").isActive();
+                return "Check Connection ".equals(gefBot.activeShell().getText())
+                        || message.getText().contains("Connection failure");
             }
 
             public String getFailureMessage() {
-                shell.close();
-                return "connection failure";
+                return "no feedback for checking connection";
             }
-        });
+        }, 60000);
 
-        if (gefBot.label(1).getText().equals("\"" + itemName + "\" connection successful.")) {
+        if ("Check Connection ".equals(gefBot.activeShell().getText()))
             gefBot.button("OK").click();
-        }
+        else
+            Assert.fail(message.getText());
+
         finishCreationWizard(shell);
     }
 

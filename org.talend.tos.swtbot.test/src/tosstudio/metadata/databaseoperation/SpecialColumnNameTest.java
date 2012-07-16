@@ -68,8 +68,6 @@ public class SpecialColumnNameTest extends TalendSwtBotForTos {
     @Test
     public void useMetadataInJob() throws IOException, URISyntaxException {
         TalendSchemaItem schemaItem = dbItem.getSchema(TABLE_NAME);
-        if (schemaItem.getItem() == null)
-            Assert.fail("schema did not retrieve");
         /*
          * Assert column name of schema
          */
