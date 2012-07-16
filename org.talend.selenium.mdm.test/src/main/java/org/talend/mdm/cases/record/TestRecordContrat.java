@@ -15,7 +15,12 @@ public class TestRecordContrat extends Login {
 	public void beforeMethod(){
 		recordImpl = new ContratsImpl(driver);	
 		logger.warn("Set Before Info");
-	}		
+	}	
+	@Test
+	@Parameters( { "container","modle","entity","entity_name","primarykey.name","primarykey.value"})
+	public void testSearchContratRecordByXpathExpressionWithAttribute(String container,String modle,String entity,String entityName,String keyName,String keyValue) {
+		recordImpl.searchContratRecordByXpathExpressionWithAttribute(container, modle, entity,entityName,keyName,keyValue);
+	}
 	@Test
 	@Parameters( { "container","modle","entity","entity_name","primarykey.name","primarykey.value","numeroContratExterne"})
 	public void testBrowseContratRecordBySearch(String container,String modle,String entity,String entityName,String keyName,String keyValue,String numeroContratExterne) {
