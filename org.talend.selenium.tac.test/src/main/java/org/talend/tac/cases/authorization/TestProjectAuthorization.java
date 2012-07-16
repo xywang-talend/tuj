@@ -34,7 +34,7 @@ public class TestProjectAuthorization extends WebdriverLogin {
 	}
 	
 	@Test
-	@Parameters( {"user.Auth", "auth.FirstName", "auth.LastName", "user.passWord", "type.DI",
+	@Parameters( {"userAuth", "auth.FirstName", "auth.LastName", "user.passWord", "type.DI",
 		"addCommonProjectName", "auth.user.readwrite.info"})
 	public void testDeleteAuthorization(String user, String firstName, String lastName
 			, String passWord, String typeName, String project, String userInfo){
@@ -44,7 +44,7 @@ public class TestProjectAuthorization extends WebdriverLogin {
 	}
 	
 	@Test
-	@Parameters( {"user.Auth", "auth.FirstName", "auth.LastName",
+	@Parameters( {"userAuth", "auth.FirstName", "auth.LastName",
 		"addCommonProjectName", "user.readwrite.info", "auth.user.readonly.info"})
 	public void testSetAuthorizationReadOnly(String user, String firstName, String lastName, 
 			String project, String userReadwriteInfo, String userReadonlyInfo){
@@ -62,8 +62,18 @@ public class TestProjectAuthorization extends WebdriverLogin {
 	@Test
 	@Parameters( { "projectLabel", "type.DI"})
 	public void testAfterNewProjectCreated(String project, String type){
-		authorizationImpl.refreshAfterNewProjectCreated(project, type);
+		authorizationImpl.refreshAfterNewProjectCreatedImpl(project, type);
 	}
 	
+
+	@Test
+	@Parameters( {"userAuthDI", "di.FirstName", "di.LastName", "user.passWord", "type.DI",
+		"proAuthDI", "di.user.info"})
+	public void testAuthDIUserToDIProImpl(String user, String firstName, String lastName
+			, String passWord, String typeDI, String project, String userInfo){
+					   	
+		authorizationImpl.authDIUserToDIProImpl(user, firstName, lastName, passWord, rb.getString("menu.role.designer"), project, typeDI, userInfo);
+	
+	}
 	
 }

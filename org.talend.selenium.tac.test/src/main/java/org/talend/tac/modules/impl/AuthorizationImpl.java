@@ -67,7 +67,7 @@ public class AuthorizationImpl extends Authorization {
 		this.resetColumn();
 	}
 	
-	public void refreshAfterNewProjectCreated(String project, String type) {
+	public void refreshAfterNewProjectCreatedImpl(String project, String type) {
 		
 		projectImpl.addProjectImpl(project, type, 1);
 		
@@ -75,6 +75,21 @@ public class AuthorizationImpl extends Authorization {
 		this.waitforElementDisplayed(By.xpath("//span[text()='Projects']//ancestor::div[contains(@class,'x-small-editor x-panel-head')]//following-sibling::div//span[text()='"+project+"']"), WAIT_TIME_MIN);
 		
 		projectImpl.deleteProjectImpl(project);
+		
+	}
+
+	public void authDIUserToDIProImpl(String user, String firstName, String lastName, String passWord, 
+			String role, String project, String typeDI, String userInfo) {
+		
+		userImpl.addUserImpl(user, firstName, lastName, passWord, "",
+				"", typeDI, role);
+		
+		projectImpl.addProjectImpl(project, typeDI, 1);
+		
+		this.gotoAuthorzationPage();
+		this.authorization(user, project, userInfo);
+		
+		this.deleteAuthorization(project, lastName, firstName, userInfo);		
 		
 	}
 	

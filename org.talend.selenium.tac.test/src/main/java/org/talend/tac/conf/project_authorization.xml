@@ -10,11 +10,26 @@
 	<parameter name="type.DQ" value="Data Quality"/>
 	<parameter name="type.MDM" value="Master Data Management"/>  
 	<parameter name="user.passWord" value="admin" />	  
-   	<parameter name="user.Auth" value="auth@auth.com"/>
+   	<parameter name="userAuth" value="auth@auth.com"/>		  
+   	<parameter name="userAuthDI" value="di@auth.com"/>	  
+   	<parameter name="userAuthDQ" value="dq@auth.com"/>	  
+   	<parameter name="userAuthMDM" value="mdm@auth.com"/>	  
+   	<parameter name="proAuthDI" value="diPro"/>	  
+   	<parameter name="proAuthDQ" value="dqPro"/>	  
+   	<parameter name="proAuthMDM" value="mdmPro"/>
 	<parameter name="auth.FirstName" value="authFN" />
 	<parameter name="auth.LastName" value="authLN" />
+	<parameter name="di.FirstName" value="diFN" />
+	<parameter name="di.LastName" value="diLN" />
+	<parameter name="dq.FirstName" value="dqFN" />
+	<parameter name="dq.LastName" value="dqLN" />
+	<parameter name="mdm.FirstName" value="mdmFN" />
+	<parameter name="mdm.LastName" value="mdmLN" />
 	<parameter name="auth.user.readwrite.info" value="authLN, authFN - Read write"/>
-	<parameter name="auth.user.readonly.info" value="authLN, authFN - Read only"/>	
+	<parameter name="auth.user.readonly.info" value="authLN, authFN - Read only"/>
+	<parameter name="di.user.info" value="diLN, diFN - Read write"/>
+	<parameter name="dq.user.info" value="dqLN, dqFN - Read write"/>
+	<parameter name="mdm.user.info" value="mdmLN, mdmFN - Read write"/>
     <!-- common parameters -->
     
 	<test name="authorization01_testAuthorization" preserve-order="true">	
@@ -79,6 +94,16 @@
 			<class name="org.talend.tac.cases.authorization.TestProjectAuthorization">
 				<methods>
 					<include name="testAfterNewProjectCreated"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="authorization07_testAuthDIUserToDIProImpl" preserve-order="true">                                        
+		<classes>
+			<class name="org.talend.tac.cases.authorization.TestProjectAuthorization">
+				<methods>
+					<include name="testAuthDIUserToDIProImpl"/>
 				</methods>
 			</class>
 		</classes>

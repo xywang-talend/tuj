@@ -36,7 +36,8 @@ public class Project extends WebDriverBase {
 	protected void addProject(String projectLabel, String type, int commonReference) {
 		
 		logger.info("Click add button");
-		getElementById("idSubModuleAddButton").click();
+		this.waitforElementDisplayed(By.xpath("//div[@class='header-title' and text()='Projects']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//following-sibling::div//button[@id='idSubModuleAddButton']"), WAIT_TIME_MIN);
+		getElementByXpath("//div[@class='header-title' and text()='Projects']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//following-sibling::div//button[@id='idSubModuleAddButton']").click();
 		logger.info("Enter label value");
 		this.waitforElementDisplayed(By.id("idLabelInput"), WAIT_TIME_MIN);
 		this.waitElemet(2000);
@@ -77,7 +78,7 @@ public class Project extends WebDriverBase {
 		}
 		logger.info("Click save button");
 		this.waitElemet(2000);
-		getElementById("idFormSaveButton").click();
+		getElementByXpath("//div[@class='header-title' and text()='Projects']//ancestor::div[contains(@class,'x-panel-noborder x-panel x-component x-border-panel')]//following-sibling::div//button[@id='idFormSaveButton']").click();
 		logger.info("Verify project whether is displayed");
 		Assert.assertTrue(this.isElementPresent(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-label' and (text()='"
 				+ projectLabel + "')]"), WAIT_TIME_MID));
