@@ -37,7 +37,18 @@ public class Authorization extends WebDriverBase {
 		Assert.assertTrue(this.isElementPresent(By.xpath("//span[text()='"+project+"']//ancestor::div[contains(@class,'x-tree3-node')]//following-sibling::div//span[contains(text(),'"+userInfo+"')]"), WAIT_TIME_MIN));
 		logger.info("Authorization project - '" + project + "'  to user '"+ userName +"'");
 	}
-
+	
+	protected void authorizationFailed(String userName, String project, String userInfo){
+		logger.info("get user+"+"//span[text()='Users']//ancestor::div[contains(@class,'x-small-editor x-panel-header x-component x-unselectable')]//following-sibling::div//div[text()='"+userName+"']");
+		WebElement user = getElementByXpath("//span[text()='Users']//ancestor::div[contains(@class,'x-small-editor x-panel-header x-component x-unselectable')]//following-sibling::div//div[text()='"+userName+"']");
+		logger.info("get project+"+"//span[text()='Projects']//ancestor::div[contains(@class,'x-small-editor x-panel-head')]//following-sibling::div//span[text()='"+project+"']");
+		WebElement projectUser = getElementByXpath("//span[text()='Projects']//ancestor::div[contains(@class,'x-small-editor x-panel-head')]//following-sibling::div//span[text()='"+project+"']");
+		logger.info("drap in progress");
+		dragAndDrop(user, projectUser);
+		logger.info("check authorization result");
+		Assert.assertFalse(this.isElementPresent(By.xpath("//span[text()='"+project+"']//ancestor::div[contains(@class,'x-tree3-node')]//following-sibling::div//span[contains(text(),'"+userInfo+"')]"), 10));
+		logger.info("Authorization project - '" + project + "'  to user '"+ userName +"'");
+	}
 	
 	protected void reAuthorization(String userName, String project, String userInfo){
 		logger.info("get user");

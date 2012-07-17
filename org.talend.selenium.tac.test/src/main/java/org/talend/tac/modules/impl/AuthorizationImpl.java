@@ -35,8 +35,6 @@ public class AuthorizationImpl extends Authorization {
 	public void deleteAuthorizationImpl(String user, String firstName, String lastName
 			, String passWord, String typeName, String role, String project, String userInfo){
 		
-		userImpl.addUserImpl(user, firstName, lastName, passWord, "",
-				"", typeName, role);
 		this.gotoAuthorzationPage();
 		this.authorization(user, project, userInfo);
 		this.deleteAuthorization(project, lastName, firstName, userInfo);
@@ -47,7 +45,11 @@ public class AuthorizationImpl extends Authorization {
 	 * Turn an authorization to read-only(auto)
 	 * */
 	public void setAuthorizationReadOnlyImpl(String user, String project, String lastName,
-			String firstName, String userReadwriteInfo, String userReadonlyInfo){
+			String firstName, String userReadwriteInfo, String userReadonlyInfo, String passWord, String typeName, String role){
+		
+
+		userImpl.addUserImpl(user, firstName, lastName, passWord, "",
+				"", typeName, role);
 		this.gotoAuthorzationPage();
 		this.authorization(user, project, userReadwriteInfo);
 		this.setAuthorizationReadOnly(project, lastName, firstName, userReadonlyInfo);
@@ -92,5 +94,50 @@ public class AuthorizationImpl extends Authorization {
 		this.deleteAuthorization(project, lastName, firstName, userInfo);		
 		
 	}
-	
+
+	public void authDIUserToDQProImpl(String user, String firstName, String lastName, String passWord, 
+			String role, String project, String typeDQ, String userInfo) {
+		
+		
+		projectImpl.addProjectImpl(project, typeDQ, 1);
+		
+		this.gotoAuthorzationPage();
+		this.authorizationFailed(user, project, userInfo);		
+		
+	}	
+
+	public void authDIUserToMDMProImpl(String user, String firstName, String lastName, String passWord, 
+			String role, String project, String typeMDM, String userInfo) {
+		
+		
+		projectImpl.addProjectImpl(project, typeMDM, 1);
+		
+		this.gotoAuthorzationPage();
+		this.authorizationFailed(user, project, userInfo);		
+		
+	}
+
+	public void authDQUserToDIProImpl(String user, String firstName, String lastName, String passWord, 
+			String role, String project, String typeDQ, String userInfo) {
+		
+		userImpl.addUserImpl(user, firstName, lastName, passWord, "",
+				"", typeDQ, role);
+				
+		this.gotoAuthorzationPage();
+		this.authorization(user, project, userInfo);
+		
+		this.deleteAuthorization(project, lastName, firstName, userInfo);		
+		
+	}
+
+	public void authDQUserToDQProImpl(String user, String firstName, String lastName, String passWord, 
+			String role, String project, String typeDQ, String userInfo) {
+		
+		this.gotoAuthorzationPage();
+		this.authorization(user, project, userInfo);
+		
+		this.deleteAuthorization(project, lastName, firstName, userInfo);		
+		
+	}
+
 }
