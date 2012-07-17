@@ -1,4 +1,4 @@
-package org.talend.top.swtbot.test.patterns;
+package org.talend.top.swtbot.test.patterns.regex;
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
