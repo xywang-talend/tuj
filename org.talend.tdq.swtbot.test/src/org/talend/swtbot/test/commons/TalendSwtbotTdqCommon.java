@@ -40,7 +40,7 @@ public class TalendSwtbotTdqCommon {
 	}
 
 	public enum TalendMetadataTypeEnum {
-		MYSQL, POSTGRESQL, MSSQL, ORACLE, SQLITE, AS400, SYBASE, MYSQLODBC, MYSQLJDBC, MSACCESSODBC;
+		MYSQL, POSTGRESQL, MSSQL, MSSQLSERVER, DB2, DB2ZOS, INFORMIX, INGRES, TERADATA, ORACLE, SQLITE, AS400, SYBASE, MYSQLODBC, MYSQLJDBC, MSACCESSODBC;
 	}
 
 	public enum TalendAnalysisTypeEnum {
@@ -129,6 +129,83 @@ public class TalendSwtbotTdqCommon {
 						System.getProperty("mssql.hostname"),
 						System.getProperty("mssql.port"),
 						System.getProperty("mssql.dbname"));
+				break;
+			case MSSQLSERVER:
+				bot.textWithLabel("Name").setText(
+						TalendMetadataTypeEnum.MSSQLSERVER.toString());
+				bot.button("&Next >").click();
+				bot.comboBoxWithLabel("DB Type").setSelection(
+						"Microsoft SQL Server");
+				setConnectionInfo(bot, System.getProperty("mssql.login"),
+						System.getProperty("mssql.password"),
+						System.getProperty("mssql.hostname"),
+						System.getProperty("mssql.port"),
+						System.getProperty("mssql.dbname"));
+				break;
+			case DB2:
+				bot.textWithLabel("Name").setText(
+						TalendMetadataTypeEnum.DB2.toString());
+				bot.button("&Next >").click();
+				bot.comboBoxWithLabel("DB Type").setSelection(
+						"IBM DB2");
+				setConnectionInfo(bot, System.getProperty("db2.login"),
+						System.getProperty("db2.password"),
+						System.getProperty("db2.hostname"),
+						System.getProperty("db2.port"),
+						System.getProperty("db2.dbname"));
+				break;
+			case DB2ZOS:
+				bot.textWithLabel("Name").setText(
+						TalendMetadataTypeEnum.DB2ZOS.toString());
+				bot.button("&Next >").click();
+				bot.comboBoxWithLabel("DB Type").setSelection(
+						"IBM DB2 ZOS");
+				setConnectionInfo(bot, System.getProperty("db2.login"),
+						System.getProperty("db2.password"),
+						System.getProperty("db2.hostname"),
+						System.getProperty("db2.port"),
+						System.getProperty("db2.dbname"));
+				break;
+			case 	INFORMIX:
+				bot.textWithLabel("Name").setText(
+						TalendMetadataTypeEnum.INFORMIX.toString());
+				bot.button("&Next >").click();
+				bot.comboBoxWithLabel("DB Type").setSelection(
+						"Informix");
+				setConnectionInfo(bot, System.getProperty("informix.login"),
+						System.getProperty("informix.password"),
+						System.getProperty("informix.hostname"),
+						System.getProperty("informix.port"),
+						System.getProperty("informix.dbname"));
+				break;
+			case 	INGRES:
+				bot.textWithLabel("Name").setText(
+						TalendMetadataTypeEnum.INGRES.toString());
+				bot.button("&Next >").click();
+				bot.comboBoxWithLabel("DB Type").setSelection(
+						"Ingres");
+				setConnectionInfo(bot, System.getProperty("ingres.login"),
+						System.getProperty("ingres.password"),
+						System.getProperty("ingres.hostname"),
+						System.getProperty("ingres.port"),
+						System.getProperty("ingres.dbname"));
+				break;
+			case 	TERADATA:
+				bot.textWithLabel("Name").setText(
+						TalendMetadataTypeEnum.TERADATA.toString());
+				bot.button("&Next >").click();
+				bot.comboBoxWithLabel("DB Type").setSelection(
+						"Informix");
+				bot.comboBoxWithLabel("DB Type")
+				.setSelection("Teradata");
+				bot.textWithLabel("Login").setText(
+						System.getProperty("teradata.login"));
+				bot.textWithLabel("Password").setText(
+						System.getProperty("teradata.password"));
+				bot.textWithLabel("Server").setText(
+						System.getProperty("teradata.hostname"));
+				bot.textWithLabel("DataBase").setText(
+						System.getProperty("teradata.dbname"));
 				break;
 			case ORACLE:
 				bot.textWithLabel("Name").setText(
