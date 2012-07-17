@@ -36,6 +36,8 @@ public class SamInformation extends WebDriverBase{
     	 System.out.println(">>>"+getAbsolutePath("org/talend/tac/folder/esb/"+consumerName+"-0.1.jar"));
 		 karaf.karafAction("install -s file://"+getAbsolutePath("org/talend/tac/folder/esb/"+consumerName+"-0.1.jar")+"", 3000);
     	 logger.info("install Service and Consumer");
+    	 karaf.karafAction("uninstall "+consumerName, WAIT_TIME_MIN);
+    	 logger.info("uninstall Consumer");
      }
      
      public void intoSamPage() {	 
@@ -51,7 +53,6 @@ public class SamInformation extends WebDriverBase{
     	 Assert.assertTrue(this.isElementPresent(By.xpath("//legend[text()='Consumer']//parent::fieldset[@class='samui-participant-details']"), WAIT_TIME_MIN));
     	 Assert.assertTrue(this.isElementPresent(By.xpath("//legend[text()='Provider']//parent::fieldset[@class='samui-participant-details']"), WAIT_TIME_MIN));
     	 Assert.assertTrue(this.isElementPresent(By.xpath("//fieldset[@class='samui-event-details-REQ_OUT']"), WAIT_TIME_MIN));
- //   	 Assert.assertTrue(this.isElementPresent(By.xpath("//fieldset[@class='samui-event-details-REQ_IN']"), WAIT_TIME_MIN));
     	 logger.info("locator and check events");
      }
      

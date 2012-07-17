@@ -431,17 +431,16 @@ public class TestServiceLocator extends EsbUtil {
     }
     
     @Test
-    @Parameters({"consumerName","jobThirdProvider"})
-    public void testLargeAmountOfEndpoints(String consumerName,String jobThirdProvider) {
+    @Parameters({"consumerName","jobThirdProvider","consumerJarName"})
+    public void testLargeAmountOfEndpoints(String consumerName,String jobThirdProvider,String consumerJarName) {
     	this.clickWaitForElementPresent("!!!menu.servicelocator.element!!!");  //into SL page
     	karaf.karafAction("features:install tesb-locator-soap-service", WAIT_TIME);  //start locator-soap service
         for(int i=0;i<3;i++) {
-        	karaf.karafAction("install -s file://"+getAbsolutePath("org/talend/tac/folder/esb/"+consumerName+".jar")+"", WAIT_TIME);
+        	karaf.karafAction("install -s file://"+getAbsolutePath("org/talend/tac/folder/esb/"+consumerJarName+".jar")+"", WAIT_TIME);
 			this.sleep(40000);			
         	karaf.karafAction("uninstall "+consumerName, WAIT_TIME);
         	System.err.println("generate events :"+i);
-        }
-        karaf.karafAction("uninstall "+consumerName, WAIT_TIME);
+        }	
         selenium.click("//b[text()='Refresh']");
         this.clickWaitForElementPresent("//div[contains(@class,'x-grid3-hd-inner x-grid3-hd-endpoint')]/a");		
         selenium.setSpeed(MID_SPEED);
