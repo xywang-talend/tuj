@@ -15,7 +15,7 @@
     <contextParameter comment="" name="param_file_path" prompt="param_file_path?" promptNeeded="false" type="id_String" value="E:/tuj/tuj_context/full_context.csv"/>
   </context>
   <context confirmationNeeded="false" name="test">
-    <contextParameter comment="" name="data_output_dir" prompt="data_output_dir?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="data_output_dir" prompt="data_output_dir?" promptNeeded="false" type="id_String" value="/Users/ctoum/Talend/Talend-5.2.1-final/studio/Talend-Studio-r95165-V5.2.1/workspace/temp"/>
     <contextParameter comment="" name="result_database" prompt="result_database?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="result_port" prompt="result_port?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="result_username" prompt="result_username?" promptNeeded="false" type="id_String" value="null"/>
@@ -1057,7 +1057,7 @@
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
   </node>
-  <node componentName="tFileDelete" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="256" posY="2496">
+  <node componentName="tFileDelete" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="448" posY="2496">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileDelete_1"/>
     <elementParameter field="FILE" name="FILENAME" value="&quot;E:/product/Talend-Studio-r87956-V5.2.0NB/workspace_1/in.csv&quot;"/>
     <elementParameter field="DIRECTORY" name="DIRECTORY" value="context.data_output_dir + &quot;/&quot; + jobName + &quot;/out/&quot;"/>
@@ -1073,7 +1073,7 @@
     <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
     <metadata connector="FLOW" name="tFileDelete_1"/>
   </node>
-  <node componentName="tMDMClose" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="384" posY="2496">
+  <node componentName="tMDMClose" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="288" posY="2496">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMDMClose_1"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="tMDMConnection_1"/>
     <elementParameter field="TEXT" name="LABEL" value="&lt;b>Close Connection&lt;/b>"/>
@@ -3906,6 +3906,54 @@
       <column defaultValue="" key="false" length="255" name="message" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
   </node>
+  <node componentName="tMDMDelete" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="288" posY="96">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMDMDelete_1"/>
+    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="true"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="tMDMConnection_1"/>
+    <elementParameter field="TEXT" name="MDMURL" value="&quot;http://localhost:8080/talend/TalendPort&quot;"/>
+    <elementParameter field="TEXT" name="USERNAME" value="&quot;userName&quot;"/>
+    <elementParameter field="TEXT" name="PASSWORD" value="&quot;password&quot;"/>
+    <elementParameter field="TEXT" name="UNIVERSE" value=""/>
+    <elementParameter field="TEXT" name="CONCEPT" value="&quot;Product&quot;"/>
+    <elementParameter field="TEXT" name="DATACLUSTER" value="&quot;Product&quot;"/>
+    <elementParameter field="CHECK" name="USE_ITEMS" value="true"/>
+    <elementParameter field="LABEL" name="NOTE" value="Add all the keys in order below for the entity"/>
+    <elementParameter field="TABLE" name="KEYS"/>
+    <elementParameter field="TABLE" name="OPERATIONS"/>
+    <elementParameter field="CHECK" name="USE_DROP_ITEM" value="false"/>
+    <elementParameter field="TEXT" name="PART_PATH" value="&quot;/&quot;"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
+    <elementParameter field="TEXT" name="LABEL" value="Delete all products"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata connector="FLOW" name="tMDMDelete_1"/>
+  </node>
+  <node componentName="tMDMDelete" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="448" posY="96">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMDMDelete_2"/>
+    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="true"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="tMDMConnection_1"/>
+    <elementParameter field="TEXT" name="MDMURL" value="&quot;http://localhost:8080/talend/TalendPort&quot;"/>
+    <elementParameter field="TEXT" name="USERNAME" value="&quot;userName&quot;"/>
+    <elementParameter field="TEXT" name="PASSWORD" value="&quot;password&quot;"/>
+    <elementParameter field="TEXT" name="UNIVERSE" value=""/>
+    <elementParameter field="TEXT" name="CONCEPT" value="&quot;ProductFamily&quot;"/>
+    <elementParameter field="TEXT" name="DATACLUSTER" value="&quot;Product&quot;"/>
+    <elementParameter field="CHECK" name="USE_ITEMS" value="true"/>
+    <elementParameter field="LABEL" name="NOTE" value="Add all the keys in order below for the entity"/>
+    <elementParameter field="TABLE" name="KEYS"/>
+    <elementParameter field="TABLE" name="OPERATIONS"/>
+    <elementParameter field="CHECK" name="USE_DROP_ITEM" value="false"/>
+    <elementParameter field="TEXT" name="PART_PATH" value="&quot;/&quot;"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
+    <elementParameter field="TEXT" name="LABEL" value="Delete all prod families"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata connector="FLOW" name="tMDMDelete_2"/>
+  </node>
   <connection connectorName="FLOW" label="row10" lineStyle="0" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tContextLoad_1">
     <elementParameter field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true"/>
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER">
@@ -4035,9 +4083,9 @@
     <elementParameter field="TEXT" name="RESUMLABEL" value=""/>
     <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tMDMConnection_1" offsetLabelX="0" offsetLabelY="0" source="tMDMConnection_1" target="tFixedFlowInput_1">
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tMDMConnection_1" offsetLabelX="0" offsetLabelY="0" source="tMDMConnection_1" target="tMDMDelete_1">
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk3"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk5"/>
     <elementParameter field="CHECK" name="RESUMING_CHECKPOINT" value="false"/>
     <elementParameter field="TEXT" name="RESUMLABEL" value=""/>
     <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
@@ -4461,16 +4509,16 @@
     <elementParameter field="TEXT" name="RESUMLABEL" value=""/>
     <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
   </connection>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPostjob_1" offsetLabelX="0" offsetLabelY="0" source="tPostjob_1" target="tFileDelete_1">
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPostjob_1" offsetLabelX="0" offsetLabelY="0" source="tPostjob_1" target="tMDMClose_1">
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk2"/>
     <elementParameter field="CHECK" name="RESUMING_CHECKPOINT" value="false"/>
     <elementParameter field="TEXT" name="RESUMLABEL" value=""/>
     <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
   </connection>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tFileDelete_1" offsetLabelX="0" offsetLabelY="0" source="tFileDelete_1" target="tMDMClose_1">
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tMDMClose_1" offsetLabelX="0" offsetLabelY="0" source="tMDMClose_1" target="tFileDelete_1">
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk3"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk6"/>
     <elementParameter field="CHECK" name="RESUMING_CHECKPOINT" value="false"/>
     <elementParameter field="TEXT" name="RESUMLABEL" value=""/>
     <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
@@ -6307,6 +6355,20 @@
     <elementParameter field="CHECK" name="USE_ADVANCED" value="false"/>
     <elementParameter field="MEMO_JAVA" name="ADVANCED_COND" value="// code sample : use input_row to define the condition.&#xA;// input_row.columnName1.equals(&quot;foo&quot;) ||!(input_row.columnName2.equals(&quot;bar&quot;))&#xA;// replace the following expression by your own filter condition &#xA;input_row.columnName1.equals(input_row.columnName2)&#xA;&#x9;&#x9;&#x9;"/>
   </connection>
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tMDMDelete_1" offsetLabelX="0" offsetLabelY="0" source="tMDMDelete_1" target="tMDMDelete_2">
+    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk3"/>
+    <elementParameter field="CHECK" name="RESUMING_CHECKPOINT" value="false"/>
+    <elementParameter field="TEXT" name="RESUMLABEL" value=""/>
+    <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
+  </connection>
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tMDMDelete_2" offsetLabelX="0" offsetLabelY="0" source="tMDMDelete_2" target="tFixedFlowInput_1">
+    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk4"/>
+    <elementParameter field="CHECK" name="RESUMING_CHECKPOINT" value="false"/>
+    <elementParameter field="TEXT" name="RESUMLABEL" value=""/>
+    <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
+  </connection>
   <note opaque="false" posX="992" posY="2240" sizeHeight="97" sizeWidth="417" text="To remove all colors MDM requires that you send a collection&#xA;with one empty element per color to remove e.g. if you have&#xA;5 colors in the collection, you need to send 5 empty elements">
     <elementParameter field="COLOR" name="NOTE_COLOR" value="255;255;203"/>
     <elementParameter field="COLOR" name="NOTETXT_COLOR" value="0;0;0"/>
@@ -6564,6 +6626,16 @@
   </subjob>
   <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileCompare_10"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMDMDelete_1"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMDMDelete_2"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
   </subjob>
