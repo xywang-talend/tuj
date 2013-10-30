@@ -249,7 +249,7 @@
   <node componentName="tAssert" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="64" posY="480">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAssert_1"/>
     <elementParameter field="TEXT" name="DESCRIPTION" value="jobName"/>
-    <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="(Integer)globalMap.get(&quot;tExtractDelimitedFields_1_NB_LINE&quot;)==2&#xA;&amp;&amp;&#xA;globalMap.get(&quot;NPE&quot;)==null"/>
+    <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="((Integer)globalMap.get(&quot;tExtractDelimitedFields_1_NB_LINE&quot;))==2&#xA;&amp;&amp;&#xA;((Integer)globalMap.get(&quot;tExtractDelimitedFields_2_NB_LINE&quot;))==3"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter field="CHECK" name="INFORMATION" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
@@ -471,6 +471,7 @@
   <node componentName="tExtractDelimitedFields" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="224" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tExtractDelimitedFields_2"/>
     <elementParameter field="PREV_COLUMN_LIST" name="FIELD" value="data"/>
+    <elementParameter field="CHECK" name="IGNORE_SOURCE_NULL" value="false"/>
     <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;=&quot;"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
     <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
@@ -792,7 +793,7 @@
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row7"/>
   </connection>
-  <connection connectorName="SUBJOB_ERROR" label="OnSubjobError" lineStyle="4" metaname="tFixedFlowInput_2" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_2" target="tAssert_1">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFixedFlowInput_2" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_2" target="tAssert_1">
     <elementParameter field="RADIO" name="PARTITIONER" value="false"/>
     <elementParameter field="RADIO" name="DEPARTITIONER" value="false"/>
     <elementParameter field="RADIO" name="REPARTITIONER" value="false"/>
@@ -804,7 +805,7 @@
     <elementParameter field="TEXT" name="QUEUE_SIZE" value="10000"/>
     <elementParameter field="CHECK" name="IS_SORTING" value="true"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobError1"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk3"/>
   </connection>
   <connection connectorName="FLOW" label="row8" lineStyle="0" metaname="tExtractDelimitedFields_2" offsetLabelX="0" offsetLabelY="0" source="tExtractDelimitedFields_2" target="tJavaFlex_1">
     <elementParameter field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true"/>
