@@ -39,7 +39,7 @@
     <contextParameter comment="" name="oracle_port" prompt="oracle_port?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="oracle_schema" prompt="oracle_schema?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="oracle_username" prompt="oracle_username?" promptNeeded="false" type="id_String" value="null"/>
-    <contextParameter comment="" name="param_file_path" prompt="param_file_path?" promptNeeded="false" type="id_String" value="e:/tuj/context_general.csv"/>
+    <contextParameter comment="" name="param_file_path" prompt="param_file_path?" promptNeeded="false" type="id_String" value="d:/tuj/tuj/full_context.csv"/>
     <contextParameter comment="" name="postgresql_database" prompt="postgresql_database?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="postgresql_host" prompt="postgresql_host?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="postgresql_password" prompt="postgresql_password?" promptNeeded="false" type="id_String" value="null"/>
@@ -88,7 +88,6 @@
     <elementParameter field="CHECK" name="MULTI_THREAD_EXECATION" value="false"/>
     <elementParameter field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;&quot;"/>
-    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:REPOSITORY_PROPERTY_TYPE" value=""/>
     <elementParameter field="CLOSED_LIST" name="DB_VERSION_IMPLICIT_CONTEXT" value=""/>
     <elementParameter field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value=""/>
     <elementParameter field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value=""/>
@@ -108,12 +107,13 @@
     <routinesParameter id="_KzcuUKNzEeOI-L3A_NJciQ" name="DQTechnical"/>
     <routinesParameter id="_KybaoKNzEeOI-L3A_NJciQ" name="DataQuality"/>
     <routinesParameter id="_KzUygKNzEeOI-L3A_NJciQ" name="DqStringHandling"/>
+    <routinesParameter id="_RF4LcK5EEeOBLMCXAGZ1Sg" name="MDM"/>
   </parameters>
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1"/>
     <elementParameter field="CHECK" name="END_OF_FLOW" value="false"/>
     <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
-    <elementParameter field="FILE" name="FILENAME" value="context.data_dir+context.current_dir+&quot;input.csv&quot;"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.data_dir+&quot;/&quot;+jobName+&quot;/input.csv&quot;"/>
     <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
     <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" value="&quot;\n&quot;"/>
     <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
@@ -484,7 +484,7 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileOutputDelimited_1"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" value="outputStream"/>
-    <elementParameter field="FILE" name="FILENAME" value="context.data_dir+context.current_dir+&quot;out/output.csv&quot;"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.data_output_dir+&quot;/&quot;+jobName+&quot;/output.csv&quot;"/>
     <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
     <elementParameter field="CHECK" name="OS_LINE_SEPARATOR_AS_ROW_SEPARATOR" value="true"/>
     <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" value="&quot;\n&quot;"/>
@@ -551,8 +551,8 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileCompare_1"/>
     <elementParameter field="CHECK" name="END_OF_FLOW" value="false"/>
     <elementParameter field="CLOSED_LIST" name="COMPARISON_MODE" value="TEXT_CMP"/>
-    <elementParameter field="FILE" name="FILE" value="context.data_dir+context.current_dir+&quot;out/output.csv&quot;"/>
-    <elementParameter field="FILE" name="FILE_REF" value="context.data_dir+context.current_dir+&quot;ref.csv&quot;"/>
+    <elementParameter field="FILE" name="FILE" value="context.data_output_dir+&quot;/&quot;+jobName+&quot;/output.csv&quot;"/>
+    <elementParameter field="FILE" name="FILE_REF" value="context.data_dir+&quot;/&quot;+jobName+&quot;/ref.csv&quot;"/>
     <elementParameter field="TEXT" name="DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files differ&quot;"/>
     <elementParameter field="TEXT" name="NO_DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files are identical&quot;"/>
     <elementParameter field="CHECK" name="PRINT" value="true"/>
@@ -661,7 +661,7 @@
     <elementParameter field="CHECK" name="SUBTREE_START" value="false"/>
     <elementParameter field="FILE" name="FILENAME" value="&quot;E:/Talend-Studio-r79531-V5.1.0NB/workspace/in.csv&quot;"/>
     <elementParameter field="DIRECTORY" name="DIRECTORY" value="&quot;E:/Talend-Studio-r79531-V5.1.0NB/workspace/delete_folder&quot;"/>
-    <elementParameter field="TEXT" name="PATH" value="context.data_dir+context.current_dir+&quot;out&quot;"/>
+    <elementParameter field="TEXT" name="PATH" value="context.data_output_dir+&quot;/&quot;+jobName"/>
     <elementParameter field="CHECK" name="FAILON" value="true"/>
     <elementParameter field="CHECK" name="FOLDER" value="false"/>
     <elementParameter field="CHECK" name="FOLDER_FILE" value="true"/>
@@ -671,6 +671,14 @@
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
     <metadata connector="FLOW" name="tFileDelete_1"/>
+  </node>
+  <node componentName="tPostjob" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="480">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tPostjob_1"/>
+    <elementParameter field="CHECK" name="START" value="true"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
   </node>
   <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tTeradataFastLoad_1">
     <elementParameter field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true"/>
@@ -1039,23 +1047,6 @@
     <elementParameter field="CHECK" name="USE_ADVANCED" value="false"/>
     <elementParameter field="MEMO_JAVA" name="ADVANCED_COND" value="// code sample : use input_row to define the condition.&#xA;// input_row.columnName1.equals(&quot;foo&quot;) ||!(input_row.columnName2.equals(&quot;bar&quot;))&#xA;// replace the following expression by your own filter condition &#xA;input_row.columnName1.equals(input_row.columnName2)&#xA;&#x9;&#x9;&#x9;"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileCompare_1" offsetLabelX="0" offsetLabelY="0" source="tFileCompare_1" target="tTeradataRow_2">
-    <elementParameter field="RADIO" name="PARTITIONER" value="false"/>
-    <elementParameter field="RADIO" name="DEPARTITIONER" value="false"/>
-    <elementParameter field="RADIO" name="REPARTITIONER" value="false"/>
-    <elementParameter field="RADIO" name="NONE" value="true"/>
-    <elementParameter field="TEXT" name="NUM_PARTITIONS" value="5"/>
-    <elementParameter field="TEXT" name="PART_QUEUE_SIZE" value="1000"/>
-    <elementParameter field="CHECK" name="HASH_PARTITION" value="false"/>
-    <elementParameter field="TABLE" name="HASH_KEYS"/>
-    <elementParameter field="TEXT" name="DEPART_QUEUE_SIZE" value="1000"/>
-    <elementParameter field="CHECK" name="IS_SORTING" value="true"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk3"/>
-    <elementParameter field="CHECK" name="RESUMING_CHECKPOINT" value="false"/>
-    <elementParameter field="TEXT" name="RESUMLABEL" value=""/>
-    <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
-  </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tTeradataRow_1" offsetLabelX="0" offsetLabelY="0" source="tTeradataRow_1" target="tFileInputDelimited_1">
     <elementParameter field="RADIO" name="PARTITIONER" value="false"/>
     <elementParameter field="RADIO" name="DEPARTITIONER" value="false"/>
@@ -1103,6 +1094,23 @@
     <elementParameter field="CHECK" name="USE_ADVANCED" value="false"/>
     <elementParameter field="MEMO_JAVA" name="ADVANCED_COND" value="// code sample : use input_row to define the condition.&#xA;// input_row.columnName1.equals(&quot;foo&quot;) ||!(input_row.columnName2.equals(&quot;bar&quot;))&#xA;// replace the following expression by your own filter condition &#xA;input_row.columnName1.equals(input_row.columnName2)&#xA;&#x9;&#x9;&#x9;"/>
   </connection>
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPostjob_1" offsetLabelX="0" offsetLabelY="0" source="tPostjob_1" target="tTeradataRow_2">
+    <elementParameter field="RADIO" name="PARTITIONER" value="false"/>
+    <elementParameter field="RADIO" name="DEPARTITIONER" value="false"/>
+    <elementParameter field="RADIO" name="REPARTITIONER" value="false"/>
+    <elementParameter field="RADIO" name="NONE" value="true"/>
+    <elementParameter field="TEXT" name="NUM_PARTITIONS" value="5"/>
+    <elementParameter field="TEXT" name="PART_QUEUE_SIZE" value="1000"/>
+    <elementParameter field="CHECK" name="HASH_PARTITION" value="false"/>
+    <elementParameter field="TABLE" name="HASH_KEYS"/>
+    <elementParameter field="TEXT" name="DEPART_QUEUE_SIZE" value="1000"/>
+    <elementParameter field="CHECK" name="IS_SORTING" value="true"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk1"/>
+    <elementParameter field="CHECK" name="RESUMING_CHECKPOINT" value="false"/>
+    <elementParameter field="TEXT" name="RESUMLABEL" value=""/>
+    <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
+  </connection>
   <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
@@ -1137,5 +1145,11 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tTeradataRow_2"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tPostjob_1"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="230;100;0"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="255;220;180"/>
   </subjob>
 </talendfile:ProcessType>
