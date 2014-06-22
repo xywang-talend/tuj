@@ -1,0 +1,13 @@
+package tuj_tdq3356 
+
+rule "4_MostCommonCity"
+    no-loop true
+    dialect "mvel"
+    ruleflow-group "4_MostCommonCityGroup"
+when
+    $input : RecordIn( dataset.isMostCommon( city, "city", false) )  
+then
+    dataset.survive( $input.TALEND_INTERNAL_ID, "city" );
+end
+
+

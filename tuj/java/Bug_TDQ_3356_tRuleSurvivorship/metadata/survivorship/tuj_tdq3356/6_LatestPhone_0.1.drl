@@ -1,0 +1,14 @@
+package tuj_tdq3356 
+
+rule "6_LatestPhone"
+    no-loop true
+    dialect "mvel"
+    ruleflow-group "6_LatestPhoneGroup"
+when
+    $input : RecordIn( dataset.isLatest( date, "date" ) )  
+then
+    dataset.survive( $input.TALEND_INTERNAL_ID, "phone" );
+    dataset.survive( $input.TALEND_INTERNAL_ID, "date" );
+end
+
+
