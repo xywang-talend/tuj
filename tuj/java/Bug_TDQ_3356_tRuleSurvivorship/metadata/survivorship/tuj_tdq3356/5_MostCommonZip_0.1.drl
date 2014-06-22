@@ -1,0 +1,15 @@
+package tuj_tdq3356 
+
+rule "5_MostCommonZip"
+    no-loop true
+    dialect "mvel"
+    ruleflow-group "5_MostCommonZipGroup"
+when
+    $input : RecordIn( dataset.isMostCommon( zip, "zip", false), zip matches "\\d{5}"  )  
+then
+    dataset.survive( $input.TALEND_INTERNAL_ID, "zip" );
+    dataset.survive( $input.TALEND_INTERNAL_ID, "state" );
+    dataset.survive( $input.TALEND_INTERNAL_ID, "country" );
+end
+
+
