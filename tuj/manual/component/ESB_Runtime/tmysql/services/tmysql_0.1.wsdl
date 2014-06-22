@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="tmysql"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		xmlns:tns="http://www.talend.org/service/"
+		targetNamespace="http://www.talend.org/service/">
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://www.talend.org/service/">
+			<xsd:element name="tmysqlOperationRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="in" type="xsd:string"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="tmysqlOperationResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="xsd:string"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="tmysqlOperationRequest">
+		<wsdl:part name="parameters" element="tns:tmysqlOperationRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="tmysqlOperationResponse">
+		<wsdl:part name="parameters" element="tns:tmysqlOperationResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:portType name="tmysqlPortType">
+		<wsdl:operation name="tmysqlOperation">
+			<wsdl:input message="tns:tmysqlOperationRequest"></wsdl:input>
+			<wsdl:output message="tns:tmysqlOperationResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="tmysqlBinding" type="tns:tmysqlPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="tmysqlOperation">
+			<soap:operation soapAction="http://www.talend.org/service/tmysqlOperation" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="tmysql">
+		<wsdl:port name="tmysqlPort" binding="tns:tmysqlBinding">
+			<soap:address location="http://localhost:8090/services/tmysql" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

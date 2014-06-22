@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="tjdbc"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		xmlns:tns="http://www.talend.org/service/"
+		targetNamespace="http://www.talend.org/service/">
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://www.talend.org/service/">
+			<xsd:element name="tjdbcOperationRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="in" type="xsd:string"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="tjdbcOperationResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="xsd:string"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="tjdbcOperationRequest">
+		<wsdl:part name="parameters" element="tns:tjdbcOperationRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="tjdbcOperationResponse">
+		<wsdl:part name="parameters" element="tns:tjdbcOperationResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:portType name="tjdbcPortType">
+		<wsdl:operation name="tjdbcOperation">
+			<wsdl:input message="tns:tjdbcOperationRequest"></wsdl:input>
+			<wsdl:output message="tns:tjdbcOperationResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="tjdbcBinding" type="tns:tjdbcPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="tjdbcOperation">
+			<soap:operation soapAction="http://www.talend.org/service/tjdbcOperation" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="tjdbc">
+		<wsdl:port name="tjdbcPort" binding="tns:tjdbcBinding">
+			<soap:address location="http://localhost:8090/services/tjdbc" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
