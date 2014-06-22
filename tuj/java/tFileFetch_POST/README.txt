@@ -1,0 +1,1 @@
+Note that assert is always true by default.
