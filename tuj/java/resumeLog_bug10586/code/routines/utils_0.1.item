@@ -1,0 +1,82 @@
+// template routine Java
+package routines;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
+
+/*
+ * user specification: the function's comment should contain keys as follows: 1. write about the function's comment.but
+ * it must be before the "{talendTypes}" key.
+ * 
+ * 2. {talendTypes} 's value must be talend Type, it is required . its value should be one of: String, char | Character,
+ * long | Long, int | Integer, boolean | Boolean, byte | Byte, Date, double | Double, float | Float, Object, short |
+ * Short
+ * 
+ * 3. {Category} define a category for the Function. it is required. its value is user-defined .
+ * 
+ * 4. {param} 's format is: {param} <type>[(<default value or closed list values>)] <name>[ : <comment>]
+ * 
+ * <type> 's value should be one of: string, int, list, double, object, boolean, long, char, date. <name>'s value is the
+ * Function's parameter name. the {param} is optional. so if you the Function without the parameters. the {param} don't
+ * added. you can have many parameters for the Function.
+ * 
+ * 5. {example} gives a example for the Function. it is optional.
+ */
+public class utils {
+
+	public static void throwError(java.util.Properties context,
+			String currentComponent, String currentPart)
+			throws RuntimeException {
+
+		String hasErrorAtComponentValue = context
+				.getProperty("throwErrorsAtComponent");
+		if (hasErrorAtComponentValue != null) {
+			String[] split = hasErrorAtComponentValue.split(",");
+
+			for (int i = 0; i < split.length; i++) {
+				String hasErrorAtComponent = split[i];
+				if (currentComponent.equals(hasErrorAtComponent)
+						&& currentPart.equals(context
+								.getProperty("throwErrorsAtPart"))) {
+					throw new RuntimeException("Expected error at component '"
+							+ currentComponent + "' at part '" + currentPart
+							+ "'");
+				}
+			}
+		}
+	}
+
+	public static void sleep(long time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void showInfo(String jobName, String currentComponent,
+			String componentPart, String... otherInfos) {
+		System.out.println(jobName + " " + currentComponent + " "
+				+ componentPart + " : " + Arrays.toString(otherInfos));
+	}
+
+	public static void showContextProperties(java.util.Properties context) {
+		List<String> stringPropertyNames = new ArrayList<String>();		
+		Enumeration<?> propertyNames = context.propertyNames();
+		
+		while(propertyNames.hasMoreElements()){
+			String nextElement = (String)propertyNames.nextElement();
+			stringPropertyNames.add(nextElement);
+		}
+		
+		Collections.sort(stringPropertyNames);
+		for (String key : stringPropertyNames) {
+			System.out.println("Context property: " + key + " = "
+					+ context.getProperty(key));
+		}
+	}
+
+}
