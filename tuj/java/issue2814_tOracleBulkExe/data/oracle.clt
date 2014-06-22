@@ -1,0 +1,13 @@
+OPTIONS (READSIZE=20000000, ROWS=5000, BINDSIZE=20000000, PARALLEL=fase)
+LOAD DATA
+CHARACTERSET 'WE8ISO8859P15'
+INFILE 'D:/tuj/data/data1.txt'
+BADFILE 'D:/tuj/data/data1.txt.bad'
+DISCARDFILE 'D:/tuj/data/data1.txt.dsc'
+INFILE 'D:/tuj/data/data2.txt'
+BADFILE 'D:/tuj/data/data2.txt.bad'
+DISCARDFILE 'D:/tuj/data/data2.txt.dsc'
+INTO TABLE tmp_table_slanglois
+TRUNCATE
+FIELDS TERMINATED BY ";"
+(id, text)
