@@ -96,6 +96,13 @@
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
     <elementParameter field="CHECK" name="SPLITRECORD" value="false"/>
+    <elementParameter field="CHECK" name="ENABLE_DECODE" value="false"/>
+    <elementParameter field="TABLE" name="DECODE_COLS">
+      <elementValue elementRef="SCHEMA_COLUMN" value="key"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="value"/>
+      <elementValue elementRef="DECODE" value="false"/>
+    </elementParameter>
     <elementParameter field="TEXT" name="DESTINATION" value=""/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" value="100"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -134,10 +141,10 @@
       <column defaultValue="" key="false" length="255" name="value" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tAssert" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="128" posY="608">
+  <node componentName="tAssert" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="128" posY="832">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAssert_1"/>
     <elementParameter field="TEXT" name="DESCRIPTION" value="jobName"/>
-    <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="((Integer)globalMap.get(&quot;tStewardshipTaskDelete_2_DELETED_TASK_NUMBER&quot;))==3&#xA;&amp;&amp;&#xA;((Integer)globalMap.get(&quot;tStewardshipTaskDelete_3_DELETED_TASK_NUMBER&quot;))==1"/>
+    <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="((Integer)globalMap.get(&quot;tStewardshipTaskDelete_2_DELETED_TASK_NUMBER&quot;))==2&#xA;&amp;&amp;&#xA;((Integer)globalMap.get(&quot;tStewardshipTaskDelete_3_DELETED_TASK_NUMBER&quot;))==1&#xA;&amp;&amp;&#xA;((Integer)globalMap.get(&quot;tStewardshipTaskDelete_1_DELETED_TASK_NUMBER&quot;))==1"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter field="CHECK" name="INFORMATION" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
@@ -244,9 +251,235 @@
       <column defaultValue="" key="false" length="255" name="description" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
+  <node componentName="tFixedFlowInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="224">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFixedFlowInput_1"/>
+    <elementParameter field="CHECK" name="START" value="true"/>
+    <elementParameter field="CHECK" name="END_OF_FLOW" value="false"/>
+    <elementParameter field="TEXT" name="NB_ROWS" value="1"/>
+    <elementParameter field="RADIO" name="USE_SINGLEMODE" value="false"/>
+    <elementParameter field="TABLE" name="VALUES">
+      <elementValue elementRef="SCHEMA_COLUMN" value="S_account_num"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="S_lname"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="S_mi"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="S_fname"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="S_address1"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="S_postal_code"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="S_city"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="S_isReference"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="S_source"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="S_MATCHING_WEIGHT"/>
+      <elementValue elementRef="VALUE" value=""/>
+    </elementParameter>
+    <elementParameter field="RADIO" name="USE_INTABLE" value="false"/>
+    <elementParameter field="TABLE" name="INTABLE"/>
+    <elementParameter field="RADIO" name="USE_INLINECONTENT" value="true"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;"/>
+    <elementParameter field="MEMO" name="INLINECONTENT" value="12912208437|Ames||Raphael|9662 Red Leaf|7151|Webmaster|false|DRH file|0.9591341962347497&#xD;&#xA;12912208437|Ames||Raphaël|9662 Red Lef|7152|Webmaster|true|DRH file|0.9458715988205864&#xD;&#xA;12912208437|Ames|P.|Raphael|9662 Red Lef|7153|Webmaster|false|DRH file|0.9458715988205864&#xD;&#xA;12912208437|Ames||Raphael|9662 Red Leaf|71584|Webminster|false|DRH file|0.9731202102207637&#xD;&#xA;12912208437|Ames||Ralph|9662 Red Leaf|71585|Westminster|true|Company|0.9591341962347497&#xD;&#xA;14398822784|Abdulla||Larry|Wren Avenue 6968|96006|Lemon Grove|false|DRH file|0.9592760182343998&#xD;&#xA;14398822784|Abdulla||Larry|6968 Wren Ave.|96007|Lemon Grove|true|Company|0.9592760182343998&#xD;&#xA;27192117600|Amaro||Cathy|551 Thors Bay Road|39418|Mill Valley|false|DRH file|0.9897435857699468&#xD;&#xA;27192117600|Amaro||Catherine|51 Thor Road|39419|Mill Valley|false|DRH file|0.9455002546310425&#xD;&#xA;27192117600|Amaro||Kathy|551 Thors Bay Road|39410|Mill Valley|true|Company|0.9897435857699468&#xD;&#xA;96027305126|Alering|O.|Robert|1451 Victory Lane|92211|Salem|false|DRH file|0.9711538323989282&#xD;&#xA;96027305126|Alering||Bob|1451 Victoria Lane|92212|Salem|false|DRH file|0.9317061029947722&#xD;&#xA;96027305126|Ahlering||Robert|1451 Victory Lane|92213|Salem|true|Company|0.9711538323989282"/>
+    <elementParameter field="TEXT" name="LABEL" value="incoming_customers"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata connector="FLOW" name="tFixedFlowInput_1">
+      <column comment="" key="false" length="19" name="S_account_num" nullable="true" pattern="" precision="0" sourceType="BIGINT" type="id_Long" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="S_lname" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="S_mi" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="S_fname" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="S_address1" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="S_postal_code" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="S_city" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" name="S_isReference" nullable="true" pattern="" sourceType="" type="id_Boolean" usefulColumn="true"/>
+      <column comment="" key="false" name="S_source" nullable="true" pattern="" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="20" name="S_MATCHING_WEIGHT" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tStewardshipTaskOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="384" posY="224">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tStewardshipTaskOutput_1"/>
+    <elementParameter field="CHECK" name="END_OF_FLOW" value="true"/>
+    <elementParameter field="TEXT" name="HOST" value="context.mdm_host"/>
+    <elementParameter field="TEXT" name="PORT" value="context.mdm_port"/>
+    <elementParameter field="TEXT" name="USERNAME" value="context.mdm_username"/>
+    <elementParameter field="PASSWORD" name="PASSWORD" value="4D9onkGJm3cqTUaN9RU4KKKQQ/wTCnj4Encrypt"/>
+    <elementParameter field="TEXT" name="TASKNAME" value="&quot;taskname&quot;"/>
+    <elementParameter field="CLOSED_LIST" name="TASKTYPE" value="1"/>
+    <elementParameter field="TEXT" name="CREATED_BY" value="context.mdm_username"/>
+    <elementParameter field="TEXT" name="OWNER" value="context.mdm_username"/>
+    <elementParameter field="TEXT" name="STAR_RANKING" value="2"/>
+    <elementParameter field="TEXT" name="TAGS" value="jobName"/>
+    <elementParameter field="PREV_COLUMN_LIST" name="LOOPING_COLUMN" value="S_account_num"/>
+    <elementParameter field="PREV_COLUMN_LIST" name="RECORD_TYPE" value="S_isReference"/>
+    <elementParameter field="PREV_COLUMN_LIST" name="SOURCE" value="S_source"/>
+    <elementParameter field="PREV_COLUMN_LIST" name="SCORE" value="S_MATCHING_WEIGHT"/>
+    <elementParameter field="PREV_COLUMN_LIST" name="WEIGHTS" value="S_MATCHING_WEIGHT"/>
+    <elementParameter field="TABLE" name="EXTRA_INFO"/>
+    <elementParameter field="TABLE" name="RECORD_COLUMN">
+      <elementValue elementRef="CONTENT" value="S_account_num"/>
+      <elementValue elementRef="CONTENT" value="S_lname"/>
+      <elementValue elementRef="CONTENT" value="S_mi"/>
+      <elementValue elementRef="CONTENT" value="S_fname"/>
+      <elementValue elementRef="CONTENT" value="S_address1"/>
+      <elementValue elementRef="CONTENT" value="S_postal_code"/>
+      <elementValue elementRef="CONTENT" value="S_city"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="NB_TASKS_PER_COMMIT" value="500"/>
+    <elementParameter field="TEXT" name="LABEL" value="toDataStewardShipConsole"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata connector="FLOW" name="tStewardshipTaskOutput_1">
+      <column comment="" key="false" length="19" name="S_account_num" nullable="true" pattern="" precision="0" sourceType="BIGINT" type="id_Long" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="S_lname" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="S_mi" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="S_fname" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="S_address1" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="S_postal_code" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="S_city" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" name="S_isReference" nullable="true" pattern="" sourceType="" type="id_Boolean" usefulColumn="true"/>
+      <column comment="" key="false" name="S_source" nullable="true" pattern="" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="20" name="S_MATCHING_WEIGHT" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tStewardshipTaskDelete" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="320">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tStewardshipTaskDelete_2"/>
+    <elementParameter field="TEXT" name="HOST" value="context.mdm_host"/>
+    <elementParameter field="TEXT" name="PORT" value="context.mdm_port"/>
+    <elementParameter field="TEXT" name="USERNAME" value="context.mdm_username"/>
+    <elementParameter field="PASSWORD" name="PASSWORD" value="4D9onkGJm3cqTUaN9RU4KKKQQ/wTCnj4Encrypt"/>
+    <elementParameter field="CHECK" name="DELETE_BY_ID" value="false"/>
+    <elementParameter field="CHECK" name="SPECIFY_TASK_ID" value="false"/>
+    <elementParameter field="TEXT" name="TASK_ID" value="&quot;&quot;"/>
+    <elementParameter field="PREV_COLUMN_LIST" name="ID_FIELD" value=""/>
+    <elementParameter field="CLOSED_LIST" name="TASKTYPE" value="1"/>
+    <elementParameter field="TEXT" name="OWNER" value="context.mdm_username"/>
+    <elementParameter field="TEXT" name="TAG" value="jobName"/>
+    <elementParameter field="TEXT" name="START_DATETIME" value="&quot;2014-01-01 10:10:10&quot;"/>
+    <elementParameter field="TEXT" name="END_DATETIME" value="&quot;3014-07-01 10:10:10&quot;"/>
+    <elementParameter field="CLOSED_LIST" name="STATUS" value="null"/>
+    <elementParameter field="CLOSED_LIST" name="STAR_RANKING" value="null"/>
+    <elementParameter field="TEXT" name="LIMIT" value="2"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata connector="FLOW" name="tStewardshipTaskDelete_2">
+      <column defaultValue="" key="false" length="255" name="TASK_ID" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="20" name="TASK_TYPE" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="TASK_CREATEDBY" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="20" name="TASK_CREATEDON" nullable="true" pattern="&quot;yyyy-MM-dd'T'HH:mm:ss'.000Z'&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="TASK_OWNER" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="20" name="TASK_STATUS" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="20" name="TASK_STARS" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tStewardshipTaskInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="704">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tStewardshipTaskInput_1"/>
+    <elementParameter field="CHECK" name="END_OF_FLOW" value="false"/>
+    <elementParameter field="TEXT" name="HOST" value="context.mdm_host"/>
+    <elementParameter field="TEXT" name="PORT" value="context.mdm_port"/>
+    <elementParameter field="TEXT" name="USERNAME" value="context.mdm_username"/>
+    <elementParameter field="PASSWORD" name="PASSWORD" value="4D9onkGJm3cqTUaN9RU4KKKQQ/wTCnj4Encrypt"/>
+    <elementParameter field="CLOSED_LIST" name="TASKTYPE" value="1"/>
+    <elementParameter field="TEXT" name="OWNER" value="context.mdm_username"/>
+    <elementParameter field="TEXT" name="TAG" value="jobName"/>
+    <elementParameter field="TEXT" name="START_DATETIME" value="&quot;2014-01-01 10:10:10&quot;"/>
+    <elementParameter field="TEXT" name="END_DATETIME" value="&quot;3014-07-01 10:10:10&quot;"/>
+    <elementParameter field="CLOSED_LIST" name="STATUS" value="null"/>
+    <elementParameter field="CLOSED_LIST" name="STAR_RANKING" value="null"/>
+    <elementParameter field="TEXT" name="LIMIT" value="10000"/>
+    <elementParameter field="CHECK" name="TARGET_RECORD_ONLY" value="true"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata connector="FLOW" name="tStewardshipTaskInput_1">
+      <column key="false" length="255" name="TASK_ID" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="20" name="TASK_TYPE" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="TASK_CREATEDBY" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="20" name="TASK_CREATEDON" nullable="true" pattern="&quot;yyyy-MM-dd'T'HH:mm:ss'.000Z'&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
+      <column key="false" length="255" name="TASK_OWNER" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="20" name="TASK_STATUS" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="20" name="TASK_STARS" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tFilterColumns" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="256" posY="704">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFilterColumns_1"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata connector="FLOW" name="tFilterColumns_1">
+      <column key="false" length="255" name="TASK_ID" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tStewardshipTaskDelete" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="544" posY="704">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tStewardshipTaskDelete_3"/>
+    <elementParameter field="CHECK" name="SUBTREE_START" value="false"/>
+    <elementParameter field="TEXT" name="HOST" value="context.mdm_host"/>
+    <elementParameter field="TEXT" name="PORT" value="context.mdm_port"/>
+    <elementParameter field="TEXT" name="USERNAME" value="context.mdm_username"/>
+    <elementParameter field="PASSWORD" name="PASSWORD" value="4D9onkGJm3cqTUaN9RU4KKKQQ/wTCnj4Encrypt"/>
+    <elementParameter field="CHECK" name="DELETE_BY_ID" value="true"/>
+    <elementParameter field="CHECK" name="SPECIFY_TASK_ID" value="false"/>
+    <elementParameter field="TEXT" name="TASK_ID" value=""/>
+    <elementParameter field="PREV_COLUMN_LIST" name="ID_FIELD" value="TASK_ID"/>
+    <elementParameter field="CLOSED_LIST" name="TASKTYPE" value="1"/>
+    <elementParameter field="TEXT" name="OWNER" value="&quot;user&quot;"/>
+    <elementParameter field="TEXT" name="TAG" value="&quot;t4&quot;"/>
+    <elementParameter field="TEXT" name="START_DATETIME" value="&quot;2014-01-01 10:10:10&quot;"/>
+    <elementParameter field="TEXT" name="END_DATETIME" value="&quot;2014-07-01 10:10:10&quot;"/>
+    <elementParameter field="CLOSED_LIST" name="STATUS" value="null"/>
+    <elementParameter field="CLOSED_LIST" name="STAR_RANKING" value="null"/>
+    <elementParameter field="TEXT" name="LIMIT" value="50"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata connector="FLOW" name="tStewardshipTaskDelete_3">
+      <column key="false" length="255" name="TASK_ID" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tStewardshipTaskDelete" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="544">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tStewardshipTaskDelete_1"/>
+    <elementParameter field="TEXT" name="HOST" value="context.mdm_host"/>
+    <elementParameter field="TEXT" name="PORT" value="context.mdm_port"/>
+    <elementParameter field="TEXT" name="USERNAME" value="context.mdm_username"/>
+    <elementParameter field="PASSWORD" name="PASSWORD" value="4D9onkGJm3cqTUaN9RU4KKKQQ/wTCnj4Encrypt"/>
+    <elementParameter field="CHECK" name="DELETE_BY_ID" value="true"/>
+    <elementParameter field="CHECK" name="SPECIFY_TASK_ID" value="true"/>
+    <elementParameter field="TEXT" name="TASK_ID" value="String.valueOf(globalMap.get(&quot;delete_task_id&quot;))"/>
+    <elementParameter field="PREV_COLUMN_LIST" name="ID_FIELD" value=""/>
+    <elementParameter field="CLOSED_LIST" name="TASKTYPE" value="1"/>
+    <elementParameter field="TEXT" name="OWNER" value="&quot;user&quot;"/>
+    <elementParameter field="TEXT" name="TAG" value="&quot;t4&quot;"/>
+    <elementParameter field="TEXT" name="START_DATETIME" value="&quot;2014-01-01 10:10:10&quot;"/>
+    <elementParameter field="TEXT" name="END_DATETIME" value="&quot;2014-07-01 10:10:10&quot;"/>
+    <elementParameter field="CLOSED_LIST" name="STATUS" value="null"/>
+    <elementParameter field="CLOSED_LIST" name="STAR_RANKING" value="null"/>
+    <elementParameter field="TEXT" name="LIMIT" value="50"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
+    <metadata connector="FLOW" name="tStewardshipTaskDelete_1">
+      <column key="false" length="255" name="TASK_ID" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
   <node componentName="tMysqlOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="768" posY="480">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlOutput_1"/>
+    <elementParameter field="CHECK" name="SUBTREE_START" value="true"/>
     <elementParameter field="CHECK" name="END_OF_FLOW" value="true"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="MYSQL_5"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value=""/>
@@ -357,137 +590,8 @@
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tFixedFlowInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="224">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFixedFlowInput_1"/>
-    <elementParameter field="CHECK" name="START" value="true"/>
-    <elementParameter field="CHECK" name="END_OF_FLOW" value="false"/>
-    <elementParameter field="TEXT" name="NB_ROWS" value="1"/>
-    <elementParameter field="RADIO" name="USE_SINGLEMODE" value="false"/>
-    <elementParameter field="TABLE" name="VALUES">
-      <elementValue elementRef="SCHEMA_COLUMN" value="S_account_num"/>
-      <elementValue elementRef="VALUE" value=""/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="S_lname"/>
-      <elementValue elementRef="VALUE" value=""/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="S_mi"/>
-      <elementValue elementRef="VALUE" value=""/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="S_fname"/>
-      <elementValue elementRef="VALUE" value=""/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="S_address1"/>
-      <elementValue elementRef="VALUE" value=""/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="S_postal_code"/>
-      <elementValue elementRef="VALUE" value=""/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="S_city"/>
-      <elementValue elementRef="VALUE" value=""/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="S_isReference"/>
-      <elementValue elementRef="VALUE" value=""/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="S_source"/>
-      <elementValue elementRef="VALUE" value=""/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="S_MATCHING_WEIGHT"/>
-      <elementValue elementRef="VALUE" value=""/>
-    </elementParameter>
-    <elementParameter field="RADIO" name="USE_INTABLE" value="false"/>
-    <elementParameter field="TABLE" name="INTABLE"/>
-    <elementParameter field="RADIO" name="USE_INLINECONTENT" value="true"/>
-    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
-    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;"/>
-    <elementParameter field="MEMO" name="INLINECONTENT" value="12912208437|Ames||Raphael|9662 Red Leaf|7151|Webmaster|false|DRH file|0.9591341962347497&#xD;&#xA;12912208437|Ames||Raphaël|9662 Red Lef|7152|Webmaster|true|DRH file|0.9458715988205864&#xD;&#xA;12912208437|Ames|P.|Raphael|9662 Red Lef|7153|Webmaster|false|DRH file|0.9458715988205864&#xD;&#xA;12912208437|Ames||Raphael|9662 Red Leaf|71584|Webminster|false|DRH file|0.9731202102207637&#xD;&#xA;12912208437|Ames||Ralph|9662 Red Leaf|71585|Westminster|true|Company|0.9591341962347497&#xD;&#xA;14398822784|Abdulla||Larry|Wren Avenue 6968|96006|Lemon Grove|false|DRH file|0.9592760182343998&#xD;&#xA;14398822784|Abdulla||Larry|6968 Wren Ave.|96007|Lemon Grove|true|Company|0.9592760182343998&#xD;&#xA;27192117600|Amaro||Cathy|551 Thors Bay Road|39418|Mill Valley|false|DRH file|0.9897435857699468&#xD;&#xA;27192117600|Amaro||Catherine|51 Thor Road|39419|Mill Valley|false|DRH file|0.9455002546310425&#xD;&#xA;27192117600|Amaro||Kathy|551 Thors Bay Road|39410|Mill Valley|true|Company|0.9897435857699468&#xD;&#xA;96027305126|Alering|O.|Robert|1451 Victory Lane|92211|Salem|false|DRH file|0.9711538323989282&#xD;&#xA;96027305126|Alering||Bob|1451 Victoria Lane|92212|Salem|false|DRH file|0.9317061029947722&#xD;&#xA;96027305126|Ahlering||Robert|1451 Victory Lane|92213|Salem|true|Company|0.9711538323989282"/>
-    <elementParameter field="TEXT" name="LABEL" value="incoming_customers"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
-    <elementParameter field="MEMO" name="COMMENT" value=""/>
-    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
-    <metadata connector="FLOW" name="tFixedFlowInput_1">
-      <column comment="" key="false" length="19" name="S_account_num" nullable="true" pattern="" precision="0" sourceType="BIGINT" type="id_Long" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="S_lname" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="S_mi" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="S_fname" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="S_address1" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="S_postal_code" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="S_city" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" name="S_isReference" nullable="true" pattern="" sourceType="" type="id_Boolean" usefulColumn="true"/>
-      <column comment="" key="false" name="S_source" nullable="true" pattern="" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="20" name="S_MATCHING_WEIGHT" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tStewardshipTaskOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="384" posY="224">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tStewardshipTaskOutput_1"/>
-    <elementParameter field="CHECK" name="END_OF_FLOW" value="true"/>
-    <elementParameter field="TEXT" name="HOST" value="context.mdm_host"/>
-    <elementParameter field="TEXT" name="PORT" value="context.mdm_port"/>
-    <elementParameter field="TEXT" name="USERNAME" value="context.mdm_username"/>
-    <elementParameter field="PASSWORD" name="PASSWORD" value="4D9onkGJm3cqTUaN9RU4KKKQQ/wTCnj4Encrypt"/>
-    <elementParameter field="TEXT" name="TASKNAME" value="&quot;taskname&quot;"/>
-    <elementParameter field="CLOSED_LIST" name="TASKTYPE" value="1"/>
-    <elementParameter field="TEXT" name="CREATED_BY" value="context.mdm_username"/>
-    <elementParameter field="TEXT" name="OWNER" value="context.mdm_username"/>
-    <elementParameter field="TEXT" name="STAR_RANKING" value="2"/>
-    <elementParameter field="TEXT" name="TAGS" value="jobName"/>
-    <elementParameter field="PREV_COLUMN_LIST" name="LOOPING_COLUMN" value="S_account_num"/>
-    <elementParameter field="PREV_COLUMN_LIST" name="RECORD_TYPE" value="S_isReference"/>
-    <elementParameter field="PREV_COLUMN_LIST" name="SOURCE" value="S_source"/>
-    <elementParameter field="PREV_COLUMN_LIST" name="SCORE" value="S_MATCHING_WEIGHT"/>
-    <elementParameter field="PREV_COLUMN_LIST" name="WEIGHTS" value="S_MATCHING_WEIGHT"/>
-    <elementParameter field="TABLE" name="EXTRA_INFO"/>
-    <elementParameter field="TABLE" name="RECORD_COLUMN">
-      <elementValue elementRef="CONTENT" value="S_account_num"/>
-      <elementValue elementRef="CONTENT" value="S_lname"/>
-      <elementValue elementRef="CONTENT" value="S_mi"/>
-      <elementValue elementRef="CONTENT" value="S_fname"/>
-      <elementValue elementRef="CONTENT" value="S_address1"/>
-      <elementValue elementRef="CONTENT" value="S_postal_code"/>
-      <elementValue elementRef="CONTENT" value="S_city"/>
-    </elementParameter>
-    <elementParameter field="TEXT" name="NB_TASKS_PER_COMMIT" value="500"/>
-    <elementParameter field="TEXT" name="LABEL" value="toDataStewardShipConsole"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
-    <elementParameter field="MEMO" name="COMMENT" value=""/>
-    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
-    <metadata connector="FLOW" name="tStewardshipTaskOutput_1">
-      <column comment="" key="false" length="19" name="S_account_num" nullable="true" pattern="" precision="0" sourceType="BIGINT" type="id_Long" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="S_lname" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="S_mi" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="S_fname" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="S_address1" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="S_postal_code" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="S_city" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" name="S_isReference" nullable="true" pattern="" sourceType="" type="id_Boolean" usefulColumn="true"/>
-      <column comment="" key="false" name="S_source" nullable="true" pattern="" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="20" name="S_MATCHING_WEIGHT" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tStewardshipTaskDelete" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="352">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tStewardshipTaskDelete_2"/>
-    <elementParameter field="TEXT" name="HOST" value="context.mdm_host"/>
-    <elementParameter field="TEXT" name="PORT" value="context.mdm_port"/>
-    <elementParameter field="TEXT" name="USERNAME" value="context.mdm_username"/>
-    <elementParameter field="PASSWORD" name="PASSWORD" value="4D9onkGJm3cqTUaN9RU4KKKQQ/wTCnj4Encrypt"/>
-    <elementParameter field="CHECK" name="DELETE_BY_ID" value="false"/>
-    <elementParameter field="PREV_COLUMN_LIST" name="ID_FIELD" value=""/>
-    <elementParameter field="CLOSED_LIST" name="TASKTYPE" value="1"/>
-    <elementParameter field="TEXT" name="OWNER" value="context.mdm_username"/>
-    <elementParameter field="TEXT" name="TAG" value="jobName"/>
-    <elementParameter field="TEXT" name="START_DATETIME" value="&quot;2014-01-01 10:10:10&quot;"/>
-    <elementParameter field="TEXT" name="END_DATETIME" value="&quot;3014-07-01 10:10:10&quot;"/>
-    <elementParameter field="CLOSED_LIST" name="STATUS" value="null"/>
-    <elementParameter field="CLOSED_LIST" name="STAR_RANKING" value="null"/>
-    <elementParameter field="TEXT" name="LIMIT" value="3"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
-    <elementParameter field="MEMO" name="COMMENT" value=""/>
-    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
-    <metadata connector="FLOW" name="tStewardshipTaskDelete_2">
-      <column defaultValue="" key="false" length="255" name="TASK_ID" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="20" name="TASK_TYPE" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="255" name="TASK_CREATEDBY" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="20" name="TASK_CREATEDON" nullable="true" pattern="&quot;yyyy-MM-dd'T'HH:mm:ss'.000Z'&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="255" name="TASK_OWNER" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="20" name="TASK_STATUS" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="20" name="TASK_STARS" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tStewardshipTaskInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="480">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tStewardshipTaskInput_1"/>
+  <node componentName="tStewardshipTaskInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="416">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tStewardshipTaskInput_2"/>
     <elementParameter field="CHECK" name="END_OF_FLOW" value="false"/>
     <elementParameter field="TEXT" name="HOST" value="context.mdm_host"/>
     <elementParameter field="TEXT" name="PORT" value="context.mdm_port"/>
@@ -506,7 +610,7 @@
     <elementParameter field="CHECK" name="INFORMATION" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
-    <metadata connector="FLOW" name="tStewardshipTaskInput_1">
+    <metadata connector="FLOW" name="tStewardshipTaskInput_2">
       <column key="false" length="255" name="TASK_ID" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column key="false" length="20" name="TASK_TYPE" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column key="false" length="255" name="TASK_CREATEDBY" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
@@ -516,40 +620,22 @@
       <column defaultValue="" key="false" length="20" name="TASK_STARS" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tFilterColumns" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="256" posY="480">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFilterColumns_1"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <elementParameter field="CHECK" name="INFORMATION" value="false"/>
-    <elementParameter field="MEMO" name="COMMENT" value=""/>
-    <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
-    <metadata connector="FLOW" name="tFilterColumns_1">
-      <column key="false" length="255" name="TASK_ID" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tStewardshipTaskDelete" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="384" posY="480">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tStewardshipTaskDelete_3"/>
+  <node componentName="tJavaFlex" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="352" posY="416">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJavaFlex_1"/>
     <elementParameter field="CHECK" name="SUBTREE_START" value="false"/>
-    <elementParameter field="TEXT" name="HOST" value="context.mdm_host"/>
-    <elementParameter field="TEXT" name="PORT" value="context.mdm_port"/>
-    <elementParameter field="TEXT" name="USERNAME" value="context.mdm_username"/>
-    <elementParameter field="PASSWORD" name="PASSWORD" value="4D9onkGJm3cqTUaN9RU4KKKQQ/wTCnj4Encrypt"/>
-    <elementParameter field="CHECK" name="DELETE_BY_ID" value="true"/>
-    <elementParameter field="PREV_COLUMN_LIST" name="ID_FIELD" value="TASK_ID"/>
-    <elementParameter field="CLOSED_LIST" name="TASKTYPE" value="1"/>
-    <elementParameter field="TEXT" name="OWNER" value="&quot;user&quot;"/>
-    <elementParameter field="TEXT" name="TAG" value="&quot;t4&quot;"/>
-    <elementParameter field="TEXT" name="START_DATETIME" value="&quot;2014-01-01 10:10:10&quot;"/>
-    <elementParameter field="TEXT" name="END_DATETIME" value="&quot;2014-07-01 10:10:10&quot;"/>
-    <elementParameter field="CLOSED_LIST" name="STATUS" value="null"/>
-    <elementParameter field="CLOSED_LIST" name="STAR_RANKING" value="null"/>
-    <elementParameter field="TEXT" name="LIMIT" value="50"/>
+    <elementParameter field="CHECK" name="DATA_AUTO_PROPAGATE" value="true"/>
+    <elementParameter field="MEMO_JAVA" name="CODE_START" value="// start part of your Java code&#xA;      "/>
+    <elementParameter field="MEMO_JAVA" name="CODE_MAIN" value="// here is the main part of the component,&#xA;// a piece of code executed in the row&#xA;// loop&#xA;globalMap.put(&quot;delete_task_id&quot;, row4.TASK_ID);"/>
+    <elementParameter field="MEMO_JAVA" name="CODE_END" value="// end of the component, outside/closing the loop&#xA;      "/>
+    <elementParameter field="CHECK" name="Version_V2_0" value="false"/>
+    <elementParameter field="CHECK" name="Version_V3_2" value="false"/>
+    <elementParameter field="CHECK" name="Version_V4.0" value="true"/>
+    <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter field="CHECK" name="INFORMATION" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
-    <metadata connector="FLOW" name="tStewardshipTaskDelete_3">
-      <column key="false" length="255" name="TASK_ID" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-    </metadata>
+    <metadata connector="FLOW" name="tJavaFlex_1"/>
   </node>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPrejob_1" offsetLabelX="0" offsetLabelY="0" source="tPrejob_1" target="tFileInputDelimited_1">
     <elementParameter field="RADIO" name="PARTITIONER" value="false"/>
@@ -768,7 +854,7 @@
     <elementParameter field="TABLE" name="HASH_KEYS"/>
     <elementParameter field="TEXT" name="DEPART_QUEUE_SIZE" value="1000"/>
     <elementParameter field="CHECK" name="IS_SORTING" value="true"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row10"/>
     <elementParameter field="CHECK" name="RESUMING_CHECKPOINT" value="false"/>
     <elementParameter field="TEXT" name="RESUMLABEL" value=""/>
@@ -857,7 +943,7 @@
     <elementParameter field="TEXT" name="RESUMLABEL" value=""/>
     <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tStewardshipTaskDelete_2" offsetLabelX="0" offsetLabelY="0" source="tStewardshipTaskDelete_2" target="tStewardshipTaskInput_1">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tStewardshipTaskDelete_2" offsetLabelX="0" offsetLabelY="0" source="tStewardshipTaskDelete_2" target="tStewardshipTaskInput_2">
     <elementParameter field="RADIO" name="PARTITIONER" value="false"/>
     <elementParameter field="RADIO" name="DEPARTITIONER" value="false"/>
     <elementParameter field="RADIO" name="REPARTITIONER" value="false"/>
@@ -1001,6 +1087,92 @@
     <elementParameter field="CHECK" name="USE_ADVANCED" value="false"/>
     <elementParameter field="MEMO_JAVA" name="ADVANCED_COND" value="// code sample : use input_row to define the condition.&#xA;// input_row.columnName1.equals(&quot;foo&quot;) ||!(input_row.columnName2.equals(&quot;bar&quot;))&#xA;// replace the following expression by your own filter condition &#xA;input_row.columnName1.equals(input_row.columnName2)&#xA;&#x9;&#x9;&#x9;"/>
   </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tStewardshipTaskDelete_1" offsetLabelX="0" offsetLabelY="0" source="tStewardshipTaskDelete_1" target="tStewardshipTaskInput_1">
+    <elementParameter field="RADIO" name="PARTITIONER" value="false"/>
+    <elementParameter field="RADIO" name="DEPARTITIONER" value="false"/>
+    <elementParameter field="RADIO" name="REPARTITIONER" value="false"/>
+    <elementParameter field="RADIO" name="NONE" value="true"/>
+    <elementParameter field="TEXT" name="NUM_PARTITIONS" value="5"/>
+    <elementParameter field="TEXT" name="PART_QUEUE_SIZE" value="1000"/>
+    <elementParameter field="CHECK" name="HASH_PARTITION" value="false"/>
+    <elementParameter field="TABLE" name="HASH_KEYS"/>
+    <elementParameter field="TEXT" name="DEPART_QUEUE_SIZE" value="1000"/>
+    <elementParameter field="CHECK" name="IS_SORTING" value="true"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk4"/>
+    <elementParameter field="CHECK" name="RESUMING_CHECKPOINT" value="false"/>
+    <elementParameter field="TEXT" name="RESUMLABEL" value=""/>
+    <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
+  </connection>
+  <connection connectorName="FLOW" label="row4" lineStyle="0" metaname="tStewardshipTaskInput_2" offsetLabelX="0" offsetLabelY="0" source="tStewardshipTaskInput_2" target="tJavaFlex_1">
+    <elementParameter field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true"/>
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER">
+      <elementValue elementRef="TRACE_COLUMN" value="TASK_ID"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="TASK_TYPE"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="TASK_CREATEDBY"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="TASK_CREATEDON"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="TASK_OWNER"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="TASK_STATUS"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="TASK_STARS"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="USEROWLABEL" value="true"/>
+    <elementParameter field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;"/>
+    <elementParameter field="CLOSED_LIST" name="ABSOLUTE" value="Absolute"/>
+    <elementParameter field="CONNECTION_LIST" name="CONNECTIONS" value=""/>
+    <elementParameter field="TABLE" name="THRESHLODS"/>
+    <elementParameter field="RADIO" name="PARTITIONER" value="false"/>
+    <elementParameter field="RADIO" name="DEPARTITIONER" value="false"/>
+    <elementParameter field="RADIO" name="REPARTITIONER" value="false"/>
+    <elementParameter field="RADIO" name="NONE" value="true"/>
+    <elementParameter field="TEXT" name="NUM_PARTITIONS" value="5"/>
+    <elementParameter field="TEXT" name="PART_QUEUE_SIZE" value="1000"/>
+    <elementParameter field="CHECK" name="HASH_PARTITION" value="false"/>
+    <elementParameter field="TABLE" name="HASH_KEYS"/>
+    <elementParameter field="TEXT" name="DEPART_QUEUE_SIZE" value="1000"/>
+    <elementParameter field="CHECK" name="IS_SORTING" value="true"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row4"/>
+    <elementParameter field="CHECK" name="RESUMING_CHECKPOINT" value="false"/>
+    <elementParameter field="TEXT" name="RESUMLABEL" value=""/>
+    <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
+    <elementParameter field="CHECK" name="ACTIVEBREAKPOINT" value="false"/>
+    <elementParameter field="CLOSED_LIST" name="LOGICAL_OP" value="&amp;&amp;"/>
+    <elementParameter field="TABLE" name="CONDITIONS"/>
+    <elementParameter field="CHECK" name="USE_ADVANCED" value="false"/>
+    <elementParameter field="MEMO_JAVA" name="ADVANCED_COND" value="// code sample : use input_row to define the condition.&#xA;// input_row.columnName1.equals(&quot;foo&quot;) ||!(input_row.columnName2.equals(&quot;bar&quot;))&#xA;// replace the following expression by your own filter condition &#xA;input_row.columnName1.equals(input_row.columnName2)&#xA;&#x9;&#x9;&#x9;"/>
+  </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tStewardshipTaskInput_2" offsetLabelX="0" offsetLabelY="0" source="tStewardshipTaskInput_2" target="tStewardshipTaskDelete_1">
+    <elementParameter field="RADIO" name="PARTITIONER" value="false"/>
+    <elementParameter field="RADIO" name="DEPARTITIONER" value="false"/>
+    <elementParameter field="RADIO" name="REPARTITIONER" value="false"/>
+    <elementParameter field="RADIO" name="NONE" value="true"/>
+    <elementParameter field="TEXT" name="NUM_PARTITIONS" value="5"/>
+    <elementParameter field="TEXT" name="PART_QUEUE_SIZE" value="1000"/>
+    <elementParameter field="CHECK" name="HASH_PARTITION" value="false"/>
+    <elementParameter field="TABLE" name="HASH_KEYS"/>
+    <elementParameter field="TEXT" name="DEPART_QUEUE_SIZE" value="1000"/>
+    <elementParameter field="CHECK" name="IS_SORTING" value="true"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk5"/>
+    <elementParameter field="CHECK" name="RESUMING_CHECKPOINT" value="false"/>
+    <elementParameter field="TEXT" name="RESUMLABEL" value=""/>
+    <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
+  </connection>
   <subjob>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tPrejob_1"/>
@@ -1034,6 +1206,21 @@
   </subjob>
   <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tStewardshipTaskInput_1"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tStewardshipTaskDelete_1"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlOutput_1"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tStewardshipTaskInput_2"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
   </subjob>
