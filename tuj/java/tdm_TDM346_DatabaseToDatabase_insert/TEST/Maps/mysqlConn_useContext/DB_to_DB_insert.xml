@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root t='190' id='1' V190='11' inStruct='Structures/mysqlConn_useContext/Tables/stu_in.xml' outStruct='Structures/mysqlConn_useContext/Tables/stu_out.xml' inputRep='174' outputRep='174' nextMap='' inputStructUserName='stu_in' outputStructUserName='stu_out' V1='4' name='DB_to_DB_insert' incarnation='611'>
+  <inputMapElem t='200' id='2' V200='7' input='true' shown='5' structElemExists='true' V283='1' occurMinTimes='1' occurMaxTimes='1' minSize='-1' maxSize='-1' groupType='1' repHandlerStruct='' visible='true' inheritsFrom='' V281='13' modifiedFromParent_loop='true' V1='4' name='stu_in'>
+    <mapNode t='190' idref='1'/>
+    <child t='200' id='3' V200='7' input='true' shown='5' rowElem='true' structElemExists='true' V283='1' occurMaxTimes='-1' minSize='-1' maxSize='-1' groupType='1' repHandlerStruct='' visible='true' inheritsFrom='Structures/mysqlConn_useContext/Single Row Tables/stu_in.xml' V281='13' modifiedFromParent_loop='true' V1='4' name='Row'>
+      <mapNode t='190' idref='1'/>
+      <repRuntime t='694' id='4' V694='1' database='Databases/mysqlConn_useContext.xml' table='stu_in' singleTableRep='true' V690='1'>
+        <primaryKey t='167' id='5' V167='21' V283='1' occurMinTimes='1' occurMaxTimes='1' minSize='-1' maxSize='255' dataType='2' repHandlerStruct='' visible='true' inheritsFrom='' V281='13' V1='4' name='id'>
+          <structNode t='150' ref='Structures/mysqlConn_useContext/Single Row Tables/stu_in.xml'/>
+        </primaryKey>
+      </repRuntime>
+      <child t='200' id='6' V200='7' input='true' shown='5' structElemExists='true' V283='1' occurMinTimes='1' occurMaxTimes='1' minSize='-1' maxSize='255' dataType='2' repHandlerStruct='' visible='true' inheritsFrom='' V281='13' V1='4' name='id'>
+        <mapNode t='190' idref='1'/>
+      </child>
+      <child t='200' id='7' V200='7' input='true' shown='5' structElemExists='true' V283='1' occurMaxTimes='1' minSize='-1' maxSize='255' dataType='2' repHandlerStruct='' visible='true' nullable='true' inheritsFrom='' V281='13' modifiedFromParent_validate='true' V1='4' name='first_name'>
+        <mapNode t='190' idref='1'/>
+      </child>
+      <child t='200' id='8' V200='7' input='true' shown='5' structElemExists='true' V283='1' occurMaxTimes='1' minSize='-1' maxSize='255' dataType='2' repHandlerStruct='' visible='true' nullable='true' inheritsFrom='' V281='13' V1='4' name='last_name'>
+        <mapNode t='190' idref='1'/>
+      </child>
+      <child t='200' id='9' V200='7' input='true' shown='5' structElemExists='true' V283='1' occurMaxTimes='1' minSize='-1' maxSize='255' dataType='2' repHandlerStruct='' visible='true' nullable='true' inheritsFrom='' V281='13' V1='4' name='phone'>
+        <mapNode t='190' idref='1'/>
+      </child>
+      <child t='200' id='10' V200='7' input='true' shown='5' structElemExists='true' V283='1' occurMaxTimes='1' minSize='-1' maxSize='255' dataType='2' repHandlerStruct='' visible='true' nullable='true' inheritsFrom='' V281='13' V1='4' name='mail'>
+        <mapNode t='190' idref='1'/>
+      </child>
+    </child>
+  </inputMapElem>
+  <outputMapElem t='200' id='11' V200='7' shown='5' structElemExists='true' V283='1' occurMinTimes='1' occurMaxTimes='1' minSize='-1' maxSize='-1' groupType='1' repHandlerStruct='' visible='true' inheritsFrom='' V281='13' modifiedFromParent_loop='true' modifiedFromParent_io='true' V1='4' name='stu_out'>
+    <mapNode t='190' idref='1'/>
+    <repRuntime t='694' id='12' V694='1' database='Databases/mysqlConn_useContext.xml' table='stu_out' singleTableRep='true' V690='1'>
+      <primaryKey t='167' id='13' V167='21' V283='1' occurMinTimes='1' occurMaxTimes='1' minSize='-1' maxSize='255' dataType='2' repHandlerStruct='' visible='true' inheritsFrom='' V281='13' V1='4' name='id'>
+        <structNode t='150' ref='Structures/mysqlConn_useContext/Single Row Tables/stu_out.xml'/>
+      </primaryKey>
+    </repRuntime>
+    <loop>SimpleLoop([autoAdded="true"],in$/stu_in,{Filter},{Sort Keys},{Contexts})</loop>
+    <io>DatabaseInsert([repName="Database",table="/TEST/Databases/mysqlConn_useContext.xml.stu_out"],)</io>
+    <child t='200' id='14' V200='7' shown='5' rowElem='true' structElemExists='true' V283='1' occurMaxTimes='-1' minSize='-1' maxSize='-1' groupType='1' repHandlerStruct='' visible='true' inheritsFrom='Structures/mysqlConn_useContext/Single Row Tables/stu_out.xml' V281='13' modifiedFromParent_loop='true' V1='4' name='Row'>
+      <mapNode t='190' idref='1'/>
+      <repRuntime t='694' idref='12'/>
+      <loop>SimpleLoop(in$/stu_in/Row,{Filter},{Sort Keys},{Contexts})</loop>
+      <child t='200' id='15' V200='7' shown='5' structElemExists='true' V283='1' occurMinTimes='1' occurMaxTimes='1' minSize='-1' maxSize='255' dataType='2' repHandlerStruct='' visible='true' inheritsFrom='' V281='13' modifiedFromParent_value='true' V1='4' name='id'>
+        <mapNode t='190' idref='1'/>
+        <value>in$/stu_in/Row/id</value>
+      </child>
+      <child t='200' id='16' V200='7' shown='5' structElemExists='true' V283='1' occurMaxTimes='1' minSize='-1' maxSize='255' dataType='2' repHandlerStruct='' visible='true' nullable='true' inheritsFrom='' V281='13' modifiedFromParent_value='true' V1='4' name='name'>
+        <mapNode t='190' idref='1'/>
+        <value>Concat(in$/stu_in/Row/first_name,Constant([value=" ",dataType="2"],),in$/stu_in/Row/last_name)</value>
+      </child>
+      <child t='200' id='17' V200='7' shown='5' structElemExists='true' V283='1' occurMaxTimes='1' minSize='-1' maxSize='255' dataType='2' repHandlerStruct='' visible='true' nullable='true' inheritsFrom='' V281='13' modifiedFromParent_value='true' V1='4' name='phone'>
+        <mapNode t='190' idref='1'/>
+        <value>in$/stu_in/Row/phone</value>
+      </child>
+      <child t='200' id='18' V200='7' shown='5' structElemExists='true' V283='1' occurMaxTimes='1' minSize='-1' maxSize='255' dataType='2' repHandlerStruct='' visible='true' nullable='true' inheritsFrom='' V281='13' modifiedFromParent_value='true' V1='4' name='mail'>
+        <mapNode t='190' idref='1'/>
+        <value>in$/stu_in/Row/mail</value>
+      </child>
+    </child>
+  </outputMapElem>
+  <inputRepRuntime t='694' id='19' V694='1' database='Databases/mysqlConn_useContext.xml' table='stu_in' V690='1'>
+  </inputRepRuntime>
+  <outputRepRuntime t='694' id='20' V694='1' database='Databases/mysqlConn_useContext.xml' table='stu_out' V690='1'>
+  </outputRepRuntime>
+  <valueSets></valueSets>
+  <inputXmlRepRuntime t='692' id='21' V692='1' V690='1'>
+  </inputXmlRepRuntime>
+  <outputXmlRepRuntime t='692' id='22' V692='1' V690='1'>
+  </outputXmlRepRuntime>
+  <child t='165' id='23' V1='4' name='Document Bindings'>
+    <child t='166' id='24' V166='5' docType='1' V1='4' name='in$/stu_in'>
+      <elemNode t='200' idref='2'/>
+    </child>
+    <child t='166' id='25' V166='5' docType='2' V1='4' name='out$/stu_out'>
+      <elemNode t='200' idref='11'/>
+    </child>
+  </child>
+  <child t='201' id='26' V1='4' name='Inherits From'>
+  </child>
+</root>
