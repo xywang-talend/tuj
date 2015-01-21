@@ -211,20 +211,15 @@
       <elementValue elementRef="VALUE" value=""/>
       <elementValue elementRef="SCHEMA_COLUMN" value="string_value"/>
       <elementValue elementRef="VALUE" value=""/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="name"/>
-      <elementValue elementRef="VALUE" value=""/>
     </elementParameter>
     <elementParameter field="RADIO" name="USE_INTABLE" value="true"/>
     <elementParameter field="TABLE" name="INTABLE">
       <elementValue elementRef="integer_value" value="1"/>
       <elementValue elementRef="string_value" value="&quot;abc&quot;"/>
-      <elementValue elementRef="name" value="&quot;1&quot;"/>
       <elementValue elementRef="integer_value" value="2"/>
       <elementValue elementRef="string_value" value="&quot;'efg'&quot;"/>
-      <elementValue elementRef="name" value="&quot;1&quot;"/>
       <elementValue elementRef="integer_value" value="3"/>
       <elementValue elementRef="string_value" value="&quot;hi'g&quot;"/>
-      <elementValue elementRef="name" value="&quot;2&quot;"/>
     </elementParameter>
     <elementParameter field="RADIO" name="USE_INLINECONTENT" value="false"/>
     <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
@@ -234,7 +229,6 @@
     <metadata connector="FLOW" name="tFixedFlowInput_1">
       <column comment="" key="false" name="integer_value" nullable="true" pattern="" sourceType="INT" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" name="string_value" nullable="true" pattern="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" name="name" nullable="true" pattern="" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tHDFSOutput" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="288" posY="256">
@@ -276,7 +270,6 @@
     <metadata connector="FLOW" name="tHDFSOutput_1">
       <column comment="" key="false" name="integer_value" nullable="true" pattern="" sourceType="INT" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" name="string_value" nullable="true" pattern="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" name="name" nullable="true" pattern="" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tFilterColumns" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="256">
@@ -370,7 +363,6 @@
     <metadata connector="FLOW" name="tImpalaCreateTable_2">
       <column comment="" key="false" name="integer_value" nullable="true" pattern="" sourceType="INT" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" name="string_value" nullable="true" pattern="" sourceType="STRING" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" name="name" nullable="true" pattern="" sourceType="STRING" type="id_String" usefulColumn="true"/>
     </metadata>
     <metadata connector="PARTITION" name="PARTITION"/>
   </node>
@@ -395,7 +387,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;select  integer_value,string_value from tbd928_p&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;select  integer_value,string_value from tbd928_p where name='1'&quot;"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
     <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
