@@ -5,7 +5,7 @@ http://www.talend.com
 ![alt text](http://www.talend.com/sites/all/themes/talend_responsive/images/logo.png "Talend")
 
 
-> Contents
+## Contents
 
 This repository contains the source files for Talend TUJ (Test of Talend Components).
 These files must be used together with the core code contained in [tdi-studio-se](https://github.com/Talend/tdi-studio-se)
