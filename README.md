@@ -13,7 +13,7 @@ These files must be used together with the core code contained in [tdi-studio-se
 
 ## Usage and Documentation
 
-Documentation is available on [Talend Help Center](http://help.talend.com/).
+The documentation is available on [Talend Help Center](http://help.talend.com/).
 
 
 ## Support 
