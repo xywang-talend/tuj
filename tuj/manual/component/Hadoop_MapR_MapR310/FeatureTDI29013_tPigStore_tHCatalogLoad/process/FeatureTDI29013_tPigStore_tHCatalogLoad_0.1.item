@@ -366,7 +366,6 @@
   <node componentName="tPostjob" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="768">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tPostjob_1"/>
     <elementParameter field="CHECK" name="START" value="true"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter field="CHECK" name="INFORMATION" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
@@ -374,7 +373,6 @@
   </node>
   <node componentName="tHDFSDelete" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="256" posY="768">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tHDFSDelete_1"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value=""/>
     <elementParameter field="CLOSED_LIST" name="DISTRIBUTION" value="MAPR"/>
@@ -398,7 +396,6 @@
   </node>
   <node componentName="tFileDelete" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="416" posY="768">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileDelete_1"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="FILE" name="FILENAME" value="context.data_output_dir + &quot;/&quot;+ jobName + &quot;/out1.csv&quot;"/>
     <elementParameter field="DIRECTORY" name="DIRECTORY" value="context.data_output_dir + &quot;/&quot; + jobName"/>
     <elementParameter field="TEXT" name="PATH" value="&quot;/home/cloudera/product/TOS_BD-r95387-V5.3.0NB/workspace/delete_folder or delete_file&quot;"/>
@@ -1142,11 +1139,11 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk2"/>
   </connection>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPostjob_1" offsetLabelX="0" offsetLabelY="0" source="tPostjob_1" target="tHDFSDelete_1">
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk2"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tHDFSDelete_1" offsetLabelX="0" offsetLabelY="0" source="tHDFSDelete_1" target="tFileDelete_1">
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk4"/>
   </connection>
   <connection connectorName="FLOW" label="row5" lineStyle="0" metaname="tHCatalogInput_1" offsetLabelX="0" offsetLabelY="0" source="tHCatalogInput_1" target="tLogRow_1">
