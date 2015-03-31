@@ -322,7 +322,7 @@
     <elementParameter field="CHECK" name="VERTICA_USE_CASCADE" value="true"/>
     <elementParameter field="CLOSED_LIST" name="DB_VERTICA_VERSION" value="vertica_3.0_jdk_5.jar"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION_VERTICA" value=""/>
-    <elementParameter field="TEXT" name="TABLE" value="&quot;bugtdi22916_dest&quot;"/>
+    <elementParameter field="TEXT" name="TABLE" value="&quot;bugtdi22916PCROSSJOIN_dest&quot;"/>
     <elementParameter field="MAPPING_TYPE" name="MAPPING" value="postgres_id"/>
     <elementParameter field="CLOSED_LIST" name="CREATE_TABLE_TYPE" value="SET"/>
     <elementParameter field="TEXT" name="PROPERTIES" value="&quot;prompt=false&quot;"/>
@@ -398,7 +398,7 @@
     <elementParameter field="TEXT" name="SCHEMA_DB" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="USER" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="PASS" value="&quot;&quot;"/>
-    <elementParameter field="DBTABLE" name="TABLE" value="&quot;bugtdi22916_src1&quot;"/>
+    <elementParameter field="DBTABLE" name="TABLE" value="&quot;bugtdi22916PCROSSJOIN_src1&quot;"/>
     <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="DROP_IF_EXISTS_AND_CREATE"/>
     <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="INSERT"/>
     <elementParameter field="CHECK" name="USE_SPATIAL_OPTIONS" value="false"/>
@@ -515,7 +515,7 @@
     <elementParameter field="TEXT" name="SCHEMA_DB" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="USER" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="PASS" value="&quot;&quot;"/>
-    <elementParameter field="DBTABLE" name="TABLE" value="&quot;bugtdi22916_src2&quot;"/>
+    <elementParameter field="DBTABLE" name="TABLE" value="&quot;bugtdi22916PCROSSJOIN_src2&quot;"/>
     <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="DROP_IF_EXISTS_AND_CREATE"/>
     <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="INSERT"/>
     <elementParameter field="CHECK" name="USE_SPATIAL_OPTIONS" value="false"/>
@@ -576,14 +576,14 @@
   </node>
   <node componentName="tELTPostgresqlInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="448">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tELTPostgresqlInput_1"/>
-    <elementParameter field="TEXT" name="ELT_TABLE_NAME" value="&quot;bugtdi22916_src1&quot;"/>
+    <elementParameter field="TEXT" name="ELT_TABLE_NAME" value="&quot;bugtdi22916PCROSSJOIN_src1&quot;"/>
     <elementParameter field="TEXT" name="ELT_SCHEMA_NAME" value="context.postgresql_schema"/>
     <elementParameter field="MAPPING_TYPE" name="MAPPING" value="postgres_id"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter field="CHECK" name="INFORMATION" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
-    <metadata connector="TABLE" label="bugtdi22916_src1" name="tELTPostgresqlInput_1">
+    <metadata connector="TABLE" label="bugtdi22916PCROSSJOIN_src1" name="tELTPostgresqlInput_1">
       <column comment="" key="false" name="id" nullable="true" pattern="" sourceType="INT" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="name" nullable="true" pattern="" sourceType="VARCHAR" type="id_String" originalLength="30" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="address" nullable="true" pattern="" sourceType="VARCHAR" type="id_String" originalLength="30" usefulColumn="true"/>
@@ -612,44 +612,44 @@
     <elementParameter field="CHECK" name="INFORMATION" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
-    <metadata connector="TABLE" label="bugtdi22916_dest" name="table1">
+    <metadata connector="TABLE" label="bugtdi22916PCROSSJOIN_dest" name="table1">
       <column comment="" key="false" name="id" nullable="true" pattern="" sourceType="INT" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="name" nullable="true" pattern="" sourceType="VARCHAR" type="id_String" originalLength="30" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="address" nullable="true" pattern="" sourceType="VARCHAR" type="id_String" originalLength="30" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="telephone" nullable="true" pattern="" sourceType="VARCHAR" type="id_String" originalLength="30" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="DBMapData">
-      <InputTables name="context.postgresql_schema.bugtdi22916_src1" tableName="context.postgresql_schema.bugtdi22916_src1" joinType="NO_JOIN">
+      <InputTables name="context.postgresql_schema.bugtdi22916PCROSSJOIN_src1" tableName="context.postgresql_schema.bugtdi22916PCROSSJOIN_src1" joinType="NO_JOIN">
         <DBMapperTableEntries name="id" join="true"/>
         <DBMapperTableEntries name="name"/>
         <DBMapperTableEntries name="address"/>
         <DBMapperTableEntries name="telephone"/>
       </InputTables>
-      <InputTables name="context.postgresql_schema.bugtdi22916_src2" tableName="context.postgresql_schema.bugtdi22916_src2" joinType="CROSS_JOIN">
-        <DBMapperTableEntries name="id" expression="context.postgresql_schema.bugtdi22916_src1.id " join="true" operator="="/>
+      <InputTables name="context.postgresql_schema.bugtdi22916PCROSSJOIN_src2" tableName="context.postgresql_schema.bugtdi22916PCROSSJOIN_src2" joinType="CROSS_JOIN">
+        <DBMapperTableEntries name="id" expression="context.postgresql_schema.bugtdi22916PCROSSJOIN_src1.id " join="true" operator="="/>
         <DBMapperTableEntries name="name" expression="" operator=""/>
         <DBMapperTableEntries name="address"/>
         <DBMapperTableEntries name="telephone"/>
       </InputTables>
-      <OutputTables name="table1" tableName="bugtdi22916_dest">
-        <DBMapperTableEntries name="id" expression="context.postgresql_schema.bugtdi22916_src2.id "/>
-        <DBMapperTableEntries name="name" expression="context.postgresql_schema.bugtdi22916_src2.name "/>
-        <DBMapperTableEntries name="address" expression="context.postgresql_schema.bugtdi22916_src2.address "/>
-        <DBMapperTableEntries name="telephone" expression="context.postgresql_schema.bugtdi22916_src2.telephone "/>
-        <FilterEntries name="newFilter7" expression="context.postgresql_schema.bugtdi22916_src1.id  = context.postgresql_schema.bugtdi22916_src2.id "/>
+      <OutputTables name="table1" tableName="bugtdi22916PCROSSJOIN_dest">
+        <DBMapperTableEntries name="id" expression="context.postgresql_schema.bugtdi22916PCROSSJOIN_src2.id "/>
+        <DBMapperTableEntries name="name" expression="context.postgresql_schema.bugtdi22916PCROSSJOIN_src2.name "/>
+        <DBMapperTableEntries name="address" expression="context.postgresql_schema.bugtdi22916PCROSSJOIN_src2.address "/>
+        <DBMapperTableEntries name="telephone" expression="context.postgresql_schema.bugtdi22916PCROSSJOIN_src2.telephone "/>
+        <FilterEntries name="newFilter7" expression="context.postgresql_schema.bugtdi22916PCROSSJOIN_src1.id  = context.postgresql_schema.bugtdi22916PCROSSJOIN_src2.id "/>
       </OutputTables>
     </nodeData>
   </node>
   <node componentName="tELTPostgresqlInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="544">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tELTPostgresqlInput_2"/>
-    <elementParameter field="TEXT" name="ELT_TABLE_NAME" value="&quot;bugtdi22916_src2&quot;"/>
+    <elementParameter field="TEXT" name="ELT_TABLE_NAME" value="&quot;bugtdi22916PCROSSJOIN_src2&quot;"/>
     <elementParameter field="TEXT" name="ELT_SCHEMA_NAME" value="context.postgresql_schema"/>
     <elementParameter field="MAPPING_TYPE" name="MAPPING" value="postgres_id"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <elementParameter field="CHECK" name="INFORMATION" value="false"/>
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <elementParameter field="CHECK" name="VALIDATION_RULES" value="false"/>
-    <metadata connector="TABLE" label="bugtdi22916_src2" name="tELTPostgresqlInput_2">
+    <metadata connector="TABLE" label="bugtdi22916PCROSSJOIN_src2" name="tELTPostgresqlInput_2">
       <column comment="" key="false" name="id" nullable="true" pattern="" sourceType="INT" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="name" nullable="true" pattern="" sourceType="VARCHAR" type="id_String" originalLength="30" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="address" nullable="true" pattern="" sourceType="VARCHAR" type="id_String" originalLength="30" usefulColumn="true"/>
@@ -661,7 +661,7 @@
     <elementParameter field="CHECK" name="END_OF_FLOW" value="true"/>
     <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="INSERT"/>
     <elementParameter field="MEMO" name="WHERE_CLAUSE" value="&quot;&quot;"/>
-    <elementParameter field="TEXT" name="ELT_TABLE_NAME" value="&quot;bugtdi22916_dest&quot;"/>
+    <elementParameter field="TEXT" name="ELT_TABLE_NAME" value="&quot;bugtdi22916PCROSSJOIN_dest&quot;"/>
     <elementParameter field="TEXT" name="ELT_SCHEMA_NAME" value="context.postgresql_schema"/>
     <elementParameter field="CHECK" name="USE_DIFFERENT_TABLE" value="false"/>
     <elementParameter field="TEXT" name="DIFFERENT_TABLE_NAME" value="&quot;&quot;"/>
@@ -695,7 +695,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;select * from &quot;+context.postgresql_schema+&quot;.bugtdi22916_dest&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;select * from \&quot;&quot;+context.postgresql_schema+&quot;\&quot;.\&quot;bugtdi22916PCROSSJOIN_dest\&quot;&quot;"/>
     <elementParameter field="MAPPING_TYPE" name="MAPPING" value="postgres_id"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
@@ -763,7 +763,7 @@
     <elementParameter field="CHECK" name="END_OF_FLOW" value="true"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" value="outputStream"/>
-    <elementParameter field="FILE" name="FILENAME" value="context.data_output_dir + &quot;/tELTXX_BugTDI22916/out.csv&quot;"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.data_output_dir + &quot;/tELTXX_BugTDI22916PCROSSJOIN/out.csv&quot;"/>
     <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
     <elementParameter field="CHECK" name="OS_LINE_SEPARATOR_AS_ROW_SEPARATOR" value="true"/>
     <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" value="&quot;\n&quot;"/>
@@ -844,7 +844,7 @@
     <elementParameter field="CHECK" name="END_OF_FLOW" value="true"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" value="outputStream"/>
-    <elementParameter field="FILE" name="FILENAME" value="context.data_output_dir + &quot;/tELTXX_BugTDI22916/out_ref.csv&quot;"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.data_output_dir + &quot;/tELTXX_BugTDI22916PCROSSJOIN/out_ref.csv&quot;"/>
     <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
     <elementParameter field="CHECK" name="OS_LINE_SEPARATOR_AS_ROW_SEPARATOR" value="true"/>
     <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" value="&quot;\n&quot;"/>
@@ -882,8 +882,8 @@
   <node componentName="tFileCompare" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="288" posY="832">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileCompare_1"/>
     <elementParameter field="CLOSED_LIST" name="COMPARISON_MODE" value="TEXT_CMP"/>
-    <elementParameter field="FILE" name="FILE" value="context.data_output_dir + &quot;/tELTXX_BugTDI22916/out.csv&quot;"/>
-    <elementParameter field="FILE" name="FILE_REF" value="context.data_output_dir + &quot;/tELTXX_BugTDI22916/out_ref.csv&quot;"/>
+    <elementParameter field="FILE" name="FILE" value="context.data_output_dir + &quot;/tELTXX_BugTDI22916PCROSSJOIN/out.csv&quot;"/>
+    <elementParameter field="FILE" name="FILE_REF" value="context.data_output_dir + &quot;/tELTXX_BugTDI22916PCROSSJOIN/out_ref.csv&quot;"/>
     <elementParameter field="TEXT" name="DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files differ&quot;"/>
     <elementParameter field="TEXT" name="NO_DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files are identical&quot;"/>
     <elementParameter field="CHECK" name="PRINT" value="true"/>
@@ -1110,7 +1110,7 @@
   <node componentName="tFileDelete" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="1024">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileDelete_1"/>
     <elementParameter field="FILE" name="FILENAME" value="&quot;/home/wyuan/develope/runtime-talend.product/in.csv&quot;"/>
-    <elementParameter field="DIRECTORY" name="DIRECTORY" value="context.data_output_dir + &quot;/tELTXX_BugTDI22916/&quot;"/>
+    <elementParameter field="DIRECTORY" name="DIRECTORY" value="context.data_output_dir + &quot;/tELTXX_BugTDI22916PCROSSJOIN/&quot;"/>
     <elementParameter field="TEXT" name="PATH" value="&quot;/home/wyuan/develope/runtime-talend.product/delete_folder or delete_file&quot;"/>
     <elementParameter field="CHECK" name="FAILON" value="true"/>
     <elementParameter field="CHECK" name="FOLDER" value="true"/>
@@ -1138,7 +1138,7 @@
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;drop table &quot;+context.postgresql_schema+&quot;.bugtdi22916_dest&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;drop table \&quot;&quot;+context.postgresql_schema+&quot;\&quot;.\&quot;bugtdi22916PCROSSJOIN_dest\&quot;&quot;"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
     <elementParameter field="CHECK" name="PROPAGATE_RECORD_SET" value="false"/>
     <elementParameter field="COLUMN_LIST" name="RECORD_SET_COLUMN" value=""/>
@@ -1173,7 +1173,7 @@
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;drop table &quot;+context.postgresql_schema+&quot;.bugtdi22916_src1&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;drop table \&quot;&quot;+context.postgresql_schema+&quot;\&quot;.\&quot;bugtdi22916PCROSSJOIN_src1\&quot;&quot;"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
     <elementParameter field="CHECK" name="PROPAGATE_RECORD_SET" value="false"/>
     <elementParameter field="COLUMN_LIST" name="RECORD_SET_COLUMN" value=""/>
@@ -1208,7 +1208,7 @@
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;drop table &quot;+context.postgresql_schema+&quot;.bugtdi22916_src2&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;drop table \&quot;&quot;+context.postgresql_schema+&quot;\&quot;.\&quot;bugtdi22916PCROSSJOIN_src2\&quot;&quot;"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
     <elementParameter field="CHECK" name="PROPAGATE_RECORD_SET" value="false"/>
     <elementParameter field="COLUMN_LIST" name="RECORD_SET_COLUMN" value=""/>
@@ -1435,7 +1435,7 @@
     <elementParameter field="TEXT" name="RESUMLABEL" value=""/>
     <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
   </connection>
-  <connection connectorName="TABLE" label="context.postgresql_schema.bugtdi22916_src1" lineStyle="9" metaname="tELTPostgresqlInput_1" offsetLabelX="0" offsetLabelY="0" source="tELTPostgresqlInput_1" target="tELTPostgresqlMap_1">
+  <connection connectorName="TABLE" label="context.postgresql_schema.bugtdi22916PCROSSJOIN_src1" lineStyle="9" metaname="tELTPostgresqlInput_1" offsetLabelX="0" offsetLabelY="0" source="tELTPostgresqlInput_1" target="tELTPostgresqlMap_1">
     <elementParameter field="RADIO" name="PARTITIONER" value="false"/>
     <elementParameter field="RADIO" name="DEPARTITIONER" value="false"/>
     <elementParameter field="RADIO" name="REPARTITIONER" value="false"/>
@@ -1452,7 +1452,7 @@
     <elementParameter field="TEXT" name="RESUMLABEL" value=""/>
     <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
   </connection>
-  <connection connectorName="TABLE" label="bugtdi22916_dest" lineStyle="9" metaname="table1" offsetLabelX="0" offsetLabelY="0" source="tELTPostgresqlMap_1" target="tELTPostgresqlOutput_1">
+  <connection connectorName="TABLE" label="bugtdi22916PCROSSJOIN_dest" lineStyle="9" metaname="table1" offsetLabelX="0" offsetLabelY="0" source="tELTPostgresqlMap_1" target="tELTPostgresqlOutput_1">
     <elementParameter field="RADIO" name="PARTITIONER" value="false"/>
     <elementParameter field="RADIO" name="DEPARTITIONER" value="false"/>
     <elementParameter field="RADIO" name="REPARTITIONER" value="false"/>
@@ -1486,7 +1486,7 @@
     <elementParameter field="TEXT" name="RESUMLABEL" value=""/>
     <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
   </connection>
-  <connection connectorName="TABLE" label="context.postgresql_schema.bugtdi22916_src2" lineStyle="9" metaname="tELTPostgresqlInput_2" offsetLabelX="0" offsetLabelY="0" source="tELTPostgresqlInput_2" target="tELTPostgresqlMap_1">
+  <connection connectorName="TABLE" label="context.postgresql_schema.bugtdi22916PCROSSJOIN_src2" lineStyle="9" metaname="tELTPostgresqlInput_2" offsetLabelX="0" offsetLabelY="0" source="tELTPostgresqlInput_2" target="tELTPostgresqlMap_1">
     <elementParameter field="RADIO" name="PARTITIONER" value="false"/>
     <elementParameter field="RADIO" name="DEPARTITIONER" value="false"/>
     <elementParameter field="RADIO" name="REPARTITIONER" value="false"/>
