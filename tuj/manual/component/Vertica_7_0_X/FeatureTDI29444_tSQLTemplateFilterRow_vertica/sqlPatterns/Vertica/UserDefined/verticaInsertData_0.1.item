@@ -1,0 +1,21 @@
+<%
+	EXTRACT(__SCHEMA__);
+	String fieldsSource = "";
+	boolean flagSource=false;
+
+	for(int i=0; i < __SCHEMA__.length; i++){	
+	 if(flagSource){
+		 fieldsSource += ",";
+	 }else{
+		 flagSource=true;
+	 }
+	 	
+	 fieldsSource += __SCHEMA_NAME__[i];	
+	 		 
+	}
+	
+%>
+
+Insert into <%= __DATABASE_NAME__ %>.<%= __TABLE_NAME__ %> 
+(
+ <%= fieldsSource %>) values (1,'weird'); 
