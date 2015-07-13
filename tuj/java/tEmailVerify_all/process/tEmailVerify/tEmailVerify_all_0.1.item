@@ -19,6 +19,7 @@
     <elementParameter field="CHECK" name="IMPLICITCONTEXT_USE_PROJECT_SETTINGS" value="true"/>
     <elementParameter field="CHECK" name="STATANDLOG_USE_PROJECT_SETTINGS" value="true"/>
     <elementParameter field="CHECK" name="MULTI_THREAD_EXECATION" value="false"/>
+    <elementParameter field="TEXT" name="PARALLELIZE_UNIT_SIZE" value="25000"/>
     <elementParameter field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false"/>
     <elementParameter field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false"/>
     <elementParameter field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false"/>
@@ -53,7 +54,7 @@
     <elementParameter field="CHECK" name="ON_METERCATCHER_FLAG" value="false"/>
     <elementParameter field="CHECK" name="ON_CONSOLE_FLAG" value="false"/>
     <elementParameter field="CHECK" name="ON_FILES_FLAG" value="false"/>
-    <elementParameter field="DIRECTORY" name="FILE_PATH" value="&quot;E:/runtime/TDQ_EE_NEW2/.metadata&quot;"/>
+    <elementParameter field="DIRECTORY" name="FILE_PATH" value="&quot;/home/runtime/TDQ_EE_NEW2/.metadata&quot;"/>
     <elementParameter field="TEXT" name="FILENAME_STATS" value="&quot;stats_file.txt&quot;"/>
     <elementParameter field="TEXT" name="FILENAME_LOGS" value="&quot;logs_file.txt&quot;"/>
     <elementParameter field="TEXT" name="FILENAME_METTER" value="&quot;meter_file.txt&quot;"/>
@@ -107,7 +108,7 @@
   </parameters>
   <node componentName="tFixedFlowInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFixedFlowInput_1"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Users\talend2\.yoxoslauncher\instances\ca2d154c723ef4d647cb310e3bf9f374\lib\java"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="/home/Studio_QA/talend-library-path"/>
     <elementParameter field="TEXT" name="NB_ROWS" value="1"/>
     <elementParameter field="RADIO" name="USE_SINGLEMODE" value="false"/>
     <elementParameter field="TABLE" name="VALUES">
@@ -149,18 +150,19 @@
       <column comment="" key="false" name="email" nullable="true" pattern="" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tEmailVerify" componentVersion="0.100" offsetLabelX="0" offsetLabelY="0" posX="352" posY="160">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tEmailVerify_2"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Users\talend2\.yoxoslauncher\instances\ca2d154c723ef4d647cb310e3bf9f374\lib\java"/>
+  <node componentName="tVerifyEmail" componentVersion="0.100" offsetLabelX="0" offsetLabelY="0" posX="352" posY="160">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tVerifyEmail_2"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="/home/Studio_QA/talend-library-path"/>
     <elementParameter field="PREV_COLUMN_LIST" name="EMAIL_COLUMN" value="email"/>
     <elementParameter field="CHECK" name="USE_REGULAR_EXPRESSION" value="true"/>
+    <elementParameter field="TEXT" name="COMPLETE_REGEX" value="&quot;^\\s*?(.+)@(.+?)\\s*$&quot;"/>
     <elementParameter field="RADIO" name="USE_REGEX" value="false"/>
-    <elementParameter field="TEXT" name="LOCAL_REGEX_PART" value="&quot;^\\s*(([^\\s\\p{Cntrl}\\(\\)&lt;>@,;:'\\\\\\\&quot;\\.\\[\\]]|')+|(\&quot;[^\&quot;]*\&quot;))(\\.(([^\\s\\p{Cntrl}\\(\\)&lt;>@,;:'\\\\\\\&quot;\\.\\[\\]]|')+|(\&quot;[^\&quot;]*\&quot;)))*$&quot;"/>
     <elementParameter field="RADIO" name="USE_SHORT" value="true"/>
+    <elementParameter field="CHECK" name="CASE_SENSITIVE" value="false"/>
+    <elementParameter field="TEXT" name="LOCAL_REGEX_PART" value="&quot;^\\s*(([^\\s\\p{Cntrl}\\(\\)&lt;>@,;:'\\\\\\\&quot;\\.\\[\\]]|')+|(\&quot;[^\&quot;]*\&quot;))(\\.(([^\\s\\p{Cntrl}\\(\\)&lt;>@,;:'\\\\\\\&quot;\\.\\[\\]]|')+|(\&quot;[^\&quot;]*\&quot;)))*$&quot;"/>
     <elementParameter field="TEXT" name="LOCAL_SHORT_PART" value="&quot;a*&quot;"/>
     <elementParameter field="CHECK" name="SHOW_HELP" value="false"/>
     <elementParameter field="LABEL" name="HELP_CONTENT" value=" for examples:&#xA;    9 means a digit [0-9]&#xA;    a means an lowercased ascii letter [a-z]&#xA;    A means a uppercased ascii [A-Z]&#xA;    w means one or more lowercased ascii letters [a-z]+&#xA;    W means one or more uppercased ascii letters [A-Z]+&#xA;    ? means any character&#xA;"/>
-    <elementParameter field="CHECK" name="CASE_SENSITIVE" value="false"/>
     <elementParameter field="CHECK" name="CHECK_TLDS" value="true"/>
     <elementParameter field="TABLE" name="ADDITIONAL_TLDS">
       <elementValue elementRef="TLD_NAME" value="&quot;xyc&quot;"/>
@@ -173,6 +175,7 @@
       <elementValue elementRef="DOMAIN_NAME" value="&quot;cd.com.xyc&quot;"/>
     </elementParameter>
     <elementParameter field="CHECK" name="CALL_BACK" value="false"/>
+    <elementParameter field="TEXT" name="SENDER_EMAIL" value=""/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tEmailVerify_2">
       <column comment="" key="false" name="name" nullable="true" pattern="" sourceType="" type="id_String" usefulColumn="true"/>
@@ -182,7 +185,7 @@
   </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="544" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileOutputDelimited_1"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Users\talend2\.yoxoslauncher\instances\ca2d154c723ef4d647cb310e3bf9f374\lib\java"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="/home/Studio_QA/talend-library-path"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" value="outputStream"/>
     <elementParameter field="FILE" name="FILENAME" value="context.data_output_dir + &quot;/&quot; + jobName + &quot;/out.csv&quot;"/>
@@ -219,7 +222,7 @@
   </node>
   <node componentName="tFileCompare" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="96" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileCompare_1"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Users\talend2\.yoxoslauncher\instances\ca2d154c723ef4d647cb310e3bf9f374\lib\java"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="/home/Studio_QA/talend-library-path"/>
     <elementParameter field="CLOSED_LIST" name="COMPARISON_MODE" value="TEXT_CMP"/>
     <elementParameter field="FILE" name="FILE" value="context.data_output_dir + &quot;/&quot; + jobName + &quot;/out.csv&quot;"/>
     <elementParameter field="FILE" name="FILE_REF" value="context.data_dir + &quot;/&quot; + jobName + &quot;/ref.csv&quot;"/>
@@ -241,7 +244,7 @@
   </node>
   <node componentName="tAssert" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="256" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAssert_1"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Users\talend2\.yoxoslauncher\instances\ca2d154c723ef4d647cb310e3bf9f374\lib\java"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="/home/Studio_QA/talend-library-path"/>
     <elementParameter field="TEXT" name="DESCRIPTION" value="&quot;&quot;"/>
     <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="row5.differ == 0"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -257,7 +260,7 @@
   </node>
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Users\talend2\.yoxoslauncher\instances\ca2d154c723ef4d647cb310e3bf9f374\lib\java"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="/home/Studio_QA/talend-library-path"/>
     <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
     <elementParameter field="FILE" name="FILENAME" value="context.param_file_path"/>
     <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
@@ -314,7 +317,7 @@
   </node>
   <node componentName="tContextLoad" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="288" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tContextLoad_1"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Users\talend2\.yoxoslauncher\instances\ca2d154c723ef4d647cb310e3bf9f374\lib\java"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="/home/Studio_QA/talend-library-path"/>
     <elementParameter field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning"/>
     <elementParameter field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning"/>
     <elementParameter field="CHECK" name="PRINT_OPERATIONS" value="false"/>
@@ -331,7 +334,7 @@
   </node>
   <node componentName="tAssertCatcher" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAssertCatcher_1"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Users\talend2\.yoxoslauncher\instances\ca2d154c723ef4d647cb310e3bf9f374\lib\java"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="/home/Studio_QA/talend-library-path"/>
     <elementParameter field="CHECK" name="CATCH_JAVA_EXCEPTION" value="true"/>
     <elementParameter field="CHECK" name="GET_ORIGINAL_EXCEPTION" value="false"/>
     <elementParameter field="CHECK" name="CATCH_TASSERT" value="true"/>
@@ -350,7 +353,7 @@
   </node>
   <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="544" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tLogRow_1"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Users\talend2\.yoxoslauncher\instances\ca2d154c723ef4d647cb310e3bf9f374\lib\java"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="/home/Studio_QA/talend-library-path"/>
     <elementParameter field="RADIO" name="BASIC_MODE" value="true"/>
     <elementParameter field="RADIO" name="TABLE_PRINT" value="false"/>
     <elementParameter field="RADIO" name="VERTICAL" value="false"/>
@@ -398,7 +401,7 @@
   </node>
   <node componentName="tMysqlOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="672" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlOutput_1"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Users\talend2\.yoxoslauncher\instances\ca2d154c723ef4d647cb310e3bf9f374\lib\java"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="/home/Studio_QA/talend-library-path"/>
     <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="MYSQL_5"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value=""/>
@@ -506,7 +509,7 @@
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tFixedFlowInput_1" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_1" target="tEmailVerify_2">
+  <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tFixedFlowInput_1" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_1" target="tVerifyEmail_2">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER">
       <elementValue elementRef="TRACE_COLUMN" value="name"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -521,7 +524,7 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFixedFlowInput_1" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_1" target="tFileCompare_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk2"/>
   </connection>
-  <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tEmailVerify_2" offsetLabelX="0" offsetLabelY="0" source="tEmailVerify_2" target="tFileOutputDelimited_1">
+  <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tEmailVerify_2" offsetLabelX="0" offsetLabelY="0" source="tVerifyEmail_2" target="tFileOutputDelimited_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER">
       <elementValue elementRef="TRACE_COLUMN" value="name"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
