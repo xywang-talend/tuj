@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generated automatically by Rational Rose 2006.0.0.060314 -->
+<!-- Date:      11-30-2009  11:21:46 -->
+<!-- Model:     E:\AIXM\design\AIXM-5-0-200803061118.mdl -->
+<!-- Component: Logical View::AIXM Application Schemas::AIM SAA::ATCAA Feature -->
+<!-- Version:  -->
+<!-- XML-Schema level supported is specified by W3C -->
+<!-- 	http://www.w3.org/2001/XMLSchema/ -->
+<schema xmlns:aimatcaa="urn:us:gov:dot:faa:aim:saa:atcaa" xmlns:aimsaa="urn:us:gov:dot:faa:aim:saa" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:aixm="http://www.aixm.aero/schema/5.0" xmlns:ns1="urn:us:gov:dot:faa:aim:saa:atcaa" targetNamespace="urn:us:gov:dot:faa:aim:saa:atcaa" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<import namespace="http://www.opengis.net/gml/3.2" schemaLocation="./ISO_19136_Schemas/gml.xsd"/>
+	<import namespace="http://www.aixm.aero/schema/5.0" schemaLocation="./AIXM_DataTypes.xsd"/>
+	<import namespace="http://www.aixm.aero/schema/5.0" schemaLocation="./AIXM_Features.xsd"/>
+	<import namespace="http://www.aixm.aero/schema/5.0" schemaLocation="./AIXM_AbstractGML_ObjectTypes.xsd"/>
+	<import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+	<import namespace="urn:us:gov:dot:faa:aim:saa" schemaLocation="./SAA-Feature.xsd"/>
+	<import namespace="urn:us:gov:dot:faa:aim:saa" schemaLocation="./SAA-DataTypes.xsd"/>
+	<annotation>
+		<appinfo>
+			<gml:gmlProfileSchema>http://www.aixm.aero/schema/5.0/profile/gml4aixm.xsd</gml:gmlProfileSchema>
+		</appinfo>
+	</annotation>
+	<annotation>
+		<appinfo source="www.aixm.aero/schema/5.0">AIXM_Features.xsd</appinfo>
+	</annotation>
+	<element name="AirspaceExtension" type="aimatcaa:AirspaceExtensionType" substitutionGroup="aixm:AbstractAirspaceExtension"/>
+	<complexType name="AirspaceExtensionType">
+		<complexContent>
+			<extension base="aixm:AbstractExtensionType">
+				<sequence>
+					<group ref="aimatcaa:AirspaceExtensionPropertyGroup"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<group name="AirspaceExtensionPropertyGroup">
+		<sequence>
+			<element name="associatedSua" nillable="true" minOccurs="0">
+				<complexType>
+					<complexContent>
+						<extension base="aixm:AirspacePropertyType"/>
+					</complexContent>
+				</complexType>
+			</element>
+		</sequence>
+	</group>
+</schema>

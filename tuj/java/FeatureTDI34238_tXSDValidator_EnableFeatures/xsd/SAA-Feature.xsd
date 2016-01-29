@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generated automatically by Rational Rose 2006.0.0.060314 -->
+<!-- Date:      01-21-2010  12:46:08 -->
+<!-- Model:     E:\AIXM\design\AIXM-5-0-200803061118.mdl -->
+<!-- Component: Logical View::AIXM Application Schemas::AIM SAA::SAA Feature -->
+<!-- Version:  -->
+<!-- XML-Schema level supported is specified by W3C -->
+<!-- 	http://www.w3.org/2001/XMLSchema/ -->
+<schema xmlns:aimsaa="urn:us:gov:dot:faa:aim:saa" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:aixm="http://www.aixm.aero/schema/5.0" targetNamespace="urn:us:gov:dot:faa:aim:saa" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<import namespace="http://www.opengis.net/gml/3.2" schemaLocation="./ISO_19136_Schemas/gml.xsd"/>
+	<import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+	<import namespace="http://www.aixm.aero/schema/5.0" schemaLocation="./AIXM_DataTypes.xsd"/>
+	<import namespace="http://www.aixm.aero/schema/5.0" schemaLocation="./AIXM_Features.xsd"/>
+	<import namespace="http://www.aixm.aero/schema/5.0" schemaLocation="./AIXM_AbstractGML_ObjectTypes.xsd"/>
+	<include schemaLocation="./SAA-DataTypes.xsd"/>
+	<annotation>
+		<appinfo>
+			<gml:gmlProfileSchema>http://www.aixm.aero/schema/5.0/profile/gml4aixm.xsd</gml:gmlProfileSchema>
+		</appinfo>
+	</annotation>
+	<annotation>
+		<appinfo source="www.aixm.aero/schema/5.0">AIXM_Features.xsd</appinfo>
+	</annotation>
+	<element name="AirspaceExtension" type="aimsaa:AirspaceExtensionType" substitutionGroup="aixm:AbstractAirspaceExtension"/>
+	<complexType name="AirspaceExtensionType">
+		<complexContent>
+			<extension base="aixm:AbstractExtensionType">
+				<sequence>
+					<group ref="aimsaa:AirspaceExtensionPropertyGroup"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<group name="AirspaceExtensionPropertyGroup">
+		<sequence>
+			<element name="saaType" nillable="true" minOccurs="0">
+				<complexType>
+					<simpleContent>
+						<extension base="aimsaa:CodeSpecialActivityAirspaceType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</simpleContent>
+				</complexType>
+			</element>
+			<element name="timeInAdvance" nillable="true" minOccurs="0">
+				<complexType>
+					<simpleContent>
+						<extension base="aixm:ValDurationType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</simpleContent>
+				</complexType>
+			</element>
+			<element name="administrativeArea" nillable="true" minOccurs="0">
+				<complexType>
+					<simpleContent>
+						<extension base="aimsaa:CodeAdminAreaType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</simpleContent>
+				</complexType>
+			</element>
+			<element name="city" nillable="true" minOccurs="0">
+				<complexType>
+					<simpleContent>
+						<extension base="aixm:TextNameType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</simpleContent>
+				</complexType>
+			</element>
+			<element name="conditionalExclusion" nillable="true" minOccurs="0">
+				<complexType>
+					<simpleContent>
+						<extension base="aixm:CodeYesNoType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</simpleContent>
+				</complexType>
+			</element>
+			<element name="legalDefinitionType" nillable="true" minOccurs="0">
+				<complexType>
+					<simpleContent>
+						<extension base="aimsaa:CodeLegalDefinitionType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</simpleContent>
+				</complexType>
+			</element>
+		</sequence>
+	</group>
+	<element name="TimesheetExtension" type="aimsaa:TimesheetExtensionType" substitutionGroup="aixm:AbstractTimesheetExtension"/>
+	<complexType name="TimesheetExtensionType">
+		<complexContent>
+			<extension base="aixm:AbstractExtensionType">
+				<sequence>
+					<group ref="aimsaa:TimesheetExtensionPropertyGroup"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<group name="TimesheetExtensionPropertyGroup">
+		<sequence>
+			<element name="intermittent" nillable="true" minOccurs="0">
+				<complexType>
+					<simpleContent>
+						<extension base="aixm:CodeYesNoType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</simpleContent>
+				</complexType>
+			</element>
+			<element name="timeOffset" nillable="true" minOccurs="0">
+				<complexType>
+					<simpleContent>
+						<extension base="aixm:ValDurationType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</simpleContent>
+				</complexType>
+			</element>
+		</sequence>
+	</group>
+	<element name="AirspaceUsageExtension" type="aimsaa:AirspaceUsageExtensionType" substitutionGroup="aixm:AbstractAirspaceUsageExtension"/>
+	<complexType name="AirspaceUsageExtensionType">
+		<complexContent>
+			<extension base="aixm:AbstractExtensionType">
+				<sequence>
+					<group ref="aimsaa:AirspaceUsageExtensionPropertyGroup"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<group name="AirspaceUsageExtensionPropertyGroup">
+		<sequence>
+			<element name="daylightSavings" nillable="true" minOccurs="0">
+				<complexType>
+					<simpleContent>
+						<extension base="aixm:CodeYesNoType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</simpleContent>
+				</complexType>
+			</element>
+			<element name="approver" nillable="true" minOccurs="0">
+				<complexType>
+					<complexContent>
+						<extension base="aixm:ContactInformationPropertyType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</complexContent>
+				</complexType>
+			</element>
+			<element name="creator" nillable="true" minOccurs="0">
+				<complexType>
+					<complexContent>
+						<extension base="aixm:ContactInformationPropertyType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</complexContent>
+				</complexType>
+			</element>
+			<element name="lastModifier" nillable="true" minOccurs="0">
+				<complexType>
+					<complexContent>
+						<extension base="aixm:ContactInformationPropertyType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</complexContent>
+				</complexType>
+			</element>
+		</sequence>
+	</group>
+	<complexType name="SaaGroupPropertyType">
+		<sequence>
+			<element ref="aimsaa:SaaGroup"/>
+		</sequence>
+		<attributeGroup ref="gml:OwnershipAttributeGroup"/>
+	</complexType>
+	<element name="SaaGroup" type="aimsaa:SaaGroupType"/>
+	<complexType name="SaaGroupType">
+		<sequence>
+			<group ref="aimsaa:SaaGroupPropertyGroup"/>
+			<element name="extension" minOccurs="0" maxOccurs="unbounded">
+				<complexType>
+					<sequence>
+						<element ref="aimsaa:AbstractSaaGroupExtension"/>
+					</sequence>
+					<attributeGroup ref="gml:OwnershipAttributeGroup"/>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+	<group name="SaaGroupPropertyGroup">
+		<sequence>
+			<element name="name" nillable="true" minOccurs="0">
+				<complexType>
+					<simpleContent>
+						<extension base="aixm:TextNameType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</simpleContent>
+				</complexType>
+			</element>
+			<element name="groupMember" type="aixm:AirspacePropertyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</group>
+	<element name="AbstractSaaGroupExtension" type="aixm:AbstractExtensionType" abstract="true" substitutionGroup="aixm:AbstractExtension"/>
+	<element name="InformationServiceExtension" type="aimsaa:InformationServiceExtensionType" substitutionGroup="aixm:AbstractInformationServiceExtension"/>
+	<complexType name="InformationServiceExtensionType">
+		<complexContent>
+			<extension base="aixm:AbstractExtensionType">
+				<sequence>
+					<group ref="aimsaa:InformationServiceExtensionPropertyGroup"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<group name="InformationServiceExtensionPropertyGroup">
+		<sequence>
+			<element name="channelAllocation" nillable="true" minOccurs="0" maxOccurs="unbounded">
+				<complexType>
+					<complexContent>
+						<extension base="aimsaa:RadioCommunicationChannelAllocationPropertyType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</complexContent>
+				</complexType>
+			</element>
+		</sequence>
+	</group>
+	<complexType name="RadioCommunicationChannelAllocationPropertyType">
+		<sequence>
+			<element ref="aimsaa:RadioCommunicationChannelAllocation"/>
+		</sequence>
+		<attributeGroup ref="gml:OwnershipAttributeGroup"/>
+	</complexType>
+	<element name="RadioCommunicationChannelAllocation" type="aimsaa:RadioCommunicationChannelAllocationType"/>
+	<complexType name="RadioCommunicationChannelAllocationType">
+		<sequence>
+			<group ref="aimsaa:RadioCommunicationChannelAllocationPropertyGroup"/>
+		</sequence>
+	</complexType>
+	<group name="RadioCommunicationChannelAllocationPropertyGroup">
+		<sequence>
+			<element name="associatedAirspace" type="aixm:AirspacePropertyType" nillable="true" minOccurs="0"/>
+			<element name="allocatedChannelDetails" nillable="true" minOccurs="0" maxOccurs="unbounded">
+				<complexType>
+					<complexContent>
+						<extension base="aimsaa:SaaRadioCommunicationChannelPropertyType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</complexContent>
+				</complexType>
+			</element>
+		</sequence>
+	</group>
+	<element name="AbstractRadioCommunicationChannelAllocationExtension" type="aixm:AbstractExtensionType" abstract="true" substitutionGroup="aixm:AbstractExtension"/>
+	<complexType name="SaaRadioCommunicationChannelPropertyType">
+		<sequence>
+			<element ref="aimsaa:SaaRadioCommunicationChannel"/>
+		</sequence>
+		<attributeGroup ref="gml:OwnershipAttributeGroup"/>
+	</complexType>
+	<element name="SaaRadioCommunicationChannel" type="aimsaa:SaaRadioCommunicationChannelType"/>
+	<complexType name="SaaRadioCommunicationChannelType">
+		<sequence>
+			<group ref="aimsaa:SaaRadioCommunicationChannelPropertyGroup"/>
+		</sequence>
+	</complexType>
+	<group name="SaaRadioCommunicationChannelPropertyGroup">
+		<sequence>
+			<element name="communicationAllowed" nillable="true" minOccurs="0">
+				<complexType>
+					<simpleContent>
+						<extension base="aixm:CodeMilitaryStatusType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</simpleContent>
+				</complexType>
+			</element>
+			<element name="sectors" nillable="true" minOccurs="0">
+				<complexType>
+					<simpleContent>
+						<extension base="aixm:TextNameType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</simpleContent>
+				</complexType>
+			</element>
+			<element name="altitudes" nillable="true" minOccurs="0">
+				<complexType>
+					<simpleContent>
+						<extension base="aixm:TextNameType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</simpleContent>
+				</complexType>
+			</element>
+			<element name="charted" nillable="true" minOccurs="0">
+				<complexType>
+					<simpleContent>
+						<extension base="aixm:CodeYesNoType">
+							<attribute name="nilReason" type="gml:NilReasonEnumeration"/>
+						</extension>
+					</simpleContent>
+				</complexType>
+			</element>
+			<element name="associatedChannel" type="aixm:RadioCommunicationChannelPropertyType" nillable="true" minOccurs="0"/>
+		</sequence>
+	</group>
+</schema>
