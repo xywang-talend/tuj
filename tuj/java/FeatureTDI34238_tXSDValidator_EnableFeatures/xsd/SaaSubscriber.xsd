@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+xmlns:saasub="www.faa.gov/nasr/SAA"
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:aimsaa="urn:us:gov:dot:faa:aim:saa"
+elementFormDefault="qualified" attributeFormDefault="unqualified">
+<!--xmlns:aixm="http://www.aixm.aero/schema/5.0"-->
+
+	<xs:import namespace="urn:us:gov:dot:faa:aim:saa" schemaLocation="./SAA-Message.xsd"/>
+	
+	<xs:element name="SaaSubscriberFile">
+		<xs:annotation>
+			<xs:documentation>Contains SAA messages existing on the effective date.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="aimsaa:SaaMessage" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="effectiveDate" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
