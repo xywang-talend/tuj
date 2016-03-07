@@ -10,13 +10,10 @@
     <contextParameter comment="" name="result_port" prompt="result_port?" promptNeeded="false" type="id_String" value=""/>
     <contextParameter comment="" name="result_table" prompt="result_table?" promptNeeded="false" type="id_String" value=""/>
     <contextParameter comment="" name="result_username" prompt="result_username?" promptNeeded="false" type="id_String" value=""/>
-    <contextParameter comment="" name="bucket_source" prompt="bucket_source?" promptNeeded="false" type="id_String" value=""/>
-    <contextParameter comment="" name="bucket_destination" prompt="bucket_destination?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="bucket_source" prompt="bucket_source?" promptNeeded="false" type="id_String" value="talendtest-source"/>
+    <contextParameter comment="" name="bucket_destination" prompt="bucket_destination?" promptNeeded="false" type="id_String" value="talendtest-destination"/>
     <contextParameter comment="" name="s3_access_key" prompt="s3_access_key?" promptNeeded="false" type="id_String" value=""/>
     <contextParameter comment="" name="s3_secret_key" prompt="s3_secret_key?" promptNeeded="false" type="id_String" value=""/>
-    <contextParameter comment="" name="bucket_sourcekey" prompt="bucket_sourcekey?" promptNeeded="false" type="id_String" value=""/>
-    <contextParameter comment="" name="bucket_destinationkey" prompt="bucket_destinationkey?" promptNeeded="false" type="id_String" value=""/>
-    <contextParameter comment="" name="bucket_destinationkeySSE" prompt="bucket_destinationkeySSE?" promptNeeded="false" type="id_String" value=""/>
   </context>
   <parameters>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_X" value="0" show="false"/>
@@ -63,8 +60,8 @@
     <elementParameter field="FILE" name="DBFILE_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
     <elementParameter field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
     <elementParameter field="TEXT" name="QUERY_CONDITION_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
-    <elementParameter field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning" show="false"/>
-    <elementParameter field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="" show="false"/>
     <elementParameter field="CHECK" name="PRINT_OPERATIONS" value="false" show="false"/>
     <elementParameter field="CHECK" name="DISABLE_ERROR" value="false" show="false"/>
     <elementParameter field="CHECK" name="DISABLE_WARNINGS" value="false" show="false"/>
@@ -136,9 +133,9 @@
     <elementParameter field="PASSWORD" name="SECRET_KEY" value="0RMsyjmybrE=" show="false"/>
     <elementParameter field="OPENED_LIST" name="REGION" value="DEFAULT" show="false"/>
     <elementParameter field="TEXT" name="FROM_BUCKET" value="context.bucket_source"/>
-    <elementParameter field="TEXT" name="FROM_KEY" value="context.bucket_sourcekey"/>
+    <elementParameter field="TEXT" name="FROM_KEY" value="&quot;s3file&quot;"/>
     <elementParameter field="TEXT" name="TO_BUCKET" value="context.bucket_source"/>
-    <elementParameter field="TEXT" name="TO_KEY" value="context.bucket_destinationkey"/>
+    <elementParameter field="TEXT" name="TO_KEY" value="&quot;s3copyfile&quot;"/>
     <elementParameter field="CHECK" name="ENABLE-SERVER-SIDE-ENCRYPTION" value="false"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
     <elementParameter field="CHECK" name="CONFIG_CLIENT" value="false" show="false"/>
@@ -314,7 +311,7 @@
     <elementParameter field="PASSWORD" name="SECRET_KEY" value="0RMsyjmybrE=" show="false"/>
     <elementParameter field="OPENED_LIST" name="REGION" value="DEFAULT" show="false"/>
     <elementParameter field="TEXT" name="BUCKET" value="context.bucket_source"/>
-    <elementParameter field="TEXT" name="KEY" value="context.bucket_sourcekey"/>
+    <elementParameter field="TEXT" name="KEY" value="&quot;s3file&quot;"/>
     <elementParameter field="FILE" name="FILE" value="context.data_output_dir+&quot;/&quot;+jobName+&quot;/out_ref.csv&quot;"/>
     <elementParameter field="CHECK" name="ENABLE-SERVER-SIDE-ENCRYPTION" value="false"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
@@ -330,7 +327,7 @@
     <elementParameter field="PASSWORD" name="SECRET_KEY" value="0RMsyjmybrE=" show="false"/>
     <elementParameter field="OPENED_LIST" name="REGION" value="DEFAULT" show="false"/>
     <elementParameter field="TEXT" name="BUCKET" value="context.bucket_source"/>
-    <elementParameter field="TEXT" name="KEY" value="context.bucket_destinationkey"/>
+    <elementParameter field="TEXT" name="KEY" value="&quot;s3copyfile&quot;"/>
     <elementParameter field="FILE" name="FILE" value="context.data_output_dir+&quot;/&quot;+jobName+&quot;/out.csv&quot;"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
     <elementParameter field="CHECK" name="CONFIG_CLIENT" value="false" show="false"/>
@@ -577,7 +574,7 @@
     <elementParameter field="PASSWORD" name="SECRET_KEY" value="0RMsyjmybrE=" show="false"/>
     <elementParameter field="OPENED_LIST" name="REGION" value="DEFAULT" show="false"/>
     <elementParameter field="TEXT" name="BUCKET" value="context.bucket_source"/>
-    <elementParameter field="TEXT" name="KEY" value="context.bucket_sourcekey"/>
+    <elementParameter field="TEXT" name="KEY" value="&quot;s3file&quot;"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
     <elementParameter field="CHECK" name="CONFIG_CLIENT" value="false" show="false"/>
     <elementParameter field="TABLE" name="CLIENT_CONFIGURATION" show="false"/>
@@ -591,7 +588,7 @@
     <elementParameter field="PASSWORD" name="SECRET_KEY" value="0RMsyjmybrE=" show="false"/>
     <elementParameter field="OPENED_LIST" name="REGION" value="DEFAULT" show="false"/>
     <elementParameter field="TEXT" name="BUCKET" value="context.bucket_source"/>
-    <elementParameter field="TEXT" name="KEY" value="context.bucket_destinationkey"/>
+    <elementParameter field="TEXT" name="KEY" value="&quot;s3copyfile&quot;"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
     <elementParameter field="CHECK" name="CONFIG_CLIENT" value="false" show="false"/>
     <elementParameter field="TABLE" name="CLIENT_CONFIGURATION" show="false"/>
@@ -605,9 +602,9 @@
     <elementParameter field="PASSWORD" name="SECRET_KEY" value="0RMsyjmybrE=" show="false"/>
     <elementParameter field="OPENED_LIST" name="REGION" value="DEFAULT" show="false"/>
     <elementParameter field="TEXT" name="FROM_BUCKET" value="context.bucket_source"/>
-    <elementParameter field="TEXT" name="FROM_KEY" value="context.bucket_sourcekey"/>
+    <elementParameter field="TEXT" name="FROM_KEY" value="&quot;s3file&quot;"/>
     <elementParameter field="TEXT" name="TO_BUCKET" value="context.bucket_source"/>
-    <elementParameter field="TEXT" name="TO_KEY" value="context.bucket_destinationkeySSE"/>
+    <elementParameter field="TEXT" name="TO_KEY" value="&quot;copys3fileSSE&quot;"/>
     <elementParameter field="CHECK" name="ENABLE-SERVER-SIDE-ENCRYPTION" value="true"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
     <elementParameter field="CHECK" name="CONFIG_CLIENT" value="false" show="false"/>
@@ -622,7 +619,7 @@
     <elementParameter field="PASSWORD" name="SECRET_KEY" value="0RMsyjmybrE=" show="false"/>
     <elementParameter field="OPENED_LIST" name="REGION" value="DEFAULT" show="false"/>
     <elementParameter field="TEXT" name="BUCKET" value="context.bucket_source"/>
-    <elementParameter field="TEXT" name="KEY" value="context.bucket_destinationkeySSE"/>
+    <elementParameter field="TEXT" name="KEY" value="&quot;copys3fileSSE&quot;"/>
     <elementParameter field="FILE" name="FILE" value="context.data_output_dir+&quot;/&quot;+jobName+&quot;/out1.csv&quot;"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
     <elementParameter field="CHECK" name="CONFIG_CLIENT" value="false" show="false"/>
@@ -665,7 +662,7 @@
     <elementParameter field="PASSWORD" name="SECRET_KEY" value="0RMsyjmybrE=" show="false"/>
     <elementParameter field="OPENED_LIST" name="REGION" value="DEFAULT" show="false"/>
     <elementParameter field="TEXT" name="BUCKET" value="context.bucket_source"/>
-    <elementParameter field="TEXT" name="KEY" value="context.bucket_destinationkeySSE"/>
+    <elementParameter field="TEXT" name="KEY" value="&quot;copys3fileSSE&quot;"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
     <elementParameter field="CHECK" name="CONFIG_CLIENT" value="false" show="false"/>
     <elementParameter field="TABLE" name="CLIENT_CONFIGURATION" show="false"/>
