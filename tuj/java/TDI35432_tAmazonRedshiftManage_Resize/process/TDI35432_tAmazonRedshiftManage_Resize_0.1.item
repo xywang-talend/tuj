@@ -427,13 +427,6 @@
     <elementParameter field="LABEL" name="NOTE" value="VPC security groups should be set like this : &quot;gname1,gname2,gname3&quot;" show="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
-  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="160">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_2" show="false"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="System.out.println();&#xA;do {&#xA;&#x9;System.out.println(&quot;waiting for resize&quot;);&#xA;}&#xA;while (!result_tAmazonRedshiftManage_2.getClusterStatus().equalsIgnoreCase(&quot;available&quot;));&#xA;&#xA;globalMap.put(&quot;status&quot;, result_tAmazonRedshiftManage_2.getClusterStatus());"/>
-    <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tJava_2"/>
-  </node>
   <node componentName="tAmazonRedshiftManage" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="256">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAmazonRedshiftManage_3" show="false"/>
     <elementParameter field="TEXT" name="ACCESS_KEY" value="context.accesskey"/>
@@ -493,11 +486,6 @@
   <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="tLogRow_1" offsetLabelX="0" offsetLabelY="0" source="tLogRow_1" target="tMysqlOutput_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row3" show="false"/>
-  </connection>
-  <connection connectorName="ITERATE" label="Iterate" lineStyle="7" metaname="tAmazonRedshiftManage_2" offsetLabelX="0" offsetLabelY="0" source="tAmazonRedshiftManage_2" target="tJava_2">
-    <elementParameter field="CHECK" name="ENABLE_PARALLEL" value="false"/>
-    <elementParameter field="TEXT" name="NUMBER_PARALLEL" value="2" show="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="iterate1" show="false"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tAmazonRedshiftManage_2" offsetLabelX="0" offsetLabelY="0" source="tAmazonRedshiftManage_2" target="tAmazonRedshiftManage_3">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk4" show="false"/>
