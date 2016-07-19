@@ -231,27 +231,35 @@
       <elementValue elementRef="INPUT_COLUMN" value="FirstName"/>
       <elementValue elementRef="FUNCTION" value="MASK_EMAIL"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;1&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="LastName"/>
       <elementValue elementRef="FUNCTION" value="MASK_ADDRESS"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;1&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Gender"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_LIST"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;Male, Female&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Income"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_SEQUENCE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;0&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="BirthDate"/>
       <elementValue elementRef="FUNCTION" value="KEEP_YEAR"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;1&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="AccountNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_ACCOUNT_NUMBER"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;1&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="CreditCardNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_CREDIT_CARD"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;1&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="PhoneNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_PHONE_NUMBER_US"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;1&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="RANDOM_SEED" value="42"/>
     <elementParameter field="CHECK" name="OUTPUT_ORIGINAL" value="false"/>
@@ -272,7 +280,7 @@
   </node>
   <node componentName="tJavaRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="128">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJavaRow_1" show="false"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="//Code generated according to input schema and output schema&#xA;&#xD;&#xA;output_row.id = input_row.id;&#xA;//First Name mask email&#xA;String beforeMask=row1.FirstName.toString();&#xA;String afterMask=input_row.FirstName.toString();&#xA; if (beforeMask == null &amp;&amp; &quot;&quot;.equals(afterMask)) {&#xA;            output_row.FirstName =true;&#xA;        } else if (beforeMask == null || afterMask == null) {&#xA;            output_row.FirstName =false;&#xA;        } else if (&quot;&quot;.equals(beforeMask)&amp;&amp;&quot;&quot;.equals(afterMask)) {&#xA;            output_row.FirstName =true;&#xA;        } else {&#xA;            if(afterMask.equals(&quot;11111&quot;)){&#xA;            &#x9;output_row.FirstName =true;&#xA;            }else{&#xA;            &#x9;output_row.FirstName =false;&#xA;            }&#xA;        }&#xA;//Last Name mask address&#xA;beforeMask=row1.LastName.toString();&#xA;afterMask=input_row.LastName.toString();&#xA; if (beforeMask == null &amp;&amp; &quot;&quot;.equals(afterMask)) {&#xA;            output_row.LastName =true;&#xA;        } else if (beforeMask == null &amp;&amp; afterMask == null) {&#xA;            output_row.LastName =false;&#xA;        } else {&#xA;            if (beforeMask.length() != afterMask.length()) {&#xA;                output_row.LastName =false;&#xA;            }&#xA;            String expectResult=&quot;&quot;;&#xA;            for(int i=0;i&lt;beforeMask.length();i++){&#xA;            &#x9;expectResult+=&quot;X&quot;;&#xA;            }&#xA;            if (afterMask.equals(expectResult)) {&#xA;                output_row.LastName =true;&#xA;            }else{&#xA;&#xA;            &#x9;output_row.LastName =false;&#xA;            }&#xA;        }&#xA;//Gender replace by list&#xA;beforeMask=row1.Gender.toString();&#xA;afterMask=input_row.Gender.toString();&#xA; if (beforeMask == null &amp;&amp; &quot;&quot;.equals(afterMask)) {&#xA;            output_row.Gender =true;&#xA;        } else if (beforeMask == null &amp;&amp; afterMask == null) {&#xA;            output_row.Gender =false;&#xA;        } else {&#xA;            if (&quot;Male&quot;.equals(afterMask)||&quot;Female&quot;.equals(afterMask)){&#xA;                output_row.Gender =true;&#xA;            }else{&#xA;&#xA;            &#x9;output_row.Gender =false;&#xA;            }&#xA;        }&#xA;        &#xA;//BirthDate keep year&#xA;SimpleDateFormat sdf = new SimpleDateFormat(&quot;dd-MM-yyyy&quot;);&#xA;beforeMask=row1.BirthDate==null?null:sdf.format(row1.BirthDate);&#xA;afterMask=input_row.BirthDate==null?null:sdf.format(input_row.BirthDate);&#xA;&#xA;if (beforeMask == null &amp;&amp; afterMask==null) {&#xA;            output_row.BirthDate =true;&#xA;        } else {&#xA;            if (afterMask.equals(&quot;01-01-&quot;+beforeMask.substring(6))){&#xA;                output_row.BirthDate =true;&#xA;            }else{&#xA;            &#x9;output_row.BirthDate =false;&#xA;            }&#xA;        } &#xA; &#xA;//Income generate sequences&#xA;beforeMask=row1.Income==null?null:row1.Income.toString();&#xA;afterMask=input_row.Income==null?null:input_row.Income.toString();&#xA; if (beforeMask == null &amp;&amp; afterMask==null) {&#xA;            output_row.Income =true;&#xA;        } else {&#xA;            if (String.valueOf(output_row.id-1).equals(afterMask)){&#xA;                output_row.Income =true;&#xA;            }else{&#xA;&#xA;            &#x9;output_row.Income =false;&#xA;            }&#xA;        }&#xA;//AccountNumber GenerateAccountNumberSimple&#xA;beforeMask=row1.AccountNumber==null?null:row1.AccountNumber.toString();&#xA;afterMask=input_row.AccountNumber==null?null:input_row.AccountNumber.toString();&#xA;if(afterMask!=null&amp;&amp;afterMask.length()==33){&#xA;&#x9;String lastTowCharacter=afterMask.substring(31);&#xA;&#x9;String firstTowCharacter=afterMask.substring(0,2);&#xA;&#x9;int lastTwoNumber=Integer.valueOf(lastTowCharacter);&#xA;&#x9;int lengthSplitByBlank=afterMask.split(&quot; &quot;).length;&#xA;&#x9;if(lastTwoNumber&lt;100&amp;&amp;&quot;FR&quot;.equals(firstTowCharacter)&amp;&amp;lengthSplitByBlank==7){&#x9;&#xA;&#x9;&#x9;output_row.AccountNumber = true;&#xA;&#x9;}else{&#xA;&#x9;&#x9;output_row.AccountNumber = false;&#xA;&#x9;}&#xA;}else{&#xA;&#x9;output_row.AccountNumber = false;&#xA;}&#xA;//CreditCardNumber GenerateCreditCard&#xA;beforeMask=row1.CreditCardNumber==null?null:row1.CreditCardNumber.toString();&#xA;afterMask=input_row.CreditCardNumber==null?null:input_row.CreditCardNumber.toString();&#xA;if (beforeMask == null &amp;&amp; afterMask==null) {&#xA;            output_row.CreditCardNumber =true;&#xA;        } else {&#xA;            if (afterMask.length()==15||afterMask.length()==16){&#xA;            &#xA;            &#x9;int s1 = 0, s2 = 0;&#xA;        &#x9;&#x9;String reverse = new StringBuffer(afterMask).reverse().toString();&#xA;        &#x9;&#x9;for (int i = 0; i &lt; reverse.length(); i++) {&#xA;            &#x9;&#x9;int digit = Character.digit(reverse.charAt(i), 10);&#xA;            &#x9;&#x9;if (i % 2 == 0) {&#xA;                &#x9;&#x9;s1 += digit;&#xA;            &#x9;&#x9;} else {&#xA;                &#x9;&#x9;s2 += 2 * digit;&#xA;                &#x9;&#x9;if (digit >= 5) {&#xA;                    &#x9;&#x9;s2 -= 9;&#xA;                &#x9;&#x9;}&#xA;            &#x9;&#x9;}&#xA;        &#x9;&#x9;}&#xA;        &#x9;&#x9;if ((s1 + s2) % 10 == 0){&#xA;        &#x9;&#x9;&#x9;output_row.CreditCardNumber =true;&#xA;        &#x9;&#x9;}else{&#xA;        &#x9;&#x9;&#x9;output_row.CreditCardNumber =false;&#xA;        &#x9;&#x9;}&#xA;               &#xA;            }else{&#xA;&#xA;            &#x9;output_row.CreditCardNumber =false;&#xA;            }&#xA;        }&#xA;//PhoneNumber GeneratePhoneNumberUS&#xA;beforeMask=row1.PhoneNumber==null?null:row1.PhoneNumber.toString();&#xA;afterMask=input_row.PhoneNumber==null?null:input_row.PhoneNumber.toString();&#xA;if(afterMask!=null&amp;&amp;afterMask.length()==12){&#xA;&#x9;String[] resultArray=afterMask.split(&quot;-&quot;);&#xA;&#x9;boolean firstBlockCheck=Integer.valueOf(resultArray[0])-200>0;&#xA;&#x9;boolean secondBlockCheck=Integer.valueOf(resultArray[1])-200>0;&#xA;&#x9;boolean thirdBlockCheck=Integer.valueOf(resultArray[2])>0;&#xA;&#x9;if(resultArray.length==3&amp;&amp;firstBlockCheck&amp;&amp;secondBlockCheck&amp;&amp;thirdBlockCheck){&#xA;&#x9;&#x9;output_row.PhoneNumber =true;&#xA;&#x9;}else{&#xA;&#x9;&#x9;output_row.PhoneNumber =false;&#xA;&#x9;}&#xA;}else{&#xA;&#x9;output_row.PhoneNumber =false;&#xA;}&#xA;&#xD;&#xA;output_row.ORIGINAL_MARK = input_row.ORIGINAL_MARK;&#xD;&#xA;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="//Code generated according to input schema and output schema&#xA;&#xD;&#xA;output_row.id = input_row.id;&#xA;//First Name mask email&#xA;String beforeMask=row1.FirstName.toString();&#xA;String afterMask=input_row.FirstName.toString();&#xA; if (beforeMask == null &amp;&amp; &quot;&quot;.equals(afterMask)) {&#xA;            output_row.FirstName =true;&#xA;        } else if (beforeMask == null || afterMask == null) {&#xA;            output_row.FirstName =false;&#xA;        } else if (&quot;&quot;.equals(beforeMask)&amp;&amp;&quot;&quot;.equals(afterMask)) {&#xA;            output_row.FirstName =true;&#xA;        } else {&#xA;        String result=&quot;&quot;;&#xA;        for(int index=0;index&lt;beforeMask.length();index++){&#xA;        &#x9;result=result+&quot;1&quot;;&#xA;        }&#xA;            if(afterMask.equals(result)){&#xA;            &#x9;output_row.FirstName =true;&#xA;            }else{&#xA;            &#x9;output_row.FirstName =false;&#xA;            }&#xA;        }&#xA;//Last Name mask address&#xA;beforeMask=row1.LastName.toString();&#xA;afterMask=input_row.LastName.toString();&#xA; if (beforeMask == null &amp;&amp; &quot;&quot;.equals(afterMask)) {&#xA;            output_row.LastName =true;&#xA;        } else if (beforeMask == null &amp;&amp; afterMask == null) {&#xA;            output_row.LastName =false;&#xA;        } else {&#xA;            if (beforeMask.length() != afterMask.length()) {&#xA;                output_row.LastName =false;&#xA;            }&#xA;            String expectResult=&quot;&quot;;&#xA;            for(int i=0;i&lt;beforeMask.length();i++){&#xA;            &#x9;expectResult+=&quot;X&quot;;&#xA;            }&#xA;            if (afterMask.equals(expectResult)) {&#xA;                output_row.LastName =true;&#xA;            }else{&#xA;&#xA;            &#x9;output_row.LastName =false;&#xA;            }&#xA;        }&#xA;//Gender replace by list&#xA;beforeMask=row1.Gender.toString();&#xA;afterMask=input_row.Gender.toString();&#xA; if (beforeMask == null &amp;&amp; &quot;&quot;.equals(afterMask)) {&#xA;            output_row.Gender =true;&#xA;        } else if (beforeMask == null &amp;&amp; afterMask == null) {&#xA;            output_row.Gender =false;&#xA;        } else {&#xA;            if (&quot;Male&quot;.equals(afterMask)||&quot;Female&quot;.equals(afterMask)){&#xA;                output_row.Gender =true;&#xA;            }else{&#xA;&#xA;            &#x9;output_row.Gender =false;&#xA;            }&#xA;        }&#xA;        &#xA;//BirthDate keep year&#xA;SimpleDateFormat sdf = new SimpleDateFormat(&quot;dd-MM-yyyy&quot;);&#xA;beforeMask=row1.BirthDate==null?null:sdf.format(row1.BirthDate);&#xA;afterMask=input_row.BirthDate==null?null:sdf.format(input_row.BirthDate);&#xA;&#xA;if (beforeMask == null &amp;&amp; afterMask==null) {&#xA;            output_row.BirthDate =true;&#xA;        } else {&#xA;            if (afterMask.equals(&quot;01-01-&quot;+beforeMask.substring(6))){&#xA;                output_row.BirthDate =true;&#xA;            }else{&#xA;            &#x9;output_row.BirthDate =false;&#xA;            }&#xA;        } &#xA; &#xA;//Income generate sequences&#xA;beforeMask=row1.Income==null?null:row1.Income.toString();&#xA;afterMask=input_row.Income==null?null:input_row.Income.toString();&#xA; if (beforeMask == null &amp;&amp; afterMask==null) {&#xA;            output_row.Income =true;&#xA;        } else {&#xA;            if (String.valueOf(output_row.id-1).equals(afterMask)){&#xA;                output_row.Income =true;&#xA;            }else{&#xA;&#xA;            &#x9;output_row.Income =false;&#xA;            }&#xA;        }&#xA;//AccountNumber GenerateAccountNumberSimple&#xA;beforeMask=row1.AccountNumber==null?null:row1.AccountNumber.toString();&#xA;afterMask=input_row.AccountNumber==null?null:input_row.AccountNumber.toString();&#xA;if(afterMask!=null&amp;&amp;afterMask.length()==33){&#xA;&#x9;String lastTowCharacter=afterMask.substring(31);&#xA;&#x9;String firstTowCharacter=afterMask.substring(0,2);&#xA;&#x9;int lastTwoNumber=Integer.valueOf(lastTowCharacter);&#xA;&#x9;int lengthSplitByBlank=afterMask.split(&quot; &quot;).length;&#xA;&#x9;if(lastTwoNumber&lt;100&amp;&amp;&quot;FR&quot;.equals(firstTowCharacter)&amp;&amp;lengthSplitByBlank==7){&#x9;&#xA;&#x9;&#x9;output_row.AccountNumber = true;&#xA;&#x9;}else{&#xA;&#x9;&#x9;output_row.AccountNumber = false;&#xA;&#x9;}&#xA;}else{&#xA;&#x9;output_row.AccountNumber = false;&#xA;}&#xA;//CreditCardNumber GenerateCreditCard&#xA;beforeMask=row1.CreditCardNumber==null?null:row1.CreditCardNumber.toString();&#xA;afterMask=input_row.CreditCardNumber==null?null:input_row.CreditCardNumber.toString();&#xA;if (beforeMask == null &amp;&amp; afterMask==null) {&#xA;            output_row.CreditCardNumber =true;&#xA;        } else {&#xA;            if (afterMask.length()==15||afterMask.length()==16){&#xA;            &#xA;            &#x9;int s1 = 0, s2 = 0;&#xA;        &#x9;&#x9;String reverse = new StringBuffer(afterMask).reverse().toString();&#xA;        &#x9;&#x9;for (int i = 0; i &lt; reverse.length(); i++) {&#xA;            &#x9;&#x9;int digit = Character.digit(reverse.charAt(i), 10);&#xA;            &#x9;&#x9;if (i % 2 == 0) {&#xA;                &#x9;&#x9;s1 += digit;&#xA;            &#x9;&#x9;} else {&#xA;                &#x9;&#x9;s2 += 2 * digit;&#xA;                &#x9;&#x9;if (digit >= 5) {&#xA;                    &#x9;&#x9;s2 -= 9;&#xA;                &#x9;&#x9;}&#xA;            &#x9;&#x9;}&#xA;        &#x9;&#x9;}&#xA;        &#x9;&#x9;if ((s1 + s2) % 10 == 0){&#xA;        &#x9;&#x9;&#x9;output_row.CreditCardNumber =true;&#xA;        &#x9;&#x9;}else{&#xA;        &#x9;&#x9;&#x9;output_row.CreditCardNumber =false;&#xA;        &#x9;&#x9;}&#xA;               &#xA;            }else{&#xA;&#xA;            &#x9;output_row.CreditCardNumber =false;&#xA;            }&#xA;        }&#xA;//PhoneNumber GeneratePhoneNumberUS&#xA;beforeMask=row1.PhoneNumber==null?null:row1.PhoneNumber.toString();&#xA;afterMask=input_row.PhoneNumber==null?null:input_row.PhoneNumber.toString();&#xA;if(afterMask!=null&amp;&amp;afterMask.length()==12){&#xA;&#x9;String[] resultArray=afterMask.split(&quot;-&quot;);&#xA;&#x9;boolean firstBlockCheck=Integer.valueOf(resultArray[0])-200>0;&#xA;&#x9;boolean secondBlockCheck=Integer.valueOf(resultArray[1])-200>0;&#xA;&#x9;boolean thirdBlockCheck=Integer.valueOf(resultArray[2])>0;&#xA;&#x9;if(resultArray.length==3&amp;&amp;firstBlockCheck&amp;&amp;secondBlockCheck&amp;&amp;thirdBlockCheck){&#xA;&#x9;&#x9;output_row.PhoneNumber =true;&#xA;&#x9;}else{&#xA;&#x9;&#x9;output_row.PhoneNumber =false;&#xA;&#x9;}&#xA;}else{&#xA;&#x9;output_row.PhoneNumber =false;&#xA;}&#xA;&#xD;&#xA;output_row.ORIGINAL_MARK = input_row.ORIGINAL_MARK;&#xD;&#xA;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="metadata" name="tJavaRow_1">
@@ -471,27 +479,35 @@
       <elementValue elementRef="INPUT_COLUMN" value="FirstName"/>
       <elementValue elementRef="FUNCTION" value="REPLACE_ALL"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;D&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="LastName"/>
       <elementValue elementRef="FUNCTION" value="REPLACE_CHARACTERS"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;3&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Gender"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_LIST_HASH"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;Male, Female&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Income"/>
       <elementValue elementRef="FUNCTION" value="NUMERIC_VARIANCE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;10&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="AccountNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_ACCOUNT_NUMBER_FORMAT"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;false&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="BirthDate"/>
       <elementValue elementRef="FUNCTION" value="DATE_VARIANCE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;31&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="CreditCardNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_CREDIT_CARD_FORMAT"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;1&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="PhoneNumber"/>
       <elementValue elementRef="FUNCTION" value="KEEP_FIRST_AND_GENERATE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;3&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="RANDOM_SEED" value="42"/>
     <elementParameter field="CHECK" name="OUTPUT_ORIGINAL" value="false"/>
@@ -675,27 +691,35 @@
       <elementValue elementRef="INPUT_COLUMN" value="FirstName"/>
       <elementValue elementRef="FUNCTION" value="BETWEEN_INDEXES_REPLACE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;2, 4, X&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="LastName"/>
       <elementValue elementRef="FUNCTION" value="BETWEEN_INDEXES_KEEP"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;1, 3&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Gender"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_SSN_FRENCH"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;Male, Female&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Income"/>
       <elementValue elementRef="FUNCTION" value="REMOVE_FIRST_CHARS"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;2&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="BirthDate"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_BETWEEN"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;01-01-1992, 30-10-1992&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="AccountNumber"/>
       <elementValue elementRef="FUNCTION" value="REMOVE_LAST_CHARS"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;5&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="CreditCardNumber"/>
       <elementValue elementRef="FUNCTION" value="REPLACE_FIRST_CHARS"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="PhoneNumber"/>
       <elementValue elementRef="FUNCTION" value="REPLACE_LAST_CHARS"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;2&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="RANDOM_SEED" value="42"/>
     <elementParameter field="CHECK" name="OUTPUT_ORIGINAL" value="false"/>
@@ -879,21 +903,27 @@
       <elementValue elementRef="INPUT_COLUMN" value="FirstName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="LastName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE_HASH"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Income"/>
       <elementValue elementRef="FUNCTION" value="KEEP_LAST_AND_GENERATE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="AccountNumber"/>
       <elementValue elementRef="FUNCTION" value="REPLACE_NUMERIC"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;0&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="CreditCardNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_CREDIT_CARD"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="PhoneNumber"/>
       <elementValue elementRef="FUNCTION" value="BETWEEN_INDEXES_REMOVE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4, 8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="RANDOM_SEED" value="42"/>
     <elementParameter field="CHECK" name="OUTPUT_ORIGINAL" value="false"/>
@@ -1432,21 +1462,27 @@
       <elementValue elementRef="INPUT_COLUMN" value="FirstName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="LastName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE_HASH"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Income"/>
       <elementValue elementRef="FUNCTION" value="KEEP_LAST_AND_GENERATE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="AccountNumber"/>
       <elementValue elementRef="FUNCTION" value="REPLACE_NUMERIC"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;0&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="CreditCardNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_CREDIT_CARD"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="PhoneNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_PHONE_NUMBER_FRENCH"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4, 8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="RANDOM_SEED" value="42"/>
     <elementParameter field="CHECK" name="OUTPUT_ORIGINAL" value="false"/>
@@ -1666,21 +1702,27 @@
       <elementValue elementRef="INPUT_COLUMN" value="FirstName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="LastName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE_HASH"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Income"/>
       <elementValue elementRef="FUNCTION" value="KEEP_LAST_AND_GENERATE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="AccountNumber"/>
       <elementValue elementRef="FUNCTION" value="REPLACE_NUMERIC"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;0&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="CreditCardNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_CREDIT_CARD"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="PhoneNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_PHONE_NUMBER_GERMANY"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4, 8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="RANDOM_SEED" value="42"/>
     <elementParameter field="CHECK" name="OUTPUT_ORIGINAL" value="false"/>
@@ -1900,21 +1942,27 @@
       <elementValue elementRef="INPUT_COLUMN" value="FirstName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="LastName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE_HASH"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Income"/>
       <elementValue elementRef="FUNCTION" value="KEEP_LAST_AND_GENERATE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="AccountNumber"/>
       <elementValue elementRef="FUNCTION" value="REPLACE_NUMERIC"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;0&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="CreditCardNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_CREDIT_CARD"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="PhoneNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_PHONE_NUMBER_JAPAN"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4, 8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="RANDOM_SEED" value="42"/>
     <elementParameter field="CHECK" name="OUTPUT_ORIGINAL" value="false"/>
@@ -2134,21 +2182,27 @@
       <elementValue elementRef="INPUT_COLUMN" value="FirstName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="LastName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE_HASH"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Income"/>
       <elementValue elementRef="FUNCTION" value="KEEP_LAST_AND_GENERATE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="AccountNumber"/>
       <elementValue elementRef="FUNCTION" value="REPLACE_NUMERIC"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;0&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="CreditCardNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_CREDIT_CARD"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="PhoneNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_PHONE_NUMBER_UK"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4, 8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="RANDOM_SEED" value="42"/>
     <elementParameter field="CHECK" name="OUTPUT_ORIGINAL" value="false"/>
@@ -2368,21 +2422,27 @@
       <elementValue elementRef="INPUT_COLUMN" value="FirstName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="LastName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE_HASH"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Income"/>
       <elementValue elementRef="FUNCTION" value="KEEP_LAST_AND_GENERATE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="AccountNumber"/>
       <elementValue elementRef="FUNCTION" value="REPLACE_NUMERIC"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;0&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="CreditCardNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_CREDIT_CARD"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Gender"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_SSN_JAPAN"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4, 8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="RANDOM_SEED" value="42"/>
     <elementParameter field="CHECK" name="OUTPUT_ORIGINAL" value="false"/>
@@ -2602,21 +2662,27 @@
       <elementValue elementRef="INPUT_COLUMN" value="FirstName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="LastName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE_HASH"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Income"/>
       <elementValue elementRef="FUNCTION" value="KEEP_LAST_AND_GENERATE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="AccountNumber"/>
       <elementValue elementRef="FUNCTION" value="REPLACE_NUMERIC"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;0&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="CreditCardNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_CREDIT_CARD"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Gender"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_SSN_GERMANY"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4, 8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="RANDOM_SEED" value="42"/>
     <elementParameter field="CHECK" name="OUTPUT_ORIGINAL" value="false"/>
@@ -2836,21 +2902,27 @@
       <elementValue elementRef="INPUT_COLUMN" value="FirstName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="LastName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE_HASH"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Income"/>
       <elementValue elementRef="FUNCTION" value="KEEP_LAST_AND_GENERATE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="AccountNumber"/>
       <elementValue elementRef="FUNCTION" value="REPLACE_NUMERIC"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;0&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="CreditCardNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_CREDIT_CARD"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Gender"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_SSN_FRENCH"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4, 8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="RANDOM_SEED" value="42"/>
     <elementParameter field="CHECK" name="OUTPUT_ORIGINAL" value="false"/>
@@ -3070,21 +3142,27 @@
       <elementValue elementRef="INPUT_COLUMN" value="FirstName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="LastName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE_HASH"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Income"/>
       <elementValue elementRef="FUNCTION" value="KEEP_LAST_AND_GENERATE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="AccountNumber"/>
       <elementValue elementRef="FUNCTION" value="REPLACE_NUMERIC"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;0&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="CreditCardNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_CREDIT_CARD"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Gender"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_SSN_US"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4, 8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="RANDOM_SEED" value="42"/>
     <elementParameter field="CHECK" name="OUTPUT_ORIGINAL" value="false"/>
@@ -3304,21 +3382,27 @@
       <elementValue elementRef="INPUT_COLUMN" value="FirstName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="LastName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE_HASH"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Income"/>
       <elementValue elementRef="FUNCTION" value="KEEP_LAST_AND_GENERATE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="AccountNumber"/>
       <elementValue elementRef="FUNCTION" value="REPLACE_NUMERIC"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;0&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="CreditCardNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_CREDIT_CARD"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Gender"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_SSN_UK"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4, 8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="RANDOM_SEED" value="42"/>
     <elementParameter field="CHECK" name="OUTPUT_ORIGINAL" value="false"/>
@@ -3538,21 +3622,27 @@
       <elementValue elementRef="INPUT_COLUMN" value="FirstName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="LastName"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_FROM_FILE_HASH"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="context.data_dir + &quot;/&quot; + jobName + &quot;/name.txt&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="Income"/>
       <elementValue elementRef="FUNCTION" value="KEEP_LAST_AND_GENERATE"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="AccountNumber"/>
       <elementValue elementRef="FUNCTION" value="REPLACE_NUMERIC"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;0&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="CreditCardNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_CREDIT_CARD"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
       <elementValue elementRef="INPUT_COLUMN" value="PhoneNumber"/>
       <elementValue elementRef="FUNCTION" value="GENERATE_PHONE_NUMBER_US"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4, 8&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="RANDOM_SEED" value="42"/>
     <elementParameter field="CHECK" name="OUTPUT_ORIGINAL" value="false"/>
@@ -3658,6 +3748,230 @@
     <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="row24.differ == 0"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tAssert_7">
+      <column defaultValue="" key="false" length="255" name="file" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="file_ref" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="component" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="1" name="differ" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="message" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="2816">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_16" show="false"/>
+    <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.data_dir + &quot;/&quot; + jobName + &quot;/bdd1.txt&quot;"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" value="&quot;\n&quot;" show="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" value="&quot;&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" value="&quot;&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="HEADER" value="0"/>
+    <elementParameter field="TEXT" name="FOOTER" value="0"/>
+    <elementParameter field="TEXT" name="LIMIT" value=""/>
+    <elementParameter field="CHECK" name="REMOVE_EMPTY_ROW" value="true"/>
+    <elementParameter field="CHECK" name="UNCOMPRESS" value="false"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:SCHEMA_TYPE" value="REPOSITORY" show="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:REPOSITORY_SCHEMA_TYPE" value="__eNEsBNmEeWcTc9CUpUzlA - metadata" show="false"/>
+    <elementParameter field="DIRECTORY" name="TEMP_DIR" value="&quot;/home/jgonzalez/Documents/STUDIO/Talend-Studio-20141207_1530-V5.6.1/workspace&quot;" show="false"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" value="&quot;,&quot;" show="false"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" value="&quot;.&quot;" show="false"/>
+    <elementParameter field="CHECK" name="RANDOM" value="false"/>
+    <elementParameter field="TEXT" name="NB_RANDOM" value="10" show="false"/>
+    <elementParameter field="CHECK" name="TRIMALL" value="false"/>
+    <elementParameter field="TABLE" name="TRIMSELECT">
+      <elementValue elementRef="SCHEMA_COLUMN" value="customer_id"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="FirstName"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="LastName"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Gender"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="BirthDate"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Income"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="AccountNumber"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CreditCardNumber"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="PhoneNumber"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
+    <elementParameter field="CHECK" name="CHECK_DATE" value="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="SPLITRECORD" value="false"/>
+    <elementParameter field="CHECK" name="ENABLE_DECODE" value="false"/>
+    <elementParameter field="TABLE" name="DECODE_COLS" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="customer_id"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="FirstName"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="LastName"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Gender"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="BirthDate"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Income"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="AccountNumber"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CreditCardNumber"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="PhoneNumber"/>
+      <elementValue elementRef="DECODE" value="false"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="DESTINATION" value="" show="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" value="100" show="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="metadata" name="tFileInputDelimited_16">
+      <column comment="" key="false" length="1" name="customer_id" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="7" name="FirstName" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="LastName" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="1" name="Gender" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="10" name="BirthDate" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Date" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="Income" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" originalLength="7" usefulColumn="true"/>
+      <column comment="" key="false" length="28" name="AccountNumber" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" originalLength="9" usefulColumn="true"/>
+      <column comment="" key="false" length="16" name="CreditCardNumber" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" originalLength="16" usefulColumn="true"/>
+      <column comment="" key="false" length="13" name="PhoneNumber" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+    </metadata>
+    <metadata connector="REJECT" label="metadata" name="REJECT">
+      <column comment="" key="false" length="1" name="customer_id" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="7" name="FirstName" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="LastName" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="1" name="Gender" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="10" name="BirthDate" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Date" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="Income" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" originalLength="7" usefulColumn="true"/>
+      <column comment="" key="false" length="28" name="AccountNumber" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" originalLength="9" usefulColumn="true"/>
+      <column comment="" key="false" length="16" name="CreditCardNumber" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" originalLength="16" usefulColumn="true"/>
+      <column comment="" key="false" length="13" name="PhoneNumber" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tDataMasking" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="288" posY="2816">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tDataMasking_15" show="false"/>
+    <elementParameter field="TABLE" name="MODIF_TABLE">
+      <elementValue elementRef="INPUT_COLUMN" value="AccountNumber"/>
+      <elementValue elementRef="FUNCTION" value="GENERATE_ACCOUNT_NUMBER_FORMAT"/>
+      <elementValue elementRef="EXTRA_PARAMETER" value="&quot;5&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="true"/>
+      <elementValue elementRef="INPUT_COLUMN" value="CreditCardNumber"/>
+      <elementValue elementRef="FUNCTION" value="GENERATE_CREDIT_CARD_FORMAT"/>
+      <elementValue elementRef="EXTRA_PARAMETER" value="&quot;4&quot;"/>
+      <elementValue elementRef="KEEP_FORMAT" value="true"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="RANDOM_SEED" value="42"/>
+    <elementParameter field="CHECK" name="OUTPUT_ORIGINAL" value="false"/>
+    <elementParameter field="CHECK" name="KEEP_NULL" value="true"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="metadata" name="tDataMasking_15">
+      <column comment="" key="false" length="1" name="customer_id" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="7" name="FirstName" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="LastName" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="1" name="Gender" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="10" name="BirthDate" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Date" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="Income" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" originalLength="7" usefulColumn="true"/>
+      <column comment="" key="false" length="28" name="AccountNumber" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" originalLength="9" usefulColumn="true"/>
+      <column comment="" key="false" length="16" name="CreditCardNumber" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" originalLength="16" usefulColumn="true"/>
+      <column comment="" key="false" length="13" name="PhoneNumber" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="0" name="ORIGINAL_MARK" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tJavaRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="480" posY="2816">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJavaRow_15" show="false"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="//Code generated according to input schema and output schema&#xD;&#xA;output_row.customer_id = input_row.customer_id;&#xD;&#xA;output_row.FirstName = true;&#xD;&#xA;output_row.LastName = true;&#xD;&#xA;output_row.Gender = true;&#xD;&#xA;output_row.BirthDate = true;&#xD;&#xA;output_row.Income = true;&#xA;&#xA;//AccountNumber GenerateAccountNumberFormat&#xA;String beforeMask=row60.AccountNumber==null?null:row60.AccountNumber.toString();&#xA;String afterMask=input_row.AccountNumber==null?null:input_row.AccountNumber.toString();&#xA;String firstTowCharacter=afterMask.substring(0,2);&#xA;String firstTowCharacterOrginal=beforeMask==null?null:beforeMask.length()&lt;2?null:beforeMask.substring(0, 2);&#xA;if(afterMask.length()==33&amp;&amp;&quot;FR&quot;.equals(firstTowCharacter)){&#xA;&#x9;String lastTowCharacter=afterMask.substring(31);&#xA;&#x9;&#xA;&#x9;int lastTwoNumber=Integer.valueOf(lastTowCharacter);&#xA;&#x9;int lengthSplitByBlank=afterMask.split(&quot; &quot;).length;&#xA;&#x9;&#xA;&#x9;if(lastTwoNumber&lt;100&amp;&amp;lengthSplitByBlank==7){&#x9;&#xA;&#x9;&#x9;output_row.AccountNumber = true;&#xA;&#x9;}else{&#xA;&#x9;&#x9;output_row.AccountNumber = false;&#xA;&#x9;}&#xA;}else{&#xA;&#x9;if(firstTowCharacterOrginal!=null&amp;&amp;firstTowCharacterOrginal.equals(firstTowCharacter)){&#xA;&#x9;&#x9;output_row.AccountNumber = true;&#xA;&#x9;}else{&#xA;&#x9;&#x9;output_row.AccountNumber = false;&#xA;&#x9;}&#xA;&#x9;for (int i = 0; i &lt; beforeMask.length()&amp;&amp;i &lt; afterMask.length(); i++){&#xA;            if (beforeMask.charAt(i) == ' '&amp;&amp;afterMask.charAt(i)!=' '){&#xA;                output_row.AccountNumber = false;&#xA;                break;&#xA;            }&#xA;    }&#xA;}&#xA;//CreditCardNumber GenerateCreditCardFormatLong&#xA;beforeMask=row60.CreditCardNumber==null?null:row60.CreditCardNumber.toString();&#xA;afterMask=input_row.CreditCardNumber==null?null:input_row.CreditCardNumber.toString();&#xA;if (beforeMask == null &amp;&amp; afterMask==null||beforeMask.isEmpty()) {&#xA;            output_row.CreditCardNumber =true;&#xA;        } else {&#xA;        String orginalAfterMask=afterMask;&#xA;        afterMask=org.apache.commons.lang.StringUtils.replace(afterMask, &quot; &quot;, &quot;&quot;);&#xA;            if (afterMask.length()==15||afterMask.length()==16||afterMask.length()==13){&#xA;            &#xA;            &#x9;int s1 = 0, s2 = 0;&#xA;        &#x9;&#x9;String reverse = new StringBuffer(afterMask).reverse().toString();&#xA;        &#x9;&#x9;for (int i = 0; i &lt; reverse.length(); i++) {&#xA;            &#x9;&#x9;int digit = Character.digit(reverse.charAt(i), 10);&#xA;            &#x9;&#x9;if (i % 2 == 0) {&#xA;                &#x9;&#x9;s1 += digit;&#xA;            &#x9;&#x9;} else {&#xA;                &#x9;&#x9;s2 += 2 * digit;&#xA;                &#x9;&#x9;if (digit >= 5) {&#xA;                    &#x9;&#x9;s2 -= 9;&#xA;                &#x9;&#x9;}&#xA;            &#x9;&#x9;}&#xA;        &#x9;&#x9;}&#xA;        &#x9;&#x9;if ((s1 + s2) % 10 == 0){&#xA;        &#x9;&#x9;&#x9;//visa card&#xA;        &#x9;&#x9;&#x9;if(afterMask.substring(0, 1).equals(&quot;4&quot;)&amp;&amp;beforeMask.substring(0, 1).equals(&quot;4&quot;)){&#xA;        &#x9;&#x9;&#x9;&#x9;output_row.CreditCardNumber =true;&#xA;        &#x9;&#x9;&#x9;&#x9;//others&#xA;        &#x9;&#x9;&#x9;}else if(afterMask.substring(0, 2).equals(beforeMask.substring(0, 2))){&#xA;        &#x9;&#x9;&#x9;&#x9;output_row.CreditCardNumber =true;&#xA;        &#x9;&#x9;&#x9;}else{&#xA;        &#x9;&#x9;&#x9;&#x9;output_row.CreditCardNumber =false;&#xA;        &#x9;&#x9;&#x9;}&#xA;        &#x9;&#x9;}else{&#xA;        &#x9;&#x9;&#x9;output_row.CreditCardNumber =false;&#xA;        &#x9;&#x9;}&#xA;               &#xA;            }else{&#xA;&#xA;            &#x9;output_row.CreditCardNumber =false;&#xA;            }&#xA;            for (int i = 0; i &lt; beforeMask.length()&amp;&amp;i &lt; orginalAfterMask.length(); i++){&#xA;            if (beforeMask.charAt(i) == ' '&amp;&amp;orginalAfterMask.charAt(i)!=' '){&#xA;                output_row.AccountNumber = false;&#xA;                break;&#xA;            }&#xA;    }&#xA;        }        &#xD;&#xA;output_row.PhoneNumber = true;&#xD;&#xA;output_row.ORIGINAL_MARK = input_row.ORIGINAL_MARK;&#xD;&#xA;"/>
+    <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="metadata" name="tJavaRow_15">
+      <column comment="" key="false" length="1" name="customer_id" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="7" name="FirstName" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Boolean" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="LastName" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Boolean" usefulColumn="true"/>
+      <column comment="" key="false" length="1" name="Gender" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Boolean" usefulColumn="true"/>
+      <column comment="" key="false" length="10" name="BirthDate" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Boolean" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="Income" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Boolean" originalLength="7" usefulColumn="true"/>
+      <column comment="" key="false" length="28" name="AccountNumber" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Boolean" originalLength="9" usefulColumn="true"/>
+      <column comment="" key="false" length="16" name="CreditCardNumber" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Boolean" originalLength="16" usefulColumn="true"/>
+      <column comment="" key="false" length="13" name="PhoneNumber" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Boolean" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="0" name="ORIGINAL_MARK" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="672" posY="2816">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileOutputDelimited_15" show="false"/>
+    <elementParameter field="CHECK" name="USESTREAM" value="false"/>
+    <elementParameter field="TEXT" name="STREAMNAME" value="outputStream" show="false"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.data_output_dir +  &quot;/&quot; + jobName + &quot;/result15.csv&quot;"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter field="CHECK" name="OS_LINE_SEPARATOR_AS_ROW_SEPARATOR" value="true" show="false"/>
+    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" value="&quot;\n&quot;" show="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;"/>
+    <elementParameter field="CHECK" name="APPEND" value="false"/>
+    <elementParameter field="CHECK" name="INCLUDEHEADER" value="false"/>
+    <elementParameter field="CHECK" name="COMPRESS" value="false"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" value="&quot;,&quot;" show="false"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" value="&quot;.&quot;" show="false"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" value="&quot;&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" value="&quot;&quot;&quot;" show="false"/>
+    <elementParameter field="CHECK" name="CREATE" value="true"/>
+    <elementParameter field="CHECK" name="SPLIT" value="false"/>
+    <elementParameter field="TEXT" name="SPLIT_EVERY" value="1000" show="false"/>
+    <elementParameter field="CHECK" name="FLUSHONROW" value="false"/>
+    <elementParameter field="TEXT" name="FLUSHONROW_NUM" value="1" show="false"/>
+    <elementParameter field="CHECK" name="ROW_MODE" value="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" value="90" show="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="metadata" name="tFileOutputDelimited_15">
+      <column comment="" key="false" length="1" name="customer_id" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="7" name="FirstName" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Boolean" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="LastName" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Boolean" usefulColumn="true"/>
+      <column comment="" key="false" length="1" name="Gender" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Boolean" usefulColumn="true"/>
+      <column comment="" key="false" length="10" name="BirthDate" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Boolean" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="Income" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Boolean" originalLength="7" usefulColumn="true"/>
+      <column comment="" key="false" length="28" name="AccountNumber" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Boolean" originalLength="9" usefulColumn="true"/>
+      <column comment="" key="false" length="16" name="CreditCardNumber" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Boolean" originalLength="16" usefulColumn="true"/>
+      <column comment="" key="false" length="13" name="PhoneNumber" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Boolean" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="0" name="ORIGINAL_MARK" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tFileCompare" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="96" posY="2912">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileCompare_15" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="COMPARISON_MODE" value="TEXT_CMP"/>
+    <elementParameter field="FILE" name="FILE" value="context.data_output_dir +  &quot;/&quot; + jobName + &quot;/result15.csv&quot;"/>
+    <elementParameter field="FILE" name="FILE_REF" value="context.data_dir + &quot;/&quot; + jobName + &quot;/ref/testResult1.csv&quot;"/>
+    <elementParameter field="TEXT" name="DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files differ&quot;"/>
+    <elementParameter field="TEXT" name="NO_DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files are identical&quot;"/>
+    <elementParameter field="CHECK" name="PRINT" value="true"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tFileCompare_15">
+      <column key="false" length="255" name="file" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="file_ref" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
+      <column key="false" length="50" name="job" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="component" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="1" name="differ" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column key="false" length="255" name="message" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tAssert" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="480" posY="2912">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAssert_15" show="false"/>
+    <elementParameter field="TEXT" name="DESCRIPTION" value="&quot;Test n°15&quot;"/>
+    <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="row63.differ == 0"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tAssert_15">
       <column defaultValue="" key="false" length="255" name="file" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="file_ref" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
@@ -3795,6 +4109,9 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row47" show="false"/>
   </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_3" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_3" target="tFileCompare_3">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk5" show="false"/>
+  </connection>
   <connection connectorName="FLOW" label="row6" lineStyle="0" metaname="tFileInputDelimited_3" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_3" target="tDataMasking_3">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="id"/>
@@ -3827,9 +4144,6 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row6" show="false"/>
-  </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_3" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_3" target="tFileCompare_3">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk5" show="false"/>
   </connection>
   <connection connectorName="FLOW" label="row7" lineStyle="0" metaname="tDataMasking_3" offsetLabelX="1" offsetLabelY="-1" source="tDataMasking_3" target="tJavaRow_3">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -4905,7 +5219,7 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row41" show="false"/>
   </connection>
-  <connection connectorName="FLOW" label="row59" lineStyle="0" metaname="tJavaRow_14" offsetLabelX="0" offsetLabelY="0" source="tJavaRow_14" target="tFileOutputDelimited_13">
+  <connection connectorName="FLOW" label="row59" lineStyle="0" metaname="tJavaRow_14" offsetLabelX="-3" offsetLabelY="1" source="tJavaRow_14" target="tFileOutputDelimited_13">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row59" show="false"/>
   </connection>
@@ -4935,6 +5249,9 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row42" show="false"/>
+  </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileCompare_13" offsetLabelX="0" offsetLabelY="0" source="tFileCompare_13" target="tFileInputDelimited_16">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk38" show="false"/>
   </connection>
   <connection connectorName="FLOW" label="row43" lineStyle="0" metaname="tFileInputDelimited_15" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_15" target="tDataMasking_14">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -5148,6 +5465,53 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileCompare_7" offsetLabelX="0" offsetLabelY="0" source="tFileCompare_7" target="tFileInputDelimited_13">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk26" show="false"/>
   </connection>
+  <connection connectorName="FLOW" label="row61" lineStyle="0" metaname="tFileInputDelimited_16" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_16" target="tDataMasking_15">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row61" show="false"/>
+  </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_16" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_16" target="tFileCompare_15">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk37" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="row60" lineStyle="0" metaname="tDataMasking_15" offsetLabelX="1" offsetLabelY="-1" source="tDataMasking_15" target="tJavaRow_15">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="ORIGINAL_MARK"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row60" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="row62" lineStyle="0" metaname="tJavaRow_15" offsetLabelX="0" offsetLabelY="0" source="tJavaRow_15" target="tFileOutputDelimited_15">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row62" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="row63" lineStyle="0" metaname="tFileCompare_15" offsetLabelX="0" offsetLabelY="0" source="tFileCompare_15" target="tAssert_15">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="file"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="file_ref"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="moment"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="job"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="component"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="differ"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="message"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row63" show="false"/>
+  </connection>
   <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240" show="false"/>
@@ -5295,6 +5659,16 @@
   </subjob>
   <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileCompare_7" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_16" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileCompare_15" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
