@@ -11,7 +11,7 @@
     <contextParameter comment="" name="job_dir" prompt="job_dir?" promptNeeded="false" type="id_String" value="/tSalesforceXX_FeatureTDI22094/"/>
     <contextParameter comment="" name="param_file_path" prompt="param_file_path?" promptNeeded="false" type="id_String" value="D:\Talend\work\Master\mycontext.csv"/>
     <contextParameter comment="" name="result_database" prompt="result_database?" promptNeeded="false" type="id_String" value="null"/>
-    <contextParameter comment="" name="salesforce_pwd" prompt="salesforce_pwd?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="salesforce_password" prompt="salesforce_password?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="salesforce_username" prompt="salesforce_username?" promptNeeded="false" type="id_String" value="null"/>
   </context>
   <parameters>
@@ -174,7 +174,7 @@
     <elementParameter field="TEXT" name="ENDPOINT" value="&quot;https://www.salesforce.com/services/Soap/u/25.0&quot;"/>
     <elementParameter field="TEXT" name="API_VERSION" value="&quot;25.0&quot;" show="false"/>
     <elementParameter field="TEXT" name="USER" value="context.salesforce_username"/>
-    <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kueUotlbURa3GFKPk9hbaR1e"/>
+    <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kueUotlbURa3GDT5dOBheMM9beQLlwAQg30="/>
     <elementParameter field="TEXT" name="OAUTH_CLIENT_ID" value="&quot;&quot;" show="false"/>
     <elementParameter field="PASSWORD" name="OAUTH_CLIENT_SECRET" value="0RMsyjmybrE=" show="false"/>
     <elementParameter field="TEXT" name="OAUTH_CALLBACK_HOST" value="&quot;localhost&quot;" show="false"/>
@@ -486,7 +486,7 @@
     <elementParameter field="TEXT" name="ENDPOINT" value="&quot;https://www.salesforce.com/services/Soap/u/25.0&quot;"/>
     <elementParameter field="TEXT" name="API_VERSION" value="&quot;25.0&quot;" show="false"/>
     <elementParameter field="TEXT" name="USER" value="context.salesforce_username"/>
-    <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kueUotlbURa3GFKPk9hbaR1e"/>
+    <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kueUotlbURa3GDT5dOBheMM9beQLlwAQg30="/>
     <elementParameter field="TEXT" name="OAUTH_CLIENT_ID" value="&quot;&quot;" show="false"/>
     <elementParameter field="PASSWORD" name="OAUTH_CLIENT_SECRET" value="0RMsyjmybrE=" show="false"/>
     <elementParameter field="TEXT" name="OAUTH_CALLBACK_HOST" value="&quot;localhost&quot;" show="false"/>
@@ -554,7 +554,7 @@
     <elementParameter field="TEXT" name="ENDPOINT" value="&quot;https://www.salesforce.com/services/Soap/u/25.0&quot;"/>
     <elementParameter field="TEXT" name="API_VERSION" value="&quot;25.0&quot;" show="false"/>
     <elementParameter field="TEXT" name="USER" value="context.salesforce_username"/>
-    <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kueUotlbURa3GFKPk9hbaR1e"/>
+    <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kueUotlbURa3GDT5dOBheMM9beQLlwAQg30="/>
     <elementParameter field="TEXT" name="OAUTH_CLIENT_ID" value="&quot;&quot;" show="false"/>
     <elementParameter field="PASSWORD" name="OAUTH_CLIENT_SECRET" value="0RMsyjmybrE=" show="false"/>
     <elementParameter field="TEXT" name="OAUTH_CALLBACK_HOST" value="&quot;localhost&quot;" show="false"/>
@@ -638,7 +638,7 @@
     <elementParameter field="TEXT" name="ENDPOINT" value="&quot;https://www.salesforce.com/services/Soap/u/25.0&quot;"/>
     <elementParameter field="TEXT" name="API_VERSION" value="&quot;25.0&quot;" show="false"/>
     <elementParameter field="TEXT" name="USER" value="context.salesforce_username"/>
-    <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kueUotlbURa3GFKPk9hbaR1e"/>
+    <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kueUotlbURa3GDT5dOBheMM9beQLlwAQg30="/>
     <elementParameter field="TEXT" name="OAUTH_CLIENT_ID" value="&quot;&quot;" show="false"/>
     <elementParameter field="PASSWORD" name="OAUTH_CLIENT_SECRET" value="0RMsyjmybrE=" show="false"/>
     <elementParameter field="TEXT" name="OAUTH_CALLBACK_HOST" value="&quot;localhost&quot;" show="false"/>
@@ -677,7 +677,7 @@
     <elementParameter field="TEXT" name="ENDPOINT" value="&quot;https://www.salesforce.com/services/Soap/u/25.0&quot;"/>
     <elementParameter field="TEXT" name="API_VERSION" value="&quot;25.0&quot;" show="false"/>
     <elementParameter field="TEXT" name="USER" value="context.salesforce_username"/>
-    <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kueUotlbURa3GFKPk9hbaR1e"/>
+    <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kueUotlbURa3GDT5dOBheMM9beQLlwAQg30="/>
     <elementParameter field="TEXT" name="OAUTH_CLIENT_ID" value="&quot;&quot;" show="false"/>
     <elementParameter field="PASSWORD" name="OAUTH_CLIENT_SECRET" value="0RMsyjmybrE=" show="false"/>
     <elementParameter field="TEXT" name="OAUTH_CALLBACK_HOST" value="&quot;localhost&quot;" show="false"/>
@@ -723,6 +723,13 @@
     <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="((Integer)globalMap.get(&quot;tSalesforceInput_1_NB_LINE&quot;))==2"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tAssert_1"/>
+  </node>
+  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="96" posY="64">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_1" show="false"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="String foo = &quot;bar&quot;;&#xA;//System.setProperty(&quot;-Dhttps.protocols&quot;, &quot;SSLv3,TLSv1,TLSv1.1&quot;);&#xA;&#xA;System.out.println(&quot;the current version is &quot;+System.getProperty(&quot;java.version&quot;));&#xA;if (System.getProperty(&quot;java.version&quot;).contains(&quot;1.7.&quot;)){&#xA;    System.out.println(&quot;JDK1.7&quot;);&#xA;    System.setProperty(&quot;https.protocols&quot;, &quot;TLSv1.1,TLSv1.2&quot;);&#xA;}if(System.getProperty(&quot;java.version&quot;).contains(&quot;1.8..&quot;)){&#xA;    System.out.println(&quot;JDK1.8&quot;);&#xA;}&#xA;&#xA;    &#xA;&#xA;&#xA;    &#xA;"/>
+    <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;&#xA;import java.lang.management.ManagementFactory;"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tJava_1"/>
   </node>
   <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tFixedFlowInput_1" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_1" target="tSalesforceOutput_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -1150,6 +1157,9 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSalesforceInput_3" offsetLabelX="0" offsetLabelY="0" source="tSalesforceInput_3" target="tSalesforceInput_4">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk4" show="false"/>
   </connection>
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tJava_1" offsetLabelX="0" offsetLabelY="0" source="tJava_1" target="tFixedFlowInput_1">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk3" show="false"/>
+  </connection>
   <note opaque="true" posX="704" posY="256" sizeHeight="64" sizeWidth="96" text="https://jira.talendforge.org/browse/TDI-17383"/>
   <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFixedFlowInput_1" show="false"/>
@@ -1199,5 +1209,10 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAssert_1" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_1" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
 </talendfile:ProcessType>
