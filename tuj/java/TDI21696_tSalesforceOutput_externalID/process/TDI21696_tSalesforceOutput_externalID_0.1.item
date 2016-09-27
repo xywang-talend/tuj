@@ -1163,6 +1163,13 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tAssert_4"/>
   </node>
+  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="64" posY="192">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_1" show="false"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="System.out.println(&quot;the current version is &quot;+System.getProperty(&quot;java.version&quot;));&#xA;if (System.getProperty(&quot;java.version&quot;).contains(&quot;1.7.&quot;)){&#xA;    System.out.println(&quot;JDK1.7&quot;);&#xA;    System.setProperty(&quot;https.protocols&quot;, &quot;TLSv1.1,TLSv1.2&quot;);&#xA;}if(System.getProperty(&quot;java.version&quot;).contains(&quot;1.8..&quot;)){&#xA;    System.out.println(&quot;JDK1.8&quot;);&#xA;}"/>
+    <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;&#xA;import java.lang.management.ManagementFactory;"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tJava_1"/>
+  </node>
   <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="tFixedFlowInput_1" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_1" target="tSalesforceOutput_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="Id"/>
@@ -1710,6 +1717,9 @@
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPrejob_1" offsetLabelX="0" offsetLabelY="0" source="tPrejob_1" target="tFileInputDelimited_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk5" show="false"/>
   </connection>
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tJava_1" offsetLabelX="0" offsetLabelY="0" source="tJava_1" target="tFixedFlowInput_1">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk4" show="false"/>
+  </connection>
   <note opaque="true" posX="512" posY="0" sizeHeight="129" sizeWidth="385" text="note: &#xD;&#xA;1,Create extrenal id(external_id__c) in contact object. &#xD;&#xA;2,Create extrenal id(accountkey__c,account__c) in Account object.&#xD;&#xA;3,Execute the job.&#xD;&#xA;&#xD;&#xA;http://developer.force.com/&#xD;&#xA;"/>
   <subjob>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
@@ -1783,5 +1793,10 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAssert_4" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_1" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
 </talendfile:ProcessType>
