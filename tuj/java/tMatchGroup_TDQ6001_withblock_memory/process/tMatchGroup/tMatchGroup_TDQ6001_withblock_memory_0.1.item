@@ -45,6 +45,7 @@
     <elementParameter field="CHECK" name="IMPLICITCONTEXT_USE_PROJECT_SETTINGS" value="true" show="false"/>
     <elementParameter field="CHECK" name="STATANDLOG_USE_PROJECT_SETTINGS" value="true" show="false"/>
     <elementParameter field="CHECK" name="MULTI_THREAD_EXECATION" value="false"/>
+    <elementParameter field="TEXT" name="PARALLELIZE_UNIT_SIZE" value="25000"/>
     <elementParameter field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false"/>
     <elementParameter field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false" show="false"/>
     <elementParameter field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false" show="false"/>
@@ -79,7 +80,7 @@
     <elementParameter field="CHECK" name="ON_METERCATCHER_FLAG" value="false"/>
     <elementParameter field="CHECK" name="ON_CONSOLE_FLAG" value="false" show="false"/>
     <elementParameter field="CHECK" name="ON_FILES_FLAG" value="false" show="false"/>
-    <elementParameter field="DIRECTORY" name="FILE_PATH" value="&quot;D:/worspace/g5_master/tdq1/.metadata&quot;" show="false"/>
+    <elementParameter field="DIRECTORY" name="FILE_PATH" value="&quot;D:/worspaceTest1/g5_master/tdq2/.metadata&quot;" show="false"/>
     <elementParameter field="TEXT" name="FILENAME_STATS" value="&quot;stats_file.txt&quot;" show="false"/>
     <elementParameter field="TEXT" name="FILENAME_LOGS" value="&quot;logs_file.txt&quot;" show="false"/>
     <elementParameter field="TEXT" name="FILENAME_METTER" value="&quot;meter_file.txt&quot;" show="false"/>
@@ -176,11 +177,13 @@
       <elementValue elementRef="INPUT_COLUMN" value="acctName"/>
       <elementValue elementRef="MATCHING_TYPE" value="Levenshtein"/>
       <elementValue elementRef="CUSTOM_MATCHER" value="&quot;&quot;"/>
+      <elementValue elementRef="TOKENIZATION_TYPE" value="No"/>
       <elementValue elementRef="CONFIDENCE_WEIGHT" value="5"/>
       <elementValue elementRef="HANDLE_NULL" value="nullMatchNull"/>
       <elementValue elementRef="INPUT_COLUMN" value="address"/>
       <elementValue elementRef="MATCHING_TYPE" value="Levenshtein"/>
       <elementValue elementRef="CUSTOM_MATCHER" value="&quot;&quot;"/>
+      <elementValue elementRef="TOKENIZATION_TYPE" value="No"/>
       <elementValue elementRef="CONFIDENCE_WEIGHT" value="5"/>
       <elementValue elementRef="HANDLE_NULL" value="nullMatchNull"/>
     </elementParameter>
@@ -197,6 +200,7 @@
     <elementParameter field="CHECK" name="SEPARATE_OUTPUT" value="true"/>
     <elementParameter field="TEXT" name="CONFIDENCE_THRESHOLD" value="0.8"/>
     <elementParameter field="CHECK" name="LINK_WITH_PREVIOUS" value="false"/>
+    <elementParameter field="CHECK" name="PROPAGATE_ORIGINAL" value="false" show="false"/>
     <elementParameter field="CHECK" name="SORT_DATA" value="true"/>
     <elementParameter field="CHECK" name="OUTPUTDD" value="false"/>
     <elementParameter field="CHECK" name="DISPLAY_ATTR_LABELS" value="false" show="false"/>
@@ -252,11 +256,26 @@
     </metadata>
     <nodeData xsi:type="tdqmatching:MatchingData"/>
   </node>
-  <node componentName="tSortRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="576" posY="96">
+  <node componentName="tFilterColumns" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="96">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFilterColumns_1" show="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tFilterColumns_1">
+      <column comment="" key="false" length="0" name="recNum" nullable="true" pattern="" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="acctName" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="address" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="city" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="state" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="0" name="GRP_SIZE" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="0" name="MASTER" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="20" name="SCORE" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="20" name="GRP_QUALITY" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tSortRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="832" posY="96">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tSortRow_5" show="false"/>
     <elementParameter field="TABLE" name="CRITERIA">
-      <elementValue elementRef="COLNAME" value="GID"/>
-      <elementValue elementRef="SORT" value="alpha"/>
+      <elementValue elementRef="COLNAME" value="recNum"/>
+      <elementValue elementRef="SORT" value="num"/>
       <elementValue elementRef="ORDER" value="asc"/>
     </elementParameter>
     <elementParameter field="CHECK" name="EXTERNAL" value="false"/>
@@ -270,14 +289,13 @@
       <column comment="" key="false" length="0" name="address" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="city" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="state" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="0" name="GID" nullable="true" precision="0" sourceType="" type="id_Long" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="GRP_SIZE" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="MASTER" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
       <column defaultValue="" key="false" length="20" name="SCORE" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
       <column defaultValue="" key="false" length="20" name="GRP_QUALITY" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="704" posY="96">
+  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="960" posY="96">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileOutputDelimited_1" show="false"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" value="outputStream" show="false"/>
@@ -313,7 +331,6 @@
       <column comment="" key="false" length="0" name="address" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="city" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="state" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="0" name="GID" nullable="true" precision="0" sourceType="" type="id_Long" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="GRP_SIZE" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="MASTER" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
       <column defaultValue="" key="false" length="20" name="SCORE" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
@@ -717,11 +734,13 @@
       <elementValue elementRef="INPUT_COLUMN" value="acctName"/>
       <elementValue elementRef="MATCHING_TYPE" value="Levenshtein"/>
       <elementValue elementRef="CUSTOM_MATCHER" value="&quot;&quot;"/>
+      <elementValue elementRef="TOKENIZATION_TYPE" value="No"/>
       <elementValue elementRef="CONFIDENCE_WEIGHT" value="5"/>
       <elementValue elementRef="HANDLE_NULL" value="nullMatchNull"/>
       <elementValue elementRef="INPUT_COLUMN" value="address"/>
       <elementValue elementRef="MATCHING_TYPE" value="Levenshtein"/>
       <elementValue elementRef="CUSTOM_MATCHER" value="&quot;&quot;"/>
+      <elementValue elementRef="TOKENIZATION_TYPE" value="No"/>
       <elementValue elementRef="CONFIDENCE_WEIGHT" value="5"/>
       <elementValue elementRef="HANDLE_NULL" value="nullMatchNull"/>
     </elementParameter>
@@ -738,6 +757,7 @@
     <elementParameter field="CHECK" name="SEPARATE_OUTPUT" value="true"/>
     <elementParameter field="TEXT" name="CONFIDENCE_THRESHOLD" value="0.8"/>
     <elementParameter field="CHECK" name="LINK_WITH_PREVIOUS" value="false"/>
+    <elementParameter field="CHECK" name="PROPAGATE_ORIGINAL" value="false" show="false"/>
     <elementParameter field="CHECK" name="SORT_DATA" value="true"/>
     <elementParameter field="CHECK" name="OUTPUTDD" value="false"/>
     <elementParameter field="CHECK" name="DISPLAY_ATTR_LABELS" value="false" show="false"/>
@@ -793,11 +813,26 @@
     </metadata>
     <nodeData xsi:type="tdqmatching:MatchingData"/>
   </node>
-  <node componentName="tSortRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="576" posY="192">
+  <node componentName="tFilterColumns" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="192">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFilterColumns_2" show="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tFilterColumns_2">
+      <column comment="" key="false" length="0" name="recNum" nullable="true" pattern="" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="acctName" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="address" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="city" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="state" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="0" name="GRP_SIZE" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="0" name="MASTER" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="20" name="SCORE" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="20" name="GRP_QUALITY" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tSortRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="832" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tSortRow_4" show="false"/>
     <elementParameter field="TABLE" name="CRITERIA">
-      <elementValue elementRef="COLNAME" value="GID"/>
-      <elementValue elementRef="SORT" value="alpha"/>
+      <elementValue elementRef="COLNAME" value="recNum"/>
+      <elementValue elementRef="SORT" value="num"/>
       <elementValue elementRef="ORDER" value="asc"/>
     </elementParameter>
     <elementParameter field="CHECK" name="EXTERNAL" value="false"/>
@@ -811,14 +846,13 @@
       <column comment="" key="false" length="0" name="address" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="city" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="state" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="0" name="GID" nullable="true" precision="0" sourceType="" type="id_Long" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="GRP_SIZE" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="MASTER" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
       <column defaultValue="" key="false" length="20" name="SCORE" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
       <column defaultValue="" key="false" length="20" name="GRP_QUALITY" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="704" posY="192">
+  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="960" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileOutputDelimited_2" show="false"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" value="outputStream" show="false"/>
@@ -854,7 +888,6 @@
       <column comment="" key="false" length="0" name="address" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="city" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="state" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="0" name="GID" nullable="true" precision="0" sourceType="" type="id_Long" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="GRP_SIZE" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="MASTER" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
       <column defaultValue="" key="false" length="20" name="SCORE" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
@@ -903,11 +936,13 @@
       <elementValue elementRef="INPUT_COLUMN" value="acctName"/>
       <elementValue elementRef="MATCHING_TYPE" value="Levenshtein"/>
       <elementValue elementRef="CUSTOM_MATCHER" value="&quot;&quot;"/>
+      <elementValue elementRef="TOKENIZATION_TYPE" value="No"/>
       <elementValue elementRef="CONFIDENCE_WEIGHT" value="5"/>
       <elementValue elementRef="HANDLE_NULL" value="nullMatchNull"/>
       <elementValue elementRef="INPUT_COLUMN" value="address"/>
       <elementValue elementRef="MATCHING_TYPE" value="Levenshtein"/>
       <elementValue elementRef="CUSTOM_MATCHER" value="&quot;&quot;"/>
+      <elementValue elementRef="TOKENIZATION_TYPE" value="No"/>
       <elementValue elementRef="CONFIDENCE_WEIGHT" value="5"/>
       <elementValue elementRef="HANDLE_NULL" value="nullMatchNull"/>
     </elementParameter>
@@ -924,6 +959,7 @@
     <elementParameter field="CHECK" name="SEPARATE_OUTPUT" value="true"/>
     <elementParameter field="TEXT" name="CONFIDENCE_THRESHOLD" value="0.8"/>
     <elementParameter field="CHECK" name="LINK_WITH_PREVIOUS" value="false"/>
+    <elementParameter field="CHECK" name="PROPAGATE_ORIGINAL" value="false" show="false"/>
     <elementParameter field="CHECK" name="SORT_DATA" value="true"/>
     <elementParameter field="CHECK" name="OUTPUTDD" value="false"/>
     <elementParameter field="CHECK" name="DISPLAY_ATTR_LABELS" value="false" show="false"/>
@@ -979,10 +1015,25 @@
     </metadata>
     <nodeData xsi:type="tdqmatching:MatchingData"/>
   </node>
-  <node componentName="tSortRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="576" posY="288">
+  <node componentName="tFilterColumns" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="288">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFilterColumns_3" show="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tFilterColumns_3">
+      <column comment="" key="false" length="0" name="recNum" nullable="true" pattern="" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="acctName" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="address" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="city" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="state" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="0" name="GRP_SIZE" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="0" name="MASTER" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="20" name="SCORE" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="20" name="GRP_QUALITY" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tSortRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="832" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tSortRow_3" show="false"/>
     <elementParameter field="TABLE" name="CRITERIA">
-      <elementValue elementRef="COLNAME" value="GID"/>
+      <elementValue elementRef="COLNAME" value="recNum"/>
       <elementValue elementRef="SORT" value="alpha"/>
       <elementValue elementRef="ORDER" value="asc"/>
     </elementParameter>
@@ -997,14 +1048,13 @@
       <column comment="" key="false" length="0" name="address" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="city" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="state" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="0" name="GID" nullable="true" precision="0" sourceType="" type="id_Long" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="GRP_SIZE" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="MASTER" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
       <column defaultValue="" key="false" length="20" name="SCORE" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
       <column defaultValue="" key="false" length="20" name="GRP_QUALITY" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="704" posY="288">
+  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="960" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileOutputDelimited_3" show="false"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" value="outputStream" show="false"/>
@@ -1040,7 +1090,6 @@
       <column comment="" key="false" length="0" name="address" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="city" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="state" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="0" name="GID" nullable="true" precision="0" sourceType="" type="id_Long" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="GRP_SIZE" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="MASTER" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
       <column defaultValue="" key="false" length="20" name="SCORE" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
@@ -1089,11 +1138,13 @@
       <elementValue elementRef="INPUT_COLUMN" value="acctName"/>
       <elementValue elementRef="MATCHING_TYPE" value="Levenshtein"/>
       <elementValue elementRef="CUSTOM_MATCHER" value="&quot;&quot;"/>
+      <elementValue elementRef="TOKENIZATION_TYPE" value="No"/>
       <elementValue elementRef="CONFIDENCE_WEIGHT" value="5"/>
       <elementValue elementRef="HANDLE_NULL" value="nullMatchNull"/>
       <elementValue elementRef="INPUT_COLUMN" value="address"/>
       <elementValue elementRef="MATCHING_TYPE" value="Levenshtein"/>
       <elementValue elementRef="CUSTOM_MATCHER" value="&quot;&quot;"/>
+      <elementValue elementRef="TOKENIZATION_TYPE" value="No"/>
       <elementValue elementRef="CONFIDENCE_WEIGHT" value="5"/>
       <elementValue elementRef="HANDLE_NULL" value="nullMatchNull"/>
     </elementParameter>
@@ -1110,6 +1161,7 @@
     <elementParameter field="CHECK" name="SEPARATE_OUTPUT" value="false"/>
     <elementParameter field="TEXT" name="CONFIDENCE_THRESHOLD" value="0.8" show="false"/>
     <elementParameter field="CHECK" name="LINK_WITH_PREVIOUS" value="false"/>
+    <elementParameter field="CHECK" name="PROPAGATE_ORIGINAL" value="false" show="false"/>
     <elementParameter field="CHECK" name="SORT_DATA" value="true"/>
     <elementParameter field="CHECK" name="OUTPUTDD" value="false"/>
     <elementParameter field="CHECK" name="DISPLAY_ATTR_LABELS" value="false" show="false"/>
@@ -1161,11 +1213,25 @@
     </metadata>
     <nodeData xsi:type="tdqmatching:MatchingData"/>
   </node>
-  <node componentName="tSortRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="576" posY="384">
+  <node componentName="tFilterColumns" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="384">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFilterColumns_4" show="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tFilterColumns_4">
+      <column comment="" key="false" length="0" name="recNum" nullable="true" pattern="" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="acctName" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="address" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="city" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="state" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="0" name="GRP_SIZE" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="0" name="MASTER" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="20" name="SCORE" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tSortRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="832" posY="384">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tSortRow_1" show="false"/>
     <elementParameter field="TABLE" name="CRITERIA">
-      <elementValue elementRef="COLNAME" value="GID"/>
-      <elementValue elementRef="SORT" value="alpha"/>
+      <elementValue elementRef="COLNAME" value="recNum"/>
+      <elementValue elementRef="SORT" value="num"/>
       <elementValue elementRef="ORDER" value="asc"/>
     </elementParameter>
     <elementParameter field="CHECK" name="EXTERNAL" value="false"/>
@@ -1179,13 +1245,12 @@
       <column comment="" key="false" length="0" name="address" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="city" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="state" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="0" name="GID" nullable="true" precision="0" sourceType="" type="id_Long" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="GRP_SIZE" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="MASTER" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
       <column defaultValue="" key="false" length="20" name="SCORE" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="704" posY="384">
+  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="960" posY="384">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileOutputDelimited_7" show="false"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" value="outputStream" show="false"/>
@@ -1221,7 +1286,6 @@
       <column comment="" key="false" length="0" name="address" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="city" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="state" nullable="true" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="0" name="GID" nullable="true" precision="0" sourceType="" type="id_Long" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="GRP_SIZE" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="MASTER" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
       <column defaultValue="" key="false" length="20" name="SCORE" nullable="true" precision="0" sourceType="" type="id_Double" usefulColumn="true"/>
@@ -1323,35 +1387,13 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFixedFlowInput_1" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_1" target="tFixedFlowInput_2">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk1" show="false"/>
   </connection>
-  <connection connectorName="UNIQUE_ROWS" label="row2" lineStyle="0" metaname="UNIQUE_ROWS" offsetLabelX="0" offsetLabelY="0" source="tMatchGroup_1" target="tSortRow_5">
-    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
-      <elementValue elementRef="TRACE_COLUMN" value="recNum"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="acctName"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="address"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="GID"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="GRP_SIZE"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="MASTER"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="SCORE"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="GRP_QUALITY"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-    </elementParameter>
+  <connection connectorName="UNIQUE_ROWS" label="row2" lineStyle="0" metaname="UNIQUE_ROWS" offsetLabelX="0" offsetLabelY="0" source="tMatchGroup_1" target="tFilterColumns_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row2" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="row12" lineStyle="0" metaname="tFilterColumns_1" offsetLabelX="0" offsetLabelY="0" source="tFilterColumns_1" target="tSortRow_5">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row12" show="false"/>
   </connection>
   <connection connectorName="FLOW" label="row24" lineStyle="0" metaname="tSortRow_5" offsetLabelX="0" offsetLabelY="0" source="tSortRow_5" target="tFileOutputDelimited_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -1588,7 +1630,7 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFixedFlowInput_2" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_2" target="tFixedFlowInput_3">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk5" show="false"/>
   </connection>
-  <connection connectorName="CONFIDENT_GROUPS" label="row3" lineStyle="0" metaname="CONFIDENT_GROUPS" offsetLabelX="0" offsetLabelY="0" source="tMatchGroup_2" target="tSortRow_4">
+  <connection connectorName="CONFIDENT_GROUPS" label="row3" lineStyle="0" metaname="CONFIDENT_GROUPS" offsetLabelX="0" offsetLabelY="0" source="tMatchGroup_2" target="tFilterColumns_2">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="recNum"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -1617,6 +1659,10 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row3" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="row13" lineStyle="0" metaname="tFilterColumns_2" offsetLabelX="0" offsetLabelY="0" source="tFilterColumns_2" target="tSortRow_4">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row13" show="false"/>
   </connection>
   <connection connectorName="FLOW" label="row23" lineStyle="0" metaname="tSortRow_4" offsetLabelX="0" offsetLabelY="0" source="tSortRow_4" target="tFileOutputDelimited_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -1682,7 +1728,7 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFixedFlowInput_3" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_3" target="tFixedFlowInput_5">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk6" show="false"/>
   </connection>
-  <connection connectorName="UNCERTAIN_GROUPS" label="row4" lineStyle="0" metaname="UNCERTAIN_GROUPS" offsetLabelX="0" offsetLabelY="0" source="tMatchGroup_3" target="tSortRow_3">
+  <connection connectorName="UNCERTAIN_GROUPS" label="row4" lineStyle="0" metaname="UNCERTAIN_GROUPS" offsetLabelX="0" offsetLabelY="0" source="tMatchGroup_3" target="tFilterColumns_3">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="recNum"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -1711,6 +1757,10 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row4" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="row14" lineStyle="0" metaname="tFilterColumns_3" offsetLabelX="0" offsetLabelY="0" source="tFilterColumns_3" target="tSortRow_3">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row14" show="false"/>
   </connection>
   <connection connectorName="FLOW" label="row22" lineStyle="0" metaname="tSortRow_3" offsetLabelX="0" offsetLabelY="0" source="tSortRow_3" target="tFileOutputDelimited_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -1776,7 +1826,7 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFixedFlowInput_5" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_5" target="tFileCompare_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk10" show="false"/>
   </connection>
-  <connection connectorName="FLOW" label="row18" lineStyle="0" metaname="tMatchGroup_5" offsetLabelX="0" offsetLabelY="0" source="tMatchGroup_5" target="tSortRow_1">
+  <connection connectorName="FLOW" label="row18" lineStyle="0" metaname="tMatchGroup_5" offsetLabelX="0" offsetLabelY="0" source="tMatchGroup_5" target="tFilterColumns_4">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="recNum"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -1802,6 +1852,10 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row18" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="row15" lineStyle="0" metaname="tFilterColumns_4" offsetLabelX="0" offsetLabelY="0" source="tFilterColumns_4" target="tSortRow_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row15" show="false"/>
   </connection>
   <connection connectorName="FLOW" label="row20" lineStyle="0" metaname="tSortRow_1" offsetLabelX="0" offsetLabelY="0" source="tSortRow_1" target="tFileOutputDelimited_7">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
