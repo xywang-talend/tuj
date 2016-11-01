@@ -377,115 +377,80 @@
     </metadata>
   </node>
   <node componentName="tRowGenerator" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="128">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRowGenerator_1" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRowGenerator_5" show="false"/>
     <elementParameter field="TEXT" name="NB_ROWS" value="1000000" show="false"/>
     <elementParameter field="TABLE" name="VALUES" show="false">
-      <elementValue elementRef="SCHEMA_COLUMN" value="gender"/>
-      <elementValue elementRef="ARRAY" value="Numeric.random(1 ,2 )"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="yy"/>
-      <elementValue elementRef="ARRAY" value="Numeric.random(0 ,99 )"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="mm"/>
-      <elementValue elementRef="ARRAY" value="Numeric.random(1 ,12 )"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="department"/>
-      <elementValue elementRef="ARRAY" value="Numeric.random(1 ,95 )"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="id"/>
-      <elementValue elementRef="ARRAY" value="Numeric.random(1 ,990 )"/>
+      <elementValue elementRef="ARRAY" value="Numeric.random(0 ,999999 )"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="id2"/>
-      <elementValue elementRef="ARRAY" value="Numeric.random(1 ,999 )"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="key"/>
-      <elementValue elementRef="ARRAY" value="Numeric.random(10 ,10 )"/>
+      <elementValue elementRef="ARRAY" value="Numeric.random(1 ,999999 )"/>
     </elementParameter>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
-    <elementParameter field="TEXT" name="LABEL" value="FrenchSSNGenerator"/>
+    <elementParameter field="TEXT" name="LABEL" value="JapanSSNGenerator"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tRowGenerator_1">
-      <column comment="" defaultValue="" key="false" length="-1" name="gender" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="-1" name="yy" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="-1" name="mm" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="-1" name="department" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+    <metadata connector="FLOW" name="tRowGenerator_5">
       <column comment="" defaultValue="" key="false" length="-1" name="id" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="id2" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="-1" name="key" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="256" posY="128">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMap_1" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMap_9" show="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
     <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
-    <elementParameter field="IMAGE" name="PREVIEW" value="_ljTSQCvDEeaNnoHtAR1cKw-tMap_1-PREVIEW.bmp"/>
+    <elementParameter field="IMAGE" name="PREVIEW" value="_114iUJz1Eea-F_9zNXf8dQ-tMap_9-PREVIEW.bmp"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true" show="false"/>
     <elementParameter field="CHECK" name="LKUP_PARALLELIZE" value="false" show="false"/>
     <elementParameter field="CHECK" name="ENABLE_AUTO_CONVERT_TYPE" value="false" show="false"/>
     <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="out1">
-      <column comment="" key="false" length="-1" name="gender" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="yy" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="mm" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="department" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    <metadata connector="FLOW" name="copyOfcopyOfout1_0_0">
       <column comment="" key="false" length="-1" name="id" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="id2" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="key" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="MapperData">
       <uiProperties/>
       <varTables sizeState="INTERMEDIATE" name="Var" minimized="true"/>
-      <outputTables sizeState="INTERMEDIATE" name="out1">
-        <mapperTableEntries name="gender" expression="String.valueOf(row5.gender) " type="id_String" nullable="true"/>
-        <mapperTableEntries name="yy" expression="(row5.yy&lt;10)?(&quot;0&quot;+row5.yy):(String.valueOf(row5.yy)) " type="id_String" nullable="true"/>
-        <mapperTableEntries name="mm" expression="(row5.mm&lt;10)?(&quot;0&quot;+row5.mm):String.valueOf(row5.mm) " type="id_String" nullable="true"/>
-        <mapperTableEntries name="department" expression="row5.department&lt;10?(&quot;0&quot;+row5.department):&#xA;(row5.department==20?&quot;2A&quot;: String.valueOf(row5.department)) " type="id_String" nullable="true"/>
-        <mapperTableEntries name="id" expression="row5.id&lt;10?(&quot;00&quot;+row5.id):&#xA;(row5.id&lt;100?(&quot;0&quot;+row5.id):&#xA; String.valueOf(row5.id)) " type="id_String" nullable="true"/>
-        <mapperTableEntries name="id2" expression="row5.id2&lt;10?(&quot;00&quot;+row5.id2):&#xA;(row5.id2&lt;100?(&quot;0&quot;+row5.id2):&#xA; String.valueOf(row5.id2)) " type="id_String" nullable="true"/>
-        <mapperTableEntries name="key" expression="row5.key &lt; 10? (&quot;0&quot;+row5.key):String.valueOf(row5.key) " type="id_String" nullable="true"/>
+      <outputTables sizeState="INTERMEDIATE" name="copyOfcopyOfout1_0_0">
+        <mapperTableEntries name="id" expression="row24.id&lt;10?(&quot;00000&quot;+row24.id):&#xA;(row24.id&lt;100?(&quot;0000&quot;+row24.id):&#xA;(row24.id&lt;1000?(&quot;000&quot;+row24.id):&#xA;(row24.id&lt;10000?(&quot;00&quot;+row24.id):&#xA;(row24.id&lt;100000?(&quot;0&quot;+row24.id):&#xA; String.valueOf(row24.id))))) " type="id_String" nullable="true"/>
+        <mapperTableEntries name="id2" expression="row24.id2&lt;10?(&quot;00000&quot;+row24.id2):&#xA;(row24.id2&lt;100?(&quot;0000&quot;+row24.id2):&#xA;(row24.id2&lt;1000?(&quot;000&quot;+row24.id2):&#xA;(row24.id2&lt;10000?(&quot;00&quot;+row24.id2):&#xA;(row24.id2&lt;100000?(&quot;0&quot;+row24.id2):&#xA; String.valueOf(row24.id2))))) " type="id_String" nullable="true"/>
       </outputTables>
-      <inputTables sizeState="INTERMEDIATE" name="row5" matchingMode="UNIQUE_MATCH" lookupMode="LOAD_ONCE">
-        <mapperTableEntries name="gender" type="id_Integer" nullable="true"/>
-        <mapperTableEntries name="yy" type="id_Integer" nullable="true"/>
-        <mapperTableEntries name="mm" type="id_Integer" nullable="true"/>
-        <mapperTableEntries name="department" type="id_Integer" nullable="true"/>
+      <inputTables sizeState="INTERMEDIATE" name="row24" matchingMode="UNIQUE_MATCH" lookupMode="LOAD_ONCE">
         <mapperTableEntries name="id" type="id_Integer" nullable="true"/>
         <mapperTableEntries name="id2" type="id_Integer" nullable="true"/>
-        <mapperTableEntries name="key" type="id_Integer" nullable="true"/>
       </inputTables>
     </nodeData>
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="416" posY="128">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMap_2" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMap_10" show="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
     <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
-    <elementParameter field="IMAGE" name="PREVIEW" value="_ljTSQCvDEeaNnoHtAR1cKw-tMap_2-PREVIEW.bmp"/>
+    <elementParameter field="IMAGE" name="PREVIEW" value="_114iUJz1Eea-F_9zNXf8dQ-tMap_10-PREVIEW.bmp"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true" show="false"/>
     <elementParameter field="CHECK" name="LKUP_PARALLELIZE" value="false" show="false"/>
     <elementParameter field="CHECK" name="ENABLE_AUTO_CONVERT_TYPE" value="false" show="false"/>
     <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="out2">
+    <metadata connector="FLOW" name="copyOfcopyOfout2_0_0">
       <column comment="" key="false" length="-1" name="SSN" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="MapperData">
       <uiProperties/>
       <varTables sizeState="INTERMEDIATE" name="Var" minimized="true"/>
-      <outputTables sizeState="INTERMEDIATE" name="out2">
-        <mapperTableEntries name="SSN" expression="out1.gender &#xA;+ out1.yy&#xA;+out1.mm&#xA;+out1.department&#xA;+out1.id&#xA;+out1.id2&#xA;+out1.key " type="id_String" nullable="true"/>
+      <outputTables sizeState="INTERMEDIATE" name="copyOfcopyOfout2_0_0">
+        <mapperTableEntries name="SSN" expression="copyOfcopyOfout1_0_0.id&#xA;+copyOfcopyOfout1_0_0.id2 " type="id_String" nullable="true"/>
       </outputTables>
-      <inputTables sizeState="INTERMEDIATE" name="out1" matchingMode="UNIQUE_MATCH" lookupMode="LOAD_ONCE">
-        <mapperTableEntries name="gender" type="id_String" nullable="true"/>
-        <mapperTableEntries name="yy" type="id_String" nullable="true"/>
-        <mapperTableEntries name="mm" type="id_String" nullable="true"/>
-        <mapperTableEntries name="department" type="id_String" nullable="true"/>
+      <inputTables sizeState="INTERMEDIATE" name="copyOfcopyOfout1_0_0" matchingMode="UNIQUE_MATCH" lookupMode="LOAD_ONCE">
         <mapperTableEntries name="id" type="id_String" nullable="true"/>
         <mapperTableEntries name="id2" type="id_String" nullable="true"/>
-        <mapperTableEntries name="key" type="id_String" nullable="true"/>
       </inputTables>
     </nodeData>
   </node>
   <node componentName="tUniqRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="576" posY="128">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tUniqRow_1" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tUniqRow_9" show="false"/>
     <elementParameter field="TABLE" name="UNIQUE_KEY">
       <elementValue elementRef="SCHEMA_COLUMN" value="SSN"/>
       <elementValue elementRef="KEY_ATTRIBUTE" value="true"/>
@@ -497,7 +462,7 @@
     <elementParameter field="DIRECTORY" name="TEMP_DIRECTORY" value="" show="false"/>
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tUniqRow_1">
+    <metadata connector="FLOW" name="tUniqRow_9">
       <column comment="" key="false" length="-1" name="SSN" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <metadata connector="UNIQUE" name="UNIQUE">
@@ -508,10 +473,10 @@
     </metadata>
   </node>
   <node componentName="tDataMasking" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="768" posY="128">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tDataMasking_2" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tDataMasking_5" show="false"/>
     <elementParameter field="TABLE" name="MODIF_TABLE">
       <elementValue elementRef="INPUT_COLUMN" value="SSN"/>
-      <elementValue elementRef="FUNCTION" value="GENERATE_UNIQUE_SSN_FRENCH"/>
+      <elementValue elementRef="FUNCTION" value="GENERATE_UNIQUE_SSN_JAPAN"/>
       <elementValue elementRef="EXTRA_PARAMETER" value="&quot;&quot;"/>
       <elementValue elementRef="KEEP_FORMAT" value="false"/>
     </elementParameter>
@@ -520,13 +485,13 @@
     <elementParameter field="CHECK" name="KEEP_NULL" value="true"/>
     <elementParameter field="CHECK" name="KEEP_EMPTY" value="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tDataMasking_2">
+    <metadata connector="FLOW" name="tDataMasking_5">
       <column comment="" key="false" length="-1" name="SSN" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="ORIGINAL_MARK" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tUniqRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="960" posY="128">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tUniqRow_2" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tUniqRow_10" show="false"/>
     <elementParameter field="TABLE" name="UNIQUE_KEY">
       <elementValue elementRef="SCHEMA_COLUMN" value="SSN"/>
       <elementValue elementRef="KEY_ATTRIBUTE" value="true"/>
@@ -541,7 +506,7 @@
     <elementParameter field="DIRECTORY" name="TEMP_DIRECTORY" value="" show="false"/>
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tUniqRow_2">
+    <metadata connector="FLOW" name="tUniqRow_10">
       <column comment="" key="false" length="-1" name="SSN" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="ORIGINAL_MARK" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
     </metadata>
@@ -555,10 +520,10 @@
     </metadata>
   </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1088" posY="128">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileOutputDelimited_2" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileOutputDelimited_5" show="false"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" value="outputStream" show="false"/>
-    <elementParameter field="FILE" name="FILENAME" value="context.data_output_dir +  &quot;/&quot; + jobName + &quot;/duplicateSSN_FR.csv&quot;"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.data_output_dir +  &quot;/&quot; + jobName + &quot;/duplicateSSN_JPN.csv&quot;"/>
     <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
     <elementParameter field="CHECK" name="OS_LINE_SEPARATOR_AS_ROW_SEPARATOR" value="true" show="false"/>
     <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" value="&quot;\n&quot;" show="false"/>
@@ -582,17 +547,17 @@
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
     <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" value="90" show="false"/>
-    <elementParameter field="TEXT" name="LABEL" value="DuplicateSSN_FR"/>
+    <elementParameter field="TEXT" name="LABEL" value="DuplicateSSN_JPN"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tFileOutputDelimited_2">
+    <metadata connector="FLOW" name="tFileOutputDelimited_5">
       <column comment="" key="false" length="-1" name="SSN" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="ORIGINAL_MARK" nullable="true" precision="0" sourceType="" type="id_Boolean" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tFileCompare" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="96" posY="224">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileCompare_2" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileCompare_5" show="false"/>
     <elementParameter field="CLOSED_LIST" name="COMPARISON_MODE" value="TEXT_CMP"/>
-    <elementParameter field="FILE" name="FILE" value="context.data_output_dir +  &quot;/&quot; + jobName + &quot;/duplicateSSN_FR.csv&quot;"/>
+    <elementParameter field="FILE" name="FILE" value="context.data_output_dir +  &quot;/&quot; + jobName + &quot;/duplicateSSN_JPN.csv&quot;"/>
     <elementParameter field="FILE" name="FILE_REF" value="context.data_dir + &quot;/&quot; + jobName + &quot;/ref/empty.csv&quot;"/>
     <elementParameter field="TEXT" name="DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files differ&quot;"/>
     <elementParameter field="TEXT" name="NO_DIFFER_MESSAGE" value="&quot;[job &quot; + jobName + &quot;] Files are identical&quot;"/>
@@ -600,7 +565,7 @@
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tFileCompare_2">
+    <metadata connector="FLOW" name="tFileCompare_5">
       <column key="false" length="255" name="file" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column key="false" length="255" name="file_ref" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
@@ -611,12 +576,12 @@
     </metadata>
   </node>
   <node componentName="tAssert" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="480" posY="224">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAssert_2" show="false"/>
-    <elementParameter field="TEXT" name="DESCRIPTION" value="&quot;French duplicate test&quot;"/>
-    <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="row9.differ == 0"/>
-    <elementParameter field="TEXT" name="LABEL" value="DuplicateSSN_FR"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAssert_5" show="false"/>
+    <elementParameter field="TEXT" name="DESCRIPTION" value="&quot;Japanese duplicates SSN&quot;"/>
+    <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="row28.differ == 0"/>
+    <elementParameter field="TEXT" name="LABEL" value="DuplicateSSN_JPN"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tAssert_2">
+    <metadata connector="FLOW" name="tAssert_5">
       <column defaultValue="" key="false" length="255" name="file" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="file_ref" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
@@ -638,7 +603,7 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row13" show="false"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_5" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_5" target="tRowGenerator_1">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_5" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_5" target="tRowGenerator_5">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk1" show="false"/>
   </connection>
   <connection connectorName="FLOW" label="row14" lineStyle="0" metaname="tAssertCatcher_1" offsetLabelX="0" offsetLabelY="0" source="tAssertCatcher_1" target="tLogRow_1">
@@ -707,14 +672,14 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row15" show="false"/>
   </connection>
-  <connection connectorName="FLOW" label="row5" lineStyle="0" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tMap_1">
+  <connection connectorName="FLOW" label="row24" lineStyle="0" metaname="tRowGenerator_5" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_5" target="tMap_9">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row5" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row24" show="false"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tFileCompare_2">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk3" show="false"/>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tRowGenerator_5" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_5" target="tFileCompare_5">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk10" show="false"/>
   </connection>
-  <connection connectorName="FLOW" label="out1" lineStyle="0" metaname="out1" offsetLabelX="0" offsetLabelY="0" source="tMap_1" target="tMap_2">
+  <connection connectorName="FLOW" label="copyOfcopyOfout1_0_0" lineStyle="0" metaname="copyOfcopyOfout1_0_0" offsetLabelX="0" offsetLabelY="0" source="tMap_9" target="tMap_10">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="id2"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -724,25 +689,25 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="out1" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="copyOfcopyOfout1_0_0" show="false"/>
   </connection>
-  <connection connectorName="FLOW" label="out2" lineStyle="0" metaname="out2" offsetLabelX="0" offsetLabelY="0" source="tMap_2" target="tUniqRow_1">
+  <connection connectorName="FLOW" label="copyOfcopyOfout2_0_0" lineStyle="0" metaname="copyOfcopyOfout2_0_0" offsetLabelX="0" offsetLabelY="0" source="tMap_10" target="tUniqRow_9">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="out2" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="copyOfcopyOfout2_0_0" show="false"/>
   </connection>
-  <connection connectorName="UNIQUE" label="row1" lineStyle="0" metaname="UNIQUE" offsetLabelX="0" offsetLabelY="0" source="tUniqRow_1" target="tDataMasking_2">
+  <connection connectorName="UNIQUE" label="row25" lineStyle="0" metaname="tUniqRow_9" offsetLabelX="0" offsetLabelY="0" source="tUniqRow_9" target="tDataMasking_5">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row1" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row25" show="false"/>
   </connection>
-  <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tDataMasking_2" offsetLabelX="0" offsetLabelY="0" source="tDataMasking_2" target="tUniqRow_2">
+  <connection connectorName="FLOW" label="row26" lineStyle="0" metaname="tDataMasking_5" offsetLabelX="0" offsetLabelY="0" source="tDataMasking_5" target="tUniqRow_10">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row2" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row26" show="false"/>
   </connection>
-  <connection connectorName="DUPLICATE" label="row8" lineStyle="0" metaname="DUPLICATE" offsetLabelX="0" offsetLabelY="0" source="tUniqRow_2" target="tFileOutputDelimited_2">
+  <connection connectorName="DUPLICATE" label="row27" lineStyle="0" metaname="tUniqRow_10" offsetLabelX="0" offsetLabelY="0" source="tUniqRow_10" target="tFileOutputDelimited_5">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row8" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row27" show="false"/>
   </connection>
-  <connection connectorName="FLOW" label="row9" lineStyle="0" metaname="tFileCompare_2" offsetLabelX="0" offsetLabelY="0" source="tFileCompare_2" target="tAssert_2">
+  <connection connectorName="FLOW" label="row28" lineStyle="0" metaname="tFileCompare_5" offsetLabelX="0" offsetLabelY="0" source="tFileCompare_5" target="tAssert_5">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="file"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -767,7 +732,7 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row9" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row28" show="false"/>
   </connection>
   <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_5" show="false"/>
@@ -780,12 +745,12 @@
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
   </subjob>
   <subjob>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRowGenerator_1" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRowGenerator_5" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileCompare_2" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileCompare_5" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
   </subjob>
