@@ -417,7 +417,7 @@
       <column key="false" length="0" name="CONFLICT" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables sizeState="INTERMEDIATE" name="Var" minimized="true"/>
       <outputTables sizeState="INTERMEDIATE" name="out1">
         <mapperTableEntries name="acctName" expression="row2.acctName " type="id_String" nullable="true"/>
@@ -499,7 +499,7 @@
   </node>
   <node componentName="tJavaRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="544" posY="256">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJavaRow_1" show="false"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="if(out2.CONFLICT!=null){&#xA;&#x9;String conflectStr=out2.CONFLICT.replaceAll(&quot;\\[&quot;, &quot;&quot;);&#xA;&#x9;conflectStr=conflectStr.replaceAll(&quot;\\]&quot;, &quot;&quot;);&#xA;&#x9;String[] conflectStrArray = conflectStr.split(&quot;,&quot;);&#xA;&#x9;if(conflectStrArray.length>1){&#xA;&#x9;&#x9;String reultStr=&quot;[&quot;;&#xA;&#x9;&#x9;java.util.Arrays.sort(conflectStrArray);&#xA;&#x9;&#x9;for(int index=0;index&lt;conflectStrArray.length;index++){&#xA;&#x9;&#x9;&#x9;if(index>0){&#xA;&#x9;&#x9;&#x9;&#x9;reultStr+=&quot;,&quot;;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;reultStr+=conflectStrArray[index].trim();&#xA;&#x9;&#x9;}&#x9;&#xA;&#x9;&#x9;reultStr+=&quot;]&quot;;&#xA;&#x9;&#x9;out2.CONFLICT = reultStr;&#xA;&#x9;}&#xA;}&#xA;row4.CONFLICT=out2.CONFLICT;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="if(out2.CONFLICT!=null){&#xA;&#x9;String conflectStr=out2.CONFLICT.replaceAll(&quot;\\[&quot;, &quot;&quot;);&#xA;&#x9;conflectStr=conflectStr.replaceAll(&quot;\\]&quot;, &quot;&quot;);&#xA;&#x9;String[] conflectStrArray = conflectStr.split(&quot;,&quot;);&#xA;&#x9;if(conflectStrArray.length>1){&#xA;&#x9;&#x9;String reultStr=&quot;[&quot;;&#xA;&#x9;&#x9;for(int index=0;index&lt;conflectStrArray.length;index++){&#xA;&#x9;&#x9;&#x9;conflectStrArray[index]=conflectStrArray[index].trim();&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;java.util.Arrays.sort(conflectStrArray);&#xA;&#x9;&#x9;for(int index=0;index&lt;conflectStrArray.length;index++){&#xA;&#x9;&#x9;&#x9;if(index>0){&#xA;&#x9;&#x9;&#x9;&#x9;reultStr+=&quot;,&quot;;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;reultStr+=conflectStrArray[index];&#xA;&#x9;&#x9;}&#x9;&#xA;&#x9;&#x9;reultStr+=&quot;]&quot;;&#xA;&#x9;&#x9;out2.CONFLICT = reultStr;&#xA;&#x9;}&#xA;}&#xA;row4.CONFLICT=out2.CONFLICT;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJavaRow_1">
