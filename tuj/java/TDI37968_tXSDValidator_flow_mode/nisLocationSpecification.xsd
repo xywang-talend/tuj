@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Mit XMLSpy v2010 rel. 2 (http://www.altova.com) von BIT (Bundesamt für Informatik und Telekommunikation (BIT)) bearbeitet -->
+<!--  edited with XMLSpy v2009 sp1 (http://www.altova.com) by Urs Thomi BAKOM)   -->
+<!-- XML Schema used to check the specificational Data import
+     name       : NisLocationSpecification.xsd
+     project    : NIS : OFCOM
+     copyright  : (c) BAKOM
+     author     : Urs Thomi, BAKOM
+     version    : 3.4, vom 4.9.2015
+     modify by : Urs Thomi, BAKOM
+     mod 12.9.12: <stationLocation><location> auf 50 Zeichen erweitert
+	 mod 9.4.13:  <stationLocation><coordinateEast> neu 480000 - 837000 oder 2480000 - 2837000
+	 mod 9.4.13: <stationLocation><coordinateNorth> neu 62000 - 302000 oder 1062000 - 1302000
+     mod 26.8.13: <stationLocation><coordinateEast> neu Format NUMBER 9,2
+     mod 26.8.13: <stationLocation><coordinateNorth> neu Format NUMBER 9,2
+	 mod 30.9.13: <projectKind> auf 200 Zeichen erweitert
+	 mod 28.10.13: <serviceType> GSM0900, UMTS0900, 0800. 0900 hinzugefügt
+	 mod 4.7.14: <serviceType> 800-900, 0800-0900, 1800-2100, 2100-2600 und 1800-2600 hinzugefügt
+	 mod 4.9.2015: <operatorCode> "Salt" hinzugefügt
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="nisDataSpecification">
+		<xs:annotation>
+			<xs:documentation>3.2, 4.7.2014</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="filenameXml">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="256"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="filenamePdf" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>File name of the delivered file in the pdf format.
+Obligatory if type = 01, 02, 11. (Checks 17, 18, 20)</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="256"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="municipalityZipCode">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="4"/>
+							<xs:maxLength value="12"/>
+							<xs:pattern value="(([A]|[D]|[F]|[I])[\-][0-9][0-9][0-9][0-9]*)|([1-9][0-9][0-9][0-9])"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="municipality">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="50"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="projectKind" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>For example : new project. Obligatory if date &gt;= 1.6.2006.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="4"/>
+							<xs:maxLength value="200"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="date" type="xs:date"/>
+				<xs:element name="version" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="3"/>
+							<xs:maxLength value="10"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="codeRef" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Reference ID of operator</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="authorisation">
+					<xs:annotation>
+						<xs:documentation>01=Authorization request filed
+02=Authorization granted
+03=Put into service
+04=Put out of service
+05=Anlage erneut in Betrieb genommen
+06=Authorization withdrawn
+for microcells not necessary</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="01"/>
+							<xs:enumeration value="02"/>
+							<xs:enumeration value="03"/>
+							<xs:enumeration value="04"/>
+							<xs:enumeration value="05"/>
+							<xs:enumeration value="06"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="type">
+					<xs:annotation>
+						<xs:documentation>01=Normal with PDF and details
+02=Normal with PDF 03=Normal with details
+11=Micro with PDF 12=Micro</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="01"/>
+							<xs:enumeration value="02"/>
+							<xs:enumeration value="03"/>
+							<xs:enumeration value="11"/>
+							<xs:enumeration value="12"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="stationLocation">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="address"/>
+							<xs:element ref="zipCode"/>
+							<xs:element ref="location"/>
+							<xs:element ref="coordinateEast"/>
+							<xs:element ref="coordinateNorth"/>
+							<xs:element ref="coordinateHigh"/>
+							<xs:element name="lotNumber" minOccurs="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="50"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="description" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Obligatory if date &gt;= 1.6.2006</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="256"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="region" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="regionLocation" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Obligatory if date &gt;= 1.6.2006</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="name" use="required">
+										<xs:simpleType>
+											<xs:restriction base="xs:NMTOKEN">
+												<xs:enumeration value="AG"/>
+												<xs:enumeration value="AI"/>
+												<xs:enumeration value="AR"/>
+												<xs:enumeration value="BE"/>
+												<xs:enumeration value="BL"/>
+												<xs:enumeration value="BS"/>
+												<xs:enumeration value="FR"/>
+												<xs:enumeration value="GE"/>
+												<xs:enumeration value="GL"/>
+												<xs:enumeration value="GR"/>
+												<xs:enumeration value="JU"/>
+												<xs:enumeration value="LU"/>
+												<xs:enumeration value="NE"/>
+												<xs:enumeration value="NW"/>
+												<xs:enumeration value="OW"/>
+												<xs:enumeration value="SG"/>
+												<xs:enumeration value="SH"/>
+												<xs:enumeration value="SO"/>
+												<xs:enumeration value="SZ"/>
+												<xs:enumeration value="TG"/>
+												<xs:enumeration value="TI"/>
+												<xs:enumeration value="UR"/>
+												<xs:enumeration value="VD"/>
+												<xs:enumeration value="VS"/>
+												<xs:enumeration value="ZG"/>
+												<xs:enumeration value="ZH"/>
+												<xs:enumeration value="FL"/>
+												<xs:enumeration value="AUT"/>
+												<xs:enumeration value="D"/>
+												<xs:enumeration value="F"/>
+												<xs:enumeration value="I"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="role" use="required">
+										<xs:annotation>
+											<xs:documentation>1=Region 2=Neighbouring region</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:NMTOKEN">
+												<xs:enumeration value="1"/>
+												<xs:enumeration value="2"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="contact" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Obligatory if date &gt;= 1.6.2006</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="firstname" minOccurs="0"/>
+							<xs:element ref="lastname"/>
+							<xs:element ref="address"/>
+							<xs:element ref="zipCode"/>
+							<xs:element ref="location"/>
+							<xs:element ref="phone"/>
+							<xs:element ref="fax" minOccurs="0"/>
+							<xs:element ref="email" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="admission" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Obligatory if date &gt;= 1.6.2006, but for microcells not necessary</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="firstname" minOccurs="0"/>
+							<xs:element ref="lastname"/>
+							<xs:element ref="address"/>
+							<xs:element ref="zipCode"/>
+							<xs:element ref="location"/>
+							<xs:element ref="phone"/>
+							<xs:element ref="fax" minOccurs="0"/>
+							<xs:element ref="email" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="station" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="operatorCode">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="Swisscom"/>
+										<xs:enumeration value="Orange"/>
+										<xs:enumeration value="Salt"/>
+										<xs:enumeration value="Sunrise"/>
+										<xs:enumeration value="Tele2"/>
+										<xs:enumeration value="InPhone"/>
+										<xs:enumeration value="SBB"/>
+										<xs:enumeration value="Foreign"/>
+										<xs:enumeration value="PMR"/>
+										<xs:enumeration value="Polycom"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="stationCode">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="15"/>
+										<xs:pattern value=""/>
+										<xs:pattern value="((([A-Z]|[a-z]|[0-9])+)((([\-]|[\i]|[\.]|[\s])?)(([A-Z]|[a-z]|[0-9])+))*)"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="stationRemark" minOccurs="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="255"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="role">
+								<xs:annotation>
+									<xs:documentation>F=Lead management
+M=Participation with signature</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="F"/>
+										<xs:enumeration value="M"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="cellElement" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="antennaNumber">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+													<xs:maxLength value="7"/>
+													<xs:pattern value="((([A-Z]|[a-z]|[0-9]|[\-])+)((([\-]|[\i]|[\.]|[\s])?)(([A-Z]|[a-z]|[0-9])+))*)"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="serviceType">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="GSM900"/>
+													<xs:enumeration value="GSM0900"/>
+													<xs:enumeration value="GSM1800"/>
+													<xs:enumeration value="UMTS"/>
+													<xs:enumeration value="UMTS900"/>
+													<xs:enumeration value="UMTS0900"/>
+													<xs:enumeration value="UMTS1800"/>
+													<xs:enumeration value="UMTS2100"/>
+													<xs:enumeration value="UMTS2600"/>
+													<xs:enumeration value="GSM-Rail"/>
+													<xs:enumeration value="Tetra"/>
+													<xs:enumeration value="Tetrapol"/>
+													<xs:enumeration value="800"/>
+													<xs:enumeration value="0800"/>
+													<xs:enumeration value="900"/>
+													<xs:enumeration value="0900"/>
+													<xs:enumeration value="1800"/>
+													<xs:enumeration value="2100"/>
+													<xs:enumeration value="2600"/>
+													<xs:enumeration value="800-900"/>
+													<xs:enumeration value="0800-0900"/>
+													<xs:enumeration value="1800-2100"/>
+													<xs:enumeration value="2100-2600"/>
+													<xs:enumeration value="1800-2600"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="sequentialNumber" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Obligatory if date &gt;= 1.6.2006, not necessary if Type = 11 or 12, Check 24</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:totalDigits value="5"/>
+													<xs:fractionDigits value="0"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="coordinateEast" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>relative coordinates.Obligatory if date &gt;= 1.6.2006, not necessary if type = 11 or 12</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:decimal">
+													<xs:minInclusive value="-9999.99"/>
+													<xs:maxInclusive value="9999.99"/>
+													<xs:totalDigits value="7"/>
+													<xs:fractionDigits value="2"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="coordinateNorth" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>relative coordinates. Obligatory if date &gt;= 1.6.2006, not necessary if type = 11 or 12</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:decimal">
+													<xs:minInclusive value="-9999.99"/>
+													<xs:maxInclusive value="9999.99"/>
+													<xs:totalDigits value="7"/>
+													<xs:fractionDigits value="2"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="coordinateHigh" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>relative coordinates. Obligatory if date &gt;= 1.6.2006, not necessary if type = 11 or 12</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:decimal">
+													<xs:minInclusive value="-5000"/>
+													<xs:maxInclusive value="5000"/>
+													<xs:totalDigits value="7"/>
+													<xs:fractionDigits value="2"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element ref="erpTransmittingPower"/>
+										<xs:element name="cellElementRefSumPower" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+													<xs:maxLength value="7"/>
+													<xs:pattern value="((([A-Z]|[a-z]|[0-9]|[\-])+)((([\-]|[\i]|[\.]|[\s])?)(([A-Z]|[a-z]|[0-9])+))*)"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="azimuthOf">
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:totalDigits value="3"/>
+													<xs:fractionDigits value="0"/>
+													<xs:minInclusive value="0"/>
+													<xs:maxInclusive value="359"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="azimuthTo" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:totalDigits value="3"/>
+													<xs:fractionDigits value="0"/>
+													<xs:minInclusive value="0"/>
+													<xs:maxInclusive value="359"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="sheet1" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="type">
+														<xs:annotation>
+															<xs:documentation>S=Antenna on the same mast
+P=Antenna located in the perimeter of the installation</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:enumeration value="S"/>
+																<xs:enumeration value="P"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="location" minOccurs="0">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="1"/>
+																<xs:maxLength value="50"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="sheet2" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="typeAntenna">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="1"/>
+																<xs:maxLength value="50"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="mechanicalTiltOf" minOccurs="0">
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:totalDigits value="3"/>
+																<xs:fractionDigits value="0"/>
+																<xs:minInclusive value="-90"/>
+																<xs:maxInclusive value="+90"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="mechanicalTiltTo" minOccurs="0">
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:totalDigits value="3"/>
+																<xs:fractionDigits value="0"/>
+																<xs:minInclusive value="-90"/>
+																<xs:maxInclusive value="+90"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="electricalTiltOf" minOccurs="0">
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:totalDigits value="3"/>
+																<xs:fractionDigits value="0"/>
+																<xs:minInclusive value="-90"/>
+																<xs:maxInclusive value="+90"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="electricalTiltTo" minOccurs="0">
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:totalDigits value="3"/>
+																<xs:fractionDigits value="0"/>
+																<xs:minInclusive value="-90"/>
+																<xs:maxInclusive value="+90"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="totalTiltOf">
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:totalDigits value="3"/>
+																<xs:fractionDigits value="0"/>
+																<xs:minInclusive value="-90"/>
+																<xs:maxInclusive value="+90"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="totalTiltTo" minOccurs="0">
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:totalDigits value="3"/>
+																<xs:fractionDigits value="0"/>
+																<xs:minInclusive value="-90"/>
+																<xs:maxInclusive value="+90"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="locations" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="location" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element ref="locationNr"/>
+																<xs:element ref="azimuthToAntenna"/>
+																<xs:element ref="elevationToAntenna"/>
+																<xs:element name="sheet3a" minOccurs="0">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element ref="critHorzTransDirection"/>
+																			<xs:element ref="critVertTransDirection"/>
+																			<xs:element name="fieldIntensity">
+																				<xs:simpleType>
+																					<xs:restriction base="xs:decimal">
+																						<xs:totalDigits value="7"/>
+																						<xs:fractionDigits value="2"/>
+																						<xs:minExclusive value="0"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																			<xs:element ref="immissionLimitValue"/>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="sheet3b" minOccurs="0">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element ref="critHorzTransDirection"/>
+																			<xs:element ref="critVertTransDirection"/>
+																			<xs:element ref="immissionLimitValue"/>
+																			<xs:element ref="measHorzTransDirection"/>
+																			<xs:element ref="measVertTransDirection"/>
+																			<xs:element ref="measErpTransmittingPower"/>
+																			<xs:element ref="measContrElecFieldIntensity"/>
+																			<xs:element ref="newErpTransmittingPower"/>
+																			<xs:element ref="newReqElecFieldIntensity"/>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="sheet4a" minOccurs="0">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element ref="critHorzTransDirection"/>
+																			<xs:element ref="critVertTransDirection"/>
+																			<xs:element name="buildingMethod">
+																				<xs:simpleType>
+																					<xs:restriction base="xs:string">
+																						<xs:minLength value="1"/>
+																						<xs:maxLength value="50"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																			<xs:element name="buildingAttenuation">
+																				<xs:simpleType>
+																					<xs:restriction base="xs:decimal">
+																						<xs:totalDigits value="4"/>
+																						<xs:fractionDigits value="2"/>
+																						<xs:minInclusive value="0"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																			<xs:element name="fieldIntensity">
+																				<xs:simpleType>
+																					<xs:restriction base="xs:decimal">
+																						<xs:totalDigits value="7"/>
+																						<xs:fractionDigits value="2"/>
+																						<xs:minExclusive value="0"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="sheet4b" minOccurs="0">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element ref="critHorzTransDirection"/>
+																			<xs:element ref="critVertTransDirection"/>
+																			<xs:element ref="measHorzTransDirection"/>
+																			<xs:element ref="measVertTransDirection"/>
+																			<xs:element ref="measErpTransmittingPower"/>
+																			<xs:element ref="measContrElecFieldIntensity"/>
+																			<xs:element ref="newErpTransmittingPower"/>
+																			<xs:element ref="newReqElecFieldIntensity"/>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="microCell" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="typeAntenna">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="1"/>
+																<xs:maxLength value="50"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="totalTilt">
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:totalDigits value="3"/>
+																<xs:fractionDigits value="0"/>
+																<xs:minInclusive value="-90"/>
+																<xs:maxInclusive value="+90"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="barrierNecessary" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Only for OKA</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="Y"/>
+							<xs:enumeration value="N"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="remarks" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="2000"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="sheet1" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="mastsNumber">
+								<xs:simpleType>
+									<xs:restriction base="xs:int">
+										<xs:totalDigits value="2"/>
+										<xs:minExclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="mainTransmissionDirection">
+								<xs:simpleType>
+									<xs:restriction base="xs:int">
+										<xs:totalDigits value="3"/>
+										<xs:minInclusive value="0"/>
+										<xs:maxInclusive value="359"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="cumulatedTranspowerDirection">
+								<xs:simpleType>
+									<xs:restriction base="xs:decimal">
+										<xs:totalDigits value="7"/>
+										<xs:fractionDigits value="2"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="azimuthOf" minOccurs="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:int">
+										<xs:minInclusive value="0"/>
+										<xs:maxInclusive value="359"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="azimuthTo" minOccurs="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:int">
+										<xs:minInclusive value="0"/>
+										<xs:maxInclusive value="359"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="cumulatedTranspowerSector" minOccurs="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:decimal">
+										<xs:totalDigits value="7"/>
+										<xs:fractionDigits value="2"/>
+										<xs:minExclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="radioServiceFactor">
+								<xs:simpleType>
+									<xs:restriction base="xs:decimal">
+										<xs:totalDigits value="7"/>
+										<xs:fractionDigits value="3"/>
+										<xs:minExclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="radiusStationPerimeter">
+								<xs:simpleType>
+									<xs:restriction base="xs:int">
+										<xs:totalDigits value="5"/>
+										<xs:minExclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="additionalMastsNumber">
+								<xs:simpleType>
+									<xs:restriction base="xs:int">
+										<xs:totalDigits value="2"/>
+										<xs:minInclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="sheet2" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="relativeHeightText">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="100"/>
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="relevantSectorOf">
+								<xs:simpleType>
+									<xs:restriction base="xs:int">
+										<xs:minInclusive value="0"/>
+										<xs:maxInclusive value="359"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="relevantSectorTo">
+								<xs:simpleType>
+									<xs:restriction base="xs:int">
+										<xs:minInclusive value="0"/>
+										<xs:maxInclusive value="359"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="cumulatedTransmittingPower">
+								<xs:simpleType>
+									<xs:restriction base="xs:decimal">
+										<xs:totalDigits value="7"/>
+										<xs:fractionDigits value="2"/>
+										<xs:minExclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="installationLimitValue">
+								<xs:simpleType>
+									<xs:restriction base="xs:decimal">
+										<xs:totalDigits value="3"/>
+										<xs:fractionDigits value="1"/>
+										<xs:minExclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="maxDistanceOpposition">
+								<xs:simpleType>
+									<xs:restriction base="xs:decimal">
+										<xs:totalDigits value="8"/>
+										<xs:fractionDigits value="2"/>
+										<xs:minExclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="sheet5" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="item" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="type">
+											<xs:annotation>
+												<xs:documentation>R=Microwave
+O=Additional</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="R"/>
+													<xs:enumeration value="O"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="mast">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+													<xs:maxLength value="20"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element ref="azimuth" minOccurs="0"/>
+										<xs:element name="height" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:decimal">
+													<xs:totalDigits value="5"/>
+													<xs:fractionDigits value="2"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="remark" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+													<xs:maxLength value="50"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="radioService" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+													<xs:maxLength value="20"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="numberTransmittingAntennas" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:totalDigits value="3"/>
+													<xs:fractionDigits value="0"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="owner" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+													<xs:maxLength value="50"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="locations" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="location" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="locationNr"/>
+										<xs:element name="description">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="100"/>
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="coordinateEast">
+											<xs:annotation>
+												<xs:documentation>relative coordinates</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:decimal">
+													<xs:minInclusive value="-9999.99"/>
+													<xs:maxInclusive value="+9999.99"/>
+													<xs:totalDigits value="7"/>
+													<xs:fractionDigits value="2"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="coordinateNorth">
+											<xs:annotation>
+												<xs:documentation>relative coordinates</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:decimal">
+													<xs:minInclusive value="-9999.99"/>
+													<xs:maxInclusive value="+9999.99"/>
+													<xs:totalDigits value="7"/>
+													<xs:fractionDigits value="2"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="coordinateHigh">
+											<xs:annotation>
+												<xs:documentation>relative coordinates</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:decimal">
+													<xs:minInclusive value="-5000"/>
+													<xs:maxInclusive value="+5000"/>
+													<xs:totalDigits value="7"/>
+													<xs:fractionDigits value="2"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="locationType">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="OKA"/>
+													<xs:enumeration value="OMEN"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="utilisation">
+											<xs:annotation>
+												<xs:documentation>Utilisation of OKA/OMEN</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="50"/>
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="heightSoil">
+											<xs:annotation>
+												<xs:documentation>Height OKA/OMEN over soil [m]</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:decimal">
+													<xs:totalDigits value="5"/>
+													<xs:fractionDigits value="1"/>
+													<xs:minInclusive value="-100"/>
+													<xs:maxInclusive value="+5000"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="buildingPermitDate" type="xs:date" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Only for 3b + 4b</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="measuringReportCompany" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Only for 3b + 4b</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="50"/>
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="measuringReportDate" type="xs:date" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Only for 3b + 4b</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="fieldIntensity">
+											<xs:simpleType>
+												<xs:restriction base="xs:decimal">
+													<xs:totalDigits value="7"/>
+													<xs:fractionDigits value="2"/>
+													<xs:minExclusive value="0"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="exhaustion" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Only with OKA</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:decimal">
+													<xs:totalDigits value="5"/>
+													<xs:fractionDigits value="2"/>
+													<xs:minInclusive value="0"/>
+													<xs:maxInclusive value="100"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="constructionDate" type="xs:date" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Obligatory for transmitting power (ERP) under 6 Watts</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="putIntoServiceDate" type="xs:date" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Obligatory for transmitting power (ERP) under 6 Watts</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="address">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="100"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="azimuth">
+		<xs:simpleType>
+			<xs:restriction base="xs:int">
+				<xs:totalDigits value="3"/>
+				<xs:fractionDigits value="0"/>
+				<xs:minInclusive value="0"/>
+				<xs:maxInclusive value="359"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="contrElecFieldIntensity">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="5"/>
+				<xs:fractionDigits value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="coordinateEast">
+		<xs:annotation>
+			<xs:documentation>absolute coordinates</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:union>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:minInclusive value="480000"/>
+						<xs:maxInclusive value="837000"/>
+						<xs:totalDigits value="9"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:minInclusive value="2480000"/>
+						<xs:maxInclusive value="2837000"/>
+						<xs:totalDigits value="9"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:union>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="coordinateHigh">
+		<xs:annotation>
+			<xs:documentation>absolute coordinates</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:minInclusive value="180"/>
+				<xs:maxInclusive value="4500"/>
+				<xs:totalDigits value="7"/>
+				<xs:fractionDigits value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="coordinateNorth">
+		<xs:annotation>
+			<xs:documentation>absolute coordinates</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:union>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:minInclusive value="62000"/>
+						<xs:maxInclusive value="302000"/>
+						<xs:totalDigits value="9"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:minInclusive value="1062000"/>
+						<xs:maxInclusive value="1302000"/>
+						<xs:totalDigits value="9"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:union>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="critHorzTransDirection">
+		<xs:simpleType>
+			<xs:restriction base="xs:int">
+				<xs:totalDigits value="3"/>
+				<xs:fractionDigits value="0"/>
+				<xs:minInclusive value="0"/>
+				<xs:maxInclusive value="359"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="critVertTransDirection">
+		<xs:simpleType>
+			<xs:restriction base="xs:int">
+				<xs:totalDigits value="3"/>
+				<xs:fractionDigits value="0"/>
+				<xs:minInclusive value="-90"/>
+				<xs:maxInclusive value="+90"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="azimuthToAntenna">
+		<xs:simpleType>
+			<xs:restriction base="xs:int">
+				<xs:totalDigits value="3"/>
+				<xs:fractionDigits value="0"/>
+				<xs:minInclusive value="0"/>
+				<xs:maxInclusive value="359"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="elevationToAntenna">
+		<xs:simpleType>
+			<xs:restriction base="xs:int">
+				<xs:totalDigits value="3"/>
+				<xs:fractionDigits value="0"/>
+				<xs:minInclusive value="-90"/>
+				<xs:maxInclusive value="+90"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="email">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="100"/>
+				<xs:minLength value="5"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="erpTransmittingPower">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="8"/>
+				<xs:fractionDigits value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="fax">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="30"/>
+				<xs:minLength value="10"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="firstname">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="30"/>
+				<xs:minLength value="1"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="immissionLimitValue">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="5"/>
+				<xs:fractionDigits value="2"/>
+				<xs:minExclusive value="0"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="lastname">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="100"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="location">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="50"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="newReqElecFieldIntensity">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="5"/>
+				<xs:fractionDigits value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="newErpTransmittingPower">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="7"/>
+				<xs:fractionDigits value="2"/>
+				<xs:minExclusive value="0"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="measContrElecFieldIntensity">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="5"/>
+				<xs:fractionDigits value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="measErpTransmittingPower">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="7"/>
+				<xs:fractionDigits value="2"/>
+				<xs:minExclusive value="0"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="measHorzTransDirection">
+		<xs:simpleType>
+			<xs:restriction base="xs:int">
+				<xs:totalDigits value="3"/>
+				<xs:fractionDigits value="0"/>
+				<xs:minInclusive value="0"/>
+				<xs:maxInclusive value="359"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="measVertTransDirection">
+		<xs:simpleType>
+			<xs:restriction base="xs:int">
+				<xs:totalDigits value="3"/>
+				<xs:fractionDigits value="0"/>
+				<xs:minInclusive value="-90"/>
+				<xs:maxInclusive value="+90"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="phone">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="30"/>
+				<xs:minLength value="10"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="zipCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="4"/>
+				<xs:maxLength value="12"/>
+				<xs:pattern value="(([A]|[D]|[F]|[I])[\-][0-9][0-9][0-9][0-9]*)|([1-9][0-9][0-9][0-9])"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="locationNr">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="5"/>
+				<xs:minLength value="1"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+</xs:schema>
