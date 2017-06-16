@@ -72,7 +72,7 @@
     <elementParameter field="CHECK" name="ON_METERCATCHER_FLAG" value="false"/>
     <elementParameter field="CHECK" name="ON_CONSOLE_FLAG" value="false" show="false"/>
     <elementParameter field="CHECK" name="ON_FILES_FLAG" value="false" show="false"/>
-    <elementParameter field="DIRECTORY" name="FILE_PATH" value="&quot;D:/Talend-Studio-20160704_1411-V6.2.1_patch/.metadata&quot;" show="false"/>
+    <elementParameter field="DIRECTORY" name="FILE_PATH" value="&quot;D:/Talend-Studio-20161216_1026-V6.3.1/workspace/.metadata&quot;" show="false"/>
     <elementParameter field="TEXT" name="FILENAME_STATS" value="&quot;stats_file.txt&quot;" show="false"/>
     <elementParameter field="TEXT" name="FILENAME_LOGS" value="&quot;logs_file.txt&quot;" show="false"/>
     <elementParameter field="TEXT" name="FILENAME_METTER" value="&quot;meter_file.txt&quot;" show="false"/>
@@ -374,23 +374,22 @@
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tAzureStorageContainerCreate" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="224">
+  <node componentName="tAzureStorageContainerCreate" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAzureStorageContainerCreate_1" show="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" show="false"/>
     <elementParameter field="TEXT" name="ACCESS_KEY" value="context.azure_account"/>
     <elementParameter field="TEXT" name="SECRET_KEY" value="context.azure_key"/>
     <elementParameter field="CLOSED_LIST" name="PROTOCOL" value="HTTP"/>
-    <elementParameter field="TEXT" name="CONTAINER" value="&quot;tdi29152azurel&quot;"/>
+    <elementParameter field="TEXT" name="CONTAINER" value="&quot;tdi29152azurel&quot;+pid.toLowerCase()"/>
     <elementParameter field="CLOSED_LIST" name="CONTAINER_ACL" value="CONTAINER_ACL_PRIVATE"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
-  <node componentName="tAssert" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="64" posY="544">
+  <node componentName="tAssert" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="64" posY="608">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAssert_1" show="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TEXT" name="DESCRIPTION" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="((Boolean)globalMap.get(&quot;tFileCompare_1_DIFFERENCE&quot;))&amp;&amp;((Boolean)globalMap.get(&quot;tFileCompare_3_DIFFERENCE&quot;))"/>
+    <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="true"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tAssert_1"/>
   </node>
@@ -405,18 +404,18 @@
     <elementParameter field="TEXT" name="ACCESS_KEY" value="context.azure_account"/>
     <elementParameter field="TEXT" name="SECRET_KEY" value="context.azure_key"/>
     <elementParameter field="CLOSED_LIST" name="PROTOCOL" value="HTTP"/>
-    <elementParameter field="TEXT" name="CONTAINER" value="&quot;tdi29152azurel&quot;"/>
+    <elementParameter field="TEXT" name="CONTAINER" value="&quot;tdi29152azurel&quot;+pid.toLowerCase()"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
-  <node componentName="tAzureStoragePut" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="320">
+  <node componentName="tAzureStoragePut" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="384">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAzureStoragePut_2" show="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" show="false"/>
     <elementParameter field="TEXT" name="ACCESS_KEY" value="context.azure_account"/>
     <elementParameter field="TEXT" name="SECRET_KEY" value="context.azure_key"/>
     <elementParameter field="CLOSED_LIST" name="PROTOCOL" value="HTTP"/>
-    <elementParameter field="TEXT" name="CONTAINER" value="&quot;tdi29152azurel&quot;"/>
+    <elementParameter field="TEXT" name="CONTAINER" value="&quot;tdi29152azurel&quot;+pid.toLowerCase()"/>
     <elementParameter field="DIRECTORY" name="LOCAL_FOLDER" value="context.data_dir+&quot;/&quot;+jobName+&quot;/input&quot;"/>
     <elementParameter field="TEXT" name="REMOTE_FOLDER" value="jobName+&quot;/input&quot;"/>
     <elementParameter field="CHECK" name="USE_FILES_LIST" value="true"/>
@@ -427,14 +426,14 @@
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
-  <node componentName="tAzureStorageList" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="416">
+  <node componentName="tAzureStorageList" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="480">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAzureStorageList_1" show="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" show="false"/>
     <elementParameter field="TEXT" name="ACCESS_KEY" value="context.azure_account"/>
     <elementParameter field="TEXT" name="SECRET_KEY" value="context.azure_key"/>
     <elementParameter field="CLOSED_LIST" name="PROTOCOL" value="HTTP"/>
-    <elementParameter field="TEXT" name="CONTAINER" value="&quot;tdi29152azurel&quot;"/>
+    <elementParameter field="TEXT" name="CONTAINER" value="&quot;tdi29152azurel&quot;+pid.toLowerCase()"/>
     <elementParameter field="TABLE" name="REMOTE_BLOBS">
       <elementValue elementRef="PREFIX" value="jobName+&quot;/input/&quot;"/>
       <elementValue elementRef="INCLUDE" value="true"/>
@@ -442,12 +441,18 @@
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
-  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="160" posY="512">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_1" show="false"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="System.out.println(&quot;------------&quot;);&#xA;System.out.println((String)globalMap.get(&quot;tAzureStorageList_1_CURRENT_BLOB&quot;));&#xA;System.out.println(&quot;------------&quot;);&#xA;System.out.println((String)globalMap.get(&quot;tAzureStorageList_1_CONTAINER&quot;));"/>
+  <node componentName="tJavaFlex" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="256" posY="480">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJavaFlex_1" show="false"/>
+    <elementParameter field="CHECK" name="DATA_AUTO_PROPAGATE" value="true"/>
+    <elementParameter field="MEMO_JAVA" name="CODE_START" value="// start part of your Java code&#xA;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE_MAIN" value="System.out.println(&quot;---------------&quot;);&#xA;System.out.println((String)globalMap.get(&quot;tAzureStorageList_1_CURRENT_BLOB&quot;));&#xA;&#xA;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE_END" value="// end of the component, outside/closing the loop&#xA;"/>
+    <elementParameter field="CHECK" name="Version_V2_0" value="false" show="false"/>
+    <elementParameter field="CHECK" name="Version_V3_2" value="false" show="false"/>
+    <elementParameter field="CHECK" name="Version_V4.0" value="true" show="false"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tJava_1"/>
+    <metadata connector="FLOW" name="tJavaFlex_1"/>
   </node>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPrejob_1" offsetLabelX="0" offsetLabelY="0" source="tPrejob_1" target="tFileInputDelimited_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk1" show="false"/>
@@ -539,12 +544,13 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tAzureStoragePut_2" offsetLabelX="0" offsetLabelY="0" source="tAzureStoragePut_2" target="tAzureStorageList_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk3" show="false"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tAzureStorageList_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tAzureStorageList_1" target="tJava_1">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk4" show="false"/>
-  </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tAzureStorageList_1" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tAzureStorageList_1" target="tAssert_1">
-    <elementParameter field="CHECK" name="ACTIVATE" value="false" show="false"/>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tAzureStorageList_1" offsetLabelX="0" offsetLabelY="0" source="tAzureStorageList_1" target="tAssert_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk2" show="false"/>
+  </connection>
+  <connection connectorName="ITERATE" label="Iterate" lineStyle="7" metaname="tAzureStorageList_1" offsetLabelX="0" offsetLabelY="0" source="tAzureStorageList_1" target="tJavaFlex_1">
+    <elementParameter field="CHECK" name="ENABLE_PARALLEL" value="false"/>
+    <elementParameter field="TEXT" name="NUMBER_PARALLEL" value="2" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="iterate1" show="false"/>
   </connection>
   <subjob>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true" show="false"/>
@@ -590,11 +596,6 @@
   </subjob>
   <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAzureStorageList_1" show="false"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
-    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
-  </subjob>
-  <subjob>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_1" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
