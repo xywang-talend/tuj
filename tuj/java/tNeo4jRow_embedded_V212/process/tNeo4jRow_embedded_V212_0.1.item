@@ -11,7 +11,7 @@
     <contextParameter comment="" name="result_password" prompt="result_password?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="result_port" prompt="result_port?" promptNeeded="false" type="id_String" value="null"/>
     <contextParameter comment="" name="neo4j_server" prompt="neo4j_server?" promptNeeded="false" type="id_String" value="&quot;http://localhost:7474/db/data&quot;"/>
-    <contextParameter comment="" name="neo4j2XX_embedded_database" prompt="neo4j2XX_embedded_database?" promptNeeded="false" type="id_String" value="&quot;D:/tuj/out/neo4j&quot;"/>
+    <contextParameter comment="" name="neo4j2XX_embedded_database" prompt="neo4j2XX_embedded_database?" promptNeeded="false" type="id_String" value="&quot;neo4j&quot;"/>
   </context>
   <parameters>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_X" value="0"/>
@@ -423,7 +423,7 @@
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="tNeo4jConnection_1"/>
     <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="NEO4J_2_1_X"/>
     <elementParameter field="CHECK" name="REMOTE_SERVER" value="false"/>
-    <elementParameter field="DIRECTORY" name="DATABASE_PATH" value="context.neo4j2XX_embedded_database"/>
+    <elementParameter field="DIRECTORY" name="DATABASE_PATH" value="context.data_output_dir + &quot;/&quot; + jobName + &quot;/&quot; + context.neo4j2XX_embedded_database"/>
     <elementParameter field="TEXT" name="SERVER_URL" value="context.neo4j_server"/>
     <elementParameter field="CHECK" name="SHUTDOWN_DB" value="false"/>
     <elementParameter field="MEMO" name="QUERY" value="&quot;CREATE (a { son : {son}, father:{father} }&#xD;&#xA;)&quot;"/>
@@ -461,7 +461,7 @@
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="tNeo4jConnection_1"/>
     <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="NEO4J_2_1_X"/>
     <elementParameter field="CHECK" name="REMOTE_SERVER" value="false"/>
-    <elementParameter field="DIRECTORY" name="DATABASE_PATH" value="context.neo4j2XX_embedded_database"/>
+    <elementParameter field="DIRECTORY" name="DATABASE_PATH" value="context.data_output_dir + &quot;/&quot; + jobName + &quot;/&quot; + context.neo4j2XX_embedded_database"/>
     <elementParameter field="TEXT" name="SERVER_URL" value="context.neo4j_server"/>
     <elementParameter field="CHECK" name="SHUTDOWN_DB" value="false"/>
     <elementParameter field="MEMO" name="QUERY" value="&quot;start n=node(*)&#xD;&#xA;DELETE n&quot;"/>
@@ -488,7 +488,7 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileDelete_1"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="D:\Talend-Tools-Studio-20141031_1931-V5.6.1SNAP\configuration\lib\java"/>
     <elementParameter field="FILE" name="FILENAME" value="&quot;D:/Talend-Tools-Studio-20140904_2033-V5.6.0SNAP/workspace/in.csv&quot;"/>
-    <elementParameter field="DIRECTORY" name="DIRECTORY" value="context.neo4j2XX_embedded_database"/>
+    <elementParameter field="DIRECTORY" name="DIRECTORY" value="context.data_output_dir + &quot;/&quot; + jobName + &quot;/&quot; + context.neo4j2XX_embedded_database"/>
     <elementParameter field="TEXT" name="PATH" value="&quot;D:/Talend-Tools-Studio-20140904_2033-V5.6.0SNAP/workspace/delete_folder or delete_file&quot;"/>
     <elementParameter field="CHECK" name="FAILON" value="true"/>
     <elementParameter field="CHECK" name="FOLDER" value="true"/>
@@ -500,7 +500,7 @@
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="128" posY="128">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_2"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="D:\Talend-Tools-Studio-20141031_1931-V5.6.1SNAP\configuration\lib\java"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="String foo = &quot;bar&quot;;&#xA;java.io.File neo4jPath=new java.io.File(context.neo4j2XX_embedded_database);&#xA;if(!neo4jPath.exists())&#xA;{&#xA;neo4jPath.mkdirs();&#xA;}"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="String foo = &quot;bar&quot;;&#xA;java.io.File neo4jPath=new java.io.File(context.data_output_dir + &quot;/&quot; + jobName + &quot;/&quot; + context.neo4j2XX_embedded_database);&#xA;if(!neo4jPath.exists())&#xA;{&#xA;neo4jPath.mkdirs();&#xA;}"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_2"/>
