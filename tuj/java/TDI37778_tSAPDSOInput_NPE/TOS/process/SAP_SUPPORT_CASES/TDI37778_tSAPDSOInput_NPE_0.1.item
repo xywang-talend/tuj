@@ -1,0 +1,1439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.talend.org/mapper" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default" jobType="Standard">
+  <context confirmationNeeded="false" name="Default">
+    <contextParameter comment="" name="param_file_path" prompt="param_file_path?" promptNeeded="false" type="id_String" value="C:/private_worker/file/tuj/full_context.csv"/>
+    <contextParameter comment="" name="data_dir" prompt="data_dir?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="data_output_dir" prompt="data_output_dir?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="result_host" prompt="result_host?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="result_port" prompt="result_port?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="result_username" prompt="result_username?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="result_password" prompt="result_password?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="result_database" prompt="result_database?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="result_table" prompt="result_table?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="sap_tbd_host" prompt="sap_tbd_host?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="sap_tbd_client" prompt="sap_tbd_client?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="sap_tbd_lang" prompt="sap_tbd_lang?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="sap_tbd_sysnum" prompt="sap_tbd_sysnum?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="sap_tbd_user" prompt="sap_tbd_user?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="sap_tbd_password" prompt="sap_tbd_password?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="sap_tbd_router" prompt="sap_tbd_router?" promptNeeded="false" type="id_String" value=""/>
+  </context>
+  <parameters>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" value="0" show="false"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" value="0" show="false"/>
+    <elementParameter field="TEXT" name="REPOSITORY_CONNECTION_ID" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_PROPERTY_TYPENAME" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_HADOOP_DISTRIBUTION" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_HADOOP_VERSION" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_ENABLE_KERBEROS" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_NAME_NODE_PRINCIPAL" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_USERNAME" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_GROUP" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_USE_KEYTAB" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_KT_PRINCIPAL" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_KEY_TAB" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_ENABLE_OO_KERBEROS" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_NAME_NODE_END_POINT" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_JOB_TRACKER_ENDPOINT" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_END_POINT" value="" show="false"/>
+    <elementParameter field="CHECK" name="IMPLICITCONTEXT_USE_PROJECT_SETTINGS" value="true" show="false"/>
+    <elementParameter field="CHECK" name="STATANDLOG_USE_PROJECT_SETTINGS" value="true" show="false"/>
+    <elementParameter field="CHECK" name="MULTI_THREAD_EXECATION" value="false"/>
+    <elementParameter field="TEXT" name="PARALLELIZE_UNIT_SIZE" value="25000"/>
+    <elementParameter field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false"/>
+    <elementParameter field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false" show="false"/>
+    <elementParameter field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false" show="false"/>
+    <elementParameter field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:PROPERTY_TYPE" value="" show="false"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:REPOSITORY_PROPERTY_TYPE" value="" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value="" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION_IMPLICIT_CONTEXT" value="" show="false"/>
+    <elementParameter field="TEXT" name="URL_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TABLE" name="DRIVER_JAR_IMPLICIT_CONTEXT" show="false"/>
+    <elementParameter field="TEXT" name="DRIVER_CLASS_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="DBNAME_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="USER_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="PASSWORD" name="PASS_IMPLICIT_CONTEXT" value="0RMsyjmybrE=" show="false"/>
+    <elementParameter field="FILE" name="DBFILE_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="QUERY_CONDITION_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning" show="false"/>
+    <elementParameter field="CHECK" name="PRINT_OPERATIONS" value="false" show="false"/>
+    <elementParameter field="CHECK" name="DISABLE_ERROR" value="false" show="false"/>
+    <elementParameter field="CHECK" name="DISABLE_WARNINGS" value="false" show="false"/>
+    <elementParameter field="CHECK" name="DISABLE_INFO" value="false" show="false"/>
+    <elementParameter field="CHECK" name="ON_STATCATCHER_FLAG" value="false"/>
+    <elementParameter field="CHECK" name="ON_LOGCATCHER_FLAG" value="false"/>
+    <elementParameter field="CHECK" name="ON_METERCATCHER_FLAG" value="false"/>
+    <elementParameter field="CHECK" name="ON_CONSOLE_FLAG" value="false" show="false"/>
+    <elementParameter field="CHECK" name="ON_FILES_FLAG" value="false" show="false"/>
+    <elementParameter field="DIRECTORY" name="FILE_PATH" value="&quot;C:/private_worker/product/studio/Talend-Studio-20170812_0301-V6.3.2SNAPSHOT/workspace/.metadata&quot;" show="false"/>
+    <elementParameter field="TEXT" name="FILENAME_STATS" value="&quot;stats_file.txt&quot;" show="false"/>
+    <elementParameter field="TEXT" name="FILENAME_LOGS" value="&quot;logs_file.txt&quot;" show="false"/>
+    <elementParameter field="TEXT" name="FILENAME_METTER" value="&quot;meter_file.txt&quot;" show="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="ISO-8859-15" show="false"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15" show="false"/>
+    <elementParameter field="CHECK" name="ON_DATABASE_FLAG" value="false" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_TYPE" value="tJDBCOutput" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="ORACLE_11" show="false"/>
+    <elementParameter field="TEXT" name="URL" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TABLE" name="DRIVER_JAR" show="false"/>
+    <elementParameter field="TEXT" name="DRIVER_CLASS" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="HOST" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="PORT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="DATASOURCE" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="DBNAME" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_DB" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="USER" value="&quot;&quot;" show="false"/>
+    <elementParameter field="PASSWORD" name="PASS" value="0RMsyjmybrE=" show="false"/>
+    <elementParameter field="FILE" name="DBFILE" value="&quot;&quot;" show="false"/>
+    <elementParameter field="DBTABLE" name="TABLE_STATS" value="&quot;&quot;" show="false"/>
+    <elementParameter field="DBTABLE" name="TABLE_LOGS" value="&quot;&quot;" show="false"/>
+    <elementParameter field="DBTABLE" name="TABLE_METER" value="&quot;&quot;" show="false"/>
+    <elementParameter field="CHECK" name="CATCH_RUNTIME_ERRORS" value="true" show="false"/>
+    <elementParameter field="CHECK" name="CATCH_USER_ERRORS" value="true" show="false"/>
+    <elementParameter field="CHECK" name="CATCH_USER_WARNING" value="true" show="false"/>
+    <elementParameter field="CHECK" name="CATCH_REALTIME_STATS" value="false" show="false"/>
+    <elementParameter field="TEXT" name="HEADERFOOTER_HEADERID" value="" show="false"/>
+    <elementParameter field="CHECK" name="HEADER_ENABLED" value="false" show="false"/>
+    <elementParameter field="TEXT" name="HEADER_LIBRARY" value="" show="false"/>
+    <elementParameter field="TEXT" name="HEADER_CODE" value="" show="false"/>
+    <elementParameter field="TEXT" name="HEADER_IMPORT" value="" show="false"/>
+    <elementParameter field="TEXT" name="HEADERFOOTER_FOOTERID" value="" show="false"/>
+    <elementParameter field="CHECK" name="FOOTER_ENABLED" value="false" show="false"/>
+    <elementParameter field="TEXT" name="FOOTER_LIBRARY" value="" show="false"/>
+    <elementParameter field="TEXT" name="FOOTER_CODE" value="" show="false"/>
+    <elementParameter field="TEXT" name="FOOTER_IMPORT" value="" show="false"/>
+    <routinesParameter id="_1taMsHN9EeaffM8dRswsfQ" name="DQTechnical"/>
+    <routinesParameter id="_1smUYHN9EeaffM8dRswsfQ" name="DataMasking"/>
+    <routinesParameter id="_1t6jAHN9EeaffM8dRswsfQ" name="DataOperation"/>
+    <routinesParameter id="_1s_9AHN9EeaffM8dRswsfQ" name="DataQualityDependencies"/>
+    <routinesParameter id="_1s0W0HN9EeaffM8dRswsfQ" name="DataQuality"/>
+    <routinesParameter id="_1tNYYHN9EeaffM8dRswsfQ" name="DqStringHandling"/>
+    <routinesParameter id="_1kvY4HN9EeaffM8dRswsfQ" name="MDM"/>
+    <routinesParameter id="_1uEUAHN9EeaffM8dRswsfQ" name="Mathematical"/>
+    <routinesParameter id="_1uQhQHN9EeaffM8dRswsfQ" name="Numeric"/>
+    <routinesParameter id="_1uZrMHN9EeaffM8dRswsfQ" name="Relational"/>
+    <routinesParameter id="_1tmZ8HN9EeaffM8dRswsfQ" name="SQLike"/>
+    <routinesParameter id="_1uiOEHN9EeaffM8dRswsfQ" name="StringHandling"/>
+    <routinesParameter id="_1ut0QHN9EeaffM8dRswsfQ" name="TalendDataGenerator"/>
+    <routinesParameter id="_1u6okHN9EeaffM8dRswsfQ" name="TalendDate"/>
+    <routinesParameter id="_1vIrAHN9EeaffM8dRswsfQ" name="TalendString"/>
+    <routinesParameter id="_N653ICoUEeOXW_CsPlpHtA" name="DEMO_BIGDATA"/>
+    <routinesParameter id="_cUWzAOyNEd2AippjGM9H-A" name="Convert"/>
+    <routinesParameter id="_HX3E4OJpEeCmJNdA0HkfKA" name="A1_parisstreetindexcreationTstandardizerow_1"/>
+    <routinesParameter id="_U2GysOJpEeCmJNdA0HkfKA" name="A2_normalizeaddressTstandardizerow_1"/>
+    <routinesParameter id="_jFtsAOJpEeCmJNdA0HkfKA" name="A2_standardizeaddressTstandardizerow_1"/>
+    <routinesParameter id="_GSpGYGf7EeONMtYsYm-UXw" name="ImporttweetsTstandardizerow_1"/>
+    <routinesParameter id="_VCnh0Gf7EeONMtYsYm-UXw" name="ImporttweetsTstandardizerow_2"/>
+    <routinesParameter id="_wU5qIOJpEeCmJNdA0HkfKA" name="Products_parsingTstandardizerow_1"/>
+    <routinesParameter id="_2RIxoGf6EeONMtYsYm-UXw" name="Standardize_and_word_analysisTstandardizerow_1"/>
+    <routinesParameter id="_2VvR4GgHEeONMtYsYm-UXw" name="Step1_import_tweetsTstandardizerow_2"/>
+    <routinesParameter id="_lg_WsD3uEeav6LFIx8F6dA" name="DATASTAGE"/>
+    <routinesParameter id="_dnpOQD3HEeO7UMG_YqAtyA" name="DQ_METHODS"/>
+    <routinesParameter id="_tCAnQMeYEeSrE9pbd6oYnw" name="DataTypeUtil"/>
+    <routinesParameter id="_BOrI4CBaEeatTsVX9DfcZw" name="DateTimeUtil"/>
+    <routinesParameter id="_8qwkYFjNEdyj6eiqDt60Og" name="DemoRoutines"/>
+    <routinesParameter id="_eKpaMDxMEeaxZdFveXI5lw" name="First"/>
+    <routinesParameter id="_HKXfQGIZEd26GZmhFZLTPA" name="GetRandomPhoneNum"/>
+    <routinesParameter id="_G417gAc-EeKqOMQjhZ_0wQ" name="KeyManagementForSqoop"/>
+    <routinesParameter id="_VRjTwB8aEeaMpd4i2bra1Q" name="MD5"/>
+    <routinesParameter id="_JsAZQHlHEeS5M-4wmV8XNg" name="Transformation"/>
+    <routinesParameter id="_TVdvcGcqEeOjappPcW-THA" name="Tweets_Generator"/>
+    <routinesParameter id="_1cAIgMywEeSadJSYhJEDKA" name="tic_word_titleCase"/>
+  </parameters>
+  <node componentName="tSAPDSOInput" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="192" posY="192">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tSAPDSOInput_1" show="false"/>
+    <elementParameter field="LABEL" name="NOTE" value="(To use this component, you need first to add the SAP Java Connector sapjco3.jar in the Modules view)"/>
+    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="SERVERTYPE" value="ApplicationServer"/>
+    <elementParameter field="TEXT" name="CLIENT" value="context.sap_tbd_client"/>
+    <elementParameter field="TEXT" name="USERID" value="context.sap_tbd_user"/>
+    <elementParameter field="PASSWORD" name="PASSWORD" value="8pW6Nmy2kueSX18kCQ4JPz7UUYeVCPDy3wYj3ytcDEI="/>
+    <elementParameter field="TEXT" name="LANGUAGE" value="context.sap_tbd_lang"/>
+    <elementParameter field="TEXT" name="HOSTNAME" value="context.sap_tbd_host"/>
+    <elementParameter field="TEXT" name="SYSTEMNUMBER" value="context.sap_tbd_sysnum"/>
+    <elementParameter field="TEXT" name="SYSTEMID" value="&quot;PRD&quot;" show="false"/>
+    <elementParameter field="TEXT" name="GROUPNAME" value="&quot;tGroup&quot;" show="false"/>
+    <elementParameter field="TEXT" name="TABLE" value="&quot;ZDS_GL14&quot;"/>
+    <elementParameter field="TEXT" name="MAX_ROW_COUNT" value="1000"/>
+    <elementParameter field="MAPPING_TYPE" name="MAPPING" value="sap_id" show="false"/>
+    <elementParameter field="LABEL" name="NOTE_DATASOURCE" value="This option only applies when deploying and running in the Talend Runtime"/>
+    <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
+    <elementParameter field="TEXT" name="SAP_DATASOURCE_ALIAS" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="FETCH_SIZE" value="-1"/>
+    <elementParameter field="TABLE" name="SAP_PROPERTIES">
+      <elementValue elementRef="PROPERTY" value="&quot;jco.client.saprouter&quot;"/>
+      <elementValue elementRef="VALUE" value="context.sap_tbd_router"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="LABEL" value="ZDS_GL14"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="ZDS_GL14" name="tSAPDSOInput_1">
+      <column comment="Company code" key="false" length="4" name="_COMP_CODE" nullable="true" originalDbColumnName="0COMP_CODE" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Chart of accounts" key="false" length="4" name="_CHRT_ACCTS" nullable="true" originalDbColumnName="0CHRT_ACCTS" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="G/L Account" key="false" length="10" name="_GL_ACCOUNT" nullable="true" originalDbColumnName="0GL_ACCOUNT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal year variant" key="false" length="2" name="_FISCVARNT" nullable="true" originalDbColumnName="0FISCVARNT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal year / period" key="false" length="7" name="_FISCPER" nullable="true" originalDbColumnName="0FISCPER" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Accounting document number" key="false" length="10" name="_AC_DOC_NO" nullable="true" originalDbColumnName="0AC_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Number of line item within accounting document" key="false" length="3" name="_ITEM_NUM" nullable="true" originalDbColumnName="0ITEM_NUM" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Item Status" key="false" length="1" name="_FI_DOCSTAT" nullable="true" originalDbColumnName="0FI_DOCSTAT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Account type" key="false" length="1" name="_ACCT_TYPE" nullable="true" originalDbColumnName="0ACCT_TYPE" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Special General Ledger Indicator" key="false" length="1" name="_SP_GL_IND" nullable="true" originalDbColumnName="0SP_GL_IND" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document type" key="false" length="2" name="_AC_DOC_TYP" nullable="true" originalDbColumnName="0AC_DOC_TYP" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Posting key" key="false" length="2" name="_POST_KEY" nullable="true" originalDbColumnName="0POST_KEY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document Date" key="false" length="8" name="_DOC_DATE" nullable="true" originalDbColumnName="0DOC_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Posting date in the document" key="false" length="8" name="_PSTNG_DATE" nullable="true" originalDbColumnName="0PSTNG_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Date on which the record was created" key="false" length="8" name="_CREATEDON" nullable="true" originalDbColumnName="0CREATEDON" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Clearing date" key="false" length="8" name="_CLEAR_DATE" nullable="true" originalDbColumnName="0CLEAR_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Clearing Document Number" key="false" length="10" name="_CLR_DOC_NO" nullable="true" originalDbColumnName="0CLR_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Controlling area" key="false" length="4" name="_CO_AREA" nullable="true" originalDbColumnName="0CO_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Cost Center" key="false" length="10" name="_COSTCENTER" nullable="true" originalDbColumnName="0COSTCENTER" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Profit Center" key="false" length="10" name="_PROFIT_CTR" nullable="true" originalDbColumnName="0PROFIT_CTR" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Order Number" key="false" length="12" name="_COORDER" nullable="true" originalDbColumnName="0COORDER" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Work Breakdown Structure Element (WBS Element)" key="false" length="24" name="_WBS_ELEMT" nullable="true" originalDbColumnName="0WBS_ELEMT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Plant" key="false" length="4" name="_PLANT" nullable="true" originalDbColumnName="0PLANT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Business area" key="false" length="4" name="_BUS_AREA" nullable="true" originalDbColumnName="0BUS_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Functional area" key="false" length="16" name="_FUNC_AREA" nullable="true" originalDbColumnName="0FUNC_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Partner profit center" key="false" length="10" name="_PART_PRCTR" nullable="true" originalDbColumnName="0PART_PRCTR" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Partner Company Number" key="false" length="6" name="_PCOMPANY" nullable="true" originalDbColumnName="0PCOMPANY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Trading partner business area of the business partner" key="false" length="4" name="_PBUS_AREA" nullable="true" originalDbColumnName="0PBUS_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Local currency" key="false" length="5" name="_LOC_CURRCY" nullable="true" originalDbColumnName="0LOC_CURRCY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit amount in local currency" key="false" length="17" name="_DEBIT_LC" nullable="true" originalDbColumnName="0DEBIT_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit amount in local currency" key="false" length="17" name="_CREDIT_LC" nullable="true" originalDbColumnName="0CREDIT_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Local Currency with +/- Signs" key="false" length="17" name="_DEB_CRE_LC" nullable="true" originalDbColumnName="0DEB_CRE_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document currency" key="false" length="5" name="_DOC_CURRCY" nullable="true" originalDbColumnName="0DOC_CURRCY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit amount in foreign currency" key="false" length="17" name="_DEBIT_DC" nullable="true" originalDbColumnName="0DEBIT_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit amount in foreign currency" key="false" length="17" name="_CREDIT_DC" nullable="true" originalDbColumnName="0CREDIT_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Foreign currency amount with signs (+/-)" key="false" length="17" name="_DEB_CRE_DC" nullable="true" originalDbColumnName="0DEB_CRE_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Currency Type of Second Local Currency" key="false" length="2" name="_LOC_CURTP2" nullable="true" originalDbColumnName="0LOC_CURTP2" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Second Local Currency" key="false" length="5" name="_LOC_CURRC2" nullable="true" originalDbColumnName="0LOC_CURRC2" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit Amount in 2nd Local Currency" key="false" length="17" name="_DEBIT_LC2" nullable="true" originalDbColumnName="0DEBIT_LC2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit Amount in Second Local Currency" key="false" length="17" name="_CREDIT_LC2" nullable="true" originalDbColumnName="0CREDIT_LC2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Second Local Currency with +/- Sign" key="false" length="17" name="_DEB_CRE_L2" nullable="true" originalDbColumnName="0DEB_CRE_L2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Currency Type of Third Local Currency" key="false" length="2" name="_LOC_CURTP3" nullable="true" originalDbColumnName="0LOC_CURTP3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Third Local Currency" key="false" length="5" name="_LOC_CURRC3" nullable="true" originalDbColumnName="0LOC_CURRC3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit Amount in Third Local Currency" key="false" length="17" name="_DEBIT_LC3" nullable="true" originalDbColumnName="0DEBIT_LC3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit Amount in Third Local Currency" key="false" length="17" name="_CREDIT_LC3" nullable="true" originalDbColumnName="0CREDIT_LC3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Third Local Currency with +/- Sign" key="false" length="17" name="_DEB_CRE_L3" nullable="true" originalDbColumnName="0DEB_CRE_L3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Reference document number" key="false" length="16" name="_REF_DOC_NO" nullable="true" originalDbColumnName="0REF_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Reference Key 3" key="false" length="20" name="_REF_KEY3" nullable="true" originalDbColumnName="0REF_KEY3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document Number of Source Document" key="false" length="10" name="_ORG_DOC_NO" nullable="true" originalDbColumnName="0ORG_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal Year for Source Document Number" defaultValue="" key="false" length="4" name="_ORG_DOC_YR" nullable="true" originalDbColumnName="0ORG_DOC_YR" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Company Code for Source Document Number" key="false" length="4" name="_ORG_DOC_CC" nullable="true" originalDbColumnName="0ORG_DOC_CC" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Controlling Area for Source Document Number" key="false" length="4" name="_ORG_DOC_CO" nullable="true" originalDbColumnName="0ORG_DOC_CO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="384" posY="192">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMap_1" show="false"/>
+    <elementParameter field="EXTERNAL" name="MAP" value=""/>
+    <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
+    <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
+    <elementParameter field="IMAGE" name="PREVIEW" value="_kfcEwIDPEeeLgLsX5SYQwA-tMap_1-PREVIEW.bmp"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true" show="false"/>
+    <elementParameter field="CHECK" name="LKUP_PARALLELIZE" value="false" show="false"/>
+    <elementParameter field="CHECK" name="ENABLE_AUTO_CONVERT_TYPE" value="false" show="false"/>
+    <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
+    <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="out1">
+      <column comment="Company code" key="false" length="4" name="_COMP_CODE" nullable="true" originalDbColumnName="0COMP_CODE" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Chart of accounts" key="false" length="4" name="_CHRT_ACCTS" nullable="true" originalDbColumnName="0CHRT_ACCTS" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="G/L Account" key="false" length="10" name="_GL_ACCOUNT" nullable="true" originalDbColumnName="0GL_ACCOUNT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal year variant" key="false" length="2" name="_FISCVARNT" nullable="true" originalDbColumnName="0FISCVARNT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal year / period" key="false" length="7" name="_FISCPER" nullable="true" originalDbColumnName="0FISCPER" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Accounting document number" key="false" length="10" name="_AC_DOC_NO" nullable="true" originalDbColumnName="0AC_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Number of line item within accounting document" key="false" length="3" name="_ITEM_NUM" nullable="true" originalDbColumnName="0ITEM_NUM" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Item Status" key="false" length="1" name="_FI_DOCSTAT" nullable="true" originalDbColumnName="0FI_DOCSTAT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Account type" key="false" length="1" name="_ACCT_TYPE" nullable="true" originalDbColumnName="0ACCT_TYPE" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Special General Ledger Indicator" key="false" length="1" name="_SP_GL_IND" nullable="true" originalDbColumnName="0SP_GL_IND" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document type" key="false" length="2" name="_AC_DOC_TYP" nullable="true" originalDbColumnName="0AC_DOC_TYP" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Posting key" key="false" length="2" name="_POST_KEY" nullable="true" originalDbColumnName="0POST_KEY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document Date" key="false" length="8" name="_DOC_DATE" nullable="true" originalDbColumnName="0DOC_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Posting date in the document" key="false" length="8" name="_PSTNG_DATE" nullable="true" originalDbColumnName="0PSTNG_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Date on which the record was created" key="false" length="8" name="_CREATEDON" nullable="true" originalDbColumnName="0CREATEDON" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Clearing date" key="false" length="8" name="_CLEAR_DATE" nullable="true" originalDbColumnName="0CLEAR_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Clearing Document Number" key="false" length="10" name="_CLR_DOC_NO" nullable="true" originalDbColumnName="0CLR_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Controlling area" key="false" length="4" name="_CO_AREA" nullable="true" originalDbColumnName="0CO_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Cost Center" key="false" length="10" name="_COSTCENTER" nullable="true" originalDbColumnName="0COSTCENTER" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Profit Center" key="false" length="10" name="_PROFIT_CTR" nullable="true" originalDbColumnName="0PROFIT_CTR" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Order Number" key="false" length="12" name="_COORDER" nullable="true" originalDbColumnName="0COORDER" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Work Breakdown Structure Element (WBS Element)" key="false" length="24" name="_WBS_ELEMT" nullable="true" originalDbColumnName="0WBS_ELEMT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Plant" key="false" length="4" name="_PLANT" nullable="true" originalDbColumnName="0PLANT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Business area" key="false" length="4" name="_BUS_AREA" nullable="true" originalDbColumnName="0BUS_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Functional area" key="false" length="16" name="_FUNC_AREA" nullable="true" originalDbColumnName="0FUNC_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Partner profit center" key="false" length="10" name="_PART_PRCTR" nullable="true" originalDbColumnName="0PART_PRCTR" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Partner Company Number" key="false" length="6" name="_PCOMPANY" nullable="true" originalDbColumnName="0PCOMPANY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Trading partner business area of the business partner" key="false" length="4" name="_PBUS_AREA" nullable="true" originalDbColumnName="0PBUS_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Local currency" key="false" length="5" name="_LOC_CURRCY" nullable="true" originalDbColumnName="0LOC_CURRCY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit amount in local currency" key="false" length="17" name="_DEBIT_LC" nullable="true" originalDbColumnName="0DEBIT_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit amount in local currency" key="false" length="17" name="_CREDIT_LC" nullable="true" originalDbColumnName="0CREDIT_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Local Currency with +/- Signs" key="false" length="17" name="_DEB_CRE_LC" nullable="true" originalDbColumnName="0DEB_CRE_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document currency" key="false" length="5" name="_DOC_CURRCY" nullable="true" originalDbColumnName="0DOC_CURRCY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit amount in foreign currency" key="false" length="17" name="_DEBIT_DC" nullable="true" originalDbColumnName="0DEBIT_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit amount in foreign currency" key="false" length="17" name="_CREDIT_DC" nullable="true" originalDbColumnName="0CREDIT_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Foreign currency amount with signs (+/-)" key="false" length="17" name="_DEB_CRE_DC" nullable="true" originalDbColumnName="0DEB_CRE_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Currency Type of Second Local Currency" key="false" length="2" name="_LOC_CURTP2" nullable="true" originalDbColumnName="0LOC_CURTP2" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Second Local Currency" key="false" length="5" name="_LOC_CURRC2" nullable="true" originalDbColumnName="0LOC_CURRC2" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit Amount in 2nd Local Currency" key="false" length="17" name="_DEBIT_LC2" nullable="true" originalDbColumnName="0DEBIT_LC2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit Amount in Second Local Currency" key="false" length="17" name="_CREDIT_LC2" nullable="true" originalDbColumnName="0CREDIT_LC2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Second Local Currency with +/- Sign" key="false" length="17" name="_DEB_CRE_L2" nullable="true" originalDbColumnName="0DEB_CRE_L2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Currency Type of Third Local Currency" key="false" length="2" name="_LOC_CURTP3" nullable="true" originalDbColumnName="0LOC_CURTP3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Third Local Currency" key="false" length="5" name="_LOC_CURRC3" nullable="true" originalDbColumnName="0LOC_CURRC3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit Amount in Third Local Currency" key="false" length="17" name="_DEBIT_LC3" nullable="true" originalDbColumnName="0DEBIT_LC3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit Amount in Third Local Currency" key="false" length="17" name="_CREDIT_LC3" nullable="true" originalDbColumnName="0CREDIT_LC3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Third Local Currency with +/- Sign" key="false" length="17" name="_DEB_CRE_L3" nullable="true" originalDbColumnName="0DEB_CRE_L3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Reference document number" key="false" length="16" name="_REF_DOC_NO" nullable="true" originalDbColumnName="0REF_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Reference Key 3" key="false" length="20" name="_REF_KEY3" nullable="true" originalDbColumnName="0REF_KEY3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document Number of Source Document" key="false" length="10" name="_ORG_DOC_NO" nullable="true" originalDbColumnName="0ORG_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal Year for Source Document Number" defaultValue="" key="false" length="4" name="_ORG_DOC_YR" nullable="true" originalDbColumnName="0ORG_DOC_YR" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Company Code for Source Document Number" key="false" length="4" name="_ORG_DOC_CC" nullable="true" originalDbColumnName="0ORG_DOC_CC" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Controlling Area for Source Document Number" key="false" length="4" name="_ORG_DOC_CO" nullable="true" originalDbColumnName="0ORG_DOC_CO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+    </metadata>
+    <nodeData xsi:type="MapperData">
+      <uiProperties/>
+      <varTables sizeState="INTERMEDIATE" name="Var" minimized="true"/>
+      <outputTables sizeState="INTERMEDIATE" name="out1">
+        <mapperTableEntries name="_COMP_CODE" expression="row1._COMP_CODE " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_CHRT_ACCTS" expression="row1._CHRT_ACCTS " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_GL_ACCOUNT" expression="row1._GL_ACCOUNT " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_FISCVARNT" expression="row1._FISCVARNT " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_FISCPER" expression="row1._FISCPER " type="id_BigDecimal" nullable="true"/>
+        <mapperTableEntries name="_AC_DOC_NO" expression="row1._AC_DOC_NO " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_ITEM_NUM" expression="row1._ITEM_NUM " type="id_BigDecimal" nullable="true"/>
+        <mapperTableEntries name="_FI_DOCSTAT" expression="row1._FI_DOCSTAT " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_ACCT_TYPE" expression="row1._ACCT_TYPE " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_SP_GL_IND" expression="row1._SP_GL_IND " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_AC_DOC_TYP" expression="row1._AC_DOC_TYP " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_POST_KEY" expression="row1._POST_KEY " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DOC_DATE" expression="row1._DOC_DATE " type="id_Date" nullable="true"/>
+        <mapperTableEntries name="_PSTNG_DATE" expression="row1._PSTNG_DATE " type="id_Date" nullable="true"/>
+        <mapperTableEntries name="_CREATEDON" expression="row1._CREATEDON " type="id_Date" nullable="true"/>
+        <mapperTableEntries name="_CLEAR_DATE" expression="row1._CLEAR_DATE " type="id_Date" nullable="true"/>
+        <mapperTableEntries name="_CLR_DOC_NO" expression="row1._CLR_DOC_NO " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_CO_AREA" expression="row1._CO_AREA " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_COSTCENTER" expression="row1._COSTCENTER " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_PROFIT_CTR" expression="row1._PROFIT_CTR " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_COORDER" expression="row1._COORDER " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_WBS_ELEMT" expression="row1._WBS_ELEMT " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_PLANT" expression="row1._PLANT " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_BUS_AREA" expression="row1._BUS_AREA " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_FUNC_AREA" expression="row1._FUNC_AREA " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_PART_PRCTR" expression="row1._PART_PRCTR " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_PCOMPANY" expression="row1._PCOMPANY " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_PBUS_AREA" expression="row1._PBUS_AREA " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_LOC_CURRCY" expression="row1._LOC_CURRCY " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DEBIT_LC" expression="row1._DEBIT_LC " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_CREDIT_LC" expression="row1._CREDIT_LC " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DEB_CRE_LC" expression="row1._DEB_CRE_LC " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DOC_CURRCY" expression="row1._DOC_CURRCY " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DEBIT_DC" expression="row1._DEBIT_DC " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_CREDIT_DC" expression="row1._CREDIT_DC " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DEB_CRE_DC" expression="row1._DEB_CRE_DC " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_LOC_CURTP2" expression="row1._LOC_CURTP2 " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_LOC_CURRC2" expression="row1._LOC_CURRC2 " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DEBIT_LC2" expression="row1._DEBIT_LC2 " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_CREDIT_LC2" expression="row1._CREDIT_LC2 " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DEB_CRE_L2" expression="row1._DEB_CRE_L2 " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_LOC_CURTP3" expression="row1._LOC_CURTP3 " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_LOC_CURRC3" expression="row1._LOC_CURRC3 " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DEBIT_LC3" expression="row1._DEBIT_LC3 " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_CREDIT_LC3" expression="row1._CREDIT_LC3 " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DEB_CRE_L3" expression="row1._DEB_CRE_L3 " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_REF_DOC_NO" expression="row1._REF_DOC_NO " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_REF_KEY3" expression="row1._REF_KEY3 " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_ORG_DOC_NO" expression="row1._ORG_DOC_NO " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_ORG_DOC_YR" expression="row1._ORG_DOC_YR " type="id_BigDecimal" nullable="true"/>
+        <mapperTableEntries name="_ORG_DOC_CC" expression="row1._ORG_DOC_CC " type="id_String" nullable="true"/>
+        <mapperTableEntries name="_ORG_DOC_CO" expression="row1._ORG_DOC_CO " type="id_String" nullable="true"/>
+      </outputTables>
+      <inputTables sizeState="INTERMEDIATE" name="row1" matchingMode="UNIQUE_MATCH" lookupMode="LOAD_ONCE">
+        <mapperTableEntries name="_COMP_CODE" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_CHRT_ACCTS" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_GL_ACCOUNT" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_FISCVARNT" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_FISCPER" type="id_BigDecimal" nullable="true"/>
+        <mapperTableEntries name="_AC_DOC_NO" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_ITEM_NUM" type="id_BigDecimal" nullable="true"/>
+        <mapperTableEntries name="_FI_DOCSTAT" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_ACCT_TYPE" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_SP_GL_IND" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_AC_DOC_TYP" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_POST_KEY" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DOC_DATE" type="id_Date" nullable="true"/>
+        <mapperTableEntries name="_PSTNG_DATE" type="id_Date" nullable="true"/>
+        <mapperTableEntries name="_CREATEDON" type="id_Date" nullable="true"/>
+        <mapperTableEntries name="_CLEAR_DATE" type="id_Date" nullable="true"/>
+        <mapperTableEntries name="_CLR_DOC_NO" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_CO_AREA" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_COSTCENTER" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_PROFIT_CTR" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_COORDER" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_WBS_ELEMT" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_PLANT" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_BUS_AREA" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_FUNC_AREA" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_PART_PRCTR" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_PCOMPANY" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_PBUS_AREA" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_LOC_CURRCY" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DEBIT_LC" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_CREDIT_LC" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DEB_CRE_LC" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DOC_CURRCY" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DEBIT_DC" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_CREDIT_DC" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DEB_CRE_DC" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_LOC_CURTP2" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_LOC_CURRC2" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DEBIT_LC2" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_CREDIT_LC2" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DEB_CRE_L2" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_LOC_CURTP3" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_LOC_CURRC3" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DEBIT_LC3" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_CREDIT_LC3" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_DEB_CRE_L3" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_REF_DOC_NO" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_REF_KEY3" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_ORG_DOC_NO" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_ORG_DOC_YR" type="id_BigDecimal" nullable="true"/>
+        <mapperTableEntries name="_ORG_DOC_CC" type="id_String" nullable="true"/>
+        <mapperTableEntries name="_ORG_DOC_CO" type="id_String" nullable="true"/>
+      </inputTables>
+    </nodeData>
+  </node>
+  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="192">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileOutputDelimited_1" show="false"/>
+    <elementParameter field="CHECK" name="USESTREAM" value="false"/>
+    <elementParameter field="TEXT" name="STREAMNAME" value="outputStream" show="false"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.data_output_dir+&quot;/&quot;+jobName+&quot;/output.csv&quot;"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter field="CHECK" name="OS_LINE_SEPARATOR_AS_ROW_SEPARATOR" value="true" show="false"/>
+    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" value="&quot;\n&quot;" show="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter field="CHECK" name="APPEND" value="false"/>
+    <elementParameter field="CHECK" name="INCLUDEHEADER" value="false"/>
+    <elementParameter field="CHECK" name="COMPRESS" value="false"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" value="&quot;,&quot;" show="false"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" value="&quot;.&quot;" show="false"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" value="&quot;&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" value="&quot;&quot;&quot;" show="false"/>
+    <elementParameter field="CHECK" name="CREATE" value="true"/>
+    <elementParameter field="CHECK" name="SPLIT" value="false"/>
+    <elementParameter field="TEXT" name="SPLIT_EVERY" value="1000" show="false"/>
+    <elementParameter field="CHECK" name="FLUSHONROW" value="false"/>
+    <elementParameter field="TEXT" name="FLUSHONROW_NUM" value="1" show="false"/>
+    <elementParameter field="CHECK" name="ROW_MODE" value="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" value="90" show="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tFileOutputDelimited_1">
+      <column comment="Company code" key="false" length="4" name="_COMP_CODE" nullable="true" originalDbColumnName="0COMP_CODE" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Chart of accounts" key="false" length="4" name="_CHRT_ACCTS" nullable="true" originalDbColumnName="0CHRT_ACCTS" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="G/L Account" key="false" length="10" name="_GL_ACCOUNT" nullable="true" originalDbColumnName="0GL_ACCOUNT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal year variant" key="false" length="2" name="_FISCVARNT" nullable="true" originalDbColumnName="0FISCVARNT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal year / period" key="false" length="7" name="_FISCPER" nullable="true" originalDbColumnName="0FISCPER" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Accounting document number" key="false" length="10" name="_AC_DOC_NO" nullable="true" originalDbColumnName="0AC_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Number of line item within accounting document" key="false" length="3" name="_ITEM_NUM" nullable="true" originalDbColumnName="0ITEM_NUM" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Item Status" key="false" length="1" name="_FI_DOCSTAT" nullable="true" originalDbColumnName="0FI_DOCSTAT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Account type" key="false" length="1" name="_ACCT_TYPE" nullable="true" originalDbColumnName="0ACCT_TYPE" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Special General Ledger Indicator" key="false" length="1" name="_SP_GL_IND" nullable="true" originalDbColumnName="0SP_GL_IND" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document type" key="false" length="2" name="_AC_DOC_TYP" nullable="true" originalDbColumnName="0AC_DOC_TYP" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Posting key" key="false" length="2" name="_POST_KEY" nullable="true" originalDbColumnName="0POST_KEY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document Date" key="false" length="8" name="_DOC_DATE" nullable="true" originalDbColumnName="0DOC_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Posting date in the document" key="false" length="8" name="_PSTNG_DATE" nullable="true" originalDbColumnName="0PSTNG_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Date on which the record was created" key="false" length="8" name="_CREATEDON" nullable="true" originalDbColumnName="0CREATEDON" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Clearing date" key="false" length="8" name="_CLEAR_DATE" nullable="true" originalDbColumnName="0CLEAR_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Clearing Document Number" key="false" length="10" name="_CLR_DOC_NO" nullable="true" originalDbColumnName="0CLR_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Controlling area" key="false" length="4" name="_CO_AREA" nullable="true" originalDbColumnName="0CO_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Cost Center" key="false" length="10" name="_COSTCENTER" nullable="true" originalDbColumnName="0COSTCENTER" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Profit Center" key="false" length="10" name="_PROFIT_CTR" nullable="true" originalDbColumnName="0PROFIT_CTR" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Order Number" key="false" length="12" name="_COORDER" nullable="true" originalDbColumnName="0COORDER" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Work Breakdown Structure Element (WBS Element)" key="false" length="24" name="_WBS_ELEMT" nullable="true" originalDbColumnName="0WBS_ELEMT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Plant" key="false" length="4" name="_PLANT" nullable="true" originalDbColumnName="0PLANT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Business area" key="false" length="4" name="_BUS_AREA" nullable="true" originalDbColumnName="0BUS_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Functional area" key="false" length="16" name="_FUNC_AREA" nullable="true" originalDbColumnName="0FUNC_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Partner profit center" key="false" length="10" name="_PART_PRCTR" nullable="true" originalDbColumnName="0PART_PRCTR" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Partner Company Number" key="false" length="6" name="_PCOMPANY" nullable="true" originalDbColumnName="0PCOMPANY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Trading partner business area of the business partner" key="false" length="4" name="_PBUS_AREA" nullable="true" originalDbColumnName="0PBUS_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Local currency" key="false" length="5" name="_LOC_CURRCY" nullable="true" originalDbColumnName="0LOC_CURRCY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit amount in local currency" key="false" length="17" name="_DEBIT_LC" nullable="true" originalDbColumnName="0DEBIT_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit amount in local currency" key="false" length="17" name="_CREDIT_LC" nullable="true" originalDbColumnName="0CREDIT_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Local Currency with +/- Signs" key="false" length="17" name="_DEB_CRE_LC" nullable="true" originalDbColumnName="0DEB_CRE_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document currency" key="false" length="5" name="_DOC_CURRCY" nullable="true" originalDbColumnName="0DOC_CURRCY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit amount in foreign currency" key="false" length="17" name="_DEBIT_DC" nullable="true" originalDbColumnName="0DEBIT_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit amount in foreign currency" key="false" length="17" name="_CREDIT_DC" nullable="true" originalDbColumnName="0CREDIT_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Foreign currency amount with signs (+/-)" key="false" length="17" name="_DEB_CRE_DC" nullable="true" originalDbColumnName="0DEB_CRE_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Currency Type of Second Local Currency" key="false" length="2" name="_LOC_CURTP2" nullable="true" originalDbColumnName="0LOC_CURTP2" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Second Local Currency" key="false" length="5" name="_LOC_CURRC2" nullable="true" originalDbColumnName="0LOC_CURRC2" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit Amount in 2nd Local Currency" key="false" length="17" name="_DEBIT_LC2" nullable="true" originalDbColumnName="0DEBIT_LC2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit Amount in Second Local Currency" key="false" length="17" name="_CREDIT_LC2" nullable="true" originalDbColumnName="0CREDIT_LC2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Second Local Currency with +/- Sign" key="false" length="17" name="_DEB_CRE_L2" nullable="true" originalDbColumnName="0DEB_CRE_L2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Currency Type of Third Local Currency" key="false" length="2" name="_LOC_CURTP3" nullable="true" originalDbColumnName="0LOC_CURTP3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Third Local Currency" key="false" length="5" name="_LOC_CURRC3" nullable="true" originalDbColumnName="0LOC_CURRC3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit Amount in Third Local Currency" key="false" length="17" name="_DEBIT_LC3" nullable="true" originalDbColumnName="0DEBIT_LC3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit Amount in Third Local Currency" key="false" length="17" name="_CREDIT_LC3" nullable="true" originalDbColumnName="0CREDIT_LC3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Third Local Currency with +/- Sign" key="false" length="17" name="_DEB_CRE_L3" nullable="true" originalDbColumnName="0DEB_CRE_L3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Reference document number" key="false" length="16" name="_REF_DOC_NO" nullable="true" originalDbColumnName="0REF_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Reference Key 3" key="false" length="20" name="_REF_KEY3" nullable="true" originalDbColumnName="0REF_KEY3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document Number of Source Document" key="false" length="10" name="_ORG_DOC_NO" nullable="true" originalDbColumnName="0ORG_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal Year for Source Document Number" defaultValue="" key="false" length="4" name="_ORG_DOC_YR" nullable="true" originalDbColumnName="0ORG_DOC_YR" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Company Code for Source Document Number" key="false" length="4" name="_ORG_DOC_CC" nullable="true" originalDbColumnName="0ORG_DOC_CC" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Controlling Area for Source Document Number" key="false" length="4" name="_ORG_DOC_CO" nullable="true" originalDbColumnName="0ORG_DOC_CO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tPrejob" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="160" posY="64">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tPrejob_1" show="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+  </node>
+  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="288" posY="64">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1" show="false"/>
+    <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.param_file_path"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" value="&quot;\n&quot;" show="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;,&quot;"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" value="&quot;&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" value="&quot;&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="HEADER" value="0"/>
+    <elementParameter field="TEXT" name="FOOTER" value="0"/>
+    <elementParameter field="TEXT" name="LIMIT" value=""/>
+    <elementParameter field="CHECK" name="REMOVE_EMPTY_ROW" value="true"/>
+    <elementParameter field="CHECK" name="UNCOMPRESS" value="false"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
+    <elementParameter field="DIRECTORY" name="TEMP_DIR" value="&quot;C:/private_worker/product/studio/Talend-Studio-20170812_0301-V6.3.2SNAPSHOT/workspace&quot;" show="false"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" value="&quot;,&quot;" show="false"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" value="&quot;.&quot;" show="false"/>
+    <elementParameter field="CHECK" name="RANDOM" value="false"/>
+    <elementParameter field="TEXT" name="NB_RANDOM" value="10" show="false"/>
+    <elementParameter field="CHECK" name="TRIMALL" value="false"/>
+    <elementParameter field="TABLE" name="TRIMSELECT">
+      <elementValue elementRef="SCHEMA_COLUMN" value="key"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="value"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
+    <elementParameter field="CHECK" name="CHECK_DATE" value="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="SPLITRECORD" value="false"/>
+    <elementParameter field="CHECK" name="ENABLE_DECODE" value="false"/>
+    <elementParameter field="TABLE" name="DECODE_COLS" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="key"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="value"/>
+      <elementValue elementRef="DECODE" value="false"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="DESTINATION" value="" show="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" value="100" show="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tFileInputDelimited_1">
+      <column comment="" key="false" length="-1" name="key" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="value" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
+    </metadata>
+    <metadata connector="REJECT" name="REJECT">
+      <column comment="" key="false" length="-1" name="key" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="value" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tContextLoad" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="480" posY="64">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tContextLoad_1" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning"/>
+    <elementParameter field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning"/>
+    <elementParameter field="CHECK" name="PRINT_OPERATIONS" value="false"/>
+    <elementParameter field="CHECK" name="DISABLE_ERROR" value="false"/>
+    <elementParameter field="CHECK" name="DISABLE_WARNINGS" value="true"/>
+    <elementParameter field="CHECK" name="DISABLE_INFO" value="true"/>
+    <elementParameter field="CHECK" name="DIEONERROR" value="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tContextLoad_1">
+      <column defaultValue="" key="false" length="255" name="key" nullable="true" precision="0" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="value" nullable="true" precision="0" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tAssertCatcher" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="576" posY="384">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAssertCatcher_1" show="false"/>
+    <elementParameter field="CHECK" name="CATCH_JAVA_EXCEPTION" value="false"/>
+    <elementParameter field="CHECK" name="GET_ORIGINAL_EXCEPTION" value="false" show="false"/>
+    <elementParameter field="CHECK" name="CATCH_TASSERT" value="true"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tAssertCatcher_1">
+      <column key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
+      <column key="false" length="20" name="pid" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="50" name="project" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="job" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="5" name="language" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="50" name="origin" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="10" name="status" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="substatus" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="description" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="736" posY="384">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tLogRow_1" show="false"/>
+    <elementParameter field="RADIO" name="BASIC_MODE" value="false"/>
+    <elementParameter field="RADIO" name="TABLE_PRINT" value="true"/>
+    <elementParameter field="RADIO" name="VERTICAL" value="false"/>
+    <elementParameter field="RADIO" name="PRINT_UNIQUE" value="true" show="false"/>
+    <elementParameter field="RADIO" name="PRINT_LABEL" value="false" show="false"/>
+    <elementParameter field="RADIO" name="PRINT_UNIQUE_LABEL" value="false" show="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;" show="false"/>
+    <elementParameter field="CHECK" name="PRINT_HEADER" value="false" show="false"/>
+    <elementParameter field="CHECK" name="PRINT_UNIQUE_NAME" value="false" show="false"/>
+    <elementParameter field="CHECK" name="PRINT_COLNAMES" value="false" show="false"/>
+    <elementParameter field="CHECK" name="USE_FIXED_LENGTH" value="false" show="false"/>
+    <elementParameter field="TABLE" name="LENGTHS" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="moment"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="pid"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="project"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="job"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="language"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="origin"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="status"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="substatus"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="description"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" value="100" show="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tLogRow_1">
+      <column key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
+      <column key="false" length="20" name="pid" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="50" name="project" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="job" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="5" name="language" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="50" name="origin" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="10" name="status" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="substatus" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="description" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tMysqlOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="896" posY="384">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlOutput_1" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="MYSQL_5"/>
+    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" show="false"/>
+    <elementParameter field="TEXT" name="TYPE" value="MySQL" show="false"/>
+    <elementParameter field="TEXT" name="HOST" value="context.result_host"/>
+    <elementParameter field="TEXT" name="PORT" value="context.result_port"/>
+    <elementParameter field="TEXT" name="DBNAME" value="context.result_database"/>
+    <elementParameter field="TEXT" name="USER" value="context.result_username"/>
+    <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kudRjTZXsKM8sZf3CpAM1Su5"/>
+    <elementParameter field="DBTABLE" name="TABLE" value="context.result_table"/>
+    <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="NONE"/>
+    <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="INSERT"/>
+    <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
+    <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
+    <elementParameter field="TEXT" name="DATASOURCE_ALIAS" value="&quot;&quot;" show="false"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
+    <elementParameter field="MAPPING_TYPE" name="MAPPING" value="mysql_id" show="false"/>
+    <elementParameter field="TEXT" name="PROPERTIES" value="&quot;noDatetimeStringSync=true&quot;"/>
+    <elementParameter field="CHECK" name="EXTENDINSERT" value="true"/>
+    <elementParameter field="LABEL" name="NOTE" value="(Not compatible with reject links)"/>
+    <elementParameter field="TEXT" name="NB_ROWS_PER_INSERT" value="100"/>
+    <elementParameter field="CHECK" name="USE_BATCH_SIZE" value="true" show="false"/>
+    <elementParameter field="TEXT" name="BATCH_SIZE" value="10000" show="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;" show="false"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="TEXT" name="COMMIT_EVERY" value="10000"/>
+    <elementParameter field="TABLE" name="ADD_COLS"/>
+    <elementParameter field="CHECK" name="USE_FIELD_OPTIONS" value="false"/>
+    <elementParameter field="TABLE" name="FIELD_OPTIONS" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="moment"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="pid"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="project"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="job"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="language"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="origin"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="status"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="substatus"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="description"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="USE_HINT_OPTIONS" value="false"/>
+    <elementParameter field="TABLE" name="HINT_OPTIONS" show="false"/>
+    <elementParameter field="CHECK" name="ENABLE_DEBUG_MODE" value="false"/>
+    <elementParameter field="CHECK" name="ON_DUPLICATE_KEY_UPDATE" value="false"/>
+    <elementParameter field="TABLE" name="DUPLICATED_KEYS" show="false"/>
+    <elementParameter field="CHECK" name="SUPPORT_NULL_WHERE" value="false" show="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tMysqlOutput_1">
+      <column key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="DATETIME" type="id_Date" usefulColumn="true"/>
+      <column key="false" length="20" name="pid" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column key="false" length="50" name="project" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="job" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column key="false" length="5" name="language" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column key="false" length="50" name="origin" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column key="false" length="10" name="status" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="substatus" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="description" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+    </metadata>
+    <metadata connector="REJECT" name="REJECT">
+      <column key="false" length="0" name="moment" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="DATETIME" type="id_Date" usefulColumn="true"/>
+      <column key="false" length="20" name="pid" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column key="false" length="50" name="project" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="job" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column key="false" length="5" name="language" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column key="false" length="50" name="origin" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column key="false" length="10" name="status" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="substatus" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="description" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="224" posY="288">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_2" show="false"/>
+    <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.data_output_dir+&quot;/&quot;+jobName+&quot;/output.csv&quot;"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" value="&quot;\n&quot;" show="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" value="&quot;&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" value="&quot;&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="HEADER" value="0"/>
+    <elementParameter field="TEXT" name="FOOTER" value="0"/>
+    <elementParameter field="TEXT" name="LIMIT" value=""/>
+    <elementParameter field="CHECK" name="REMOVE_EMPTY_ROW" value="true"/>
+    <elementParameter field="CHECK" name="UNCOMPRESS" value="false"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
+    <elementParameter field="DIRECTORY" name="TEMP_DIR" value="&quot;C:/private_worker/product/studio/Talend-Studio-20170812_0301-V6.3.2SNAPSHOT/workspace&quot;" show="false"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" value="&quot;,&quot;" show="false"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" value="&quot;.&quot;" show="false"/>
+    <elementParameter field="CHECK" name="RANDOM" value="false"/>
+    <elementParameter field="TEXT" name="NB_RANDOM" value="10" show="false"/>
+    <elementParameter field="CHECK" name="TRIMALL" value="false"/>
+    <elementParameter field="TABLE" name="TRIMSELECT">
+      <elementValue elementRef="SCHEMA_COLUMN" value="_COMP_CODE"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CHRT_ACCTS"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_GL_ACCOUNT"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_FISCVARNT"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_FISCPER"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_AC_DOC_NO"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ITEM_NUM"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_FI_DOCSTAT"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ACCT_TYPE"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_SP_GL_IND"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_AC_DOC_TYP"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_POST_KEY"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DOC_DATE"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PSTNG_DATE"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CREATEDON"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CLEAR_DATE"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CLR_DOC_NO"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CO_AREA"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_COSTCENTER"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PROFIT_CTR"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_COORDER"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_WBS_ELEMT"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PLANT"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_BUS_AREA"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_FUNC_AREA"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PART_PRCTR"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PCOMPANY"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PBUS_AREA"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_LOC_CURRCY"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEBIT_LC"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CREDIT_LC"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEB_CRE_LC"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DOC_CURRCY"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEBIT_DC"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CREDIT_DC"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEB_CRE_DC"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_LOC_CURTP2"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_LOC_CURRC2"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEBIT_LC2"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CREDIT_LC2"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEB_CRE_L2"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_LOC_CURTP3"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_LOC_CURRC3"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEBIT_LC3"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CREDIT_LC3"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEB_CRE_L3"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_REF_DOC_NO"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_REF_KEY3"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ORG_DOC_NO"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ORG_DOC_YR"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ORG_DOC_CC"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ORG_DOC_CO"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
+    <elementParameter field="CHECK" name="CHECK_DATE" value="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="SPLITRECORD" value="false"/>
+    <elementParameter field="CHECK" name="ENABLE_DECODE" value="false"/>
+    <elementParameter field="TABLE" name="DECODE_COLS" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="_COMP_CODE"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CHRT_ACCTS"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_GL_ACCOUNT"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_FISCVARNT"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_FISCPER"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_AC_DOC_NO"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ITEM_NUM"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_FI_DOCSTAT"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ACCT_TYPE"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_SP_GL_IND"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_AC_DOC_TYP"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_POST_KEY"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DOC_DATE"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PSTNG_DATE"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CREATEDON"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CLEAR_DATE"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CLR_DOC_NO"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CO_AREA"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_COSTCENTER"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PROFIT_CTR"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_COORDER"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_WBS_ELEMT"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PLANT"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_BUS_AREA"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_FUNC_AREA"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PART_PRCTR"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PCOMPANY"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PBUS_AREA"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_LOC_CURRCY"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEBIT_LC"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CREDIT_LC"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEB_CRE_LC"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DOC_CURRCY"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEBIT_DC"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CREDIT_DC"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEB_CRE_DC"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_LOC_CURTP2"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_LOC_CURRC2"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEBIT_LC2"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CREDIT_LC2"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEB_CRE_L2"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_LOC_CURTP3"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_LOC_CURRC3"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEBIT_LC3"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CREDIT_LC3"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEB_CRE_L3"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_REF_DOC_NO"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_REF_KEY3"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ORG_DOC_NO"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ORG_DOC_YR"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ORG_DOC_CC"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ORG_DOC_CO"/>
+      <elementValue elementRef="DECODE" value="false"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="DESTINATION" value="" show="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" value="100" show="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tFileInputDelimited_2">
+      <column comment="Company code" key="false" length="4" name="_COMP_CODE" nullable="true" originalDbColumnName="0COMP_CODE" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Chart of accounts" key="false" length="4" name="_CHRT_ACCTS" nullable="true" originalDbColumnName="0CHRT_ACCTS" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="G/L Account" key="false" length="10" name="_GL_ACCOUNT" nullable="true" originalDbColumnName="0GL_ACCOUNT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal year variant" key="false" length="2" name="_FISCVARNT" nullable="true" originalDbColumnName="0FISCVARNT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal year / period" key="false" length="7" name="_FISCPER" nullable="true" originalDbColumnName="0FISCPER" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Accounting document number" key="false" length="10" name="_AC_DOC_NO" nullable="true" originalDbColumnName="0AC_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Number of line item within accounting document" key="false" length="3" name="_ITEM_NUM" nullable="true" originalDbColumnName="0ITEM_NUM" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Item Status" key="false" length="1" name="_FI_DOCSTAT" nullable="true" originalDbColumnName="0FI_DOCSTAT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Account type" key="false" length="1" name="_ACCT_TYPE" nullable="true" originalDbColumnName="0ACCT_TYPE" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Special General Ledger Indicator" key="false" length="1" name="_SP_GL_IND" nullable="true" originalDbColumnName="0SP_GL_IND" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document type" key="false" length="2" name="_AC_DOC_TYP" nullable="true" originalDbColumnName="0AC_DOC_TYP" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Posting key" key="false" length="2" name="_POST_KEY" nullable="true" originalDbColumnName="0POST_KEY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document Date" key="false" length="8" name="_DOC_DATE" nullable="true" originalDbColumnName="0DOC_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Posting date in the document" key="false" length="8" name="_PSTNG_DATE" nullable="true" originalDbColumnName="0PSTNG_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Date on which the record was created" key="false" length="8" name="_CREATEDON" nullable="true" originalDbColumnName="0CREATEDON" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Clearing date" key="false" length="8" name="_CLEAR_DATE" nullable="true" originalDbColumnName="0CLEAR_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Clearing Document Number" key="false" length="10" name="_CLR_DOC_NO" nullable="true" originalDbColumnName="0CLR_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Controlling area" key="false" length="4" name="_CO_AREA" nullable="true" originalDbColumnName="0CO_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Cost Center" key="false" length="10" name="_COSTCENTER" nullable="true" originalDbColumnName="0COSTCENTER" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Profit Center" key="false" length="10" name="_PROFIT_CTR" nullable="true" originalDbColumnName="0PROFIT_CTR" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Order Number" key="false" length="12" name="_COORDER" nullable="true" originalDbColumnName="0COORDER" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Work Breakdown Structure Element (WBS Element)" key="false" length="24" name="_WBS_ELEMT" nullable="true" originalDbColumnName="0WBS_ELEMT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Plant" key="false" length="4" name="_PLANT" nullable="true" originalDbColumnName="0PLANT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Business area" key="false" length="4" name="_BUS_AREA" nullable="true" originalDbColumnName="0BUS_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Functional area" key="false" length="16" name="_FUNC_AREA" nullable="true" originalDbColumnName="0FUNC_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Partner profit center" key="false" length="10" name="_PART_PRCTR" nullable="true" originalDbColumnName="0PART_PRCTR" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Partner Company Number" key="false" length="6" name="_PCOMPANY" nullable="true" originalDbColumnName="0PCOMPANY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Trading partner business area of the business partner" key="false" length="4" name="_PBUS_AREA" nullable="true" originalDbColumnName="0PBUS_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Local currency" key="false" length="5" name="_LOC_CURRCY" nullable="true" originalDbColumnName="0LOC_CURRCY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit amount in local currency" key="false" length="17" name="_DEBIT_LC" nullable="true" originalDbColumnName="0DEBIT_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit amount in local currency" key="false" length="17" name="_CREDIT_LC" nullable="true" originalDbColumnName="0CREDIT_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Local Currency with +/- Signs" key="false" length="17" name="_DEB_CRE_LC" nullable="true" originalDbColumnName="0DEB_CRE_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document currency" key="false" length="5" name="_DOC_CURRCY" nullable="true" originalDbColumnName="0DOC_CURRCY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit amount in foreign currency" key="false" length="17" name="_DEBIT_DC" nullable="true" originalDbColumnName="0DEBIT_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit amount in foreign currency" key="false" length="17" name="_CREDIT_DC" nullable="true" originalDbColumnName="0CREDIT_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Foreign currency amount with signs (+/-)" key="false" length="17" name="_DEB_CRE_DC" nullable="true" originalDbColumnName="0DEB_CRE_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Currency Type of Second Local Currency" key="false" length="2" name="_LOC_CURTP2" nullable="true" originalDbColumnName="0LOC_CURTP2" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Second Local Currency" key="false" length="5" name="_LOC_CURRC2" nullable="true" originalDbColumnName="0LOC_CURRC2" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit Amount in 2nd Local Currency" key="false" length="17" name="_DEBIT_LC2" nullable="true" originalDbColumnName="0DEBIT_LC2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit Amount in Second Local Currency" key="false" length="17" name="_CREDIT_LC2" nullable="true" originalDbColumnName="0CREDIT_LC2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Second Local Currency with +/- Sign" key="false" length="17" name="_DEB_CRE_L2" nullable="true" originalDbColumnName="0DEB_CRE_L2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Currency Type of Third Local Currency" key="false" length="2" name="_LOC_CURTP3" nullable="true" originalDbColumnName="0LOC_CURTP3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Third Local Currency" key="false" length="5" name="_LOC_CURRC3" nullable="true" originalDbColumnName="0LOC_CURRC3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit Amount in Third Local Currency" key="false" length="17" name="_DEBIT_LC3" nullable="true" originalDbColumnName="0DEBIT_LC3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit Amount in Third Local Currency" key="false" length="17" name="_CREDIT_LC3" nullable="true" originalDbColumnName="0CREDIT_LC3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Third Local Currency with +/- Sign" key="false" length="17" name="_DEB_CRE_L3" nullable="true" originalDbColumnName="0DEB_CRE_L3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Reference document number" key="false" length="16" name="_REF_DOC_NO" nullable="true" originalDbColumnName="0REF_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Reference Key 3" key="false" length="20" name="_REF_KEY3" nullable="true" originalDbColumnName="0REF_KEY3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document Number of Source Document" key="false" length="10" name="_ORG_DOC_NO" nullable="true" originalDbColumnName="0ORG_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal Year for Source Document Number" defaultValue="" key="false" length="4" name="_ORG_DOC_YR" nullable="true" originalDbColumnName="0ORG_DOC_YR" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Company Code for Source Document Number" key="false" length="4" name="_ORG_DOC_CC" nullable="true" originalDbColumnName="0ORG_DOC_CC" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Controlling Area for Source Document Number" key="false" length="4" name="_ORG_DOC_CO" nullable="true" originalDbColumnName="0ORG_DOC_CO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+    </metadata>
+    <metadata connector="REJECT" name="REJECT">
+      <column comment="Company code" key="false" length="4" name="_COMP_CODE" nullable="true" originalDbColumnName="0COMP_CODE" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Chart of accounts" key="false" length="4" name="_CHRT_ACCTS" nullable="true" originalDbColumnName="0CHRT_ACCTS" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="G/L Account" key="false" length="10" name="_GL_ACCOUNT" nullable="true" originalDbColumnName="0GL_ACCOUNT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal year variant" key="false" length="2" name="_FISCVARNT" nullable="true" originalDbColumnName="0FISCVARNT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal year / period" key="false" length="7" name="_FISCPER" nullable="true" originalDbColumnName="0FISCPER" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Accounting document number" key="false" length="10" name="_AC_DOC_NO" nullable="true" originalDbColumnName="0AC_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Number of line item within accounting document" key="false" length="3" name="_ITEM_NUM" nullable="true" originalDbColumnName="0ITEM_NUM" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Item Status" key="false" length="1" name="_FI_DOCSTAT" nullable="true" originalDbColumnName="0FI_DOCSTAT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Account type" key="false" length="1" name="_ACCT_TYPE" nullable="true" originalDbColumnName="0ACCT_TYPE" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Special General Ledger Indicator" key="false" length="1" name="_SP_GL_IND" nullable="true" originalDbColumnName="0SP_GL_IND" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document type" key="false" length="2" name="_AC_DOC_TYP" nullable="true" originalDbColumnName="0AC_DOC_TYP" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Posting key" key="false" length="2" name="_POST_KEY" nullable="true" originalDbColumnName="0POST_KEY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document Date" key="false" length="8" name="_DOC_DATE" nullable="true" originalDbColumnName="0DOC_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Posting date in the document" key="false" length="8" name="_PSTNG_DATE" nullable="true" originalDbColumnName="0PSTNG_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Date on which the record was created" key="false" length="8" name="_CREATEDON" nullable="true" originalDbColumnName="0CREATEDON" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Clearing date" key="false" length="8" name="_CLEAR_DATE" nullable="true" originalDbColumnName="0CLEAR_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Clearing Document Number" key="false" length="10" name="_CLR_DOC_NO" nullable="true" originalDbColumnName="0CLR_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Controlling area" key="false" length="4" name="_CO_AREA" nullable="true" originalDbColumnName="0CO_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Cost Center" key="false" length="10" name="_COSTCENTER" nullable="true" originalDbColumnName="0COSTCENTER" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Profit Center" key="false" length="10" name="_PROFIT_CTR" nullable="true" originalDbColumnName="0PROFIT_CTR" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Order Number" key="false" length="12" name="_COORDER" nullable="true" originalDbColumnName="0COORDER" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Work Breakdown Structure Element (WBS Element)" key="false" length="24" name="_WBS_ELEMT" nullable="true" originalDbColumnName="0WBS_ELEMT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Plant" key="false" length="4" name="_PLANT" nullable="true" originalDbColumnName="0PLANT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Business area" key="false" length="4" name="_BUS_AREA" nullable="true" originalDbColumnName="0BUS_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Functional area" key="false" length="16" name="_FUNC_AREA" nullable="true" originalDbColumnName="0FUNC_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Partner profit center" key="false" length="10" name="_PART_PRCTR" nullable="true" originalDbColumnName="0PART_PRCTR" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Partner Company Number" key="false" length="6" name="_PCOMPANY" nullable="true" originalDbColumnName="0PCOMPANY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Trading partner business area of the business partner" key="false" length="4" name="_PBUS_AREA" nullable="true" originalDbColumnName="0PBUS_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Local currency" key="false" length="5" name="_LOC_CURRCY" nullable="true" originalDbColumnName="0LOC_CURRCY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit amount in local currency" key="false" length="17" name="_DEBIT_LC" nullable="true" originalDbColumnName="0DEBIT_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit amount in local currency" key="false" length="17" name="_CREDIT_LC" nullable="true" originalDbColumnName="0CREDIT_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Local Currency with +/- Signs" key="false" length="17" name="_DEB_CRE_LC" nullable="true" originalDbColumnName="0DEB_CRE_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document currency" key="false" length="5" name="_DOC_CURRCY" nullable="true" originalDbColumnName="0DOC_CURRCY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit amount in foreign currency" key="false" length="17" name="_DEBIT_DC" nullable="true" originalDbColumnName="0DEBIT_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit amount in foreign currency" key="false" length="17" name="_CREDIT_DC" nullable="true" originalDbColumnName="0CREDIT_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Foreign currency amount with signs (+/-)" key="false" length="17" name="_DEB_CRE_DC" nullable="true" originalDbColumnName="0DEB_CRE_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Currency Type of Second Local Currency" key="false" length="2" name="_LOC_CURTP2" nullable="true" originalDbColumnName="0LOC_CURTP2" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Second Local Currency" key="false" length="5" name="_LOC_CURRC2" nullable="true" originalDbColumnName="0LOC_CURRC2" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit Amount in 2nd Local Currency" key="false" length="17" name="_DEBIT_LC2" nullable="true" originalDbColumnName="0DEBIT_LC2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit Amount in Second Local Currency" key="false" length="17" name="_CREDIT_LC2" nullable="true" originalDbColumnName="0CREDIT_LC2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Second Local Currency with +/- Sign" key="false" length="17" name="_DEB_CRE_L2" nullable="true" originalDbColumnName="0DEB_CRE_L2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Currency Type of Third Local Currency" key="false" length="2" name="_LOC_CURTP3" nullable="true" originalDbColumnName="0LOC_CURTP3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Third Local Currency" key="false" length="5" name="_LOC_CURRC3" nullable="true" originalDbColumnName="0LOC_CURRC3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit Amount in Third Local Currency" key="false" length="17" name="_DEBIT_LC3" nullable="true" originalDbColumnName="0DEBIT_LC3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit Amount in Third Local Currency" key="false" length="17" name="_CREDIT_LC3" nullable="true" originalDbColumnName="0CREDIT_LC3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Third Local Currency with +/- Sign" key="false" length="17" name="_DEB_CRE_L3" nullable="true" originalDbColumnName="0DEB_CRE_L3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Reference document number" key="false" length="16" name="_REF_DOC_NO" nullable="true" originalDbColumnName="0REF_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Reference Key 3" key="false" length="20" name="_REF_KEY3" nullable="true" originalDbColumnName="0REF_KEY3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document Number of Source Document" key="false" length="10" name="_ORG_DOC_NO" nullable="true" originalDbColumnName="0ORG_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal Year for Source Document Number" defaultValue="" key="false" length="4" name="_ORG_DOC_YR" nullable="true" originalDbColumnName="0ORG_DOC_YR" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Company Code for Source Document Number" key="false" length="4" name="_ORG_DOC_CC" nullable="true" originalDbColumnName="0ORG_DOC_CC" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Controlling Area for Source Document Number" key="false" length="4" name="_ORG_DOC_CO" nullable="true" originalDbColumnName="0ORG_DOC_CO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="512" posY="288">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tLogRow_2" show="false"/>
+    <elementParameter field="RADIO" name="BASIC_MODE" value="false"/>
+    <elementParameter field="RADIO" name="TABLE_PRINT" value="true"/>
+    <elementParameter field="RADIO" name="VERTICAL" value="false"/>
+    <elementParameter field="RADIO" name="PRINT_UNIQUE" value="true" show="false"/>
+    <elementParameter field="RADIO" name="PRINT_LABEL" value="false" show="false"/>
+    <elementParameter field="RADIO" name="PRINT_UNIQUE_LABEL" value="false" show="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;" show="false"/>
+    <elementParameter field="CHECK" name="PRINT_HEADER" value="false" show="false"/>
+    <elementParameter field="CHECK" name="PRINT_UNIQUE_NAME" value="false" show="false"/>
+    <elementParameter field="CHECK" name="PRINT_COLNAMES" value="false" show="false"/>
+    <elementParameter field="CHECK" name="USE_FIXED_LENGTH" value="false" show="false"/>
+    <elementParameter field="TABLE" name="LENGTHS" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="_COMP_CODE"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CHRT_ACCTS"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_GL_ACCOUNT"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_FISCVARNT"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_FISCPER"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_AC_DOC_NO"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ITEM_NUM"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_FI_DOCSTAT"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ACCT_TYPE"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_SP_GL_IND"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_AC_DOC_TYP"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_POST_KEY"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DOC_DATE"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PSTNG_DATE"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CREATEDON"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CLEAR_DATE"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CLR_DOC_NO"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CO_AREA"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_COSTCENTER"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PROFIT_CTR"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_COORDER"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_WBS_ELEMT"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PLANT"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_BUS_AREA"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_FUNC_AREA"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PART_PRCTR"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PCOMPANY"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_PBUS_AREA"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_LOC_CURRCY"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEBIT_LC"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CREDIT_LC"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEB_CRE_LC"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DOC_CURRCY"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEBIT_DC"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CREDIT_DC"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEB_CRE_DC"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_LOC_CURTP2"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_LOC_CURRC2"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEBIT_LC2"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CREDIT_LC2"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEB_CRE_L2"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_LOC_CURTP3"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_LOC_CURRC3"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEBIT_LC3"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_CREDIT_LC3"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_DEB_CRE_L3"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_REF_DOC_NO"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_REF_KEY3"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ORG_DOC_NO"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ORG_DOC_YR"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ORG_DOC_CC"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="_ORG_DOC_CO"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" value="100" show="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tLogRow_2">
+      <column comment="Company code" key="false" length="4" name="_COMP_CODE" nullable="true" originalDbColumnName="0COMP_CODE" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Chart of accounts" key="false" length="4" name="_CHRT_ACCTS" nullable="true" originalDbColumnName="0CHRT_ACCTS" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="G/L Account" key="false" length="10" name="_GL_ACCOUNT" nullable="true" originalDbColumnName="0GL_ACCOUNT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal year variant" key="false" length="2" name="_FISCVARNT" nullable="true" originalDbColumnName="0FISCVARNT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal year / period" key="false" length="7" name="_FISCPER" nullable="true" originalDbColumnName="0FISCPER" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Accounting document number" key="false" length="10" name="_AC_DOC_NO" nullable="true" originalDbColumnName="0AC_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Number of line item within accounting document" key="false" length="3" name="_ITEM_NUM" nullable="true" originalDbColumnName="0ITEM_NUM" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Item Status" key="false" length="1" name="_FI_DOCSTAT" nullable="true" originalDbColumnName="0FI_DOCSTAT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Account type" key="false" length="1" name="_ACCT_TYPE" nullable="true" originalDbColumnName="0ACCT_TYPE" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Special General Ledger Indicator" key="false" length="1" name="_SP_GL_IND" nullable="true" originalDbColumnName="0SP_GL_IND" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document type" key="false" length="2" name="_AC_DOC_TYP" nullable="true" originalDbColumnName="0AC_DOC_TYP" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Posting key" key="false" length="2" name="_POST_KEY" nullable="true" originalDbColumnName="0POST_KEY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document Date" key="false" length="8" name="_DOC_DATE" nullable="true" originalDbColumnName="0DOC_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Posting date in the document" key="false" length="8" name="_PSTNG_DATE" nullable="true" originalDbColumnName="0PSTNG_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Date on which the record was created" key="false" length="8" name="_CREATEDON" nullable="true" originalDbColumnName="0CREATEDON" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Clearing date" key="false" length="8" name="_CLEAR_DATE" nullable="true" originalDbColumnName="0CLEAR_DATE" pattern="&quot;yyyyMMdd&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
+      <column comment="Clearing Document Number" key="false" length="10" name="_CLR_DOC_NO" nullable="true" originalDbColumnName="0CLR_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Controlling area" key="false" length="4" name="_CO_AREA" nullable="true" originalDbColumnName="0CO_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Cost Center" key="false" length="10" name="_COSTCENTER" nullable="true" originalDbColumnName="0COSTCENTER" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Profit Center" key="false" length="10" name="_PROFIT_CTR" nullable="true" originalDbColumnName="0PROFIT_CTR" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Order Number" key="false" length="12" name="_COORDER" nullable="true" originalDbColumnName="0COORDER" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Work Breakdown Structure Element (WBS Element)" key="false" length="24" name="_WBS_ELEMT" nullable="true" originalDbColumnName="0WBS_ELEMT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Plant" key="false" length="4" name="_PLANT" nullable="true" originalDbColumnName="0PLANT" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Business area" key="false" length="4" name="_BUS_AREA" nullable="true" originalDbColumnName="0BUS_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Functional area" key="false" length="16" name="_FUNC_AREA" nullable="true" originalDbColumnName="0FUNC_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Partner profit center" key="false" length="10" name="_PART_PRCTR" nullable="true" originalDbColumnName="0PART_PRCTR" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Partner Company Number" key="false" length="6" name="_PCOMPANY" nullable="true" originalDbColumnName="0PCOMPANY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Trading partner business area of the business partner" key="false" length="4" name="_PBUS_AREA" nullable="true" originalDbColumnName="0PBUS_AREA" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Local currency" key="false" length="5" name="_LOC_CURRCY" nullable="true" originalDbColumnName="0LOC_CURRCY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit amount in local currency" key="false" length="17" name="_DEBIT_LC" nullable="true" originalDbColumnName="0DEBIT_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit amount in local currency" key="false" length="17" name="_CREDIT_LC" nullable="true" originalDbColumnName="0CREDIT_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Local Currency with +/- Signs" key="false" length="17" name="_DEB_CRE_LC" nullable="true" originalDbColumnName="0DEB_CRE_LC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document currency" key="false" length="5" name="_DOC_CURRCY" nullable="true" originalDbColumnName="0DOC_CURRCY" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit amount in foreign currency" key="false" length="17" name="_DEBIT_DC" nullable="true" originalDbColumnName="0DEBIT_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit amount in foreign currency" key="false" length="17" name="_CREDIT_DC" nullable="true" originalDbColumnName="0CREDIT_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Foreign currency amount with signs (+/-)" key="false" length="17" name="_DEB_CRE_DC" nullable="true" originalDbColumnName="0DEB_CRE_DC" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Currency Type of Second Local Currency" key="false" length="2" name="_LOC_CURTP2" nullable="true" originalDbColumnName="0LOC_CURTP2" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Second Local Currency" key="false" length="5" name="_LOC_CURRC2" nullable="true" originalDbColumnName="0LOC_CURRC2" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit Amount in 2nd Local Currency" key="false" length="17" name="_DEBIT_LC2" nullable="true" originalDbColumnName="0DEBIT_LC2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit Amount in Second Local Currency" key="false" length="17" name="_CREDIT_LC2" nullable="true" originalDbColumnName="0CREDIT_LC2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Second Local Currency with +/- Sign" key="false" length="17" name="_DEB_CRE_L2" nullable="true" originalDbColumnName="0DEB_CRE_L2" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Currency Type of Third Local Currency" key="false" length="2" name="_LOC_CURTP3" nullable="true" originalDbColumnName="0LOC_CURTP3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Third Local Currency" key="false" length="5" name="_LOC_CURRC3" nullable="true" originalDbColumnName="0LOC_CURRC3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Debit Amount in Third Local Currency" key="false" length="17" name="_DEBIT_LC3" nullable="true" originalDbColumnName="0DEBIT_LC3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Credit Amount in Third Local Currency" key="false" length="17" name="_CREDIT_LC3" nullable="true" originalDbColumnName="0CREDIT_LC3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Amount in Third Local Currency with +/- Sign" key="false" length="17" name="_DEB_CRE_L3" nullable="true" originalDbColumnName="0DEB_CRE_L3" pattern="" precision="2" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Reference document number" key="false" length="16" name="_REF_DOC_NO" nullable="true" originalDbColumnName="0REF_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Reference Key 3" key="false" length="20" name="_REF_KEY3" nullable="true" originalDbColumnName="0REF_KEY3" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Document Number of Source Document" key="false" length="10" name="_ORG_DOC_NO" nullable="true" originalDbColumnName="0ORG_DOC_NO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Fiscal Year for Source Document Number" defaultValue="" key="false" length="4" name="_ORG_DOC_YR" nullable="true" originalDbColumnName="0ORG_DOC_YR" pattern="" precision="0" sourceType="BIG_INTEGER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Company Code for Source Document Number" key="false" length="4" name="_ORG_DOC_CC" nullable="true" originalDbColumnName="0ORG_DOC_CC" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+      <column comment="Controlling Area for Source Document Number" key="false" length="4" name="_ORG_DOC_CO" nullable="true" originalDbColumnName="0ORG_DOC_CO" pattern="" precision="0" sourceType="STRING" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tAssert" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="192" posY="384">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAssert_1" show="false"/>
+    <elementParameter field="TEXT" name="DESCRIPTION" value="&quot;&quot;"/>
+    <elementParameter field="MEMO_JAVA" name="EXPRESSION" value="((Integer)globalMap.get(&quot;tFileInputDelimited_2_NB_LINE&quot;))==1000"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tAssert_1"/>
+  </node>
+  <node componentName="tPostjob" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="544">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tPostjob_1" show="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+  </node>
+  <node componentName="tFileDelete" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="320" posY="544">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileDelete_1" show="false"/>
+    <elementParameter field="FILE" name="FILENAME" value="&quot;C:/private_worker/product/studio/Talend-Studio-20170812_0301-V6.3.2SNAPSHOT/workspace/in.csv&quot;" show="false"/>
+    <elementParameter field="DIRECTORY" name="DIRECTORY" value="context.data_output_dir+&quot;/&quot;+jobName"/>
+    <elementParameter field="TEXT" name="PATH" value="&quot;C:/private_worker/product/studio/Talend-Studio-20170812_0301-V6.3.2SNAPSHOT/workspace/delete_folder or delete_file&quot;" show="false"/>
+    <elementParameter field="CHECK" name="FAILON" value="true"/>
+    <elementParameter field="CHECK" name="FOLDER" value="true"/>
+    <elementParameter field="CHECK" name="FOLDER_FILE" value="false"/>
+    <elementParameter field="LABEL" name="NOTE" value="*Note &quot;CURRENT_STATUS&quot; including:&#xA;&quot;File (or path) deleted.&quot;&#xA;&quot;No file (or path) deleted.&quot;&#xA;&quot;File (or path) does not exist or is invalid.&quot;"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tFileDelete_1"/>
+  </node>
+  <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tSAPDSOInput_1" offsetLabelX="0" offsetLabelY="0" source="tSAPDSOInput_1" target="tMap_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row1" show="false"/>
+  </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSAPDSOInput_1" offsetLabelX="0" offsetLabelY="0" source="tSAPDSOInput_1" target="tFileInputDelimited_2">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk1" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="out1" lineStyle="0" metaname="out1" offsetLabelX="0" offsetLabelY="0" source="tMap_1" target="tFileOutputDelimited_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="out1" show="false"/>
+  </connection>
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPrejob_1" offsetLabelX="0" offsetLabelY="0" source="tPrejob_1" target="tFileInputDelimited_1">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk1" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tContextLoad_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row2" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="row6" lineStyle="0" metaname="tAssertCatcher_1" offsetLabelX="0" offsetLabelY="0" source="tAssertCatcher_1" target="tLogRow_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="moment"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="pid"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="project"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="job"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="language"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="origin"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="status"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="substatus"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="description"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row6" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="row7" lineStyle="0" metaname="tLogRow_1" offsetLabelX="0" offsetLabelY="0" source="tLogRow_1" target="tMysqlOutput_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="moment"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="pid"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="project"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="job"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="language"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="origin"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="status"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="substatus"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="description"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row7" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="tFileInputDelimited_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_2" target="tLogRow_2">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row3" show="false"/>
+  </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_2" target="tAssert_1">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk2" show="false"/>
+  </connection>
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPostjob_1" offsetLabelX="0" offsetLabelY="0" source="tPostjob_1" target="tFileDelete_1">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk2" show="false"/>
+  </connection>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tSAPDSOInput_1" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tPrejob_1" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="230;100;0"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="255;220;180"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAssertCatcher_1" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_2" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAssert_1" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tPostjob_1" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="230;100;0"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="255;220;180"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileDelete_1" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+  </subjob>
+</talendfile:ProcessType>
