@@ -194,7 +194,7 @@
       <column defaultValue="" key="false" length="255" name="value" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tAssertCatcher" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="832" posY="320">
+  <node componentName="tAssertCatcher" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="800" posY="320">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAssertCatcher_1" show="false"/>
     <elementParameter field="CHECK" name="CATCH_JAVA_EXCEPTION" value="true"/>
     <elementParameter field="CHECK" name="GET_ORIGINAL_EXCEPTION" value="false"/>
@@ -227,7 +227,7 @@
       <column key="false" length="255" name="description" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1120" posY="416">
+  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1120" posY="320">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tLogRow_1" show="false"/>
     <elementParameter field="RADIO" name="BASIC_MODE" value="true"/>
     <elementParameter field="RADIO" name="TABLE_PRINT" value="false"/>
@@ -274,6 +274,13 @@
       <column key="false" length="255" name="substatus" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column key="false" length="255" name="description" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
+  </node>
+  <node componentName="tJavaRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1120" posY="416">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJavaRow_1" show="false"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="if(!&quot;Ok&quot;.equals(input_row.status)){&#xA;    globalMap.put(&quot;TUJ_SUCCESS&quot;, Boolean.FALSE);&#xA;}&#xA;"/>
+    <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tJavaRow_1"/>
   </node>
   <node componentName="tMysqlOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="1120" posY="224">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlOutput_1" show="false"/>
@@ -395,7 +402,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="0" posY="96">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_1" show="false"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="context.setProperty(&quot;data_dir&quot;, context.data_dir+&quot;/&quot;+jobName+&quot;/&quot;); // The TUJ folder where you can have some reference files for assertions&#xA;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="globalMap.put(&quot;TUJ_SUCCESS&quot;, Boolean.TRUE); // False if an error occurs&#xA;context.setProperty(&quot;data_dir&quot;, context.data_dir+&quot;/&quot;+jobName+&quot;/&quot;); // The TUJ folder where you can have some reference files for assertions&#xA;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="updateContext"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -485,7 +492,7 @@
       <column defaultValue="" key="false" length="255" name="value" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tFileDelete" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="160" posY="640">
+  <node componentName="tFileDelete" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="768">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileDelete_1" show="false"/>
     <elementParameter field="FILE" name="FILENAME" value="context.get(&quot;data_output_dir&quot;)+&quot;/&quot;+context.filename"/>
     <elementParameter field="DIRECTORY" name="DIRECTORY" value="context.get(&quot;data_output_dir&quot;)+&quot;/&quot;+context.filename" show="false"/>
@@ -541,6 +548,14 @@
       <column defaultValue="" key="false" length="20" name="mtime" nullable="true" precision="0" sourceType="" type="id_Long" originalLength="-1" usefulColumn="true"/>
       <column defaultValue="" key="false" length="20" name="mtime_string" nullable="true" precision="0" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
     </metadata>
+  </node>
+  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="192" posY="640">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_3" show="false"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="// Do nothing - just for the example&#xA;//&#xA;// This section should process deletion of what should&#xA;// be always deleted."/>
+    <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+    <elementParameter field="TEXT" name="LABEL" value="DeleteRows"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tJava_3"/>
   </node>
   <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tContextLoad_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -623,7 +638,11 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row4" show="false"/>
     <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
   </connection>
-  <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="tReplicate_1" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tReplicate_1" target="tMysqlOutput_1">
+  <connection connectorName="FLOW" label="row7" lineStyle="0" metaname="tReplicate_1" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tReplicate_1" target="tJavaRow_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row7" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="tReplicate_1" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tReplicate_1" target="tMysqlOutput_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="moment"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -661,7 +680,7 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk1" show="false"/>
     <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value=""/>
   </connection>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPostjob_1" offsetLabelX="0" offsetLabelY="0" source="tPostjob_1" target="tFileDelete_1">
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPostjob_1" offsetLabelX="0" offsetLabelY="0" source="tPostjob_1" target="tJava_3">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk2" show="false"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tJava_1" offsetLabelX="0" offsetLabelY="0" source="tJava_1" target="tFileExist_1">
@@ -694,11 +713,16 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row6" show="false"/>
   </connection>
-  <note opaque="true" posX="288" posY="576" sizeHeight="129" sizeWidth="545" text="The tPostJob is used to remove all the temporary data or objects&#xD;&#xA;which have been used during the TUJ execution&#xD;&#xA;For exemple, delete new data inserted by the TUJ in a SQL database.&#xD;&#xA;Please don't remove context.data_output_dir which contains TTP logs."/>
+  <connection connectorName="RUN_IF" label="If" lineStyle="6" metaname="tJava_3" offsetLabelX="0" offsetLabelY="0" source="tJava_3" target="tFileDelete_1">
+    <elementParameter field="MEMO_JAVA" name="CONDITION" value="(Boolean)globalMap.put(&quot;TUJ_SUCCESS&quot;, Boolean.FALSE)"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="If2" show="false"/>
+  </connection>
   <note opaque="true" posX="160" posY="384" sizeHeight="65" sizeWidth="449" text="Example of assertion. &#xD;&#xA;You have to use tAssert to be catched by tAssertCatcher.&#xD;&#xA;&#xD;&#xA;The tFileTouch and tfileProperties are just for the example."/>
   <note opaque="true" posX="960" posY="96" sizeHeight="96" sizeWidth="385" text="You can deactivate the colibri database output&#xD;&#xA;while you develop the TUJ.&#xD;&#xA;Reactivate it before the export."/>
   <note opaque="true" posX="352" posY="160" sizeHeight="65" sizeWidth="385" text="Load specific context for this TUJ,&#xD;&#xA;if the context.csv file exist in its root folder."/>
   <note opaque="true" posX="384" posY="-96" sizeHeight="64" sizeWidth="385" text="Load global context, the same for all TUJs.&#xD;&#xA;Should contain credentials."/>
+  <note opaque="true" posX="224" posY="576" sizeHeight="65" sizeWidth="321" text="Here what should be cleaned each time.&#xD;&#xA;For example, inserted rows into a database."/>
+  <note opaque="true" posX="256" posY="704" sizeHeight="65" sizeWidth="321" text="Here what should be cleaned only if success.&#xD;&#xA;If the TUJ fails, it can be interessting to keep generated files in TTP logs for analysis."/>
   <subjob>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_1" show="false"/>
@@ -756,5 +780,10 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileProperties_1" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="0;128;255"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_3" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
 </talendfile:ProcessType>
