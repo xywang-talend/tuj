@@ -2,6 +2,7 @@
 
 TUJ is a Talend job that test one facet of one component. It is the unit test for Talend components. TUJs are executed on TTP (Talend Test Platform). There are several TTP environments to test components/studio within different versions of java. Currently we have some: https://tuj.talend.com/ (only 1.7 and 1.8 Oracle are maintened).
 
+
 ## What is it made of ?
 A TUJ is mainly composed of 4 parts:
 1. Loading context
@@ -33,6 +34,7 @@ _To remember:_
 - Other context : into context.csv in the root folder of the TUJ
 
 ### Execution of the component
+
 Once the context is loaded, you have to create a job to test the facet you want of the component. Currently, test environments are shared between all TTPs. So to avoid conflicts, use the available `pid` String variable to identify what you generate. For example, the name of a user you add into a database should be `"name_"+pid`, or the name of a table `"TUJ_TDI12345_mytable_"+pid` and so on...
 
 If it is possible, create a job with only one instance of the component you want to test. Create as many TUJs as you have configuration to test.
@@ -95,4 +97,3 @@ To personalize your TUJ:
 1. Delete the `Unit tests sub-job` and add your own assertions
 1. Delete the `Main clean sub-job` and add components to do everytime-clean
 1. Delete the `Clean if succces sub-job` and add component to do clean if TUJ successful (be carreful to connect this last sub-job with a `trigger/Run if` and set the condition `(Boolean)globalMap.put("TUJ_SUCCESS", Boolean.FALSE)`)
-
