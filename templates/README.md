@@ -62,7 +62,7 @@ The template provides an example of assertion to check if the tfileTouch has wel
 - All tests are registered into the mysql database of TTP
 
 ### Some cleaning if needed
-If you have to some cleaning to do, like remove inserted tuple from the database or delete a generated file, you can do it within the tPostJob section.
+If you have some cleaning to do, like remove inserted tuple from the database or delete a generated file, you can do it within the tPostJob section.
 
 ![Cleaning](./images/template_clean.png)
 
@@ -111,7 +111,7 @@ Note that green subjobs should not been modified
 ## Talend Test Platform for developers
 
 ### Execute your TUJ within Jenkins
-The Jenkins of TTP for developers has been cleaned from git scanning jobs. You can access it from : https://tal-rd209.talend.lan/jenkins/
+The Jenkins of TTP for developers is available on https://tal-rd209.talend.lan/jenkins/ : 
 
 1. Select the `launch-tuj` job and then `Build with parameters`
 1. Full fill properties:
@@ -119,7 +119,8 @@ The Jenkins of TTP for developers has been cleaned from git scanning jobs. You c
     1. TALEND_REPO: the jenkins tuj repository (_let default value `tuj`_).
     1. JVM_PATH: The path to the TTP jvm  (_let default value `/usr/java/default/bin/java`_).
     1. TALEND_PARTIAL_GIT_BRANCH: the branch that will be checkouted in `TALEND_REPO` (_if not empty_). This branch should contain the TUJs you want to test.
-    1. JOBS_FILTER: Filter jobs to run by families.
+    1. JOBS_FILTER: Filter jobs to run by families
+        1. Families are folders where are stored TUJs : https://github.com/Talend/tuj/tree/master/tuj/java
 1. Click on `build` button
 
 ![To remember](./images/Jenkins_conf.png) 
@@ -129,7 +130,10 @@ Once the talend job is terminated, you can access its result into Colibri: https
 
 1. Go into `jobs` menu
 1. Select the desired studio version in `branch` drop-down list (_in the top/right of the page_)
-1. If your TUJ is a new one, it is in draft mode (_it has not been validated yet_), and you won't be able to see it. You have to complete the url with `?mode=draft` and reload the page.
+1. If your TUJ is a new one, it is in draft mode (_it has not been validated yet_), and you won't be able to see it. You have to complete the url with `?mode=draft` and reload the page
+    1. Draft jobs are not taken into account in TTP statistics
 1. Configure the main form:
     1. last execution: set `1` if your execution is the last one
     1. Check `Smart display` to hide successful TUJs and focuses on errors
+    
+![Colibri form](./images/colibri.png) 
