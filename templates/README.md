@@ -24,27 +24,29 @@ The `tuj-config` repository is a private one. Only critical context variables mu
 For other context variables, you can add them into a `context.csv` file into the root folder of your TUJ. It will be loaded too if it exists. Those local context files are created along within the TUJ.
 
 ![Loading context within the job](./images/template_load_context.png)
+
 The template context loading is :
 1. First it loads the `template.csv` file
 1. Then it updates the `data_dir` context variable to set the root of the job
 1. Finally, if the local `context.csv` file exists, it is loaded too
 
-_To remember:_
+![To remember](./images/warning.png)
 - Critical context keys : into `template.csv` from tuj-config private repository
 - Other context : into context.csv in the root folder of the TUJ
 
 ### Execution of the component
 
-Once the context is loaded, you have to create a job to test the facet you want of the component. Currently, test environments are shared between all TTPs. So to avoid conflicts, use the available `pid` String variable to identify what you generate. For example, the name of a user you add into a database should be `"name_"+pid`, or the name of a table `"TUJ_TDI12345_mytable_"+pid` and so on...
+Once the context is loaded, you have to create a job to test the facet you want of the component. Currently, test environments are shared between all TUJs. So to avoid conflicts, use the available `pid` String variable to identify what you generate. For example, the name of a user you add into a database should be `"name_"+pid`, or the name of a table `"TUJ_TDI12345_mytable_"+pid` and so on...
 
 If it is possible, create a job with only one instance of the component you want to test. Create as many TUJs as you have configuration to test.
 
 Your execution should generate some data to be tested in the next section.
 
 ![Execution of the main component](./images/template_exec_compo.png)
+
 The template tests the `tFileTouch` component. You have to remove this component to create your own use case.
 
-_To remember:_
+![To remember](./images/warning.png)
 - Use only on instance of the component you want to test if possible
 - Use `pid` variable (several instances of the TUJ can be runned in the same time)
 - One TUJ test only one configuration of the main component
@@ -55,7 +57,7 @@ Once your component has been executed and has generated some data, you have to u
 ![Check the execution of your use case](./images/template_assert.png)
 The template provides an example of assertion to check if the tfileTouch has well created the file. The sub-job `Register the TUJ assertions into Colibri` should not be edited. You can deactivate `colibri / tMysqlOutput` component while you are creating the job.
 
-_To remember:_
+![To remember](./images/warning.png)
 - Use `tAssert` to test generated data
 - All tests are registered into the mysql database of TTP
 
@@ -63,9 +65,10 @@ _To remember:_
 If you have to some cleaning to do, like remove inserted tuple from the database or delete a generated file, you can do it within the tPostJob section.
 
 ![Cleaning](./images/template_clean.png)
+
 The template, as cleaning example, delete the file created by the `tFileTouch`. 
 
-_To remember:_
+![To remember](./images/warning.png)
 - Post job section is dedicated to cleaning
 
 ## How to design my own TUJ ?
@@ -73,13 +76,16 @@ To help you to design TUJs, a template has been created.
 
 ### Import the template into your studio
 At the same level of this `README.md`, you will find the template for TUJ in standard folder. So:
-- From your studio, execute `Import items` and select `standard' folder`
+- From your studio, execute `Import items` and select `standard` folder
 - Check `standard_tuj_template` and import it
-- Duplicate it to create your own TUJ, so that you can keep the template unchanged and _there will be no conflicts with internal id_.
+- **Duplicate it** to create your own TUJ, so that you can keep the template unchanged and _there will be no conflicts with internal id_.
 ![Duplicate the template](./images/template_duplicate.png)
 - Select a name based on this pattern : `(JIRA_ID)_(component_name)_(use_case)`, examples:
-    - TDI34567_tOracleInput_scd_null_values
-    - TDI39306_tMicrosoftCrm_WebApp
+    - TDI34567_scd_null_values
+    - TDI39306_WebApp_Authentication
+    
+![To remember](./images/warning.png) 
+Note that green subjobs should not been modified 
 
 ### how to run the template
 The template is a runnable TUJ. If you try to run it, it will fail since:
@@ -98,6 +104,9 @@ To personalize your TUJ:
 1. Delete the `Unit tests sub-job` and add your own assertions
 1. Delete the `tFileDelete` component and create your own cleaning section
 
+![To remember](./images/warning.png) 
+Note that green subjobs should not been modified
+
 ## Talend Test Platform for developers
 
 ### Execute your TUJ within Jenkins
@@ -108,9 +117,11 @@ The Jenkins of TTP for developers has been cleaned from git scanning jobs. You c
     1. TALEND_GIT_BRANCH: the branch use to build the studio which execute the TUJs.
     1. TALEND_REPO: the jenkins tuj repository (_let default value `tuj`_).
     1. JVM_PATH: The path to the TTP jvm  (_let default value `/usr/java/default/bin/java`_).
-    1. TALEND_PARTIAL_GIT_BRANCH: the branch that will ben checkouted in `TALEND_REPO` (_if not empty_). This branch should contain the TUJs you want to test.
+    1. TALEND_PARTIAL_GIT_BRANCH: the branch that will be checkouted in `TALEND_REPO` (_if not empty_). This branch should contain the TUJs you want to test.
     1. JOBS_FILTER: Filter jobs to run by families.
 1. Click on `build` button
+
+![To remember](./images/Jenkins_conf.png) 
 
 ### Check execution on Colibri
 Once the talend job is terminated, you can access its result into Colibri: https://192.168.11.145/colibri/overview.php
