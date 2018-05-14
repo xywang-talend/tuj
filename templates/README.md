@@ -47,7 +47,7 @@ Your execution should generate some data to be tested in the next section.
 The template tests the `tFileTouch` component. You have to remove this component to create your own use case.
 
 ![To remember](./images/warning.png)
-- Use only on instance of the component you want to test if possible
+- Use only one instance of the component you want to test if possible
 - Use `pid` variable (several instances of the TUJ can be runned in the same time)
 - One TUJ test only one configuration of the main component
 
