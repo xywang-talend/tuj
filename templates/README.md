@@ -78,7 +78,8 @@ To help you to design TUJs, a template has been created.
 At the same level of this `README.md`, you will find the template for TUJ in standard folder. So:
 - From your studio, execute `Import items` and select `standard` folder
 - Check `standard_tuj_template` and import it
-- **Duplicate it** to create your own TUJ, so that you can keep the template unchanged and _there will be no conflicts with internal id_.
+- _**Duplicate it**_ to create your own TUJ, so that you can keep the template unchanged and _there will be no conflicts with internal id_.
+
 ![Duplicate the template](./images/template_duplicate.png)
 - Select a name based on this pattern : `(JIRA_ID)_(component_name)_(use_case)`, examples:
     - TDI34567_scd_null_values
