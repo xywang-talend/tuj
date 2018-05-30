@@ -118,7 +118,9 @@ The Jenkins of TTP for developers is available on https://tal-rd209.talend.lan/j
     1. TALEND_GIT_BRANCH: the branch use to build the studio which execute the TUJs.
     1. TALEND_REPO: the jenkins tuj repository (_let default value `tuj`_).
     1. JVM_PATH: The path to the TTP jvm  (_let default value `/usr/java/default/bin/java`_).
-    1. TALEND_PARTIAL_GIT_BRANCH: the branch that will be checkouted in `TALEND_REPO` (_if not empty_). This branch should contain the TUJs you want to test.
+    1. TALEND_PARTIAL_GIT_BRANCH: the branch that will be checkouted in `TALEND_REPO` (_if not empty_).
+        1. If you have a development branch for example in `tdi-studio-se` repository named `jdoe/TDI-12345_my_feature`, you should have a branch with the same name in `tuj` repository too, with the TUJs to test your development. 
+        1. Jenkins will checkout `TALEND_GIT_BRANCH` in all repositories and then it will try to checkout `TALEND_PARTIAL_GIT_BRANCH` to have your own changes. 
     1. JOBS_FILTER: Filter jobs to run by families
         1. Families are folders where are stored TUJs : https://github.com/Talend/tuj/tree/master/tuj/java
 1. Click on `build` button
