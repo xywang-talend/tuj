@@ -73,7 +73,7 @@
     <elementParameter field="CHECK" name="ON_METERCATCHER_FLAG" value="false"/>
     <elementParameter field="CHECK" name="ON_CONSOLE_FLAG" show="false" value="false"/>
     <elementParameter field="CHECK" name="ON_FILES_FLAG" show="false" value="false"/>
-    <elementParameter field="DIRECTORY" name="FILE_PATH" show="false" value="&quot;D:/Myjob/Talend-Studio-20180411_1414-V7.0.1/workspace/.metadata&quot;"/>
+    <elementParameter field="DIRECTORY" name="FILE_PATH" show="false" value="&quot;D:/Myjob/Talend-Studio-20180525_1932-V7.1.1SNAPSHOT/workspace/.metadata&quot;"/>
     <elementParameter field="TEXT" name="FILENAME_STATS" show="false" value="&quot;stats_file.txt&quot;"/>
     <elementParameter field="TEXT" name="FILENAME_LOGS" show="false" value="&quot;logs_file.txt&quot;"/>
     <elementParameter field="TEXT" name="FILENAME_METTER" show="false" value="&quot;meter_file.txt&quot;"/>
@@ -246,6 +246,7 @@
     <elementParameter field="FILE" name="KEYSTORE_FILE" show="false" value="&quot;&quot;"/>
     <elementParameter field="PASSWORD" name="KEYSTORE_PASS" show="false" value="k0OOTVG4MsZpHb1iYbZyRw=="/>
     <elementParameter field="TEXT" name="REMOTEDIR" value="jobName + &quot;/ftp&quot;"/>
+    <elementParameter field="CHECK" name="MOVE_TO_THE_CURRENT_DIRECTORY" value="false"/>
     <elementParameter field="CLOSED_LIST" name="TARGETTYPE" value="FILE"/>
     <elementParameter field="TEXT" name="FILENAME" value="&quot;out_&quot; + pid + &quot;.csv&quot;"/>
     <elementParameter field="TEXT" name="DIRECTORYNAME" show="false" value="&quot;directoryname&quot;"/>
@@ -281,6 +282,7 @@
     <elementParameter field="PASSWORD" name="PASSPHRASE" show="false" value="wiXuUBxiyoc5L4zXsOuoEQ=="/>
     <elementParameter field="DIRECTORY" name="LOCALDIR" value="context.data_output_dir + &quot;/&quot; + jobName"/>
     <elementParameter field="TEXT" name="REMOTEDIR" value="jobName + &quot;/ftp&quot;"/>
+    <elementParameter field="CHECK" name="CREATE_DIR_IF_NOT_EXIST" value="false"/>
     <elementParameter field="CHECK" name="MOVE_TO_THE_CURRENT_DIRECTORY" value="false"/>
     <elementParameter field="FILE" name="KEYSTORE_FILE" show="false" value="&quot;&quot;"/>
     <elementParameter field="PASSWORD" name="KEYSTORE_PASS" show="false" value="k0OOTVG4MsZpHb1iYbZyRw=="/>
@@ -637,7 +639,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="512" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_2"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="globalMap.put(&quot;found&quot;, false);&#10;&#10;org.apache.commons.net.ftp.FTPSClient ftpClient = (org.apache.commons.net.ftp.FTPSClient) globalMap.get(&quot;conn_tFTPConnection_1&quot;);&#10;//ftpClient.makeDirectory(jobName + &quot;/ftp&quot;);&#10;&#10;ftpClient.makeDirectory(jobName);&#10;ftpClient.changeWorkingDirectory(jobName);&#10;ftpClient.makeDirectory(&quot;ftp&quot;);&#10;ftpClient.changeWorkingDirectory(&quot;/&quot;);&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="globalMap.put(&quot;found&quot;, false);&#10;&#10;org.apache.commons.net.ftp.FTPSClient ftpClient = (org.apache.commons.net.ftp.FTPSClient) globalMap.get(&quot;conn_tFTPConnection_1&quot;);&#10;//ftpClient.makeDirectory(jobName + &quot;/ftp&quot;);&#10;&#10;ftpClient.makeDirectory(jobName);&#10;ftpClient.changeWorkingDirectory(jobName);&#10;ftpClient.makeDirectory(&quot;ftp&quot;);&#10;System.out.println(&quot;current dir11####&quot;+ftpClient.pwd());&#10;ftpClient.changeWorkingDirectory(&quot;/&quot;);&#10;&#10;System.out.println(&quot;current dir####&quot;+ftpClient.pwd());"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_2"/>
@@ -734,7 +736,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFileDelete_1"/>
   </node>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPrejob_1" offsetLabelX="0" offsetLabelY="0" source="tPrejob_1" target="tFileInputDelimited_1">
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPrejob_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tPrejob_1" target="tFileInputDelimited_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk1"/>
   </connection>
   <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tContextLoad_1">
@@ -749,23 +751,23 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row1"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tFTPConnection_1">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tFileInputDelimited_1" target="tFTPConnection_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk1"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPConnection_1" offsetLabelX="0" offsetLabelY="0" source="tFTPConnection_1" target="tFixedFlowInput_1">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPConnection_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tFTPConnection_1" target="tFixedFlowInput_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPFileExist_1" offsetLabelX="0" offsetLabelY="0" source="tFTPFileExist_1" target="tFTPFileList_1">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPFileExist_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tFTPFileExist_1" target="tFTPFileList_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk4"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPPut_1" offsetLabelX="0" offsetLabelY="0" source="tFTPPut_1" target="tFTPFileExist_1">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPPut_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tFTPPut_1" target="tFTPFileExist_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk3"/>
   </connection>
   <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tFixedFlowInput_1" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_1" target="tFileOutputDelimited_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row2"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFixedFlowInput_1" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_1" target="tJava_2">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFixedFlowInput_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tFixedFlowInput_1" target="tJava_2">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk6"/>
   </connection>
   <connection connectorName="FLOW" label="row19" lineStyle="0" metaname="tAssertCatcher_1" offsetLabelX="0" offsetLabelY="0" source="tAssertCatcher_1" target="tLogRow_1">
@@ -805,24 +807,24 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row15"/>
   </connection>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPostjob_1" offsetLabelX="0" offsetLabelY="0" source="tPostjob_1" target="tFTPDelete_1">
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPostjob_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tPostjob_1" target="tFTPDelete_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk2"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPDelete_1" offsetLabelX="0" offsetLabelY="0" source="tFTPDelete_1" target="tFTPDelete_2">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPDelete_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tFTPDelete_1" target="tFTPDelete_2">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk8"/>
   </connection>
-  <connection connectorName="ITERATE" label="Iterate" lineStyle="7" metaname="tFTPFileList_1" offsetLabelX="0" offsetLabelY="0" source="tFTPFileList_1" target="tJava_1">
+  <connection connectorName="ITERATE" label="Iterate" lineStyle="7" metaname="tFTPFileList_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tFTPFileList_1" target="tJava_1">
     <elementParameter field="CHECK" name="ENABLE_PARALLEL" value="false"/>
     <elementParameter field="TEXT" name="NUMBER_PARALLEL" show="false" value="2"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="iterate1"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPFileList_1" offsetLabelX="0" offsetLabelY="0" source="tFTPFileList_1" target="tAssert_1">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPFileList_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tFTPFileList_1" target="tAssert_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk7"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPDelete_2" offsetLabelX="0" offsetLabelY="0" source="tFTPDelete_2" target="tFTPDelete_3">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPDelete_2" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tFTPDelete_2" target="tFTPDelete_3">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk10"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPDelete_3" offsetLabelX="0" offsetLabelY="0" source="tFTPDelete_3" target="tFileDelete_1">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFTPDelete_3" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tFTPDelete_3" target="tFileDelete_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk11"/>
   </connection>
   <subjob>
@@ -907,13 +909,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_517eef45-1f2a-4739-8e7f-df43020d9fd0"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>qOUnTHsC+NElSkyBA6nWLoCupK6ueyQc3JygJ3eiSF8tDb5gFkUPvhs97zGMZXtsutL9FmyX2AIw
-n98f/Mnyuw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_1443d77d-9ca5-4025-9334-7b436d12b483"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>L5e5oxgHsyxl2O9lMEBTQL0uPQJqPB8Yzdo4ax3A8c3FqVs3Y1yYeAEouLQXfNgGifymEx7cIKoU
-qV0vGmDZMw==</DigestValue></Reference></SignedInfo><SignatureValue>OPc9maA5DKzGuyZg89HivVSWhQrqPN8168iKqPrKZ8dX8f+HRsYmlFNWUew+YQZrHJb5ZP/gYj4E
-bRJJF+Ywyv42nJlUotnjlEccbKQXyEKcZd1s1FyW1OekKxANNRGMQnjPbs+m/R7+gvB1khjrFjLW
-ovjJkwvZyGpw4p2oOYEdwLwuSx4HP+b3mMN3QAI4Ypg2/pu4/M++JOMc7sIZr2PX77gv/olkp55Y
-hQKSwj3hzWnhUtdMUiJMRJbwa5uT2RDfrj5stUrTC26ER+uad+zGC2DTtspNRX5yDIPvAucyYeNn
-3IcTrN+lIZ+CYWXsRF08tX+SapBFwLm8tvosKA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>CN=Default code-signing certificate,OU=R&amp;D,O=Talend Inc.,ST=Paris,C=FR</X509SubjectName><X509Certificate>MIIFYzCCA0ugAwIBAgIBATANBgkqhkiG9w0BAQsFADCBjTELMAkGA1UEBhMCRlIxDjAMBgNVBAgM
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_597fe043-b9b8-4228-9280-77d2e5df08a9"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>//wyDFaO8fZTF72Bt+aJqZH4MLldhG+0DP2nCq/tOxrkli4xmM8BUIdh3kxx+napQhDTaw4XOPb3
+LJIDhjkt5Q==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_f12d5f02-f457-4d98-821f-61d72907381e"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>p9q/whDb8XDFDXsmffbHSb2zfSAEB2woAu0ETNAHLzTjBNO78YgQ/zIme0fqWu2GuzccKLAgJRDB
+NSwfyYNJpA==</DigestValue></Reference></SignedInfo><SignatureValue>yMFKXpw5GedY5QeCZpQLNs67IdNZ9n7SLGqjKdsPRgV0LuwVtbY5YlY66os1n9Wre/Zq/QGFGph1
+PIT9aUMsSJDWf6Sbez7V272KYK23nvCtlh5GRn/THyqpifPdaKnN5/stR9+/3kX6OUmmDVtDiGuh
+QKPTO1Zfc591oVd47xaQSWHj2nnB4DL6xRxKOwY7MZTGg8JM1XDfkUJqqM1muLzYToBnMODUVX66
+pHdjcUUYXsh4i3LK518/xoWSviJQaESNSo8yh1fnnwMmkdqYqIKdYj1JbnVyplEoX0WKowwH+dze
+Q1+0BsbFLarh0e1Efz8rEOwVA9pwRmyYDF0rkA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>CN=Default code-signing certificate,OU=R&amp;D,O=Talend Inc.,ST=Paris,C=FR</X509SubjectName><X509Certificate>MIIFYzCCA0ugAwIBAgIBATANBgkqhkiG9w0BAQsFADCBjTELMAkGA1UEBhMCRlIxDjAMBgNVBAgM
 BVBhcmlzMQ4wDAYDVQQHDAVQYXJpczEUMBIGA1UECgwLVGFsZW5kIEluYy4xDDAKBgNVBAsMA1Im
 RDEWMBQGA1UEAwwNVGFsZW5kIFImRCBDQTEiMCAGCSqGSIb3DQEJARYTc2VjdXJpdHlAdGFsZW5k
 LmNvbTAeFw0xODAxMTgwMDA2MTJaFw0yMTAxMTcwMDA2MTJaMGwxCzAJBgNVBAYTAkZSMQ4wDAYD
@@ -937,4 +939,4 @@ r3/fbKJ02Ni9kCnkY8wQS1yn45UNl1woSjryza4f4uLKGkrrIsUPXK+Vy4A1Il8XgFfmrtgA8m9s
 EHyu0OyAJH/agWN+GLhF/ssp26oXhiYqTkG4sQtNRFQG0isaYf/JWSt3f8Q+7/pnZpz4mfEAFimI
 BBLzRwDA6x9qqOn0RXxBo9pH16EO3SXPLR64cJum8B/RI/i8H6OkQDO1tEiE6UeceZk++U7fnD3c
 6i9Km85GTgQi6REsVZGIL/tZNIzN//qPwi7cDo3Cf/xmPrIKQhHJaxCqmbjGDmC8AXOaqNfWotVX
-Wy2dcglW62PDszE/HKh9</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_1443d77d-9ca5-4025-9334-7b436d12b483" Target="#_517eef45-1f2a-4739-8e7f-df43020d9fd0"><Timestamp>2018-05-21 03:05:56</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+Wy2dcglW62PDszE/HKh9</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_f12d5f02-f457-4d98-821f-61d72907381e" Target="#_597fe043-b9b8-4228-9280-77d2e5df08a9"><Timestamp>2018-05-31 03:48:39</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
