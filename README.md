@@ -16,7 +16,7 @@ These files must be used together with the core code contained in [tdi-studio-se
 The documentation is available on [Talend Help Center](http://help.talend.com/).
 
 
-## Support 
+## Support
 
 You can ask for help on our [Forum](http://www.talend.com/services/global-technical-support).
 
@@ -32,6 +32,6 @@ Feel free to share your Talend components on [Talend Exchange](http://www.talend
 
 ## License
 
-Copyright (c) 2006-2015 Talend
+Copyright (c) 2006-2019 Talend
 
 Licensed under the Apache V2 License
