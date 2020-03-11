@@ -975,10 +975,6 @@
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPrejob_1" offsetLabelX="0" offsetLabelY="0" source="tPrejob_1" target="tFileInputDelimited_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk1"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFixedFlowInput_1" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_1" target="tMSSqlRow_2">
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk1"/>
-  </connection>
   <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tFixedFlowInput_1" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_1" target="tMSSqlOutputBulk_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="id"/>
@@ -991,6 +987,10 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row1"/>
+  </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFixedFlowInput_1" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_1" target="tMSSqlRow_2">
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk1"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tMSSqlBulkExec_2" offsetLabelX="0" offsetLabelY="0" source="tMSSqlBulkExec_2" target="tMSSqlInput_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
@@ -1142,6 +1142,7 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tMSSqlRow_4" offsetLabelX="0" offsetLabelY="0" source="tMSSqlRow_4" target="tMSSqlBulkExec_4">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk11"/>
   </connection>
+  <note opaque="true" posX="608" posY="128" sizeHeight="193" sizeWidth="417" text="Tuj jobs are using linux as talend client system and &#10;using windows as mssql server. &#10;For this tuj it need upload input data files to mssql server &#10;dir &quot;C:\Users\Public\TTPShared&quot;&#10;if Both using windwos, there is no need upload file to mssql server manually"/>
   <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMSSqlConnection_1"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="160;190;240"/>
@@ -1261,13 +1262,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="160;190;240"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_896311cc-3ecf-471a-b354-37863008601f"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>reSMzGS9IxwI53ik2k4pZO4785c3K7prHeJi7PyypFolDKfcQLBzxRrEnTbznxns2qSnuJsSv8DA
-okmi7RrVbA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_bf59e4c4-25dd-4df5-9fde-97729b8320cf"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>uTIvs2NaY++PoM3X4/O5TsrchME1JQVU17WKR7Y1AhND6cOQ/nF+MNWo25la/jyxrtJqgVSkiNLb
-Ob80s2QrvA==</DigestValue></Reference></SignedInfo><SignatureValue>QgLEHWSdwcFsyloXDSyWKEDhVrOYxbHP3SnRjOUhLQ+6y/yuGCJBYlhDsY3lBodrwj9uR3haMLu2
-vOTISP7r46kqgKE1IyqU+wTFnEqnn8BRYHMLf2tg14n4dKclvfpAivn9zOpEmSRH4533AgZXuyl0
-byMYXkE1b0Mk8RoayGLlLsnfro5TBOxwcVlx8Jn0oFiqwieAdSayi7QLbjUct3TWi+TDStI2NaUP
-WfCjakMaibU2VGI200WJDX3kr81S1oE4a66X7h2pjTXdAFjEr/YCyzkI5FBd/tXmErRkUXK3bzLQ
-VY7PYsu6pJiYX2Ko5oPICZw3P9tVfR9czmG1Lw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>CN=Default code-signing certificate,OU=R&amp;D,O=Talend Inc.,ST=Paris,C=FR</X509SubjectName><X509Certificate>MIIFYzCCA0ugAwIBAgIBATANBgkqhkiG9w0BAQsFADCBjTELMAkGA1UEBhMCRlIxDjAMBgNVBAgM
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_4464bb27-ef30-44ca-9678-a5b5a90b68bf"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>CyoFcn2op64Ie/U0/gzm1seRdaXR92Ac8cnPD2Mb9i2IDUAu9wyR61kgN37qxs99zJqXI9DMQs7+
+KftjwIg8JQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_c2797419-8025-40ce-8186-cb0ef570adea"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>R6t5SZLAXP5S+lO5CjrypLg7unFOeL0hMhafOrtyUCp+VCD29opWo33HZEgkGGr5DWxgRCXbscej
+YCOSI7+Uyg==</DigestValue></Reference></SignedInfo><SignatureValue>0iAQag3tDugUBkt0GGYFqomoUMJzOlH2Osq0RiQRaxZuLdz6raIJCLziVQPbBa46oF47A2DVoKHr
+jSQXdvp7BBBAewfksJ4tj2E8CGyuE/P0H6Qn2WNmMB3Q6/UXaUMz82ZE4r9+5ze0GwKFHLpemNbw
+gog6Ct5ClW7QIba9Rmu1WjCZ2ShI7d9Y1oFRIHMLM0elkgTsDbpwvraDg6dDPElmTF8P5ZKSP+WN
+u3pvHj/BgQX1YqESPW2mgdZe+9gMckDjzVzaIex3wlSshmAsDaFB4SqaOVQss6RH2zc7+tkNyaxF
+z4k/ztv86GVyLlaPZvTAwwtbO6emUergt94gdw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>CN=Default code-signing certificate,OU=R&amp;D,O=Talend Inc.,ST=Paris,C=FR</X509SubjectName><X509Certificate>MIIFYzCCA0ugAwIBAgIBATANBgkqhkiG9w0BAQsFADCBjTELMAkGA1UEBhMCRlIxDjAMBgNVBAgM
 BVBhcmlzMQ4wDAYDVQQHDAVQYXJpczEUMBIGA1UECgwLVGFsZW5kIEluYy4xDDAKBgNVBAsMA1Im
 RDEWMBQGA1UEAwwNVGFsZW5kIFImRCBDQTEiMCAGCSqGSIb3DQEJARYTc2VjdXJpdHlAdGFsZW5k
 LmNvbTAeFw0xODAxMTgwMDA2MTJaFw0yMTAxMTcwMDA2MTJaMGwxCzAJBgNVBAYTAkZSMQ4wDAYD
@@ -1291,4 +1292,4 @@ r3/fbKJ02Ni9kCnkY8wQS1yn45UNl1woSjryza4f4uLKGkrrIsUPXK+Vy4A1Il8XgFfmrtgA8m9s
 EHyu0OyAJH/agWN+GLhF/ssp26oXhiYqTkG4sQtNRFQG0isaYf/JWSt3f8Q+7/pnZpz4mfEAFimI
 BBLzRwDA6x9qqOn0RXxBo9pH16EO3SXPLR64cJum8B/RI/i8H6OkQDO1tEiE6UeceZk++U7fnD3c
 6i9Km85GTgQi6REsVZGIL/tZNIzN//qPwi7cDo3Cf/xmPrIKQhHJaxCqmbjGDmC8AXOaqNfWotVX
-Wy2dcglW62PDszE/HKh9</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_bf59e4c4-25dd-4df5-9fde-97729b8320cf" Target="#_896311cc-3ecf-471a-b354-37863008601f"><Timestamp>2020-02-21 01:44:45</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+Wy2dcglW62PDszE/HKh9</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_c2797419-8025-40ce-8186-cb0ef570adea" Target="#_4464bb27-ef30-44ca-9678-a5b5a90b68bf"><Timestamp>2020-03-11 07:06:19</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
